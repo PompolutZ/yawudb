@@ -1,0 +1,38 @@
+.root {
+    display: flex;
+    margin-bottom: 1rem;
+    margin: .5rem;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    padding: .5rem;
+}
+
+.headerItem {
+    
+}
+
+.typeicon {
+    margin-right: 1rem;    
+}
+
+.headerText {
+    flex: 1 1 auto;
+}
+
+.cardImg {
+}
+
+@media only screen and (min-width: 768px) {
+    .root {
+        max-width: 20rem;
+    }
+
+    .cardImg {
+        max-width: 20rem; 
+    }
+}

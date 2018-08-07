@@ -1,0 +1,50 @@
+.cardContainer {
+    background-color: magenta;
+    position: relative;
+    width: 20rem;
+    margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+    .cardContainer {
+        width: 98%;
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+}
+
+.card {
+    display: flex;
+    height: auto;
+    flex-flow: column;
+}
+
+.expandButton {
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    z-index: 100;
+}
+
+.cardHeader {
+    background-color: lightblue;
+    display: flex;
+    min-height: 50px;
+    flex-grow: 1;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.cardImg {
+    width: 98%;
+    margin: 1%;
+}
+
+.cardFooter {
+    background-color: lightsalmon;
+    display: flex;
+    min-height: 50px;
+    flex-grow: 1;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
