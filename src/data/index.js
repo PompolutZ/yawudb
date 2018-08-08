@@ -1,10 +1,3 @@
-
-const garrekreaversobjectives = {
-    min: 1,
-    max: 9,
-    set: 0
-}
-
 export const faction = ["Universal", "Garrek's Reavers", "Steelheart's Champions", "Sepulchral Guard", "Ironskull's Boyz", "The Chosen Axes", "Spiteclaw's Swarm", "Magore's Fiends", "The Farstriders"];
 export const cardSet = ["Core set", "Sepulchral Guard expansion", "Ironskull's Boyz expansion", "The Chosen Axes expansion", "Spiteclaw's Swarm expansion", "Magore's Fiends expansion", "The Farstriders expansion"];
 export const cardType = ["Objective", "Upgrade", "Ploy"]

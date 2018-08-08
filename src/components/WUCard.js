@@ -5,8 +5,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandButton from '../components/ExpandButton';
-import Card from '../components/Card';
 import AnimateHeight from 'react-animate-height';
 import "./WUCard.css";
 import { cardType, cardSet } from '../data/index';
@@ -70,7 +68,7 @@ class WUCard extends Component {
                     duration={ 175 }
                     height={ height } // see props documentation bellow
                     >
-                    <img className="cardImg" src={`assets/cards/${this.props.id}.png`} />
+                    <img className="cardImg" alt={this.props.cardN} src={`assets/cards/${this.props.id}.png`} />
                     {/* <Image 
                         style={{ marginBottom: 10 }}
                         src={`assets/cards/${this.props.img}`} 

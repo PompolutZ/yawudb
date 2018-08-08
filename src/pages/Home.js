@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./Home.css";
 
 import WUCard from '../components/WUCard';
-import { cardsDb, cardType } from '../data/index';
+import { cardsDb } from '../data/index';
 
 class Home extends Component {
     state = {
