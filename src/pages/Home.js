@@ -5,7 +5,8 @@ import { OrderedSet } from 'immutable';
 
 import WUCard from '../components/WUCard';
 import FactionToggle from '../components/FactionToggle';
-import { cardsDb, expansionCards } from '../data/index';
+import { cardsDb, factionCards } from '../data/index';
+import * as dbu from '../utils';
 
 class Home extends Component {
     constructor(props) {
@@ -20,29 +21,27 @@ class Home extends Component {
         this.clearCards = this.clearCards.bind(this);
     }
 
-    loadCards(cardNumbers) {
-        for(let n of cardNumbers) {
-            const { name, type, set } = cardsDb[n];
-            const card = <WUCard key={n} id={n} cardN={n.slice(2)} name={name} type={type} set={set} />;
+    loadCards(factionCards) {
+        console.log(factionCards);
+        for(let i = factionCards[dbu.FactionFirstCardIndex]; i <= factionCards[dbu.FactionLastCardIndex]; i++) {
+            const cardNumber = dbu.getDbIndexByWaveAndCard(factionCards[dbu.WaveIndex], i);
+            const { name, type, set } = cardsDb[cardNumber];
+            const card = <WUCard key={cardNumber} id={cardNumber} cardN={i} name={name} type={type} set={set} />;
             this.setState(state => ({cards: state.cards.add(card)}));
         }
     }
 
-    clearCards(cardNumbers) {
+    clearCards(factionCards) {
         this.setState(state => ({cards: new OrderedSet()}));
     }
 
-    toggleChosenAxes(isOn) {
-        console.log('Show Chosen Axes: ', this);
-        if (isOn) {
-            this.loadCards(expansionCards[3]);
-        } else {
-            this.clearCards();
-        }
+    toggleChosenAxes(index) {
+        this.clearCards();
+        this.loadCards(factionCards[index]);
     } 
 
     componentDidMount() {
-        this.loadCards([]);
+        this.loadCards(factionCards['garreks-reavers']);
     }
 
     render() {
@@ -54,10 +53,9 @@ class Home extends Component {
         }
 
         return (
-
             <div>
                 <div>{ `Total shown cards: ${this.state.cards.count()}` }</div>
-                <FactionToggle />
+                <FactionToggle onFactionChange={this.toggleChosenAxes} />
                 { content }
             </div>
             );
