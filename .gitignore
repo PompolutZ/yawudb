@@ -9,6 +9,9 @@
 # production
 /build
 
+# copywrited material
+/public/assets/cards
+
 # misc
 .DS_Store
 .env.local
