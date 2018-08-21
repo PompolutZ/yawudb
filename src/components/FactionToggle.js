@@ -8,33 +8,40 @@ class FactionToggle extends Component {
         super(props);
 
         this.state = {
-            factions: {}
+            selectedIndex: 0,
+            factions: []
         }
 
         this.handleToggle = this.handleToggle.bind(this);
     }
 
-    handleToggle(value) {
-        console.log('Invoked!', value);
+    handleToggle(index) {
+        this.setState(state => ({selectedIndex: index}));
     }
 
     componentDidMount() {
         const factions = _.chain(factionCards)
             .keys()
             .drop(1)
-            .reduce((acc, v) => {
-                console.log(v);
-                return {...acc, [v]:false};
-            }, {})
             .value();
         console.log(factions);    
         this.setState(state => ({factions: factions}));    
     }
 
+    renderIndex(v, i){
+        console.log('render', i, this.state.selectedIndex);
+        return <ToggleImageButton key={v}
+                    isOff={i !== this.state.selectedIndex} 
+                    onImage={`/assets/icons/${v}-icon.png`}
+                    offImage={`/assets/icons/${v}-icon-bw.png`}
+                    onToggle={this.handleToggle.bind(this, i)}
+                    />
+    }
+
     render() {
         return (
             <div>
-                { this.state.factions }
+                { this.state.factions.map((v, i) => this.renderIndex(v, i)) }
             </div>
         );
     }
