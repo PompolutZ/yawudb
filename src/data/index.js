@@ -1,6 +1,6 @@
 export const faction = ["Universal", "Garrek's Reavers", "Steelheart's Champions", "Sepulchral Guard", "Ironskull's Boyz", "The Chosen Axes", "Spiteclaw's Swarm", "Magore's Fiends", "The Farstriders"];
 export const cardSet = ["Core set", "Sepulchral Guard expansion", "Ironskull's Boyz expansion", "The Chosen Axes expansion", "Spiteclaw's Swarm expansion", "Magore's Fiends expansion", "The Farstriders expansion"];
-export const cardType = ["Objective", "Upgrade", "Ploy"]
+export const cardType = ["Objective", "Ploy", "Upgrade"]
 
 // 0 index stands for 'wave', so all the cards from Shadespire except Leader will be from wave 1,
 // Leaders are wave 2, Nightvault is gonna be wave 3
@@ -17,7 +17,7 @@ export const factionCards = {
 }
 
 export const expansionCards = {
-    "1": [
+    "sepulchral-guard": [
         "01059",
         "01060",
         "01061",
@@ -79,7 +79,7 @@ export const expansionCards = {
         "01420",
         "01426"
     ],
-    "2": [
+    "ironskulls-boyz": [
         "01088",
         "01089",
         "01090",
@@ -141,7 +141,7 @@ export const expansionCards = {
         "01423",
         "01430"
     ],
-    "3": [
+    "the-chosen-axes": [
         "01117",
         "01118",
         "01119",
@@ -203,7 +203,7 @@ export const expansionCards = {
         "01425",
         "01435"
     ],
-    "4": [
+    "spiteclaws-swarm": [
         "01146",
         "01147",
         "01148",
@@ -265,7 +265,7 @@ export const expansionCards = {
         "01428",
         "01432"
     ],
-    "5": [
+    "magores-fiends": [
         "01175",
         "01176",
         "01177",
@@ -327,7 +327,7 @@ export const expansionCards = {
         "01434",
         "01436"
     ],
-    "6": [
+    "the-farstriders": [
         "01204",
         "01205",
         "01206",
@@ -389,6 +389,25 @@ export const expansionCards = {
         "01429",
         "01437"
     ]
+}
+
+export const expansionCodeName = [
+    "core-shadespire",
+    "sepulchral-guard",
+    "ironskulls-boyz",
+    "the-chosen-axes",
+    "spiteclaws-swarm",
+    "magores-fiends",
+    "the-farstriders",
+];
+
+export const expansionCardsU =  {
+    "1":[1, 240,250,254,259,281,287,290,293,296,297,299,324,325,332,339,353,357,364,368,370,371,375,377,379,380,393,401,414,418,420,426],
+    "2":[1, 239,241,248,255,256,260,282,288,291,302,305,308,312,315,318,319,320,341,345,346,359,381,382,387,396,402,405,411,416,423,430],
+    "3":[1, 237,251,268,270,277,280,284,294,300,301,303,310,314,316,321,327,337,344,348,366,369,392,400,403,404,408,409,417,419,425,435],
+    "4":[1, 235,242,249,257,272,274,276,279,286,295,298,309,313,317,336,342,349,351,352,358,362,374,376,386,394,399,412,415,421,428,432],
+    "5":[1, 233,244,262,269,271,273,275,283,285,306,307,323,328,331,335,340,343,350,354,365,367,383,384,388,398,410,424,427,433,434,436],
+    "6":[1, 234,238,243,245,246,252,258,261,278,289,304,322,326,329,333,334,338,347,356,361,372,373,378,395,397,406,407,413,422,429,437]
 }
 
 export const universalCardsStartNumber = 233;

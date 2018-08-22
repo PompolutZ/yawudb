@@ -47,7 +47,7 @@ class WUCard extends Component {
     render() {
         const { classes } = this.props;
         const height = this.state.expanded ? 'auto' : 0;
-        const icons = ['objective-icon', 'upgrade-icon', 'ploy-icon'];    
+        const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];    
         return (
             <div className="root">
                 <div className="header">
@@ -55,7 +55,7 @@ class WUCard extends Component {
                     <div className="headerText headerItem">
                         <Typography variant="body2" style={{color: colorsTable[this.props.set]}}>{this.props.name}</Typography>
                         <Typography variant="body2" color="textSecondary">
-                            {`${cardType[this.props.type]} | ${cardSet[this.props.set]} | ${this.props.cardN}/437`}
+                            {`${cardType[this.props.type]} | ${cardSet[this.props.set]} | ${this.props.cardPN}/437`}
                         </Typography>
                     </div>
                     <IconButton

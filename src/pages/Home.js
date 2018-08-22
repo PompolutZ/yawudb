@@ -5,57 +5,85 @@ import { OrderedSet } from 'immutable';
 
 import WUCard from '../components/WUCard';
 import FactionToggle from '../components/FactionToggle';
-import { cardsDb, factionCards } from '../data/index';
+import { cardsDb, factionCards, expansionCardsU } from '../data/index';
 import * as dbu from '../utils';
+import ExpansionsToggle from '../components/ExpansionsToggle';
 
 class Home extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            cards: new OrderedSet()
+            factionCards: new OrderedSet(),
+            universalCards: new OrderedSet()
         };
         
-        this.toggleChosenAxes = this.toggleChosenAxes.bind(this);
-        this.loadCards = this.loadCards.bind(this);
+        this.toggleFaction = this.toggleFaction.bind(this);
+        this.loadFactionCards = this.loadFactionCards.bind(this);
         this.clearCards = this.clearCards.bind(this);
+        this.toggleExpansion = this.toggleExpansion.bind(this);
     }
 
-    loadCards(factionCards) {
+    _getWUCardByIdFromDB(cardId, cardPersonalNumber) {
+        const { name, type, set } = cardsDb[cardId];
+        return <WUCard key={cardId} id={cardId} cardPN={cardPersonalNumber} name={name} type={type} set={set} />;
+    }
+
+    loadFactionCards(factionCards) {
         console.log(factionCards);
         for(let i = factionCards[dbu.FactionFirstCardIndex]; i <= factionCards[dbu.FactionLastCardIndex]; i++) {
-            const cardNumber = dbu.getDbIndexByWaveAndCard(factionCards[dbu.WaveIndex], i);
-            const { name, type, set } = cardsDb[cardNumber];
-            const card = <WUCard key={cardNumber} id={cardNumber} cardN={i} name={name} type={type} set={set} />;
-            this.setState(state => ({cards: state.cards.add(card)}));
+            const cardId = dbu.getDbIndexByWaveAndCard(factionCards[dbu.WaveIndex], i);
+            this.setState(state => ({factionCards: state.factionCards.add(cardId)}));
         }
     }
 
-    clearCards(factionCards) {
-        this.setState(state => ({cards: new OrderedSet()}));
+    loadExpansionCards(expansions){
+        let updated = new OrderedSet();
+        for (let e of expansions) {
+            const expansionWave = expansionCardsU[e][0];
+            const expansionCards = expansionCardsU[e].slice(1).map(c => dbu.getDbIndexByWaveAndCard(expansionWave, c));
+            updated = updated.union(expansionCards);
+        }
+
+        this.setState(state => ({universalCards: updated}));
     }
 
-    toggleChosenAxes(index) {
+    clearCards(factionCards) {
+        this.setState(state => ({factionCards: new OrderedSet()}));
+    }
+
+    toggleFaction(index) {
         this.clearCards();
-        this.loadCards(factionCards[index]);
+        this.loadFactionCards(factionCards[index]);
     } 
 
+    toggleExpansion(expansions) {
+        this.loadExpansionCards(expansions)
+    }
+
     componentDidMount() {
-        this.loadCards(factionCards['garreks-reavers']);
+        this.loadFactionCards(factionCards['garreks-reavers']);
     }
 
     render() {
+        const cards = this.state.factionCards.union(this.state.universalCards);
+
         let content;
-        if(this.state.cards.isEmpty()) {
-            content = <div>Please, select faction to see corresponding cards.</div>;
+        if(this.state.factionCards.isEmpty()) {
+            content = <div>Please, select faction to see corresponding factionCards.</div>;
         } else {
-            content = this.state.cards
+            content = cards.map(c => this._getWUCardByIdFromDB(c, parseInt(c.slice(-3))))
         }
 
         return (
             <div>
-                <div>{ `Total shown cards: ${this.state.cards.count()}` }</div>
-                <FactionToggle onFactionChange={this.toggleChosenAxes} />
+                <div style={{marginBottom: '1rem'}}>{ `Total shown factionCards: ${cards.count()}` }</div>
+                <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '0 .5rem 0 .5rem'}}>
+                    <FactionToggle onFactionChange={this.toggleFaction} />
+                </div>
+                <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
+                    <ExpansionsToggle onExpansionsChange={this.toggleExpansion} />
+                </div>
                 { content }
             </div>
             );
