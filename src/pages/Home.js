@@ -24,9 +24,9 @@ class Home extends Component {
         this.toggleExpansion = this.toggleExpansion.bind(this);
     }
 
-    _getWUCardByIdFromDB(cardId, cardPersonalNumber) {
+    _getWUCardByIdFromDB(cardId, cardPersonalNumber, isAlter) {
         const { name, type, set } = cardsDb[cardId];
-        return <WUCard key={cardId} id={cardId} cardPN={cardPersonalNumber} name={name} type={type} set={set} />;
+        return <WUCard key={cardId} id={cardId} cardPN={cardPersonalNumber} name={name} type={type} set={set} isAlter={isAlter} />;
     }
 
     loadFactionCards(factionCards) {
@@ -72,7 +72,7 @@ class Home extends Component {
         if(this.state.factionCards.isEmpty()) {
             content = <div>Please, select faction to see corresponding factionCards.</div>;
         } else {
-            content = cards.map(c => this._getWUCardByIdFromDB(c, parseInt(c.slice(-3))))
+            content = cards.map((c, i) => this._getWUCardByIdFromDB(c, parseInt(c.slice(-3)), i % 2 === 0))
         }
 
         return (

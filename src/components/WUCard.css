@@ -5,6 +5,10 @@
     flex-direction: column;
 }
 
+.alternateRootColor {
+    background-color: rgb(224, 243, 236);
+}
+
 .header {
     display: flex;
     flex-grow: 1;
@@ -12,19 +16,25 @@
     padding: .5rem;
 }
 
-.headerItem {
-    
-}
-
 .typeicon {
     margin-right: 1rem;    
 }
 
+.secondaryTextImage {
+    width: 1rem;
+    height: 1rem;
+}
+
 .headerText {
     flex: 1 1 auto;
+    margin-left: .5rem;
 }
 
 .cardImg {
+}
+
+.actionRow {
+    margin-left: 3rem;
 }
 
 @media only screen and (min-width: 768px) {
