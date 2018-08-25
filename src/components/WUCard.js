@@ -9,8 +9,20 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import AnimateHeight from 'react-animate-height';
 import "./WUCard.css";
-import { cardType, cardSet } from '../data/index';
+import { cardType, cardSet, cardsDb } from '../data/index';
 
+export const getWUCardByIdFromDB = (cardId, cardPersonalNumber, isAlter, toggleCardInDeck, inDeck) => {
+    const { name, type, set } = cardsDb[cardId];
+    return <WUCard key={cardId} 
+                id={cardId} 
+                cardPN={cardPersonalNumber} 
+                name={name} 
+                type={type} 
+                set={set} 
+                isAlter={isAlter}
+                inDeck={inDeck}
+                toggleCardInDeck={toggleCardInDeck} />;
+}
 
 const styles = theme => ({
     expand: {
@@ -61,15 +73,18 @@ const colorsTable = [
     '#8A1C1C'
 ]
 
-class WUCard extends Component {
-    state = { expanded: false, color: 0, inDeck: false };
+class WUCardAtom extends Component {
+    state = { 
+        expanded: false, 
+        color: 0, 
+    };
 
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded, color: state.color + 1 === colorsTable.length ? 0 : state.color + 1 }));
     };
 
-    handleAddToTheDeckClick = () => {
-        this.setState(state => ({inDeck: !state.inDeck}))
+    handleToggleCardInDeck = () => {
+        this.props.toggleCardInDeck(this.props.id, this.props.type, this.props.name);
     }
 
     render() {
@@ -81,9 +96,9 @@ class WUCard extends Component {
                 <div className="header">
                     <div style={{position: 'relative'}}>
                         <Avatar className="typeicon headerItem" src={`/assets/icons/${icons[this.props.type]}.png`} />
-                        <ButtonBase className={classnames(classes.addButton, classes.inTheDeck, {[classes.notInTheDeck]: this.state.inDeck})} 
+                        <ButtonBase className={classnames(classes.addButton, classes.inTheDeck, {[classes.notInTheDeck]: this.props.inDeck})} 
                                     style={{ border:`.1rem solid ${this.props.isAlter ? '#E0F3EC' : 'white'}` }}
-                                    onClick={this.handleAddToTheDeckClick}>
+                                    onClick={this.handleToggleCardInDeck}>
                             <AddIcon style={{width: '1.2rem'}} />
                         </ButtonBase>
                     </div>
@@ -109,11 +124,9 @@ class WUCard extends Component {
                         src={`assets/cards/${this.props.img}`} 
                         responsive /> */}
                 </AnimateHeight>
-                <div className="actionRow">
-                </div>
             </div>
         );
     }
 }
 
-export default withStyles(styles)(WUCard);
+const WUCard = withStyles(styles)(WUCardAtom);

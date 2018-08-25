@@ -1,6 +1,7 @@
 export const faction = ["Universal", "Garrek's Reavers", "Steelheart's Champions", "Sepulchral Guard", "Ironskull's Boyz", "The Chosen Axes", "Spiteclaw's Swarm", "Magore's Fiends", "The Farstriders"];
 export const cardSet = ["Core set", "Sepulchral Guard expansion", "Ironskull's Boyz expansion", "The Chosen Axes expansion", "Spiteclaw's Swarm expansion", "Magore's Fiends expansion", "The Farstriders expansion"];
 export const cardType = ["Objective", "Ploy", "Upgrade"]
+export const cardTypeIcons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];
 
 // 0 index stands for 'wave', so all the cards from Shadespire except Leader will be from wave 1,
 // Leaders are wave 2, Nightvault is gonna be wave 3
