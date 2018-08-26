@@ -45,7 +45,13 @@ const Deck = ({ cards, onToggleCardInDeck }) => {
                 objectives.map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), i % 2 === 0, onToggleCardInDeck, true))
             }
             <SectionHeader type={1} />
+            {
+                ploys.map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), i % 2 === 0, onToggleCardInDeck, true))
+            }
             <SectionHeader type={2} />
+            {
+                upgrades.map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), i % 2 === 0, onToggleCardInDeck, true))
+            }
         </div>
     );
 }
