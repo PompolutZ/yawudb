@@ -116,7 +116,7 @@ class Home extends Component {
                 <div className="sideDeck" style={{flex: '1 1 auto'}}>
                     <Deck cards={this.state.deck} onToggleCardInDeck={this.toggleCardInDeck} />
                 </div>
-                <div className="fullscreenDeck" style={{visibility: this.state.isMobileDeckVisible && !this.state.deck.isEmpty() ? 'visible' : 'hidden'}}>
+                <div className="fullscreenDeck" style={{visibility: this.state.isMobileDeckVisible && !this.state.deck.isEmpty() ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
                     <Deck cards={this.state.deck} onToggleCardInDeck={this.toggleCardInDeck} />
                 </div>
                 <FloatingActionButton isEnabled={!this.state.deck.isEmpty()} onClick={this.handleShowDeckMobile}>
