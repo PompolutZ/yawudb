@@ -2,8 +2,20 @@ import React, { Component } from 'react';
 import { OrderedSet } from 'immutable';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { cardTypeIcons, cardType } from '../data/index';
+import Button from '@material-ui/core/Button';
+import { cardTypeIcons, cardType, factions } from '../data/index';
 import { getWUCardByIdFromDB } from './WUCard';
+
+const DeckFaction = ({ faction }) => (
+    <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        margin: '1rem'
+    }}>
+        <Avatar className="typeicon headerItem" src={`/assets/icons/${faction}-icon.png`} />
+        <Typography variant="title">{`${factions[faction]}`}</Typography>
+    </div>
+);
 
 const CardsTypeCounter = ({ type, count }) => (
     <div style={{
@@ -22,12 +34,13 @@ const SectionHeader = ({ type }) => (
     </div>
 );
 
-const Deck = ({ cards, onToggleCardInDeck }) => {
+const Deck = ({ faction, cards, onToggleCardInDeck, onSave }) => {
     const objectives = cards.filter(v => v.type === 0);
     const ploys = cards.filter(v => v.type === 1);
     const upgrades = cards.filter(v => v.type === 2);
     return (
         <div>
+            <DeckFaction faction={faction} />
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-around',
@@ -52,6 +65,11 @@ const Deck = ({ cards, onToggleCardInDeck }) => {
             {
                 upgrades.map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), i % 2 === 0, onToggleCardInDeck, true))
             }
+            <div style={{display: 'flex', paddingBottom: '3rem'}}>
+                <Button style={{margin: 'auto'}} onClick={onSave}>
+                    Save
+                </Button>
+            </div>
         </div>
     );
 }

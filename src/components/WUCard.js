@@ -84,7 +84,7 @@ class WUCardAtom extends Component {
     };
 
     handleToggleCardInDeck = () => {
-        this.props.toggleCardInDeck(this.props.id, this.props.type, this.props.name);
+        this.props.toggleCardInDeck(this.props.id, this.props.type, this.props.name, this.props.set);
     }
 
     render() {

@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import "./Home.css";
-import * as _ from 'lodash';
 import { OrderedSet } from 'immutable';
 
 import { getWUCardByIdFromDB } from '../components/WUCard';
 import FactionToggle from '../components/FactionToggle';
 import Deck from '../components/Deck';
-import { factionCards, expansionCardsU } from '../data/index';
-import * as dbu from '../utils';
+import { factionCards, expansionCardsU, factions } from '../data/index';
+
 import ExpansionsToggle from '../components/ExpansionsToggle';
 import FloatingActionButton from '../components/FloatingActionButton';
 import ReorderIcon from '@material-ui/icons/Reorder';
+
+import * as dbu from '../utils';
+import * as _ from 'lodash';
+
+const uuid4 = require('uuid/v4');
 
 class Home extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            selectedFaction: 'garreks-reavers',
             factionCards: new OrderedSet(),
             universalCards: new OrderedSet(),
             deck: new OrderedSet(),
@@ -29,6 +34,7 @@ class Home extends Component {
         this.toggleExpansion = this.toggleExpansion.bind(this);
         this.toggleCardInDeck = this.toggleCardInDeck.bind(this);
         this.handleShowDeckMobile = this.handleShowDeckMobile.bind(this);
+        this.saveCurrentDeck = this.saveCurrentDeck.bind(this);
     }
 
     loadFactionCards(factionCards) {
@@ -55,6 +61,7 @@ class Home extends Component {
     }
 
     toggleFaction(index) {
+        this.setState(state => ({selectedFaction: index}));
         this.clearCards();
         this.loadFactionCards(factionCards[index]);
     } 
@@ -63,8 +70,8 @@ class Home extends Component {
         this.loadExpansionCards(expansions)
     }
 
-    toggleCardInDeck(id, type, name) {
-        const card = {id: id, type: type, name: name};
+    toggleCardInDeck(id, type, name, set) {
+        const card = {id: id, type: type, name: name, set: set};
         const existingCard = this.state.deck.find(v => v.id === id);
         if(existingCard) {
             if(this.state.deck.count() === 1) {
@@ -78,8 +85,25 @@ class Home extends Component {
         }
     }
 
+    saveCurrentDeck() {
+        const id = uuid4();
+        const deckPayload = {
+            id: `${this.state.selectedFaction}-${id.slice(-12)}`,
+            name: `${factions[this.state.selectedFaction]} Deck`,
+            cards: this.state.deck.map(c => c.id).toJS(),
+            sets: new OrderedSet(this.state.deck.map(c => c.set)).toJS()
+        }
+
+        console.log('SAVE', deckPayload);
+    }
+
     componentDidMount() {
-        this.loadFactionCards(factionCards['garreks-reavers']);
+        console.log('Mounted');
+        this.loadFactionCards(factionCards[this.state.selectedFaction]);
+    }
+
+    componentWillUnmount() {
+        console.log('Will Unmount');
     }
 
     handleShowDeckMobile() {
@@ -93,11 +117,9 @@ class Home extends Component {
         if(this.state.factionCards.isEmpty()) {
             content = <div>Please, select faction to see corresponding factionCards.</div>;
         } else {
-            content = cards.map((c, i) => {
-                if (i === '01001') {
-                    console.log('render', c, this.state.deck.some(v => v.id === c)) 
-                }
-                return getWUCardByIdFromDB(c, parseInt(c.slice(-3)), i % 2 === 0, this.toggleCardInDeck, this.state.deck.some(v => v.id === c))
+            content = cards.map(c => {
+                const cardPN = parseInt(c.slice(-3));
+                return getWUCardByIdFromDB(c, cardPN, cardPN % 2 === 0, this.toggleCardInDeck, this.state.deck.some(v => v.id === c))
             })
         }
 
@@ -114,10 +136,16 @@ class Home extends Component {
                     { content }
                 </div>
                 <div className="sideDeck" style={{flex: '1 1 auto'}}>
-                    <Deck cards={this.state.deck} onToggleCardInDeck={this.toggleCardInDeck} />
+                    <Deck faction={this.state.selectedFaction} 
+                            cards={this.state.deck} 
+                            onToggleCardInDeck={this.toggleCardInDeck}
+                            onSave={this.saveCurrentDeck} />
                 </div>
                 <div className="fullscreenDeck" style={{visibility: this.state.isMobileDeckVisible && !this.state.deck.isEmpty() ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
-                    <Deck cards={this.state.deck} onToggleCardInDeck={this.toggleCardInDeck} />
+                    <Deck faction={this.state.selectedFaction} 
+                            cards={this.state.deck} 
+                            onToggleCardInDeck={this.toggleCardInDeck}
+                            onSave={this.saveCurrentDeck} />
                 </div>
                 <FloatingActionButton isEnabled={!this.state.deck.isEmpty()} onClick={this.handleShowDeckMobile}>
                     <ReorderIcon />
