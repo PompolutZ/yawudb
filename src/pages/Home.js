@@ -89,13 +89,16 @@ class Home extends Component {
     saveCurrentDeck() {
         const id = uuid4();
         const deckPayload = {
-            id: `${this.state.selectedFaction}-${id.slice(-12)}`,
             name: `${factions[this.state.selectedFaction]} Deck`,
             cards: this.state.deck.map(c => c.id).toJS(),
             sets: new OrderedSet(this.state.deck.map(c => c.set)).toJS()
         }
         
-        db.collection('decks').add(deckPayload).then(docRef => console.log(docRef.id)).catch(error => console.log(error));    
+        db.collection('decks')
+            .doc(`${this.state.selectedFaction}-${id.slice(-12)}`)
+            .set(deckPayload)
+            .then(() => console.log('Writen!'))
+            .catch(error => console.log(error));    
     }
 
     componentDidMount() {
