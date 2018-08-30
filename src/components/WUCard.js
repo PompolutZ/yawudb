@@ -9,10 +9,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import AnimateHeight from 'react-animate-height';
 import "./WUCard.css";
-import { cardType, cardSet, cardsDb } from '../data/index';
+import { cardType, cardSet } from '../data/index';
 
-export const getWUCardByIdFromDB = (cardId, cardPersonalNumber, isAlter, toggleCardInDeck, inDeck) => {
-    const { name, type, set } = cardsDb[cardId];
+export const getWUCardByIdFromDB = (cardId, cardPersonalNumber, card, isAlter, toggleCardInDeck, inDeck) => {
+    const { name, type, set } = card;
     return <WUCard key={cardId} 
                 id={cardId} 
                 cardPN={cardPersonalNumber} 
@@ -88,14 +88,14 @@ class WUCardAtom extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, type } = this.props;
         const height = this.state.expanded ? 'auto' : 0;
-        const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];    
+        const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];
         return (
             <div className={`root ${this.props.isAlter ? 'alternateRootColor' : ''}`}>
                 <div className="header">
                     <div style={{position: 'relative'}}>
-                        <Avatar className="typeicon headerItem" src={`/assets/icons/${icons[this.props.type]}.png`} />
+                        <Avatar className="typeicon headerItem" src={`/assets/icons/${icons[type]}.png`} />
                         <ButtonBase className={classnames(classes.addButton, classes.inTheDeck, {[classes.notInTheDeck]: this.props.inDeck})} 
                                     style={{ border:`.1rem solid ${this.props.isAlter ? '#E0F3EC' : 'white'}` }}
                                     onClick={this.handleToggleCardInDeck}>

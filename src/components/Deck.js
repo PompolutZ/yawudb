@@ -3,7 +3,7 @@ import { OrderedSet } from 'immutable';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { cardTypeIcons, cardType, factions } from '../data/index';
+import { cardTypeIcons, cardType, factions, cardsDb } from '../data/index';
 import { getWUCardByIdFromDB } from './WUCard';
 
 const DeckFaction = ({ faction }) => (
@@ -55,15 +55,15 @@ const Deck = ({ faction, cards, onToggleCardInDeck, onSave }) => {
             
             <SectionHeader type={0} />
             { 
-                objectives.map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), i % 2 === 0, onToggleCardInDeck, true))
+                objectives.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
             }
             <SectionHeader type={1} />
             {
-                ploys.map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), i % 2 === 0, onToggleCardInDeck, true))
+                ploys.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
             }
             <SectionHeader type={2} />
             {
-                upgrades.map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), i % 2 === 0, onToggleCardInDeck, true))
+                upgrades.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
             }
             <div style={{display: 'flex', paddingBottom: '3rem'}}>
                 <Button style={{margin: 'auto'}} onClick={onSave}>

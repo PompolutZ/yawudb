@@ -5,7 +5,7 @@ import { OrderedSet } from 'immutable';
 import { getWUCardByIdFromDB } from '../components/WUCard';
 import FactionToggle from '../components/FactionToggle';
 import Deck from '../components/Deck';
-import { factionCards, expansionCardsU, factions } from '../data/index';
+import { factionCards, expansionCardsU, factions, cardsDb } from '../data/index';
 import { db } from '../firebase';
 
 import ExpansionsToggle from '../components/ExpansionsToggle';
@@ -115,15 +115,15 @@ class Home extends Component {
     }
 
     render() {
-        const cards = this.state.factionCards.union(this.state.universalCards);
+        const cards = this.state.factionCards.union(this.state.universalCards).map(cid => ({id: cid, ...cardsDb[cid]}));
 
         let content;
         if(this.state.factionCards.isEmpty()) {
             content = <div>Please, select faction to see corresponding factionCards.</div>;
         } else {
-            content = cards.map(c => {
-                const cardPN = parseInt(c.slice(-3));
-                return getWUCardByIdFromDB(c, cardPN, cardPN % 2 === 0, this.toggleCardInDeck, this.state.deck.some(v => v.id === c))
+            content = cards.toJS().sort((c1, c2) => c1.type - c2.type).map((c, i) => {
+                const cardPN = parseInt(c.id.slice(-3));
+                return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this.toggleCardInDeck, this.state.deck.some(v => v.id === c.id))
             })
         }
 
