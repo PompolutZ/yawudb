@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^1.2.2",
     "@material-ui/icons": "^1.1.0",
+    "firebase": "^5.4.1",
     "immutable": "^3.8.2",
     "lodash": "^4.17.10",
     "npm": "^6.3.0",

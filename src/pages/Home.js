@@ -6,6 +6,7 @@ import { getWUCardByIdFromDB } from '../components/WUCard';
 import FactionToggle from '../components/FactionToggle';
 import Deck from '../components/Deck';
 import { factionCards, expansionCardsU, factions } from '../data/index';
+import { db } from '../firebase';
 
 import ExpansionsToggle from '../components/ExpansionsToggle';
 import FloatingActionButton from '../components/FloatingActionButton';
@@ -93,8 +94,8 @@ class Home extends Component {
             cards: this.state.deck.map(c => c.id).toJS(),
             sets: new OrderedSet(this.state.deck.map(c => c.set)).toJS()
         }
-
-        console.log('SAVE', deckPayload);
+        
+        db.collection('decks').add(deckPayload).then(docRef => console.log(docRef.id)).catch(error => console.log(error));    
     }
 
     componentDidMount() {
