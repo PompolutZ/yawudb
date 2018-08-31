@@ -86,19 +86,20 @@ class Home extends Component {
         }
     }
 
-    saveCurrentDeck() {
+    saveCurrentDeck(name) {
         const id = uuid4();
         const deckPayload = {
-            name: `${factions[this.state.selectedFaction]} Deck`,
+            name: name,
             cards: this.state.deck.map(c => c.id).toJS(),
             sets: new OrderedSet(this.state.deck.map(c => c.set)).toJS()
         }
-        
-        db.collection('decks')
-            .doc(`${this.state.selectedFaction}-${id.slice(-12)}`)
-            .set(deckPayload)
-            .then(() => console.log('Writen!'))
-            .catch(error => console.log(error));    
+
+        console.log(deckPayload);
+        // db.collection('decks')
+        //     .doc(`${this.state.selectedFaction}-${id.slice(-12)}`)
+        //     .set(deckPayload)
+        //     .then(() => console.log('Writen!'))
+        //     .catch(error => console.log(error));    
     }
 
     componentDidMount() {
