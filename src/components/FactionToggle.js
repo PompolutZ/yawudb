@@ -35,7 +35,7 @@ class FactionToggle extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{display: 'flex', flexFlow: 'row wrap'}}>
                 { this.state.factions.slice(1).map((v, i) => this.renderIndex(v, i)) }
             </div>
         );

@@ -44,7 +44,8 @@ const styles = theme => ({
         width: "2rem", 
         height:'2rem', 
         borderRadius:'1rem',
-        color: 'white'
+        color: 'white',
+        display: 'flex'
     },
 
     inTheDeck: {
@@ -99,7 +100,7 @@ class WUCardAtom extends Component {
                         <ButtonBase className={classnames(classes.addButton, classes.inTheDeck, {[classes.notInTheDeck]: this.props.inDeck})} 
                                     style={{ border:`.1rem solid ${this.props.isAlter ? '#E0F3EC' : 'white'}` }}
                                     onClick={this.handleToggleCardInDeck}>
-                            <AddIcon style={{width: '1.2rem'}} />
+                            <AddIcon style={{width: '1.2rem', margin: 'auto'}} />
                         </ButtonBase>
                     </div>
                     <div className="headerText headerItem">
