@@ -10,7 +10,9 @@ import { db } from '../firebase';
 
 import ExpansionsToggle from '../components/ExpansionsToggle';
 import FloatingActionButton from '../components/FloatingActionButton';
+import DelayedSearch from '../components/DelayedSearch';
 import ReorderIcon from '@material-ui/icons/Reorder';
+import TextField from '@material-ui/core/TextField';
 
 import * as dbu from '../utils';
 import * as _ from 'lodash';
@@ -26,7 +28,8 @@ class Home extends Component {
             factionCards: new OrderedSet(),
             universalCards: new OrderedSet(),
             deck: new OrderedSet(),
-            isMobileDeckVisible: false
+            isMobileDeckVisible: false,
+            searchText: ""
         };
         
         this.toggleFaction = this.toggleFaction.bind(this);
@@ -36,6 +39,7 @@ class Home extends Component {
         this.toggleCardInDeck = this.toggleCardInDeck.bind(this);
         this.handleShowDeckMobile = this.handleShowDeckMobile.bind(this);
         this.saveCurrentDeck = this.saveCurrentDeck.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
     loadFactionCards(factionCards) {
@@ -94,12 +98,16 @@ class Home extends Component {
             sets: new OrderedSet(this.state.deck.map(c => c.set)).toJS()
         }
 
-        console.log(deckPayload);
-        // db.collection('decks')
-        //     .doc(`${this.state.selectedFaction}-${id.slice(-12)}`)
-        //     .set(deckPayload)
-        //     .then(() => console.log('Writen!'))
-        //     .catch(error => console.log(error));    
+        // console.log(deckPayload);
+        db.collection('decks')
+            .doc(`${this.state.selectedFaction}-${id.slice(-12)}`)
+            .set(deckPayload)
+            .then(() => console.log('Writen!'))
+            .catch(error => console.log(error));    
+    }
+
+    handleSearch(text) {
+        this.setState({searchText: text});
     }
 
     componentDidMount() {
@@ -116,7 +124,15 @@ class Home extends Component {
     }
 
     render() {
-        const cards = this.state.factionCards.union(this.state.universalCards).map(cid => ({id: cid, ...cardsDb[cid]}));
+        const searchText = this.state.searchText.toUpperCase();
+        const cards = this.state.factionCards
+            .union(this.state.universalCards)
+            .map(cid => ({id: cid, ...cardsDb[cid]}))
+            .filter(c => {
+                if(!this.state.searchText) return true;
+
+                return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
+            });
 
         let content;
         if(this.state.factionCards.isEmpty()) {
@@ -137,6 +153,16 @@ class Home extends Component {
                     </div>
                     <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
                         <ExpansionsToggle onExpansionsChange={this.toggleExpansion} />
+                    </div>
+                    <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
+                        {/* <TextField 
+                            id="search"
+                            label="Search for any text"
+                            type="search"
+                            margin="normal"
+                            style={{width: '100%'}}
+                            onChange={this.handleSearch}         /> */}
+                            <DelayedSearch onSearchInputChange={this.handleSearch} />
                     </div>
                     { content }
                 </div>
