@@ -70,8 +70,9 @@ const colorsTable = [
     '#38461A',
     '#985519',
     '#61411A',
+    '#8A1C1C',
     '#1A3965',
-    '#8A1C1C'
+    
 ]
 
 class WUCardAtom extends Component {

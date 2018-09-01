@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { OrderedSet } from 'immutable';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { cardTypeIcons, cardType, factions, cardsDb } from '../data/index';
+import { cardTypeIcons, cardType, factions } from '../data/index';
 import { getWUCardByIdFromDB } from './WUCard';
 import TextField from '@material-ui/core/TextField';
 
-const DeckFaction = ({ faction, name, onChange }) => (
+const DeckFaction = ({ faction, defaultName, onChange }) => (
     <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -17,7 +16,7 @@ const DeckFaction = ({ faction, name, onChange }) => (
         <TextField
           id="with-placeholder"
           label="Deck name"
-          defaultValue={`${name}`}
+          value={`${defaultName}`}
           margin="none"
           style={{width: '100%'}}
           onChange={onChange}
@@ -45,7 +44,7 @@ const SectionHeader = ({ type }) => (
 
 class Deck extends Component {
     state = {
-        name: `${factions[this.props.faction]} Deck`
+        name: ""
     }
 
     render() {
@@ -55,7 +54,7 @@ class Deck extends Component {
         const upgrades = cards.filter(v => v.type === 2);
         return (
             <div>
-                <DeckFaction faction={faction} name={this.state.name} onChange={e => this.setState({name: e.target.value})} />
+                <DeckFaction faction={faction} defaultName={`${factions[this.props.faction]} Deck`} onChange={e => this.setState({name: e.target.value})} />
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-around',

@@ -5,17 +5,15 @@ import { OrderedSet } from 'immutable';
 import { getWUCardByIdFromDB } from '../components/WUCard';
 import FactionToggle from '../components/FactionToggle';
 import Deck from '../components/Deck';
-import { factionCards, expansionCardsU, factions, cardsDb } from '../data/index';
+import { factionCards, expansionCardsU, cardsDb } from '../data/index';
 import { db } from '../firebase';
 
 import ExpansionsToggle from '../components/ExpansionsToggle';
 import FloatingActionButton from '../components/FloatingActionButton';
 import DelayedSearch from '../components/DelayedSearch';
 import ReorderIcon from '@material-ui/icons/Reorder';
-import TextField from '@material-ui/core/TextField';
 
 import * as dbu from '../utils';
-import * as _ from 'lodash';
 
 const uuid4 = require('uuid/v4');
 
@@ -43,7 +41,6 @@ class Home extends Component {
     }
 
     loadFactionCards(factionCards) {
-        console.log(factionCards);
         for(let i = factionCards[dbu.FactionFirstCardIndex]; i <= factionCards[dbu.FactionLastCardIndex]; i++) {
             const cardId = dbu.getDbIndexByWaveAndCard(factionCards[dbu.WaveIndex], i);
             this.setState(state => ({factionCards: state.factionCards.add(cardId)}));
@@ -111,7 +108,6 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        console.log('Mounted');
         this.loadFactionCards(factionCards[this.state.selectedFaction]);
     }
 
@@ -139,7 +135,7 @@ class Home extends Component {
             content = <div>Please, select faction to see corresponding factionCards.</div>;
         } else {
             content = cards.toJS().sort((c1, c2) => c1.type - c2.type).map((c, i) => {
-                const cardPN = parseInt(c.id.slice(-3));
+                const cardPN = parseInt(c.id.slice(-3), 10);
                 return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this.toggleCardInDeck, this.state.deck.some(v => v.id === c.id))
             })
         }

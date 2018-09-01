@@ -11,7 +11,6 @@ class DelayedSearch extends Component {
     }
 
     handleSearchInputChange(e) {
-        console.log(e.target.value.toUpperCase());
         this.setState({text: e.target.value.toUpperCase()});
         if(this.timeoutId) {
             clearTimeout(this.timeoutId);

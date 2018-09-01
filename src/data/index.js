@@ -3091,7 +3091,7 @@ export const cardsDb = {
         "faq": "-"
     },
     "01334": {
-        "name": "Inpiration Strikes",
+        "name": "Inspiration Strikes",
         "factions": 0,
         "type": 1,
         "rule": "Choose a friendly fighter. They become Inspired",
@@ -3291,7 +3291,7 @@ export const cardsDb = {
         "faq": "-"
     },
     "01359": {
-        "name": "Shiting Shards",
+        "name": "Shifting Shards",
         "factions": 0,
         "type": 1,
         "rule": "Move an unheld objective one hex. You cannot move it into a hex that already contains an objective",
