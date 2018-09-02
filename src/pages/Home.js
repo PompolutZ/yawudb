@@ -5,7 +5,7 @@ import { OrderedSet } from 'immutable';
 import { getWUCardByIdFromDB } from '../components/WUCard';
 import FactionToggle from '../components/FactionToggle';
 import Deck from '../components/Deck';
-import { factionCards, expansionCardsU, cardsDb } from '../data/index';
+import { factionCards, expansionCardsU, cardsDb, factions } from '../data/index';
 import { db } from '../firebase';
 
 import ExpansionsToggle from '../components/ExpansionsToggle';
@@ -90,7 +90,7 @@ class Home extends Component {
     saveCurrentDeck(name) {
         const id = uuid4();
         const deckPayload = {
-            name: name,
+            name: !name ? `${factions[this.state.selectedFaction]} Deck` : name,
             cards: this.state.deck.map(c => c.id).toJS(),
             sets: new OrderedSet(this.state.deck.map(c => c.set)).toJS()
         }

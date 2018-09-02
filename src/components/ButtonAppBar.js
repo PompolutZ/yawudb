@@ -67,7 +67,7 @@ class ButtonAppBar extends Component {
                   <MenuIcon />
                 </IconButton>
                 <Typography variant="title" color="inherit" className={classes.flex}>
-                  News
+                  Yet Another WUdb
                 </Typography>
                 <Button color="inherit">Login</Button>
               </Toolbar>

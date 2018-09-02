@@ -11,6 +11,7 @@ export const factions = {
 }
 
 export const cardSet = ["Core set", "Sepulchral Guard expansion", "Ironskull's Boyz expansion", "The Chosen Axes expansion", "Spiteclaw's Swarm expansion", "Magore's Fiends expansion", "The Farstriders expansion"];
+export const cardSetIcons = ["universal", "sepulchral-guard", "ironskulls-boyz", "the-chosen-axes", "spiteclaws-swarm", "magores-fiends", "the-farstriders"];
 export const cardType = ["Objective", "Ploy", "Upgrade"]
 export const cardTypeIcons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];
 

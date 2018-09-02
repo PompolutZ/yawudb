@@ -16,7 +16,7 @@ const DeckFaction = ({ faction, defaultName, onChange }) => (
         <TextField
           id="with-placeholder"
           label="Deck name"
-          value={`${defaultName}`}
+          placeholder={`${defaultName}`}
           margin="none"
           style={{width: '100%'}}
           onChange={onChange}
