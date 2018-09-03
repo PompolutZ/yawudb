@@ -9,9 +9,13 @@ import { factionCards, expansionCardsU, cardsDb, factions } from '../data/index'
 import { db } from '../firebase';
 
 import ExpansionsToggle from '../components/ExpansionsToggle';
+import CardTypeToggle from '../components/CardTypeToggle';
 import FloatingActionButton from '../components/FloatingActionButton';
 import DelayedSearch from '../components/DelayedSearch';
 import ReorderIcon from '@material-ui/icons/Reorder';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import IconButton from '@material-ui/core/IconButton';
+import AnimateHeight from 'react-animate-height';
 
 import * as dbu from '../utils';
 
@@ -27,7 +31,9 @@ class Home extends Component {
             universalCards: new OrderedSet(),
             deck: new OrderedSet(),
             isMobileDeckVisible: false,
-            searchText: ""
+            searchText: "",
+            filtersVisible: false,
+            visibleCardTypes: [0, 1, 2]
         };
         
         this.toggleFaction = this.toggleFaction.bind(this);
@@ -35,9 +41,11 @@ class Home extends Component {
         this.clearCards = this.clearCards.bind(this);
         this.toggleExpansion = this.toggleExpansion.bind(this);
         this.toggleCardInDeck = this.toggleCardInDeck.bind(this);
+        this.toggleFiltersAreaVisibility = this.toggleFiltersAreaVisibility.bind(this);
         this.handleShowDeckMobile = this.handleShowDeckMobile.bind(this);
         this.saveCurrentDeck = this.saveCurrentDeck.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.toggleCardTypes = this.toggleCardTypes.bind(this);
     }
 
     loadFactionCards(factionCards) {
@@ -72,6 +80,10 @@ class Home extends Component {
         this.loadExpansionCards(expansions)
     }
 
+    toggleCardTypes(cardTypes) {
+        this.setState({visibleCardTypes: cardTypes});
+    }
+
     toggleCardInDeck(id, type, name, set) {
         const card = {id: id, type: type, name: name, set: set};
         const existingCard = this.state.deck.find(v => v.id === id);
@@ -85,6 +97,10 @@ class Home extends Component {
         } else {
             this.setState(state => ({deck: state.deck.add(card)}));
         }
+    }
+
+    toggleFiltersAreaVisibility() {
+        this.setState(state => ({filtersVisible: !state.filtersVisible}));
     }
 
     saveCurrentDeck(name) {
@@ -120,10 +136,13 @@ class Home extends Component {
     }
 
     render() {
+        console.log(this.state.visibleCardTypes)
+        const filtersAreaHeight = this.state.filtersVisible ? 'auto' : 0;
         const searchText = this.state.searchText.toUpperCase();
         const cards = this.state.factionCards
             .union(this.state.universalCards)
             .map(cid => ({id: cid, ...cardsDb[cid]}))
+            .filter(({ type }) => this.state.visibleCardTypes.includes(type))
             .filter(c => {
                 if(!this.state.searchText) return true;
 
@@ -147,19 +166,36 @@ class Home extends Component {
                     <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '0 .5rem 0 .5rem'}}>
                         <FactionToggle onFactionChange={this.toggleFaction} />
                     </div>
-                    <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
-                        <ExpansionsToggle onExpansionsChange={this.toggleExpansion} />
+                    <div style={{ 
+                        paddingBottom: '1rem', 
+                        margin: '1rem .5rem 0 .5rem', 
+                        display: 'flex', 
+                        alignItems: 'center'}}>
+                        
+                        <DelayedSearch onSearchInputChange={this.handleSearch} />
+                        <IconButton style={{color: 'white', backgroundColor: '#3B9979'}} onClick={this.toggleFiltersAreaVisibility}>
+                            <FilterListIcon />
+                        </IconButton>
                     </div>
-                    <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
-                        {/* <TextField 
-                            id="search"
-                            label="Search for any text"
-                            type="search"
-                            margin="normal"
-                            style={{width: '100%'}}
-                            onChange={this.handleSearch}         /> */}
-                            <DelayedSearch onSearchInputChange={this.handleSearch} />
-                    </div>
+                    <AnimateHeight 
+                        duration={ 175 }
+                        height={ filtersAreaHeight } // see props documentation bellow
+                        >
+                        <div style={{paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
+                            <div style={{display: 'flex', position: 'relative', marginBottom: '.5rem'}}>
+                                <div>Toggle Sets:</div>
+                                <div style={{flex: '1 1 auto', height: '1rem', borderBottom: '1px solid gray', margin: 'auto 1rem 0 .5rem'}}></div> 
+                            </div>
+                            <ExpansionsToggle onExpansionsChange={this.toggleExpansion} />
+                        </div>
+                        <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
+                            <div style={{display: 'flex', position: 'relative', marginBottom: '.5rem'}}>
+                                <div>Toggle Types:</div>
+                                <div style={{flex: '1 1 auto', height: '1rem', borderBottom: '1px solid gray', margin: 'auto 1rem 0 .5rem'}}></div> 
+                            </div>
+                            <CardTypeToggle oncardTypesChange={this.toggleCardTypes} />
+                        </div>
+                    </AnimateHeight>
                     { content }
                 </div>
                 <div className="sideDeck" style={{flex: '1 1 auto'}}>

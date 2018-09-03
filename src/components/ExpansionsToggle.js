@@ -25,7 +25,12 @@ class ExpansionsToggle extends Component {
         }
 
         this.setState(state => ({selectedExpansions: expansions}));
-        this.props.onExpansionsChange(expansions);
+        
+        if(this.timeoutId) {
+            clearTimeout(this.timeoutId);
+        }
+
+        this.timeoutId = setTimeout(() => this.props.onExpansionsChange(expansions), 350);
     }
 
     componentDidMount() {
