@@ -8,7 +8,7 @@ class ExpansionsToggle extends Component {
         super(props);
 
         this.state = {
-            selectedExpansions: [],
+            selectedExpansions: this.props.selectedExpansions ? [...this.props.selectedExpansions] : [],
             expansions: []
         }
 

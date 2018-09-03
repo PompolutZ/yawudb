@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ToggleImageButton from './ToggleImageButton';
 import { cardType } from '../data/index';
-import * as _ from 'lodash';
 
 class CardTypeToggle extends Component {
     constructor(props) {
