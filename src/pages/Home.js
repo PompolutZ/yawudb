@@ -1,32 +1,44 @@
 import React, { Component } from 'react';
 import "./Home.css";
-import FactionToggle from '../components/FactionToggle';
-import DeckBuilder from '../components/DeckBuilder';
+import { db } from '../firebase';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { ReadonlyDeck } from '../components/Deck';
+import { OrderedSet } from 'immutable';
+import { cardsDb } from '../data';
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            selectedFaction: 'garreks-reavers',
-        };
-        
-        this.toggleFaction = this.toggleFaction.bind(this);
+    state = {
+        lastAddedDeck: null
     }
 
-    toggleFaction(index) {
-        this.setState(state => ({selectedFaction: index}));
-    } 
+    componentDidMount() {
+        db.collection('decks')
+            .orderBy('created', 'desc')
+            .limit(1)
+            .get()
+            .then(qs => qs.forEach(doc => this.setState({lastAddedDeck: {id: doc.id, ...doc.data()}})))
+            .catch(error => console.log(error));
+    }
 
     render() {
-        return (
-            <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
-                <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '0 .5rem 0 .5rem'}}>
-                    <FactionToggle onFactionChange={this.toggleFaction} />
+        if(!this.state.lastAddedDeck) {
+            return (
+                <div style={{display: 'flex', height: '100vh'}}>
+                    <div style={{margin: 'auto', display: 'flex', flexFlow: 'column nowrap', alignItems: 'center'}}>
+                        <CircularProgress style={{color: '#3B9979'}} />
+                        <div>Fetching last added deck...</div>
+                    </div>
                 </div>
-                <DeckBuilder key={this.state.selectedFaction} faction={this.state.selectedFaction} />
-            </div>
             );
+        }
+
+        const { id, name, cards, sets, created } = this.state.lastAddedDeck;
+        return(
+            <div>
+                <div style={{margin: '1rem .5rem 2rem .5rem', fontSize: '2rem'}}>Last added deck:</div>
+                <ReadonlyDeck name={name} sets={sets} faction={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
+            </div>
+        );
     }
 }
 

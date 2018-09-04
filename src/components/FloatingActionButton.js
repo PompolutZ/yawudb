@@ -16,6 +16,7 @@ const styles = theme => ({
             bottom: '44px', 
             right: '20px', 
             zIndex: 3,
+            color: 'white',
             backgroundColor: '#3B9979' ,
             '&:hover': {
                 backgroundColor: '#3B9979'

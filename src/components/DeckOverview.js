@@ -83,12 +83,11 @@ class DeckOverview extends React.Component {
   };
 
   render() {
-    const { classes, id, name, sets, cards } = this.props;
+    const { classes, id, name, sets, cards, created } = this.props;
     const cardsInDeck = cards.map(cardPN => ({id: cardPN, ...cardsDb[cardPN]}));
     const objectives = cardsInDeck.filter(c => c.type === 0);
     const ploys = cardsInDeck.filter(c => c.type === 1);
     const upgrades = cardsInDeck.filter(c => c.type === 2);
-
     return (
       <Card className={classes.card}>
         <CardHeader
@@ -101,6 +100,7 @@ class DeckOverview extends React.Component {
         //     </IconButton>
         //   }
           title={name}
+          subheader={created ? created.toDate().toLocaleDateString() : 'Unknown'}
         />
         {/* <CardMedia
           className={classes.media}

@@ -3,21 +3,11 @@ import { db } from '../firebase';
 import { List } from 'immutable';
 import DeckOverview from '../components/DeckOverview';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FloatingActionButton from '../components/FloatingActionButton';
+import AddIcon from '@material-ui/icons/Add';
+import { withRouter } from 'react-router-dom';
 
 const uuid4 = require('uuid/v4');
-
-// const DeckOverview = ({ id, name, sets }) => {
-//     console.log(id.substring(0, id.length - 13));
-//     return (
-//         <div style={{display: 'flex', alignItems: 'center', flexFlow: 'row wrap', margin: 'auto .5rem .5rem .5rem'}}>
-//             <img src={`/assets/icons/${id.substring(0, id.length - 13)}-icon.png`} alt="icon"
-//                 style={{width: '2rem', height: '2rem'}} />
-//             <div style={{marginLeft: '.5rem'}}>{name}</div>    
-
-//         </div>
-//     );
-// }
-
 
 class Decks extends Component {
     state = {
@@ -38,6 +28,8 @@ class Decks extends Component {
     }
 
     render() {
+        const { history } = this.props;
+
         if(this.state.loading) {
             return (
                 <div style={{display: 'flex', height: '100vh'}}>
@@ -50,12 +42,17 @@ class Decks extends Component {
         }
         return (
             <div>
-                {
-                    this.state.decks.map(d => <DeckOverview key={uuid4()} id={d.id} name={d.name} sets={d.sets} cards={d.cards} />)
-                }
+                <div>
+                    {
+                        this.state.decks.map(d => <DeckOverview key={uuid4()} id={d.id} name={d.name} sets={d.sets} cards={d.cards} created={d.created} />)
+                    }
+                </div>
+                <FloatingActionButton isEnabled onClick={() => history.push('/newdeck')}>
+                    <AddIcon />
+                </FloatingActionButton>
             </div>
         );
     }
 }
 
-export default Decks;
+export default withRouter(Decks);

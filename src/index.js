@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
 import Home from './pages/Home';
 import Decks from './pages/Decks';
+import DeckCreator from './pages/DeckCreator';
 import ButtonAppBar from './components/ButtonAppBar';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -14,6 +15,7 @@ const App = () => (
 
             <Route exact path="/" component={Home} />
             <Route path="/decks" component={Decks} />
+            <Route path="/newdeck" component={DeckCreator} />
         </div>
     </Router>
 );

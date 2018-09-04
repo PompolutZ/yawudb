@@ -21,7 +21,21 @@ export const getWUCardByIdFromDB = (cardId, cardPersonalNumber, card, isAlter, t
                 set={set} 
                 isAlter={isAlter}
                 inDeck={inDeck}
-                toggleCardInDeck={toggleCardInDeck} />;
+                toggleCardInDeck={toggleCardInDeck}
+                readonly={false} />;
+}
+
+export const getReadOnlyWUCardByIdFromDb = (cardId, cardPersonalNumber, card, isAlter) => {
+    const { name, type, set } = card;
+    return <WUCard readonly 
+                inDeck
+                key={cardId} 
+                id={cardId} 
+                cardPN={cardPersonalNumber} 
+                name={name} 
+                type={type} 
+                set={set} 
+                isAlter={isAlter} />;
 }
 
 const styles = theme => ({
@@ -98,11 +112,14 @@ class WUCardAtom extends Component {
                 <div className="header">
                     <div style={{position: 'relative'}}>
                         <Avatar className="typeicon headerItem" src={`/assets/icons/${icons[type]}.png`} />
-                        <ButtonBase className={classnames(classes.addButton, classes.inTheDeck, {[classes.notInTheDeck]: this.props.inDeck})} 
-                                    style={{ border:`.1rem solid ${this.props.isAlter ? '#E0F3EC' : 'white'}` }}
-                                    onClick={this.handleToggleCardInDeck}>
-                            <AddIcon style={{width: '1.2rem', margin: 'auto'}} />
-                        </ButtonBase>
+                        {
+                            !this.props.readonly &&
+                            <ButtonBase className={classnames(classes.addButton, classes.inTheDeck, {[classes.notInTheDeck]: this.props.inDeck})} 
+                                        style={{ border:`.1rem solid ${this.props.isAlter ? '#E0F3EC' : 'white'}` }}
+                                        onClick={this.handleToggleCardInDeck}>
+                                <AddIcon style={{width: '1.2rem', margin: 'auto'}} />
+                            </ButtonBase>
+                        }
                     </div>
                     <div className="headerText headerItem">
                         <Typography variant="body2" style={{color: colorsTable[this.props.set]}}>{this.props.name}</Typography>

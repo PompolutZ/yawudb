@@ -3308,7 +3308,7 @@ export const cardsDb = {
         "faq": "-"
     },
     "01361": {
-        "name": "Stumble",
+        "name": "Spectral Wings",
         "factions": 0,
         "type": 1,
         "rule": "The first fighter to make a Move action in the next activation has +2 Move",

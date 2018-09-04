@@ -49,7 +49,7 @@ class ButtonAppBar extends Component {
         const sideList = (
             <div className={classes.list}>
               <List component="nav">
-                <ListItem button onClick={() => history.push('/')}>
+                <ListItem button onClick={() => history.push('/newdeck')}>
                     <ListItemText primary="Deck Builder" />
                 </ListItem>
                 <ListItem button onClick={() => history.push('/decks')}>
