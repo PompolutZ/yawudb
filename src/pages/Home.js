@@ -34,9 +34,9 @@ class Home extends Component {
 
         const { id, name, cards, sets, created } = this.state.lastAddedDeck;
         return(
-            <div>
-                <div style={{margin: '1rem .5rem 2rem .5rem', fontSize: '2rem'}}>Last added deck:</div>
-                <ReadonlyDeck name={name} sets={sets} faction={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
+            <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
+                <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div>
+                <ReadonlyDeck name={name} created={created.toDate()} sets={sets} faction={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
             </div>
         );
     }

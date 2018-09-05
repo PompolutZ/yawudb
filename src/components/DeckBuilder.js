@@ -128,7 +128,6 @@ class DeckBuilder extends Component {
     }
 
     render() {
-        console.log(this.state.visibleCardTypes)
         const filtersAreaHeight = this.state.filtersVisible ? 'auto' : 0;
         const searchText = this.state.searchText.toUpperCase();
         const cards = this.state.factionCards

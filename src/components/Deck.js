@@ -10,15 +10,15 @@ const DeckFaction = ({ faction, defaultName, onChange }) => (
     <div style={{
         display: 'flex',
         alignItems: 'center',
-        margin: '1rem'
+        margin: '.5rem'
     }}>
-        <Avatar className="typeicon headerItem" src={`/assets/icons/${faction}-icon.png`} />
+        <Avatar style={{marginRight: '1rem'}} src={`/assets/icons/${faction}-icon.png`} />
         <TextField
           id="with-placeholder"
           label="Deck name"
           placeholder={`${defaultName}`}
           margin="none"
-          style={{width: '100%'}}
+          style={{flex: '1 1 auto'}}
           onChange={onChange}
         />
         {/* <Typography variant="title">{`${factions[faction]}`}</Typography> */}
@@ -29,15 +29,15 @@ const CardsTypeCounter = ({ type, count }) => (
     <div style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        marginRight: '2rem'
     }}>
-        <Avatar className="typeicon headerItem" src={`/assets/icons/${cardTypeIcons[type]}.png`} />
+        <Avatar style={{marginRight: '.5rem'}} src={`/assets/icons/${cardTypeIcons[type]}.png`} />
         <Typography variant="title">{`${count}`}</Typography>
     </div>
 );
 
 const SectionHeader = ({ type }) => (
-    <div style={{borderBottom: '1px solid gray', margin: '0 1rem 1rem 1rem'}}>
+    <div style={{borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
         <Typography variant="headline">{`${cardType[type]}s`}</Typography>
     </div>
 );
@@ -58,7 +58,6 @@ class Deck extends Component {
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-around',
-                    maxWidth: '20rem',
                     marginBottom: '1.5rem',
                     marginTop: '1.5rem'
                 }}>
@@ -92,23 +91,26 @@ const SetIcon = ({ set }) => (
     <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${cardSetIcons[set]}-icon.png`} width="32" height="32" alt="icon" />
 )
 
-export const ReadonlyDeck = ({ name, faction, cards, sets}) => {
+export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
     const objectives = cards.filter(v => v.type === 0);
     const ploys = cards.filter(v => v.type === 1);
     const upgrades = cards.filter(v => v.type === 2);
     console.log(cards);
     return (    
-        <div>
+        <div style={{}}>
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                margin: '.5rem'
+                margin: '1rem'
             }}>
                 <Avatar style={{width: '4rem', height: '4rem'}} className="typeicon headerItem" src={`/assets/icons/${faction}-icon.png`} />
-                <Typography variant="title">{name}</Typography>
+                <div>
+                    <Typography variant="title">{name}</Typography>
+                    <Typography variant="subheading">{created.toLocaleDateString()}</Typography>
+                </div>
             </div>
 
-            <div style={{margin: 'auto .5rem .5rem .5rem'}}>
+            <div style={{margin: '1rem'}}>
                 {
                     sets.sort((a, b) => a - b).map(s => <SetIcon key={s * 31}  set={s} />)
                 }
@@ -116,10 +118,8 @@ export const ReadonlyDeck = ({ name, faction, cards, sets}) => {
 
             <div style={{
                 display: 'flex',
-                justifyContent: 'space-around',
                 maxWidth: '20rem',
-                marginBottom: '1.5rem',
-                marginTop: '1.5rem'
+                margin: '1rem'
             }}>
                 <CardsTypeCounter type={0} count={objectives.count()} />
                 <CardsTypeCounter type={1} count={ploys.count()} />

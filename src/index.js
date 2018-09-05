@@ -7,6 +7,7 @@ import Decks from './pages/Decks';
 import DeckCreator from './pages/DeckCreator';
 import ButtonAppBar from './components/ButtonAppBar';
 import registerServiceWorker from './registerServiceWorker';
+import Footer from './components/Footer';
 
 const App = () => (
     <Router>
@@ -16,6 +17,8 @@ const App = () => (
             <Route exact path="/" component={Home} />
             <Route path="/decks" component={Decks} />
             <Route path="/newdeck" component={DeckCreator} />
+
+            <Footer />
         </div>
     </Router>
 );
