@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import AnimateHeight from 'react-animate-height';
 import "./WUCard.css";
-import { cardType, cardSet } from '../data/index';
+import { cardType, cardSet, totalCardsPerWave } from '../data/index';
 
 export const getWUCardByIdFromDB = (cardId, cardPersonalNumber, card, isAlter, toggleCardInDeck, inDeck) => {
     const { name, type, set } = card;
@@ -104,7 +104,7 @@ class WUCardAtom extends Component {
     }
 
     render() {
-        const { classes, type } = this.props;
+        const { classes, type, id } = this.props;
         const height = this.state.expanded ? 'auto' : 0;
         const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];
         return (
@@ -124,7 +124,7 @@ class WUCardAtom extends Component {
                     <div className="headerText headerItem">
                         <Typography variant="body2" style={{color: colorsTable[this.props.set]}}>{this.props.name}</Typography>
                         <Typography variant="body2" color="textSecondary">
-                            {`${cardType[this.props.type]} | ${cardSet[this.props.set]} | ${this.props.cardPN}/437`}
+                            {`${cardType[this.props.type]} | ${cardSet[this.props.set]} | ${this.props.cardPN}/${totalCardsPerWave[parseInt(id.slice(0,2), 10)]}`}
                         </Typography>
                     </div>
                     <IconButton

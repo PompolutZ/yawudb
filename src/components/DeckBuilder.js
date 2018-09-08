@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import "./DeckBuilder.css";
-import { OrderedSet } from 'immutable';
+import { OrderedSet, Set } from 'immutable';
 
 import { getWUCardByIdFromDB } from '../components/WUCard';
 import Deck from '../components/Deck';
-import { factionCards, expansionCardsU, cardsDb, factions } from '../data/index';
+import { cardsDb, factions, getCardsByFactionAndSets } from '../data/index';
 import { db } from '../firebase';
 
 import ExpansionsToggle from '../components/ExpansionsToggle';
@@ -16,8 +16,6 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import IconButton from '@material-ui/core/IconButton';
 import AnimateHeight from 'react-animate-height';
 
-import * as dbu from '../utils';
-
 const uuid4 = require('uuid/v4');
 
 class DeckBuilder extends Component {
@@ -25,6 +23,8 @@ class DeckBuilder extends Component {
         super(props);
 
         this.state = {
+            cards: new Set(),
+            selectedSets: [],
             factionCards: new OrderedSet(),
             universalCards: new OrderedSet(),
             deck: new OrderedSet(),
@@ -34,8 +34,6 @@ class DeckBuilder extends Component {
             visibleCardTypes: [0, 1, 2]
         };
         
-        this.loadFactionCards = this.loadFactionCards.bind(this);
-        this.clearCards = this.clearCards.bind(this);
         this.toggleExpansion = this.toggleExpansion.bind(this);
         this.toggleCardInDeck = this.toggleCardInDeck.bind(this);
         this.toggleFiltersAreaVisibility = this.toggleFiltersAreaVisibility.bind(this);
@@ -45,30 +43,10 @@ class DeckBuilder extends Component {
         this.toggleCardTypes = this.toggleCardTypes.bind(this);
     }
 
-    loadFactionCards(factionCards) {
-        for(let i = factionCards[dbu.FactionFirstCardIndex]; i <= factionCards[dbu.FactionLastCardIndex]; i++) {
-            const cardId = dbu.getDbIndexByWaveAndCard(factionCards[dbu.WaveIndex], i);
-            this.setState(state => ({factionCards: state.factionCards.add(cardId)}));
-        }
-    }
-
-    loadExpansionCards(expansions){
-        let updated = new OrderedSet();
-        for (let e of expansions) {
-            const expansionWave = expansionCardsU[e][0];
-            const expansionCards = expansionCardsU[e].slice(1).map(c => dbu.getDbIndexByWaveAndCard(expansionWave, c));
-            updated = updated.union(expansionCards);
-        }
-
-        this.setState(state => ({universalCards: updated}));
-    }
-
-    clearCards(factionCards) {
-        this.setState(state => ({factionCards: new OrderedSet()}));
-    }
-
     toggleExpansion(expansions) {
-        this.loadExpansionCards(expansions)
+        const factionCards = getCardsByFactionAndSets(this.props.faction, expansions);
+        const universalCards = getCardsByFactionAndSets('universal', expansions);
+        this.setState({cards: new Set(factionCards).union(new Set(universalCards))});
     }
 
     toggleCardTypes(cardTypes) {
@@ -103,7 +81,6 @@ class DeckBuilder extends Component {
             created: new Date()
         }
 
-        // console.log(deckPayload);
         db.collection('decks')
             .doc(`${this.props.faction}-${id.slice(-12)}`)
             .set(deckPayload)
@@ -116,7 +93,9 @@ class DeckBuilder extends Component {
     }
 
     componentDidMount() {
-        this.loadFactionCards(factionCards[this.props.faction]);
+        console.log('Faction', this.props.faction);
+        const cards = getCardsByFactionAndSets(this.props.faction, this.state.selectedSets);
+        this.setState({cards: new Set(cards)});
     }
 
     componentWillUnmount() {
@@ -130,8 +109,7 @@ class DeckBuilder extends Component {
     render() {
         const filtersAreaHeight = this.state.filtersVisible ? 'auto' : 0;
         const searchText = this.state.searchText.toUpperCase();
-        const cards = this.state.factionCards
-            .union(this.state.universalCards)
+        const cards = this.state.cards
             .map(cid => ({id: cid, ...cardsDb[cid]}))
             .filter(({ type }) => this.state.visibleCardTypes.includes(type))
             .filter(c => {
@@ -140,15 +118,10 @@ class DeckBuilder extends Component {
                 return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
             });
 
-        let content;
-        if(this.state.factionCards.isEmpty()) {
-            content = <div>Please, select faction to see corresponding factionCards.</div>;
-        } else {
-            content = cards.toJS().sort((c1, c2) => c1.type - c2.type).map((c, i) => {
-                const cardPN = parseInt(c.id.slice(-3), 10);
-                return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this.toggleCardInDeck, this.state.deck.some(v => v.id === c.id))
-            })
-        }
+        const content = cards.toJS().sort((c1, c2) => c1.type - c2.type || c1.id - c2.id).map((c, i) => {
+            const cardPN = parseInt(c.id.slice(-3), 10);
+            return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this.toggleCardInDeck, this.state.deck.some(v => v.id === c.id))
+        });
 
         return (
             <div style={{display: 'flex'}}>

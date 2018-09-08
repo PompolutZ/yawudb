@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ToggleImageButton from './ToggleImageButton';
-import { expansionCardsU, expansionCodeName } from '../data/index';
+import { setInfos, setsIndex } from '../data/index';
 import * as _ from 'lodash';
 
 class ExpansionsToggle extends Component {
@@ -34,11 +34,11 @@ class ExpansionsToggle extends Component {
     }
 
     componentDidMount() {
-        this.setState(state => ({expansions: _.keys(expansionCardsU)}));    
+        this.setState(state => ({expansions: _.keys(setInfos)}));    
     }
 
     renderIndex(v){
-        const name = expansionCodeName[v];
+        const name = setsIndex[v];
         return <ToggleImageButton key={name}
                     isOff={!this.state.selectedExpansions.includes(v)} 
                     onImage={`/assets/icons/${name}-icon.png`}

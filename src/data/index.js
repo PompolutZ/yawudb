@@ -29,399 +29,116 @@ export const factionCards = {
     "the-farstriders" : [1, 204, 232],
 }
 
-export const expansionCards = {
-    "sepulchral-guard": [
-        "01059",
-        "01060",
-        "01061",
-        "01062",
-        "01063",
-        "01064",
-        "01065",
-        "01066",
-        "01067",
-        "01068",
-        "01069",
-        "01070",
-        "01071",
-        "01072",
-        "01073",
-        "01074",
-        "01075",
-        "01076",
-        "01077",
-        "01078",
-        "01079",
-        "01080",
-        "01081",
-        "01082",
-        "01083",
-        "01084",
-        "01085",
-        "01086",
-        "01087",
-        "01240",
-        "01250",
-        "01254",
-        "01259",
-        "01281",
-        "01287",
-        "01290",
-        "01293",
-        "01296",
-        "01297",
-        "01299",
-        "01324",
-        "01325",
-        "01332",
-        "01339",
-        "01353",
-        "01357",
-        "01364",
-        "01368",
-        "01370",
-        "01371",
-        "01375",
-        "01377",
-        "01379",
-        "01380",
-        "01393",
-        "01401",
-        "01414",
-        "01418",
-        "01420",
-        "01426"
-    ],
-    "ironskulls-boyz": [
-        "01088",
-        "01089",
-        "01090",
-        "01091",
-        "01092",
-        "01093",
-        "01094",
-        "01095",
-        "01096",
-        "01097",
-        "01098",
-        "01099",
-        "01100",
-        "01101",
-        "01102",
-        "01103",
-        "01104",
-        "01105",
-        "01106",
-        "01107",
-        "01108",
-        "01109",
-        "01110",
-        "01111",
-        "01112",
-        "01113",
-        "01114",
-        "01115",
-        "01116",
-        "01239",
-        "01241",
-        "01248",
-        "01255",
-        "01256",
-        "01260",
-        "01282",
-        "01288",
-        "01291",
-        "01302",
-        "01305",
-        "01308",
-        "01312",
-        "01315",
-        "01318",
-        "01319",
-        "01320",
-        "01341",
-        "01345",
-        "01346",
-        "01359",
-        "01381",
-        "01382",
-        "01387",
-        "01396",
-        "01402",
-        "01405",
-        "01411",
-        "01416",
-        "01423",
-        "01430"
-    ],
-    "the-chosen-axes": [
-        "01117",
-        "01118",
-        "01119",
-        "01120",
-        "01121",
-        "01122",
-        "01123",
-        "01124",
-        "01125",
-        "01126",
-        "01127",
-        "01128",
-        "01129",
-        "01130",
-        "01131",
-        "01132",
-        "01133",
-        "01134",
-        "01135",
-        "01136",
-        "01137",
-        "01138",
-        "01139",
-        "01140",
-        "01141",
-        "01142",
-        "01143",
-        "01144",
-        "01145",
-        "01237",
-        "01251",
-        "01268",
-        "01270",
-        "01277",
-        "01280",
-        "01284",
-        "01294",
-        "01300",
-        "01301",
-        "01303",
-        "01310",
-        "01314",
-        "01316",
-        "01321",
-        "01327",
-        "01337",
-        "01344",
-        "01348",
-        "01366",
-        "01369",
-        "01392",
-        "01400",
-        "01403",
-        "01404",
-        "01408",
-        "01409",
-        "01417",
-        "01419",
-        "01425",
-        "01435"
-    ],
-    "spiteclaws-swarm": [
-        "01146",
-        "01147",
-        "01148",
-        "01149",
-        "01150",
-        "01151",
-        "01152",
-        "01153",
-        "01154",
-        "01155",
-        "01156",
-        "01157",
-        "01158",
-        "01159",
-        "01160",
-        "01161",
-        "01162",
-        "01163",
-        "01164",
-        "01165",
-        "01166",
-        "01167",
-        "01168",
-        "01169",
-        "01170",
-        "01171",
-        "01172",
-        "01173",
-        "01174",
-        "01235",
-        "01242",
-        "01249",
-        "01257",
-        "01272",
-        "01274",
-        "01276",
-        "01279",
-        "01286",
-        "01295",
-        "01298",
-        "01309",
-        "01313",
-        "01317",
-        "01336",
-        "01342",
-        "01349",
-        "01351",
-        "01352",
-        "01358",
-        "01362",
-        "01374",
-        "01376",
-        "01386",
-        "01394",
-        "01399",
-        "01412",
-        "01415",
-        "01421",
-        "01428",
-        "01432"
-    ],
-    "magores-fiends": [
-        "01175",
-        "01176",
-        "01177",
-        "01178",
-        "01179",
-        "01180",
-        "01181",
-        "01182",
-        "01183",
-        "01184",
-        "01185",
-        "01186",
-        "01187",
-        "01188",
-        "01189",
-        "01190",
-        "01191",
-        "01192",
-        "01193",
-        "01194",
-        "01195",
-        "01196",
-        "01197",
-        "01198",
-        "01199",
-        "01200",
-        "01201",
-        "01202",
-        "01203",
-        "01233",
-        "01244",
-        "01262",
-        "01269",
-        "01271",
-        "01273",
-        "01275",
-        "01283",
-        "01285",
-        "01306",
-        "01307",
-        "01323",
-        "01328",
-        "01331",
-        "01335",
-        "01340",
-        "01343",
-        "01350",
-        "01354",
-        "01365",
-        "01367",
-        "01383",
-        "01384",
-        "01388",
-        "01398",
-        "01410",
-        "01424",
-        "01427",
-        "01433",
-        "01434",
-        "01436"
-    ],
-    "the-farstriders": [
-        "01204",
-        "01205",
-        "01206",
-        "01207",
-        "01208",
-        "01209",
-        "01210",
-        "01211",
-        "01212",
-        "01213",
-        "01214",
-        "01215",
-        "01216",
-        "01217",
-        "01218",
-        "01219",
-        "01220",
-        "01221",
-        "01222",
-        "01223",
-        "01224",
-        "01225",
-        "01226",
-        "01227",
-        "01228",
-        "01229",
-        "01230",
-        "01231",
-        "01232",
-        "01234",
-        "01238",
-        "01243",
-        "01245",
-        "01246",
-        "01252",
-        "01258",
-        "01261",
-        "01278",
-        "01289",
-        "01304",
-        "01322",
-        "01326",
-        "01329",
-        "01333",
-        "01334",
-        "01338",
-        "01347",
-        "01356",
-        "01361",
-        "01372",
-        "01373",
-        "01378",
-        "01395",
-        "01397",
-        "01406",
-        "01407",
-        "01413",
-        "01422",
-        "01429",
-        "01437"
-    ]
+// 0 index indicates the default set containing corresponding faction's cards
+export const factionSets = {
+    "universal" : [0, 1, 2, 3, 4, 5, 6, 7],
+    "garreks-reavers" : [0, 7],
+    "steelhearts-champions" : [0, 7],
+    "sepulchral-guard" : [1, 7],
+    "ironskulls-boyz" : [2, 7],
+    "the-chosen-axes" : [3, 7],
+    "spiteclaws-swarm" : [4, 7],
+    "magores-fiends" : [5, 7],
+    "the-farstriders" : [6, 7],
 }
 
-export const expansionCodeName = [
-    "universal",
+export const setsIndex = [
+    "shadespire-core",
     "sepulchral-guard",
     "ironskulls-boyz",
     "the-chosen-axes",
     "spiteclaws-swarm",
     "magores-fiends",
     "the-farstriders",
-];
+    "leaders",
+    //"nightvault-core"
+]
 
-export const expansionCardsU =  {
-    "0":[1, 236, 236, 247, 247, 253, 253, 263, 263, 264, 264, 265, 265, 266, 266, 267, 267, 292, 292, 311, 311, 330, 330, 355, 355, 360, 360, 363, 363, 385, 385, 389, 389, 390, 390, 391, 391, 431, 431],
-    "1":[1, 240,250,254,259,281,287,290,293,296,297,299,324,325,332,339,353,357,364,368,370,371,375,377,379,380,393,401,414,418,420,426],
-    "2":[1, 239,241,248,255,256,260,282,288,291,302,305,308,312,315,318,319,320,341,345,346,359,381,382,387,396,402,405,411,416,423,430],
-    "3":[1, 237,251,268,270,277,280,284,294,300,301,303,310,314,316,321,327,337,344,348,366,369,392,400,403,404,408,409,417,419,425,435],
-    "4":[1, 235,242,249,257,272,274,276,279,286,295,298,309,313,317,336,342,349,351,352,358,362,374,376,386,394,399,412,415,421,428,432],
-    "5":[1, 233,244,262,269,271,273,275,283,285,306,307,323,328,331,335,340,343,350,354,365,367,383,384,388,398,410,424,427,433,434,436],
-    "6":[1, 234,238,243,245,246,252,258,261,278,289,304,322,326,329,333,334,338,347,356,361,372,373,378,395,397,406,407,413,422,429,437]
+export const factionIndexes = [
+    "universal",
+    "garreks-reavers",
+    "steelhearts-champions",
+    "sepulchral-guard",
+    "ironskulls-boyz",
+    "the-chosen-axes",
+    "spiteclaws-swarm",
+    "magores-fiends",
+    "the-farstriders"
+]
+
+const getDbIndexByWaveAndCard = (wave, card) => {
+    return (`00` + wave).slice(-2) + (`000` + card).slice(-3);
+}
+
+export const getCardsByFactionAndSets = (faction, sets) => {
+    let cardIds = [];
+    const setsWithFactionSet = [...sets, factionSets[faction][0]];
+    const fIndex = factionIndexes.indexOf(faction);
+
+    for (let s of setsWithFactionSet) {
+        const set = setInfos[s];
+        if(set.hasOwnProperty(fIndex)) {
+            cardIds = [...cardIds, ...set[fIndex].map(c => getDbIndexByWaveAndCard(set.wave, c))]
+        }
+    }
+
+    return cardIds;
+}
+
+export const setInfos = {
+    '0' : {
+        wave: 1,
+        '0' : [236, 236, 247, 247, 253, 253, 263, 263, 264, 264, 265, 265, 266, 266, 267, 267, 292, 292, 311, 311, 330, 330, 355, 355, 360, 360, 363, 363, 385, 385, 389, 389, 390, 390, 391, 391, 431, 431],
+        '1' : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+        '2' : [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58]
+    },
+    '1' : {
+        wave: 1,
+        '0' : [240,250,254,259,281,287,290,293,296,297,299,324,325,332,339,353,357,364,368,370,371,375,377,379,380,393,401,414,418,420,426],
+        '3' : [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87]
+    },
+    '2' : {
+        wave: 1,
+        '0' : [239,241,248,255,256,260,282,288,291,302,305,308,312,315,318,319,320,341,345,346,359,381,382,387,396,402,405,411,416,423,430],
+        '4' : [88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
+    },
+    '3' : {
+        wave: 1,
+        '0' : [237,251,268,270,277,280,284,294,300,301,303,310,314,316,321,327,337,344,348,366,369,392,400,403,404,408,409,417,419,425,435],
+        '5' : [117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145]
+    },
+    '4' : {
+        wave: 1,
+        '0' : [235,242,249,257,272,274,276,279,286,295,298,309,313,317,336,342,349,351,352,358,362,374,376,386,394,399,412,415,421,428,432],
+        '6' : [146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174]
+    },
+    '5': {
+        wave: 1,
+        '0' : [233,244,262,269,271,273,275,283,285,306,307,323,328,331,335,340,343,350,354,365,367,383,384,388,398,410,424,427,433,434,436],
+        '7' : [175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203]
+    },
+    '6': {
+        wave: 1,
+        '0' : [234,238,243,245,246,252,258,261,278,289,304,322,326,329,333,334,338,347,356,361,372,373,378,395,397,406,407,413,422,429,437],
+        '8' : [204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232]
+    },
+    '7' : {
+        wave: 2,
+        '0' : [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60],
+        '1' : [3, 4],
+        '2' : [1, 2],
+        '3' : [5, 6],
+        '4' : [7, 8],
+        '5' : [9, 10],
+        '6' : [11, 12],
+        '7' : [13, 14],
+        '8' : [15, 16]
+    },
+}
+
+export const totalCardsPerWave = {
+    1: 437,
+    2: 60
 }
 
 export const universalCardsStartNumber = 233;
@@ -3922,5 +3639,485 @@ export const cardsDb = {
         "rule": "This fighter is considered to have an additional supporting fighter while they are holding an objective",
         "set": 6,
         "faq": "-"
-    }
+    },
+    "02001": {
+        "name": "Invulnerable",
+        "factions": 2,
+        "type": 1,
+        "rule": "Your leader has +1 Defence for the first Attack action in the next activation",
+        "set": 7,
+        "faq": "-"
+    },
+    "02002": {
+        "name": "Steelheart’s Second",
+        "factions": 2,
+        "type": 2,
+        "rule": "This fighter’s Attack actions have +1 Damage when they are adjacent to a friendly leader",
+        "set": 7,
+        "faq": "-"
+    },
+    "02003": {
+        "name": "The Stage Is Set",
+        "factions": 1,
+        "type": 0,
+        "rule": "Score this in an end phase if the only surviving fighters (at least 2) are leaders",
+        "set": 7,
+        "faq": "-"
+    },
+    "02004": {
+        "name": "Coveted Trophy",
+        "factions": 1,
+        "type": 1,
+        "rule": "Reaction: Play this when your leader takes an enemy leader out of action. Gain a glory point",
+        "set": 7,
+        "faq": "-"
+    },
+    "02005": {
+        "name": "Fervent Petition",
+        "factions": 3,
+        "type": 0,
+        "rule": "Score this in an end phase if three friendly Petitioners are surviving and Inspired",
+        "set": 7,
+        "faq": "-"
+    },
+    "02006": {
+        "name": "Warden’s Call",
+        "factions": 3,
+        "type": 2,
+        "rule": "Action: Choose two friendly fighters (other than your leader) and put them on Guard",
+        "set": 7,
+        "faq": "-"
+    },
+    "02007": {
+        "name": "Showin’ Off",
+        "factions": 4,
+        "type": 0,
+        "rule": "Score this in an end phase is your leader took two or more enemy fighters out of action in the preceding action phase",
+        "set": 7,
+        "faq": "-"
+    },
+    "02008": {
+        "name": "Impress da Boss",
+        "factions": 4,
+        "type": 1,
+        "rule": "+1 Damage for the first Attack action in the next activation made by a friendly fighter adjacent to your leader",
+        "set": 7,
+        "faq": "-"
+    },
+    "02009": {
+        "name": "Pride of the Lodge",
+        "factions": 5,
+        "type": 0,
+        "rule": "Score this in an end phase if your leader has three or more upgrades with his warband symbol",
+        "set": 7,
+        "faq": "-"
+    },
+    "02010": {
+        "name": "Grimnir Commands",
+        "factions": 5,
+        "type": 1,
+        "rule": "The first friendly fighter (other than your leader) to make a Move action (not as part of a Charge action) in the next activation has +2 Move. You can only play this if your leader is on the battlefield",
+        "set": 7,
+        "faq": "-"
+    },
+    "02011": {
+        "name": "Krrk Now Leads!",
+        "factions": 6,
+        "type": 0,
+        "rule": "Score this in an end phase if your leader is out of action and a friendly fighter named Krrk is on the battlefield",
+        "set": 7,
+        "faq": "-"
+    },
+    "02012": {
+        "name": "Krrk the Clawchief",
+        "factions": 6,
+        "type": 2,
+        "rule": "Action: Return a friendly fighter (other than Skritch) to the battlefield in an empty hex adjacent to this fighter",
+        "set": 7,
+        "faq": "-"
+    },
+    "02013": {
+        "name": "Khorne’s Chosen",
+        "factions": 7,
+        "type": 0,
+        "rule": "Score this in an end phase if your leader is the only surviving fighter",
+        "set": 7,
+        "faq": "-"
+    },
+    "02014": {
+        "name": "Gory Visage",
+        "factions": 7,
+        "type": 2,
+        "rule": "Attack actions that target this fighter deal 1 less damage, to a minimum of 1",
+        "set": 7,
+        "faq": "-"
+    },
+    "02015": {
+        "name": "Intervention",
+        "factions": 8,
+        "type": 0,
+        "rule": "Score this immediately if your leader takes an enemy holding an objective out of action",
+        "set": 7,
+        "faq": "-"
+    },
+    "02016": {
+        "name": "Raptor Strike",
+        "factions": 8,
+        "type": 1,
+        "rule": "Choose an enemy fighter within four hexes of your leader. They take 1 damage",
+        "set": 7,
+        "faq": "-"
+    },
+    "02017": {
+        "name": "Bold Advance",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this in the first end phase if your leader is in enemy territory",
+        "set": 7,
+        "faq": "-"
+    },
+    "02018": {
+        "name": "Drawing Focus",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this immediately if your leader is chosen by three or more ploys in this phase",
+        "set": 7,
+        "faq": "-"
+    },
+    "02019": {
+        "name": "Fearless Leader",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this in an end phase if your leader is the only friendly fighter adjacent to any enemy fighters",
+        "set": 7,
+        "faq": "-"
+    },
+    "02020": {
+        "name": "Great Slayer",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this immediately if your leader takes three or more enemy fighters out of action in this phase",
+        "set": 7,
+        "faq": "-"
+    },
+    "02021": {
+        "name": "Impervious",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this in an end phase if your leader is on the battlefield and was the target of three or more Attack actions in the preceding action phase",
+        "set": 7,
+        "faq": "-"
+    },
+    "02022": {
+        "name": "Linchpin",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this immediately if your leader was a supporting fighter during three or more Attack actions in this phase",
+        "set": 7,
+        "faq": "-"
+    },
+    "02023": {
+        "name": "Neutralise",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this in the first end phase if an enemy leaders is out of action",
+        "set": 7,
+        "faq": "-"
+    },
+    "02024": {
+        "name": "Shining Example",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this in an end phase if your leader is on the battlefield and Inspired",
+        "set": 7,
+        "faq": "-"
+    },
+    "02025": {
+        "name": "Slayer",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this immediately if your leader takes two or more enemy fighters out of action in this phase",
+        "set": 7,
+        "faq": "-"
+    },
+    "02026": {
+        "name": "Sufficient",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this in an end phase if your leader is the only friendly fighter on the battlefield",
+        "set": 7,
+        "faq": "-"
+    },
+    "02027": {
+        "name": "Tireless Commander",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this in an end phase if you activated your leader with four activations in the preceding action phase",
+        "set": 7,
+        "faq": "-"
+    },
+    "02028": {
+        "name": "Undefeated",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this in the third end phase if your leader is on the battlefield",
+        "set": 7,
+        "faq": "-"
+    },
+    "02029": {
+        "name": "Well-guarded",
+        "factions": 0,
+        "type": 0,
+        "rule": "Score this in an end phase if your leader is adjacent to two or more friendly fighters",
+        "set": 7,
+        "faq": "-"
+    },
+    "02030": {
+        "name": "Burden of Command",
+        "factions": 0,
+        "type": 1,
+        "rule": "Choose an enemy leader. Their Move characteristic (before other modifiers) is 1 for the next activation",
+        "set": 7,
+        "faq": "-"
+    },
+    "02031": {
+        "name": "Cautious Commander",
+        "factions": 0,
+        "type": 1,
+        "rule": "Put your leader on Guard",
+        "set": 7,
+        "faq": "-"
+    },
+    "02032": {
+        "name": "Commanding Reach",
+        "factions": 0,
+        "type": 1,
+        "rule": "Your leader’s first Attack action with a Range of 1 that only targets a single fighter in the next activation has a Range of 2",
+        "set": 7,
+        "faq": "-"
+    },
+    "02033": {
+        "name": "Commanding Strike",
+        "factions": 0,
+        "type": 1,
+        "rule": "You can re-roll one attack dice during your leader’s first Attack action in the next activation",
+        "set": 7,
+        "faq": "-"
+    },
+    "02034": {
+        "name": "Crippling Doubt",
+        "factions": 0,
+        "type": 1,
+        "rule": "Choose an enemy leader. The Dice characteristic (before other modifiers) of their first Attack action in the next activation is 1",
+        "set": 7,
+        "faq": "-"
+    },
+    "02035": {
+        "name": "Final Duty",
+        "factions": 0,
+        "type": 1,
+        "rule": "Reaction: Play this during an Attack action that will take your leader out of action, before they are removed from the battlefield. Roll an attack dice. On a roll of Hammer or Critical Hit, make an Attack action with them before they are removed from the battlefield",
+        "set": 7,
+        "faq": "-"
+    },
+    "02036": {
+        "name": "Great Cunning",
+        "factions": 0,
+        "type": 1,
+        "rule": "Reaction: Play this after you play a power card in the power step. You can immediately play another power card. You can only play this if your leader is on the battlefield",
+        "set": 7,
+        "faq": "-"
+    },
+    "02037": {
+        "name": "Hidden Reserves",
+        "factions": 0,
+        "type": 1,
+        "rule": "Remove one wound token from your leader’s fighter card",
+        "set": 7,
+        "faq": "-"
+    },
+    "02038": {
+        "name": "Inspired Command",
+        "factions": 0,
+        "type": 1,
+        "rule": "Choose a friendly fighter (other than your leader) and push them up to one hex or put them on Guard. You can only play this if your leader is on the battlefield",
+        "set": 7,
+        "faq": "-"
+    },
+    "02039": {
+        "name": "Look Out!",
+        "factions": 0,
+        "type": 1,
+        "rule": "Reaction: Play this during an Attack action that will damage your leader. Roll a defence dice. On a roll of Single Support, Double Support, or Critical Hit, choose a friendly fighter adjacent to them. That fighter suffers the damage instead, then 1 additional damage, and no fighters are driven back",
+        "set": 7,
+        "faq": "-"
+    },
+    "02040": {
+        "name": "No Retreat",
+        "factions": 0,
+        "type": 1,
+        "rule": "Reaction: Play this during an Attack action that targets your leader, after the dice are rolled. Your leader cannot be driven back by the Attack action",
+        "set": 7,
+        "faq": "-"
+    },
+    "02041": {
+        "name": "Premonition",
+        "factions": 0,
+        "type": 1,
+        "rule": "In the next activation, you can re-roll one or more defence dice when your leader is the target of an Attack action",
+        "set": 7,
+        "faq": "-"
+    },
+    "02042": {
+        "name": "Quick Advance",
+        "factions": 0,
+        "type": 1,
+        "rule": "Choose up to two friendly fighters (other than your leader) and push each of them up to one hex. You can only play this if your leader is on the battlefield",
+        "set": 7,
+        "faq": "-"
+    },
+    "02043": {
+        "name": "Quick Manoeuvre",
+        "factions": 0,
+        "type": 1,
+        "rule": "Choose your leader and an adjacent friendly fighter. Switch their positions",
+        "set": 7,
+        "faq": "-"
+    },
+    "02044": {
+        "name": "Tyrant’s Command",
+        "factions": 0,
+        "type": 1,
+        "rule": "Choose a friendly fighter (other than your leader) that has a Move token. Remove that token: that fighter is not considered to have moved for the purposes of their subsequent actions. You can only play this if your leader is on the battlefield",
+        "set": 7,
+        "faq": "-"
+    },
+    "02045": {
+        "name": "Apex Predator",
+        "factions": 0,
+        "type": 2,
+        "rule": "When this fighter takes an enemy leader out of action, gain an additional glory point",
+        "set": 7,
+        "faq": "-"
+    },
+    "02046": {
+        "name": "Commanding Presence",
+        "factions": 0,
+        "type": 2,
+        "rule": "This fighter is considered to be two supporting fighters when it supports another fighter",
+        "set": 7,
+        "faq": "-"
+    },
+    "02047": {
+        "name": "Commanding Shout",
+        "factions": 0,
+        "type": 2,
+        "rule": "Action: Push a friendly fighter (other than your leader) up to two hexes",
+        "set": 7,
+        "faq": "-"
+    },
+    "02048": {
+        "name": "Cursed Shield",
+        "factions": 0,
+        "type": 2,
+        "rule": "+1 Defence, -2 Wounds (to a minimum of 1)",
+        "set": 7,
+        "faq": "-"
+    },
+    "02049": {
+        "name": "Hero’s Mantle",
+        "factions": 0,
+        "type": 2,
+        "rule": "If this fighter is on the battlefield in the third end phase, gain 1 glory point",
+        "set": 7,
+        "faq": "-"
+    },
+    "02050": {
+        "name": "Irresistible Challenge",
+        "factions": 0,
+        "type": 2,
+        "rule": "Reaction: During an adjacent enemy fighter’s Attack action, before any dice are rolled, change the target of that Attack action to this fighter and discard this card",
+        "set": 7,
+        "faq": "-"
+    },
+    "02051": {
+        "name": "Katophrane's Ring [Relic]",
+        "factions": 0,
+        "type": 2,
+        "rule": "If this fighter has two or more Katophrane Relics, they gain the following (cumulative) abilities: 2+ Relics: Reaction: During an Attack action that targets this fighter, re-roll the defence dice 3+ Relics: Reaction: During this fighter's Attack action, re-roll the attack dice 4+ Relics: Reaction: After this fighter's action, draw two power cards 6+ Relics: Action: Gain 4 glory points",
+        "set": 7,
+        "faq": "-"
+    },
+    "02052": {
+        "name": "Kingsbane",
+        "factions": 0,
+        "type": 2,
+        "rule": "Hex 1 Sword 2 Damage 3 If the target is a leader, you can re-roll one attack dice when making this Attack action",
+        "set": 7,
+        "faq": "-"
+    },
+    "02053": {
+        "name": "Loyal Defender",
+        "factions": 0,
+        "type": 2,
+        "rule": "Reaction: After an enemy fighter makes a Move action and ends their move adjacent to another friendly fighter that is your leader, push this fighter up to two hexes. They must end the push adjacent to the enemy fighter",
+        "set": 7,
+        "faq": "-"
+    },
+    "02054": {
+        "name": "Master of Tactics",
+        "factions": 0,
+        "type": 2,
+        "rule": "If this fighter is on the battlefield, at the beginning of the round you can draw one objective card. If you do so, discard one objective card",
+        "set": 7,
+        "faq": "-"
+    },
+    "02055": {
+        "name": "Mighty Shove",
+        "factions": 0,
+        "type": 2,
+        "rule": "Action: Push an adjacent enemy fighter up to one hex",
+        "set": 7,
+        "faq": "-"
+    },
+    "02056": {
+        "name": "Rising to the Challenge",
+        "factions": 0,
+        "type": 2,
+        "rule": "If your leader is out of action, this fighter has +1 Wounds and the Attack actions on their fighter card have +1 Dice",
+        "set": 7,
+        "faq": "-"
+    },
+    "02057": {
+        "name": "Seize the Day",
+        "factions": 0,
+        "type": 2,
+        "rule": "Reaction: After this fighter makes a Move action (not as part of a Charge action) discard this card. They do not gain a Move token and are not considered to have moved for the purposes of their subsequent actions",
+        "set": 7,
+        "faq": "-"
+    },
+    "02058": {
+        "name": "Treacherous Second",
+        "factions": 0,
+        "type": 2,
+        "rule": "Reaction: After an action or ploy that takes your leader out of action, if this fighter is on the battlefield, gain 1 glory point",
+        "set": 7,
+        "faq": "-"
+    },
+    "02059": {
+        "name": "Trusted Second",
+        "factions": 0,
+        "type": 2,
+        "rule": "If this fighter is supporting your leader, they are considered to be two supporting fighters",
+        "set": 7,
+        "faq": "-"
+    },
+    "02060": {
+        "name": "Tyrant’s Lash",
+        "factions": 0,
+        "type": 2,
+        "rule": "Reaction: After an adjacent friendly fighter’s Attack action that fails, that fighter takes 2 damage. If they survive, they can make another Attack action",
+        "set": 7,
+        "faq": "-"
+    }    
 }

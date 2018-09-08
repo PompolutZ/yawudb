@@ -5,6 +5,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { ReadonlyDeck } from '../components/Deck';
 import { OrderedSet } from 'immutable';
 import { cardsDb } from '../data';
+import FloatingActionButton from '../components/FloatingActionButton';
+import AddIcon from '@material-ui/icons/Add';
+import { withRouter } from 'react-router-dom';
 
 class Home extends Component {
     state = {
@@ -21,6 +24,7 @@ class Home extends Component {
     }
 
     render() {
+        const { history } = this.props;
         if(!this.state.lastAddedDeck) {
             return (
                 <div style={{display: 'flex', height: '100vh'}}>
@@ -37,9 +41,12 @@ class Home extends Component {
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div>
                 <ReadonlyDeck name={name} created={created.toDate()} sets={sets} faction={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
+                <FloatingActionButton isEnabled onClick={() => history.push('/newdeck')}>
+                    <AddIcon />
+                </FloatingActionButton>
             </div>
         );
     }
 }
 
-export default Home;
+export default withRouter(Home);
