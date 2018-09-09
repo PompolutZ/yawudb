@@ -13,7 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withRouter } from 'react-router';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -30,8 +30,13 @@ const styles = {
   list: {
     width: 250,
   },
-
-};
+  
+  addNewDeckBtn: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
+  }
+});
 
 class ButtonAppBar extends Component {
     state = {
@@ -69,6 +74,9 @@ class ButtonAppBar extends Component {
                 <Typography variant="title" color="inherit" className={classes.flex}>
                   Yet Another WUdb
                 </Typography>
+                <Button className={classes.addNewDeckBtn} color="inherit" onClick={() => history.push('/newdeck')}>
+                  Create New Deck
+                </Button>
                 <Button color="inherit">Login</Button>
               </Toolbar>
             </AppBar>

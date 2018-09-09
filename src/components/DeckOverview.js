@@ -17,7 +17,7 @@ import { cardSetIcons, cardsDb, cardType } from '../data/index';
 
 const styles = theme => ({
   card: {
-    maxWidth: 400,
+    // maxWidth: 400,
   },
   media: {
     height: 0,

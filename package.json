@@ -8,6 +8,7 @@
     "firebase": "^5.4.1",
     "immutable": "^3.8.2",
     "lodash": "^4.17.10",
+    "material-ui-community-icons": "^0.15.0",
     "npm": "^6.3.0",
     "popmotion-pose": "^2.0.6",
     "randomcolor": "^0.5.3",

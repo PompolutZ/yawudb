@@ -4,13 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
 const styles = theme => ({
-    '@media screen and (min-width: 768px)' : {
+    '@media screen and (min-width: 1024px)' : {
         mobileOnly : {
-            opacity: 0
+            opacity: 0,
         }
     },
 
-    '@media screen and (max-width: 600px)' : {
+    '@media screen and (max-width: 768px)' : {
         default: {
             position: 'fixed', 
             bottom: '44px', 

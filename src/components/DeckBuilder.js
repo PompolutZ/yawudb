@@ -93,13 +93,8 @@ class DeckBuilder extends Component {
     }
 
     componentDidMount() {
-        console.log('Faction', this.props.faction);
         const cards = getCardsByFactionAndSets(this.props.faction, this.state.selectedSets);
         this.setState({cards: new Set(cards)});
-    }
-
-    componentWillUnmount() {
-        console.log('Will Unmount');
     }
 
     handleShowDeckMobile() {
@@ -109,16 +104,21 @@ class DeckBuilder extends Component {
     render() {
         const filtersAreaHeight = this.state.filtersVisible ? 'auto' : 0;
         const searchText = this.state.searchText.toUpperCase();
-        const cards = this.state.cards
-            .map(cid => ({id: cid, ...cardsDb[cid]}))
-            .filter(({ type }) => this.state.visibleCardTypes.includes(type))
-            .filter(c => {
-                if(!this.state.searchText) return true;
+        const cards = this.state.cards.map(cid => ({id: cid, ...cardsDb[cid]}));
+        let filteredCards; 
+        if(isNaN(searchText)) {
+            filteredCards = cards
+                .filter(({ type }) => this.state.visibleCardTypes.includes(type))
+                .filter(c => {
+                    if(!this.state.searchText) return true;
 
-                return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
-            });
+                    return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
+                });
+        } else {
+            filteredCards = cards.filter(({ id }) => id.slice(-3).includes(searchText));
+        }
 
-        const content = cards.toJS().sort((c1, c2) => c1.type - c2.type || c1.id - c2.id).map((c, i) => {
+        const content = filteredCards.toJS().sort((c1, c2) => c1.type - c2.type || c1.id - c2.id).map((c, i) => {
             const cardPN = parseInt(c.id.slice(-3), 10);
             return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this.toggleCardInDeck, this.state.deck.some(v => v.id === c.id))
         });
