@@ -8,6 +8,7 @@ import DeckCreator from './pages/DeckCreator';
 import ButtonAppBar from './components/ButtonAppBar';
 import registerServiceWorker from './registerServiceWorker';
 import Footer from './components/Footer';
+import Login from './pages/Login';
 
 const App = () => (
     <Router>
@@ -17,7 +18,8 @@ const App = () => (
             <Route exact path="/" component={Home} />
             <Route path="/decks" component={Decks} />
             <Route path="/newdeck" component={DeckCreator} />
-
+            <Route path="/login" component={Login} />
+            
             <Footer />
         </div>
     </Router>

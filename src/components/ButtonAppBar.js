@@ -12,6 +12,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withRouter } from 'react-router';
+import firebase from 'firebase/app';
+import auth from 'firebase/auth';
+import firebaseui from 'firebaseui';
 
 const styles = theme => ({
   root: {
@@ -77,7 +80,7 @@ class ButtonAppBar extends Component {
                 <Button className={classes.addNewDeckBtn} color="inherit" onClick={() => history.push('/newdeck')}>
                   Create New Deck
                 </Button>
-                <Button color="inherit">Login</Button>
+                <Button color="inherit" onClick={() => history.push('/login')}>Login</Button>
               </Toolbar>
             </AppBar>
             <div>
