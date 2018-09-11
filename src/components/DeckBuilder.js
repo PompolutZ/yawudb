@@ -164,13 +164,13 @@ class DeckBuilder extends Component {
                             onToggleCardInDeck={this.toggleCardInDeck}
                             onSave={this.saveCurrentDeck} />
                 </div>
-                <div className="fullscreenDeck" style={{visibility: this.state.isMobileDeckVisible && !this.state.deck.isEmpty() ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
+                <div className="fullscreenDeck" style={{visibility: this.state.isMobileDeckVisible ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
                     <Deck faction={this.props.faction} 
                             cards={this.state.deck} 
                             onToggleCardInDeck={this.toggleCardInDeck}
                             onSave={this.saveCurrentDeck} />
                 </div>
-                <FloatingActionButton isEnabled={!this.state.deck.isEmpty()} onClick={this.handleShowDeckMobile}>
+                <FloatingActionButton isEnabled onClick={this.handleShowDeckMobile}>
                     <ReorderIcon />
                 </FloatingActionButton>
             </div>

@@ -78,7 +78,7 @@ class Deck extends Component {
                 {
                     upgrades.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
                 }
-                <div style={{display: 'flex', paddingBottom: '3rem'}}>
+                <div style={{display: 'flex', paddingBottom: '5rem'}}>
                     <Button style={{margin: 'auto'}} onClick={() => onSave(this.state.name)}>
                         Save
                     </Button>

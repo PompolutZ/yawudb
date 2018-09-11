@@ -10,8 +10,8 @@ export const factions = {
     "the-farstriders" : "The Farstriders",
 }
 
-export const cardSet = ["Core set", "Sepulchral Guard expansion", "Ironskull's Boyz expansion", "The Chosen Axes expansion", "Spiteclaw's Swarm expansion", "Magore's Fiends expansion", "The Farstriders expansion"];
-export const cardSetIcons = ["universal", "sepulchral-guard", "ironskulls-boyz", "the-chosen-axes", "spiteclaws-swarm", "magores-fiends", "the-farstriders"];
+export const cardSet = ["Core set", "Sepulchral Guard expansion", "Ironskull's Boyz expansion", "The Chosen Axes expansion", "Spiteclaw's Swarm expansion", "Magore's Fiends expansion", "The Farstriders expansion", "Leaders expansion"];
+export const cardSetIcons = ["universal", "sepulchral-guard", "ironskulls-boyz", "the-chosen-axes", "spiteclaws-swarm", "magores-fiends", "the-farstriders", "leaders"];
 export const cardType = ["Objective", "Ploy", "Upgrade"]
 export const cardTypeIcons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];
 
@@ -1129,7 +1129,7 @@ export const cardsDb = {
         "faq": "-"
     },
     "01124": {
-        "name": "Scion of Grminir",
+        "name": "Scion of Grimnir",
         "factions": 5,
         "type": 0,
         "rule": "Score this immediately if your leader takes an enemy fighter out of action",
@@ -2681,7 +2681,7 @@ export const cardsDb = {
         "faq": "-"
     },
     "01318": {
-        "name": "Distractions",
+        "name": "Distraction",
         "factions": 0,
         "type": 1,
         "rule": "Choose an enemy fighter and push them one hex",
