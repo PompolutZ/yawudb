@@ -7236,6 +7236,12 @@ react-event-listener@^0.6.0:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
+react-google-button@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/react-google-button/-/react-google-button-0.5.3.tgz#d8c76328e51b55f2835a4ebe23817906dac6a4f8"
+  dependencies:
+    prop-types "^15.5.8"
+
 react-jss@^8.1.0:
   version "8.5.1"
   resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.5.1.tgz#f97c72f6a1c86aa6408932a2a2836ce40c0ab9fc"
