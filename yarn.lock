@@ -7351,6 +7351,12 @@ react-scripts@1.1.4:
   optionalDependencies:
     fsevents "^1.1.3"
 
+react-social-login-buttons@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-social-login-buttons/-/react-social-login-buttons-2.1.2.tgz#7e700b4e144d033aa1c6a85d6025bd61704cfe91"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-tag-cloud@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/react-tag-cloud/-/react-tag-cloud-1.1.3.tgz#aee6124e73f46727f52c2e613e076bc6f4ebca45"
