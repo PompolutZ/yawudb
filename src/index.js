@@ -14,6 +14,7 @@ import MenuAppBar from './components/MenuAppBar';
 
 import { Provider } from 'react-redux';
 import configureStore from './configureStore';
+import Deck from './pages/Deck';
 
 const store = configureStore();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/newdeck" component={DeckCreator} />
             <Route path="/login" component={Login} />
             <Route path="/mydecks" component={MyDecks} />
+            <Route path="/deck/:id" component={Deck} />
 
             <Footer />
         </div>

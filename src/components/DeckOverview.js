@@ -12,7 +12,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { cardSetIcons, cardsDb, cardType } from '../data/index'; 
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import { cardSetIcons, cardsDb, cardType } from '../data/index';
+import { withRouter } from 'react-router-dom'; 
 
 
 const styles = theme => ({
@@ -83,7 +85,7 @@ class DeckOverview extends React.Component {
   };
 
   render() {
-    const { classes, id, name, sets, cards, created } = this.props;
+    const { classes, id, name, sets, cards, created, history } = this.props;
     const cardsInDeck = cards.map(cardPN => ({id: cardPN, ...cardsDb[cardPN]}));
     const objectives = cardsInDeck.filter(c => c.type === 0);
     const ploys = cardsInDeck.filter(c => c.type === 1);
@@ -126,10 +128,10 @@ class DeckOverview extends React.Component {
           </Typography> */}
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          {/* <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
+          <IconButton aria-label="View the deck" onClick={() => history.push(`/deck/${id}`)}>
+            <VisibilityIcon />
           </IconButton>
-          <IconButton aria-label="Share">
+          {/* <IconButton aria-label="Share">
             <ShareIcon />
           </IconButton> */}
           <IconButton
@@ -186,4 +188,4 @@ DeckOverview.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DeckOverview);
+export default withRouter(withStyles(styles)(DeckOverview));

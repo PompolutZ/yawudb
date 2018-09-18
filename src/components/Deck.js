@@ -113,7 +113,7 @@ export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
                 <Avatar style={{width: '4rem', height: '4rem'}} className="typeicon headerItem" src={`/assets/icons/${faction}-icon.png`} />
                 <div>
                     <Typography variant="title">{name}</Typography>
-                    <Typography variant="subheading">{created.toLocaleDateString()}</Typography>
+                    <Typography variant="subheading">{created ? created.toLocaleDateString() : 'Unknown'}</Typography>
                 </div>
             </div>
 
