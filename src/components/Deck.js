@@ -83,11 +83,11 @@ class Deck extends Component {
                     upgrades.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
                 }
                 <div style={{display: 'flex', paddingBottom: '5rem'}}>
-                    <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={() => onSave(this.state.name)}>
-                        Save
-                    </Button>
                     <Button style={{margin: 'auto', color: 'red'}} onClick={() => this.props.onRemoveAll()}>
                         Remove all
+                    </Button>
+                    <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={() => onSave(this.state.name)}>
+                        Save
                     </Button>
                 </div>
             </div>

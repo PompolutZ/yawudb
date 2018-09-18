@@ -53,6 +53,7 @@ class DeckBuilder extends Component {
     }
 
     toggleCardTypes(cardTypes) {
+        console.log(cardTypes);
         this.setState({visibleCardTypes: cardTypes});
     }
 
@@ -81,7 +82,7 @@ class DeckBuilder extends Component {
 
     saveCurrentDeck(name) {
         const id = uuid4();
-        const deckId = `DELETE_${this.props.faction}-${id.slice(-12)}`;
+        const deckId = `${this.props.faction}-${id.slice(-12)}`;
         const deckPayload = {
             name: !name ? `${factions[this.props.faction]} Deck` : name,
             cards: this.state.deck.map(c => c.id).toJS(),
@@ -139,17 +140,17 @@ class DeckBuilder extends Component {
         const filtersAreaHeight = this.state.filtersVisible ? 'auto' : 0;
         const searchText = this.state.searchText.toUpperCase();
         const cards = this.state.cards.map(cid => ({id: cid, ...cardsDb[cid]}));
-        let filteredCards; 
+        let filteredCards = cards.filter(({ type }) => this.state.visibleCardTypes.includes(type)); 
+
         if(isNaN(searchText)) {
-            filteredCards = cards
-                .filter(({ type }) => this.state.visibleCardTypes.includes(type))
+            filteredCards = filteredCards 
                 .filter(c => {
                     if(!this.state.searchText) return true;
 
                     return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
                 });
         } else {
-            filteredCards = cards.filter(({ id }) => id.slice(-3).includes(searchText));
+            filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
         }
 
         const content = filteredCards.toJS().sort((c1, c2) => c1.type - c2.type || c1.id - c2.id).map((c, i) => {
