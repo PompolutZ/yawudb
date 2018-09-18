@@ -7,11 +7,15 @@ import Decks from './pages/Decks';
 import DeckCreator from './pages/DeckCreator';
 import MyDecks from './pages/MyDecks';
 
-import ButtonAppBar from './components/ButtonAppBar';
 import registerServiceWorker from './registerServiceWorker';
 import Footer from './components/Footer';
 import Login from './pages/Login';
 import MenuAppBar from './components/MenuAppBar';
+
+import { Provider } from 'react-redux';
+import configureStore from './configureStore';
+
+const store = configureStore();
 
 const App = () => (
     <Router>
@@ -29,5 +33,11 @@ const App = () => (
     </Router>
 );
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const Root = () => (
+    <Provider store={store}>
+        <App />
+    </Provider>
+);
+
+ReactDOM.render(<Root />, document.getElementById('root'));
 registerServiceWorker();

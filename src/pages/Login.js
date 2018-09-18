@@ -3,15 +3,12 @@ import firebase from 'firebase';
 import GoogleButton from 'react-google-button';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         
-        this.state = {
-            awaitingUserInfo: false
-        }
-
         this.handleLogin = this.handleLogin.bind(this);
     }
 
@@ -23,12 +20,11 @@ class Login extends Component {
     }
 
     async componentDidMount() {
-        console.log('Hello!', this.state.awaitingUserInfo);
         try {
             const r = await firebase.auth().getRedirectResult();
             if (r.credential) {
                 const {email, displayName, uid} = r.user;
-                console.log(email, displayName, uid);
+                this.props.onLogin({email, displayName, uid});
                 this.props.history.push('/mydecks');
             }
         } catch(error) {
@@ -45,4 +41,10 @@ class Login extends Component {
     }
 }
 
-export default withRouter(Login);
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogin: user => dispatch({type: 'SET_USER', user: user})
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(Login));

@@ -15,6 +15,7 @@ import Menu from '@material-ui/core/Menu';
 import { Drawer, List, ListItem, ListItemText, Button, Avatar } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import firebase from '../firebase';
+import { connect } from 'react-redux';
 
 const styles = {
   root: {
@@ -50,7 +51,7 @@ class MenuAppBar extends React.Component {
     componentDidMount() {
         this.cancelInterval = setInterval(() => {
         const user = firebase.auth().currentUser;
-        
+
         if(user) {
             this.setState(({userAvatarUrl: user.photoURL}))
             clearInterval(this.cancelInterval);
@@ -73,6 +74,18 @@ class MenuAppBar extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+
+  handleSignOut = async () => {
+        this.handleClose();
+        await firebase.auth().signOut();
+        this.setState({userAvatarUrl: null});
+        this.props.onSignOut();
+    }
+
+  handleSignIn = history => {
+        history.push('/login');
+        this.handleClose();
+  }  
 
   render() {
     const { classes, history } = this.props;
@@ -126,15 +139,39 @@ class MenuAppBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
                 </Menu>
               </div>
             )}
             {
                 !userAvatarUrl && (
-                    <Button color="inherit" onClick={() => history.push('/login')}>Login</Button>
-                )
+                    <div>
+                    <IconButton
+                      aria-owns={open ? 'menu-appbar' : null}
+                      aria-haspopup="true"
+                      onClick={this.handleMenu}
+                      color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      open={open}
+                      onClose={this.handleClose}
+                    >
+                      <MenuItem onClick={() => this.handleSignIn(history)}>Sign in</MenuItem>
+                    </Menu>
+                  </div>
+                    )
             }
           </Toolbar>
         </AppBar>
@@ -159,4 +196,12 @@ MenuAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(MenuAppBar));
+const mapDispatchToProps = dispatch => {
+    return {
+        onSignOut: () => {
+            dispatch({type: 'CLEAR_USER'});
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(withStyles(styles)(MenuAppBar)));

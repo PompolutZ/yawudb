@@ -25,14 +25,14 @@ const DeckFaction = ({ faction, defaultName, onChange }) => (
     </div>
 );
 
-const CardsTypeCounter = ({ type, count }) => (
+const CardsTypeCounter = ({ type, count, isValidCount }) => (
     <div style={{
         display: 'flex',
         alignItems: 'center',
         marginRight: '2rem'
     }}>
         <Avatar style={{marginRight: '.5rem'}} src={`/assets/icons/${cardTypeIcons[type]}.png`} />
-        <Typography variant="title">{`${count}`}</Typography>
+        <Typography variant="title" color={isValidCount ? 'default' : 'error'}>{`${count}`}</Typography>
     </div>
 );
 
@@ -52,6 +52,10 @@ class Deck extends Component {
         const objectives = cards.filter(v => v.type === 0);
         const ploys = cards.filter(v => v.type === 1);
         const upgrades = cards.filter(v => v.type === 2);
+        const objectivesCount = objectives.count();
+        const ploysCount = ploys.count();
+        const upgradesCount = upgrades.count();
+        const isValidForSave = objectivesCount === 12 && ((ploysCount + upgradesCount) >= 20);
         return (
             <div>
                 <DeckFaction faction={faction} defaultName={`${factions[this.props.faction]} Deck`} onChange={e => this.setState({name: e.target.value})} />
@@ -61,9 +65,9 @@ class Deck extends Component {
                     marginBottom: '1.5rem',
                     marginTop: '1.5rem'
                 }}>
-                    <CardsTypeCounter type={0} count={objectives.count()} />
-                    <CardsTypeCounter type={1} count={ploys.count()} />
-                    <CardsTypeCounter type={2} count={upgrades.count()} />
+                    <CardsTypeCounter type={0} count={objectivesCount} isValidCount={objectivesCount === 12} />
+                    <CardsTypeCounter type={1} count={ploysCount} isValidCount={(ploysCount + upgradesCount) >= 20} />
+                    <CardsTypeCounter type={2} count={upgradesCount} isValidCount={(ploysCount + upgradesCount) >= 20} />
                 </div>
                 
                 <SectionHeader type={0} />
@@ -79,8 +83,11 @@ class Deck extends Component {
                     upgrades.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
                 }
                 <div style={{display: 'flex', paddingBottom: '5rem'}}>
-                    <Button style={{margin: 'auto'}} onClick={() => onSave(this.state.name)}>
+                    <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={() => onSave(this.state.name)}>
                         Save
+                    </Button>
+                    <Button style={{margin: 'auto', color: 'red'}} onClick={() => this.props.onRemoveAll()}>
+                        Remove all
                     </Button>
                 </div>
             </div>
@@ -121,9 +128,9 @@ export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
                 maxWidth: '20rem',
                 margin: '1rem'
             }}>
-                <CardsTypeCounter type={0} count={objectives.count()} />
-                <CardsTypeCounter type={1} count={ploys.count()} />
-                <CardsTypeCounter type={2} count={upgrades.count()} />
+                <CardsTypeCounter isValidCount type={0} count={objectives.count()} />
+                <CardsTypeCounter isValidCount type={1} count={ploys.count()} />
+                <CardsTypeCounter isValidCount type={2} count={upgrades.count()} />
             </div>
             
             <SectionHeader type={0} />

@@ -5,7 +5,7 @@ import { OrderedSet, Set } from 'immutable';
 import { getWUCardByIdFromDB } from '../components/WUCard';
 import Deck from '../components/Deck';
 import { cardsDb, factions, getCardsByFactionAndSets } from '../data/index';
-import { db } from '../firebase';
+import firebase, { db } from '../firebase';
 
 import ExpansionsToggle from '../components/ExpansionsToggle';
 import CardTypeToggle from '../components/CardTypeToggle';
@@ -15,6 +15,9 @@ import ReorderIcon from '@material-ui/icons/Reorder';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import IconButton from '@material-ui/core/IconButton';
 import AnimateHeight from 'react-animate-height';
+
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 const uuid4 = require('uuid/v4');
 
@@ -72,20 +75,51 @@ class DeckBuilder extends Component {
         this.setState(state => ({filtersVisible: !state.filtersVisible}));
     }
 
+    clearCurrentDeck = () => {
+        this.setState({deck: new OrderedSet()});
+    }
+
     saveCurrentDeck(name) {
         const id = uuid4();
+        const deckId = `DELETE_${this.props.faction}-${id.slice(-12)}`;
         const deckPayload = {
             name: !name ? `${factions[this.props.faction]} Deck` : name,
             cards: this.state.deck.map(c => c.id).toJS(),
             sets: new OrderedSet(this.state.deck.map(c => c.set)).toJS(),
-            created: new Date()
+            created: new Date(),
+            source: '',
+            author: this.props.isAuth ? this.props.userInfo.uid : 'anon'
         }
 
-        db.collection('decks')
-            .doc(`${this.props.faction}-${id.slice(-12)}`)
-            .set(deckPayload)
-            .then(() => console.log('Writen!'))
-            .catch(error => console.log(error));    
+        if(this.props.isAuth) {
+            const batch = db.batch();
+            const userRef = db.collection('users').doc(this.props.userInfo.uid);
+            const deckRef = db.collection('decks').doc(deckId);
+            batch.set(deckRef, deckPayload);
+            batch.update(userRef, {
+                mydecks: firebase.firestore.FieldValue.arrayUnion(deckId)
+            });
+            batch.commit()
+                .then(() => this.props.history.push('/'))
+                .catch(error => {
+                    const otherBatch = db.batch();
+                    const userRef = db.collection('users').doc(this.props.userInfo.uid);
+                    const deckRef = db.collection('decks').doc(deckId);
+                    otherBatch.set(deckRef, deckPayload);
+                    otherBatch.set(userRef, {
+                        mydecks: [deckId]
+                    });
+                    otherBatch.commit()
+                        .then(() => this.props.history.push('/'))
+                        .catch(error => console.log(error));    
+                });
+        } else {
+            db.collection('decks')
+                .doc(deckId)
+                .set(deckPayload)
+                .then(() => this.props.history.push('/'))
+                .catch(error => console.log(error));    
+        }
     }
 
     handleSearch(text) {
@@ -162,13 +196,15 @@ class DeckBuilder extends Component {
                     <Deck faction={this.props.faction} 
                             cards={this.state.deck} 
                             onToggleCardInDeck={this.toggleCardInDeck}
-                            onSave={this.saveCurrentDeck} />
+                            onSave={this.saveCurrentDeck}
+                            onRemoveAll={this.clearCurrentDeck} />
                 </div>
                 <div className="fullscreenDeck" style={{visibility: this.state.isMobileDeckVisible ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
                     <Deck faction={this.props.faction} 
                             cards={this.state.deck} 
                             onToggleCardInDeck={this.toggleCardInDeck}
-                            onSave={this.saveCurrentDeck} />
+                            onSave={this.saveCurrentDeck}
+                            onRemoveAll={this.clearCurrentDeck} />
                 </div>
                 <FloatingActionButton isEnabled onClick={this.handleShowDeckMobile}>
                     <ReorderIcon />
@@ -178,4 +214,11 @@ class DeckBuilder extends Component {
     }
 }
 
-export default DeckBuilder;
+const mapStateToProps = state => {
+    return {
+        isAuth: state.auth !== null,
+        userInfo: state.auth
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(DeckBuilder));
