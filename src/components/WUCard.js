@@ -9,7 +9,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import AnimateHeight from 'react-animate-height';
 import "./WUCard.css";
-import { cardType, cardSet, totalCardsPerWave } from '../data/index';
+import { cardType, cardSet, totalCardsPerWave, cardSetIcons } from '../data/index';
+import { auth } from 'firebase';
 
 export const getWUCardByIdFromDB = (cardId, cardPersonalNumber, card, isAlter, toggleCardInDeck, inDeck) => {
     const { name, type, set } = card;
@@ -123,9 +124,30 @@ class WUCardAtom extends Component {
                     </div>
                     <div className="headerText headerItem">
                         <Typography variant="body2" style={{color: colorsTable[this.props.set]}}>{this.props.name}</Typography>
-                        <Typography variant="body2" color="textSecondary">
-                            {`${cardType[this.props.type]} | ${cardSet[this.props.set]} | ${this.props.cardPN}/${totalCardsPerWave[parseInt(id.slice(0,2), 10)]}`}
-                        </Typography>
+                        <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center'}}>
+                            <Typography variant="body2" color="textSecondary" style={{margin: '0 .4rem 0 0'}}>
+                                {`${cardType[this.props.type]}`}
+                            </Typography>
+                            <Typography variant="display1" color="textSecondary" style={{margin: '0 .4rem 0 0'}}>
+                                &middot;
+                            </Typography>
+                            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 .4rem 0 0'}}>
+                                <Typography variant="body2" color="textSecondary">
+                                    {` Set: `}
+                                </Typography>
+                                <img style={{width: '1rem', height: '1rem', marginLeft: '.2rem'}} src={`/assets/icons/${cardSetIcons[this.props.set]}-icon.png`} />
+                            </div>
+                            <Typography variant="display1" color="textSecondary" style={{margin: '0 .4rem 0 0'}}>
+                                &middot;
+                            </Typography>
+                            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 .4rem 0 0'}}>
+                                <Typography variant="body2" color="textSecondary">
+                                    {`${this.props.cardPN}/${totalCardsPerWave[parseInt(id.slice(0,2), 10)]}`}
+                                </Typography>
+                                <img style={{width: '1rem', height: '1rem', marginLeft: '.2rem'}} src={`/assets/icons/wave-${id.slice(0,2)}-icon.png`} />
+                            </div>
+                            {/*  */}
+                        </div>
                     </div>
                     <IconButton
                         className={classnames(classes.expand, {[classes.expandOpen]: this.state.expanded, })}
