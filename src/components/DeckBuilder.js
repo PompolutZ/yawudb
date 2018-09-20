@@ -18,6 +18,7 @@ import AnimateHeight from 'react-animate-height';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import SimpleSnackbar from './SimpleSnackbar';
 
 const uuid4 = require('uuid/v4');
 
@@ -34,7 +35,8 @@ class DeckBuilder extends Component {
             isMobileDeckVisible: false,
             searchText: "",
             filtersVisible: false,
-            visibleCardTypes: [0, 1, 2]
+            visibleCardTypes: [0, 1, 2],
+            showNotification: false
         };
         
         this.toggleExpansion = this.toggleExpansion.bind(this);
@@ -101,7 +103,10 @@ class DeckBuilder extends Component {
                 mydecks: firebase.firestore.FieldValue.arrayUnion(deckId)
             });
             batch.commit()
-                .then(() => this.props.history.push('/'))
+                .then(() => {
+                    this.setState({showNotification: true});
+                    this.props.history.push('/mydecks');
+                })
                 .catch(error => {
                     const otherBatch = db.batch();
                     const userRef = db.collection('users').doc(this.props.userInfo.uid);
@@ -111,14 +116,20 @@ class DeckBuilder extends Component {
                         mydecks: [deckId]
                     });
                     otherBatch.commit()
-                        .then(() => this.props.history.push('/'))
-                        .catch(error => console.log(error));    
+                            .then(() => {
+                                this.setState({showNotification: true});
+                                this.props.history.push('/mydecks');
+                            })
+                            .catch(error => console.log(error));    
                 });
         } else {
             db.collection('decks')
                 .doc(deckId)
                 .set(deckPayload)
-                .then(() => this.props.history.push('/'))
+                .then(() => {
+                    this.setState({showNotification: true});
+                    this.props.history.push('/');
+                })
                 .catch(error => console.log(error));    
         }
     }
@@ -207,6 +218,7 @@ class DeckBuilder extends Component {
                             onSave={this.saveCurrentDeck}
                             onRemoveAll={this.clearCurrentDeck} />
                 </div>
+                { this.state.showNotification && <SimpleSnackbar position="center" message="Save was successful!" /> }
                 <FloatingActionButton isEnabled onClick={this.handleShowDeckMobile}>
                     <ReorderIcon />
                 </FloatingActionButton>

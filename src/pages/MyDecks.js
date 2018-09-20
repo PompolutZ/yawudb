@@ -13,7 +13,8 @@ const uuid4 = require('uuid/v4');
 class MyDecks extends Component {
     state = {
         decks: new List(),
-        loading: true
+        loading: true,
+        showNotification: false
     }
 
     async componentDidMount() {
@@ -29,6 +30,10 @@ class MyDecks extends Component {
         } catch(error) {
             console.log(error);
         }
+    }
+
+    handleClick = history => {
+        history.push('/newdeck')
     }
 
     render() {
@@ -51,7 +56,7 @@ class MyDecks extends Component {
                         this.state.decks.map(d => <DeckOverview key={uuid4()} id={d.id} name={d.name} sets={d.sets} cards={d.cards} created={d.created} />)
                     }
                 </div>
-                <FloatingActionButton isEnabled onClick={() => history.push('/newdeck')}>
+                <FloatingActionButton isEnabled onClick={() => this.handleClick(history)}>
                     <AddIcon />
                 </FloatingActionButton>
             </div>

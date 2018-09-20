@@ -75,11 +75,17 @@ class MenuAppBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  handleSignOut = async () => {
+  handleMyDecks = history => {
+    history.push('/mydecks');
+    this.handleClose();
+  };
+
+  handleSignOut = async history => {
         this.handleClose();
-        await firebase.auth().signOut();
-        this.setState({userAvatarUrl: null});
         this.props.onSignOut();
+        this.setState({userAvatarUrl: null});
+        await firebase.auth().signOut();
+        history.push('/');
     }
 
   handleSignIn = history => {
@@ -139,7 +145,8 @@ class MenuAppBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
+                  <MenuItem onClick={() => this.handleMyDecks(history)}>My decks</MenuItem>
+                  <MenuItem onClick={() => this.handleSignOut(history)}>Sign out</MenuItem>
                 </Menu>
               </div>
             )}
