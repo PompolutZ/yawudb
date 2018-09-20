@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import firebase from '../firebase';
 import GoogleButton from 'react-google-button';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import { withRouter } from 'react-router-dom';

@@ -102,7 +102,6 @@ export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
     const objectives = cards.filter(v => v.type === 0);
     const ploys = cards.filter(v => v.type === 1);
     const upgrades = cards.filter(v => v.type === 2);
-    console.log(cards);
     return (    
         <div style={{}}>
             <div style={{
