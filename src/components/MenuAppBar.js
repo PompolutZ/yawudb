@@ -119,7 +119,7 @@ class MenuAppBar extends React.Component {
             <MenuIcon />
           </IconButton>
             <Typography variant="title" color="inherit" className={classes.grow}>
-                Yet Another WUdb <sup style={{fontSize: '.8rem'}}>&beta;eta</sup>
+                { document.title }
             </Typography>
             {userAvatarUrl && (
               <div>

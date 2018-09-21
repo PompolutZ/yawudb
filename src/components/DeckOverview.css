@@ -1,0 +1,19 @@
+.cardListWrapper {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.cardListWrapper > * {
+    flex: 1 100%
+}
+
+/* Large screens */
+@media all and (min-width: 800px) {
+    .cardListWrapper > * {
+        flex: 1 auto;
+    }
+
+    .listItem {
+        margin-right: 2rem;
+    }
+}

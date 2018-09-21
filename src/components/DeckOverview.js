@@ -13,9 +13,11 @@ import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import ShareIcon from '@material-ui/icons/Share';
 import { cardSetIcons, cardsDb, cardType } from '../data/index';
 import { withRouter } from 'react-router-dom'; 
-
+import SimpleSnackbar from './SimpleSnackbar';
+import './DeckOverview.css';
 
 const styles = theme => ({
   card: {
@@ -65,8 +67,8 @@ const CardNumberNameSet = ({ id, name, set }) => (
     </div>
 );  
 
-const ListOfCardsByType = ({ type, cards }) => (
-    <div>
+const ListOfCardsByType = ({ type, cards, className }) => (
+    <div className={className}>
         <div style={{borderBottom: '1px solid gray', marginBottom: '1rem'}}>
             <Typography variant="headline">{`${cardType[type]}s`}</Typography>
         </div>
@@ -78,10 +80,25 @@ const ListOfCardsByType = ({ type, cards }) => (
 );
 
 class DeckOverview extends React.Component {
-  state = { expanded: false };
+  state = { 
+    expanded: false,
+    showNotification: false 
+  };
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
+  };
+
+  handleCopyToClipboard = str => {
+    const el = document.createElement('textarea');
+    el.value = str;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);    this.setState({showNotification: true});
   };
 
   render() {
@@ -91,95 +108,73 @@ class DeckOverview extends React.Component {
     const ploys = cardsInDeck.filter(c => c.type === 1);
     const upgrades = cardsInDeck.filter(c => c.type === 2);
     return (
-      <Card className={classes.card}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="Recipe" className={classes.avatar} src={`/assets/icons/${id.substring(0, id.length - 13)}-icon.png`} />
-          }
-        //   action={
-        //     <IconButton>
-        //       <MoreVertIcon />
-        //     </IconButton>
-        //   }
-          title={name}
-          subheader={created ? created.toDate().toLocaleDateString() : 'Unknown'}
-        />
-        {/* <CardMedia
-          className={classes.media}
-          image="/static/images/cards/paella.jpg"
-          title="Contemplative Reptile"
-        /> */}
-            <div style={{display: 'flex', alignItems: 'center', margin: 'auto 1rem .5rem 1rem'}}>
-                <div>Sets:</div>
-                {
-                    sets.sort((a, b) => a - b).map(s => <SetIcon key={s * 31}  set={s} />)
-                }
-            </div>
-            <div style={{display: 'flex', alignItems: 'center', margin: 'auto 1rem .5rem 1rem'}}>
-                <CardTypeCounter type="objective" count={objectives.length} />    
-                <CardTypeCounter type="ploy" count={ploys.length} />    
-                <CardTypeCounter type="upgrade" count={upgrades.length} />    
-            </div>
-        <CardContent>
-
-          {/* <Typography component="p">
-            This impressive paella is a perfect party dish and a fun meal to cook together with your
-            guests. Add 1 cup of frozen peas along with the mussels, if you like.
-          </Typography> */}
-        </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="View the deck" onClick={() => history.push(`/deck/${id}`)}>
-            <VisibilityIcon />
-          </IconButton>
-          {/* <IconButton aria-label="Share">
-            <ShareIcon />
-          </IconButton> */}
-          <IconButton
-            className={classnames(classes.expand, {
-              [classes.expandOpen]: this.state.expanded,
-            })}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-              <div>
-                  <ListOfCardsByType type={0} cards={objectives} />
-                  <ListOfCardsByType type={1} cards={ploys} />
-                  <ListOfCardsByType type={2} cards={upgrades} />
+      <div>
+        <Card className={classes.card}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="Recipe" className={classes.avatar} src={`/assets/icons/${id.substring(0, id.length - 13)}-icon.png`} />
+            }
+          //   action={
+          //     <IconButton>
+          //       <MoreVertIcon />
+          //     </IconButton>
+          //   }
+            title={name}
+            subheader={created ? created.toDate().toLocaleDateString() : 'Unknown'}
+          />
+          {/* <CardMedia
+            className={classes.media}
+            image="/static/images/cards/paella.jpg"
+            title="Contemplative Reptile"
+          /> */}
+              <div style={{display: 'flex', alignItems: 'center', margin: 'auto 1rem .5rem 1rem'}}>
+                  <div>Sets:</div>
+                  {
+                      sets.sort((a, b) => a - b).map(s => <SetIcon key={s * 31}  set={s} />)
+                  }
               </div>
-            {/* <Typography paragraph variant="body2">
-              Method:
-            </Typography>
-            <Typography paragraph>
-              Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-              minutes.
-            </Typography>
-            <Typography paragraph>
-              Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-              heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-              browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving
-              chicken and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion,
-              salt and pepper, and cook, stirring often until thickened and fragrant, about 10
-              minutes. Add saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-            </Typography>
-            <Typography paragraph>
-              Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-              without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat
-              to medium-low, add reserved shrimp and mussels, tucking them down into the rice, and
-              cook again without stirring, until mussels have opened and rice is just tender, 5 to 7
-              minutes more. (Discard any mussels that don’t open.)
-            </Typography>
-            <Typography>
-              Set aside off of the heat to let rest for 10 minutes, and then serve.
+              <div style={{display: 'flex', alignItems: 'center', margin: 'auto 1rem .5rem 1rem'}}>
+                  <CardTypeCounter type="objective" count={objectives.length} />    
+                  <CardTypeCounter type="ploy" count={ploys.length} />    
+                  <CardTypeCounter type="upgrade" count={upgrades.length} />    
+              </div>
+          <CardContent>
+
+            {/* <Typography component="p">
+              This impressive paella is a perfect party dish and a fun meal to cook together with your
+              guests. Add 1 cup of frozen peas along with the mussels, if you like.
             </Typography> */}
           </CardContent>
-        </Collapse>
-      </Card>
+          <CardActions className={classes.actions} disableActionSpacing>
+            <IconButton aria-label="View the deck" onClick={() => history.push(`/deck/${id}`)}>
+              <VisibilityIcon />
+            </IconButton>
+            <IconButton aria-label="View the deck" onClick={() => this.handleCopyToClipboard(`yawudb.com/deck/${id}`)}>
+              <ShareIcon />
+            </IconButton>
+            <IconButton
+              className={classnames(classes.expand, {
+                [classes.expandOpen]: this.state.expanded,
+              })}
+              onClick={this.handleExpandClick}
+              aria-expanded={this.state.expanded}
+              aria-label="Show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+                <div className="cardListWrapper">
+                    <ListOfCardsByType className="listItem objectivesList" type={0} cards={objectives} />
+                    <ListOfCardsByType className="listItem ploysList" type={1} cards={ploys} />
+                    <ListOfCardsByType className="upgradesList" type={2} cards={upgrades} />
+                </div>
+            </CardContent>
+          </Collapse>
+        </Card>
+        { this.state.showNotification && <SimpleSnackbar position="center" message="Deck URL copied to clipboard!" /> }
+      </div>
     );
   }
 }

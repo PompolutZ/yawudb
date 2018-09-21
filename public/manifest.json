@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Yet Another WUdb",
+  "name": "Yet Another Warhammer Underworlds Deck Builder",
   "icons": [
     {
       "src": "favicon.ico",
