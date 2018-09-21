@@ -5,6 +5,7 @@ import DeckOverview from '../components/DeckOverview';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FloatingActionButton from '../components/FloatingActionButton';
 import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -21,6 +22,11 @@ class MyDecks extends Component {
         try {
             const userDataRef = await db.collection('users').doc(this.props.userInfo.uid).get();
             const userData = userDataRef.data();
+            if(!userData) {
+                this.setState({loading: false});
+                return;
+            }
+
             for(let deckId of userData.mydecks) {
                 const deckRef = await db.collection('decks').doc(deckId).get();
                 this.setState(state => ({decks: state.decks.push({id: deckId, ...deckRef.data()})}));
@@ -49,8 +55,15 @@ class MyDecks extends Component {
                 </div>
             );
         }
+
         return (
             <div>
+                { this.state.decks.count() === 0 && 
+                    <div style={{display: 'flex', height: '80vh', flexFlow: 'column nowrap'}}>
+                        <Typography variant="title" style={{margin: 'auto auto 1rem auto'}}>You don't have any decks yet.</Typography>
+                        <Typography variant="headline" style={{margin: '0 auto auto auto'}}>Why not to make one?</Typography>
+                    </div> 
+                }
                 <div>
                     {
                         this.state.decks.map(d => <DeckOverview key={uuid4()} id={d.id} name={d.name} sets={d.sets} cards={d.cards} created={d.created} />)

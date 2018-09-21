@@ -6,17 +6,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.handleLogin = this.handleLogin.bind(this);
-    }
-
-    handleLogin() {
-        const provider = new firebase.auth.FacebookAuthProvider();
-        this.setState({awaitingUserInfo: true});
+    handleLogin = provider => {
         firebase.auth().signInWithRedirect(provider);
-        
     }
 
     async componentDidMount() {
@@ -34,8 +25,9 @@ class Login extends Component {
 
     render() {
         return(
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-                <FacebookLoginButton onClick={this.handleLogin} style={{margin: '1rem'}} />
+            <div style={{display: 'flex', alignItems: 'center', flexFlow: 'column nowrap'}}>
+                <FacebookLoginButton onClick={() => this.handleLogin(new firebase.auth.FacebookAuthProvider())} style={{margin: '1rem'}} />
+                <GoogleButton onClick={() => this.handleLogin(new firebase.auth.GoogleAuthProvider())} style={{margin: '0 1rem 1rem 1rem'}} />
             </div>
         );
     }
