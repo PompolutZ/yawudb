@@ -82,7 +82,7 @@ class DeckBuilder extends Component {
         this.setState({deck: new OrderedSet()});
     }
 
-    saveCurrentDeck(name) {
+    saveCurrentDeck(name, source) {
         const id = uuid4();
         const deckId = `${this.props.faction}-${id.slice(-12)}`;
         const deckPayload = {
@@ -90,7 +90,7 @@ class DeckBuilder extends Component {
             cards: this.state.deck.map(c => c.id).toJS(),
             sets: new OrderedSet(this.state.deck.map(c => c.set)).toJS(),
             created: new Date(),
-            source: '',
+            source: source,
             author: this.props.isAuth ? this.props.userInfo.uid : 'anon'
         }
 
@@ -130,7 +130,7 @@ class DeckBuilder extends Component {
                     this.setState({showNotification: true});
                     this.props.history.push('/');
                 })
-                .catch(error => console.log(error));    
+                .catch(error => console.log('ERROR', error));    
         }
     }
 
@@ -157,6 +157,11 @@ class DeckBuilder extends Component {
             filteredCards = filteredCards 
                 .filter(c => {
                     if(!this.state.searchText) return true;
+
+                    if(this.state.searchText.includes(',')) {
+                        const cardNumbers = this.state.searchText.split(',').map(s => parseInt(s.trim(), 10));
+                        return cardNumbers.includes(parseInt(c.id.slice(-3), 10));
+                    }
 
                     return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
                 });

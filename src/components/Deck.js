@@ -12,7 +12,7 @@ const DeckFaction = ({ faction, defaultName, onChange }) => (
         alignItems: 'center',
         margin: '.5rem'
     }}>
-        <Avatar style={{marginRight: '1rem'}} src={`/assets/icons/${faction}-icon.png`} />
+        <Avatar style={{margin: '0 1rem 0 2rem'}} src={`/assets/icons/${faction}-icon.png`} />
         <TextField
           id="with-placeholder"
           label="Deck name"
@@ -22,6 +22,23 @@ const DeckFaction = ({ faction, defaultName, onChange }) => (
           onChange={onChange}
         />
         {/* <Typography variant="title">{`${factions[faction]}`}</Typography> */}
+    </div>
+);
+
+const DeckSource = ({ onChange }) => (
+    <div style={{
+        display: 'flex',
+        alignItems: 'flex-end',
+        margin: '.5rem',
+    }}>
+        <Typography variant="title" style={{marginRight: '1rem'}}>Source:</Typography>
+        <TextField
+          id="with-placeholder"
+          label="Deck source"
+          margin="none"
+          style={{flex: '1 1 auto'}}
+          onChange={onChange}
+        />
     </div>
 );
 
@@ -44,7 +61,8 @@ const SectionHeader = ({ type }) => (
 
 class Deck extends Component {
     state = {
-        name: ""
+        name: "",
+        source: ""
     }
 
     render() {
@@ -59,6 +77,7 @@ class Deck extends Component {
         return (
             <div>
                 <DeckFaction faction={faction} defaultName={`${factions[this.props.faction]} Deck`} onChange={e => this.setState({name: e.target.value})} />
+                <DeckSource onChange={e => this.setState({source: e.target.value})} />
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-around',
@@ -86,7 +105,7 @@ class Deck extends Component {
                     <Button style={{margin: 'auto', color: 'red'}} onClick={() => this.props.onRemoveAll()}>
                         Remove all
                     </Button>
-                    <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={() => onSave(this.state.name)}>
+                    <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={() => onSave(this.state.name, this.state.source)}>
                         Save
                     </Button>
                 </div>

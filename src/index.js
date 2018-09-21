@@ -16,8 +16,6 @@ import { connect, Provider } from 'react-redux';
 import configureStore from './configureStore';
 import Deck from './pages/Deck';
 
-import firebase from './firebase';
-
 const store = configureStore();
 
 class PrivateRouteContainer extends React.Component {
