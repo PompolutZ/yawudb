@@ -159,7 +159,7 @@ class WUCardAtom extends Component {
                     duration={ 175 }
                     height={ height } // see props documentation bellow
                     >
-                    <img className="cardImg" alt={this.props.cardN} src={`assets/cards/${this.props.id}.png`} />
+                    <img className="cardImg" alt={this.props.cardN} src={`/assets/cards/${this.props.id}.png`} />
                     {/* <Image 
                         style={{ marginBottom: 10 }}
                         src={`assets/cards/${this.props.img}`} 
