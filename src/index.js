@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import './index.css';
 import Home from './pages/Home';
 import Decks from './pages/Decks';
@@ -13,10 +14,13 @@ import Login from './pages/Login';
 import MenuAppBar from './components/MenuAppBar';
 
 import { connect, Provider } from 'react-redux';
+import createBrowserHistory from 'history/createBrowserHistory';
 import configureStore from './configureStore';
 import Deck from './pages/Deck';
 
-const store = configureStore();
+const history = createBrowserHistory();
+
+const store = configureStore(history);
 
 class PrivateRouteContainer extends React.Component {
     render() {
@@ -49,7 +53,7 @@ const PrivateRoute = connect(state => ({
 }))(PrivateRouteContainer)   
 
 const App = () => (
-    <Router>
+    <ConnectedRouter history={history}>
         <div>
             <MenuAppBar />
             
@@ -65,7 +69,7 @@ const App = () => (
 
             <Footer />
         </div>
-    </Router>
+    </ConnectedRouter>
 );
 
 const Root = () => (
