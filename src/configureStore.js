@@ -4,13 +4,15 @@ import { throttle } from 'lodash';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import auth from './reducers/auth';
 import userOwnSets from './reducers/userOwnSets';
+import deckUnderBuild from './reducers/deckUnderBuild';
 
 const configureStore = history => {
     const persistedStore = loadState();
     const store = createStore(
         connectRouter(history)(combineReducers({
             auth,
-            userOwnSets
+            userOwnSets,
+            deckUnderBuild
         })), 
         persistedStore,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),

@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { cardTypeIcons, cardType, factions, cardSetIcons } from '../data/index';
 import { getWUCardByIdFromDB, getReadOnlyWUCardByIdFromDb } from './WUCard';
 import TextField from '@material-ui/core/TextField';
+import { Set } from 'immutable';
 
 const DeckFaction = ({ faction, defaultName, onChange }) => (
     <div style={{
@@ -16,7 +17,7 @@ const DeckFaction = ({ faction, defaultName, onChange }) => (
         <TextField
           id="with-placeholder"
           label="Deck name"
-          placeholder={`${defaultName}`}
+          value={defaultName}  
           margin="none"
           style={{flex: '1 1 auto'}}
           onChange={onChange}
@@ -25,7 +26,7 @@ const DeckFaction = ({ faction, defaultName, onChange }) => (
     </div>
 );
 
-const DeckSource = ({ onChange }) => (
+const DeckSource = ({ onChange, defaultSource }) => (
     <div style={{
         display: 'flex',
         alignItems: 'flex-end',
@@ -35,6 +36,7 @@ const DeckSource = ({ onChange }) => (
         <TextField
           id="with-placeholder"
           label="Deck source"
+          value={defaultSource}
           margin="none"
           style={{flex: '1 1 auto'}}
           onChange={onChange}
@@ -61,12 +63,24 @@ const SectionHeader = ({ type }) => (
 
 class Deck extends Component {
     state = {
-        name: "",
-        source: ""
+        name: this.props.currentName,
+        source: this.props.currentSource,
+    }
+
+    handleChangeName = e => {
+        this.props.changeName(e.target.value);
+        this.setState({ name: e.target.value });
+    }
+
+    handleChangeSource = e => {
+        this.props.changeSource(e.target.value);
+        this.setState({ source: e.target.value });
     }
 
     render() {
-        const { cards, faction, onToggleCardInDeck, onSave } = this.props;
+        const { selectedCards, faction, onToggleCardInDeck, onSave } = this.props;
+        
+        const cards = new Set(selectedCards);
         const objectives = cards.filter(v => v.type === 0);
         const ploys = cards.filter(v => v.type === 1);
         const upgrades = cards.filter(v => v.type === 2);
@@ -76,8 +90,8 @@ class Deck extends Component {
         const isValidForSave = objectivesCount === 12 && ((ploysCount + upgradesCount) >= 20);
         return (
             <div>
-                <DeckFaction faction={faction} defaultName={`${factions[this.props.faction]} Deck`} onChange={e => this.setState({name: e.target.value})} />
-                <DeckSource onChange={e => this.setState({source: e.target.value})} />
+                <DeckFaction faction={faction} defaultName={this.state.name} onChange={this.handleChangeName} />
+                <DeckSource defaultSource={this.state.source} onChange={this.handleChangeSource} />
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-around',

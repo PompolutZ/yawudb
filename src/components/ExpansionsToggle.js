@@ -8,8 +8,7 @@ class ExpansionsToggle extends Component {
         super(props);
 
         this.state = {
-            selectedExpansions: this.props.selectedExpansions ? [...this.props.selectedExpansions] : [],
-            expansions: []
+            selectedExpansions: this.props.selectedSets,
         }
 
         this.handleToggle = this.handleToggle.bind(this);
@@ -24,17 +23,13 @@ class ExpansionsToggle extends Component {
             expansions = [expansion, ...this.state.selectedExpansions]
         }
 
-        this.setState(state => ({selectedExpansions: expansions}));
+        this.setState({selectedExpansions: expansions});
         
         if(this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
 
         this.timeoutId = setTimeout(() => this.props.onExpansionsChange(expansions), 350);
-    }
-
-    componentDidMount() {
-        this.setState(state => ({expansions: _.keys(setInfos)}));    
     }
 
     renderIndex(v){
@@ -50,7 +45,7 @@ class ExpansionsToggle extends Component {
     render() {
         return (
             <div>
-                { this.state.expansions.map(v => this.renderIndex(v)) }
+                { _.keys(setInfos).map(v => this.renderIndex(v)) }
             </div>
         );
     }

@@ -28,7 +28,7 @@ class DeckBuilder extends Component {
 
         this.state = {
             cards: new Set(),
-            selectedSets: [],
+            selectedSets: this.props.selectedSets,
             factionCards: new OrderedSet(),
             universalCards: new OrderedSet(),
             deck: new OrderedSet(),
@@ -49,7 +49,8 @@ class DeckBuilder extends Component {
     }
 
     toggleExpansion(expansions) {
-        const factionCards = getCardsByFactionAndSets(this.props.faction, expansions);
+        this.props.setSets(expansions);
+        const factionCards = getCardsByFactionAndSets(this.props.selectedFaction, expansions);
         const universalCards = getCardsByFactionAndSets('universal', expansions);
         this.setState({cards: new Set(factionCards).union(new Set(universalCards))});
     }
@@ -61,16 +62,16 @@ class DeckBuilder extends Component {
 
     toggleCardInDeck(id, type, name, set) {
         const card = {id: id, type: type, name: name, set: set};
-        const existingCard = this.state.deck.find(v => v.id === id);
+        const existingCard = this.props.currentDeck.find(v => v.id === id);
         if(existingCard) {
-            if(this.state.deck.count() === 1) {
-                this.setState(state => ({isMobileDeckVisible: false, deck: state.deck.delete(existingCard)}));
-            } else {
-                this.setState(state => ({deck: state.deck.delete(existingCard)}));
-            }
+            if(this.props.currentDeck.length === 1) {
+                this.setState({isMobileDeckVisible: false });
+            } 
+
+            this.props.removeCard(existingCard);
             
         } else {
-            this.setState(state => ({deck: state.deck.add(card)}));
+            this.props.addCard(card);
         }
     }
 
@@ -78,19 +79,15 @@ class DeckBuilder extends Component {
         this.setState(state => ({filtersVisible: !state.filtersVisible}));
     }
 
-    clearCurrentDeck = () => {
-        this.setState({deck: new OrderedSet()});
-    }
-
-    saveCurrentDeck(name, source) {
+    saveCurrentDeck() {
         const id = uuid4();
-        const deckId = `${this.props.faction}-${id.slice(-12)}`;
+        const deckId = `${this.props.selectedFaction}-${id.slice(-12)}`;
         const deckPayload = {
-            name: !name ? `${factions[this.props.faction]} Deck` : name,
-            cards: this.state.deck.map(c => c.id).toJS(),
-            sets: new OrderedSet(this.state.deck.map(c => c.set)).toJS(),
+            name: this.props.currentDeckName,
+            cards: this.props.currentDeck.map(c => c.id).toJS(),
+            sets: new OrderedSet(this.props.currentDeck.map(c => c.set)).toJS(),
             created: new Date(),
-            source: source,
+            source: this.props.currentDeckSource,
             author: this.props.isAuth ? this.props.userInfo.uid : 'anon'
         }
 
@@ -102,8 +99,10 @@ class DeckBuilder extends Component {
             batch.update(userRef, {
                 mydecks: firebase.firestore.FieldValue.arrayUnion(deckId)
             });
+
             batch.commit()
                 .then(() => {
+                    this.props.resetDeck();
                     this.setState({showNotification: true});
                     this.props.history.push('/mydecks');
                 })
@@ -117,6 +116,7 @@ class DeckBuilder extends Component {
                     });
                     otherBatch.commit()
                             .then(() => {
+                                this.props.resetDeck();
                                 this.setState({showNotification: true});
                                 this.props.history.push('/mydecks');
                             })
@@ -127,6 +127,7 @@ class DeckBuilder extends Component {
                 .doc(deckId)
                 .set(deckPayload)
                 .then(() => {
+                    this.props.resetDeck();
                     this.setState({showNotification: true});
                     this.props.history.push('/');
                 })
@@ -139,8 +140,9 @@ class DeckBuilder extends Component {
     }
 
     componentDidMount() {
-        const cards = getCardsByFactionAndSets(this.props.faction, this.state.selectedSets);
-        this.setState({cards: new Set(cards)});
+        const factionCards = getCardsByFactionAndSets(this.props.selectedFaction, this.state.selectedSets);
+        const universalCards = getCardsByFactionAndSets('universal', this.state.selectedSets);
+        this.setState({cards: new Set(factionCards).union(new Set(universalCards))});
     }
 
     handleShowDeckMobile() {
@@ -179,7 +181,7 @@ class DeckBuilder extends Component {
 
         const content = filteredCards.toJS().sort((c1, c2) => c1.type - c2.type || c1.id - c2.id).map((c, i) => {
             const cardPN = parseInt(c.id.slice(-3), 10);
-            return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this.toggleCardInDeck, this.state.deck.some(v => v.id === c.id))
+            return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this.toggleCardInDeck, this.props.currentDeck.some(v => v.id === c.id))
         });
 
         return (
@@ -205,7 +207,7 @@ class DeckBuilder extends Component {
                                 <div>Toggle Sets:</div>
                                 <div style={{flex: '1 1 auto', height: '1rem', borderBottom: '1px solid gray', margin: 'auto 1rem 0 .5rem'}}></div> 
                             </div>
-                            <ExpansionsToggle onExpansionsChange={this.toggleExpansion} />
+                            <ExpansionsToggle selectedSets={this.props.selectedSets} onExpansionsChange={this.toggleExpansion} />
                         </div>
                         <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
                             <div style={{display: 'flex', position: 'relative', marginBottom: '.5rem'}}>
@@ -218,18 +220,26 @@ class DeckBuilder extends Component {
                     { content }
                 </div>
                 <div className="sideDeck" style={{flex: '1 1 auto'}}>
-                    <Deck faction={this.props.faction} 
-                            cards={this.state.deck} 
-                            onToggleCardInDeck={this.toggleCardInDeck}
-                            onSave={this.saveCurrentDeck}
-                            onRemoveAll={this.clearCurrentDeck} />
+                    <Deck faction={this.props.selectedFaction} 
+                        currentName={this.props.currentDeckName}
+                        currentSource={this.props.currentDeckSource}
+                        changeName={this.props.changeName}
+                        changeSource={this.props.changeSource}
+                        selectedCards={this.props.currentDeck} 
+                        onToggleCardInDeck={this.toggleCardInDeck}
+                        onSave={this.saveCurrentDeck}
+                        onRemoveAll={this.props.clearDeck} />
                 </div>
                 <div className="fullscreenDeck" style={{visibility: this.state.isMobileDeckVisible ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
-                    <Deck faction={this.props.faction} 
-                            cards={this.state.deck} 
+                    <Deck faction={this.props.selectedFaction} 
+                            currentName={this.props.currentDeckName}
+                            currentSource={this.props.currentDeckSource}
+                            changeName={this.props.changeName}
+                            changeSource={this.props.changeSource}
+                            selectedCards={this.props.currentDeck} 
                             onToggleCardInDeck={this.toggleCardInDeck}
                             onSave={this.saveCurrentDeck}
-                            onRemoveAll={this.clearCurrentDeck} />
+                            onRemoveAll={this.props.clearDeck} />
                 </div>
                 { this.state.showNotification && <SimpleSnackbar position="center" message="Save was successful!" /> }
                 <FloatingActionButton isEnabled onClick={this.handleShowDeckMobile}>
