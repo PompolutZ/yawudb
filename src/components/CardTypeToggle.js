@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ToggleImageButton from './ToggleImageButton';
 import { cardType } from '../data/index';
+import { Typography } from '@material-ui/core';
 
 class CardTypeToggle extends Component {
     constructor(props) {
@@ -35,17 +36,22 @@ class CardTypeToggle extends Component {
 
     renderIndex(name){
         // const name = expansionCodeName[v];
-        return <ToggleImageButton key={name}
+        return (
+            <div key={name} style={{ display: 'flex', alignItems: 'center', marginBottom: '.5rem'}}>
+                <ToggleImageButton 
                     isOff={!this.state.selectedCardTypes.includes(name)} 
                     onImage={`/assets/icons/${name.toLowerCase()}-icon.png`}
                     offImage={`/assets/icons/${name.toLowerCase()}-icon-bw.png`}
                     onToggle={this.handleToggle.bind(this, name)}
                     />
+                <Typography variant="title" style={{margin: '0 0 0 .5rem', opacity: !this.state.selectedCardTypes.includes(name) ? '.4' : 1}}>{name}</Typography>        
+            </div>
+        );
     }
 
     render() {
         return (
-            <div>
+            <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 { this.state.cardTypes.map(v => this.renderIndex(v)) }
             </div>
         );

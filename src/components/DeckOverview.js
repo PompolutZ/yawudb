@@ -17,7 +17,9 @@ import ShareIcon from '@material-ui/icons/Share';
 import { cardSetIcons, cardsDb, cardType } from '../data/index';
 import { withRouter } from 'react-router-dom'; 
 import SimpleSnackbar from './SimpleSnackbar';
+import { Set } from 'immutable';
 import './DeckOverview.css';
+import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 
 const styles = theme => ({
   card: {
@@ -59,11 +61,14 @@ const SetIcon = ({ set }) => (
     <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${cardSetIcons[set]}-icon.png`} width="24" height="24" alt="icon" />
 )
 
-const CardNumberNameSet = ({ id, name, set }) => (
+const CardNumberNameSet = ({ id, name, set, scoreType }) => (
     <div style={{display: 'flex'}}>
         <div style={{width: '2rem', textAlign: 'right', marginRight: '.5rem'}}>{`${parseInt(id.slice(-3), 10)}.`}</div>
         <Typography style={{marginRight: '.5rem'}}>{name}</Typography>
         <SetIcon set={set} />
+        {
+            scoreType >= 0 && (<ObjectiveScoreTypeIcon type={scoreType} style={{width: '24', height: '24', margin: '0 .2rem 0 0'}} />)
+        }
     </div>
 );  
 
@@ -74,10 +79,49 @@ const ListOfCardsByType = ({ type, cards, className }) => (
         </div>
         {
             cards.sort((c1, c2) => c1.id - c2.id)
-                    .map(({ id, name, set }) => <CardNumberNameSet key={id} id={id} name={name} set={set} />)
+                    .map(({ id, name, set, scoreType }) => <CardNumberNameSet key={id} id={id} name={name} set={set} scoreType={scoreType} />)
         }
     </div>
 );
+
+const ObjectiveScoringOverview = ({ objectives }) => {
+    return (
+      <div style={{display: 'flex', flexFlow: 'row wrap', margin: 'auto 1rem .5rem 1rem'}}>
+        <div style={{ order: 0}}>
+          { objectives[0] && (
+            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center'}}>
+              <ObjectiveScoreTypeIcon type={0} style={{width: '1rem', height: '1rem', margin: '0 .2rem 0 0'}} />
+              <Typography style={{fontSize: '1rem'}}>{objectives[0].count()}</Typography>
+            </div>
+          )}
+        </div>
+        <div style={{ order: 1}}>
+          { objectives[3] && (
+            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
+              <ObjectiveScoreTypeIcon type={3} style={{width: '1rem', height: '1rem', margin: '0 .2rem 0 0'}} />
+              <Typography style={{fontSize: '1rem'}}>{objectives[3].count()}</Typography>
+            </div>
+          )}
+        </div>
+        <div style={{ order: 2}}>
+          { objectives[1] && (
+            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
+              <ObjectiveScoreTypeIcon type={1} style={{width: '1rem', height: '1rem', margin: '0 .2rem 0 0'}} />
+              <Typography style={{fontSize: '1rem'}}>{objectives[1].count()}</Typography>
+            </div>
+          )}
+        </div>
+        <div style={{ order: 3}}>
+          { objectives[2] && (
+            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
+              <ObjectiveScoreTypeIcon type={2} style={{width: '1rem', height: '1rem', margin: '0 .2rem 0 0'}} />
+              <Typography style={{fontSize: '1rem'}}>{objectives[2].count()}</Typography>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+}
 
 class DeckOverview extends React.Component {
   state = { 
@@ -105,6 +149,7 @@ class DeckOverview extends React.Component {
     const { classes, id, name, sets, cards, created, history } = this.props;
     const cardsInDeck = cards.map(cardPN => ({id: cardPN, ...cardsDb[cardPN]}));
     const objectives = cardsInDeck.filter(c => c.type === 0);
+    const objectiveSummary = new Set(objectives).groupBy(c => c.scoreType).toArray();
     const ploys = cardsInDeck.filter(c => c.type === 1);
     const upgrades = cardsInDeck.filter(c => c.type === 2);
     return (
@@ -133,6 +178,9 @@ class DeckOverview extends React.Component {
                       sets.sort((a, b) => a - b).map(s => <SetIcon key={s * 31}  set={s} />)
                   }
               </div>
+
+              <ObjectiveScoringOverview objectives={objectiveSummary} />
+
               <div style={{display: 'flex', alignItems: 'center', margin: 'auto 1rem .5rem 1rem'}}>
                   <CardTypeCounter type="objective" count={objectives.length} />    
                   <CardTypeCounter type="ploy" count={ploys.length} />    

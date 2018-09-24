@@ -11,15 +11,17 @@ import AnimateHeight from 'react-animate-height';
 import "./WUCard.css";
 import { cardType, cardSet, totalCardsPerWave, cardSetIcons } from '../data/index';
 import { auth } from 'firebase';
+import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 
 export const getWUCardByIdFromDB = (cardId, cardPersonalNumber, card, isAlter, toggleCardInDeck, inDeck) => {
-    const { name, type, set } = card;
+    const { name, type, set, scoreType } = card;
     return <WUCard key={cardId} 
                 id={cardId} 
                 cardPN={cardPersonalNumber} 
                 name={name} 
                 type={type} 
-                set={set} 
+                set={set}
+                scoreType={scoreType} 
                 isAlter={isAlter}
                 inDeck={inDeck}
                 toggleCardInDeck={toggleCardInDeck}
@@ -27,7 +29,7 @@ export const getWUCardByIdFromDB = (cardId, cardPersonalNumber, card, isAlter, t
 }
 
 export const getReadOnlyWUCardByIdFromDb = (cardId, cardPersonalNumber, card, isAlter) => {
-    const { name, type, set } = card;
+    const { name, type, set, scoreType } = card;
     return <WUCard readonly 
                 inDeck
                 key={cardId} 
@@ -36,6 +38,7 @@ export const getReadOnlyWUCardByIdFromDb = (cardId, cardPersonalNumber, card, is
                 name={name} 
                 type={type} 
                 set={set} 
+                scoreType={scoreType}
                 isAlter={isAlter} />;
 }
 
@@ -105,7 +108,7 @@ class WUCardAtom extends Component {
     }
 
     render() {
-        const { classes, type, id } = this.props;
+        const { classes, type, id, scoreType } = this.props;
         const height = this.state.expanded ? 'auto' : 0;
         const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];
         return (
@@ -125,9 +128,15 @@ class WUCardAtom extends Component {
                     <div className="headerText headerItem">
                         <Typography variant="body2" style={{color: colorsTable[this.props.set]}}>{this.props.name}</Typography>
                         <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center'}}>
-                            <Typography variant="body2" color="textSecondary" style={{margin: '0 .4rem 0 0'}}>
-                                {`${cardType[this.props.type]}`}
-                            </Typography>
+                            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 .4rem 0 0'}}>
+                                <Typography variant="body2" color="textSecondary">
+                                    {`${cardType[this.props.type]}`}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary">
+                                    { scoreType >= 0 && <ObjectiveScoreTypeIcon type={scoreType} style={{ width: '1.2rem', height: '1.2rem', margin: '.3rem 0 0 .2rem'}} /> }
+                                </Typography>
+                            </div>
+
                             <Typography variant="display1" color="textSecondary" style={{margin: '0 .4rem 0 0'}}>
                                 &middot;
                             </Typography>

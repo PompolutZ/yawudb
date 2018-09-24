@@ -66,6 +66,13 @@ export const factionIndexes = [
     "the-farstriders"
 ]
 
+export const ObjectiveScoreType = {
+    0: 'score-immediately',
+    1: 'score-end-phase',
+    2: 'score-third-end-phase',
+    3: 'score-first-end-phase'
+}
+
 const getDbIndexByWaveAndCard = (wave, card) => {
     return (`00` + wave).slice(-2) + (`000` + card).slice(-3);
 }
@@ -150,6 +157,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your warband took an enemy leader out of action in the preceding action phase",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01002": {
@@ -158,6 +166,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if three or more of your fighters made a Charge action in this phase",
         "set": 0,
+        "scoreType": 0,
         "faq": "-"
     },
     "01003": {
@@ -166,6 +175,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if an enemy fighter begins a Move action adjacent to one of your fighters and ends it adjacent to none of your fighters",
         "set": 0,
+        "scoreType": 0,
         "faq": "-"
     },
     "01004": {
@@ -174,6 +184,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your warband takes two or more enemy fighters out of action in this phase",
         "set": 0,
+        "scoreType": 0,
         "faq": "-"
     },
     "01005": {
@@ -182,6 +193,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if at least one fighter from each warband is out of action",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01006": {
@@ -190,6 +202,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if five or more fighters are out of action",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01007": {
@@ -198,6 +211,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if all fighters except one of your fighters are out of action",
         "set": 0,
+        "scoreType": 2,
         "faq": "-"
     },
     "01008": {
@@ -206,6 +220,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if three or more of your fighters made a successful Attack action in this phase",
         "set": 0,
+        "scoreType": 0,
         "faq": "-"
     },
     "01009": {
@@ -214,6 +229,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if no fighter is holding an objective",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01010": {
@@ -382,6 +398,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your warband has taken two or more fighters out of action in this phase",
         "set": 0,
+        "scoreType": 0,
         "faq": "-"
     },
     "01031": {
@@ -390,6 +407,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold all objectives in enemy territory",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01032": {
@@ -398,6 +416,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if there are no enemy fighters adjacent to your fighters",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01033": {
@@ -406,6 +425,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if none of your fighters are out of action",
         "set": 0,
+        "scoreType": 2,
         "faq": "-"
     },
     "01034": {
@@ -414,6 +434,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if the same friendly fighter has held the same objective at the end of two consecutive action phases",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01035": {
@@ -422,6 +443,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if an enemy fighter is taken out of action by a Charge action made by one of your fighters",
         "set": 0,
+        "scoreType": 0,
         "faq": "-"
     },
     "01036": {
@@ -430,6 +452,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold an objective in enemy territory",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01037": {
@@ -438,6 +461,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if none of your fighters suffered any damage in the preceding action phase",
         "set": 0,
+        "scoreType": 1,
         "faq": ""
     },
     "01038": {
@@ -446,6 +470,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your warband took an enemy leader out of action in the preceding action phase",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01039": {
@@ -614,6 +639,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if two or more friendly fighters returned to the battlefield in the preceding action phase",
         "set": 1,
+        "scoreType": 1,
         "faq": ""
     },
     "01060": {
@@ -622,6 +648,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold every objective",
         "set": 1,
+        "scoreType": 1,
         "faq": ""
     },
     "01061": {
@@ -630,6 +657,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if there is only one friendly fighter on the battlefield",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01062": {
@@ -638,6 +666,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all of your surviving fighters (at least five) made a Move action in the preceding action phase",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01063": {
@@ -646,6 +675,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your warband took two or more enemy fighters out of action in the preceding action phase",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01064": {
@@ -654,6 +684,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if you have four or more surviving fighters, and none are Inspired",
         "set": 1,
+        "scoreType": 2,
         "faq": "-"
     },
     "01065": {
@@ -662,6 +693,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader takes an enemy fighter out of action",
         "set": 1,
+        "scoreType": 0,
         "faq": "-"
     },
     "01066": {
@@ -670,6 +702,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if all of your surviving fighters (at least three) are Inspired",
         "set": 1,
+        "scoreType": 2,
         "faq": "-"
     },
     "01067": {
@@ -678,6 +711,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if each enemy fighter is adjacent to at least two friendly fighters",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01068": {
@@ -846,6 +880,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if none of your fighters are out of action",
         "set": 2,
+        "scoreType": 2,
         "faq": "-"
     },
     "01089": {
@@ -854,6 +889,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader took an enemy fighter out of action in the preceding action phase",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01090": {
@@ -862,6 +898,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if three or more of your fighters made a Charge action this phase",
         "set": 2,
+        "scoreType": 0,
         "faq": "-"
     },
     "01091": {
@@ -870,6 +907,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter has two more supporting fighters than their target when making an Attack action",
         "set": 2,
+        "scoreType": 0,
         "faq": "-"
     },
     "01092": {
@@ -878,6 +916,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you have more fighters on the battlefield than your opponent",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01093": {
@@ -886,6 +925,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your warband took an enemy leader out of action in the preceding action phase",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01094": {
@@ -894,6 +934,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if three or more fighters were taken out of action in the preceding action phase",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01095": {
@@ -902,6 +943,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if each of your surviving fighters (at least two) made an Attack action against a different enemy fighter in the preceding action phase",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01096": {
@@ -910,6 +952,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter suffers 3 or more damage in a single attack and is not take out of action",
         "set": 2,
+        "scoreType": 0,
         "faq": "-"
     },
     "01097": {
@@ -1078,6 +1121,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if a friendly fighter holds an objective that an enemy fighter held at the beginning of the preceding action phase",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01118": {
@@ -1086,6 +1130,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your warband took an enemy leader out of action in the preceding action phase",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01119": {
@@ -1094,6 +1139,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter takes an enemy fighter out of action with a Charge action",
         "set": 3,
+        "scoreType": 0,
         "faq": "-"
     },
     "01120": {
@@ -1102,6 +1148,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all your surviving fighters (at least three) are Inspired",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01121": {
@@ -1110,6 +1157,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all of your surviving fighters (at least three) made a Charge action in the preceding action phase",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01122": {
@@ -1118,6 +1166,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all of your fighters and no enemy fighters are holding objectives",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01123": {
@@ -1126,6 +1175,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if none of your fighters are out of action",
         "set": 3,
+        "scoreType": 2,
         "faq": "-"
     },
     "01124": {
@@ -1134,6 +1184,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader takes an enemy fighter out of action",
         "set": 3,
+        "scoreType": 0,
         "faq": "-"
     },
     "01125": {
@@ -1142,6 +1193,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all of your surviving fighters are in enemy territory",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01126": {
@@ -1310,6 +1362,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your warband takes an enemy fighter out of action while they are adjacent to none of your fighters",
         "set": 4,
+        "scoreType": 0,
         "faq": "-"
     },
     "01147": {
@@ -1318,6 +1371,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you scored two or more other objective cards in the preceding action phase",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01148": {
@@ -1326,6 +1380,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all enemy fighters have been taken out of action",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01149": {
@@ -1334,6 +1389,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if no friendly fighter was taken out of action in the preceding action phase",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01150": {
@@ -1342,6 +1398,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if your leader is in your territory and not adjacent to an enemy",
         "set": 4,
+        "scoreType": 2,
         "faq": "-"
     },
     "01151": {
@@ -1350,6 +1407,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if the only surviving friendly fighter is your leader",
         "set": 4,
+        "scoreType": 2,
         "faq": "-"
     },
     "01152": {
@@ -1358,6 +1416,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if two or more friendly fighters were taken out of action in the preceding action phase",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01153": {
@@ -1366,6 +1425,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if there are five friendly fighters on the battlefield",
         "set": 4,
+        "scoreType": 2,
         "faq": "-"
     },
     "01154": {
@@ -1374,6 +1434,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader takes an enemy fighter out of action",
         "set": 4,
+        "scoreType": 0,
         "faq": "-"
     },
     "01155": {
@@ -1542,6 +1603,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if all friendly fighters (at least three) are adjacent to a different enemy fighter",
         "set": 5,
+        "scoreType": 0,
         "faq": "-"
     },
     "01176": {
@@ -1550,6 +1612,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if Riptooth takes an enemy leader out of action",
         "set": 5,
+        "scoreType": 0,
         "faq": "-"
     },
     "01177": {
@@ -1558,6 +1621,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all enemy fighters have been taken out of action",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01178": {
@@ -1566,6 +1630,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your warband takes two or more enemy fighters out of action in a phase",
         "set": 5,
+        "scoreType": 0,
         "faq": "-"
     },
     "01179": {
@@ -1574,6 +1639,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if at least two fighters from each warband are out of action",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01180": {
@@ -1582,6 +1648,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if three or more of your fighters made a Charge action this phase",
         "set": 5,
+        "scoreType": 0,
         "faq": "-"
     },
     "01181": {
@@ -1590,6 +1657,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all surviving fighters (at least four) are wounded",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01182": {
@@ -1598,6 +1666,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if an enemy leader is the only surviving enemy fighter",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01183": {
@@ -1606,6 +1675,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader takes an enemy fighter out of action",
         "set": 5,
+        "scoreType": 0,
         "faq": "-"
     },
     "01184": {
@@ -1774,6 +1844,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your warband took an enemy leader out of action in the preceding action phase",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01205": {
@@ -1782,6 +1853,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you have at least one surviving fighter and none of your fighters suffered any damage in the preceding action phase",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01206": {
@@ -1790,6 +1862,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if three friendly fighters are adjacent to enemy fighters",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01207": {
@@ -1798,6 +1871,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold three of more objectives",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01208": {
@@ -1806,6 +1880,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all of your surviving fighters (at least two) are in enemy territory",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01209": {
@@ -1814,6 +1889,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all enemy fighters have been taken out of action",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01210": {
@@ -1822,6 +1898,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you made at least three successful Boltstorm Pistol or Overcharged Boltstorm Pistol Attack actions in the preceding action phase",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01211": {
@@ -1830,6 +1907,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your warband has taken two or more fighters out of action in this phase",
         "set": 6,
+        "scoreType": 0,
         "faq": "-"
     },
     "01212": {
@@ -1838,6 +1916,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your surviving fighters (at least one) are outnumbered by surviving enemy fighters by at least three to one",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01213": {
@@ -2006,6 +2085,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if all of your fighters are out of action",
         "set": 5,
+        "scoreType": 2,
         "faq": "-"
     },
     "01234": {
@@ -2014,6 +2094,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately when your warband takes an enemy fighter standing in enemy territory out of action",
         "set": 6,
+        "scoreType": 0,
         "faq": "-"
     },
     "01235": {
@@ -2022,6 +2103,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if there are no adjacent fighters on the battlefield",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01236": {
@@ -2030,6 +2112,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all enemy fighters have been taken out of action",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01237": {
@@ -2038,6 +2121,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your warband took an enemy leader out of action in the preceding action phase",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01238": {
@@ -2046,6 +2130,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately when making an Attack action if both the attacker and the target have two supporting fighters",
         "set": 6,
+        "scoreType": 0,
         "faq": "-"
     },
     "01239": {
@@ -2054,6 +2139,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all of your surviving fighters (at least three) have at least one wound token",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01240": {
@@ -2062,6 +2148,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if no fighter suffered any damage in the preceding action phase",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01241": {
@@ -2070,6 +2157,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all friendly fighters (at least three) are adjacent to enemy fighters",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01242": {
@@ -2078,6 +2166,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your warband took three or more enemy fighters out of action in the preceding action phase",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01243": {
@@ -2086,6 +2175,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter on Guard makes a Charge action",
         "set": 6,
+        "scoreType": 0,
         "faq": "-"
     },
     "01244": {
@@ -2094,6 +2184,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if a surviving friendly fighter has three or more upgrades",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01245": {
@@ -2102,6 +2193,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if none of your fighters are out of action",
         "set": 6,
+        "scoreType": 2,
         "faq": "-"
     },
     "01246": {
@@ -2110,6 +2202,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if three or more friendly fighters made an Attack action against the same enemy fighter in this phase",
         "set": 6,
+        "scoreType": 0,
         "faq": "-"
     },
     "01247": {
@@ -2118,6 +2211,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if all of your surviving fighters are in your opponent's territory",
         "set": 0,
+        "scoreType": 2,
         "faq": ""
     },
     "01248": {
@@ -2126,6 +2220,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if all surviving enemy fighters are in their territory",
         "set": 2,
+        "scoreType": 2,
         "faq": ""
     },
     "01249": {
@@ -2134,6 +2229,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter makes a Move action of six or more hexes",
         "set": 4,
+        "scoreType": 0,
         "faq": "-"
     },
     "01250": {
@@ -2142,6 +2238,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter makes a successful attack that deals at least twice as much damage as is needed to take their target out of action",
         "set": 1,
+        "scoreType": 0,
         "faq": "-"
     },
     "01251": {
@@ -2150,6 +2247,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your fighters are outnumbered by at least three to one",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01252": {
@@ -2158,6 +2256,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately when your warband takes an enemy fighter standing in your territory out of action",
         "set": 6,
+        "scoreType": 0,
         "faq": "-"
     },
     "01253": {
@@ -2166,6 +2265,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if there are no enemy fighters in your territory",
         "set": 0,
+        "scoreType": 2,
         "faq": "-"
     },
     "01254": {
@@ -2174,14 +2274,16 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if the same friendly fighter has held the same objective at the end of two consecutive action phases",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01255": {
-        "name": "Devide and Conquer",
+        "name": "Divide and Conquer",
         "factions": 0,
         "type": 0,
         "rule": "Score this is an end phase if each player has at least one fighter in their own territory and at least one fighter in enemy territory",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01256": {
@@ -2190,6 +2292,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if five or more enemy fighters are out of action",
         "set": 2,
+        "scoreType": 2,
         "faq": "-"
     },
     "01257": {
@@ -2198,6 +2301,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if three or more upgrade cards were played in the preceding action phase",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01258": {
@@ -2206,6 +2310,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if there are at least three enemy fighters adjacent to the same friendly fighter",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01259": {
@@ -2214,6 +2319,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you scored two or more other objective cards in this phase",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01260": {
@@ -2222,6 +2328,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if each of your surviving fighters (at least three) has at least one upgrade",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01261": {
@@ -2230,6 +2337,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all of your surviving fighters (at least three) are Inspired",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01262": {
@@ -2238,6 +2346,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter's Attack action succeeds when their target has two or more supporting fighters more then the attacker",
         "set": 5,
+        "scoreType": 0,
         "faq": "-"
     },
     "01263": {
@@ -2246,6 +2355,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you are holding objective 1",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01264": {
@@ -2254,6 +2364,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you are holding objective 2",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01265": {
@@ -2262,6 +2373,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you are holding objective 3",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01266": {
@@ -2270,6 +2382,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you are holding objective 4",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01267": {
@@ -2278,6 +2391,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you are holding objective 5",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01268": {
@@ -2286,6 +2400,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you played no ploy cards during the preceding action phase",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01269": {
@@ -2294,6 +2409,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if at least one fighter was taken out of action in the preceding action phase in enemy territory, in your territory and in no one's territory",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01270": {
@@ -2302,6 +2418,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold all objectives (at least one) in your opponent's territory",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01271": {
@@ -2310,6 +2427,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your fighters deal 7 or more damage in an action phase (damage in excess of a fighter's Wounds characteristic is included)",
         "set": 5,
+        "scoreType": 0,
         "faq": "-"
     },
     "01272": {
@@ -2318,6 +2436,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you scored an objective card, played a ploy card and played an upgrade card in this round",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01273": {
@@ -2326,6 +2445,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if an enemy fighter is taken out of action by an Attack action made as a Reaction by your warband or a Reaction made by your warband that causes damage",
         "set": 5,
+        "scoreType": 0,
         "faq": "-"
     },
     "01274": {
@@ -2334,6 +2454,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if one of your fighters is the target of an enemy Attack action with a Dice characteristic of 3 or more that fails",
         "set": 4,
+        "scoreType": 0,
         "faq": "-"
     },
     "01275": {
@@ -2342,6 +2463,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your warband dealt damage to three or more enemy fighters in the preceding action phase",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01276": {
@@ -2350,6 +2472,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you have no power cards in your hand",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01277": {
@@ -2358,6 +2481,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if one of your fighters takes an enemy fighter out of action with an Attack action with a Damage characteristic greater than the target's Wounds characteristic",
         "set": 3,
+        "scoreType": 0,
         "faq": "-"
     },
     "01278": {
@@ -2366,6 +2490,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold three or more objectives",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01279": {
@@ -2374,6 +2499,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold every objective",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01280": {
@@ -2382,6 +2508,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if none of your fighters made a Move action in the preceding action phase",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01281": {
@@ -2390,6 +2517,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader is holding an objective in enemy territory",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01282": {
@@ -2398,6 +2526,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you played three or more ploys in the preceding action phase",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01283": {
@@ -2406,6 +2535,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if at least three friendly fighters are adjacent to the same enemy fighter",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01284": {
@@ -2414,6 +2544,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter makes a successful Attack action that deals exactly enough damage to take their target out of action",
         "set": 3,
+        "scoreType": 0,
         "faq": "-"
     },
     "01285": {
@@ -2422,6 +2553,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if seven or more fighters are out of action",
         "set": 5,
+        "scoreType": 2,
         "faq": "-"
     },
     "01286": {
@@ -2430,6 +2562,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all remaining enemy fighters (at least three) have an upgrade",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01287": {
@@ -2438,6 +2571,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter's attack takes two or more enemy fighters out of action",
         "set": 1,
+        "scoreType": 0,
         "faq": "-"
     },
     "01288": {
@@ -2446,6 +2580,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all surviving enemy fighters (at least three) have at least one wound token",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01289": {
@@ -2454,6 +2589,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all surviving friendly fighters (at least two) are on edge hexes",
         "set": 6,
+        "scoreType": 1,
         "faq": "-"
     },
     "01290": {
@@ -2462,6 +2598,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your opponent played no power cards in the preceding action phase",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01291": {
@@ -2470,6 +2607,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if you have scored six or more other objective cards",
         "set": 2,
+        "scoreType": 2,
         "faq": "-"
     },
     "01292": {
@@ -2478,6 +2616,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold three or more objectives",
         "set": 0,
+        "scoreType": 1,
         "faq": "-"
     },
     "01293": {
@@ -2486,6 +2625,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all of your surviving fighters are in enemy territory",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01294": {
@@ -2494,6 +2634,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold objectives 1, 2 and 3",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01295": {
@@ -2502,6 +2643,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold objectives 3, 4 and 5",
         "set": 4,
+        "scoreType": 1,
         "faq": "-"
     },
     "01296": {
@@ -2510,6 +2652,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold objectives 1 and 2",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01297": {
@@ -2518,6 +2661,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you hold objectives 3 and 4",
         "set": 1,
+        "scoreType": 1,
         "faq": "-"
     },
     "01298": {
@@ -2526,6 +2670,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter takes an enemy fighter out of action with an Attack action that had a Damage characteristic of 1",
         "set": 4,
+        "scoreType": 0,
         "faq": "-"
     },
     "01299": {
@@ -2534,6 +2679,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if a friendly fighter makes an Attack action that damages three or more enemy fighters",
         "set": 1,
+        "scoreType": 0,
         "faq": "-"
     },
     "01300": {
@@ -2542,6 +2688,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the first or second end phase if all enemy fighters have been taken out of action",
         "set": 3,
+        "scoreType": 3,
         "faq": "-"
     },
     "01301": {
@@ -2550,6 +2697,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if an enemy fighter takes damage from a friendly fighter's Attack action because they cannot be driven back",
         "set": 3,
+        "scoreType": 0,
         "faq": "-"
     },
     "01302": {
@@ -2558,6 +2706,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all of your surviving fighters (at least three) are neither in your territory nor enemy territory",
         "set": 2,
+        "scoreType": 1,
         "faq": "-"
     },
     "01303": {
@@ -2566,6 +2715,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if all surviving friendly fighters (at least three) are in a single group with each friendly fighter adjacent to another friendly fighter",
         "set": 3,
+        "scoreType": 1,
         "faq": "-"
     },
     "01304": {
@@ -2574,6 +2724,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if one of your fighters makes a successful Attack action against an enemy fighter on Guard",
         "set": 6,
+        "scoreType": 0,
         "faq": "-"
     },
     "01305": {
@@ -2582,6 +2733,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader takes an enemy leader out of action",
         "set": 2,
+        "scoreType": 0,
         "faq": "-"
     },
     "01306": {
@@ -2590,6 +2742,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you scored three or more other objective cards in this round",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01307": {
@@ -2598,6 +2751,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if the same number of fighters (at least one) from each warband are out of action",
         "set": 5,
+        "scoreType": 1,
         "faq": "-"
     },
     "01308": {
@@ -3662,6 +3816,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if the only surviving fighters (at least 2) are leaders",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02004": {
@@ -3678,6 +3833,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if three friendly Petitioners are surviving and Inspired",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02006": {
@@ -3694,6 +3850,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase is your leader took two or more enemy fighters out of action in the preceding action phase",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02008": {
@@ -3710,6 +3867,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader has three or more upgrades with his warband symbol",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02010": {
@@ -3726,6 +3884,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader is out of action and a friendly fighter named Krrk is on the battlefield",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02012": {
@@ -3742,6 +3901,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader is the only surviving fighter",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02014": {
@@ -3758,6 +3918,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader takes an enemy holding an objective out of action",
         "set": 7,
+        "scoreType": 0,
         "faq": "-"
     },
     "02016": {
@@ -3774,6 +3935,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the first end phase if your leader is in enemy territory",
         "set": 7,
+        "scoreType": 3,
         "faq": "-"
     },
     "02018": {
@@ -3782,6 +3944,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader is chosen by three or more ploys in this phase",
         "set": 7,
+        "scoreType": 0,
         "faq": "-"
     },
     "02019": {
@@ -3790,6 +3953,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader is the only friendly fighter adjacent to any enemy fighters",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02020": {
@@ -3798,6 +3962,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader takes three or more enemy fighters out of action in this phase",
         "set": 7,
+        "scoreType": 0,
         "faq": "-"
     },
     "02021": {
@@ -3806,6 +3971,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader is on the battlefield and was the target of three or more Attack actions in the preceding action phase",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02022": {
@@ -3814,6 +3980,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader was a supporting fighter during three or more Attack actions in this phase",
         "set": 7,
+        "scoreType": 0,
         "faq": "-"
     },
     "02023": {
@@ -3822,6 +3989,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the first end phase if an enemy leaders is out of action",
         "set": 7,
+        "scoreType": 3,
         "faq": "-"
     },
     "02024": {
@@ -3830,6 +3998,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader is on the battlefield and Inspired",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02025": {
@@ -3838,6 +4007,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this immediately if your leader takes two or more enemy fighters out of action in this phase",
         "set": 7,
+        "scoreType": 0,
         "faq": "-"
     },
     "02026": {
@@ -3846,6 +4016,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader is the only friendly fighter on the battlefield",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02027": {
@@ -3854,6 +4025,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if you activated your leader with four activations in the preceding action phase",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02028": {
@@ -3862,6 +4034,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in the third end phase if your leader is on the battlefield",
         "set": 7,
+        "scoreType": 2,
         "faq": "-"
     },
     "02029": {
@@ -3870,6 +4043,7 @@ export const cardsDb = {
         "type": 0,
         "rule": "Score this in an end phase if your leader is adjacent to two or more friendly fighters",
         "set": 7,
+        "scoreType": 1,
         "faq": "-"
     },
     "02030": {
