@@ -18,6 +18,7 @@
     "react-animate-height": "^2.0.3",
     "react-dom": "^16.4.1",
     "react-google-button": "^0.5.3",
+    "react-markdown": "^3.6.0",
     "react-pose": "^2.1.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",

@@ -17,10 +17,27 @@ import { connect, Provider } from 'react-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 import configureStore from './configureStore';
 import Deck from './pages/Deck';
+import About from './pages/About';
 
 const history = createBrowserHistory();
-
 const store = configureStore(history);
+
+const setToLastLocation = (state, history) => {
+  if(state.router.location.pathname !== history.location.pathname) {
+    if(window.matchMedia('(display-mode: standalone)').matches) {
+      history.push(state.router.location.pathname);
+      return;
+    }
+
+    // Safari
+    if(window.navigator.standalone === true) {
+      history.push(state.router.location.pathname);
+      return;
+    }
+  }
+}
+
+setToLastLocation(store.getState(), history);
 
 class PrivateRouteContainer extends React.Component {
     render() {
@@ -52,6 +69,21 @@ const PrivateRoute = connect(state => ({
     isAuthenticated: state.auth !== null
 }))(PrivateRouteContainer)   
 
+// class PersistedConnectedRouter extends ConnectedRouter {
+//     componentWillMount() {
+//         const { history } = this.props;
+//         //this is the tweak which will prefer persisted route instead of that in url:
+//         const location = store.getState().router.location || {};
+//         if (location.pathname !== history.location.pathname) {
+//             store.dispatch({type: 'LOCATION_CHANGE', location});
+//             console.log(this.props);
+//         }
+        
+//         this.
+//         //this.handleLocationChange(history.location);    
+//     }  
+// }
+
 const App = () => (
     <ConnectedRouter history={history}>
         <div>
@@ -63,6 +95,7 @@ const App = () => (
                 <Route path="/newdeck" component={DeckCreator} />
                 <Route path="/login" component={Login} />
                 <Route path="/deck/:id" component={Deck} />
+                <Route path="/about" component={About} />
 
                 <PrivateRoute path="/mydecks" component={MyDecks} />
             </Switch>
