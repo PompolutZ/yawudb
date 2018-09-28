@@ -139,7 +139,7 @@ const SetIcon = ({ set }) => (
 
 export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
     const objectives = cards.filter(v => v.type === 0);
-    const gambits = cards.filterfilter(v => v.type === 1 || v.type === 3);
+    const gambits = cards.filter(v => v.type === 1 || v.type === 3);
     const upgrades = cards.filter(v => v.type === 2);
     return (    
         <div style={{}}>
