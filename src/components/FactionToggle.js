@@ -1,6 +1,6 @@
 import React from 'react';
 import ToggleImageButton from './ToggleImageButton';
-import { factionCards } from '../data/index';
+import { factionIndexes } from '../data/index';
 import * as _ from 'lodash';
 
 const FactionToggle = ({ selectedFaction, setFaction }) => {
@@ -15,7 +15,7 @@ const FactionToggle = ({ selectedFaction, setFaction }) => {
 
     return (
         <div style={{display: 'flex', flexFlow: 'row wrap'}}>
-            { _.keys(factionCards).slice(1).map(faction => renderFactionToggleButton(faction)) }
+            { factionIndexes.slice(1).map(faction => renderFactionToggleButton(faction)) }
         </div>
     );
 }

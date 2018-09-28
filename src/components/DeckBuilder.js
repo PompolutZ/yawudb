@@ -35,7 +35,7 @@ class DeckBuilder extends Component {
             isMobileDeckVisible: false,
             searchText: "",
             filtersVisible: false,
-            visibleCardTypes: [0, 1, 2],
+            visibleCardTypes: [0, 1, 2, 3],
             showNotification: false
         };
         
@@ -141,8 +141,14 @@ class DeckBuilder extends Component {
 
     componentDidMount() {
         const factionCards = getCardsByFactionAndSets(this.props.selectedFaction, this.state.selectedSets);
-        const universalCards = getCardsByFactionAndSets('universal', this.state.selectedSets);
-        this.setState({cards: new Set(factionCards).union(new Set(universalCards))});
+        if(this.state.selectedSets.length > 0) {
+            const universalCards = getCardsByFactionAndSets('universal', this.state.selectedSets);
+            this.setState({cards: new Set(factionCards).union(new Set(universalCards))});     
+        } else {
+            this.setState({cards: new Set(factionCards)});
+        }
+        // const universalCards = getCardsByFactionAndSets('universal', this.state.selectedSets);
+        
     }
 
     handleShowDeckMobile() {

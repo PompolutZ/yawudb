@@ -8,12 +8,14 @@ export const factions = {
     "spiteclaws-swarm" : "Spiteclaw's Swarm",
     "magores-fiends" : "Magore's Fiends",
     "the-farstriders" : "The Farstriders",
+    "stormsires-cursebreakers": "Stormsire's Cursebreakers",
+    "thorns-of-the-briar-queen": "Thorns of the Briar Queen"
 }
 
 export const cardSet = ["Core set", "Sepulchral Guard expansion", "Ironskull's Boyz expansion", "The Chosen Axes expansion", "Spiteclaw's Swarm expansion", "Magore's Fiends expansion", "The Farstriders expansion", "Leaders expansion"];
-export const cardSetIcons = ["universal", "sepulchral-guard", "ironskulls-boyz", "the-chosen-axes", "spiteclaws-swarm", "magores-fiends", "the-farstriders", "leaders"];
-export const cardType = ["Objective", "Ploy", "Upgrade"]
-export const cardTypeIcons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];
+export const cardSetIcons = ["universal", "sepulchral-guard", "ironskulls-boyz", "the-chosen-axes", "spiteclaws-swarm", "magores-fiends", "the-farstriders", "leaders", "nightvault-core"];
+export const cardType = ["Objective", "Ploy", "Upgrade", "Gambit Spell"]
+export const cardTypeIcons = ['objective-icon', 'ploy-icon', 'upgrade-icon', 'gambit spell-icon'];
 
 // 0 index stands for 'wave', so all the cards from Shadespire except Leader will be from wave 1,
 // Leaders are wave 2, Nightvault is gonna be wave 3
@@ -31,7 +33,7 @@ export const factionCards = {
 
 // 0 index indicates the default set containing corresponding faction's cards
 export const factionSets = {
-    "universal" : [0, 1, 2, 3, 4, 5, 6, 7],
+    "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8],
     "garreks-reavers" : [0, 7],
     "steelhearts-champions" : [0, 7],
     "sepulchral-guard" : [1, 7],
@@ -40,6 +42,8 @@ export const factionSets = {
     "spiteclaws-swarm" : [4, 7],
     "magores-fiends" : [5, 7],
     "the-farstriders" : [6, 7],
+    "stormsires-cursebreakers": [8],
+    "thorns-of-the-briar-queen": [8]
 }
 
 export const setsIndex = [
@@ -51,7 +55,7 @@ export const setsIndex = [
     "magores-fiends",
     "the-farstriders",
     "leaders",
-    //"nightvault-core"
+    "nightvault-core"
 ]
 
 export const factionIndexes = [
@@ -63,7 +67,9 @@ export const factionIndexes = [
     "the-chosen-axes",
     "spiteclaws-swarm",
     "magores-fiends",
-    "the-farstriders"
+    "the-farstriders",
+    "stormsires-cursebreakers",
+    "thorns-of-the-briar-queen"
 ]
 
 export const ObjectiveScoreType = {
@@ -77,11 +83,13 @@ const getDbIndexByWaveAndCard = (wave, card) => {
     return (`00` + wave).slice(-2) + (`000` + card).slice(-3);
 }
 
-export const getCardsByFactionAndSets = (faction, sets) => {
+export const getCardsByFactionAndSets = (faction, selectedSets) => {
+    console.log('getCardsByFactionAndSets', faction, selectedSets);
+    const defaultFactionCards = faction !== 'universal' ? [factionSets[faction][0]] : [] 
     let cardIds = [];
-    const setsWithFactionSet = [...sets, factionSets[faction][0]];
+    const setsWithFactionSet = [...selectedSets, ...defaultFactionCards];
+    console.log('setsWithFactionSet', setsWithFactionSet);
     const fIndex = factionIndexes.indexOf(faction);
-
     for (let s of setsWithFactionSet) {
         const set = setInfos[s];
         if(set.hasOwnProperty(fIndex)) {
@@ -141,11 +149,18 @@ export const setInfos = {
         '7' : [13, 14],
         '8' : [15, 16]
     },
+    '8' : {
+        wave: 3,
+        '0': [294, 306, 310, 330, 331, 332, 333, 334, 374, 403, 409, 419, 446, 471, 497, 504, 505, 506, 512],
+        '9': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+        '10': [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58]
+    }
 }
 
 export const totalCardsPerWave = {
     1: 437,
-    2: 60
+    2: 60,
+    3: 557
 }
 
 export const universalCardsStartNumber = 233;
@@ -4293,5 +4308,549 @@ export const cardsDb = {
         "rule": "Reaction: After an adjacent friendly fighter’s Attack action that fails, that fighter takes 2 damage. If they survive, they can make another Attack action",
         "set": 7,
         "faq": "-"
-    }    
+    },
+    '03001':                                                                        
+    { name: 'Blessed Banishment',                                                  
+      factions: 9,                                                               
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                            
+      faq: '-' },                                                                  
+   '03002':                                                                        
+    { name: 'Devastating Blow',                                                    
+      factions: 9,                                                               
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                              
+      faq: '-' },                                                                  
+   '03003':                                                                        
+    { name: 'Fight as One',                                                        
+      factions: 9,                                                               
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 0,                                                              
+      faq: '-' },                                                                  
+   '03004':                                                                        
+    { name: 'Harness the Storm',                                                   
+      factions: 9,                                                               
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 0,                                                              
+      faq: '-' },                                                                  
+   '03005':                                                                        
+    { name: 'Heavily Armed',                                                       
+      factions: 9,                                                               
+      type: 8,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                              
+      faq: '-' },                                                                  
+   '03006':                                                                        
+    { name: 'Magical Supremacy',                                                   
+      factions: 9,                                                               
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                              
+      faq: '-' },                                                                  
+   '03007':                                                                        
+    { name: 'Measured Strike',                                                     
+      factions: 9,                                                               
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 0,                                                              
+      faq: '-' },                                                                  
+   '03008':                                                                        
+    { name: 'Overwhelming Storm',                                                  
+      factions: 9,                                                               
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                              
+      faq: '-' },                                                                  
+   '03009':                                                                        
+    { name: 'Purify the Earth',                                                    
+      factions: 9,                                                               
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                              
+      faq: '-' },                                                                  
+   '03010':                                                                        
+    { name: 'Aetherwing Stance',                                                   
+      factions: 9,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03011':                                                                        
+    { name: 'Chain Lightning',                                                     
+      factions: 9,                                                                 
+      type: 3,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03012':                                                                        
+    { name: 'Cry of Thunder',                                                      
+      factions: 9,                                                                 
+      type: 3,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03013':                                                                        
+    { name: 'Empathic Connection',                                                 
+      factions: 9,                                                                 
+      type: 3,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03014':                                                                        
+    { name: 'Gather the Storm',                                                    
+      factions: 9,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03015':                                                                        
+    { name: 'Lightning Assault',                                                   
+      factions: 9,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03016':                                                                        
+    { name: 'Lightning Step',                                                      
+      factions: 9,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03017':                                                                        
+    { name: 'Safeguard Spirit',                                                    
+      factions: 9,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03018':                                                                        
+    { name: 'Stormstrike',                                                         
+      factions: 9,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03019':                                                                        
+    { name: 'Stormward',                                                           
+      factions: 9,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03020':                                                                        
+    { name: 'Blessed Blade',                                                       
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03021':                                                                        
+    { name: 'Corposant Staff',                                                     
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03022':                                                                        
+    { name: 'Disarming Blow',                                                      
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03023':                                                                        
+    { name: 'Eye of the Storm',                                                    
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03024':                                                                        
+    { name: 'Hurricane Step',                                                      
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03025':                                                                        
+    { name: 'Lightning Whip',                                                      
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03026':                                                                        
+    { name: 'Stunning Blow',                                                       
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03027':                                                                        
+    { name: 'Tempest\'s Might',                                                    
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03028':                                                                        
+    { name: 'Unstoppable Zeal',                                                    
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03029':                                                                        
+    { name: 'Warding Blast',                                                       
+      factions: 9,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03030':                                                                        
+    { name: 'As Nagash Commands',                                                  
+      factions: 10,                                                              
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 2,                                                              
+      faq: '-' },                                                                  
+   '03031':                                                                        
+    { name: 'Death Sentence',                                                      
+      factions: 10,                                                              
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 0,                                                              
+      faq: '-' },                                                                  
+   '03032':                                                                        
+    { name: 'Drag Them Down',                                                      
+      factions: 10,                                                              
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 0,                                                              
+      faq: '-' },                                                                  
+   '03033':                                                                        
+    { name: 'Execution',                                                           
+      factions: 10,                                                              
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                              
+      faq: '-' },                                                                  
+   '03034':                                                                        
+    { name: 'Swarming Spirits',                                                    
+      factions: 10,                                                              
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 0,                                                              
+      faq: '-' },                                                                  
+   '03035':                                                                        
+    { name: 'Take the City',                                                       
+      factions: 10,                                                              
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                              
+      faq: '-' },                                                                  
+   '03036':                                                                        
+    { name: 'The Vengeful Dead',                                                   
+      factions: 10,                                                              
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                              
+      faq: '-' },                                                                  
+   '03037':                                                                        
+    { name: 'Treacherous Foe',                                                     
+      factions: 10,                                                              
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 0,                                                              
+      faq: '-' },                                                                  
+   '03038':                                                                        
+    { name: 'Vengeful Advance',                                                    
+      factions: 10,                                                              
+      type: 0,                                                                   
+      rule: '',                                                                    
+      set: 8,                                                                    
+      scoreType: 1,                                                              
+      faq: '-' },                                                                  
+   '03039':                                                                        
+    { name: 'Drifting Advance',                                                    
+      factions: 10,                                                                
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03040':                                                                        
+    { name: 'Endless Malice',                                                      
+      factions: 10,                                                                
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03041':                                                                        
+    { name: 'Grasping Chains',                                                     
+      factions: 10,                                                                
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03042':                                                                        
+    { name: 'Howling Vortex',                                                      
+      factions: 10,                                                                
+      type: 3,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03043':                                                                        
+    { name: 'Maddening Cackle',                                                    
+      factions: 10,                                                                
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03044':                                                                        
+    { name: 'Rending Scream',                                                      
+      factions: 10,                                                                
+      type: 3,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03045':                                                                        
+    { name: 'Spectral Parry',                                                      
+      factions: 10,                                                                
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03046':                                                                        
+    { name: 'Spectral Touch',                                                      
+      factions: 10,                                                                
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03047':                                                                        
+    { name: 'Sudden Appearance',                                                   
+      factions: 10,                                                                
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03048':                                                                        
+    { name: 'Vengeful Curse',                                                      
+      factions: 10,                                                                
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03049':                                                                        
+    { name: 'Chill Touch',                                                         
+      factions: 10,                                                                
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03050':                                                                        
+    { name: 'Creeping Terror',                                                     
+      factions: 10,                                                                
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03051':                                                                        
+    { name: 'Curse of Unbinding',                                                  
+      factions: 10,                                                                
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03052':                                                                        
+    { name: 'Driven by Hatred',                                                    
+      factions: 10,                                                                
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03053':                                                                        
+    { name: 'Face of Death',                                                       
+      factions: 10,                                                                
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03054':                                                                        
+    { name: 'Grasping Thorns',                                                     
+      factions: 10,                                                                
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03055':                                                                        
+    { name: 'Inescapable Vengeance',                                               
+      factions: 10,                                                                
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03056':                                                                        
+    { name: 'Sadistic Strike',                                                     
+      factions: 10,                                                                
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03058':                                                                        
+    { name: 'Strangling Coil',                                                     
+      factions: 10,                                                                
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03294':                                                                        
+    { name: 'Annihilation',                                                        
+      factions: 0,                                                                 
+      type: 0,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03306':                                                                        
+    { name: 'Conquest',                                                            
+      factions: 0,                                                                 
+      type: 0,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03310': { name: 'Denial', factions: 0, type: 0, rule: '', set: 8, faq: '-' },  
+   '03330':                                                                        
+    { name: 'Hold Objective 1',                                                    
+      factions: 0,                                                                 
+      type: 0,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03331':                                                                        
+    { name: 'Hold Objective 2',                                                    
+      factions: 0,                                                                 
+      type: 0,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03332':                                                                        
+    { name: 'Hold Objective 3',                                                    
+      factions: 0,                                                                 
+      type: 0,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03333':                                                                        
+    { name: 'Hold Objective 4',                                                    
+      factions: 0,                                                                 
+      type: 0,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03334':                                                                        
+    { name: 'Hold Objective 5',                                                    
+      factions: 0,                                                                 
+      type: 0,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03374':                                                                        
+    { name: 'Supremacy',                                                           
+      factions: 0,                                                                 
+      type: 0,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03403':                                                                        
+    { name: 'Confusion',                                                           
+      factions: 0,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03409':                                                                        
+    { name: 'Determined Effort',                                                   
+      factions: 0,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03419':                                                                        
+    { name: 'Grinding Earth',                                                      
+      factions: 0,                                                                 
+      type: 3,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03446':                                                                        
+    { name: 'Sidestep',                                                            
+      factions: 0,                                                                 
+      type: 1,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03471':                                                                        
+    { name: 'Vital Surge',                                                         
+      factions: 0,                                                                 
+      type: 3,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03497':                                                                        
+    { name: 'Escape Artist',                                                       
+      factions: 0,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03504':                                                                        
+    { name: 'Great Fortitude',                                                     
+      factions: 0,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03505':                                                                        
+    { name: 'Great Speed',                                                         
+      factions: 0,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03506':                                                                        
+    { name: 'Great Strength',                                                      
+      factions: 0,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' },                                                                  
+   '03512':                                                                        
+    { name: 'Lucky Trinket',                                                       
+      factions: 0,                                                                 
+      type: 2,                                                                     
+      rule: '',                                                                    
+      set: 8,                                                                      
+      faq: '-' }                                                                 
 }

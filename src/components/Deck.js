@@ -44,13 +44,13 @@ const DeckSource = ({ onChange, defaultSource }) => (
     </div>
 );
 
-const CardsTypeCounter = ({ type, count, isValidCount }) => (
+const CardsTypeCounter = ({ types, count, isValidCount }) => (
     <div style={{
         display: 'flex',
         alignItems: 'center',
         marginRight: '2rem'
     }}>
-        <Avatar style={{marginRight: '.5rem'}} src={`/assets/icons/${cardTypeIcons[type]}.png`} />
+        { types.map(t => <Avatar key={t} style={{marginRight: '.5rem'}} src={`/assets/icons/${cardTypeIcons[t]}.png`} />)}
         <Typography variant="title" color={isValidCount ? 'default' : 'error'}>{`${count}`}</Typography>
     </div>
 );
@@ -58,6 +58,12 @@ const CardsTypeCounter = ({ type, count, isValidCount }) => (
 const SectionHeader = ({ type }) => (
     <div style={{borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
         <Typography variant="headline">{`${cardType[type]}s`}</Typography>
+    </div>
+);
+
+const MultiSectionHeader = ({ types }) => (
+    <div style={{display: 'flex', borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
+        { types.map((t, i) => <Typography key={t} variant="headline" style={{marginLeft: i > 0 ? '.5rem' : '0'}}>{`${ i > 0 ? ' | ' : ''}${cardType[t]}s `}</Typography>)}
     </div>
 );
 
@@ -82,12 +88,12 @@ class Deck extends Component {
         
         const cards = new Set(selectedCards);
         const objectives = cards.filter(v => v.type === 0);
-        const ploys = cards.filter(v => v.type === 1);
+        const gambits = cards.filter(v => v.type === 1 || v.type === 3);
         const upgrades = cards.filter(v => v.type === 2);
         const objectivesCount = objectives.count();
-        const ploysCount = ploys.count();
+        const gambitsCount = gambits.count();
         const upgradesCount = upgrades.count();
-        const isValidForSave = objectivesCount === 12 && ((ploysCount + upgradesCount) >= 20);
+        const isValidForSave = objectivesCount === 12 && ((gambitsCount + upgradesCount) >= 20);
         return (
             <div>
                 <DeckFaction faction={faction} defaultName={this.state.name} onChange={this.handleChangeName} />
@@ -98,18 +104,18 @@ class Deck extends Component {
                     marginBottom: '1.5rem',
                     marginTop: '1.5rem'
                 }}>
-                    <CardsTypeCounter type={0} count={objectivesCount} isValidCount={objectivesCount === 12} />
-                    <CardsTypeCounter type={1} count={ploysCount} isValidCount={(ploysCount + upgradesCount) >= 20} />
-                    <CardsTypeCounter type={2} count={upgradesCount} isValidCount={(ploysCount + upgradesCount) >= 20} />
+                    <CardsTypeCounter types={[0]} count={objectivesCount} isValidCount={objectivesCount === 12} />
+                    <CardsTypeCounter types={[1, 3]} count={gambitsCount} isValidCount={(gambitsCount + upgradesCount) >= 20} />
+                    <CardsTypeCounter types={[2]} count={upgradesCount} isValidCount={(gambitsCount + upgradesCount) >= 20} />
                 </div>
                 
                 <SectionHeader type={0} />
                 { 
                     objectives.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
                 }
-                <SectionHeader type={1} />
+                <MultiSectionHeader types={[1, 3]} />
                 {
-                    ploys.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
+                    gambits.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
                 }
                 <SectionHeader type={2} />
                 {
@@ -133,7 +139,7 @@ const SetIcon = ({ set }) => (
 
 export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
     const objectives = cards.filter(v => v.type === 0);
-    const ploys = cards.filter(v => v.type === 1);
+    const gambits = cards.filterfilter(v => v.type === 1 || v.type === 3);
     const upgrades = cards.filter(v => v.type === 2);
     return (    
         <div style={{}}>
@@ -160,9 +166,9 @@ export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
                 maxWidth: '20rem',
                 margin: '1rem'
             }}>
-                <CardsTypeCounter isValidCount type={0} count={objectives.count()} />
-                <CardsTypeCounter isValidCount type={1} count={ploys.count()} />
-                <CardsTypeCounter isValidCount type={2} count={upgrades.count()} />
+                <CardsTypeCounter isValidCount types={[0]} count={objectives.count()} />
+                <CardsTypeCounter isValidCount types={[1,3]} count={gambits.count()} />
+                <CardsTypeCounter isValidCount types={[2]} count={upgrades.count()} />
             </div>
             
             <SectionHeader type={0} />
@@ -171,7 +177,7 @@ export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
             }
             <SectionHeader type={1} />
             {
-                ploys.toJS().map((v, i) => getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
+                gambits.toJS().map((v, i) => getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
             }
             <SectionHeader type={2} />
             {

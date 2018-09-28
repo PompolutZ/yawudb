@@ -110,7 +110,7 @@ class WUCardAtom extends Component {
     render() {
         const { classes, type, id, scoreType } = this.props;
         const height = this.state.expanded ? 'auto' : 0;
-        const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon'];
+        const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon', 'gambit spell-icon'];
         return (
             <div className={`root ${this.props.isAlter ? 'alternateRootColor' : ''}`}>
                 <div className="header">
