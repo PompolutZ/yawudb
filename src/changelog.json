@@ -1,4 +1,7 @@
 {
+    "0.4.0" : {
+        "Redesign Faction Selector": "Faction selector in the Deck builder has been redesigned a bit to improve readability. Best viewed on mobile."
+    },
     "0.3.0" : {
         "Social Login in PWA": "The issue with using social login when you run app from the homescreen should be solved now."
     },
