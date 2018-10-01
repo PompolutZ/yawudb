@@ -13,7 +13,10 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json"> -->
+    <link rel="pwa-setup" href="%PUBLIC_URL%/manifest.json" >
+    <script async src="%PUBLIC_URL%/pwacompat.js"></script>
+    
     <link rel="shortcut icon" href="%PUBLIC_URL%/yawudb_64x64.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
 

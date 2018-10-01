@@ -18,6 +18,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import configureStore from './configureStore';
 import Deck from './pages/Deck';
 import About from './pages/About';
+import firebase from './firebase';
 
 const history = createBrowserHistory();
 const store = configureStore(history);
