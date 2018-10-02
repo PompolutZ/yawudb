@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from '../firebase';
+import firebase, { db } from '../firebase';
 import GoogleButton from 'react-google-button';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import { withRouter } from 'react-router-dom';
@@ -15,6 +15,15 @@ class Login extends Component {
             const r = await firebase.auth().getRedirectResult();
             if (r.credential) {
                 const {email, displayName, uid} = r.user;
+                const userProfileRef = await db.collection('users').doc(uid).get();
+                if(!userProfileRef.exists) {
+                    await db.collection('users').doc(uid).set({
+                        displayName: displayName,
+                        mydecks: [],
+                        role: 'soul'
+                    });
+                }
+
                 this.props.onLogin({email, displayName, uid});
                 this.props.history.push('/mydecks');
             }

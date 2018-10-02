@@ -4,7 +4,7 @@ import { OrderedSet, Set } from 'immutable';
 
 import { getWUCardByIdFromDB } from '../components/WUCard';
 import Deck from '../components/Deck';
-import { cardsDb, factions, getCardsByFactionAndSets } from '../data/index';
+import { cardsDb, factions, getCardsByFactionAndSets, factionIdPrefix } from '../data/index';
 import firebase, { db } from '../firebase';
 
 import ExpansionsToggle from '../components/ExpansionsToggle';
@@ -80,15 +80,32 @@ class DeckBuilder extends Component {
     }
 
     saveCurrentDeck() {
-        const id = uuid4();
-        const deckId = `${this.props.selectedFaction}-${id.slice(-12)}`;
+        const deckId = `${factionIdPrefix[this.props.selectedFaction]}-${uuid4().slice(-12)}`;
+        const currentDeck = this.props.currentDeck.map(c => c.id).toJS();
+        const objectiveScoringSummary = currentDeck.map(x => {
+            const { type, scoreType } = cardsDb[x];
+            if(type === 0) {
+                return scoreType;
+            }
+
+            return -1;
+        }).reduce((acc, x) => {
+            if(x < 0) return acc;
+            acc[x] += 1;
+            return acc;
+        }, [0, 0, 0, 0]);
+
+
         const deckPayload = {
             name: this.props.currentDeckName,
-            cards: this.props.currentDeck.map(c => c.id).toJS(),
-            sets: new OrderedSet(this.props.currentDeck.map(c => c.set)).toJS(),
-            created: new Date(),
             source: this.props.currentDeckSource,
-            author: this.props.isAuth ? this.props.userInfo.uid : 'anon'
+            desc: '',
+            cards: currentDeck,
+            sets: new OrderedSet(this.props.currentDeck.map(c => c.set)).toJS(),
+            scoringSummary: objectiveScoringSummary,
+            tags: [],
+            created: new Date(),
+            author: this.props.isAuth ? this.props.userInfo.uid : 'Anonymous'
         }
 
         if(this.props.isAuth) {
@@ -102,6 +119,7 @@ class DeckBuilder extends Component {
 
             batch.commit()
                 .then(() => {
+                    console.log('SAVED DECK', deckId);
                     this.props.resetDeck();
                     this.setState({showNotification: true});
                     this.props.history.push('/mydecks');
@@ -116,6 +134,7 @@ class DeckBuilder extends Component {
                     });
                     otherBatch.commit()
                             .then(() => {
+                                console.log('SAVED DECK AFTER ERROR', deckId);
                                 this.props.resetDeck();
                                 this.setState({showNotification: true});
                                 this.props.history.push('/mydecks');

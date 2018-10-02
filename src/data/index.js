@@ -31,6 +31,32 @@ export const factionCards = {
     "the-farstriders" : [1, 204, 232],
 }
 
+export const factionIdPrefix = {
+    "garreks-reavers" : "gr",
+    "steelhearts-champions" : "sc",
+    "sepulchral-guard" : "sg",
+    "ironskulls-boyz" : "ib",
+    "the-chosen-axes" : "tca",
+    "spiteclaws-swarm" : "ss",
+    "magores-fiends" : "mf",
+    "the-farstriders" : "tf",
+    "stormsires-cursebreakers": "stc",
+    "thorns-of-the-briar-queen": "toftbq"
+}
+
+export const idPrefixToFaction = {
+    "gr": "garreks-reavers",
+    "sc" : "steelhearts-champions",
+    "sg" : "sepulchral-guard",
+    "ib" : "ironskulls-boyz",
+    "tca" : "the-chosen-axes",
+    "ss" : "spiteclaws-swarm",
+    "mf" : "magores-fiends",
+    "tf" : "the-farstriders",
+    "stc" : "stormsires-cursebreakers",
+    "toftbq" : "thorns-of-the-briar-queen"
+}
+
 // 0 index indicates the default set containing corresponding faction's cards
 export const factionSets = {
     "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8],
