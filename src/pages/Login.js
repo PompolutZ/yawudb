@@ -14,7 +14,7 @@ class Login extends Component {
         try {
             const r = await firebase.auth().getRedirectResult();
             if (r.credential) {
-                const {email, displayName, uid} = r.user;
+                const { displayName, uid } = r.user;
                 const userProfileRef = await db.collection('users').doc(uid).get();
                 if(!userProfileRef.exists) {
                     await db.collection('users').doc(uid).set({
@@ -22,9 +22,13 @@ class Login extends Component {
                         mydecks: [],
                         role: 'soul'
                     });
+
+                    this.props.onLogin({ displayName, uid, role: 'sole' });
+                    this.props.history.push('/mydecks');
                 }
 
-                this.props.onLogin({email, displayName, uid});
+                const profile = userProfileRef.data();
+                this.props.onLogin({ displayName: profile.displayName, role: profile.role, uid });
                 this.props.history.push('/mydecks');
             }
         } catch(error) {
