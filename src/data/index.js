@@ -31,6 +31,8 @@ export const factionCards = {
     "the-farstriders" : [1, 204, 232],
 }
 
+export const PREFIX_LENGTH = "toftbq".length + 1;
+
 export const factionIdPrefix = {
     "garreks-reavers" : "gr",
     "steelhearts-champions" : "sc",

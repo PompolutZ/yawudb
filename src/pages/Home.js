@@ -40,7 +40,7 @@ class Home extends Component {
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div>
-                <ReadonlyDeck name={name} created={created.toDate()} sets={sets} faction={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
+                <ReadonlyDeck name={name} created={created.toDate()} sets={sets} factionId={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
                 <FloatingActionButton isEnabled onClick={() => history.push('/newdeck')}>
                     <AddIcon />
                 </FloatingActionButton>

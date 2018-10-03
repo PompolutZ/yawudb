@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { cardTypeIcons, cardType, factions, cardSetIcons } from '../data/index';
+import { cardTypeIcons, cardType, factions, cardSetIcons, idPrefixToFaction } from '../data/index';
 import { getWUCardByIdFromDB, getReadOnlyWUCardByIdFromDb } from './WUCard';
 import TextField from '@material-ui/core/TextField';
 import { Set } from 'immutable';
@@ -137,7 +137,7 @@ const SetIcon = ({ set }) => (
     <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${cardSetIcons[set]}-icon.png`} width="32" height="32" alt="icon" />
 )
 
-export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
+export const ReadonlyDeck = ({ name, factionId, cards, sets, created}) => {
     const objectives = cards.filter(v => v.type === 0);
     const gambits = cards.filter(v => v.type === 1 || v.type === 3);
     const upgrades = cards.filter(v => v.type === 2);
@@ -148,7 +148,7 @@ export const ReadonlyDeck = ({ name, faction, cards, sets, created}) => {
                 alignItems: 'center',
                 margin: '1rem'
             }}>
-                <Avatar style={{width: '4rem', height: '4rem'}} className="typeicon headerItem" src={`/assets/icons/${faction}-icon.png`} />
+                <Avatar style={{width: '4rem', height: '4rem'}} className="typeicon headerItem" src={`/assets/icons/${idPrefixToFaction[factionId]}-icon.png`} />
                 <div>
                     <Typography variant="title">{name}</Typography>
                     <Typography variant="subheading">{created ? created.toLocaleDateString() : 'Unknown'}</Typography>
