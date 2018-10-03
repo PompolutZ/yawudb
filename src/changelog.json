@@ -1,4 +1,7 @@
 {
+    "0.6.1" : {
+        "Hotfix": "Hot fixed saving deck logic for authorized users."
+    },
     "0.6.0" : {
         "Fixed Deck Faction Images" : "Fixed images of the deck's faction not shown after the latest db changes.",
         "Deck Author": "It should be possible to see deck's author in the decks list.",
