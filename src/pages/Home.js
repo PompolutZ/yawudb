@@ -19,7 +19,15 @@ class Home extends Component {
             .orderBy('created', 'desc')
             .limit(1)
             .get()
-            .then(qs => qs.forEach(doc => this.setState({lastAddedDeck: {id: doc.id, ...doc.data()}})))
+            .then(qs => qs.forEach(async doc => {
+                const deck = doc.data();
+                if(deck.author !== 'Anonymous') {
+                    const userProfileRef = await db.collection('users').doc(deck.author).get();
+                    this.setState({lastAddedDeck: {...deck, id: doc.id, author: userProfileRef.data().displayName}});
+                } else {
+                    this.setState({lastAddedDeck: {id: doc.id, ...deck}});
+                }
+            }))
             .catch(error => console.log(error));
     }
 
@@ -36,11 +44,11 @@ class Home extends Component {
             );
         }
 
-        const { id, name, cards, sets, created } = this.state.lastAddedDeck;
+        const { id, name, cards, sets, created, author } = this.state.lastAddedDeck;
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div>
-                <ReadonlyDeck name={name} created={created.toDate()} sets={sets} factionId={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
+                <ReadonlyDeck name={name} author={author} created={created} sets={sets} factionId={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
                 <FloatingActionButton isEnabled onClick={() => history.push('/newdeck')}>
                     <AddIcon />
                 </FloatingActionButton>

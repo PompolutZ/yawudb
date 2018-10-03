@@ -29,7 +29,7 @@ class MyDecks extends Component {
 
             for(let deckId of userData.mydecks) {
                 const deckRef = await db.collection('decks').doc(deckId).get();
-                this.setState(state => ({decks: state.decks.push({id: deckId, ...deckRef.data()})}));
+                this.setState(state => ({decks: state.decks.push({...deckRef.data(), id: deckId, author:this.props.userInfo.displayName})}));
             }
 
             this.setState({loading: false});
@@ -66,7 +66,7 @@ class MyDecks extends Component {
                 }
                 <div>
                     {
-                        this.state.decks.map(d => <DeckOverview key={uuid4()} id={d.id} name={d.name} sets={d.sets} cards={d.cards} created={d.created} />)
+                        this.state.decks.map(deck => <DeckOverview key={uuid4()} {...deck} />)
                     }
                 </div>
                 <FloatingActionButton isEnabled onClick={() => this.handleClick(history)}>

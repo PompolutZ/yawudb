@@ -154,10 +154,12 @@ const SetIcon = ({ set }) => (
     <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${cardSetIcons[set]}-icon.png`} width="32" height="32" alt="icon" />
 )
 
-export const ReadonlyDeck = ({ name, factionId, cards, sets, created}) => {
+export const ReadonlyDeck = ({ name, author, factionId, cards, sets, created}) => {
     const objectives = cards.filter(v => v.type === 0);
     const gambits = cards.filter(v => v.type === 1 || v.type === 3);
     const upgrades = cards.filter(v => v.type === 2);
+    const createdDate = created ? ` | ${created.toDate().toLocaleDateString()}` : '';
+
     return (    
         <div style={{}}>
             <div style={{
@@ -168,7 +170,7 @@ export const ReadonlyDeck = ({ name, factionId, cards, sets, created}) => {
                 <Avatar style={{width: '4rem', height: '4rem'}} className="typeicon headerItem" src={`/assets/icons/${idPrefixToFaction[factionId]}-icon.png`} />
                 <div>
                     <Typography variant="title">{name}</Typography>
-                    <Typography variant="subheading">{created ? created.toLocaleDateString() : 'Unknown'}</Typography>
+                    <Typography variant="subheading">{`${author}${createdDate}`}</Typography>
                 </div>
             </div>
 
@@ -192,7 +194,9 @@ export const ReadonlyDeck = ({ name, factionId, cards, sets, created}) => {
             { 
                 objectives.toJS().map((v, i) => getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
             }
-            <SectionHeader type={1} />
+            <div style={{borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
+                <Typography variant="headline">Gambits</Typography>
+            </div>
             {
                 gambits.toJS().map((v, i) => getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
             }
