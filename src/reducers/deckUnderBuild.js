@@ -9,10 +9,12 @@ export const CLEAR_DECK = 'CLEAR_ALL_CARDS_IN_DECK';
 export const RESET_DECK = 'RESET_DECK';
 export const CHANGE_NAME = 'CHANGE_NAME';
 export const CHANGE_SOURCE = 'CHANGE_SOURCE'; 
+export const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION'; 
 
 const initialState = {
     name: `${factions['garreks-reavers']} Deck`,
     source: '',
+    desc: '',
     faction: 'garreks-reavers',
     sets: [],
     deck: new Set()
@@ -31,6 +33,9 @@ const deckUnderBuild = (state = initialState, action) => {
 
         case CHANGE_SOURCE:
             return { ...state, source: action.source } 
+        
+        case CHANGE_DESCRIPTION:
+            return { ...state, desc: action.desc } 
         
         case ADD_CARD:
             return { ...state, deck: new Set(state.deck).add(action.card) }

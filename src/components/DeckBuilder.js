@@ -98,8 +98,8 @@ class DeckBuilder extends Component {
 
         const deckPayload = {
             name: this.props.currentDeckName,
-            source: this.props.currentDeckSource,
-            desc: '',
+            source: '',
+            desc: this.props.currentDeckDescription,
             cards: currentDeck,
             sets: new OrderedSet(this.props.currentDeck.map(c => c.set)).toJS(),
             scoringSummary: objectiveScoringSummary,
@@ -248,8 +248,10 @@ class DeckBuilder extends Component {
                     <Deck faction={this.props.selectedFaction} 
                         currentName={this.props.currentDeckName}
                         currentSource={this.props.currentDeckSource}
+                        currentDescription={this.props.currentDeckDescription}
                         changeName={this.props.changeName}
                         changeSource={this.props.changeSource}
+                        changeDescription={this.props.changeDescription}
                         selectedCards={this.props.currentDeck} 
                         onToggleCardInDeck={this.toggleCardInDeck}
                         onSave={this.saveCurrentDeck}
@@ -259,8 +261,10 @@ class DeckBuilder extends Component {
                     <Deck faction={this.props.selectedFaction} 
                             currentName={this.props.currentDeckName}
                             currentSource={this.props.currentDeckSource}
+                            currentDescription={this.props.currentDeckDescription}
                             changeName={this.props.changeName}
                             changeSource={this.props.changeSource}
+                            changeDescription={this.props.changeDescription}
                             selectedCards={this.props.currentDeck} 
                             onToggleCardInDeck={this.toggleCardInDeck}
                             onSave={this.saveCurrentDeck}

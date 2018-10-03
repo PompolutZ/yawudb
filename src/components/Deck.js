@@ -26,17 +26,16 @@ const DeckFaction = ({ faction, defaultName, onChange }) => (
     </div>
 );
 
-const DeckSource = ({ onChange, defaultSource }) => (
+const DeckDescription = ({ onChange, defaultDescription }) => (
     <div style={{
         display: 'flex',
         alignItems: 'flex-end',
         margin: '.5rem',
     }}>
-        <Typography variant="title" style={{marginRight: '1rem'}}>Source:</Typography>
         <TextField
           id="with-placeholder"
-          label="Deck source"
-          value={defaultSource}
+          label="Description"
+          value={defaultDescription}
           margin="none"
           style={{flex: '1 1 auto'}}
           onChange={onChange}
@@ -71,16 +70,32 @@ class Deck extends Component {
     state = {
         name: this.props.currentName,
         source: this.props.currentSource,
+        desc: this.props.currentDescription
     }
 
     handleChangeName = e => {
-        this.props.changeName(e.target.value);
         this.setState({ name: e.target.value });
+
+        if(this.changeNameTimeout) {
+            clearTimeout(this.changeDescTimeout);
+        }
+
+        this.changeNameTimeout = setTimeout(() => this.props.changeName(this.state.name), 250);
     }
 
     handleChangeSource = e => {
         this.props.changeSource(e.target.value);
         this.setState({ source: e.target.value });
+    }
+
+    handleChangeDescription = e => {
+        this.setState({ desc: e.target.value });
+
+        if(this.changeDescTimeout) {
+            clearTimeout(this.changeDescTimeout);
+        }
+
+        this.changeDescTimeout = setTimeout(() => this.props.changeDescription(this.state.desc), 250);
     }
 
     render() {
@@ -97,7 +112,7 @@ class Deck extends Component {
         return (
             <div>
                 <DeckFaction faction={faction} defaultName={this.state.name} onChange={this.handleChangeName} />
-                <DeckSource defaultSource={this.state.source} onChange={this.handleChangeSource} />
+                <DeckDescription defaultDescription={this.state.desc} onChange={this.handleChangeDescription} />
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-around',
@@ -113,7 +128,9 @@ class Deck extends Component {
                 { 
                     objectives.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
                 }
-                <MultiSectionHeader types={[1, 3]} />
+                <div style={{borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
+                    <Typography variant="headline">Gambits</Typography>
+                </div>
                 {
                     gambits.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
                 }
@@ -125,7 +142,7 @@ class Deck extends Component {
                     <Button style={{margin: 'auto', color: 'red'}} onClick={() => this.props.onRemoveAll()}>
                         Remove all
                     </Button>
-                    <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={() => onSave(this.state.name, this.state.source)}>
+                    <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={onSave}>
                         Save
                     </Button>
                 </div>

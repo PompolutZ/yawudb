@@ -9,7 +9,8 @@ import {
     ADD_CARD, 
     REMOVE_CARD, 
     CLEAR_DECK,
-    RESET_DECK } from '../reducers/deckUnderBuild';
+    RESET_DECK, 
+    CHANGE_DESCRIPTION} from '../reducers/deckUnderBuild';
 import { connect } from 'react-redux';
 
 class DeckCreator extends Component {
@@ -33,7 +34,8 @@ const mapStateToProps = state => {
         selectedSets: state.deckUnderBuild.sets,
         currentDeck: state.deckUnderBuild.deck,
         currentDeckName: state.deckUnderBuild.name,
-        currentDeckSource: state.deckUnderBuild.source
+        currentDeckSource: state.deckUnderBuild.source,
+        currentDeckDescription: state.deckUnderBuild.desc
     }
 }
 
@@ -43,6 +45,7 @@ const mapDispatchToProps = dispatch => {
         setSets: sets => dispatch({ type: SET_SETS, sets: sets }),
         changeName: value => dispatch({ type: CHANGE_NAME, name: value }),
         changeSource: value => dispatch({ type: CHANGE_SOURCE, source: value }),
+        changeDescription: value => dispatch({ type: CHANGE_DESCRIPTION, desc: value }),
         addCard: card => dispatch({ type: ADD_CARD, card: card }),
         removeCard: card => dispatch({ type: REMOVE_CARD, card: card }),
         clearDeck: () => dispatch({ type: CLEAR_DECK }),
