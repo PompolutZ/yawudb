@@ -105,7 +105,7 @@ class DeckBuilder extends Component {
             scoringSummary: objectiveScoringSummary,
             tags: [],
             created: new Date(),
-            author: this.props.isAuth ? this.props.userInfo.uid : 'Anonymous'
+            author: this.props.isAuth ? this.props.userInfo.displayName : 'Anonymous'
         }
 
         if(this.props.isAuth) {

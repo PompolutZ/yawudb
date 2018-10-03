@@ -15,16 +15,23 @@ class Decks extends Component {
         loading: true
     }
 
-    componentDidMount() {
-        db.collection('decks')
-            .get()
-            .then(qs => {
-                qs.forEach(doc => {
-                    this.setState(state => ({decks: state.decks.push({id: doc.id, ...doc.data()})}));        
-                });
-                this.setState({loading: false});
-            })
-            .catch(error => console.log(error));
+    componentDidMount = async () => {
+        try {
+            const decksQuerySelector = await db.collection('decks').get();
+            decksQuerySelector.forEach(async doc => {
+                const deck = doc.data();
+                if(deck.author !== 'Anonymous') {
+                    const userProfileRef = await db.collection('users').doc(deck.author).get();
+                    this.setState(state => ({ decks: state.decks.push({...deck, id: doc.id, author: userProfileRef.data().displayName})} ));        
+                } else {
+                    this.setState(state => ({ decks: state.decks.push({...deck, id: doc.id })}));
+                }
+            });
+
+            this.setState({loading: false});
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     render() {
@@ -41,11 +48,13 @@ class Decks extends Component {
             );
         }
 
+        console.log('DECKS', this.state.decks.toJS().filter(x => x.author === 'AlOsQbL2p3gDsyGzH61jNE1wuqA2'));
+
         return (
             <div>
                 <div>
                     {
-                        this.state.decks.map(d => <DeckOverview key={uuid4()} id={d.id} name={d.name} sets={d.sets} cards={d.cards} created={d.created} />)
+                        this.state.decks.map(d => <DeckOverview key={uuid4()} {...d} />)
                     }
                 </div>
                 <FloatingActionButton isEnabled onClick={() => history.push('/newdeck')}>

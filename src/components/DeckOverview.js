@@ -156,7 +156,7 @@ class DeckOverview extends React.Component {
   };
 
   render() {
-    const { classes, id, name, sets, cards, created, history } = this.props;
+    const { classes, id, name, sets, cards, created, author, history } = this.props;
     const cardsInDeck = cards.map(cardPN => ({id: cardPN, ...cardsDb[cardPN]}));
     const objectives = cardsInDeck.filter(c => c.type === 0);
     const objectiveSummary = new Set(objectives).groupBy(c => c.scoreType).toArray();
@@ -164,6 +164,7 @@ class DeckOverview extends React.Component {
     const upgrades = cardsInDeck.filter(c => c.type === 2);
     const strippedId = id.substring(0, id.length - 13);
     const faction = strippedId.length > PREFIX_LENGTH ? strippedId : idPrefixToFaction[strippedId]; 
+    const createdDate = created ? ` | ${created.toDate().toLocaleDateString()}` : '';
     return (
       <div>
         <Card className={classes.card}>
@@ -172,7 +173,7 @@ class DeckOverview extends React.Component {
               <Avatar aria-label="Recipe" className={classes.avatar} src={`/assets/icons/${faction}-icon.png`} />
             }
             title={name}
-            subheader={created ? created.toDate().toLocaleDateString() : 'Unknown'}
+            subheader={`${author}${createdDate}`}
           />
               <div style={{display: 'flex', alignItems: 'center', margin: 'auto 1rem .5rem 1rem'}}>
                   <div>Sets:</div>

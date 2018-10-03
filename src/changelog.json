@@ -1,4 +1,8 @@
 {
+    "0.6.0" : {
+        "Fixed Deck Faction Images" : "Fixed images of the deck's faction not shown after the latest db changes.",
+        "Deck Author": "It should be possible to see deck's author in the decks list."
+    },
     "0.5.0" : {
         "User Profile foundation": "Minor changes to how users data store in the database, which is foundation for a future **profile page**.",
         "Minor fixes": "Some minor fixes for the **Deck Builder** page."
