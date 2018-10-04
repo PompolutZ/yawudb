@@ -1,0 +1,20 @@
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+} 
+
+.wrapper > * {
+    flex: 1 100%;
+}
+
+@media all and (min-width: 800px) {
+    .main {
+        flex: 1 auto;
+        margin-right: 20rem;
+        margin-top: 1rem;
+    }
+
+    .filters {
+        flex: 0 auto;
+    }
+}

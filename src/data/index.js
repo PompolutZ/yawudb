@@ -46,6 +46,48 @@ export const factionIdPrefix = {
     "thorns-of-the-briar-queen": "toftbq"
 }
 
+export const filterFactionByIdRange = {
+    "garreks-reavers" : {
+        start: 'gr',
+        end: 'ib'
+    },
+    "steelhearts-champions" : {
+        start: "sc",
+        end: 'sg'
+    },
+    "sepulchral-guard" : {
+        start: "sg",
+        end: 'ss'
+    },
+    "ironskulls-boyz" : {
+        start: 'ib',
+        end: 'mf'
+    },
+    "the-chosen-axes" : {
+        start: "tca",
+        end: 'tf'
+    },
+    "spiteclaws-swarm" : {
+        start: "ss",
+        end: 'stc'
+    },
+    "magores-fiends" : {
+        start: 'mf',
+        end: 'sc'
+    },
+    "the-farstriders" : {
+        start: "tf",
+        end: "toftbq"
+    },
+    "stormsires-cursebreakers": {
+        start: "stc",
+        end: 'tca'
+    },
+    "thorns-of-the-briar-queen": {
+        start: "toftbq"
+    } 
+}
+
 export const idPrefixToFaction = {
     "gr": "garreks-reavers",
     "sc" : "steelhearts-champions",
@@ -4338,12 +4380,12 @@ export const cardsDb = {
         "faq": "-"
     },
     '03001':                                                                        
-    { name: 'Blessed Banishment',                                                  
-      factions: 9,                                                               
-      type: 0,                                                                   
-      rule: '',                                                                    
-      set: 8,                                                                    
-      scoreType: 1,                                                            
+    { "name": 'Blessed Banishment',                                                  
+      "factions": 9,                                                               
+      "type": 0,                                                                   
+      "rule": '',                                                                    
+      "set": 8,                                                                    
+      "scoreType": 1,                                                            
       faq: '-' },                                                                  
    '03002':                                                                        
     { name: 'Devastating Blow',                                                    
@@ -4759,57 +4801,73 @@ export const cardsDb = {
       factions: 0,                                                                 
       type: 0,                                                                     
       rule: '',                                                                    
-      set: 8,                                                                      
+      set: 8,     
+      scoreType: 1,                                                                 
       faq: '-' },                                                                  
    '03306':                                                                        
     { name: 'Conquest',                                                            
       factions: 0,                                                                 
       type: 0,                                                                     
       rule: '',                                                                    
-      set: 8,                                                                      
+      set: 8,   
+      scoreType: 2,                                                                   
       faq: '-' },                                                                  
-   '03310': { name: 'Denial', factions: 0, type: 0, rule: '', set: 8, faq: '-' },  
+   '03310': { 
+       name: 'Denial', 
+       factions: 0, 
+       type: 0, 
+       rule: '', 
+       set: 8,
+       scoreType: 1, 
+       faq: '-'
+     },  
    '03330':                                                                        
     { name: 'Hold Objective 1',                                                    
       factions: 0,                                                                 
       type: 0,                                                                     
       rule: '',                                                                    
-      set: 8,                                                                      
+      set: 8,
+      scoreType: 1,                                                                      
       faq: '-' },                                                                  
    '03331':                                                                        
     { name: 'Hold Objective 2',                                                    
       factions: 0,                                                                 
       type: 0,                                                                     
       rule: '',                                                                    
-      set: 8,                                                                      
+      set: 8,      
+      scoreType: 1,                                                                
       faq: '-' },                                                                  
    '03332':                                                                        
     { name: 'Hold Objective 3',                                                    
       factions: 0,                                                                 
       type: 0,                                                                     
       rule: '',                                                                    
-      set: 8,                                                                      
+      set: 8,      
+      scoreType: 1,                                                                
       faq: '-' },                                                                  
    '03333':                                                                        
     { name: 'Hold Objective 4',                                                    
       factions: 0,                                                                 
       type: 0,                                                                     
       rule: '',                                                                    
-      set: 8,                                                                      
+      set: 8,      
+      scoreType: 1,                                                                
       faq: '-' },                                                                  
    '03334':                                                                        
     { name: 'Hold Objective 5',                                                    
       factions: 0,                                                                 
       type: 0,                                                                     
       rule: '',                                                                    
-      set: 8,                                                                      
+      set: 8,      
+      scoreType: 1,                                                                
       faq: '-' },                                                                  
    '03374':                                                                        
     { name: 'Supremacy',                                                           
       factions: 0,                                                                 
       type: 0,                                                                     
       rule: '',                                                                    
-      set: 8,                                                                      
+      set: 8,      
+      scoreType: 1,                                                                
       faq: '-' },                                                                  
    '03403':                                                                        
     { name: 'Confusion',                                                           

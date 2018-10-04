@@ -5,6 +5,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import auth from './reducers/auth';
 import userOwnSets from './reducers/userOwnSets';
 import deckUnderBuild from './reducers/deckUnderBuild';
+import decksFilters from './reducers/decksFilters';
 
 const configureStore = history => {
     const persistedStore = loadState();
@@ -12,7 +13,8 @@ const configureStore = history => {
         connectRouter(history)(combineReducers({
             auth,
             userOwnSets,
-            deckUnderBuild
+            deckUnderBuild,
+            decksFilters
         })), 
         persistedStore,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
