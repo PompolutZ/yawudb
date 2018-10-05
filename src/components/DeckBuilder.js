@@ -185,18 +185,18 @@ class DeckBuilder extends Component {
                 .filter(c => {
                     if(!this.state.searchText) return true;
 
-                    if(this.state.searchText.includes(',')) {
-                        const cardNumbers = this.state.searchText.split(',').map(s => {
-                            const trimmed = s.trim();
-                            if (trimmed.startsWith('L')) {
-                                return '02' + ('00' + s.slice(1)).slice(-3);
-                            } else {
-                                return '01' + (('000' + s).slice(-3));
-                            }
-                        });
+                    // if(this.state.searchText.includes(',')) {
+                    //     const cardNumbers = this.state.searchText.split(',').map(s => {
+                    //         const trimmed = s.trim();
+                    //         if (trimmed.startsWith('L')) {
+                    //             return '02' + ('00' + s.slice(1)).slice(-3);
+                    //         } else {
+                    //             return '01' + (('000' + s).slice(-3));
+                    //         }
+                    //     });
                         
-                        return cardNumbers.includes(c.id);
-                    }
+                    //     return cardNumbers.includes(c.id);
+                    // }
 
                     return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
                 });

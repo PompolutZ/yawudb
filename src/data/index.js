@@ -2198,7 +2198,8 @@ export const cardsDb = {
         "rule": "Score this in an end phase if all enemy fighters have been taken out of action",
         "set": 0,
         "scoreType": 1,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01237": {
         "name": "Assasinate",
@@ -2297,7 +2298,8 @@ export const cardsDb = {
         "rule": "Score this in the third end phase if all of your surviving fighters are in your opponent's territory",
         "set": 0,
         "scoreType": 2,
-        "faq": ""
+        "faq": "",
+        "copies": 2
     },
     "01248": {
         "name": "Contained",
@@ -2351,7 +2353,8 @@ export const cardsDb = {
         "rule": "Score this in the third end phase if there are no enemy fighters in your territory",
         "set": 0,
         "scoreType": 2,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01254": {
         "name": "Determined Defender",
@@ -2441,7 +2444,8 @@ export const cardsDb = {
         "rule": "Score this in an end phase if you are holding objective 1",
         "set": 0,
         "scoreType": 1,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01264": {
         "name": "Hold Objective 2",
@@ -2450,7 +2454,8 @@ export const cardsDb = {
         "rule": "Score this in an end phase if you are holding objective 2",
         "set": 0,
         "scoreType": 1,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01265": {
         "name": "Hold Objective 3",
@@ -2459,7 +2464,8 @@ export const cardsDb = {
         "rule": "Score this in an end phase if you are holding objective 3",
         "set": 0,
         "scoreType": 1,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01266": {
         "name": "Hold Objective 4",
@@ -2468,7 +2474,8 @@ export const cardsDb = {
         "rule": "Score this in an end phase if you are holding objective 4",
         "set": 0,
         "scoreType": 1,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01267": {
         "name": "Hold Objective 5",
@@ -2477,7 +2484,8 @@ export const cardsDb = {
         "rule": "Score this in an end phase if you are holding objective 5",
         "set": 0,
         "scoreType": 1,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01268": {
         "name": "Honest Opponent",
@@ -2702,7 +2710,8 @@ export const cardsDb = {
         "rule": "Score this in an end phase if you hold three or more objectives",
         "set": 0,
         "scoreType": 1,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01293": {
         "name": "Swift Advance",
@@ -2869,7 +2878,8 @@ export const cardsDb = {
         "type": 1,
         "rule": "Choose two fighters that are adjacent to each other and switch them",
         "set": 0,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01312": {
         "name": "Cruel Taunt",
@@ -3021,7 +3031,8 @@ export const cardsDb = {
         "type": 1,
         "rule": "Choose a friendly fighter and roll a defence dice. On a roll of Shield or Critical Hit remove up to two wound tokens from them. Otherwise remove one wound token from them",
         "set": 0,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01331": {
         "name": "Hidden Paths",
@@ -3221,7 +3232,8 @@ export const cardsDb = {
         "type": 1,
         "rule": "Place a Shardfall token in an unoccupied hex. That hex is blocked until the end of the phase",
         "set": 0,
-        "faq": ""
+        "faq": "",
+        "copies": 2
     },
     "01356": {
         "name": "Shardgale",
@@ -3261,7 +3273,8 @@ export const cardsDb = {
         "type": 1,
         "rule": "Choose a friendly fighter and push them one hex",
         "set": 0,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01361": {
         "name": "Spectral Wings",
@@ -3285,7 +3298,8 @@ export const cardsDb = {
         "type": 1,
         "rule": "Double the move characteristic of the first friendly fighter to make a Move action in the next activation. They may not make a Charge action. Once they have moved, they cannot be activated again in this phase",
         "set": 0,
-        "faq": ""
+        "faq": "",
+        "copies": 2
     },
     "01364": {
         "name": "Stumble",
@@ -3461,7 +3475,8 @@ export const cardsDb = {
         "type": 2,
         "rule": "Hex 1 Hammer 2 Damage 1 Reaction: After this Attack action, if it is successful, you can push this fighter one hex",
         "set": 0,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01386": {
         "name": "Ethereal Shield",
@@ -3493,7 +3508,8 @@ export const cardsDb = {
         "type": 2,
         "rule": "+1 Wounds",
         "set": 0,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01390": {
         "name": "Great Speed",
@@ -3501,7 +3517,8 @@ export const cardsDb = {
         "type": 2,
         "rule": "+1 Move",
         "set": 0,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01391": {
         "name": "Great Strength",
@@ -3509,7 +3526,8 @@ export const cardsDb = {
         "type": 2,
         "rule": "+1 Damage to all Attack actions with a Range of 1 or 2",
         "set": 0,
-        "faq": "-"
+        "faq": "-",
+        "copies": 2
     },
     "01392": {
         "name": "Headlong Charge",
@@ -3829,7 +3847,8 @@ export const cardsDb = {
         "type": 2,
         "rule": "You can roll two additional attack dice when this fighter takes an Attack action, though not when this fighter takes a Charge action. If you do so, this fighter cannot be activated again this phase",
         "set": 0,
-        "faq": ""
+        "faq": "",
+        "copies": 2
     },
     "01432": {
         "name": "Trickster's Charm",
@@ -4803,7 +4822,8 @@ export const cardsDb = {
       rule: '',                                                                    
       set: 8,     
       scoreType: 1,                                                                 
-      faq: '-' },                                                                  
+      faq: '-',
+        copies: 2 },                                                                  
    '03306':                                                                        
     { name: 'Conquest',                                                            
       factions: 0,                                                                 
@@ -4811,7 +4831,8 @@ export const cardsDb = {
       rule: '',                                                                    
       set: 8,   
       scoreType: 2,                                                                   
-      faq: '-' },                                                                  
+      faq: '-',
+        copies: 2 },                                                                  
    '03310': { 
        name: 'Denial', 
        factions: 0, 
@@ -4819,7 +4840,8 @@ export const cardsDb = {
        rule: '', 
        set: 8,
        scoreType: 1, 
-       faq: '-'
+       faq: '-',
+       copies: 2
      },  
    '03330':                                                                        
     { name: 'Hold Objective 1',                                                    
@@ -4828,7 +4850,8 @@ export const cardsDb = {
       rule: '',                                                                    
       set: 8,
       scoreType: 1,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03331':                                                                        
     { name: 'Hold Objective 2',                                                    
       factions: 0,                                                                 
@@ -4836,7 +4859,8 @@ export const cardsDb = {
       rule: '',                                                                    
       set: 8,      
       scoreType: 1,                                                                
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03332':                                                                        
     { name: 'Hold Objective 3',                                                    
       factions: 0,                                                                 
@@ -4844,7 +4868,8 @@ export const cardsDb = {
       rule: '',                                                                    
       set: 8,      
       scoreType: 1,                                                                
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03333':                                                                        
     { name: 'Hold Objective 4',                                                    
       factions: 0,                                                                 
@@ -4852,7 +4877,8 @@ export const cardsDb = {
       rule: '',                                                                    
       set: 8,      
       scoreType: 1,                                                                
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03334':                                                                        
     { name: 'Hold Objective 5',                                                    
       factions: 0,                                                                 
@@ -4860,7 +4886,8 @@ export const cardsDb = {
       rule: '',                                                                    
       set: 8,      
       scoreType: 1,                                                                
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03374':                                                                        
     { name: 'Supremacy',                                                           
       factions: 0,                                                                 
@@ -4868,75 +4895,86 @@ export const cardsDb = {
       rule: '',                                                                    
       set: 8,      
       scoreType: 1,                                                                
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03403':                                                                        
     { name: 'Confusion',                                                           
       factions: 0,                                                                 
       type: 1,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03409':                                                                        
     { name: 'Determined Effort',                                                   
       factions: 0,                                                                 
       type: 1,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03419':                                                                        
     { name: 'Grinding Earth',                                                      
       factions: 0,                                                                 
       type: 3,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03446':                                                                        
     { name: 'Sidestep',                                                            
       factions: 0,                                                                 
       type: 1,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03471':                                                                        
     { name: 'Vital Surge',                                                         
       factions: 0,                                                                 
       type: 3,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03497':                                                                        
     { name: 'Escape Artist',                                                       
       factions: 0,                                                                 
       type: 2,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03504':                                                                        
     { name: 'Great Fortitude',                                                     
       factions: 0,                                                                 
       type: 2,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03505':                                                                        
     { name: 'Great Speed',                                                         
       factions: 0,                                                                 
       type: 2,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03506':                                                                        
     { name: 'Great Strength',                                                      
       factions: 0,                                                                 
       type: 2,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-',
+      copies: 2 },                                                                  
    '03512':                                                                        
     { name: 'Lucky Trinket',                                                       
       factions: 0,                                                                 
       type: 2,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' }                                                                 
+      faq: '-',
+      copies: 2 }                                                                 
 }
