@@ -1,4 +1,7 @@
 {
+    "0.7.1" : {
+        "Hotfix": "Hot fixed crash on reading **MyDecks**."
+    },
     "0.7.0" : {
         "Filter Decks by Faction": "It's possible now to filter decks by chosing a faction. Finding decks should become much easier."
     },

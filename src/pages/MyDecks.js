@@ -29,7 +29,9 @@ class MyDecks extends Component {
 
             for(let deckId of userData.mydecks) {
                 const deckRef = await db.collection('decks').doc(deckId).get();
-                this.setState(state => ({decks: state.decks.push({...deckRef.data(), id: deckId, author:this.props.userInfo.displayName})}));
+                const data = deckRef.data();
+                const created = data.created.toDate();
+                this.setState(state => ({decks: state.decks.push({...data, id: deckId, created: created, author:this.props.userInfo.displayName})}));
             }
 
             this.setState({loading: false});
