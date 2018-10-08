@@ -2,49 +2,37 @@ import React, { Component } from 'react';
 import ToggleImageButton from './ToggleImageButton';
 import { cardType } from '../data/index';
 import { Typography } from '@material-ui/core';
+import { Set } from 'immutable';
 
 class CardTypeToggle extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            selectedCardTypes: [...cardType],
-            cardTypes: [...cardType]
-        }
-
-        this.handleToggle = this.handleToggle.bind(this);
+    state = {
+        selectedCardTypes: new Set(this.props.selectedCardTypes),
     }
 
-    handleToggle(expansion) {
-        let cardTypes = [];
-        const indexOf = this.state.selectedCardTypes.indexOf(expansion);
-        console.log(indexOf);
-        if(indexOf >= 0) {
-            cardTypes = [...this.state.selectedCardTypes.slice(0, indexOf), ...this.state.selectedCardTypes.slice(indexOf + 1)]
+    handleToggle = index => {
+        if(this.state.selectedCardTypes.includes(index)) {
+            this.setState(state => ({ selectedCardTypes: state.selectedCardTypes.delete(index)} ));
         } else {
-            cardTypes = [expansion, ...this.state.selectedCardTypes]
+            this.setState(state => ({ selectedCardTypes: state.selectedCardTypes.add(index)} ));
         }
-        console.log(cardTypes)
-        this.setState(state => ({selectedCardTypes: cardTypes}));
         
         if(this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
 
-        this.timeoutId = setTimeout(() => this.props.oncardTypesChange(cardTypes.map(x => cardType.indexOf(x))), 250);
+        this.timeoutId = setTimeout(() => this.props.oncardTypesChange(this.state.selectedCardTypes.toJS()), 250);
     }
 
-    renderIndex(name){
-        // const name = expansionCodeName[v];
+    renderIndex(name, index){
         return (
             <div key={name} style={{ display: 'flex', alignItems: 'center', marginBottom: '.5rem'}}>
                 <ToggleImageButton 
-                    isOff={!this.state.selectedCardTypes.includes(name)} 
+                    isOff={!this.state.selectedCardTypes.includes(index)} 
                     onImage={`/assets/icons/${name.toLowerCase()}-icon.png`}
                     offImage={`/assets/icons/${name.toLowerCase()}-icon-bw.png`}
-                    onToggle={this.handleToggle.bind(this, name)}
+                    onToggle={this.handleToggle.bind(this, index)}
                     />
-                <Typography variant="title" style={{margin: '0 0 0 .5rem', opacity: !this.state.selectedCardTypes.includes(name) ? '.4' : 1}}>{name}</Typography>        
+                <Typography variant="title" style={{margin: '0 0 0 .5rem', opacity: !this.state.selectedCardTypes.includes(index) ? '.4' : 1}}>{name}</Typography>        
             </div>
         );
     }
@@ -52,7 +40,7 @@ class CardTypeToggle extends Component {
     render() {
         return (
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
-                { this.state.cardTypes.map(v => this.renderIndex(v)) }
+                { cardType.map((v, i) => this.renderIndex(v, i)) }
             </div>
         );
     }

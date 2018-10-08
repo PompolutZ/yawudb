@@ -142,12 +142,7 @@ export const factionIndexes = [
     "thorns-of-the-briar-queen"
 ]
 
-export const ObjectiveScoreType = {
-    0: 'score-immediately',
-    1: 'score-end-phase',
-    2: 'score-third-end-phase',
-    3: 'score-first-end-phase'
-}
+export const objectiveScoreType = ['score-immediately', 'score-end-phase', 'score-third-end-phase', 'score-first-end-phase'];
 
 const getDbIndexByWaveAndCard = (wave, card) => {
     return (`00` + wave).slice(-2) + (`000` + card).slice(-3);

@@ -8,10 +8,10 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import AnimateHeight from 'react-animate-height';
-import "./WUCard.css";
-import { cardType, cardSet, totalCardsPerWave, cardSetIcons } from '../data/index';
-import { auth } from 'firebase';
+import { cardType, totalCardsPerWave, cardSetIcons } from '../data/index';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
+
+import "./WUCard.css";
 
 export const getWUCardByIdFromDB = (cardId, cardPersonalNumber, card, isAlter, toggleCardInDeck, inDeck) => {
     const { name, type, set, scoreType } = card;
@@ -104,7 +104,7 @@ class WUCardAtom extends Component {
     };
 
     handleToggleCardInDeck = () => {
-        this.props.toggleCardInDeck(this.props.id, this.props.type, this.props.name, this.props.set);
+        this.props.toggleCardInDeck();
     }
 
     render() {

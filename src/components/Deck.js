@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { cardTypeIcons, cardType, factions, cardSetIcons, idPrefixToFaction } from '../data/index';
+import { cardTypeIcons, cardType, cardSetIcons, idPrefixToFaction, cardsDb } from '../data/index';
 import { getWUCardByIdFromDB, getReadOnlyWUCardByIdFromDb } from './WUCard';
 import TextField from '@material-ui/core/TextField';
 import { Set } from 'immutable';
+import { toggleCardInDeck } from './DeckBuiilder/components/CardsLibrary';
 
 const DeckFaction = ({ faction, defaultName, onChange }) => (
     <div style={{
@@ -99,9 +100,9 @@ class Deck extends Component {
     }
 
     render() {
-        const { selectedCards, faction, onToggleCardInDeck, onSave } = this.props;
+        const { selectedCards, faction, onSave } = this.props;
         
-        const cards = new Set(selectedCards);
+        const cards = new Set(selectedCards.map(id => ({id: id, ...cardsDb[id] })));
         const objectives = cards.filter(v => v.type === 0);
         const gambits = cards.filter(v => v.type === 1 || v.type === 3);
         const upgrades = cards.filter(v => v.type === 2);
@@ -109,6 +110,7 @@ class Deck extends Component {
         const gambitsCount = gambits.count();
         const upgradesCount = upgrades.count();
         const isValidForSave = objectivesCount === 12 && ((gambitsCount + upgradesCount) >= 20);
+
         return (
             <div>
                 <DeckFaction faction={faction} defaultName={this.state.name} onChange={this.handleChangeName} />
@@ -126,17 +128,17 @@ class Deck extends Component {
                 
                 <SectionHeader type={0} />
                 { 
-                    objectives.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
+                    objectives.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, this._toggleCardInDeck.bind(this, v.id), true))
                 }
                 <div style={{borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
                     <Typography variant="headline">Gambits</Typography>
                 </div>
                 {
-                    gambits.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
+                    gambits.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, this._toggleCardInDeck.bind(this, v.id), true))
                 }
                 <SectionHeader type={2} />
                 {
-                    upgrades.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, onToggleCardInDeck, true))
+                    upgrades.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, this._toggleCardInDeck.bind(this, v.id), true))
                 }
                 <div style={{display: 'flex', paddingBottom: '5rem'}}>
                     <Button style={{margin: 'auto', color: 'red'}} onClick={() => this.props.onRemoveAll()}>
@@ -148,6 +150,10 @@ class Deck extends Component {
                 </div>
             </div>
         );
+    }
+
+    _toggleCardInDeck = id => {
+        toggleCardInDeck(id, this.props.selectedCards, this.props.addCard, this.props.removeCard);
     }
 }
 const SetIcon = ({ set }) => (

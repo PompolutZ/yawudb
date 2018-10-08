@@ -2,7 +2,6 @@ import { Set } from 'immutable';
 import { factions } from '../data/index';
 
 export const SET_FACTION = 'SET_FACTION';
-export const SET_SETS = 'SET_SETS';
 export const ADD_CARD = 'ADD_CARD';
 export const REMOVE_CARD = 'REMOVE_CARD';
 export const CLEAR_DECK = 'CLEAR_ALL_CARDS_IN_DECK';
@@ -16,7 +15,6 @@ const initialState = {
     source: '',
     desc: '',
     faction: 'garreks-reavers',
-    sets: [],
     deck: new Set()
 }
 
@@ -25,9 +23,6 @@ const deckUnderBuild = (state = initialState, action) => {
         case SET_FACTION:
             return { ...state, name: `${factions[action.faction]} Deck`, faction: action.faction, deck: new Set() };
         
-        case SET_SETS: 
-            return { ...state, sets: action.sets }
-
         case CHANGE_NAME:
             return { ...state, name: action.name } 
 
