@@ -12,10 +12,15 @@ class Deck extends Component {
 
     async componentDidMount() {
         try {
+            // const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
+            // const deck = deckRef.data();
+            // console.log(deck);
+            // this.setState({deck: {id: this.props.match.params.id, ...deck}});
+
             const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
-            const deck = deckRef.data();
-            console.log(deck);
-            this.setState({deck: {id: this.props.match.params.id, ...deck}});
+            const data = deckRef.data();
+            const created = data.created.toDate();
+            this.setState({deck: {...data, id: this.props.match.params.id, created: created}}); //, author:this.props.userInfo.displayName
         } catch(error) {
             console.log(error);
         }
@@ -37,7 +42,7 @@ class Deck extends Component {
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 {/* <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div> */}
-                <ReadonlyDeck name={name} created={created ? created.toDate() : null} sets={sets} faction={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
+                <ReadonlyDeck name={name} created={created} sets={sets} factionId={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
                 {/* <FloatingActionButton isEnabled onClick={() => history.push('/newdeck')}>
                     <AddIcon />
                 </FloatingActionButton> */}

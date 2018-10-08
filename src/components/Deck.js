@@ -161,11 +161,12 @@ const SetIcon = ({ set }) => (
 )
 
 export const ReadonlyDeck = ({ name, author, factionId, cards, sets, created}) => {
+    console.log(factionId);
     const objectives = cards.filter(v => v.type === 0);
     const gambits = cards.filter(v => v.type === 1 || v.type === 3);
     const upgrades = cards.filter(v => v.type === 2);
-    const createdDate = created ? ` | ${created.toDate().toLocaleDateString()}` : '';
-
+    const createdDate = created ? ` | ${created.toLocaleDateString()}` : '';
+    
     return (    
         <div style={{}}>
             <div style={{
