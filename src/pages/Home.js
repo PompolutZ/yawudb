@@ -23,9 +23,9 @@ class Home extends Component {
                 const deck = doc.data();
                 if(deck.author !== 'Anonymous') {
                     const userProfileRef = await db.collection('users').doc(deck.author).get();
-                    this.setState({lastAddedDeck: {...deck, id: doc.id, author: userProfileRef.data().displayName}});
+                    this.setState({lastAddedDeck: {...deck, id: doc.id, created: deck.created.toDate(), author: userProfileRef.data().displayName}});
                 } else {
-                    this.setState({lastAddedDeck: {id: doc.id, ...deck}});
+                    this.setState({lastAddedDeck: {...deck, id: doc.id, created: deck.created.toDate()}});
                 }
             }))
             .catch(error => console.log(error));
