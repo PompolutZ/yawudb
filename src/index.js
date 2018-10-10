@@ -19,6 +19,7 @@ import configureStore from './configureStore';
 import Deck from './pages/Deck';
 import About from './pages/About';
 import SecretDeckUploader from './pages/SecretDeckUploader';
+import Statistics from './pages/Statistics';
 
 
 const history = createBrowserHistory();
@@ -98,6 +99,7 @@ const App = () => (
                 <Route path="/login" component={Login} />
                 <Route path="/deck/:id" component={Deck} />
                 <Route path="/about" component={About} />
+                <Route path="/statistics" component={Statistics} />
 
                 <PrivateRoute path="/mydecks" component={MyDecks} />
                 <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />

@@ -165,9 +165,9 @@ class WUCardAtom extends Component {
                     </IconButton>
                 </div>
                 <AnimateHeight 
-                    duration={ 175 }
+                    duration={ 250 }
                     height={ height } // see props documentation bellow
-                    >
+                    easing="ease-out">
                     <img className="cardImg" alt={this.props.cardN} src={`/assets/cards/${this.props.id}.png`} />
                     {/* <Image 
                         style={{ marginBottom: 10 }}

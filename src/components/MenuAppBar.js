@@ -7,9 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Drawer, List, ListItem, ListItemText, Button, Avatar } from '@material-ui/core';
@@ -106,6 +103,9 @@ class MenuAppBar extends React.Component {
             </ListItem>
             <ListItem button onClick={() => history.push('/decks')}>
                 <ListItemText primary="Decks" />
+            </ListItem>
+            <ListItem button onClick={() => history.push('/statistics')}>
+                <ListItemText primary="Statistics" />
             </ListItem>
             <ListItem button onClick={() => history.push('/about')}>
                 <ListItemText primary="About" />
