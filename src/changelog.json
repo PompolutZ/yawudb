@@ -1,4 +1,7 @@
 {
+    "0.8.0" : {
+        "Statistics": "A new page for the game statistics visualization has been added."
+    },
     "0.7.1" : {
         "Hotfix": "Hot fixed crash on reading **MyDecks**."
     },

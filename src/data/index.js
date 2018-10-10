@@ -4802,7 +4802,15 @@ export const cardsDb = {
       type: 2,                                                                     
       rule: '',                                                                    
       set: 8,                                                                      
-      faq: '-' },                                                                  
+      faq: '-' },     
+   '03057' : {
+       name: 'Shacklegheist Chains',
+       factions: 10,
+       type: 2,
+       rule: '',
+       set: 8,
+       faq: '-'
+   },                                                                
    '03058':                                                                        
     { name: 'Strangling Coil',                                                     
       factions: 10,                                                                

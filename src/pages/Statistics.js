@@ -6,6 +6,8 @@ import * as _ from 'lodash';
 import { Typography, CircularProgress } from '@material-ui/core';
 import AnimateHeight from 'react-animate-height';
 
+import './Statistics.css';
+
 class Statistics extends Component {
     state = {
         loading: false,
@@ -123,19 +125,20 @@ class Card extends Component {
             <div style={{display: 'flex', flexFlow: 'column wrap'}}>
                 <div style={{display: 'flex', alignItems: 'center', marginBottom: '.5rem'}}>
                     <img src={`/assets/icons/${setsIndex[set]}-icon.png`} alt={`${setsIndex[set]}`} width="24" height="24" style={{marginRight: '.5rem'}} />
-                    <Typography variant="body2" 
+                    <Typography variant="body2"
+                        className="cardName" 
                         color="default" 
                         style={{marginRight: '.5rem', fontSize: `${0.5 + percentage}rem`}}
                         onClick={() => this.setState(state => ({isExpanded: !state.isExpanded}))}>
                         <u>{`${name}`}</u>
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" style={{fontSize: `${0.5 + percentage}rem`}}>{`${percentage * 100}%`}</Typography>
+                    <Typography variant="body2" color="textSecondary" style={{fontSize: `${0.5 + percentage}rem`}}>{`${(percentage * 100).toFixed(2)}%`}</Typography>
                 </div>
                 <AnimateHeight
                     height={animateHeight}
                     duration={250}
                     easing="ease-out">
-                    <img src={`/assets/cards/${id}.png`} alt={id} style={{width: '100%'}} />
+                    <img className="card" src={`/assets/cards/${id}.png`} alt={id} style={{width: '100%'}} />
                 </AnimateHeight>
             </div>
         );

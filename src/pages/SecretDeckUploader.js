@@ -54,7 +54,10 @@ class SecretDeckUploader extends Component {
             return '01' + ('000' + x).slice(-3);
         });
 
-        const sets = new Set(result.map(x => cardsDb[x].set));
+        const sets = new Set(result.map(x => {
+            console.log(x, cardsDb[x]);
+            return cardsDb[x].set;
+        }));
         const objectiveScoringSummary = result.map(x => {
             const { type, scoreType } = cardsDb[x];
             if(type === 0) {
