@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { cardTypeIcons, cardType, cardSetIcons, idPrefixToFaction, cardsDb } from '../data/index';
+import { cardTypeIcons, cardType, setsIndex, idPrefixToFaction, cardsDb } from '../data/index';
 import { getWUCardByIdFromDB, getReadOnlyWUCardByIdFromDb } from './WUCard';
 import TextField from '@material-ui/core/TextField';
 import { Set } from 'immutable';
@@ -157,7 +157,7 @@ class Deck extends Component {
     }
 }
 const SetIcon = ({ set }) => (
-    <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${cardSetIcons[set]}-icon.png`} width="32" height="32" alt="icon" />
+    <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} width="32" height="32" alt="icon" />
 )
 
 export const ReadonlyDeck = ({ name, author, factionId, cards, sets, created}) => {

@@ -8,7 +8,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import AnimateHeight from 'react-animate-height';
-import { cardType, totalCardsPerWave, cardSetIcons } from '../data/index';
+import { cardType, totalCardsPerWave, setsIndex } from '../data/index';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 
 import "./WUCard.css";
@@ -144,7 +144,7 @@ class WUCardAtom extends Component {
                                 <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem'}}>
                                     {` Set: `}
                                 </Typography>
-                                <img style={{width: '.8rem', height: '.8rem', marginLeft: '.2rem'}} src={`/assets/icons/${cardSetIcons[this.props.set]}-icon.png`} />
+                                <img style={{width: '.8rem', height: '.8rem', marginLeft: '.2rem'}} src={`/assets/icons/${setsIndex[this.props.set]}-icon.png`} />
                             </div>
                             <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem', margin: '0 .2rem 0 0'}}>
                                 |

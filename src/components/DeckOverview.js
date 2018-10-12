@@ -14,7 +14,7 @@ import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ShareIcon from '@material-ui/icons/Share';
-import { cardSetIcons, cardsDb, cardType, idPrefixToFaction, PREFIX_LENGTH } from '../data/index';
+import { setsIndex, cardsDb, cardType, idPrefixToFaction, PREFIX_LENGTH } from '../data/index';
 import { withRouter } from 'react-router-dom'; 
 import SimpleSnackbar from './SimpleSnackbar';
 import { Set } from 'immutable';
@@ -51,24 +51,8 @@ const styles = theme => ({
   },
 });
 
-// const CardTypeCounter = ({type, count}) => (
-//     <div style={{display: 'flex', alignItems: 'center', marginRight: '.5rem'}}>
-//         <img src={`/assets/icons/${type}-icon.png`} alt={type} width="24" height="24" style={{margin: '0 .1rem 0 0'}} />        
-//         <div style={{margin: '0 0 0 .1rem', fontSize: '1.2rem'}}>{count}</div>
-//     </div>
-// );
-
-// const GambitsCounter = ({ count }) => (
-//   <div style={{display: 'flex', alignItems: 'center', marginRight: '.5rem'}}>
-//       <img src={`/assets/icons/ploy-icon.png`} alt="ploy" width="24" height="24" style={{margin: '0 .1rem 0 0'}} />        
-//       <img src={`/assets/icons/gambit spell-icon.png`} alt="gambit spell" width="24" height="24" style={{margin: '0 .1rem 0 0'}} />        
-//       <div style={{margin: '0 0 0 .1rem', fontSize: '1.2rem'}}>{count}</div>
-//   </div>
-// );
-
-
 const SetIcon = ({ set }) => (
-    <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${cardSetIcons[set]}-icon.png`} width="24" height="24" alt="icon" />
+    <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} width="24" height="24" alt="icon" />
 )
 
 const CardNumberNameSet = ({ id, name, set, scoreType }) => (
