@@ -22,7 +22,7 @@ const configureStore = history => {
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
         applyMiddleware(routerMiddleware(history)));
     
-    const unsdub = store.subscribe(throttle(() => {
+    store.subscribe(throttle(() => {
       saveState(store.getState());
     }, 1000));
     

@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Drawer, List, ListItem, ListItemText, Button, Avatar } from '@material-ui/core';
+import { Drawer, List, ListItem, ListItemText, Avatar } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import firebase from '../firebase';
 import { connect } from 'react-redux';

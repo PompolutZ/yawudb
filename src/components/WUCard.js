@@ -144,7 +144,7 @@ class WUCardAtom extends Component {
                                 <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem'}}>
                                     {` Set: `}
                                 </Typography>
-                                <img style={{width: '.8rem', height: '.8rem', marginLeft: '.2rem'}} src={`/assets/icons/${setsIndex[this.props.set]}-icon.png`} />
+                                <img alt={`${setsIndex[this.props.set]}`} style={{width: '.8rem', height: '.8rem', marginLeft: '.2rem'}} src={`/assets/icons/${setsIndex[this.props.set]}-icon.png`} />
                             </div>
                             <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem', margin: '0 .2rem 0 0'}}>
                                 |
@@ -153,7 +153,7 @@ class WUCardAtom extends Component {
                                 <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem'}}>
                                     {`${this.props.cardPN}/${totalCardsPerWave[parseInt(id.slice(0,2), 10)]}`}
                                 </Typography>
-                                <img style={{width: '.8rem', height: '.8rem', marginLeft: '.2rem'}} src={`/assets/icons/wave-${id.slice(0,2)}-icon.png`} />
+                                <img alt={`wave-${id.slice(0,2)}`} style={{width: '.8rem', height: '.8rem', marginLeft: '.2rem'}} src={`/assets/icons/wave-${id.slice(0,2)}-icon.png`} />
                             </div>
                             {/*  */}
                         </div>

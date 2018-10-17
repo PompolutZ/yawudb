@@ -2,19 +2,12 @@ import React, { Component } from 'react';
 import "./DeckBuilder.css";
 import { OrderedSet, Set } from 'immutable';
 
-import { getWUCardByIdFromDB } from '../components/WUCard';
 import Deck from '../components/Deck';
-import { cardsDb, factions, getCardsByFactionAndSets, factionIdPrefix } from '../data/index';
+import { cardsDb, factionIdPrefix } from '../data/index';
 import firebase, { db } from '../firebase';
 
-import ExpansionsToggle from '../components/ExpansionsToggle';
-import CardTypeToggle from '../components/CardTypeToggle';
 import FloatingActionButton from '../components/FloatingActionButton';
-import DelayedSearch from '../components/DelayedSearch';
 import ReorderIcon from '@material-ui/icons/Reorder';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import IconButton from '@material-ui/core/IconButton';
-import AnimateHeight from 'react-animate-height';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -85,8 +78,8 @@ class DeckBuilder extends Component {
 
     _saveCurrentDeck = () => {
         const deckId = `${factionIdPrefix[this.props.selectedFaction]}-${uuid4().slice(-12)}`;
-        const currentDeck = this.props.currentDeck.map(c => c.id).toJS();
-        const objectiveScoringSummary = currentDeck.map(x => {
+        // const currentDeck = this.props.currentDeck.map(c => c.id).toJS();
+        const objectiveScoringSummary = this.props.currentDeck.map(x => {
             const { type, scoreType } = cardsDb[x];
             if(type === 0) {
                 return scoreType;
@@ -104,8 +97,8 @@ class DeckBuilder extends Component {
             name: this.props.currentDeckName,
             source: '',
             desc: this.props.currentDeckDescription,
-            cards: currentDeck,
-            sets: new OrderedSet(this.props.currentDeck.map(c => c.set)).toJS(),
+            cards: this.props.currentDeck,
+            sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
             scoringSummary: objectiveScoringSummary,
             tags: [],
             created: new Date(),

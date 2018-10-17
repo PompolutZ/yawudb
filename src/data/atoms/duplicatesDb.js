@@ -59,9 +59,6 @@ export const duplicates = {
     "Berserk Charge" : {
         sets: [0]
     }, 
-    "Skulls For The Skull Throne!" : {
-        sets: [0]
-    }, 
     "Bloodslick" : {
         sets: [0]
     }, 
@@ -108,9 +105,6 @@ export const duplicates = {
         sets: [0]
     }, 
     "Seize Ground" : {
-        sets: [0]
-    }, 
-    "Immovable Object" : {
         sets: [0]
     }, 
     "Sigmar's Bulwark" : {

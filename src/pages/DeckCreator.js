@@ -11,7 +11,6 @@ import {
     RESET_DECK, 
     CHANGE_DESCRIPTION} from '../reducers/deckUnderBuild';
 
-import { SET_SETS } from '../reducers/cardLibraryFilters';    
 import { connect } from 'react-redux';
 
 class DeckCreator extends Component {

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import ToggleImageButton from './ToggleImageButton';
 import { factionIndexes, factions } from '../data/index';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import * as _ from 'lodash';
-import { Avatar, Typography, IconButton } from '@material-ui/core';
+import { Typography, IconButton } from '@material-ui/core';
 import AnimateHeight from 'react-animate-height';
 
 const SelectedFaction = ({ faction, style }) => (
@@ -12,7 +11,7 @@ const SelectedFaction = ({ faction, style }) => (
         alignItems: 'center',
         margin: '.5rem',
     }}}>
-        <img style={{width: '3.5rem', height: '3.5rem', margin: '0 1rem 0 0rem'}} src={`/assets/icons/${faction}-icon.png`} />
+        <img alt={`${faction}`} style={{width: '3.5rem', height: '3.5rem', margin: '0 1rem 0 0rem'}} src={`/assets/icons/${faction}-icon.png`} />
         <Typography variant="title">{`${factions[faction]}`}</Typography>
     </div>
 );

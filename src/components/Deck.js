@@ -61,11 +61,11 @@ const SectionHeader = ({ type }) => (
     </div>
 );
 
-const MultiSectionHeader = ({ types }) => (
-    <div style={{display: 'flex', borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
-        { types.map((t, i) => <Typography key={t} variant="headline" style={{marginLeft: i > 0 ? '.5rem' : '0'}}>{`${ i > 0 ? ' | ' : ''}${cardType[t]}s `}</Typography>)}
-    </div>
-);
+// const MultiSectionHeader = ({ types }) => (
+//     <div style={{display: 'flex', borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
+//         { types.map((t, i) => <Typography key={t} variant="headline" style={{marginLeft: i > 0 ? '.5rem' : '0'}}>{`${ i > 0 ? ' | ' : ''}${cardType[t]}s `}</Typography>)}
+//     </div>
+// );
 
 class Deck extends Component {
     state = {
@@ -161,7 +161,6 @@ const SetIcon = ({ set }) => (
 )
 
 export const ReadonlyDeck = ({ name, author, factionId, cards, sets, created}) => {
-    console.log(factionId);
     const objectives = cards.filter(v => v.type === 0);
     const gambits = cards.filter(v => v.type === 1 || v.type === 3);
     const upgrades = cards.filter(v => v.type === 2);

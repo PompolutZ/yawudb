@@ -6,11 +6,9 @@ const getDbIndexByWaveAndCard = (wave, card) => {
 }
 
 export const getCardsByFactionAndSets = (faction, selectedSets) => {
-    console.log('getCardsByFactionAndSets', faction, selectedSets);
     const defaultFactionCards = faction !== 'universal' ? [factionSets[faction][0]] : [] 
     let cardIds = [];
     const setsWithFactionSet = [...selectedSets, ...defaultFactionCards];
-    console.log('setsWithFactionSet', setsWithFactionSet);
     const fIndex = factionIndexes.indexOf(faction);
     for (let s of setsWithFactionSet) {
         const set = setInfos[s];
