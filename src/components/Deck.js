@@ -113,7 +113,7 @@ class Deck extends Component {
 
         return (
             <div>
-                <DeckFaction faction={faction} defaultName={this.state.name} onChange={this.handleChangeName} />
+                <DeckFaction faction={faction.startsWith('n_') ? faction.slice(2) : faction} defaultName={this.state.name} onChange={this.handleChangeName} />
                 <DeckDescription defaultDescription={this.state.desc} onChange={this.handleChangeDescription} />
                 <div style={{
                     display: 'flex',

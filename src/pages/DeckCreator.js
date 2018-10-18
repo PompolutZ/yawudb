@@ -30,6 +30,7 @@ class DeckCreator extends Component {
 const mapStateToProps = state => {
     return {
         selectedFaction: state.deckUnderBuild.faction,
+        selectedFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
         currentDeck: state.deckUnderBuild.deck,
         currentDeckName: state.deckUnderBuild.name,
         currentDeckSource: state.deckUnderBuild.source,
@@ -41,7 +42,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setFaction: faction => dispatch({type: SET_FACTION, faction: faction}),
+        setFaction: (faction, defaultSet) => dispatch({type: SET_FACTION, faction: faction, defaultSet: defaultSet}),
         changeName: value => dispatch({ type: CHANGE_NAME, name: value }),
         changeSource: value => dispatch({ type: CHANGE_SOURCE, source: value }),
         changeDescription: value => dispatch({ type: CHANGE_DESCRIPTION, desc: value }),

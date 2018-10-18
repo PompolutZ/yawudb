@@ -15,13 +15,15 @@ const initialState = {
     source: '',
     desc: '',
     faction: 'garreks-reavers',
+    factionDefaultSet: 0,
     deck: new Set()
 }
 
 const deckUnderBuild = (state = initialState, action) => {
     switch(action.type) {
         case SET_FACTION:
-            return { ...state, name: `${factions[action.faction]} Deck`, faction: action.faction, deck: new Set() };
+            const faction = action.faction.startsWith('n_') ? action.faction.slice(2) : action.faction;
+            return { ...state, name: `${factions[faction]} Deck`, faction: action.faction, factionDefaultSet: action.defaultSet, deck: new Set() };
         
         case CHANGE_NAME:
             return { ...state, name: action.name } 

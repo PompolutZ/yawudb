@@ -11,7 +11,8 @@ export {
     filterFactionByIdRange,
     idPrefixToFaction,
     factionSets,
-    factionIndexes
+    factionIndexes,
+    warbandsWithDefaultSet
 } from './atoms/factions';
 
 export {

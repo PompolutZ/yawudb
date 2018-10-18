@@ -64,7 +64,7 @@ export const filterFactionByIdRange = {
     },
     "the-chosen-axes" : {
         start: "tca",
-        end: 'tf'
+        end: 'teotn'
     },
     "spiteclaws-swarm" : {
         start: "ss",
@@ -83,8 +83,16 @@ export const filterFactionByIdRange = {
         end: 'tca'
     },
     "thorns-of-the-briar-queen": {
-        start: "toftbq"
-    } 
+        start: "toftbq",
+        end: 'zg'
+    },
+    "the-eyes-of-the-nine": { 
+        start: "teotn",
+        end: 'tf'
+    },
+    "zarbags-gitz": {
+        start: "zg"
+    }
 }
 
 export const idPrefixToFaction = {
@@ -132,5 +140,22 @@ export const factionIndexes = [
     "stormsires-cursebreakers",
     "thorns-of-the-briar-queen",
     "the-eyes-of-the-nine",
-    "zarbags-gitz"
+    "zarbags-gitz",
+]
+
+export const warbandsWithDefaultSet = [
+    ["garreks-reavers",0],
+    ["steelhearts-champions",0],
+    ["sepulchral-guard",1],
+    ["ironskulls-boyz",2],
+    ["the-chosen-axes",3],
+    ["spiteclaws-swarm",4],
+    ["magores-fiends",5],
+    ["the-farstriders",6],
+    ["stormsires-cursebreakers",8],
+    ["thorns-of-the-briar-queen",8],
+    ["the-eyes-of-the-nine",9],
+    ["zarbags-gitz",10],
+    ["n_garreks-reavers",11],
+    ["n_steelhearts-champions",12],
 ]

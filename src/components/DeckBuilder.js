@@ -78,7 +78,8 @@ class DeckBuilder extends Component {
     }
 
     _saveCurrentDeck = () => {
-        const deckId = `${factionIdPrefix[this.props.selectedFaction]}-${uuid4().slice(-12)}`;
+        const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
+        const deckId = `${factionIdPrefix[faction]}-${uuid4().slice(-12)}`;
         // const currentDeck = this.props.currentDeck.map(c => c.id).toJS();
         const objectiveScoringSummary = this.props.currentDeck.map(x => {
             const { type, scoreType } = cardsDb[x];

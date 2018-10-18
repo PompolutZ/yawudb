@@ -48,7 +48,6 @@ class Decks extends Component {
         this.setState({ loading: true, decks: new List() });
         const decksRef = db.collection('decks');
         const id = firebase.firestore.FieldPath.documentId;
-        const data = [];
         const queries = this.props.selectedFactions.map(faction => {
             const { start, end } = filterFactionByIdRange[faction];
             if(start && end) {
@@ -65,14 +64,16 @@ class Decks extends Component {
                 const created = deck.created.toDate();
                 if(deck.author !== 'Anonymous') {
                     const userProfileRef = await db.collection('users').doc(deck.author).get();
-                    data.push({ ...deck, id: doc.id, created: created, author: userProfileRef.data().displayName });        
+                    this.setState(state => ({ 
+                        loading: false,
+                        decks: state.decks.push({ ...deck, id: doc.id, created: created, author: userProfileRef.data().displayName })}));
                 } else {
-                    data.push({ ...deck, id: doc.id, created: created});
+                    this.setState(state => ({ 
+                        loading: false,
+                        decks: state.decks.push({ ...deck, id: doc.id, created: created})}));
                 }
             });
         }
-
-        this.setState({ loading: false, decks: new List(data).sortBy(d => d.created, (date1, date2) => date2 - date1) });
     }
 
     render() {
@@ -100,7 +101,9 @@ class Decks extends Component {
                         ) 
                     }
                     {
-                        this.state.decks.map(d => <DeckOverview key={uuid4()} {...d} />)
+                        this.state.decks
+                            .sortBy(d => d.created, (date1, date2) => date2 - date1)
+                            .map(d => <DeckOverview key={uuid4()} {...d} />)
                     }
                 </div>
                 <FloatingActionButton isEnabled onClick={() => history.push('/newdeck')}>

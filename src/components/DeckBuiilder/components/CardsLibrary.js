@@ -48,7 +48,7 @@ class CardsLibrary extends Component {
     }
 
     _reloadCards = () => {
-        const factionCards = getCardsByFactionAndSets(this.props.selectedFaction, this.props.selectedSets);
+        const factionCards = getCardsByFactionAndSets(this.props.selectedFaction, this.props.selectedSets, this.props.selectedFactionDefaultSet);
         if(this.props.selectedSets.length > 0) {
             const universalCards = getCardsByFactionAndSets('universal', this.props.selectedSets);
             return new Set(factionCards).union(new Set(universalCards));     
@@ -65,7 +65,8 @@ const mapStateToProps = state => {
         selectedSets: state.cardLibraryFilters.sets,
         
         currentDeck: state.deckUnderBuild.deck,
-        selectedFaction: state.deckUnderBuild.faction
+        selectedFaction: state.deckUnderBuild.faction,
+        selectedFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
     }
 }
 
