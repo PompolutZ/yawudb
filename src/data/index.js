@@ -1,6 +1,7 @@
 import shadespireCardsDb from './dbs/shadespireCardsDb';
 import leadersCardsDb from './dbs/leadersCardsDb';
 import nightvaultCardsDb from './dbs/nightvaultCardsDb';
+import cardsdb from './cardsdb';
 
 export { 
     factions,
@@ -36,7 +37,5 @@ export const totalCardsPerWave = {
 export const universalCardsStartNumber = 233;
 
 export const cardsDb = {
-    ...shadespireCardsDb,
-    ...leadersCardsDb,
-    ...nightvaultCardsDb                                                                 
+    ...cardsdb                                                                 
 }

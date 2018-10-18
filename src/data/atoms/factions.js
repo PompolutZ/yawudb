@@ -10,7 +10,7 @@ export const factions = {
     "the-farstriders" : "The Farstriders",
     "stormsires-cursebreakers": "Stormsire's Cursebreakers",
     "thorns-of-the-briar-queen": "Thorns of the Briar Queen",
-    "eyes-of-the-nine": "Eyes of the Nine",
+    "the-eyes-of-the-nine": "The Eyes of the Nine",
     "zarbags-gitz": "Zarbag's Gitz"
 }
 
@@ -41,7 +41,7 @@ export const factionIdPrefix = {
     "the-farstriders" : "tf",
     "stormsires-cursebreakers": "stc",
     "thorns-of-the-briar-queen": "toftbq",
-    "eyes-of-the-nine": "eotn",
+    "the-eyes-of-the-nine": "teotn",
     "zarbags-gitz": "zg"
 }
 
@@ -98,7 +98,7 @@ export const idPrefixToFaction = {
     "tf" : "the-farstriders",
     "stc" : "stormsires-cursebreakers",
     "toftbq" : "thorns-of-the-briar-queen",
-    "eotn" : "eyes-of-the-nine",
+    "teotn" : "the-eyes-of-the-nine",
     "zg" : "zarbags-gitz"
 }
 
@@ -115,7 +115,7 @@ export const factionSets = {
     "the-farstriders" : [6, 7],
     "stormsires-cursebreakers": [8],
     "thorns-of-the-briar-queen": [8],
-    "eyes-of-the-nine": [9],
+    "the-eyes-of-the-nine": [9],
     "zarbags-gitz": [10]
 }
 
@@ -131,6 +131,6 @@ export const factionIndexes = [
     "the-farstriders",
     "stormsires-cursebreakers",
     "thorns-of-the-briar-queen",
-    "eyes-of-the-nine",
+    "the-eyes-of-the-nine",
     "zarbags-gitz"
 ]

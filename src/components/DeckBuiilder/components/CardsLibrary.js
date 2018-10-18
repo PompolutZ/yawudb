@@ -30,10 +30,11 @@ class CardsLibrary extends Component {
             filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
         }
 
-        const content = filteredCards.toJS().sort((c1, c2) => c1.type - c2.type || c2.factions - c1.factions || c1.id - c2.id).map((c, i) => {
-            const cardPN = parseInt(c.id.slice(-3), 10);
-            return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this._toggleCardInDeck.bind(this, c.id), currentDeck.some(id => id  === c.id))
-        });
+        const content = filteredCards.toJS().sort((c1, c2) => c1.type - c2.type || c2.faction - c1.faction || c1.id - c2.id)
+            .map((c, i) => {
+                const cardPN = parseInt(c.id.slice(-3), 10);
+                return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this._toggleCardInDeck.bind(this, c.id), currentDeck.some(id => id  === c.id))
+            });
 
         return (
             <div>

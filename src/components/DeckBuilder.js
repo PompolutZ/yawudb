@@ -14,6 +14,7 @@ import { withRouter } from 'react-router-dom';
 import SimpleSnackbar from './SimpleSnackbar';
 import CardLibraryFilters from './DeckBuiilder/components/CardLibraryFilters';
 import CardsLibrary from './DeckBuiilder/components/CardsLibrary';
+import Database from '../data/utils/index';
 
 const uuid4 = require('uuid/v4');
 
@@ -97,13 +98,15 @@ class DeckBuilder extends Component {
             name: this.props.currentDeckName,
             source: '',
             desc: this.props.currentDeckDescription,
-            cards: this.props.currentDeck,
+            cards: new OrderedSet(this.props.currentDeck).toJS(),
             sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
             scoringSummary: objectiveScoringSummary,
             tags: [],
             created: new Date(),
             author: this.props.isAuth ? this.props.userInfo.uid : 'Anonymous'
         }
+
+        console.log(deckPayload)
 
         if(this.props.isAuth) {
             const batch = db.batch();

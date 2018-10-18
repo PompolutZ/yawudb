@@ -1,4 +1,7 @@
 {
+    "0.8.1" : {
+        "Hotfix": "Broken save deck functionality should be working now."
+    },
     "0.8.0" : {
         "Statistics": "A new page for the game statistics visualization has been added."
     },
