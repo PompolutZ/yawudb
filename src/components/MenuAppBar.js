@@ -17,9 +17,13 @@ import { connect } from 'react-redux';
 const styles = {
   root: {
     flexGrow: 1,
+    position: 'fixed',
+    zIndex: '42',
+    width: '100%'
   },
   grow: {
     flexGrow: 1,
+    cursor: 'pointer'
   },
   menuButton: {
     marginLeft: -12,
@@ -90,6 +94,10 @@ class MenuAppBar extends React.Component {
         this.handleClose();
   }  
 
+  navigateHome = () => {
+    this.props.history.push('/')
+  }
+
   render() {
     const { classes, history } = this.props;
     const { userAvatarUrl, anchorEl } = this.state;
@@ -116,12 +124,12 @@ class MenuAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" classes={{colorPrimary: classes.wuPrimaryColor}}>
+        <AppBar position="fixed" classes={{colorPrimary: classes.wuPrimaryColor}}>
           <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
-            <Typography variant="title" color="inherit" className={classes.grow}>
+            <Typography variant="title" color="inherit" className={classes.grow} onClick={this.navigateHome}>
                 { document.title }
             </Typography>
             {userAvatarUrl && (

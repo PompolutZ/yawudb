@@ -92,18 +92,20 @@ const App = () => (
         <div>
             <MenuAppBar />
             
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/decks" component={Decks} />
-                <Route path="/newdeck" component={DeckCreator} />
-                <Route path="/login" component={Login} />
-                <Route path="/deck/:id" component={Deck} />
-                <Route path="/about" component={About} />
-                <Route path="/statistics" component={Statistics} />
+            <div style={{paddingTop: '4rem'}}>
+              <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/decks" component={Decks} />
+                  <Route path="/newdeck" component={DeckCreator} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/deck/:id" component={Deck} />
+                  <Route path="/about" component={About} />
+                  <Route path="/statistics" component={Statistics} />
 
-                <PrivateRoute path="/mydecks" component={MyDecks} />
-                <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
-            </Switch>
+                  <PrivateRoute path="/mydecks" component={MyDecks} />
+                  <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
+              </Switch>
+            </div>
 
             <Footer />
         </div>

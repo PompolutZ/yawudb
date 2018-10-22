@@ -29,8 +29,8 @@ class FactionsFilterToggle extends Component {
 
     renderRow = faction => {
         return (
-            <div style={{display: 'flex', alignItems: 'center'}}>
-                <ToggleImageButton key={faction}
+            <div style={{display: 'flex', alignItems: 'center'}} key={faction}>
+                <ToggleImageButton
                                     isOff={!this.state.selectedFactions.includes(faction)} 
                                     onImage={`/assets/icons/${faction}-icon.png`}
                                     offImage={`/assets/icons/${faction}-icon-bw.png`}

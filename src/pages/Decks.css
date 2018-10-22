@@ -1,20 +1,33 @@
-.wrapper {
+.decksWrapper {
     display: flex;
     flex-flow: row wrap;
 } 
 
-.wrapper > * {
+.main {
+    flex: 1 1 auto;
+    margin: 0 5rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .main {
+        flex: 0 1 100%;
+        margin: auto;
+    }
+}
+/* 
+.filters {
+    flex: 1 100%;
+}
+
+.main {
     flex: 1 100%;
 }
 
 @media all and (min-width: 800px) {
-    .main {
-        flex: 1 auto;
-        margin-right: 20rem;
-        margin-top: 1rem;
-    }
-
     .filters {
-        flex: 0 auto;
+        flex: 1 auto;
     }
-}
+    .main {
+        flex: 2 100%;
+    }
+} */

@@ -13,12 +13,14 @@ import {
 
 import { connect } from 'react-redux';
 
+import './DeckCreator.css';
+
 class DeckCreator extends Component {
 
     render() {
         return (
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
-                <div style={{paddingBottom: '1rem', margin: '0 .5rem 0 .5rem'}}>
+                <div className="factionToggle">
                     <FactionToggle selectedFaction={this.props.selectedFaction} setFaction={this.props.setFaction} />
                 </div>
                 <DeckBuilder key={this.props.selectedFaction} {...this.props} />

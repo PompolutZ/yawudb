@@ -11,9 +11,34 @@ import { Typography, Button } from '@material-ui/core';
 import { filterFactionByIdRange } from '../data/index';
 import { connect } from 'react-redux';
 import { SET_FACTIONS_FILTER } from '../reducers/decksFilters';
-import './Decks.css';
+import { withStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 
 const uuid4 = require('uuid/v4');
+
+const styles = theme => ({
+    root : {
+        display: 'flex',
+        flexFlow: 'row wrap',
+    },
+
+    filters : {
+        margin: '1rem',
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        flex: '0 1 100%',
+        [theme.breakpoints.up('md')]: {
+            flex: '0 1 auto'
+        }
+    },
+
+    decksList : {
+        flex: '0 1 100%',
+        [theme.breakpoints.up('md')]: {
+            flex: '1 1 auto'
+        }
+    },
+});
 
 class Decks extends Component {
     state = {
@@ -77,11 +102,10 @@ class Decks extends Component {
     }
 
     render() {
-        const { history } = this.props;
-
+        const { classes, history } = this.props;
         return (
-            <div className="wrapper">
-                <div className="filters" style={{display: 'flex', flexFlow: 'column wrap', margin: '1rem'}}>
+            <div className={classes.root}>
+                <div className={classnames(classes.filters)}>
                     <Typography variant="body2" style={{marginBottom: '.5rem'}}>Show decks for selected factions:</Typography>
                     <FactionsFilterToggle isVertical={window.matchMedia('(min-width: 800px)').matches} onFactionsChange={this.props.onFactionsChange} selectedFactions={this.props.selectedFactions} />
                     <Button style={{backgroundColor: '#3B9979', color: 'white', alignSelf:'flex-end', marginTop: '1rem'}}
@@ -89,7 +113,7 @@ class Decks extends Component {
                         Reload
                     </Button>
                 </div>
-                <div className="main">
+                <div className={classnames(classes.decksList)}>
                     {
                         this.state.loading && (
                             <div style={{display: 'flex', height: '100vh'}}>
@@ -126,4 +150,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Decks));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(Decks)));

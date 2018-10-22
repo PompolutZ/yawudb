@@ -4,6 +4,10 @@
     width: 20rem;
     margin-bottom: 1rem;
 }
+
+.wrapper > * {
+    flex: 1 98%;
+}
 /* 
 .mobileDeckAccessor {
     display: none;
@@ -18,12 +22,19 @@
     right: 0;
     bottom: 0;
     left: 0;
+    padding-top: 4rem;
     height: 100vh;
     opacity: 0;
     -webkit-overflow-scrolling: touch;
 }
 
-@media only screen and (max-width: 768px) {
+@media all and (min-width: 800px) {
+    .wrapper > * {
+        flex: 1 50%;
+    }
+}
+
+/* @media only screen and (max-width: 768px) {
     .cardContainer {
         width: 98%;
         margin-left: 1%;
@@ -38,7 +49,7 @@
         display: block;
     }   
 }
-
+ */
 .card {
     display: flex;
     height: auto;

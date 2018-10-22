@@ -34,10 +34,12 @@ class DeckBuilder extends Component {
 
     render() {
         return (
-            <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
-                <CardLibraryFilters />
-                <CardsLibrary />
-                <div className="sideDeck" style={{flex: '1 1 auto'}}>
+            <div className="wrapper" style={{display: 'flex', flexFlow: 'row wrap'}}>
+                <div className="filters">
+                    <CardLibraryFilters />
+                    <CardsLibrary />
+                </div>
+                <div className="sideDeck">
                     <Deck faction={this.props.selectedFaction} 
                         currentName={this.props.currentDeckName}
                         currentSource={this.props.currentDeckSource}

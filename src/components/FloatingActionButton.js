@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
 const styles = theme => ({
-    '@media screen and (min-width: 1024px)' : {
+    '@media screen and (min-width: 800px)' : {
         mobileOnly : {
             opacity: 0,
         }
