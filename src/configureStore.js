@@ -8,8 +8,21 @@ import deckUnderBuild from './reducers/deckUnderBuild';
 import decksFilters from './reducers/decksFilters';
 import cardLibraryFilters from './reducers/cardLibraryFilters';
 
+const loadPersistedOnModile = () => {
+    if(window.matchMedia('(display-mode: standalone)').matches) {
+        return loadState();
+      }
+  
+      // Safari
+      if(window.navigator.standalone === true) {
+        return loadState();
+      }
+     
+    return {};  
+}
+
 const configureStore = history => {
-    const persistedStore = loadState();
+    const persistedStore = loadState(); //loadPersistedOnModile();
     const store = createStore(
         connectRouter(history)(combineReducers({
             auth,

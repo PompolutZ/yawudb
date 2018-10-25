@@ -72,33 +72,19 @@ const PrivateRoute = connect(state => ({
     isAuthenticated: state.auth !== null
 }))(PrivateRouteContainer)   
 
-// class PersistedConnectedRouter extends ConnectedRouter {
-//     componentWillMount() {
-//         const { history } = this.props;
-//         //this is the tweak which will prefer persisted route instead of that in url:
-//         const location = store.getState().router.location || {};
-//         if (location.pathname !== history.location.pathname) {
-//             store.dispatch({type: 'LOCATION_CHANGE', location});
-//             console.log(this.props);
-//         }
-        
-//         this.
-//         //this.handleLocationChange(history.location);    
-//     }  
-// }
-
 const App = () => (
     <ConnectedRouter history={history}>
         <div>
             <MenuAppBar />
-            
+
             <div style={{paddingTop: '4rem'}}>
               <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/decks" component={Decks} />
-                  <Route path="/newdeck" component={DeckCreator} />
+                  <Route path="/deck/create" component={DeckCreator} />
+                  <Route path="/deck/edit/:id" component={DeckCreator} />
                   <Route path="/login" component={Login} />
-                  <Route path="/deck/:id" component={Deck} />
+                  <Route path="/view/deck/:id" component={Deck} />
                   <Route path="/about" component={About} />
                   <Route path="/statistics" component={Statistics} />
 

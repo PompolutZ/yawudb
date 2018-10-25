@@ -53,10 +53,14 @@ class FactionToggle extends Component {
             <div>
                 <div style={{...this.props.style, ...{display: 'flex', marginTop: '1rem', alignItems: 'center'}}}>
                     <SelectedFaction faction={this.state.selectedFaction} style={{flex: '1 1 auto'}} />
-                    <IconButton style={{color: 'white', backgroundColor: '#3B9979'}}
-                                onClick={() => this.setState(state => ({isExpanded: !state.isExpanded}))}>
-                        <ExpandMoreIcon />
-                    </IconButton>
+                    {
+                        !this.props.editMode && (
+                            <IconButton style={{color: 'white', backgroundColor: '#3B9979'}}
+                                        onClick={() => this.setState(state => ({isExpanded: !state.isExpanded}))}>
+                                <ExpandMoreIcon />
+                            </IconButton>
+                        )
+                    }
                 </div>
                 <AnimateHeight
                     duration={200}

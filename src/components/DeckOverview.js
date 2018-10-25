@@ -13,14 +13,18 @@ import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import EditIcon from '@material-ui/icons/Edit';
 import ShareIcon from '@material-ui/icons/Share';
-import { setsIndex, cardsDb, cardType, idPrefixToFaction, PREFIX_LENGTH } from '../data/index';
+import { setsIndex, cardsDb, cardType, idPrefixToFaction, PREFIX_LENGTH, warbandsWithDefaultSet } from '../data/index';
 import { withRouter } from 'react-router-dom'; 
 import SimpleSnackbar from './SimpleSnackbar';
 import { Set } from 'immutable';
 import './DeckOverview.css';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 import CardTypeCounter from './CardTypeCounter';
+import { ADD_CARD, SET_FACTION, CHANGE_NAME, CHANGE_DESCRIPTION } from '../reducers/deckUnderBuild';
+import { SET_SETS } from '../reducers/cardLibraryFilters';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   card: {
@@ -82,34 +86,34 @@ const ObjectiveScoringOverview = ({ objectives }) => {
     return (
       <div style={{display: 'flex', flexFlow: 'row wrap', margin: 'auto 1rem .5rem 1rem'}}>
         <div style={{ order: 0}}>
-          { objectives[0] && (
+          { objectives[0] > 0 && (
             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center'}}>
               <ObjectiveScoreTypeIcon type={0} style={{width: '1rem', height: '1rem', margin: '0 .2rem 0 0'}} />
-              <Typography style={{fontSize: '1rem'}}>{objectives[0].count()}</Typography>
+              <Typography style={{fontSize: '1rem'}}>{objectives[0]}</Typography>
             </div>
           )}
         </div>
         <div style={{ order: 1}}>
-          { objectives[3] && (
+          { objectives[3] > 0 && (
             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
               <ObjectiveScoreTypeIcon type={3} style={{width: '1rem', height: '1rem', margin: '0 .2rem 0 0'}} />
-              <Typography style={{fontSize: '1rem'}}>{objectives[3].count()}</Typography>
+              <Typography style={{fontSize: '1rem'}}>{objectives[3]}</Typography>
             </div>
           )}
         </div>
         <div style={{ order: 2}}>
-          { objectives[1] && (
+          { objectives[1] > 0 && (
             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
               <ObjectiveScoreTypeIcon type={1} style={{width: '1rem', height: '1rem', margin: '0 .2rem 0 0'}} />
-              <Typography style={{fontSize: '1rem'}}>{objectives[1].count()}</Typography>
+              <Typography style={{fontSize: '1rem'}}>{objectives[1]}</Typography>
             </div>
           )}
         </div>
         <div style={{ order: 3}}>
-          { objectives[2] && (
+          { objectives[2] > 0 && (
             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
               <ObjectiveScoreTypeIcon type={2} style={{width: '1rem', height: '1rem', margin: '0 .2rem 0 0'}} />
-              <Typography style={{fontSize: '1rem'}}>{objectives[2].count()}</Typography>
+              <Typography style={{fontSize: '1rem'}}>{objectives[2]}</Typography>
             </div>
           )}
         </div>
@@ -127,6 +131,21 @@ class DeckOverview extends React.Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
+    editDeck = () => {
+        const strippedId = this.props.id.substring(0, this.props.id.length - 13);
+        const faction = strippedId.length > PREFIX_LENGTH ? strippedId : idPrefixToFaction[strippedId];
+        const defaultSet = warbandsWithDefaultSet.filter(a => a.includes(faction));
+        this.props.setFaction(faction, defaultSet[0][1]);
+        this.props.setSets(this.props.sets);
+        for(let c of this.props.cards) {
+            this.props.addCard(c);
+        }
+        
+        this.props.setName(this.props.name);
+        this.props.setDescription(this.props.desc);
+        this.props.history.push(`/deck/edit/${this.props.id}`);
+    }
+
   handleCopyToClipboard = str => {
     const el = document.createElement('textarea');
     el.value = str;
@@ -140,10 +159,13 @@ class DeckOverview extends React.Component {
   };
 
   render() {
-    const { classes, id, name, sets, cards, created, author, history } = this.props;
+    const { classes, id, name, sets, cards, created, author, history, isEditable } = this.props;
     const cardsInDeck = cards.map(cardPN => ({id: cardPN, ...cardsDb[cardPN]}));
     const objectives = cardsInDeck.filter(c => c.type === 0);
-    const objectiveSummary = new Set(objectives).groupBy(c => c.scoreType).toArray();
+    const objectiveSummary = new Set(objectives).groupBy(c => c.scoreType).reduce((r, v, k) => {
+        r[k] = v.count();
+        return r;
+    }, [0, 0, 0, 0]);
     const gambits = cardsInDeck.filter(c => c.type === 1 || c.type === 3);
     const upgrades = cardsInDeck.filter(c => c.type === 2);
     const strippedId = id.substring(0, id.length - 13);
@@ -176,12 +198,19 @@ class DeckOverview extends React.Component {
 
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
-            <IconButton aria-label="View the deck" onClick={() => history.push(`/deck/${id}`)}>
+            <IconButton aria-label="View the deck" onClick={() => history.push(`/view/deck/${id}`)}>
               <VisibilityIcon />
             </IconButton>
-            <IconButton aria-label="View the deck" onClick={() => this.handleCopyToClipboard(`yawudb.com/deck/${id}`)}>
+            <IconButton aria-label="Share deck" onClick={() => this.handleCopyToClipboard(`yawudb.com/view/deck/${id}`)}>
               <ShareIcon />
             </IconButton>
+            {
+              isEditable && (
+                <IconButton aria-label="Edit deck" onClick={this.editDeck}>
+                  <EditIcon />
+                </IconButton>
+              )
+            }
             <IconButton
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded,
@@ -213,4 +242,14 @@ DeckOverview.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(DeckOverview));
+const mapDispatchToProps = dispatch => {
+    return {
+        addCard: card => dispatch({ type: ADD_CARD, card: card}),
+        setName: name => dispatch({ type: CHANGE_NAME, name: name}),
+        setDescription: desc => dispatch({ type: CHANGE_DESCRIPTION, desc: desc }),
+        setFaction: (faction, defaultSet) => dispatch({ type: SET_FACTION, faction: faction, defaultSet: defaultSet }),
+        setSets: sets => dispatch({ type: SET_SETS, payload: sets })
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(withStyles(styles)(DeckOverview)));

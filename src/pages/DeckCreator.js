@@ -16,14 +16,21 @@ import { connect } from 'react-redux';
 import './DeckCreator.css';
 
 class DeckCreator extends Component {
+    state = {
+        isEdit: this.props.match.path.startsWith('/deck/edit')
+    }
 
     render() {
+        
         return (
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <div className="factionToggle">
-                    <FactionToggle selectedFaction={this.props.selectedFaction} setFaction={this.props.setFaction} />
+                    <FactionToggle editMode={this.state.isEdit} selectedFaction={this.props.selectedFaction} setFaction={this.props.setFaction} />
                 </div>
-                <DeckBuilder key={this.props.selectedFaction} {...this.props} />
+                <DeckBuilder
+                    key={this.props.selectedFaction} 
+                    editMode={this.state.isEdit}
+                    {...this.props} />
             </div>
             );
     }

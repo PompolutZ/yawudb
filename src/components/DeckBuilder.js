@@ -25,7 +25,7 @@ class DeckBuilder extends Component {
         factionCards: new OrderedSet(),
         universalCards: new OrderedSet(),
         deck: new OrderedSet(),
-        isMobileDeckVisible: false,
+        isMobileDeckVisible: this.props.editMode,
         searchText: "",
         filtersVisible: false,
         visibleCardTypes: [0, 1, 2, 3],
@@ -40,7 +40,8 @@ class DeckBuilder extends Component {
                     <CardsLibrary />
                 </div>
                 <div className="sideDeck">
-                    <Deck faction={this.props.selectedFaction} 
+                    <Deck faction={this.props.selectedFaction}
+                        editMode={this.props.editMode} 
                         currentName={this.props.currentDeckName}
                         currentSource={this.props.currentDeckSource}
                         currentDescription={this.props.currentDeckDescription}
@@ -51,21 +52,26 @@ class DeckBuilder extends Component {
                         addCard={this.props.addCard} 
                         removeCard={this.props.removeCard}
                         onSave={this._saveCurrentDeck}
+                        onUpdate={this._updateCurrentDeck}
+                        onCancel={this._cancelUpdate}
                         onRemoveAll={this.props.clearDeck} />
                 </div>
                 <div className="fullscreenDeck" style={{visibility: this.state.isMobileDeckVisible ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
                     <Deck faction={this.props.selectedFaction} 
-                            currentName={this.props.currentDeckName}
-                            currentSource={this.props.currentDeckSource}
-                            currentDescription={this.props.currentDeckDescription}
-                            changeName={this.props.changeName}
-                            changeSource={this.props.changeSource}
-                            changeDescription={this.props.changeDescription}
-                            selectedCards={this.props.currentDeck} 
-                            addCard={this.props.addCard} 
-                            removeCard={this.props.removeCard}
-                            onSave={this._saveCurrentDeck}
-                            onRemoveAll={this.props.clearDeck} />
+                        editMode={this.props.editMode} 
+                        currentName={this.props.currentDeckName}
+                        currentSource={this.props.currentDeckSource}
+                        currentDescription={this.props.currentDeckDescription}
+                        changeName={this.props.changeName}
+                        changeSource={this.props.changeSource}
+                        changeDescription={this.props.changeDescription}
+                        selectedCards={this.props.currentDeck} 
+                        addCard={this.props.addCard} 
+                        removeCard={this.props.removeCard}
+                        onSave={this._saveCurrentDeck}
+                        onUpdate={this._updateCurrentDeck}
+                        onCancel={this._cancelUpdate}
+                        onRemoveAll={this.props.clearDeck} />
                 </div>
                 { this.state.showNotification && <SimpleSnackbar position="center" message="Save was successful!" /> }
                 <FloatingActionButton isEnabled onClick={this._handleShowDeckMobile}>
@@ -79,10 +85,50 @@ class DeckBuilder extends Component {
         this.setState(state => ({isMobileDeckVisible: !state.isMobileDeckVisible}));
     }
 
+    _updateCurrentDeck = () => {
+        const objectiveScoringSummary = this.props.currentDeck.map(x => {
+            const { type, scoreType } = cardsDb[x];
+            if(type === 0) {
+                return scoreType;
+            }
+
+            return -1;
+        }).reduce((acc, x) => {
+            if(x < 0) return acc;
+            acc[x] += 1;
+            return acc;
+        }, [0, 0, 0, 0]);
+
+        const deckPayload = {
+            name: this.props.currentDeckName,
+            source: '',
+            desc: this.props.currentDeckDescription,
+            cards: new OrderedSet(this.props.currentDeck).toJS(),
+            sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
+            scoringSummary: objectiveScoringSummary,
+            tags: [],
+            created: new Date(),
+            author: this.props.userInfo.uid
+        }
+
+        const deckRef = db.collection('decks').doc(this.props.match.params.id);
+        deckRef.update(deckPayload)
+            .then(() => this._resetAndGoBack())
+            .catch(err => console.log(err));
+    }
+
+    _cancelUpdate = () => {
+        this._resetAndGoBack();
+    }
+
+    _resetAndGoBack = () => {
+        this.props.history.goBack();
+        setTimeout(() => this.props.resetDeck(), 300);
+    }
+
     _saveCurrentDeck = () => {
         const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
         const deckId = `${factionIdPrefix[faction]}-${uuid4().slice(-12)}`;
-        // const currentDeck = this.props.currentDeck.map(c => c.id).toJS();
         const objectiveScoringSummary = this.props.currentDeck.map(x => {
             const { type, scoreType } = cardsDb[x];
             if(type === 0) {
@@ -165,4 +211,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(withRouter(DeckBuilder));
+export default connect(mapStateToProps, null)(withRouter(DeckBuilder));

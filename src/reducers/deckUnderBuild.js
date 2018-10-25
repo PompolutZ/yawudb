@@ -44,7 +44,7 @@ const deckUnderBuild = (state = initialState, action) => {
             return { ...state, deck: new Set() }     
         
         case RESET_DECK: 
-            return { ...state, name: `${factions[state.faction]} Deck`, source: '', deck: new Set() }    
+            return { ...state, name: `${factions[state.faction]} Deck`, source: '', deck: new Set(), desc: '' }    
 
         default:
             return state;            

@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import * as packageInfo from '../../package.json';
 import * as changelog from '../changelog.json';
 import * as _ from 'lodash';
+import { Button } from '@material-ui/core';
 
 const uuid4 = require('uuid/v4');
 
@@ -102,6 +103,8 @@ const About = ({ classes }) => {
                     ))
                 }
             </div>
+
+            <Button onClick={() => localStorage.removeItem('state')}>clean up</Button>
         </div>
     );
 };

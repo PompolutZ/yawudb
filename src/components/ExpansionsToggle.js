@@ -6,7 +6,6 @@ import * as _ from 'lodash';
 class ExpansionsToggle extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             selectedExpansions: this.props.selectedSets,
         }
@@ -35,7 +34,7 @@ class ExpansionsToggle extends Component {
     renderIndex(v){
         const name = setsIndex[v];
         return <ToggleImageButton key={name}
-                    isOff={!this.state.selectedExpansions.includes(v)} 
+                    isOff={!this.state.selectedExpansions.includes(parseInt(v, 10))} 
                     onImage={`/assets/icons/${name}-icon.png`}
                     offImage={`/assets/icons/${name}-icon-bw.png`}
                     onToggle={this.handleToggle.bind(this, v)}

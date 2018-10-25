@@ -100,7 +100,7 @@ class Deck extends Component {
     }
 
     render() {
-        const { selectedCards, faction, onSave } = this.props;
+        const { selectedCards, faction, onSave, onRemoveAll, onCancel, onUpdate } = this.props;
         
         const cards = new Set(selectedCards.map(id => ({id: id, ...cardsDb[id] })));
         const objectives = cards.filter(v => v.type === 0);
@@ -140,14 +140,30 @@ class Deck extends Component {
                 {
                     upgrades.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, this._toggleCardInDeck.bind(this, v.id), true))
                 }
-                <div style={{display: 'flex', paddingBottom: '5rem'}}>
-                    <Button style={{margin: 'auto', color: 'red'}} onClick={() => this.props.onRemoveAll()}>
-                        Remove all
-                    </Button>
-                    <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={onSave}>
-                        Save
-                    </Button>
-                </div>
+                {
+                    !this.props.editMode && (
+                        <div style={{display: 'flex', paddingBottom: '5rem'}}>
+                            <Button style={{margin: 'auto', color: 'red'}} onClick={onRemoveAll}>
+                                Remove all
+                            </Button>
+                            <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={onSave}>
+                                Save
+                            </Button>
+                        </div>
+                    )
+                }
+                {
+                    this.props.editMode && (
+                        <div style={{display: 'flex', paddingBottom: '5rem'}}>
+                            <Button style={{margin: 'auto', color: 'red'}} onClick={onCancel}>
+                                Cancel
+                            </Button>
+                            <Button style={{margin: 'auto'}} disabled={!isValidForSave} onClick={onUpdate}>
+                                Update
+                            </Button>
+                        </div>
+                    )
+                }
             </div>
         );
     }

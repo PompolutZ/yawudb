@@ -127,7 +127,7 @@ class Decks extends Component {
                     {
                         this.state.decks
                             .sortBy(d => d.created, (date1, date2) => date2 - date1)
-                            .map(d => <DeckOverview key={uuid4()} {...d} />)
+                            .map(d => <DeckOverview key={uuid4()} isEditable={false} {...d} />)
                     }
                 </div>
                 <FloatingActionButton isEnabled onClick={() => history.push('/newdeck')}>

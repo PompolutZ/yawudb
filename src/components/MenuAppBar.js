@@ -106,7 +106,7 @@ class MenuAppBar extends React.Component {
     const sideList = (
         <div className={classes.list}>
           <List component="nav">
-            <ListItem button onClick={() => history.push('/newdeck')}>
+            <ListItem button onClick={() => history.push('/deck/create')}>
                 <ListItemText primary="Deck Builder" />
             </ListItem>
             <ListItem button onClick={() => history.push('/decks')}>

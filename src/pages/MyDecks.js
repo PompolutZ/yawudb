@@ -41,7 +41,7 @@ class MyDecks extends Component {
     }
 
     handleClick = history => {
-        history.push('/newdeck')
+        history.goBack()//push('/newdeck')
     }
 
     render() {
@@ -68,7 +68,7 @@ class MyDecks extends Component {
                 }
                 <div>
                     {
-                        this.state.decks.map(deck => <DeckOverview key={uuid4()} {...deck} />)
+                        this.state.decks.map(deck => <DeckOverview key={uuid4()} isEditable {...deck} />)
                     }
                 </div>
                 <FloatingActionButton isEnabled onClick={() => this.handleClick(history)}>
