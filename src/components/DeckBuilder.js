@@ -14,7 +14,7 @@ import { withRouter } from 'react-router-dom';
 import SimpleSnackbar from './SimpleSnackbar';
 import CardLibraryFilters from './DeckBuiilder/components/CardLibraryFilters';
 import CardsLibrary from './DeckBuiilder/components/CardsLibrary';
-import Database from '../data/utils/index';
+import { checkStandalone } from '../utils/functions';
 
 const uuid4 = require('uuid/v4');
 
@@ -56,7 +56,7 @@ class DeckBuilder extends Component {
                         onCancel={this._cancelUpdate}
                         onRemoveAll={this.props.clearDeck} />
                 </div>
-                <div className="fullscreenDeck" style={{visibility: this.state.isMobileDeckVisible ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
+                <div className="fullscreenDeck" style={{visibility: (this.state.isMobileDeckVisible && window.matchMedia('(max-width: 800px)').matches) ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
                     <Deck faction={this.props.selectedFaction} 
                         editMode={this.props.editMode} 
                         currentName={this.props.currentDeckName}

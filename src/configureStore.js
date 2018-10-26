@@ -22,7 +22,7 @@ const loadPersistedOnModile = () => {
 }
 
 const configureStore = history => {
-    const persistedStore = loadState(); //loadPersistedOnModile();
+    const persistedStore = loadPersistedOnModile(); //loadState(); //
     const store = createStore(
         connectRouter(history)(combineReducers({
             auth,

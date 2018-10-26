@@ -49,21 +49,6 @@ class MenuAppBar extends React.Component {
         });
     };
 
-    componentDidMount() {
-        this.cancelInterval = setInterval(() => {
-        const user = firebase.auth().currentUser;
-
-        if(user) {
-            this.setState(({userAvatarUrl: user.photoURL}))
-            clearInterval(this.cancelInterval);
-        }
-        }, 500)
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.cancelInterval);
-    }
-
   handleChange = event => {
     this.setState({ auth: event.target.checked });
   };
@@ -122,6 +107,7 @@ class MenuAppBar extends React.Component {
         </div>
       );
 
+      const userAvatar = this._getUserAvatar();
     return (
       <div className={classes.root}>
         <AppBar position="fixed" classes={{colorPrimary: classes.wuPrimaryColor}}>
@@ -132,7 +118,7 @@ class MenuAppBar extends React.Component {
             <Typography variant="title" color="inherit" className={classes.grow} onClick={this.navigateHome}>
                 { document.title }
             </Typography>
-            {userAvatarUrl && (
+            {this.props.isAuth && (
               <div>
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : null}
@@ -140,7 +126,7 @@ class MenuAppBar extends React.Component {
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <Avatar src={userAvatarUrl} />
+                  <Avatar src={userAvatar} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -162,7 +148,7 @@ class MenuAppBar extends React.Component {
               </div>
             )}
             {
-                !userAvatarUrl && (
+                !this.props.isAuth && (
                     <div>
                     <IconButton
                       aria-owns={open ? 'menu-appbar' : null}
@@ -208,11 +194,32 @@ class MenuAppBar extends React.Component {
       </div>
     );
   }
+
+    _getUserAvatar = () => {
+        if(!this.props.avatar) {
+            const user = firebase.auth().currentUser;
+            if(user) {
+                return user.photoURL;
+            }
+
+            return '';
+        }
+
+        return this.props.avatar;
+    }
+      
 }
 
 MenuAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+const mapStateToProps = state => {
+    return {
+        isAuth: state.auth !== null,
+        avatar: state.auth !== null ? state.auth.avatar : null
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -222,4 +229,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(withStyles(styles)(MenuAppBar)));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(MenuAppBar)));

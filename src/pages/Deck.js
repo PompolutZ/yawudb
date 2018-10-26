@@ -22,13 +22,14 @@ class Deck extends Component {
         try {
             const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
             const data = deckRef.data();
-    
+            let author;
             if(data.author !== 'Anonymous') {
-                this.setState({ isEditAllowed: this.props.uid === data.author });
+                const userRef = await db.collection('users').doc(data.author).get();
+                author = userRef.data().displayName;
+                this.setState({ isEditAllowed: this.props.uid === userRef.id });
             }
-    
             const created = data.created.toDate();
-            this.setState({deck: {...data, id: this.props.match.params.id, created: created}}); //, author:this.props.userInfo.displayName
+            this.setState({deck: {...data, id: this.props.match.params.id, created: created, author: author }}); //, author:this.props.userInfo.displayName
         } catch(error) {
             console.log(error);
         }
@@ -46,11 +47,11 @@ class Deck extends Component {
             );
         }
 
-        const { id, name, cards, sets, created } = this.state.deck;
+        const { id, name, cards, sets, created, author } = this.state.deck;
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 {/* <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div> */}
-                <ReadonlyDeck name={name} created={created} sets={sets} factionId={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
+                <ReadonlyDeck author={author} name={name} created={created} sets={sets} factionId={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
                 {
                     this.state.isEditAllowed && (
                         <FloatingActionButton isEnabled onClick={this._editDeck}>
@@ -82,7 +83,7 @@ class Deck extends Component {
 
 const mapStateToProps = state => {
     return {
-        uid: state.auth.uid
+        uid: state.auth !== null ? state.auth.uid : null
     }
 }
 

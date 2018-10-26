@@ -7,19 +7,20 @@ class ExpansionsToggle extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedExpansions: this.props.selectedSets,
+            selectedExpansions: this.props.selectedSets.map(x => parseInt(x, 10)),
         }
 
         this.handleToggle = this.handleToggle.bind(this);
     }
 
     handleToggle(expansion) {
+        const exp = parseInt(expansion, 10);
         let expansions = [];
-        const indexOf = this.state.selectedExpansions.indexOf(expansion);
+        const indexOf = this.state.selectedExpansions.indexOf(exp);
         if(indexOf >= 0) {
             expansions = [...this.state.selectedExpansions.slice(0, indexOf), ...this.state.selectedExpansions.slice(indexOf + 1)]
         } else {
-            expansions = [expansion, ...this.state.selectedExpansions]
+            expansions = [exp, ...this.state.selectedExpansions]
         }
 
         this.setState({selectedExpansions: expansions});
@@ -27,6 +28,8 @@ class ExpansionsToggle extends Component {
         if(this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
+
+        console.log(expansions);
 
         this.timeoutId = setTimeout(() => this.props.onExpansionsChange(expansions), 350);
     }
