@@ -1,4 +1,9 @@
 {
+    "0.10.0" : {
+        "Deck's editing" : "You should be able to edit deck's you've made, those which you can find on MyDecks page.",
+        "Feedback page" : "You should be able to get in touch with author of this website via email",
+        "Bug fixes" : "Small amount of known bugs were fixed."
+    },
     "0.9.0" : {
         "New Factions, new sets": "Added Eyes of the Nine, Zarbag's Gitz, Garrek's Reavers, Stealhearth's Champions, Echoes of Glory expanstions.",
         "Application Bar": "Now sticks at top, always visible"

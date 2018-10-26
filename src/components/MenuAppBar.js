@@ -100,6 +100,9 @@ class MenuAppBar extends React.Component {
             <ListItem button onClick={() => history.push('/statistics')}>
                 <ListItemText primary="Statistics" />
             </ListItem>
+            <ListItem button onClick={() => history.push('/feedback')}>
+                <ListItemText primary="Feedback" />
+            </ListItem>
             <ListItem button onClick={() => history.push('/about')}>
                 <ListItemText primary="About" />
             </ListItem>
