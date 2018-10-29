@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./Home.css";
 import { db } from '../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { ReadonlyDeck } from '../components/Deck';
+import ReadonlyDeck from '../components/ReadonlyDeck';
 import { OrderedSet } from 'immutable';
 import { cardsDb } from '../data';
 import FloatingActionButton from '../components/FloatingActionButton';
@@ -10,7 +10,6 @@ import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles'; 
-import ReactMarkdown from 'react-markdown';
 
 import * as changelog from '../changelog.json';
 import * as _ from 'lodash';
@@ -120,6 +119,7 @@ class Home extends Component {
                             author={this.state.lastAddedDeck.author} 
                             created={this.state.lastAddedDeck.created} 
                             sets={this.state.lastAddedDeck.sets} 
+                            scoringSummary={this.state.lastAddedDeck.scoringSummary}
                             factionId={this.state.lastAddedDeck.id.substr(0, this.state.lastAddedDeck.id.length - 13)} 
                             cards={new OrderedSet(this.state.lastAddedDeck.cards.map(c => ({id: c, ...cardsDb[c]})))} />                        
                     )

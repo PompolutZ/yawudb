@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { cardTypeIcons, cardType, setsIndex, idPrefixToFaction, cardsDb } from '../data/index';
-import { getWUCardByIdFromDB, getReadOnlyWUCardByIdFromDb } from './WUCard';
+import { cardTypeIcons, cardType, cardsDb } from '../data/index';
+import { getWUCardByIdFromDB } from './WUCard';
 import TextField from '@material-ui/core/TextField';
 import { Set } from 'immutable';
 import { toggleCardInDeck } from './DeckBuiilder/components/CardsLibrary';
@@ -44,14 +44,20 @@ const DeckDescription = ({ onChange, defaultDescription }) => (
     </div>
 );
 
-const CardsTypeCounter = ({ types, count, isValidCount }) => (
+const CardsTypeCounter = ({ types, counts, isValidCount }) => (
     <div style={{
         display: 'flex',
         alignItems: 'center',
         marginRight: '2rem'
     }}>
-        { types.map(t => <Avatar key={t} style={{marginRight: '.5rem'}} src={`/assets/icons/${cardTypeIcons[t]}.png`} />)}
-        <Typography variant="title" color={isValidCount ? 'default' : 'error'}>{`${count}`}</Typography>
+        { types.map((t, i) => {
+            if(counts[i] >= 0) {
+                return <Avatar key={t} style={{marginRight: '.5rem'}} src={`/assets/icons/${cardTypeIcons[t]}.png`} />;
+            }
+
+            return <span key={t}></span>;
+        })}
+        <Typography variant="title" color={isValidCount ? 'default' : 'error'}>{`${counts.reduce((total, num) => total + num)}`}</Typography>
     </div>
 );
 
@@ -60,12 +66,6 @@ const SectionHeader = ({ type }) => (
         <Typography variant="headline">{`${cardType[type]}s`}</Typography>
     </div>
 );
-
-// const MultiSectionHeader = ({ types }) => (
-//     <div style={{display: 'flex', borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
-//         { types.map((t, i) => <Typography key={t} variant="headline" style={{marginLeft: i > 0 ? '.5rem' : '0'}}>{`${ i > 0 ? ' | ' : ''}${cardType[t]}s `}</Typography>)}
-//     </div>
-// );
 
 class Deck extends Component {
     state = {
@@ -108,6 +108,7 @@ class Deck extends Component {
         const upgrades = cards.filter(v => v.type === 2);
         const objectivesCount = objectives.count();
         const gambitsCount = gambits.count();
+        const spellsCount = gambits.filter(v => v.type === 3).count();
         const upgradesCount = upgrades.count();
         const isValidForSave = objectivesCount === 12 && ((gambitsCount + upgradesCount) >= 20);
 
@@ -121,9 +122,9 @@ class Deck extends Component {
                     marginBottom: '1.5rem',
                     marginTop: '1.5rem'
                 }}>
-                    <CardsTypeCounter types={[0]} count={objectivesCount} isValidCount={objectivesCount === 12} />
-                    <CardsTypeCounter types={[1, 3]} count={gambitsCount} isValidCount={(gambitsCount + upgradesCount) >= 20} />
-                    <CardsTypeCounter types={[2]} count={upgradesCount} isValidCount={(gambitsCount + upgradesCount) >= 20} />
+                    <CardsTypeCounter types={[0]} counts={[objectivesCount]} isValidCount={objectivesCount === 12} />
+                    <CardsTypeCounter types={[1, 3]} counts={[gambitsCount - spellsCount, spellsCount]} isValidCount={(gambitsCount + upgradesCount) >= 20} />
+                    <CardsTypeCounter types={[2]} counts={[upgradesCount]} isValidCount={(gambitsCount + upgradesCount) >= 20} />
                 </div>
                 
                 <SectionHeader type={0} />
@@ -172,62 +173,4 @@ class Deck extends Component {
         toggleCardInDeck(id, this.props.selectedCards, this.props.addCard, this.props.removeCard);
     }
 }
-const SetIcon = ({ set }) => (
-    <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} width="32" height="32" alt="icon" />
-)
-
-export const ReadonlyDeck = ({ name, author, factionId, cards, sets, created}) => {
-    const objectives = cards.filter(v => v.type === 0);
-    const gambits = cards.filter(v => v.type === 1 || v.type === 3);
-    const upgrades = cards.filter(v => v.type === 2);
-    const createdDate = created ? ` | ${created.toLocaleDateString()}` : '';
-    
-    return (    
-        <div style={{}}>
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                margin: '1rem'
-            }}>
-                <Avatar style={{width: '4rem', height: '4rem'}} className="typeicon headerItem" src={`/assets/icons/${idPrefixToFaction[factionId]}-icon.png`} />
-                <div>
-                    <Typography variant="title">{name}</Typography>
-                    <Typography variant="subheading">{`${author}${createdDate}`}</Typography>
-                </div>
-            </div>
-
-            <div style={{margin: '1rem'}}>
-                {
-                    sets.sort((a, b) => a - b).map(s => <SetIcon key={s * 31}  set={s} />)
-                }
-            </div>
-
-            <div style={{
-                display: 'flex',
-                maxWidth: '20rem',
-                margin: '1rem'
-            }}>
-                <CardsTypeCounter isValidCount types={[0]} count={objectives.count()} />
-                <CardsTypeCounter isValidCount types={[1,3]} count={gambits.count()} />
-                <CardsTypeCounter isValidCount types={[2]} count={upgrades.count()} />
-            </div>
-            
-            <SectionHeader type={0} />
-            { 
-                objectives.toJS().map((v, i) => getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
-            }
-            <div style={{borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
-                <Typography variant="headline">Gambits</Typography>
-            </div>
-            {
-                gambits.toJS().map((v, i) => getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
-            }
-            <SectionHeader type={2} />
-            {
-                upgrades.toJS().map((v, i) => getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
-            }
-        </div>
-    );        
-};
-
 export default Deck;

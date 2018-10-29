@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../firebase';
-import { ReadonlyDeck } from '../components/Deck';
+import ReadonlyDeck from '../components/ReadonlyDeck';
 import { OrderedSet } from 'immutable';
 import { cardsDb, warbandsWithDefaultSet, idPrefixToFaction, PREFIX_LENGTH } from '../data/index';
 import { CircularProgress } from '@material-ui/core';
