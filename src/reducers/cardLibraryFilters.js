@@ -8,8 +8,8 @@ export const SET_VISIBLE_OBJECTIVE_SCORE_TYPES = 'SET_VISIBLE_OBJECTIVE_SCORE_TY
 
 const initialState = {
     searchText: '',
-    visibleCardTypes: [_.keys(cardType)].map(k => parseInt(k, 10)),
-    visibleObjectiveScoreTypes: [_.keys(objectiveScoreType)].map(k => parseInt(k, 10)),
+    visibleCardTypes: _.keys(cardType).map(k => parseInt(k, 10)),
+    visibleObjectiveScoreTypes: _.keys(objectiveScoreType).map(k => parseInt(k, 10)),
     sets: []
 }
 

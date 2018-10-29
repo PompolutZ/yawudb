@@ -30,7 +30,7 @@ class CardsLibrary extends Component {
             filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
         }
 
-        const content = filteredCards.toJS().sort((c1, c2) => c1.type - c2.type || c2.faction - c1.faction || c1.id - c2.id)
+        const content = filteredCards.toJS().sort((c1, c2) => this._sortByType(c1.type, c2.type) || c2.faction - c1.faction || c1.id - c2.id)
             .map((c, i) => {
                 const cardPN = parseInt(c.id.slice(-3), 10);
                 return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this._toggleCardInDeck.bind(this, c.id), currentDeck.some(id => id  === c.id))
@@ -41,6 +41,16 @@ class CardsLibrary extends Component {
                 { content }
             </div>
         );
+    }
+
+    _sortByType = (type1, type2) => {
+        if(type1 === 0 && (type2 === 1 || type2 === 3)) {
+            return -1;
+        }
+        
+        if((type1 === 1 || type1 === 3) && type2 === 2) {
+            return -1;
+        }
     }
 
     _toggleCardInDeck = id => {

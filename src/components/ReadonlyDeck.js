@@ -104,9 +104,9 @@ class Card extends PureComponent {
 }
 
 const ReadonlyDeck = ({ name, author, factionId, cards, sets, created, scoringSummary }) => {
-    const objectives = cards.filter(v => v.type === 0);
-    const gambits = cards.filter(v => v.type === 1 || v.type === 3);
-    const upgrades = cards.filter(v => v.type === 2);
+    const objectives = cards.filter(v => v.type === 0).sort((a, b) => a.name.localeCompare(b.name));
+    const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((a, b) => a.name.localeCompare(b.name));
+    const upgrades = cards.filter(v => v.type === 2).sort((a, b) => a.name.localeCompare(b.name));
     const spellsCount = gambits.filter(v => v.type === 3).count();
 
     const createdDate = created ? ` | ${created.toLocaleDateString()}` : '';
