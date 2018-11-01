@@ -61,23 +61,28 @@ class MenuAppBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  handleMyDecks = history => {
-    history.push('/mydecks');
+  handleMyDecks = () => {
+    this.props.history.push('/mydecks');
     this.handleClose();
   };
 
-  handleSignOut = async history => {
+  handleSignOut = async () => {
         this.handleClose();
         this.props.onSignOut();
         this.setState({userAvatarUrl: null});
         await firebase.auth().signOut();
-        history.push('/');
+        this.props.history.push('/');
     }
 
-  handleSignIn = history => {
-        history.push('/login');
+  handleSignIn = () => {
+        this.props.history.push('/login');
         this.handleClose();
   }  
+
+  handleProfile = () => {
+      this.props.history.push('/profile');
+      this.handleClose();
+  }
 
   navigateHome = () => {
     this.props.history.push('/')
@@ -145,8 +150,9 @@ class MenuAppBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={() => this.handleMyDecks(history)}>My decks</MenuItem>
-                  <MenuItem onClick={() => this.handleSignOut(history)}>Sign out</MenuItem>
+                  <MenuItem onClick={this.handleProfile}>Profile</MenuItem>
+                  <MenuItem onClick={this.handleMyDecks}>My decks</MenuItem>
+                  <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
                 </Menu>
               </div>
             )}
@@ -175,7 +181,7 @@ class MenuAppBar extends React.Component {
                       open={open}
                       onClose={this.handleClose}
                     >
-                      <MenuItem onClick={() => this.handleSignIn(history)}>Sign in</MenuItem>
+                      <MenuItem onClick={this.handleSignIn}>Sign in</MenuItem>
                     </Menu>
                   </div>
                     )

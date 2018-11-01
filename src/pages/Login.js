@@ -24,7 +24,7 @@ class Login extends Component {
                     });
 
                     this.props.onLogin({ displayName, uid, role: 'sole', avatar: photoURL });
-                    this.props.history.push('/mydecks');
+                    this.props.history.push('/profile');
                 }
 
                 const profile = userProfileRef.data();

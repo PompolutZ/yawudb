@@ -21,6 +21,7 @@ import About from './pages/About';
 import SecretDeckUploader from './pages/SecretDeckUploader';
 import Statistics from './pages/Statistics';
 import Feedback from './pages/Feedback';
+import UserProfile from './pages/UserProfile';
 
 
 const history = createBrowserHistory();
@@ -91,6 +92,7 @@ const App = () => (
                   <Route path="/feedback" component={Feedback} />
 
                   <PrivateRoute path="/mydecks" component={MyDecks} />
+                  <PrivateRoute path="/profile" component={UserProfile} />
                   <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
               </Switch>
             </div>

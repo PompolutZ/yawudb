@@ -1,4 +1,8 @@
 {
+    "0.11.0" : {
+        "User Profile Page": "You should be able to change your name which will be assosiated with the deck of your authorship.",
+        "Pagination for Decks": "Decks page was very slow, so the pagination has been added to improve performance."
+    }, 
     "0.10.0" : {
         "Deck's editing" : "You should be able to edit deck's you've made, those which you can find on MyDecks page.",
         "Feedback page" : "You should be able to get in touch with author of this website via email",
