@@ -60,7 +60,7 @@ class PaginationButton extends PureComponent {
                     backgroundColor: this.props.selected ? '#3B9979' : '#8FC6B3',
                     padding: '.5rem',
                     borderRadius: '.2rem',
-                    margin: '0 0 0 .3rem'}}
+                    margin: '0 0 .2rem .3rem'}}
                 onClick={this.handleClick}>
                 <Typography variant="button" style={{ color: 'white' }}>{this.props.pageNumber}</Typography>        
             </ButtonBase>            
