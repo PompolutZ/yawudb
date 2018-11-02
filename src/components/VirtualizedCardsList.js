@@ -1,10 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import { List, AutoSizer } from 'react-virtualized';
-import { getWUCardByIdFromDB } from './WUCard';
 import { withStyles } from '@material-ui/core/styles';
-import { setsIndex, cardTypeIcons } from '../data/index';
+import { setsIndex, setsNames, cardTypeIcons } from '../data/index';
 import { withRouter } from 'react-router-dom';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
+import { Typography } from '@material-ui/core';
 
 class FilterableCardLibrary extends Component {
     state = {
@@ -121,6 +121,74 @@ class CardNameView extends PureComponent {
 
 const CardNameViewWithStyles = withRouter(withStyles(cardNameViewStyles)(CardNameView));
 
+const cardImageViewStyles = theme => ({
+    root: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        alignItems: 'center',
+        margin: '1rem auto',
+    },
+    setImage: {
+        width: '1.5rem',
+        height: '1.5rem'
+    },
+
+    cardImage: {
+        maxWidth: '100%',
+        [theme.breakpoints.up('sm')] : {
+            maxWidth: '20rem'
+        },
+        margin: '0 0 .3rem 0'
+    },
+
+    cardInfoItem: {
+        margin: '0 0 1rem 0',
+        width: '100%',
+        borderBottom: '1px solid gray',
+        [theme.breakpoints.up('sm')] : {
+            maxWidth: '20rem'
+        },
+    },
+
+    row: {
+        display: 'flex',
+        alignItems: 'center',
+        margin: '0 0 .5rem 0'
+    },
+
+    setName: {
+        margin: '0 0 0 .5rem'
+    }
+
+});
+
+class CardImageView extends PureComponent {
+    render() {
+        const { classes, set, id } = this.props;
+        return (
+            <div className={classes.root}>
+                <img src={`/assets/cards/${id}.png`} 
+                    alt={`${id}`}
+                    className={classes.cardImage} />
+                <div className={classes.cardInfoItem}>
+                    <Typography>Card location: </Typography>
+                    <div className={classes.row}>
+                        <img src={`/assets/icons/${setsIndex[set]}-icon.png`} 
+                            alt={`${setsIndex[set]}`}
+                            className={classes.setImage} />
+                        <Typography variant="subheading" className={classes.setName}>{setsNames[set]}</Typography>
+                    </div>    
+                </div>
+            </div>
+        );
+    }
+}
+
+const CardImageViewWithStyles = withRouter(withStyles(cardImageViewStyles)(CardImageView));
+
+const VIEW_AS_SIMPLE_LIST = 'VIEW_AS_SIMPLE_LIST';
+const VIEW_AS_CARD_IMAGES = 'VIEW_AS_CARD_IMAGES';  
+
 class VirtualizedCardsList extends Component {
 
     _rowRenderer = params => {
@@ -137,7 +205,13 @@ class VirtualizedCardsList extends Component {
             return <span></span>
         }
 
-        return <CardNameViewWithStyles index={index} setLastScrollIndex={this.props.setLastScrollIndex} {...this.props.cards[index]} />
+        switch(this.props.variant) {
+            case VIEW_AS_SIMPLE_LIST: 
+                return <CardNameViewWithStyles index={index} setLastScrollIndex={this.props.setLastScrollIndex} {...this.props.cards[index]} />
+            
+            case VIEW_AS_CARD_IMAGES:
+                return <CardImageViewWithStyles {...this.props.cards[index]} />    
+        }
     }
 
     _setRef = ref => {
@@ -155,7 +229,13 @@ class VirtualizedCardsList extends Component {
             return 0;
         }
 
-        return 36;
+        switch(this.props.variant) {
+            case VIEW_AS_SIMPLE_LIST: 
+                return 36;
+            
+            case VIEW_AS_CARD_IMAGES:
+                return 550;    
+        }
     }
 
     render() {
@@ -165,7 +245,7 @@ class VirtualizedCardsList extends Component {
                     () => (
                         <List
                         ref={this._setRef}
-                        width={375}
+                        width={345}
                         height={550}
                         rowCount={this.props.cards.length}
                         rowHeight={this._calcRowHeight}
