@@ -13,6 +13,7 @@ import { Drawer, List, ListItem, ListItemText, Avatar } from '@material-ui/core'
 import { withRouter } from 'react-router-dom';
 import firebase from '../firebase';
 import { connect } from 'react-redux';
+import { SET_SCROLL_INDEX } from '../reducers/library';
 
 const styles = {
   root: {
@@ -88,6 +89,11 @@ class MenuAppBar extends React.Component {
     this.props.history.push('/')
   }
 
+  navigateToLibrary = () => {
+      this.props.resetScrollIndex();
+      this.props.history.push('/library');
+  }
+
   render() {
     const { classes, history } = this.props;
     const { userAvatarUrl, anchorEl } = this.state;
@@ -99,11 +105,14 @@ class MenuAppBar extends React.Component {
             <ListItem button onClick={() => history.push('/deck/create')}>
                 <ListItemText primary="Deck Builder" />
             </ListItem>
+            <ListItem button onClick={this.navigateToLibrary}>
+                <ListItemText primary={<div>Card Library<sup style={{ color: 'gray'}}>&alpha;</sup></div>} />
+            </ListItem>
             <ListItem button onClick={() => history.push('/decks')}>
                 <ListItemText primary="Decks" />
             </ListItem>
             <ListItem button onClick={() => history.push('/statistics')}>
-                <ListItemText primary="Statistics" />
+                <ListItemText primary={<div>Statistics<sup style={{ color: 'gray'}}>&alpha;</sup></div>} />
             </ListItem>
             <ListItem button onClick={() => history.push('/feedback')}>
                 <ListItemText primary="Feedback" />
@@ -232,9 +241,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSignOut: () => {
-            dispatch({type: 'CLEAR_USER'});
-        }
+        onSignOut: () => dispatch({type: 'CLEAR_USER'}),
+        resetScrollIndex: () => dispatch({ type: SET_SCROLL_INDEX, payload: 0 })
     }
 }
 

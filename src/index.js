@@ -23,6 +23,7 @@ import Statistics from './pages/Statistics';
 import Feedback from './pages/Feedback';
 import UserProfile from './pages/UserProfile';
 import Card from './pages/Card';
+import Library from './pages/Library';
 
 
 const history = createBrowserHistory();
@@ -84,6 +85,7 @@ const App = () => (
               <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/decks" component={Decks} />
+                  <Route path="/library" component={Library} />
                   <Route path="/deck/create" component={DeckCreator} />
                   <Route path="/deck/edit/:id" component={DeckCreator} />
                   <Route path="/login" component={Login} />

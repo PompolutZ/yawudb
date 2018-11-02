@@ -7,6 +7,7 @@ import userOwnSets from './reducers/userOwnSets';
 import deckUnderBuild from './reducers/deckUnderBuild';
 import decksFilters from './reducers/decksFilters';
 import cardLibraryFilters from './reducers/cardLibraryFilters';
+import library from './reducers/library';
 
 const loadPersistedOnModile = () => {
     if(window.matchMedia('(display-mode: standalone)').matches) {
@@ -29,7 +30,8 @@ const configureStore = history => {
             userOwnSets,
             deckUnderBuild,
             decksFilters,
-            cardLibraryFilters
+            cardLibraryFilters,
+            library
         })), 
         persistedStore,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),

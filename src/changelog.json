@@ -1,4 +1,7 @@
 {
+    "0.12.0" : {
+        "Card Library (alpha)" : "Alpha version of card library has been added."
+    },
     "0.11.0" : {
         "User Profile Page": "You should be able to change your name which will be assosiated with the deck of your authorship.",
         "Pagination for Decks": "Decks page was very slow, so the pagination has been added to improve performance."
