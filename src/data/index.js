@@ -18,7 +18,8 @@ export {
 export {
     setInfos,
     setsReleaseDates,
-    setsIndex
+    setsIndex,
+    setsNames
 } from './atoms/sets';
 
 export { duplicates } from './atoms/duplicatesDb';

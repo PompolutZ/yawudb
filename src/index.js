@@ -22,6 +22,7 @@ import SecretDeckUploader from './pages/SecretDeckUploader';
 import Statistics from './pages/Statistics';
 import Feedback from './pages/Feedback';
 import UserProfile from './pages/UserProfile';
+import Card from './pages/Card';
 
 
 const history = createBrowserHistory();
@@ -87,6 +88,7 @@ const App = () => (
                   <Route path="/deck/edit/:id" component={DeckCreator} />
                   <Route path="/login" component={Login} />
                   <Route path="/view/deck/:id" component={Deck} />
+                  <Route path="/view/card/:id" component={Card} />
                   <Route path="/about" component={About} />
                   <Route path="/statistics" component={Statistics} />
                   <Route path="/feedback" component={Feedback} />

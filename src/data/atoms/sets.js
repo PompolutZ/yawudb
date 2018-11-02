@@ -125,3 +125,24 @@ export const setsIndex = [
     "echoes-of-glory" // 13
 ]
 
+export const setsNames = [
+    // SHADESPIRE
+    "Shadespire Core Box", // 0
+    "Sepulchral Guard Expansion", 
+    "Ironskulls Boyz Expansion",
+    "The Chosen Axes Expansion",
+    "Spiteclaws Swarm Expansion",
+    "Magores Fiends Expansion",
+    "The Farstriders Expansion",
+    "Leaders Expansion", // 7
+
+    // NIGHTVAULT
+
+    "Nightvault Core Box", // 8
+    "The Eyes Of The Nine Expansion",
+    "Zarbags Gitz Expansion",
+    "Garreks Reavers Expansion",
+    "Steelhearts Champions Expansion",
+    "Echoes Of Glory Expansion Card Set" // 13
+]
+
