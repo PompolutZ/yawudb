@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
@@ -24,7 +24,8 @@ import Feedback from './pages/Feedback';
 import UserProfile from './pages/UserProfile';
 import Card from './pages/Card';
 import Library from './pages/Library';
-
+import SignUp from './pages/SignUp';
+import firebase, { db } from './firebase';
 
 const history = createBrowserHistory();
 const store = configureStore(history);
@@ -52,7 +53,7 @@ class PrivateRouteContainer extends React.Component {
         isAuthenticated,
         component: Component,
         ...props
-      } = this.props
+      } = this.props;
 
       return (
         <Route
@@ -76,39 +77,92 @@ const PrivateRoute = connect(state => ({
     isAuthenticated: state.auth !== null
 }))(PrivateRouteContainer)   
 
-const App = () => (
-    <ConnectedRouter history={history}>
-        <div>
-            <MenuAppBar />
+class App extends Component {
+    componentDidMount() {
+        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                this._handleAuthUser(user.uid);
+            } else {
+                this.props.onSignOut();
+            }
+        });
+    }
 
-            <div style={{paddingTop: '4rem'}}>
-              <Switch>
-                  <Route exact path="/" component={Home} />
-                  <Route path="/decks" component={Decks} />
-                  <Route path="/library" component={Library} />
-                  <Route path="/deck/create" component={DeckCreator} />
-                  <Route path="/deck/edit/:id" component={DeckCreator} />
-                  <Route path="/login" component={Login} />
-                  <Route path="/view/deck/:id" component={Deck} />
-                  <Route path="/view/card/:id" component={Card} />
-                  <Route path="/about" component={About} />
-                  <Route path="/statistics" component={Statistics} />
-                  <Route path="/feedback" component={Feedback} />
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
 
-                  <PrivateRoute path="/mydecks" component={MyDecks} />
-                  <PrivateRoute path="/profile" component={UserProfile} />
-                  <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
-              </Switch>
-            </div>
+    render() {
+        return (
+            <ConnectedRouter history={history}>
+                <div>
+                    <MenuAppBar />
+        
+                    <div style={{paddingTop: '4rem'}}>
+                      <Switch>
+                          <Route exact path="/" component={Home} />
+                          <Route path="/decks" component={Decks} />
+                          <Route path="/library" component={Library} />
+                          <Route path="/deck/create" component={DeckCreator} />
+                          <Route path="/deck/edit/:id" component={DeckCreator} />
+                          <Route path="/login" component={Login} />
+                          <Route path="/user/signup" component={SignUp} />
+                          <Route path="/view/deck/:id" component={Deck} />
+                          <Route path="/view/card/:id" component={Card} />
+                          <Route path="/about" component={About} />
+                          <Route path="/statistics" component={Statistics} />
+                          <Route path="/feedback" component={Feedback} />
+        
+                          <PrivateRoute path="/mydecks" component={MyDecks} />
+                          <PrivateRoute path="/profile" component={UserProfile} />
+                          <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
+                      </Switch>
+                    </div>
+        
+                    <Footer />
+                </div>
+            </ConnectedRouter>
+        );
+    }
 
-            <Footer />
-        </div>
-    </ConnectedRouter>
-);
+    _handleAuthUser = async uid => {
+        try {
+            const userProfileRef = await db.collection('users').doc(uid).get();
+            
+            if(!userProfileRef.exists) {
+                const displayName = `Soul${Math.floor(Math.random() * Math.floor(1000))}`;
+                await db.collection('users').doc(uid).set({
+                    displayName: displayName,
+                    mydecks: [],
+                    role: 'soul',
+                    avatar: `/assets/icons/garreks-reavers-icon.png`
+                });
+
+                this.props.onLogin({ displayName, uid, role: 'soul', avatar: `/assets/icons/garreks-reavers-icon.png` });
+                history.push('/profile');
+            }
+
+            const profile = userProfileRef.data();
+            this.props.onLogin({ displayName: profile.displayName, role: profile.role, avatar: profile.avatar, uid });
+            history.push('/mydecks');
+        } catch(err) {
+            this.setState({ loginError: err.message });
+        }
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onLogin: user => dispatch({type: 'SET_USER', user: user}),
+      onSignOut: () => dispatch({type: 'CLEAR_USER'}),
+  }
+}
+
+const ConnectedApp = connect(null, mapDispatchToProps)(App);
 
 const Root = () => (
     <Provider store={store}>
-        <App />
+        <ConnectedApp />
     </Provider>
 );
 

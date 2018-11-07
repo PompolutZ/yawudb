@@ -40,7 +40,6 @@ const styles = {
 class MenuAppBar extends React.Component {
   state = {
     left: false,
-    userAvatarUrl: null,
     anchorEl: null,
   };
 
@@ -67,12 +66,11 @@ class MenuAppBar extends React.Component {
     this.handleClose();
   };
 
-  handleSignOut = async () => {
+  handleSignOut = () => {
         this.handleClose();
-        this.props.onSignOut();
-        this.setState({userAvatarUrl: null});
-        await firebase.auth().signOut();
-        this.props.history.push('/');
+        firebase.auth().signOut().then(() =>{
+          this.props.history.push('/');
+        }).catch(err => console.log(err));
     }
 
   handleSignIn = () => {
@@ -96,7 +94,7 @@ class MenuAppBar extends React.Component {
 
   render() {
     const { classes, history } = this.props;
-    const { userAvatarUrl, anchorEl } = this.state;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     const sideList = (
@@ -124,7 +122,6 @@ class MenuAppBar extends React.Component {
         </div>
       );
 
-      const userAvatar = this._getUserAvatar();
     return (
       <div className={classes.root}>
         <AppBar position="fixed" classes={{colorPrimary: classes.wuPrimaryColor}}>
@@ -143,7 +140,7 @@ class MenuAppBar extends React.Component {
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <Avatar src={userAvatar} />
+                  <Avatar src={this.props.avatar} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -212,20 +209,6 @@ class MenuAppBar extends React.Component {
       </div>
     );
   }
-
-    _getUserAvatar = () => {
-        if(!this.props.avatar) {
-            const user = firebase.auth().currentUser;
-            if(user) {
-                return user.photoURL;
-            }
-
-            return '';
-        }
-
-        return this.props.avatar;
-    }
-      
 }
 
 MenuAppBar.propTypes = {

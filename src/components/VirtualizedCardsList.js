@@ -6,78 +6,78 @@ import { withRouter } from 'react-router-dom';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 import { Typography } from '@material-ui/core';
 
-class FilterableCardLibrary extends Component {
-    state = {
-        cards: [],
-    }
+// class FilterableCardLibrary extends Component {
+//     state = {
+//         cards: [],
+//     }
 
-    componentDidMount = () => {
-        try {
-            const cards = this.filterCards();
-            this.setState({ cards: cards });
-        } catch(error) {
-            console.log(error);
-        }
-    }
+//     componentDidMount = () => {
+//         try {
+//             const cards = this.filterCards();
+//             this.setState({ cards: cards });
+//         } catch(error) {
+//             console.log(error);
+//         }
+//     }
     
-    render() {
-        return <VirtualizedCardsList />
-    }
+//     render() {
+//         return <VirtualizedCardsList />
+//     }
 
-    _filterCardsByTypeAsync = (cards) => {
-        return cards.filter(({ type }) => this.props.visibleCardTypes.includes(type));
-    }
+//     _filterCardsByTypeAsync = (cards) => {
+//         return cards.filter(({ type }) => this.props.visibleCardTypes.includes(type));
+//     }
 
-    _filterCardsBySearchText = (cards) => {
-        let filteredCards;
-        const { searchText } = this.props;
-        if(isNaN(searchText)) {
-            filteredCards = cards 
-                .filter(c => {
-                    if(!searchText) return true;
+//     _filterCardsBySearchText = (cards) => {
+//         let filteredCards;
+//         const { searchText } = this.props;
+//         if(isNaN(searchText)) {
+//             filteredCards = cards 
+//                 .filter(c => {
+//                     if(!searchText) return true;
 
-                    if(searchText.includes(',')) {
-                        const cardNumbers = searchText.split(',').map(s => {
-                            const trimmed = s.trim();
-                            if (trimmed.startsWith('L')) {
-                                return '02' + ('00' + s.slice(1)).slice(-3);
-                            } else {
-                                return '01' + (('000' + s).slice(-3));
-                            }
-                        });
+//                     if(searchText.includes(',')) {
+//                         const cardNumbers = searchText.split(',').map(s => {
+//                             const trimmed = s.trim();
+//                             if (trimmed.startsWith('L')) {
+//                                 return '02' + ('00' + s.slice(1)).slice(-3);
+//                             } else {
+//                                 return '01' + (('000' + s).slice(-3));
+//                             }
+//                         });
                         
-                        return cardNumbers.includes(c.id);
-                    }
+//                         return cardNumbers.includes(c.id);
+//                     }
 
-                    return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
-                });
-        } else {
-            filteredCards = cards.filter(({ id }) => id.slice(-3).includes(searchText));
-        }
+//                     return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
+//                 });
+//         } else {
+//             filteredCards = cards.filter(({ id }) => id.slice(-3).includes(searchText));
+//         }
 
-        return filteredCards;
-    }
+//         return filteredCards;
+//     }
 
-    _sortAndMapToComponents = (cards) => {
-        const cardComponents = cards.toJS()
-        .sort((c1, c2) => c1.type - c2.type || c1.id - c2.id)
-        .map(card =>
-            ({
-                id: card.id,
-                pn: parseInt(card.id.slice(-3), 10),
-                card: card,
-                expanded: false
-            }));
+//     _sortAndMapToComponents = (cards) => {
+//         const cardComponents = cards.toJS()
+//         .sort((c1, c2) => c1.type - c2.type || c1.id - c2.id)
+//         .map(card =>
+//             ({
+//                 id: card.id,
+//                 pn: parseInt(card.id.slice(-3), 10),
+//                 card: card,
+//                 expanded: false
+//             }));
      
-        return cardComponents;
-    }
+//         return cardComponents;
+//     }
 
-    _filterCards = () => {
-        let cards = this._filterCardsByTypeAsync(this.props.cards);
-        cards = this._filterCardsBySearchText(cards);
-        return this._sortAndMapToComponents(cards);
-    }
-}
+//     _filterCards = () => {
+//         let cards = this._filterCardsByTypeAsync(this.props.cards);
+//         cards = this._filterCardsBySearchText(cards);
+//         return this._sortAndMapToComponents(cards);
+//     }
+// }
 
 const cardNameViewStyles = theme => ({
     root: {
@@ -211,6 +211,9 @@ class VirtualizedCardsList extends Component {
             
             case VIEW_AS_CARD_IMAGES:
                 return <CardImageViewWithStyles {...this.props.cards[index]} />    
+
+            default:
+                return <span></span>;    
         }
     }
 
@@ -234,7 +237,10 @@ class VirtualizedCardsList extends Component {
                 return 36;
             
             case VIEW_AS_CARD_IMAGES:
-                return 550;    
+                return 550; 
+                
+            default:
+                return 0;    
         }
     }
 

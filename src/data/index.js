@@ -1,6 +1,3 @@
-import shadespireCardsDb from './dbs/shadespireCardsDb';
-import leadersCardsDb from './dbs/leadersCardsDb';
-import nightvaultCardsDb from './dbs/nightvaultCardsDb';
 import cardsdb from './cardsdb';
 
 export { 

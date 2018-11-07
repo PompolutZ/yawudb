@@ -52,6 +52,7 @@ const ObjectiveScoringOverview = ({ objectives }) => {
 const MiniSectionHeader = ({ type, children }) => (
     <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
         <img src={`/assets/icons/${cardTypeIcons[type]}.png`}
+            alt={cardTypeIcons[type]}
             style={{ margin: '0 .3rem 0 .5rem', width: '1.5rem', height: '1.5rem'}} />
         <div style={{ fontFamily: 'roboto', fontSize: '1.2rem', margin: '0 .3rem 0 0'}}>
             {`${cardType[type]}s`}
@@ -153,10 +154,12 @@ const ReadonlyDeck = ({ name, author, factionId, cards, sets, created, scoringSu
             }
             <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
                 <img src={`/assets/icons/${cardTypeIcons[1]}.png`}
+                    alt={cardTypeIcons[1]}
                     style={{ margin: '0 0 0 .5rem', width: '1.5rem', height: '1.5rem'}} />
                 {
                     spellsCount > 0 && (
                         <img src={`/assets/icons/${cardTypeIcons[3]}.png`}
+                            alt={cardTypeIcons[3]}
                         style={{ margin: '0 .3rem 0 .3rem', width: '1.5rem', height: '1.5rem'}} />
                     )                    
                 }

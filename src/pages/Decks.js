@@ -13,8 +13,8 @@ import { connect } from 'react-redux';
 import { SET_FACTIONS_FILTER } from '../reducers/decksFilters';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { Subject, Observable, combineLatest, merge, of } from 'rxjs';
-import { switchMap, mergeAll, take } from 'rxjs/operators';
+import { Subject, combineLatest, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 const uuid4 = require('uuid/v4');
 

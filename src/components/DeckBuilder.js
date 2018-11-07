@@ -14,7 +14,6 @@ import { withRouter } from 'react-router-dom';
 import SimpleSnackbar from './SimpleSnackbar';
 import CardLibraryFilters from './DeckBuiilder/components/CardLibraryFilters';
 import CardsLibrary from './DeckBuiilder/components/CardsLibrary';
-import { checkStandalone } from '../utils/functions';
 
 const uuid4 = require('uuid/v4');
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Feedback = () => (
     <div style={{ display: 'flex', marginBottom: '5rem', marginTop: '5rem' }}>

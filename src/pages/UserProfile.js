@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import { Typography, TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { db } from '../firebase';
+import AvatarPicker from '../components/AvatarPicker';
 
 class UserProfile extends Component {
     state = {
-        userName: !this.props.userInfo !== null ? this.props.userInfo.displayName : ''
+        userName: !this.props.userInfo !== null ? this.props.userInfo.displayName : '',
+        avatar: this.props.userInfo.avatar,
     }
 
     render() {
         return (
             <div style={{ display: 'flex', flexFlow: 'column wrap'}}>
+                <div style={{ margin: '0 0 0 1rem'}}>
+                    <div style={{ margin: '0 0 0 .7rem', fontSize: '.7rem', color: 'gray'}}>Pick your avatar image: </div>
+                    <AvatarPicker onSelectionChange={this.handleAvatarChange} defaultAvatar={this.state.avatar} />
+                </div>
                 <TextField
                     id="with-placeholder"
                     label="Profile name"
@@ -31,11 +37,15 @@ class UserProfile extends Component {
         this.setState({ userName: e.target.value });
     }
 
+    handleAvatarChange = avatar => {
+        this.setState({ avatar: avatar });
+    }
+
     handleSave = async () => {
         const userRef = db.collection('users').doc(this.props.userInfo.uid);
         try {
-            await userRef.update({ displayName: this.state.userName });
-            this.props.setUser({ ...this.props.userInfo, displayName: this.state.userName });
+            await userRef.update({ displayName: this.state.userName, avatar: this.state.avatar });
+            this.props.setUser({ ...this.props.userInfo, displayName: this.state.userName, avatar: this.state.avatar });
         } catch(err) {
             console.log('ERROR_UPDATE_PROFILE', err);
         }
