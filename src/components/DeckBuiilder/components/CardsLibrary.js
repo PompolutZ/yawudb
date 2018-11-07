@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getCardsByFactionAndSets, cardsDb } from '../../../data';
+import { getCardsByFactionAndSets, cardsDb, factionIndexes } from '../../../data';
 import { getWUCardByIdFromDB } from '../../WUCard';
 import { ADD_CARD, REMOVE_CARD } from '../../../reducers/deckUnderBuild';
 import { connect } from 'react-redux';
@@ -30,7 +30,17 @@ class CardsLibrary extends Component {
             filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
         }
 
-        const content = filteredCards.toJS().sort((c1, c2) => this._sortByType(c1.type, c2.type) || c2.faction - c1.faction || c1.id - c2.id)
+        // hide spells for Shadespire factions
+        filteredCards = filteredCards.filter(c => {
+            if (c.type === 3) {
+                return factionIndexes.indexOf(this.props.selectedFaction) > 8;
+            }
+                
+            return true;
+        });
+
+        const sorted = filteredCards.toJS().sort((c1, c2) => this._sort(c1, c2));
+        const content = sorted 
             .map((c, i) => {
                 const cardPN = parseInt(c.id.slice(-3), 10);
                 return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this._toggleCardInDeck.bind(this, c.id), currentDeck.some(id => id  === c.id))
@@ -41,6 +51,13 @@ class CardsLibrary extends Component {
                 { content }
             </div>
         );
+    }
+
+    _sort = (card1, card2) => {
+        const t1 = (card1.type === 1 || card1.type === 3) ? 1 : card1.type;
+        const t2 = (card2.type === 1 || card2.type === 3) ? 1 : card2.type;
+
+        return t1 - t2 || card2.faction - card1.faction || card1.id - card2.id;
     }
 
     _sortByType = (type1, type2) => {

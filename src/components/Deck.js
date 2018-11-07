@@ -103,9 +103,9 @@ class Deck extends Component {
         const { selectedCards, faction, onSave, onRemoveAll, onCancel, onUpdate } = this.props;
         
         const cards = new Set(selectedCards.map(id => ({id: id, ...cardsDb[id] })));
-        const objectives = cards.filter(v => v.type === 0);
-        const gambits = cards.filter(v => v.type === 1 || v.type === 3);
-        const upgrades = cards.filter(v => v.type === 2);
+        const objectives = cards.filter(v => v.type === 0).sort((c1, c2) => c1.name - c2.name);
+        const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((c1, c2) => c1.name - c2.name);
+        const upgrades = cards.filter(v => v.type === 2).sort((c1, c2) => c1.name - c2.name);
         const objectivesCount = objectives.count();
         const gambitsCount = gambits.count();
         const spellsCount = gambits.filter(v => v.type === 3).count();

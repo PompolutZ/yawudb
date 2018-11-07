@@ -136,7 +136,7 @@ export const factionIndexes = [
     "the-chosen-axes",
     "spiteclaws-swarm",
     "magores-fiends",
-    "the-farstriders",
+    "the-farstriders", // 8
     "stormsires-cursebreakers",
     "thorns-of-the-briar-queen",
     "the-eyes-of-the-nine",
