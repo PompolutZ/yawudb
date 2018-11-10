@@ -144,7 +144,9 @@ class App extends Component {
 
             const profile = userProfileRef.data();
             this.props.onLogin({ displayName: profile.displayName, role: profile.role, avatar: profile.avatar, uid });
-            history.push('/mydecks');
+            if(history.location.pathname === '/login') {
+                history.push('/mydecks');
+            }
         } catch(err) {
             this.setState({ loginError: err.message });
         }
