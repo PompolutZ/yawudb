@@ -133,6 +133,7 @@ class Decks extends Component {
             const observable = new Subject();
             q.onSnapshot(qs => {
                 const data = qs.docs.map(d => ({id: d.id, ...d.data()}));
+                console.log(data);
                 observable.next(data);
             });
             observables.push(observable);
@@ -156,7 +157,12 @@ class Decks extends Component {
                 }
             }
 
-            this.setState({ loading: false, currentPage: 1, totalPages: Math.ceil(result.length / 10), decks: decks, pageStart: 0 });
+            this.setState({ 
+                loading: false, 
+                currentPage: 1, 
+                totalPages: Math.ceil(result.length / 10), 
+                decks: decks.sort((d1, d2) => d2.created - d1.created), 
+                pageStart: 0 });
         });
     }
 
