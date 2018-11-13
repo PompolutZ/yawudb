@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
-import { Typography, Button, IconButton, Menu, MenuItem, Paper } from '@material-ui/core';
-import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType } from '../data/index';
+import { Typography, IconButton, Menu, MenuItem, } from '@material-ui/core';
+import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave } from '../data/index';
 import AnimateHeight from 'react-animate-height';
 import { Set } from 'immutable';
 import MoreVerticalIcon from '@material-ui/icons/MoreVert';
 import * as jsPDF from 'jspdf';
 
-const SetIcon = ({ set }) => (
-    <img style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt="icon" />
+const SetIcon = ({ id, set }) => (
+    <img id={id} style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt="icon" />
 )
 
 const ObjectiveScoringOverview = ({ objectives }) => {
@@ -77,11 +77,11 @@ class Card extends PureComponent {
             <div>
                 <div style={{ display: 'flex', alignItems: 'center', margin: '0 0 .5rem 1rem' }}
                     onClick={this._toggleExpanded}>
-                    <SetIcon set={card.set} />
+                    <SetIcon id={`${card.id}`} set={card.set} />
                     <div><u>{card.name}</u></div>
                     {
                         card.glory && (
-                            <div>({card.glory})</div>                        
+                            <div style={{ marginLeft: '.3rem'}}>({card.glory})</div>                        
                         )
                     }
                     {
@@ -89,6 +89,13 @@ class Card extends PureComponent {
                             <ObjectiveScoreTypeIcon type={card.scoreType} style={{width: '.8rem', height: '.8rem'}} />
                         )
                     }
+                    <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem', color: 'gray', fontSize: '.7rem'}}>
+                        <div>(</div>
+                        { idToPrintId(card.id) }
+                        <img id={idToPrintId(card.id)} alt={`wave-${card.id.substr(0,2)}`} src={`/assets/icons/wave-${card.id.substr(0,2)}-icon.png`} 
+                            style={{ width: '.7rem', height: '.7rem'}} />
+                        <div>)</div>
+                    </div>
                 </div>
                 <AnimateHeight
                     height={animateHeight}
@@ -146,6 +153,12 @@ class DeckActionsMenu extends PureComponent {
     }
 }
 
+const idToPrintId = id => {
+    const wavePrefix = id.substr(0, 2);
+    return `${id.slice(-3)}/${totalCardsPerWave[parseInt(wavePrefix, 10)]}`;
+}
+
+
 class ReadonlyDeck extends PureComponent {
     render() {
         const { name, author, factionId, cards, sets, created } = this.props;
@@ -167,7 +180,10 @@ class ReadonlyDeck extends PureComponent {
                     alignItems: 'center',
                     margin: '1rem',
                 }}>
-                    <img id="factionDeckIcon" style={{width: '4rem', height: '4rem', margin: '0 .5rem 0 0'}} alt={`${idPrefixToFaction[factionId]}`} src={`/assets/icons/${idPrefixToFaction[factionId]}-deck.png`} />
+                    <img id="factionDeckIcon" 
+                        style={{width: '4rem', height: '4rem', margin: '0 .3rem 0 0', flex: '0 0 auto'}} 
+                        alt={`${idPrefixToFaction[factionId]}`} 
+                        src={`/assets/icons/${idPrefixToFaction[factionId]}-deck.png`} />
                     <div style={{flex: '1 1 auto'}}>
                         <div style={{ fontFamily: 'roboto', fontSize: '1rem', fontWeight: 'bold'}}>{name}</div>
                         <div style={{ fontFamily: 'roboto', fontSize: '.7rem', }}>{`${author}${createdDate}`}</div>
@@ -208,7 +224,26 @@ class ReadonlyDeck extends PureComponent {
                 {
                     upgrades.toJS().map((v, i) => <Card key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
                 }
+                {/* for pdf export */}
+                <div id="pdf-export-elements" style={{ position: 'fixed', left: 50000, top: 0, zIndex: 100}}>
+                    <img id="factionDeckIcon" src={`/assets/icons/${idPrefixToFaction[factionId]}-deck.png`} alt="factionDeckIcon" />
+                    <img id="wave-01" src={`/assets/icons/wave-01-icon.png`} alt="wave-01" />
+                    <img id="wave-02" src={`/assets/icons/wave-02-icon.png`} alt="wave-02" />
+                    <img id="wave-03" src={`/assets/icons/wave-03-icon.png`} alt="wave-03" />
+                    <div id="textMeasureContainer" style={{ display: 'inline-flex', backgroundColor: 'magenta', flexFlow: 'column', width: 'auto'}}>
+                        {
+                            cards.map(c => {
+                                return <div key={`card-${c.id}`} style={{ fontFamily: 'Helvetica', fontSize: '.5rem', width: 'auto'}} id={`card-${c.id}`}>{c.type === 0 ? ` - ${c.name} (${c.glory})` : `- ${c.name}`}</div>
+                            })
+                            
+                        }
+                    </div>
+                    <div id="cardNumberMeasurer" style={{ display: 'inline-flex', backgroundColor: 'magenta', flexFlow: 'column', fontFamily: 'Helvetica', fontSize: '.5rem'}}>
+                        000/000
+                    </div>
+                </div>
             </div>
+
         );        
     }
 
@@ -218,77 +253,61 @@ class ReadonlyDeck extends PureComponent {
         const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((a, b) => a.name.localeCompare(b.name));
         const upgrades = cards.filter(v => v.type === 2).sort((a, b) => a.name.localeCompare(b.name));
 
-        let doc = new jsPDF();
-        doc.addImage(document.getElementById('factionDeckIcon'), 'png', 10, 6, 10, 10);
-        doc.setFont('roboto', 'bold');
-        doc.setFontSize(10);
-        doc.text(name, 25, 10);
-        doc.setFont('roboto', 'italic');
-        doc.setFontSize(8);
-        doc.setDrawColor('#7F0000');
-        doc.text(`${author} ${created ? ` | ${created.toLocaleDateString()}` : ''}`, 25, 14);
+        let doc = new jsPDF({
+            unit: 'px'
+        });
 
-        let yAxis = 24;
-        doc.setFont('roboto', 'bold');
-        doc.setFontSize(8);
-        doc.text('Objectives (12):', 10, yAxis);
+        let docX = 10;
+        let docY = 10;
+        const rem = 16;
+        doc.addImage(document.getElementById('factionDeckIcon'), 'png', docX, docY, rem * 1.5, rem * 1.5, '', 'SLOW');
         
-        yAxis += 4;
-        doc.setFont('roboto', 'thin');
-        doc.setFontSize(8);
-        doc.setDrawColor('#7F0000');
-        
-        for(let objective of objectives) {
-            doc.text(`${this.idToPrintId(objective.id)}`, 10, yAxis);
-            doc.text(`${objective.name}`, 18, yAxis);
-            yAxis += 4;
-        }
+        // Header
+        docX = docX + rem * 2;
+        docY = docY + 10;
+        doc.setFont('Helvetica', '');
+        doc.setFontSize(rem);
+        doc.text(name, docX, docY);
+        doc.setFontSize(rem * .5);
+        docY = docY + (rem * .5);
+        doc.setTextColor('#BCBDC0');
+        doc.text(`${author} ${created ? ` | ${created.toLocaleDateString()}` : ''}`, docX, docY);
 
-        yAxis += 2;
-        doc.setFont('roboto', 'bold');
-        doc.setFontSize(8);
-        doc.text(`Gambits (${gambits.count()}):`, 10, yAxis);
-
-        yAxis += 4;
-        doc.setFont('roboto', 'thin');
-        doc.setFontSize(8);
-        doc.setDrawColor('#7F0000');
-        for(let gambit of gambits) {
-            doc.text(`${this.idToPrintId(gambit.id)}`, 10, yAxis);
-            doc.text(`${gambit.name}`, 18, yAxis);
-            yAxis += 4;
-        }
-
-        yAxis += 2;
-        doc.setFont('roboto', 'bold');
-        doc.setFontSize(8);
-        doc.text(`Upgrades (${upgrades.count()}):`, 10, yAxis);
-
-        yAxis += 4;
-        doc.setFont('roboto', 'thin');
-        doc.setFontSize(8);
-        doc.setDrawColor('#7F0000');
-        for(let upgrade of upgrades) {
-            doc.text(`${this.idToPrintId(upgrade.id)}`, 10, yAxis);
-            doc.text(`${upgrade.name}`, 18, yAxis);
-            yAxis += 4;
-        }
+        let coords = this.addToPdf(doc, 'Objectives (12):', objectives, docX, docY, rem);
+        coords = this.addToPdf(doc, `Gambits (${gambits.count()}):`, gambits, coords.x, coords.y, rem);
+        this.addToPdf(doc, `Upgrades (${upgrades.count()}):`, upgrades, coords.x, coords.y, rem);
 
         doc.save(`${name}.pdf`);
     }
 
-    idToPrintId = id => {
-        if(id.startsWith('01')) {
-            return `${id.slice(-3)}.`;
+    addToPdf = (doc, header, cards, docX, docY, rem) => {
+        docX = 10;
+        docY = docY + rem * 2;
+        doc.setFont('Helvetica', 'bold');
+        doc.setFontSize(rem * .8);
+        doc.setTextColor('black');
+        doc.text(header, docX, docY);
+        
+        docX = 10;
+        docY = docY + rem *.5;
+        doc.setFont('Helvetica', '');
+        doc.setFontSize(rem * .6);
+        doc.setTextColor('black');
+        for(let card of cards) {
+            doc.addImage(document.getElementById(card.id), 'png', docX, docY - 2, 8, 8)
+            const text = card.hasOwnProperty('glory') ? ` - ${card.name} (${card.glory})` : ` - ${card.name}`;
+            doc.text(text, docX + 10, docY + 5);
+            doc.setTextColor('#BCBDC0');
+            const measuredWidth = document.getElementById(`textMeasureContainer`).clientWidth;
+            doc.text(`${idToPrintId(card.id)}`, docX + 10 + measuredWidth, docY + 5);
+            const otherMeasuredWidth = document.getElementById(`cardNumberMeasurer`).clientWidth;
+            doc.addImage(document.getElementById(`wave-${card.id.substr(0, 2)}`), 'png', docX + 10 + measuredWidth + otherMeasuredWidth, docY - 2, 8, 8);
+            docY += 10;
+            doc.setTextColor('black');
         }
 
-        if(id.startsWith('02')) {
-            return `L${id.slice(-3)}.`;
-        }
-
-        if(id.startsWith('03')) {
-            return `N${id.slice(-3)}.`;
-        }
+        const coords = { x: docX, y: docY };
+        return coords;
     }
 }
 
