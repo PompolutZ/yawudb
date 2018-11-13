@@ -1,4 +1,7 @@
 {
+    "0.14.0" : {
+        "Export to PDF": "It should be possible now to save decks as pdf files."
+    },
     "0.13.0" : {
         "Sign Up": "User can choose to sign up on the website and later login with email and password.",
         "Card Library as Images": "It is possible to choose how you want to browse card library - as simple names or as images"

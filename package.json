@@ -1,6 +1,6 @@
 {
   "name": "wudb",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^1.2.2",
@@ -9,6 +9,7 @@
     "firebase": "^5.4.1",
     "firebaseui": "^3.4.0",
     "immutable": "^3.8.2",
+    "jspdf": "^1.4.1",
     "lodash": "^4.17.10",
     "material-ui-community-icons": "^0.15.0",
     "npm": "^6.3.0",
@@ -16,6 +17,7 @@
     "randomcolor": "^0.5.3",
     "react": "^16.4.1",
     "react-animate-height": "^2.0.3",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.4.1",
     "react-google-button": "^0.5.3",
     "react-markdown": "^3.6.0",
