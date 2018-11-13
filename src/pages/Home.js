@@ -11,7 +11,7 @@ import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles'; 
 
-import * as changelog from '../changelog.json';
+import changelog from '../changelog';
 import * as _ from 'lodash';
 
 const uuid4 = require('uuid/v4');

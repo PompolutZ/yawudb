@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles'; 
 
 import * as packageInfo from '../../package.json';
-import * as changelog from '../changelog.json';
+import changelog from '../changelog';
 import * as _ from 'lodash';
 import { Button } from '@material-ui/core';
 
