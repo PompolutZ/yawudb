@@ -167,7 +167,7 @@ class ReadonlyDeck extends PureComponent {
                     alignItems: 'center',
                     margin: '1rem',
                 }}>
-                    <img id="factionDeckIcon" style={{width: '4rem', height: '4rem', margin: '0 .5rem 0 0'}} alt={`${idPrefixToFaction[factionId]}`} src={`/assets/icons/${idPrefixToFaction[factionId]}-icon.png`} />
+                    <img id="factionDeckIcon" style={{width: '4rem', height: '4rem', margin: '0 .5rem 0 0'}} alt={`${idPrefixToFaction[factionId]}`} src={`/assets/icons/${idPrefixToFaction[factionId]}-deck.png`} />
                     <div style={{flex: '1 1 auto'}}>
                         <div style={{ fontFamily: 'roboto', fontSize: '1rem', fontWeight: 'bold'}}>{name}</div>
                         <div style={{ fontFamily: 'roboto', fontSize: '.7rem', }}>{`${author}${createdDate}`}</div>
