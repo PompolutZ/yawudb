@@ -133,7 +133,6 @@ class Decks extends Component {
             const observable = new Subject();
             q.onSnapshot(qs => {
                 const data = qs.docs.map(d => ({id: d.id, ...d.data()}));
-                console.log(data);
                 observable.next(data);
             });
             observables.push(observable);

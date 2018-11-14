@@ -116,21 +116,21 @@ class App extends Component {
                         <Suspense fallback={<LazyLoading />}>
                             <Switch>
                                 <Route exact path="/" component={Home} />
-                                <Route path="/decks" component={Decks} />
-                                <Route path="/library" component={Library} />
-                                <Route path="/deck/create" component={DeckCreator} />
-                                <Route path="/deck/edit/:id" component={DeckCreator} />
-                                <Route path="/login" component={Login} />
-                                <Route path="/user/signup" component={SignUp} />
-                                <Route path="/view/deck/:id" component={Deck} />
-                                <Route path="/view/card/:id" component={Card} />
-                                <Route path="/about" component={About} />
-                                <Route path="/statistics" component={Statistics} />
-                                <Route path="/feedback" component={Feedback} />
+                                <Route path="/decks" render={(props) => <Decks {...props} />} />
+                                <Route path="/library" render={(props) => <Library {...props} />} />
+                                <Route path="/deck/create" render={(props) => <DeckCreator {...props} />} />
+                                <Route path="/deck/edit/:id" render={(props) => <DeckCreator {...props} />} />
+                                <Route path="/login" render={(props) => <Login {...props} />} />
+                                <Route path="/user/signup" render={(props) => <SignUp {...props} />} />
+                                <Route path="/view/deck/:id" render={(props) => <Deck {...props} />} />
+                                <Route path="/view/card/:id" render={(props) => <Card {...props} />} />
+                                <Route path="/about" render={(props) => <About {...props} />} />
+                                <Route path="/statistics" render={(props) => <Statistics {...props} />} />
+                                <Route path="/feedback" render={(props) => <Feedback {...props} />} />
                 
-                                <PrivateRoute path="/mydecks" component={MyDecks} />
-                                <PrivateRoute path="/profile" component={UserProfile} />
-                                <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
+                                <PrivateRoute path="/mydecks" render={(props) => <MyDecks {...props} />} />
+                                <PrivateRoute path="/profile" render={(props) => <UserProfile {...props} />} />
+                                <PrivateRoute path="/secret/deck-uploader" render={(props) => <SecretDeckUploader {...props} />} />
                             </Switch>
                         </Suspense>
                     </div>
