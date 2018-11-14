@@ -128,9 +128,9 @@ class App extends Component {
                                 <Route path="/statistics" render={(props) => <Statistics {...props} />} />
                                 <Route path="/feedback" render={(props) => <Feedback {...props} />} />
                 
-                                <PrivateRoute path="/mydecks" render={(props) => <MyDecks {...props} />} />
-                                <PrivateRoute path="/profile" render={(props) => <UserProfile {...props} />} />
-                                <PrivateRoute path="/secret/deck-uploader" render={(props) => <SecretDeckUploader {...props} />} />
+                                <PrivateRoute path="/mydecks" component={MyDecks} />
+                                <PrivateRoute path="/profile" component={UserProfile} />
+                                <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
                             </Switch>
                         </Suspense>
                     </div>
