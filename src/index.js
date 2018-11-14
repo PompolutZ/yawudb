@@ -1,31 +1,45 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import './index.css';
 import Home from './pages/Home';
-import Decks from './pages/Decks';
-import DeckCreator from './pages/DeckCreator';
-import MyDecks from './pages/MyDecks';
+// import Decks from './pages/Decks';
+// import DeckCreator from './pages/DeckCreator';
+// import MyDecks from './pages/MyDecks';
 
 import registerServiceWorker from './registerServiceWorker';
 import Footer from './components/Footer';
-import Login from './pages/Login';
+// import Login from './pages/Login';
 import MenuAppBar from './components/MenuAppBar';
 
 import { connect, Provider } from 'react-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 import configureStore from './configureStore';
-import Deck from './pages/Deck';
-import About from './pages/About';
-import SecretDeckUploader from './pages/SecretDeckUploader';
-import Statistics from './pages/Statistics';
-import Feedback from './pages/Feedback';
-import UserProfile from './pages/UserProfile';
-import Card from './pages/Card';
-import Library from './pages/Library';
-import SignUp from './pages/SignUp';
+// import Deck from './pages/Deck';
+// import About from './pages/About';
+// import SecretDeckUploader from './pages/SecretDeckUploader';
+// import Statistics from './pages/Statistics';
+// import Feedback from './pages/Feedback';
+// import UserProfile from './pages/UserProfile';
+// import Card from './pages/Card';
+// import Library from './pages/Library';
+// import SignUp from './pages/SignUp';
 import firebase, { db } from './firebase';
+import LazyLoading from './components/LazyLoading';
+const DeckCreator = lazy(() => import('./pages/DeckCreator'));
+const Decks = lazy(() => import('./pages/Decks'));
+const SignUp = lazy(() => import('./pages/SignUp'));
+const Library = lazy(() => import('./pages/Library'));
+const Deck = lazy(() => import('./pages/Deck'));
+const About = lazy(() => import('./pages/About'));
+const SecretDeckUploader = lazy(() => import('./pages/SecretDeckUploader'));
+const Statistics = lazy(() => import('./pages/Statistics'));
+const Feedback = lazy(() => import('./pages/Feedback'));
+const UserProfile = lazy(() => import('./pages/UserProfile'));
+const Card = lazy(() => import('./pages/Card'));
+const MyDecks = lazy(() => import('./pages/MyDecks'));
+const Login = lazy(() => import('./pages/Login'));
 
 const history = createBrowserHistory();
 const store = configureStore(history);
@@ -99,24 +113,26 @@ class App extends Component {
                     <MenuAppBar />
         
                     <div style={{paddingTop: '4rem'}}>
-                      <Switch>
-                          <Route exact path="/" component={Home} />
-                          <Route path="/decks" component={Decks} />
-                          <Route path="/library" component={Library} />
-                          <Route path="/deck/create" component={DeckCreator} />
-                          <Route path="/deck/edit/:id" component={DeckCreator} />
-                          <Route path="/login" component={Login} />
-                          <Route path="/user/signup" component={SignUp} />
-                          <Route path="/view/deck/:id" component={Deck} />
-                          <Route path="/view/card/:id" component={Card} />
-                          <Route path="/about" component={About} />
-                          <Route path="/statistics" component={Statistics} />
-                          <Route path="/feedback" component={Feedback} />
-        
-                          <PrivateRoute path="/mydecks" component={MyDecks} />
-                          <PrivateRoute path="/profile" component={UserProfile} />
-                          <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
-                      </Switch>
+                        <Suspense fallback={<LazyLoading />}>
+                            <Switch>
+                                <Route exact path="/" component={Home} />
+                                <Route path="/decks" component={Decks} />
+                                <Route path="/library" component={Library} />
+                                <Route path="/deck/create" component={DeckCreator} />
+                                <Route path="/deck/edit/:id" component={DeckCreator} />
+                                <Route path="/login" component={Login} />
+                                <Route path="/user/signup" component={SignUp} />
+                                <Route path="/view/deck/:id" component={Deck} />
+                                <Route path="/view/card/:id" component={Card} />
+                                <Route path="/about" component={About} />
+                                <Route path="/statistics" component={Statistics} />
+                                <Route path="/feedback" component={Feedback} />
+                
+                                <PrivateRoute path="/mydecks" component={MyDecks} />
+                                <PrivateRoute path="/profile" component={UserProfile} />
+                                <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
+                            </Switch>
+                        </Suspense>
                     </div>
         
                     <Footer />
