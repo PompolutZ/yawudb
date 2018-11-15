@@ -8,7 +8,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import AnimateHeight from 'react-animate-height';
-import { cardType, totalCardsPerWave, setsIndex } from '../data/index';
+import { cardType, totalCardsPerWave, setsIndex, bannedCards, restrictedCards } from '../data/index';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 
 import "./WUCard.css";
@@ -107,12 +107,34 @@ class WUCardAtom extends Component {
         this.props.toggleCardInDeck();
     }
 
+    pickBackgroundColor = (isRestricted, isBanned) => {
+        if(isRestricted) {
+            return 'Goldenrod';
+        }
+            
+        if(isBanned) {
+            return 'DarkRed';
+        }
+
+        return this.props.isAlter ? 'rgb(224, 243, 236)' : 'White';
+    }
+
+    pickForegroundColor = (isRestricted, isBanned, defaultColor) => {
+        if(isBanned || isRestricted) {
+            return 'white';
+        }
+        
+        return defaultColor;
+    }
+
     render() {
         const { classes, type, id, scoreType } = this.props;
+        const isRestricted = Boolean(restrictedCards[id]);
+        const isBanned = Boolean(bannedCards[id]);
         const height = this.state.expanded ? 'auto' : 0;
         const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon', 'gambit spell-icon'];
         return (
-            <div className={`root ${this.props.isAlter ? 'alternateRootColor' : ''}`}>
+            <div className={`root`} style={{ backgroundColor: this.pickBackgroundColor(isRestricted, isBanned)}}>
                 <div className="header">
                     <div style={{position: 'relative'}}>
                         <Avatar className="typeicon headerItem" src={`/assets/icons/${icons[type]}.png`} />
@@ -126,31 +148,31 @@ class WUCardAtom extends Component {
                         }
                     </div>
                     <div className="headerText headerItem">
-                        <Typography variant="body2" style={{color: colorsTable[this.props.set]}}>{this.props.name}</Typography>
+                        <Typography variant="body2" style={{color: this.pickForegroundColor(isRestricted, isBanned, colorsTable[this.props.set])}}>{this.props.name}</Typography>
                         <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'flex-start'}}>
                             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'flex-start', margin: '0 .2rem 0 0'}}>
-                                <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem'}}>
+                                <Typography variant="body2" style={{fontSize: '.75rem', color: this.pickForegroundColor(isRestricted, isBanned, 'gray')}}>
                                     {`${cardType[this.props.type]}`}
                                 </Typography>
-                                <Typography variant="body2" color="textSecondary">
+                                <Typography variant="body2" style={{color: this.pickForegroundColor(isRestricted, isBanned, 'gray')}}>
                                     { scoreType >= 0 && <ObjectiveScoreTypeIcon type={scoreType} style={{ width: '.8rem', height: '.8rem', margin: '.3rem 0 0 .2rem'}} /> }
                                 </Typography>
                             </div>
 
-                            <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem', margin: '0 .2rem 0 0'}}>
+                            <Typography variant="body2" style={{fontSize: '.75rem', margin: '0 .2rem 0 0', color: this.pickForegroundColor(isRestricted, isBanned, 'gray')}}>
                                 |
                             </Typography>
                             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 .2rem 0 0'}}>
-                                <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem'}}>
+                                <Typography variant="body2" style={{fontSize: '.75rem', color: this.pickForegroundColor(isRestricted, isBanned, 'gray')}}>
                                     {` Set: `}
                                 </Typography>
                                 <img alt={`${setsIndex[this.props.set]}`} style={{width: '.8rem', height: '.8rem', marginLeft: '.2rem'}} src={`/assets/icons/${setsIndex[this.props.set]}-icon.png`} />
                             </div>
-                            <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem', margin: '0 .2rem 0 0'}}>
+                            <Typography variant="body2" style={{fontSize: '.75rem', margin: '0 .2rem 0 0', color: this.pickForegroundColor(isRestricted, isBanned, 'gray')}}>
                                 |
                             </Typography>
                             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center'}}>
-                                <Typography variant="body2" color="textSecondary" style={{fontSize: '.75rem'}}>
+                                <Typography variant="body2" style={{fontSize: '.75rem', color: this.pickForegroundColor(isRestricted, isBanned, 'gray')}}>
                                     {`${this.props.cardPN}/${totalCardsPerWave[parseInt(id.slice(0,2), 10)]}`}
                                 </Typography>
                                 <img alt={`wave-${id.slice(0,2)}`} style={{width: '.8rem', height: '.8rem', marginLeft: '.2rem'}} src={`/assets/icons/wave-${id.slice(0,2)}-icon.png`} />
@@ -160,6 +182,7 @@ class WUCardAtom extends Component {
                     </div>
                     <IconButton
                         className={classnames(classes.expand, {[classes.expandOpen]: this.state.expanded, })}
+                        style={{ color: this.pickForegroundColor(isRestricted, isBanned, 'gray')}}
                         onClick={this.handleExpandClick}>
                         <ExpandMoreIcon />
                     </IconButton>

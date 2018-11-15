@@ -15,7 +15,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import ShareIcon from '@material-ui/icons/Share';
-import { setsIndex, cardsDb, cardType, idPrefixToFaction, PREFIX_LENGTH, warbandsWithDefaultSet } from '../data/index';
+import ReportProblemIcon from '@material-ui/icons/ReportProblem';
+import { setsIndex, cardsDb, cardType, idPrefixToFaction, PREFIX_LENGTH, warbandsWithDefaultSet, restrictedCards, bannedCards } from '../data/index';
 import { withRouter } from 'react-router-dom'; 
 import SimpleSnackbar from './SimpleSnackbar';
 import { Set } from 'immutable';
@@ -25,6 +26,7 @@ import CardTypeCounter from './CardTypeCounter';
 import { ADD_CARD, SET_FACTION, CHANGE_NAME, CHANGE_DESCRIPTION } from '../reducers/deckUnderBuild';
 import { SET_SETS } from '../reducers/cardLibraryFilters';
 import { connect } from 'react-redux';
+import { pickCardColor } from '../utils/functions';
 
 const styles = theme => ({
   card: {
@@ -55,6 +57,27 @@ const styles = theme => ({
   },
 });
 
+const RestrictedBannedCardsCount = ({banned, restricted}) => (
+    <div style={{ display: 'flex', marginLeft: '1rem', alignItems: 'center'}}>
+    {
+        banned > 0 && (
+            <div style={{ display: 'flex', alignItems: 'center'}}>
+                <ReportProblemIcon style={{color: pickCardColor(Object.keys(bannedCards)[0])}} />
+                <Typography style={{ color: pickCardColor(Object.keys(bannedCards)[0])}}>{banned}</Typography>
+            </div>
+        )
+    }
+    {
+        restricted > 0 && (
+            <div style={{ display: 'flex', alignItems: 'center'}}>
+                <ReportProblemIcon style={{color: pickCardColor(Object.keys(restrictedCards)[0])}} />
+                <Typography style={{ color: pickCardColor(Object.keys(restrictedCards)[0])}}>{restricted}</Typography>
+            </div>
+        )
+    }
+    </div>
+)
+
 const SetIcon = ({ set }) => (
     <img style={{margin: 'auto .1rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} width="24" height="24" alt="icon" />
 )
@@ -62,7 +85,7 @@ const SetIcon = ({ set }) => (
 const CardNumberNameSet = ({ id, name, set, scoreType }) => (
     <div style={{display: 'flex'}}>
         <div style={{width: '2rem', textAlign: 'right', marginRight: '.5rem'}}>{`${parseInt(id.slice(-3), 10)}.`}</div>
-        <Typography style={{marginRight: '.5rem'}}>{name}</Typography>
+        <Typography style={{marginRight: '.5rem', color: pickCardColor(id)}}>{name}</Typography>
         <SetIcon set={set} />
         {
             scoreType >= 0 && (<ObjectiveScoreTypeIcon type={scoreType} style={{width: '24', height: '24', margin: '0 .2rem 0 0'}} />)
@@ -161,6 +184,8 @@ class DeckOverview extends React.Component {
   render() {
     const { classes, id, name, sets, cards, created, author, history, isEditable } = this.props;
     const cardsInDeck = cards.map(cardPN => ({id: cardPN, ...cardsDb[cardPN]}));
+    const bannedCardsCount = cards.filter(id => Boolean(bannedCards[id])).length;
+    const restrictedCardsCount = cards.filter(id => Boolean(restrictedCards[id])).length;
     const objectives = cardsInDeck.filter(c => c.type === 0);
     const objectiveSummary = new Set(objectives).groupBy(c => c.scoreType).reduce((r, v, k) => {
         r[k] = v.count();
@@ -194,6 +219,8 @@ class DeckOverview extends React.Component {
                               gambitsCount={gambits.length}
                               upgradesCount={upgrades.length}
                               isAnySpells={gambits.filter(c => c.type === 3).length > 0} />
+              
+              <RestrictedBannedCardsCount banned={bannedCardsCount} restricted={restrictedCardsCount} />
           <CardContent>
 
           </CardContent>

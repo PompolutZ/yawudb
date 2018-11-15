@@ -5,6 +5,7 @@ import { setsIndex, setsNames, cardTypeIcons } from '../data/index';
 import { withRouter } from 'react-router-dom';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 import { Typography } from '@material-ui/core';
+import { pickCardColor, pickCardBackgroundColor } from '../utils/functions';
 
 // class FilterableCardLibrary extends Component {
 //     state = {
@@ -93,7 +94,7 @@ const cardNameViewStyles = theme => ({
 
 class CardNameView extends PureComponent {
     render() {
-        const { classes, set, name, type, scoreType } = this.props;
+        const { classes, set, name, type, scoreType, id } = this.props;
         return (
             <div className={classes.root} onClick={this._navitateToCard}>
                 <img src={`/assets/icons/${setsIndex[set]}-icon.png`} 
@@ -103,7 +104,7 @@ class CardNameView extends PureComponent {
                     alt={`${cardTypeIcons[type]}`}
                     className={classes.setImage}
                     style={{ margin: '0 0 0 .2rem' }} />
-                <div style={{ margin: '0 0 0 .2rem', fontSize: '.8rem'}}>{name.toUpperCase()}</div>
+                <div style={{ margin: '0 0 0 .2rem', fontSize: '.8rem', color: pickCardColor(id)}}>{name.toUpperCase()}</div>
                 {
                     scoreType >= 0 && (
                         <ObjectiveScoreTypeIcon type={scoreType} style={{ color: '#3B9979', width: '1rem', height: '1rem'}} />                        
@@ -172,7 +173,7 @@ class CardImageView extends PureComponent {
                     className={classes.cardImage} />
                 <div className={classes.cardInfoItem}>
                     <Typography>Card location: </Typography>
-                    <div className={classes.row}>
+                    <div className={classes.row} style={{ backgroundColor: pickCardBackgroundColor(id) }}>
                         <img src={`/assets/icons/${setsIndex[set]}-icon.png`} 
                             alt={`${setsIndex[set]}`}
                             className={classes.setImage} />

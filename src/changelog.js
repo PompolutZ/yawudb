@@ -1,4 +1,8 @@
 const changelog = {
+    "0.15.0" : {
+        "Banned and Restricted cards": "You will see banned cards in red color now and restricted once in yellow.",
+        "Shardfall" : "Mistakes I made should hopefully be less impactful now. If there is an issue with the page you will see a Shardfall token page. But application bar should be available meaning that you should be able to use those things which could still be stable." 
+    },
     "0.14.0" : {
         "Export to PDF": "It should be possible now to save decks as pdf files."
     },

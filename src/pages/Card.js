@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { cardsDb, setsIndex, setsNames } from '../data/index';
+import { cardsDb, setsIndex, setsNames, bannedCards, restrictedCards } from '../data/index';
 import { Typography } from '@material-ui/core';
+import { pickCardColor } from '../utils/functions';
 
 
 const styles = theme => {
@@ -56,6 +57,9 @@ class Card extends PureComponent {
 
     render() {
         const { classes } = this.props;
+        const isRestricted = Boolean(restrictedCards[this.props.match.params.id]);
+        const isBanned = Boolean(bannedCards[this.props.match.params.id]);
+        console.log(isRestricted);
         return (
             <div className={classes.root}>
                 <img src={`/assets/cards/${this.props.match.params.id}.png`} alt={`card`}
@@ -69,7 +73,27 @@ class Card extends PureComponent {
                                     alt={`${setsIndex[this.state.card.set]}`}
                                     className={classes.setImage} />
                                 <Typography variant="subheading" className={classes.setName}>{setsNames[this.state.card.set]}</Typography>
-                            </div>    
+                            </div>
+                        </div>
+                    )
+                }
+                {
+                    isRestricted && (
+                        <div className={classes.cardInfoItem}>
+                            <Typography variant="caption" style={{ color: pickCardColor(this.props.match.params.id)}}>
+                                Note! This card is in the restricted list for Organized Play.
+                                You can have only up to 5 restricted cards in your deck for Organized Play.
+                            </Typography>
+                        </div>
+                    )
+                }
+                {
+                    isBanned && (
+                        <div className={classes.cardInfoItem}>
+                            <Typography variant="caption" style={{ color: pickCardColor(this.props.match.params.id)}}>
+                                Note! This card is in the banned list for Organized Play.
+                                You cannot have banned cards in your deck for Organized Play.
+                            </Typography>
                         </div>
                     )
                 }

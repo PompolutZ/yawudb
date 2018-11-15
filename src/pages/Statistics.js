@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { db } from '../firebase';
 import { List } from 'immutable'
-import { cardsDb, setsIndex } from '../data/index';
+import { cardsDb, setsIndex, bannedCards, restrictedCards } from '../data/index';
 import * as _ from 'lodash';
 import { Typography, CircularProgress } from '@material-ui/core';
 import AnimateHeight from 'react-animate-height';
+import { pickCardColor } from '../utils/functions';
 
 import './Statistics.css';
 
@@ -94,6 +95,14 @@ class Statistics extends Component {
                 <Typography color="textSecondary" style={{marginBottom: '.5rem'}}>
                     Percentage next to the card shows the percentage of decks which includes that card.
                 </Typography>
+                <Typography style={{marginBottom: '.5rem', color: pickCardColor(Object.keys(bannedCards)[0])}}>
+                    Note! Cards marked with this color are in the banned list for Organized Play. 
+                    You cannot include banned cards in your decks for Organized Play anymore.
+                </Typography>
+                <Typography style={{marginBottom: '.5rem', color: pickCardColor(Object.keys(restrictedCards)[0])}}>
+                    Note! Cards marked with this color are in the restricted list for Organized Play. 
+                    You can have only up to 5 restricted cards in your decks for Organized Play.
+                </Typography>
                 <div style={{marginLeft: '1rem', marginRight: '1rem'}}>
                 {
                     this.state.loading && (
@@ -127,8 +136,7 @@ class Card extends Component {
                     <img src={`/assets/icons/${setsIndex[set]}-icon.png`} alt={`${setsIndex[set]}`} width="24" height="24" style={{marginRight: '.5rem'}} />
                     <Typography variant="body2"
                         className="cardName" 
-                        color="default" 
-                        style={{marginRight: '.5rem', fontSize: `${0.5 + percentage}rem`}}
+                        style={{marginRight: '.5rem', fontSize: `${0.5 + percentage}rem`, color: pickCardColor(id)}}
                         onClick={() => this.setState(state => ({isExpanded: !state.isExpanded}))}>
                         <u>{`${name}`}</u>
                     </Typography>

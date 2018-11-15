@@ -27,6 +27,7 @@ import configureStore from './configureStore';
 // import SignUp from './pages/SignUp';
 import firebase, { db } from './firebase';
 import LazyLoading from './components/LazyLoading';
+import ErrorBoundary from './components/ErrorBoundary';
 const DeckCreator = lazy(() => import('./pages/DeckCreator'));
 const Decks = lazy(() => import('./pages/Decks'));
 const SignUp = lazy(() => import('./pages/SignUp'));
@@ -111,29 +112,31 @@ class App extends Component {
             <ConnectedRouter history={history}>
                 <div>
                     <MenuAppBar />
-        
-                    <div style={{paddingTop: '4rem'}}>
-                        <Suspense fallback={<LazyLoading />}>
-                            <Switch>
-                                <Route exact path="/" component={Home} />
-                                <Route path="/decks" render={(props) => <Decks {...props} />} />
-                                <Route path="/library" render={(props) => <Library {...props} />} />
-                                <Route path="/deck/create" render={(props) => <DeckCreator {...props} />} />
-                                <Route path="/deck/edit/:id" render={(props) => <DeckCreator {...props} />} />
-                                <Route path="/login" render={(props) => <Login {...props} />} />
-                                <Route path="/user/signup" render={(props) => <SignUp {...props} />} />
-                                <Route path="/view/deck/:id" render={(props) => <Deck {...props} />} />
-                                <Route path="/view/card/:id" render={(props) => <Card {...props} />} />
-                                <Route path="/about" render={(props) => <About {...props} />} />
-                                <Route path="/statistics" render={(props) => <Statistics {...props} />} />
-                                <Route path="/feedback" render={(props) => <Feedback {...props} />} />
-                
-                                <PrivateRoute path="/mydecks" component={MyDecks} />
-                                <PrivateRoute path="/profile" component={UserProfile} />
-                                <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
-                            </Switch>
-                        </Suspense>
-                    </div>
+
+                    <ErrorBoundary>
+                        <div style={{paddingTop: '4rem'}}>
+                            <Suspense fallback={<LazyLoading />}>
+                                <Switch>
+                                    <Route exact path="/" component={Home} />
+                                    <Route path="/decks" render={(props) => <Decks {...props} />} />
+                                    <Route path="/library" render={(props) => <Library {...props} />} />
+                                    <Route path="/deck/create" render={(props) => <DeckCreator {...props} />} />
+                                    <Route path="/deck/edit/:id" render={(props) => <DeckCreator {...props} />} />
+                                    <Route path="/login" render={(props) => <Login {...props} />} />
+                                    <Route path="/user/signup" render={(props) => <SignUp {...props} />} />
+                                    <Route path="/view/deck/:id" render={(props) => <Deck {...props} />} />
+                                    <Route path="/view/card/:id" render={(props) => <Card {...props} />} />
+                                    <Route path="/about" render={(props) => <About {...props} />} />
+                                    <Route path="/statistics" render={(props) => <Statistics {...props} />} />
+                                    <Route path="/feedback" render={(props) => <Feedback {...props} />} />
+                    
+                                    <PrivateRoute path="/mydecks" component={MyDecks} />
+                                    <PrivateRoute path="/profile" component={UserProfile} />
+                                    <PrivateRoute path="/secret/deck-uploader" component={SecretDeckUploader} />
+                                </Switch>
+                            </Suspense>
+                        </div>
+                    </ErrorBoundary>
         
                     <Footer />
                 </div>

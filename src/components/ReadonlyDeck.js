@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 import { Typography, IconButton, Menu, MenuItem, } from '@material-ui/core';
 import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave } from '../data/index';
+import { pickCardColor } from '../utils/functions';
 import AnimateHeight from 'react-animate-height';
 import { Set } from 'immutable';
 import MoreVerticalIcon from '@material-ui/icons/MoreVert';
@@ -78,7 +79,7 @@ class Card extends PureComponent {
                 <div style={{ display: 'flex', alignItems: 'center', margin: '0 0 .5rem 1rem' }}
                     onClick={this._toggleExpanded}>
                     <SetIcon id={`${card.id}`} set={card.set} />
-                    <div><u>{card.name}</u></div>
+                    <div style={{ color: pickCardColor(card.id)}}><u>{card.name}</u></div>
                     {
                         card.glory && (
                             <div style={{ marginLeft: '.3rem'}}>({card.glory})</div>                        
@@ -292,9 +293,10 @@ class ReadonlyDeck extends PureComponent {
         docY = docY + rem *.5;
         doc.setFont('Helvetica', '');
         doc.setFontSize(rem * .6);
-        doc.setTextColor('black');
+        // doc.setTextColor('black');
         for(let card of cards) {
             doc.addImage(document.getElementById(card.id), 'png', docX, docY - 2, 8, 8)
+            doc.setTextColor(pickCardColor(card.id));
             const text = card.hasOwnProperty('glory') ? ` - ${card.name} (${card.glory})` : ` - ${card.name}`;
             doc.text(text, docX + 10, docY + 5);
             doc.setTextColor('#BCBDC0');
