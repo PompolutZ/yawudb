@@ -28,6 +28,7 @@ import configureStore from './configureStore';
 import firebase, { db } from './firebase';
 import LazyLoading from './components/LazyLoading';
 import ErrorBoundary from './components/ErrorBoundary';
+import { UPDATE_EXPANSIONS } from './reducers/userExpansions';
 const DeckCreator = lazy(() => import('./pages/DeckCreator'));
 const Decks = lazy(() => import('./pages/Decks'));
 const SignUp = lazy(() => import('./pages/SignUp'));
@@ -154,15 +155,18 @@ class App extends Component {
                     displayName: displayName,
                     mydecks: [],
                     role: 'soul',
-                    avatar: `/assets/icons/garreks-reavers-icon.png`
+                    avatar: `/assets/icons/garreks-reavers-icon.png`,
+                    expansions: {} 
                 });
 
                 this.props.onLogin({ displayName, uid, role: 'soul', avatar: `/assets/icons/garreks-reavers-icon.png` });
+                this.props.updateUserExpansions({});
                 history.push('/profile');
             }
 
             const profile = userProfileRef.data();
             this.props.onLogin({ displayName: profile.displayName, role: profile.role, avatar: profile.avatar, uid });
+            this.props.updateUserExpansions(profile.expansions)
             if(history.location.pathname === '/login') {
                 history.push('/mydecks');
             }
@@ -176,6 +180,7 @@ const mapDispatchToProps = dispatch => {
   return {
       onLogin: user => dispatch({type: 'SET_USER', user: user}),
       onSignOut: () => dispatch({type: 'CLEAR_USER'}),
+      updateUserExpansions: expansions => dispatch({ type: UPDATE_EXPANSIONS, payload: expansions }),
   }
 }
 

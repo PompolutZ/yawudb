@@ -45,7 +45,7 @@ const mapStateToProps = state => {
         currentDeckSource: state.deckUnderBuild.source,
         currentDeckDescription: state.deckUnderBuild.desc,
         
-        selectedSets: state.cardLibraryFilters.sets
+        //selectedSets: Object.keys(state.userExpansions),
     }
 }
 

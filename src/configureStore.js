@@ -8,6 +8,7 @@ import deckUnderBuild from './reducers/deckUnderBuild';
 import decksFilters from './reducers/decksFilters';
 import cardLibraryFilters from './reducers/cardLibraryFilters';
 import library from './reducers/library';
+import userExpansions from './reducers/userExpansions';
 
 const loadPersistedOnModile = () => {
     if(window.matchMedia('(display-mode: standalone)').matches) {
@@ -23,7 +24,6 @@ const loadPersistedOnModile = () => {
 }
 
 const configureStore = history => {
-    const persistedStore = loadPersistedOnModile(); //loadState(); 
     const store = createStore(
         connectRouter(history)(combineReducers({
             auth,
@@ -31,9 +31,12 @@ const configureStore = history => {
             deckUnderBuild,
             decksFilters,
             cardLibraryFilters,
-            library
+            library,
+            userExpansions
         })), 
-        persistedStore,
+        loadPersistedOnModile(),
+        // loadState(),
+        // {},
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
         applyMiddleware(routerMiddleware(history)));
     
