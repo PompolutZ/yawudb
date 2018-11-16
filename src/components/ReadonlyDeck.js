@@ -198,7 +198,12 @@ class ReadonlyDeck extends PureComponent {
                 </div>
     
                 <MiniSectionHeader type={0}>
-                    (<ObjectiveScoringOverview objectives={objectiveSummary} />)
+                    <div style={{ display: 'flex'}}>
+                        <div style={{ display: 'flex'}}>
+                            (<ObjectiveScoringOverview objectives={objectiveSummary} />)
+                        </div>
+                        <Typography style={{ fontSize: '1rem', marginLeft: '.3rem', color: '#3B9979'}}> -> {objectives.reduce((acc, el) => acc + parseInt(el.glory, 10), 0)} GP</Typography>        
+                    </div>
                 </MiniSectionHeader>
                 { 
                     objectives.toJS().map((v, i) => <Card key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
