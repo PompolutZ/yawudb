@@ -10,17 +10,14 @@ import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles'; 
-
 import changelog from '../changelog';
-import * as _ from 'lodash';
-
-const uuid4 = require('uuid/v4');
+import uuid4 from 'uuid/v4';
+import { connect } from 'react-redux';
+import { addOrUpdateLastDeck } from '../reducers/lastDeck';
 
 const getChangeLogItemsByKey = key => {
-    return _.chain(changelog[key])
-    .keys()
-    .reduce((acc, v) => [...acc, {name: v, description: changelog[key][v]}], [])
-    .value()
+    return Object.keys(changelog[key])
+    .reduce((acc, v) => [...acc, {name: v, description: changelog[key][v]}], []);
 }
 
 const styles = {
@@ -54,7 +51,7 @@ const styles = {
 
 class Home extends Component {
     state = {
-        lastAddedDeck: null
+        // lastAddedDeck: null
     }
 
     componentDidMount() {
@@ -66,9 +63,11 @@ class Home extends Component {
                 const deck = doc.data();
                 if(deck.author !== 'Anonymous') {
                     const userProfileRef = await db.collection('users').doc(deck.author).get();
-                    this.setState({lastAddedDeck: {...deck, id: doc.id, created: deck.created.toDate(), author: userProfileRef.data().displayName}});
+                    this.props.addOrUpdate(doc.id, doc.created, {...deck, id: doc.id, created: deck.created.toDate(), author: userProfileRef.data().displayName});
+                    // this.setState({lastAddedDeck: });
                 } else {
-                    this.setState({lastAddedDeck: {...deck, id: doc.id, created: deck.created.toDate()}});
+                    this.props.addOrUpdate(doc.id, doc.created, {...deck, id: doc.id, created: deck.created.toDate()});
+                    // this.setState({lastAddedDeck: });
                 }
             }))
             .catch(error => console.log(error));
@@ -76,7 +75,7 @@ class Home extends Component {
 
     render() {
         const { classes, history } = this.props;
-        const lastUpdateKey = _.head(_.keys(changelog))
+        const lastUpdateKey = Object.keys(changelog)[0];
         const lastUpdate = getChangeLogItemsByKey(lastUpdateKey);
         
         return(
@@ -103,7 +102,7 @@ class Home extends Component {
                 </div>
                 <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div>
                 {
-                    !this.state.lastAddedDeck && (
+                    !this.props.lastDeck.id && (
                         <div style={{display: 'flex', height: '100vh'}}>
                             <div style={{margin: 'auto', display: 'flex', flexFlow: 'column nowrap', alignItems: 'center'}}>
                                 <CircularProgress style={{color: '#3B9979'}} />
@@ -113,15 +112,15 @@ class Home extends Component {
                     )
                 }
                 {
-                    this.state.lastAddedDeck && (
+                    this.props.lastDeck.id && (
                         <ReadonlyDeck 
-                            name={this.state.lastAddedDeck.name} 
-                            author={this.state.lastAddedDeck.author} 
-                            created={this.state.lastAddedDeck.created} 
-                            sets={this.state.lastAddedDeck.sets} 
-                            scoringSummary={this.state.lastAddedDeck.scoringSummary}
-                            factionId={this.state.lastAddedDeck.id.substr(0, this.state.lastAddedDeck.id.length - 13)} 
-                            cards={new OrderedSet(this.state.lastAddedDeck.cards.map(c => ({id: c, ...cardsDb[c]})))} />                        
+                            name={this.props.lastDeck.data.name} 
+                            author={this.props.lastDeck.data.author} 
+                            created={this.props.lastDeck.data.created} 
+                            sets={this.props.lastDeck.data.sets} 
+                            scoringSummary={this.props.lastDeck.data.scoringSummary}
+                            factionId={this.props.lastDeck.id.substr(0, this.props.lastDeck.id.length - 13)} 
+                            cards={new OrderedSet(this.props.lastDeck.data.cards.map(c => ({id: c, ...cardsDb[c]})))} />                        
                     )
                 }
                 <FloatingActionButton isEnabled onClick={() => history.push('/deck/create')}>
@@ -132,4 +131,16 @@ class Home extends Component {
     }
 }
 
-export default withRouter(withStyles(styles)(Home));
+const mapStateToProps = state => {
+    return {
+        lastDeck: state.lastDeck,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addOrUpdate: (id, timestamp, data) => dispatch(addOrUpdateLastDeck(id, timestamp, data)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(Home)));

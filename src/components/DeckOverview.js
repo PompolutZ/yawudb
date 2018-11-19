@@ -195,7 +195,7 @@ class DeckOverview extends React.Component {
     const upgrades = cardsInDeck.filter(c => c.type === 2);
     const strippedId = id.substring(0, id.length - 13);
     const faction = strippedId.length > PREFIX_LENGTH ? strippedId : idPrefixToFaction[strippedId]; 
-    const createdDate = created ? ` | ${created.toLocaleDateString()}` : '';
+    const createdDate = created ? ` | ${new Date(created).toLocaleDateString()}` : '';
     return (
       <div>
         <Card className={classes.card}>

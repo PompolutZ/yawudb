@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { loadState, saveState } from './utils/localStorage';
-import { throttle } from 'lodash';
+import throttle from 'lodash/throttle';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import auth from './reducers/auth';
 import userOwnSets from './reducers/userOwnSets';
@@ -9,6 +9,8 @@ import decksFilters from './reducers/decksFilters';
 import cardLibraryFilters from './reducers/cardLibraryFilters';
 import library from './reducers/library';
 import userExpansions from './reducers/userExpansions';
+import mydecks from './reducers/mydecks';
+import lastDeck from './reducers/lastDeck';
 
 const loadPersistedOnModile = () => {
     if(window.matchMedia('(display-mode: standalone)').matches) {
@@ -32,10 +34,12 @@ const configureStore = history => {
             decksFilters,
             cardLibraryFilters,
             library,
-            userExpansions
+            userExpansions,
+            mydecks,
+            lastDeck,
         })), 
-        loadPersistedOnModile(),
-        // loadState(),
+        //loadPersistedOnModile(),
+        loadState(),
         // {},
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
         applyMiddleware(routerMiddleware(history)));

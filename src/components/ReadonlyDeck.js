@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
-import { Typography, IconButton, Menu, MenuItem, } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave } from '../data/index';
 import { pickCardColor } from '../utils/functions';
 import AnimateHeight from 'react-animate-height';
 import { Set } from 'immutable';
 import MoreVerticalIcon from '@material-ui/icons/MoreVert';
-import * as jsPDF from 'jspdf';
 
 const SetIcon = ({ id, set }) => (
     <img id={id} style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt="icon" />
@@ -168,7 +171,7 @@ class ReadonlyDeck extends PureComponent {
         const upgrades = cards.filter(v => v.type === 2).sort((a, b) => a.name.localeCompare(b.name));
         const spellsCount = gambits.filter(v => v.type === 3).count();
     
-        const createdDate = created ? ` | ${created.toLocaleDateString()}` : '';
+        const createdDate = created ? ` | ${new Date(created).toLocaleDateString()}` : '';
         const objectiveSummary = new Set(objectives).groupBy(c => c.scoreType).reduce((r, v, k) => {
             r[k] = v.count();
             return r;
@@ -254,36 +257,38 @@ class ReadonlyDeck extends PureComponent {
     }
 
     _handleSaveAsPdf = () => {
-        const { name, author, created, cards } = this.props;
-        const objectives = cards.filter(v => v.type === 0).sort((a, b) => a.name.localeCompare(b.name));
-        const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((a, b) => a.name.localeCompare(b.name));
-        const upgrades = cards.filter(v => v.type === 2).sort((a, b) => a.name.localeCompare(b.name));
-
-        let doc = new jsPDF({
-            unit: 'px'
-        });
-
-        let docX = 10;
-        let docY = 10;
-        const rem = 16;
-        doc.addImage(document.getElementById('factionDeckIcon'), 'png', docX, docY, rem * 1.5, rem * 1.5, '', 'SLOW');
-        
-        // Header
-        docX = docX + rem * 2;
-        docY = docY + 10;
-        doc.setFont('Helvetica', '');
-        doc.setFontSize(rem);
-        doc.text(name, docX, docY);
-        doc.setFontSize(rem * .5);
-        docY = docY + (rem * .5);
-        doc.setTextColor('#BCBDC0');
-        doc.text(`${author} ${created ? ` | ${created.toLocaleDateString()}` : ''}`, docX, docY);
-
-        let coords = this.addToPdf(doc, 'Objectives (12):', objectives, docX, docY, rem);
-        coords = this.addToPdf(doc, `Gambits (${gambits.count()}):`, gambits, coords.x, coords.y, rem);
-        this.addToPdf(doc, `Upgrades (${upgrades.count()}):`, upgrades, coords.x, coords.y, rem);
-
-        doc.save(`${name}.pdf`);
+        import('jspdf').then(({ default: jsPDF }) => {
+            const { name, author, created, cards } = this.props;
+            const objectives = cards.filter(v => v.type === 0).sort((a, b) => a.name.localeCompare(b.name));
+            const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((a, b) => a.name.localeCompare(b.name));
+            const upgrades = cards.filter(v => v.type === 2).sort((a, b) => a.name.localeCompare(b.name));
+    
+            let doc = new jsPDF({
+                unit: 'px'
+            });
+    
+            let docX = 10;
+            let docY = 10;
+            const rem = 16;
+            doc.addImage(document.getElementById('factionDeckIcon'), 'png', docX, docY, rem * 1.5, rem * 1.5, '', 'SLOW');
+            
+            // Header
+            docX = docX + rem * 2;
+            docY = docY + 10;
+            doc.setFont('Helvetica', '');
+            doc.setFontSize(rem);
+            doc.text(name, docX, docY);
+            doc.setFontSize(rem * .5);
+            docY = docY + (rem * .5);
+            doc.setTextColor('#BCBDC0');
+            doc.text(`${author} ${created ? ` | ${new Date(created).toLocaleDateString()}` : ''}`, docX, docY);
+    
+            let coords = this.addToPdf(doc, 'Objectives (12):', objectives, docX, docY, rem);
+            coords = this.addToPdf(doc, `Gambits (${gambits.count()}):`, gambits, coords.x, coords.y, rem);
+            this.addToPdf(doc, `Upgrades (${upgrades.count()}):`, upgrades, coords.x, coords.y, rem);
+    
+            doc.save(`${name}.pdf`);
+        })
     }
 
     addToPdf = (doc, header, cards, docX, docY, rem) => {

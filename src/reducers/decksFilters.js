@@ -1,10 +1,10 @@
 import { factionIdPrefix } from '../data/index';
-import * as _ from 'lodash';
+import keys from 'lodash/keys';
 
 export const SET_FACTIONS_FILTER = 'SET_FACTIONS_FILTER';
 
 const initialState = {
-    showDecksForFactions: _.keys(factionIdPrefix)
+    showDecksForFactions: keys(factionIdPrefix)
 }
 
 const decksFilters = (state = initialState, action) => {

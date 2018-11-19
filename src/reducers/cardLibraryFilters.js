@@ -1,5 +1,5 @@
 import { cardType, objectiveScoreType } from '../data/index';
-import * as _ from 'lodash';
+import keys from 'lodash/keys';
 
 export const CHANGE_SEARCH_TEXT = 'CHANGE_SEARCH_TEXT';
 export const SET_SETS = 'SET_SETS';
@@ -8,8 +8,8 @@ export const SET_VISIBLE_OBJECTIVE_SCORE_TYPES = 'SET_VISIBLE_OBJECTIVE_SCORE_TY
 
 const initialState = {
     searchText: '',
-    visibleCardTypes: _.keys(cardType).map(k => parseInt(k, 10)),
-    visibleObjectiveScoreTypes: _.keys(objectiveScoreType).map(k => parseInt(k, 10)),
+    visibleCardTypes: keys(cardType).map(k => parseInt(k, 10)),
+    visibleObjectiveScoreTypes: keys(objectiveScoreType).map(k => parseInt(k, 10)),
     sets: []
 }
 
