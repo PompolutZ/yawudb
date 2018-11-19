@@ -20,16 +20,20 @@ class Deck extends Component {
 
     async componentDidMount() {
         try {
-            const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
-            const data = deckRef.data();
-            let author;
-            if(data.author !== 'Anonymous') {
-                const userRef = await db.collection('users').doc(data.author).get();
-                author = userRef.data().displayName;
-                this.setState({ isEditAllowed: this.props.uid === userRef.id });
+            if(this.props.mydecks[this.props.match.params.id]) {
+                this.setState(state => ({ deck: this.props.mydecks[this.props.match.params.id]}));
+            } else {
+                const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
+                const data = deckRef.data();
+                let author;
+                if(data.author !== 'Anonymous') {
+                    const userRef = await db.collection('users').doc(data.author).get();
+                    author = userRef.data().displayName;
+                    this.setState({ isEditAllowed: this.props.uid === userRef.id });
+                }
+                const created = data.created.toDate();
+                this.setState({deck: {...data, id: this.props.match.params.id, created: created, author: author }}); //, author:this.props.userInfo.displayName
             }
-            const created = data.created.toDate();
-            this.setState({deck: {...data, id: this.props.match.params.id, created: created, author: author }}); //, author:this.props.userInfo.displayName
         } catch(error) {
             console.log(error);
         }
@@ -78,12 +82,12 @@ class Deck extends Component {
         this.props.setDescription(desc);
         this.props.history.push(`/deck/edit/${id}`);
     }
-
 }
 
 const mapStateToProps = state => {
     return {
-        uid: state.auth !== null ? state.auth.uid : null
+        uid: state.auth !== null ? state.auth.uid : null,
+        mydecks: state.mydecks,
     }
 }
 

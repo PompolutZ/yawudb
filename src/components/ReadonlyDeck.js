@@ -176,7 +176,6 @@ class ReadonlyDeck extends PureComponent {
             r[k] = v.count();
             return r;
         }, [0, 0, 0, 0]);
-    
         return (    
             <div style={{}}>
                 <div style={{
