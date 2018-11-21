@@ -5,7 +5,7 @@ import { db } from '../firebase';
 import AvatarPicker from '../components/AvatarPicker';
 import { setsIndex } from '../data/index';
 import { withStyles } from '@material-ui/core/styles';
-import Expansion from '../components/Expansion';
+import ExpansionIcon from '../atoms/ExpansionIcon';
 import AddIcon from '@material-ui/icons/Add';
 import { UPDATE_EXPANSIONS } from '../reducers/userExpansions';
 
@@ -71,7 +71,7 @@ class ExpansionCounter extends PureComponent {
                     <AddIcon className={classes.removeIcon} />
                 </IconButton>
                 <div style={{ position: 'relative', opacity: this.state.count > 0 ? 1 : 0.2}}>
-                    <Expansion set={set} />
+                    <ExpansionIcon set={set} variant="large" />
                     {
                         this.state.count > 1 && (
                             <div className={classes.counter}>

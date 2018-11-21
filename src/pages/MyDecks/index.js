@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import { db } from '../firebase';
-import DeckOverview from '../components/DeckOverview';
+import React, { Component, PureComponent } from 'react';
+import { db } from '../../firebase';
+// import DeckOverview from '../components/DeckOverview';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import FloatingActionButton from '../components/FloatingActionButton';
+import FloatingActionButton from '../../components/FloatingActionButton';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addOrUpdateMyDeck, removeMyDecks } from '../reducers/mydecks';
+import { addOrUpdateMyDeck, removeMyDecks } from '../../reducers/mydecks';
 import isEqual from 'lodash/isEqual';
+import DeckThumbnail from './atoms/DeckThumbnail';
+import { cardsDb, bannedCards, restrictedCards } from '../../data/index';
 
 class MyDecks extends Component {
     state = {
@@ -57,6 +59,10 @@ class MyDecks extends Component {
         history.goBack();
     }
 
+    handleThumbnailClick = id => {
+        this.props.history.push(`/view/deck/${id}`);
+    }
+
     render() {
         const { history, decks } = this.props;
 
@@ -83,11 +89,29 @@ class MyDecks extends Component {
                     !this.state.loading && decks.length > 0 && (
                         <div>
                             {
-                                decks.map(([id, deck]) => <DeckOverview key={id} isEditable {...deck} />)
+                                // decks.map(([id, deck]) => <DeckOverview key={id} isEditable {...deck} />)
+
+                                decks.map(([id, deck]) => {
+                                    const bannedCardsCount = deck.cards.filter(id => Boolean(bannedCards[id])).length;
+                                    const restrictedCardsCount = deck.cards.filter(id => Boolean(restrictedCards[id])).length;
+                                    console.log(bannedCardsCount, restrictedCardsCount);
+                                    
+                                    return <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, id)} 
+                                        key={id} 
+                                        factionId={id} 
+                                        title={deck.name} 
+                                        author={deck.author} 
+                                        date={deck.created}
+                                        sets={deck.sets}
+                                        objectives={deck.cards.map(c => ({ id: c, ...cardsDb[c]})).filter(c => c.type === 0)}
+                                        banned={bannedCardsCount}
+                                        restricted={restrictedCardsCount} />
+                                })
                             }
                         </div>
                     )
                 }
+
                 <FloatingActionButton isEnabled onClick={() => this.handleClick(history)}>
                     <AddIcon />
                 </FloatingActionButton>

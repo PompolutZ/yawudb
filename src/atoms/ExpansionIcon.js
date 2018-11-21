@@ -24,16 +24,17 @@ const styles = theme => ({
     }
 });
 
-class Expansion extends PureComponent {
+class ExpansionIcon extends PureComponent {
     render() {
-        const { classes, set } = this.props;
+        const { classes, set, variant } = this.props;
         return (
             <div className={classes.root}>
-                <img className={classes.large} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt={`${setsNames[set]}`} />
-                {/* <Typography></Typography> */}
+                <img className={variant === 'large' ? classes.large : variant === 'medium' ? classes.medium : classes.small} 
+                    src={`/assets/icons/${setsIndex[set]}-icon.png`} 
+                    alt={`${setsNames[set]}`} />
             </div>
         );
     }
 }
 
-export default withStyles(styles)(Expansion);
+export default withStyles(styles)(ExpansionIcon);

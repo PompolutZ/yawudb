@@ -10,49 +10,53 @@ import { pickCardColor } from '../utils/functions';
 import AnimateHeight from 'react-animate-height';
 import { Set } from 'immutable';
 import MoreVerticalIcon from '@material-ui/icons/MoreVert';
+import DeckIcon from '../atoms/DeckIcon';
+import { withStyles } from '@material-ui/core/styles';
+import ObjectiveScoringOverview from '../atoms/ObjectiveScoringOverview';
+import SetsList from '../atoms/SetsList';
 
 const SetIcon = ({ id, set }) => (
     <img id={id} style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt="icon" />
 )
 
-const ObjectiveScoringOverview = ({ objectives }) => {
-    return (
-      <div style={{display: 'flex', flexFlow: 'row wrap'}}>
-        <div style={{ order: 0}}>
-          { objectives[0] > 0 && (
-            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center'}}>
-              <ObjectiveScoreTypeIcon type={0} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
-              <Typography style={{fontSize: '1rem'}}>{objectives[0]}</Typography>
-            </div>
-          )}
-        </div>
-        <div style={{ order: 1}}>
-          { objectives[3] > 0 && (
-            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
-              <ObjectiveScoreTypeIcon type={3} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
-              <Typography style={{fontSize: '1rem'}}>{objectives[3]}</Typography>
-            </div>
-          )}
-        </div>
-        <div style={{ order: 2}}>
-          { objectives[1] > 0 && (
-            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
-              <ObjectiveScoreTypeIcon type={1} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
-              <Typography style={{fontSize: '1rem'}}>{objectives[1]}</Typography>
-            </div>
-          )}
-        </div>
-        <div style={{ order: 3}}>
-          { objectives[2] > 0 && (
-            <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
-              <ObjectiveScoreTypeIcon type={2} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
-              <Typography style={{fontSize: '1rem'}}>{objectives[2]}</Typography>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-}
+// const ObjectiveScoringOverview = ({ objectives }) => {
+//     return (
+//       <div style={{display: 'flex', flexFlow: 'row wrap'}}>
+//         <div style={{ order: 0}}>
+//           { objectives[0] > 0 && (
+//             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center'}}>
+//               <ObjectiveScoreTypeIcon type={0} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
+//               <Typography style={{fontSize: '1rem'}}>{objectives[0]}</Typography>
+//             </div>
+//           )}
+//         </div>
+//         <div style={{ order: 1}}>
+//           { objectives[3] > 0 && (
+//             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
+//               <ObjectiveScoreTypeIcon type={3} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
+//               <Typography style={{fontSize: '1rem'}}>{objectives[3]}</Typography>
+//             </div>
+//           )}
+//         </div>
+//         <div style={{ order: 2}}>
+//           { objectives[1] > 0 && (
+//             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
+//               <ObjectiveScoreTypeIcon type={1} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
+//               <Typography style={{fontSize: '1rem'}}>{objectives[1]}</Typography>
+//             </div>
+//           )}
+//         </div>
+//         <div style={{ order: 3}}>
+//           { objectives[2] > 0 && (
+//             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
+//               <ObjectiveScoreTypeIcon type={2} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
+//               <Typography style={{fontSize: '1rem'}}>{objectives[2]}</Typography>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     );
+// }
 
 const MiniSectionHeader = ({ type, children }) => (
     <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
@@ -68,13 +72,23 @@ const MiniSectionHeader = ({ type, children }) => (
     </div>
 );
 
+const cardStyles = theme => ({
+    img: {
+        width: '90%',
+        margin: '.5rem 5%',
+        [theme.breakpoints.up('sm')]: {
+            maxWidth: '20rem'
+        }
+    }
+});
+
 class Card extends PureComponent {
     state = {
         expanded: false
     }
 
     render() {
-        const { card } = this.props;
+        const { card, classes } = this.props;
         const animateHeight = this.state.expanded ? 'auto' : 0;
 
         return (
@@ -105,7 +119,7 @@ class Card extends PureComponent {
                     height={animateHeight}
                     duration={250}
                     easing="ease-out">
-                    <img className="card" src={`/assets/cards/${card.id}.png`} alt={card.id} style={{ width: '90%', margin: 'auto' }} />
+                    <img className={classes.img} src={`/assets/cards/${card.id}.png`} alt={card.id} />
                 </AnimateHeight>
             </div>
         );
@@ -115,6 +129,8 @@ class Card extends PureComponent {
         this.setState(state => ({ expanded: !state.expanded }));
     }
 }
+
+const StyledCard = withStyles(cardStyles)(Card);
 
 class DeckActionsMenu extends PureComponent {
     state = {
@@ -126,7 +142,7 @@ class DeckActionsMenu extends PureComponent {
 
         return (
             <div style={this.props.style}>
-                <IconButton style={{ backgroundColor: '#3B9979', color: 'white' }}
+                <IconButton 
                     aria-owns={anchorEl ? 'actions-menu' : undefined }
                     aria-haspopup
                     onClick={this.handleClick}>
@@ -162,10 +178,19 @@ const idToPrintId = id => {
     return `${id.slice(-3)}/${totalCardsPerWave[parseInt(wavePrefix, 10)]}`;
 }
 
+const styles = theme => ({
+    root: {
+        display: 'flex',
+        flexFlow: 'column',
+        [theme.breakpoints.up('sm')]: {
+            maxWidth: '30rem'
+        }
+    }
+});
 
 class ReadonlyDeck extends PureComponent {
     render() {
-        const { name, author, factionId, cards, sets, created } = this.props;
+        const { classes, name, author, factionId, cards, sets, created } = this.props;
         const objectives = cards.filter(v => v.type === 0).sort((a, b) => a.name.localeCompare(b.name));
         const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((a, b) => a.name.localeCompare(b.name));
         const upgrades = cards.filter(v => v.type === 2).sort((a, b) => a.name.localeCompare(b.name));
@@ -177,22 +202,23 @@ class ReadonlyDeck extends PureComponent {
             return r;
         }, [0, 0, 0, 0]);
         return (    
-            <div style={{}}>
+            <div className={classes.root}>
                 <div style={{
                     display: 'flex',
-                    alignItems: 'center',
-                    margin: '1rem',
+                    margin: '0 0 0 .5rem',
+                    // backgroundColor: 'magenta'
                 }}>
-                    <img id="factionDeckIcon" 
+                    <DeckIcon width="4rem" height="4rem" faction={idPrefixToFaction[factionId]} />
+                    {/* <img id="factionDeckIcon" 
                         style={{width: '4rem', height: '4rem', margin: '0 .3rem 0 0', flex: '0 0 auto'}} 
                         alt={`${idPrefixToFaction[factionId]}`} 
-                        src={`/assets/icons/${idPrefixToFaction[factionId]}-deck.png`} />
+                        src={`/assets/icons/${idPrefixToFaction[factionId]}-deck.png`} /> */}
                     <div style={{flex: '1 1 auto'}}>
                         <div style={{ fontFamily: 'roboto', fontSize: '1rem', fontWeight: 'bold'}}>{name}</div>
                         <div style={{ fontFamily: 'roboto', fontSize: '.7rem', }}>{`${author}${createdDate}`}</div>
                         <div style={{margin: '.2rem 0 0 0'}}>
                             {
-                                sets.sort((a, b) => a - b).map(s => <SetIcon key={s * 31}  set={s} />)
+                                <SetsList sets={sets} />
                             }
                         </div>
                     </div>
@@ -208,7 +234,7 @@ class ReadonlyDeck extends PureComponent {
                     </div>
                 </MiniSectionHeader>
                 { 
-                    objectives.toJS().map((v, i) => <Card key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
+                    objectives.toJS().map((v, i) => <StyledCard key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
                 }
                 <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
                     <img src={`/assets/icons/${cardTypeIcons[1]}.png`}
@@ -226,11 +252,11 @@ class ReadonlyDeck extends PureComponent {
                     </div>
                 </div>
                 {
-                    gambits.toJS().map((v, i) => <Card key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
+                    gambits.toJS().map((v, i) => <StyledCard key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
                 }
                 <MiniSectionHeader type={2} />
                 {
-                    upgrades.toJS().map((v, i) => <Card key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
+                    upgrades.toJS().map((v, i) => <StyledCard key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
                 }
                 {/* for pdf export */}
                 <div id="pdf-export-elements" style={{ position: 'fixed', left: 50000, top: 0, zIndex: 100}}>
@@ -322,4 +348,4 @@ class ReadonlyDeck extends PureComponent {
     }
 }
 
-export default ReadonlyDeck;
+export default withStyles(styles)(ReadonlyDeck);

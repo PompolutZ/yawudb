@@ -100,7 +100,7 @@ class Home extends Component {
                         }
                     </div>
                 </div>
-                <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div>
+                <div style={{margin: '1rem auto 1rem 1rem', fontSize: '2rem'}}>Last added deck:</div>
                 {
                     !this.props.lastDeck.id && (
                         <div style={{display: 'flex', height: '100vh'}}>

@@ -10,21 +10,11 @@ import Home from './pages/Home';
 
 import registerServiceWorker from './registerServiceWorker';
 import Footer from './components/Footer';
-// import Login from './pages/Login';
 import MenuAppBar from './components/MenuAppBar';
 
 import { connect, Provider } from 'react-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 import configureStore from './configureStore';
-// import Deck from './pages/Deck';
-// import About from './pages/About';
-// import SecretDeckUploader from './pages/SecretDeckUploader';
-// import Statistics from './pages/Statistics';
-// import Feedback from './pages/Feedback';
-// import UserProfile from './pages/UserProfile';
-// import Card from './pages/Card';
-// import Library from './pages/Library';
-// import SignUp from './pages/SignUp';
 import firebase, { db } from './firebase';
 import LazyLoading from './components/LazyLoading';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -40,7 +30,7 @@ const Statistics = lazy(() => import('./pages/Statistics'));
 const Feedback = lazy(() => import('./pages/Feedback'));
 const UserProfile = lazy(() => import('./pages/UserProfile'));
 const Card = lazy(() => import('./pages/Card'));
-const MyDecks = lazy(() => import('./pages/MyDecks'));
+const MyDecks = lazy(() => import('./pages/MyDecks/index'));
 const Login = lazy(() => import('./pages/Login'));
 
 const history = createBrowserHistory();
