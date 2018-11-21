@@ -1,4 +1,5 @@
 import React from 'react';
+import { db } from '../firebase';
 
 class ErrorPresenter extends React.Component {
     render() {
@@ -41,6 +42,11 @@ class ErrorBoundary extends React.Component {
         //this.setState({ error: error, info: info });
       // You can also log the error to an error reporting service
       //logErrorToMyService(error, info);
+      db.collection('errors').add({
+          error: error,
+          info: info
+      }).then(docRef => console.log('Error reported: ', docRef.id))
+        .catch(error => console.log('Error adding error doc', error));
     }
   
     render() {
