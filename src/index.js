@@ -84,12 +84,20 @@ const PrivateRoute = connect(state => ({
 }))(PrivateRouteContainer)   
 
 class App extends Component {
+    state = {
+        error: ''
+    }
+
     componentDidMount() {
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-            if(user) {
-                this._handleAuthUser(user.uid);
-            } else {
-                this.props.onSignOut();
+            try {
+                if(user) {
+                    this._handleAuthUser(user.uid);
+                } else {
+                    this.props.onSignOut();
+                }
+            } catch(err) {
+                this.setState({ error: err });
             }
         });
     }
@@ -103,6 +111,8 @@ class App extends Component {
             <ConnectedRouter history={history}>
                 <div>
                     <MenuAppBar />
+
+                    <div>{this.state.error}</div>
 
                     <ErrorBoundary>
                         <div style={{paddingTop: '4rem'}}>

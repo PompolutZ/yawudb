@@ -13,6 +13,13 @@ class ErrorPresenter extends React.Component {
                         Worry not though! Help is on its way.
                     </div>
 
+                    <div style={{ color: 'red', maxWidth: '80%'}}>
+                        { this.props.error }
+                    </div>
+
+                    <div  style={{ color: 'blue', maxWidth: '80%'}}>
+                        { this.state.info }
+                    </div>
                 </div>
             </div>
         );
@@ -22,15 +29,16 @@ class ErrorPresenter extends React.Component {
 class ErrorBoundary extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { hasError: false };
+      this.state = { hasError: false, info: '', error: '' };
     }
   
     static getDerivedStateFromError(error) {
       // Update state so the next render will show the fallback UI.
-      return { hasError: true };
+      return { hasError: true, error: error };
     }
   
     componentDidCatch(error, info) {
+        //this.setState({ error: error, info: info });
       // You can also log the error to an error reporting service
       //logErrorToMyService(error, info);
     }
@@ -38,7 +46,7 @@ class ErrorBoundary extends React.Component {
     render() {
       if (this.state.hasError) {
         // You can render any custom fallback UI
-        return <ErrorPresenter />;
+        return <ErrorPresenter error={this.state.error} info={this.state.info} />;
       }
   
       return this.props.children; 

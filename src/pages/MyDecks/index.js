@@ -35,10 +35,10 @@ class MyDecks extends Component {
                 const created = data.created.toDate();
                 this.props.addOrUpdate(deckId, data.created, {...data, id: deckId, created: created, author:this.props.userInfo.displayName});
                 ids.push(deckId);
+            }
 
-                if(this.state.loading) {
-                    this.setState({loading: false});
-                }
+            if(this.state.loading) {
+                this.setState({loading: false});
             }
 
             this.props.removeMissingDecks(ids);    
@@ -95,7 +95,7 @@ class MyDecks extends Component {
                                     const bannedCardsCount = deck.cards.filter(id => Boolean(bannedCards[id])).length;
                                     const restrictedCardsCount = deck.cards.filter(id => Boolean(restrictedCards[id])).length;
                                     console.log(bannedCardsCount, restrictedCardsCount);
-                                    
+
                                     return <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, id)} 
                                         key={id} 
                                         factionId={id} 

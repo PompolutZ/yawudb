@@ -53,7 +53,7 @@ const expansionCounterStyle = theme => ({
 
 class ExpansionCounter extends PureComponent {
     state = {
-        count: this.props.count
+        count: !this.props.count ? 0 : this.props.count
     }
 
     render() {
