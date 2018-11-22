@@ -14,49 +14,11 @@ import DeckIcon from '../atoms/DeckIcon';
 import { withStyles } from '@material-ui/core/styles';
 import ObjectiveScoringOverview from '../atoms/ObjectiveScoringOverview';
 import SetsList from '../atoms/SetsList';
+import { withRouter } from 'react-router-dom';
 
 const SetIcon = ({ id, set }) => (
     <img id={id} style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt="icon" />
 )
-
-// const ObjectiveScoringOverview = ({ objectives }) => {
-//     return (
-//       <div style={{display: 'flex', flexFlow: 'row wrap'}}>
-//         <div style={{ order: 0}}>
-//           { objectives[0] > 0 && (
-//             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center'}}>
-//               <ObjectiveScoreTypeIcon type={0} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
-//               <Typography style={{fontSize: '1rem'}}>{objectives[0]}</Typography>
-//             </div>
-//           )}
-//         </div>
-//         <div style={{ order: 1}}>
-//           { objectives[3] > 0 && (
-//             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
-//               <ObjectiveScoreTypeIcon type={3} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
-//               <Typography style={{fontSize: '1rem'}}>{objectives[3]}</Typography>
-//             </div>
-//           )}
-//         </div>
-//         <div style={{ order: 2}}>
-//           { objectives[1] > 0 && (
-//             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
-//               <ObjectiveScoreTypeIcon type={1} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
-//               <Typography style={{fontSize: '1rem'}}>{objectives[1]}</Typography>
-//             </div>
-//           )}
-//         </div>
-//         <div style={{ order: 3}}>
-//           { objectives[2] > 0 && (
-//             <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', margin: '0 0 0 .5rem'}}>
-//               <ObjectiveScoreTypeIcon type={2} style={{width: '.8rem', height: '.8rem', margin: '0 0 0 0'}} />
-//               <Typography style={{fontSize: '1rem'}}>{objectives[2]}</Typography>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     );
-// }
 
 const MiniSectionHeader = ({ type, children }) => (
     <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
@@ -153,15 +115,22 @@ class DeckActionsMenu extends PureComponent {
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={this.handleClose}>
-                    <MenuItem onClick={this.handleExportReddit}>Save as PDF</MenuItem>
+                    <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
+                    <MenuItem onClick={this.handleExportToPdf}>Save as PDF</MenuItem>
                 </Menu>
             </div>
 
         );
     }
 
-    handleExportReddit = () => {
+    handleEdit = () => {
+        this.props.onEdit();
+        this.handleClose();
+    }
+
+    handleExportToPdf = () => {
         this.props.onSaveAsPdf();
+        this.handleClose();
     }
 
     handleClick = event => {
@@ -206,13 +175,8 @@ class ReadonlyDeck extends PureComponent {
                 <div style={{
                     display: 'flex',
                     margin: '0 0 0 .5rem',
-                    // backgroundColor: 'magenta'
                 }}>
                     <DeckIcon width="4rem" height="4rem" faction={idPrefixToFaction[factionId]} />
-                    {/* <img id="factionDeckIcon" 
-                        style={{width: '4rem', height: '4rem', margin: '0 .3rem 0 0', flex: '0 0 auto'}} 
-                        alt={`${idPrefixToFaction[factionId]}`} 
-                        src={`/assets/icons/${idPrefixToFaction[factionId]}-deck.png`} /> */}
                     <div style={{flex: '1 1 auto'}}>
                         <div style={{ fontFamily: 'roboto', fontSize: '1rem', fontWeight: 'bold'}}>{name}</div>
                         <div style={{ fontFamily: 'roboto', fontSize: '.7rem', }}>{`${author}${createdDate}`}</div>
@@ -222,7 +186,7 @@ class ReadonlyDeck extends PureComponent {
                             }
                         </div>
                     </div>
-                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf} />
+                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf} onEdit={this._onEdit} />
                 </div>
     
                 <MiniSectionHeader type={0}>
@@ -234,7 +198,7 @@ class ReadonlyDeck extends PureComponent {
                     </div>
                 </MiniSectionHeader>
                 { 
-                    objectives.toJS().map((v, i) => <StyledCard key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
+                    objectives.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
                 }
                 <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
                     <img src={`/assets/icons/${cardTypeIcons[1]}.png`}
@@ -252,11 +216,11 @@ class ReadonlyDeck extends PureComponent {
                     </div>
                 </div>
                 {
-                    gambits.toJS().map((v, i) => <StyledCard key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
+                    gambits.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
                 }
                 <MiniSectionHeader type={2} />
                 {
-                    upgrades.toJS().map((v, i) => <StyledCard key={i} card={v} /> )//getReadOnlyWUCardByIdFromDb(v.id, v.id.slice(-3), v, i % 2 === 0))
+                    upgrades.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
                 }
                 {/* for pdf export */}
                 <div id="pdf-export-elements" style={{ position: 'fixed', left: 50000, top: 0, zIndex: 100}}>
@@ -279,6 +243,10 @@ class ReadonlyDeck extends PureComponent {
             </div>
 
         );        
+    }
+
+    _onEdit = () => {
+        this.props.history.push(`/deck/edit/${this.props.factionId}`)
     }
 
     _handleSaveAsPdf = () => {
@@ -348,4 +316,4 @@ class ReadonlyDeck extends PureComponent {
     }
 }
 
-export default withStyles(styles)(ReadonlyDeck);
+export default withRouter(withStyles(styles)(ReadonlyDeck));

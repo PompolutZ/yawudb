@@ -42,6 +42,7 @@ class ErrorBoundary extends React.Component {
         //this.setState({ error: error, info: info });
       // You can also log the error to an error reporting service
       //logErrorToMyService(error, info);
+      localStorage.removeItem('state');
       db.collection('errors').add({
           error: error,
           info: info

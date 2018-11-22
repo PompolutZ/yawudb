@@ -18,7 +18,7 @@ const DeckThumbnailHeader = ({ title, author, date, sets, scoringOverview, banne
         }
 
         <SetsList sets={sets} />
-        <ScoringOverview summary={scoringOverview.summary} />
+        <ScoringOverview summary={scoringOverview.summary} glory={scoringOverview.glory} />
         <RestrictedBannedCardsCount banned={banned} restricted={restricted} />
     </div>
 );

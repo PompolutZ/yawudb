@@ -21,7 +21,7 @@ class Deck extends Component {
     async componentDidMount() {
         try {
             if(this.props.mydecks[this.props.match.params.id]) {
-                this.setState(state => ({ deck: this.props.mydecks[this.props.match.params.id]}));
+                this.setState(state => ({ deck: this.props.mydecks[this.props.match.params.id], isEditAllowed: true }));
             } else {
                 const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
                 const data = deckRef.data();
