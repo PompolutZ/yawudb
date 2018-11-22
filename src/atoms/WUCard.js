@@ -63,9 +63,18 @@ const colorsTable = [
 ]
 
 class WUCardTypeImage extends PureComponent {
+    state = {
+        inDeck: this.props.inDeck
+    }
+
+    handleClick = () => {
+        this.setState(state => ({ inDeck: !state.inDeck}))
+        this.props.toggle();
+    }
+
     render() {
         const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon', 'gambit spell-icon'];
-        const { type, addButton, inTheDeck, notInTheDeck, toggle, isAlter, inDeck, readonly } = this.props;
+        const { type, addButton, inTheDeck, notInTheDeck, isAlter, readonly } = this.props;
         return (
             <div style={{position: 'relative'}}>
                 <div style={{position: 'relative'}}>
@@ -73,9 +82,9 @@ class WUCardTypeImage extends PureComponent {
                         style={{ width: '3rem', height: '3rem'}} />
                     {
                         !readonly &&
-                        <ButtonBase className={classnames(addButton, inTheDeck, {[notInTheDeck]: inDeck})} 
+                        <ButtonBase className={classnames(addButton, inTheDeck, {[notInTheDeck]: this.state.inDeck})} 
                                     style={{ border:`.1rem solid ${isAlter ? '#E0F3EC' : 'white'}` }}
-                                    onClick={toggle}>
+                                    onClick={this.handleClick}>
                             <AddIcon style={{width: '1.2rem', margin: 'auto'}} />
                         </ButtonBase>
                     }
@@ -127,7 +136,6 @@ class WUCardInfo extends PureComponent {
 
 class WUCardAtom extends Component {
     state = { 
-        expanded: false, 
         color: 0, 
     };
 
@@ -138,12 +146,8 @@ class WUCardAtom extends Component {
             nextProps.name !== this.props.name ||
             nextProps.isAlter !== this.props.isAlter ||
             nextProps.inDeck !== this.props.inDeck ||
-            nextState.expanded !== this.state.expanded;
+            nextProps.expanded !== this.props.expanded;
     }
-
-    handleExpandClick = () => {
-        this.setState(state => ({ expanded: !state.expanded, color: state.color + 1 === colorsTable.length ? 0 : state.color + 1 }));
-    };
 
     handleToggleCardInDeck = () => {
         this.props.toggleCardInDeck(this.props.id);
@@ -173,7 +177,7 @@ class WUCardAtom extends Component {
         const { classes, type, id, scoreType, name, set, isAlter, inDeck } = this.props;
         const isRestricted = Boolean(restrictedCards[id]);
         const isBanned = Boolean(bannedCards[id]);
-        const height = this.state.expanded ? 'auto' : 0;
+        const height = this.props.expanded ? 'auto' : 0;
         
         return (
             <div style={{ backgroundColor: this.pickBackgroundColor(isRestricted, isBanned)}}>
@@ -181,9 +185,9 @@ class WUCardAtom extends Component {
                     <WUCardTypeImage {...classes} type={type} inDeck={inDeck} isAlter={isAlter} toggle={this.handleToggleCardInDeck} />
                     <WUCardInfo pickColor={this.pickForegroundColor} isRestricted={isRestricted} isBanned={isBanned} set={set} name={name} scoreType={scoreType} type={type} id={id} />
                     <IconButton
-                        className={classnames(classes.expand, {[classes.expandOpen]: this.state.expanded, })}
+                        className={classnames(classes.expand, {[classes.expandOpen]: this.props.expanded, })}
                         style={{ color: this.pickForegroundColor(isRestricted, isBanned, 'gray')}}
-                        onClick={this.handleExpandClick}>
+                        onClick={this.props.onExpandChange}>
                         <ExpandMoreIcon />
                     </IconButton>
                 </div>

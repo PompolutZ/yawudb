@@ -2,14 +2,13 @@ import React, { Component, PureComponent } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { cardTypeIcons, cardsDb } from '../data/index';
-import TextField from '@material-ui/core/TextField';
 import { Set } from 'immutable';
 import { toggleCardInDeck } from './DeckBuiilder/components/CardsLibrary';
 import DeckIcon from '../atoms/DeckIcon';
 import WUButton from '../atoms/Button';
 import WUTextField from '../atoms/WUTextField';
 import isEqual from 'lodash/isEqual';
-import WUCard from '../atoms/WUCard';
+import ExpandableWUCard from '../atoms/ExpandableWUCard';
 
 class CardsTypeCounter extends Component {
     shouldComponentUpdate(nextProps, nextState) {
@@ -57,7 +56,7 @@ class CardsList extends Component {
         return (
             <div style={{ margin: '.5rem'}}>
                 {
-                    this.props.list.map((v, i) => <WUCard key={i} {...v} isAlter={i % 2 === 0} toggleCardInDeck={this.props.toggle} inDeck /> )
+                    this.props.list.map((v, i) => <ExpandableWUCard key={i} {...v} isAlter={i % 2 === 0} toggleCardInDeck={this.props.toggle} inDeck /> )
                 }                
             </div>
         );
