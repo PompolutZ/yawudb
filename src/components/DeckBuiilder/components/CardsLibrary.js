@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { getCardsByFactionAndSets, cardsDb, factionIndexes } from '../../../data';
-import { getWUCardByIdFromDB } from '../../WUCard';
 import { ADD_CARD, REMOVE_CARD } from '../../../reducers/deckUnderBuild';
 import { connect } from 'react-redux';
 import { Set } from 'immutable';
+import WUCard from '../../../atoms/WUCard';
 
 export const toggleCardInDeck = (id, currentDeck, addCard, removeCard) => {
     if(currentDeck.includes(id)) {
@@ -42,8 +42,10 @@ class CardsLibrary extends Component {
         const sorted = filteredCards.toJS().sort((c1, c2) => this._sort(c1, c2));
         const content = sorted 
             .map((c, i) => {
-                const cardPN = parseInt(c.id.slice(-3), 10);
-                return getWUCardByIdFromDB(c.id, cardPN, c, i % 2 === 0, this._toggleCardInDeck.bind(this, c.id), currentDeck.some(id => id  === c.id))
+                return <WUCard key={i} {...c} 
+                    isAlter={i % 2 === 0} 
+                    toggleCardInDeck={this._toggleCardInDeck.bind(this, c.id)} 
+                    inDeck={currentDeck.some(id => id  === c.id)}  />
             });
 
         return (
