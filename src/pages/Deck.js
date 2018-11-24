@@ -55,7 +55,15 @@ class Deck extends Component {
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 {/* <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div> */}
-                <ReadonlyDeck author={author} name={name} created={created} sets={sets} factionId={id.substr(0, id.length - 13)} cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))} />
+                <ReadonlyDeck 
+                    id={id}
+                    author={author} 
+                    name={name} 
+                    created={created} 
+                    sets={sets} 
+                    factionId={id.substr(0, id.length - 13)} 
+                    cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))}
+                    canEdit={this.state.isEditAllowed} />
                 {
                     this.state.isEditAllowed && (
                         <FloatingActionButton isEnabled onClick={this._editDeck}>

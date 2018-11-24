@@ -29,8 +29,6 @@ class ExpansionsToggle extends Component {
             clearTimeout(this.timeoutId);
         }
 
-        console.log(expansions);
-
         this.timeoutId = setTimeout(() => this.props.onExpansionsChange(expansions), 350);
     }
 

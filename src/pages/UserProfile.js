@@ -58,7 +58,6 @@ class ExpansionCounter extends PureComponent {
 
     render() {
         const { classes, set } = this.props;
-        console.log(this.state);
         return(
             <div className={classes.root}>
                 <IconButton onClick={this.handleDecrement} style={{

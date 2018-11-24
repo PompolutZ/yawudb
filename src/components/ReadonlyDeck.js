@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave } from '../data/index';
+import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, warbandsWithDefaultSet } from '../data/index';
 import { pickCardColor } from '../utils/functions';
 import AnimateHeight from 'react-animate-height';
 import { Set } from 'immutable';
@@ -15,6 +15,10 @@ import { withStyles } from '@material-ui/core/styles';
 import ObjectiveScoringOverview from '../atoms/ObjectiveScoringOverview';
 import SetsList from '../atoms/SetsList';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { ADD_CARD, SET_FACTION, CHANGE_NAME, CHANGE_DESCRIPTION } from '../reducers/deckUnderBuild';
+import { SET_SETS } from '../reducers/cardLibraryFilters';
+import ScoringOverview from '../atoms/ScoringOverview';
 
 const SetIcon = ({ id, set }) => (
     <img id={id} style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt="icon" />
@@ -115,7 +119,11 @@ class DeckActionsMenu extends PureComponent {
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={this.handleClose}>
-                    <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
+                    {
+                        this.props.canEdit && (
+                            <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
+                        )
+                    }
                     <MenuItem onClick={this.handleExportToPdf}>Save as PDF</MenuItem>
                 </Menu>
             </div>
@@ -170,6 +178,8 @@ class ReadonlyDeck extends PureComponent {
             r[k] = v.count();
             return r;
         }, [0, 0, 0, 0]);
+
+        const totalGlory = objectives.reduce((acc, c) => acc + c.glory, 0);
         return (    
             <div className={classes.root}>
                 <div style={{
@@ -186,15 +196,14 @@ class ReadonlyDeck extends PureComponent {
                             }
                         </div>
                     </div>
-                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf} onEdit={this._onEdit} />
+                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf} canEdit={this.props.canEdit} onEdit={this._onEdit} />
                 </div>
     
                 <MiniSectionHeader type={0}>
                     <div style={{ display: 'flex'}}>
                         <div style={{ display: 'flex'}}>
-                            (<ObjectiveScoringOverview objectives={objectiveSummary} />)
+                            <ScoringOverview summary={objectiveSummary} glory={totalGlory} />
                         </div>
-                        <Typography style={{ fontSize: '1rem', marginLeft: '.3rem', color: '#3B9979'}}> -> {objectives.reduce((acc, el) => acc + parseInt(el.glory, 10), 0)} GP</Typography>        
                     </div>
                 </MiniSectionHeader>
                 { 
@@ -246,7 +255,17 @@ class ReadonlyDeck extends PureComponent {
     }
 
     _onEdit = () => {
-        this.props.history.push(`/deck/edit/${this.props.factionId}`)
+        const faction = idPrefixToFaction[this.props.factionId];
+        const defaultSet = warbandsWithDefaultSet.filter(a => a.includes(faction));
+        this.props.setFaction(faction, defaultSet[0][1]);
+        this.props.setSets(this.props.sets);
+        for(let c of this.props.cards) {
+            this.props.addCard(c.id);
+        }
+        
+        this.props.setName(this.props.name);
+        this.props.setDescription(this.props.desc);
+        this.props.history.push(`/deck/edit/${this.props.id}`);
     }
 
     _handleSaveAsPdf = () => {
@@ -316,4 +335,14 @@ class ReadonlyDeck extends PureComponent {
     }
 }
 
-export default withRouter(withStyles(styles)(ReadonlyDeck));
+const mapDispatchToProps = dispatch => {
+    return {
+        addCard: card => dispatch({ type: ADD_CARD, card: card}),
+        setName: name => dispatch({ type: CHANGE_NAME, name: name}),
+        setDescription: desc => dispatch({ type: CHANGE_DESCRIPTION, desc: desc }),
+        setFaction: (faction, defaultSet) => dispatch({ type: SET_FACTION, faction: faction, defaultSet: defaultSet }),
+        setSets: sets => dispatch({ type: SET_SETS, payload: sets })
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(withStyles(styles)(ReadonlyDeck)));

@@ -22,26 +22,26 @@ class VirtualizedCardsList extends Component {
     }
     
     _rowRenderer = params => {
-        if(params.isScrolling) {
-            const { id, name } = this.props.cards[params.index].card;
-            return (
-                <div key={params.key} style={{...params.style, ...{ 
-                    fontFamily: `'Roboto', sans-serif`, 
-                    fontSize: '.8rem', 
-                    backgroundColor: params.index % 2 === 0 ? 'rgb(224, 243, 236)' : 'White',
-                    padding: '.5rem 0 0 2rem' }
-                }} >
-                    { `${ id.slice(-3) }. ${ name }` }
-                </div>
-            )
-        } else {
+        // if(params.isScrolling) {
+        //     const { id, name } = this.props.cards[params.index].card;
+        //     return (
+        //         <div key={params.key} style={{...params.style, ...{ 
+        //             fontFamily: `'Roboto', sans-serif`, 
+        //             fontSize: '.8rem', 
+        //             backgroundColor: params.index % 2 === 0 ? 'rgb(224, 243, 236)' : 'White',
+        //             padding: '.5rem 0 0 2rem' }
+        //         }} >
+        //             { `${ id.slice(-3) }. ${ name }` }
+        //         </div>
+        //     )
+        // } else {
             const renderedItem = this._renderItem(params.index)
             return (
                 <div key={params.key} style={params.style} >
                     { renderedItem }
                 </div>
             );
-        }
+        // }
     }
 
     _renderItem = index => {
@@ -85,7 +85,6 @@ class VirtualizedCardsList extends Component {
     }
 
     render() {
-        console.log(window.screen.width, window.screen.height);
         return (
             <div style={{ margin: '0 .5rem'}}>
                 <AutoSizer disableHeight>

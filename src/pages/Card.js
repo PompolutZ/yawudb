@@ -59,7 +59,6 @@ class Card extends PureComponent {
         const { classes } = this.props;
         const isRestricted = Boolean(restrictedCards[this.props.match.params.id]);
         const isBanned = Boolean(bannedCards[this.props.match.params.id]);
-        console.log(isRestricted);
         return (
             <div className={classes.root}>
                 <img src={`/assets/cards/${this.props.match.params.id}.png`} alt={`card`}

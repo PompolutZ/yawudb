@@ -47,8 +47,6 @@ const About = ({ classes }) => {
                              .drop(1)
                              .map(k => ({release: k, log: getChangeLogItemsByKey(k)}))
                              .value();
-    console.log(lastUpdate);                                                    
-    console.log(previousReleases);
     return (
         <div className={classes.root}>
             <Typography variant="headline" className={classes.item}>

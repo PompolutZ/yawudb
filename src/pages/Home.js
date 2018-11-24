@@ -63,10 +63,10 @@ class Home extends Component {
                 const deck = doc.data();
                 if(deck.author !== 'Anonymous') {
                     const userProfileRef = await db.collection('users').doc(deck.author).get();
-                    this.props.addOrUpdate(doc.id, doc.created, {...deck, id: doc.id, created: deck.created.toDate(), author: userProfileRef.data().displayName});
+                    this.props.addOrUpdate(doc.id, doc.created, {...deck, id: doc.id, created: deck.created.toDate(), author: userProfileRef.data().displayName, authorId: deck.author});
                     // this.setState({lastAddedDeck: });
                 } else {
-                    this.props.addOrUpdate(doc.id, doc.created, {...deck, id: doc.id, created: deck.created.toDate()});
+                    this.props.addOrUpdate(doc.id, doc.created, {...deck, id: doc.id, created: deck.created.toDate(), authorId: deck.author});
                     // this.setState({lastAddedDeck: });
                 }
             }))
@@ -114,13 +114,15 @@ class Home extends Component {
                 {
                     this.props.lastDeck.id && (
                         <ReadonlyDeck 
+                            id={this.props.lastDeck.id}
                             name={this.props.lastDeck.data.name} 
                             author={this.props.lastDeck.data.author} 
                             created={this.props.lastDeck.data.created} 
                             sets={this.props.lastDeck.data.sets} 
                             scoringSummary={this.props.lastDeck.data.scoringSummary}
                             factionId={this.props.lastDeck.id.substr(0, this.props.lastDeck.id.length - 13)} 
-                            cards={new OrderedSet(this.props.lastDeck.data.cards.map(c => ({id: c, ...cardsDb[c]})))} />                        
+                            cards={new OrderedSet(this.props.lastDeck.data.cards.map(c => ({id: c, ...cardsDb[c]})))}
+                            canEdit={ this.props.lastDeck.data.authorId === this.props.userInfo.uid } />                        
                     )
                 }
                 <FloatingActionButton isEnabled onClick={() => history.push('/deck/create')}>
@@ -134,6 +136,7 @@ class Home extends Component {
 const mapStateToProps = state => {
     return {
         lastDeck: state.lastDeck,
+        userInfo: state.auth,
     }
 }
 

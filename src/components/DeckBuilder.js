@@ -154,8 +154,6 @@ class DeckBuilder extends Component {
             author: this.props.isAuth ? this.props.userInfo.uid : 'Anonymous'
         }
 
-        console.log(deckPayload)
-
         if(this.props.isAuth) {
             const batch = db.batch();
             const userRef = db.collection('users').doc(this.props.userInfo.uid);
@@ -167,7 +165,6 @@ class DeckBuilder extends Component {
 
             batch.commit()
                 .then(() => {
-                    console.log('SAVED DECK', deckId);
                     this.props.resetDeck();
                     this.setState({showNotification: true});
                     this.props.history.push('/mydecks');
@@ -182,7 +179,6 @@ class DeckBuilder extends Component {
                     });
                     otherBatch.commit()
                             .then(() => {
-                                console.log('SAVED DECK AFTER ERROR', deckId);
                                 this.props.resetDeck();
                                 this.setState({showNotification: true});
                                 this.props.history.push('/mydecks');

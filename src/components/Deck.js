@@ -97,7 +97,6 @@ class Deck extends PureComponent {
 
     render() {
         const { selectedCards, faction, onSave, onRemoveAll, onCancel, onUpdate } = this.props;
-        
         const cards = new Set(selectedCards.map(id => ({id: id, ...cardsDb[id] })));
         const objectives = cards.filter(v => v.type === 0).sort((c1, c2) => c1.name.localeCompare(c2.name)).toJS();
         const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((c1, c2) => c1.name.localeCompare(c2.name)).toJS();
