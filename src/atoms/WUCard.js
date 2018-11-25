@@ -46,6 +46,15 @@ const styles = theme => ({
     notInTheDeck: {
         backgroundColor: '#8A1C1C',
         transform: 'rotate(45deg)',
+    },
+
+    cardImg: {
+        width: 'calc(100% - 2rem)',
+        margin: '0 1rem',
+        [theme.breakpoints.up('md')]: {
+            maxWidth: '20rem',
+            margin: 'auto'
+        }
     }
 });
 
@@ -96,10 +105,22 @@ class WUCardTypeImage extends PureComponent {
 
 class WUCardInfo extends PureComponent {
     render() {
-        const { isRestricted, isBanned, set, name, scoreType, type, id, pickColor } = this.props;
+        const { isRestricted, isBanned, set, name, scoreType, type, id, pickColor, glory } = this.props;
         return (
             <div style={{ marginLeft: '1rem'}}>
-                <Typography variant="body2" style={{color: pickColor(isRestricted, isBanned, colorsTable[set])}}>{name}</Typography>
+                <div style={{ display: 'flex'}}>
+                    <Typography variant="body2" style={{color: pickColor(isRestricted, isBanned, colorsTable[set])}}>{name}</Typography>
+                    {
+                        glory > 0 && (
+                            <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.5rem'}}>
+                                <svg style={{fill: '#D38E36', width: '.8rem', height: '.8rem' }} viewBox="0 0 24 24">
+                                    <path xmlns="http://www.w3.org/2000/svg" d="M23 12l-2.44-2.78.34-3.68-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.81.34 3.68L1 12l2.44 2.78-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.68L23 12zm-10 6z"/>
+                                </svg>
+                                <Typography style={{ color: 'black', fontSize: '.8rem'}}>{glory}</Typography>
+                            </div>
+                        )
+                    }
+                </div>
                 <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'flex-start'}}>
                     <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'flex-start', margin: '0 .2rem 0 0'}}>
                         <Typography variant="body2" style={{fontSize: '.75rem', color: pickColor(isRestricted, isBanned, 'gray')}}>
@@ -174,7 +195,7 @@ class WUCardAtom extends Component {
     }
 
     render() {
-        const { classes, type, id, scoreType, name, set, isAlter, inDeck } = this.props;
+        const { classes, type, id, scoreType, glory, name, set, isAlter, inDeck } = this.props;
         const isRestricted = Boolean(restrictedCards[id]);
         const isBanned = Boolean(bannedCards[id]);
         const height = this.props.expanded ? 'auto' : 0;
@@ -183,7 +204,15 @@ class WUCardAtom extends Component {
             <div style={{ backgroundColor: this.pickBackgroundColor(isRestricted, isBanned)}}>
                 <div style={{ display: 'flex', margin: '0 0 .5rem .5rem', padding: '.5rem 0 0 0'}}>
                     <WUCardTypeImage {...classes} type={type} inDeck={inDeck} isAlter={isAlter} toggle={this.handleToggleCardInDeck} />
-                    <WUCardInfo pickColor={this.pickForegroundColor} isRestricted={isRestricted} isBanned={isBanned} set={set} name={name} scoreType={scoreType} type={type} id={id} />
+                    <WUCardInfo pickColor={this.pickForegroundColor} 
+                        isRestricted={isRestricted} 
+                        isBanned={isBanned} 
+                        set={set} 
+                        name={name} 
+                        scoreType={scoreType} 
+                        type={type} 
+                        id={id}
+                        glory={glory} />
                     <IconButton
                         className={classnames(classes.expand, {[classes.expandOpen]: this.props.expanded, })}
                         style={{ color: this.pickForegroundColor(isRestricted, isBanned, 'gray')}}
@@ -195,7 +224,7 @@ class WUCardAtom extends Component {
                     duration={ 250 }
                     height={ height } // see props documentation bellow
                     easing="ease-out">
-                    <img className="cardImg" alt={id.slice(-3)} src={`/assets/cards/${id}.png`} />
+                    <img className={classes.cardImg} alt={id.slice(-3)} src={`/assets/cards/${id}.png`} />
                 </AnimateHeight>
             </div>
         );

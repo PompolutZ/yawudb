@@ -65,7 +65,7 @@ class VirtualizedCardsList extends Component {
     _calcRowHeight = params => {
         const item = this.props.cards[params.index];
         if(item) {
-            return item.expanded ? 600 : 75;
+            return item.expanded ? 550 : 75;
         }    
 
         return 75;
