@@ -9,6 +9,7 @@ import WUButton from '../atoms/Button';
 import WUTextField from '../atoms/WUTextField';
 import isEqual from 'lodash/isEqual';
 import ExpandableWUCard from '../atoms/ExpandableWUCard';
+import ScoringOverview from '../atoms/ScoringOverview';
 
 class CardsTypeCounter extends Component {
     shouldComponentUpdate(nextProps, nextState) {
@@ -107,6 +108,12 @@ class Deck extends PureComponent {
         const upgradesCount = upgrades.length;
         const isValidForSave = objectivesCount === 12 && ((gambitsCount + upgradesCount) >= 20);
 
+        const objectiveSummary = objectives.reduce((acc, c) => {
+            acc[c.scoreType] += 1;
+            return acc;
+        }, [0, 0, 0, 0]);
+
+        const totalGlory = objectives.reduce((acc, c) => acc + c.glory, 0);
         return (
             <div>
                 <div style={{
@@ -116,20 +123,10 @@ class Deck extends PureComponent {
                 }}>
                     <DeckIcon faction={faction} width="3rem" height="3rem" />
                     <WUTextField label="Deck name" value={this.state.name} onValueChange={this.handleChangeName} />
-                    {/* <TextField
-                        id="with-placeholder"
-                        label="Deck name"
-                        value={this.state.name}  
-                        margin="none"
-                        style={{flex: '1 1 auto'}}
-                        onChange={this.handleChangeName}
-                        /> */}
-                    {/* <Typography variant="title">{`${factions[faction]}`}</Typography> */}
                 </div>
                 <div style={{ display: 'flex', margin: '.5rem' }}>
                     <WUTextField label="Description" value={this.state.desc} onValueChange={this.handleChangeDescription} />
                 </div>
-                {/* <DeckDescription defaultDescription={this.state.desc} onChange={this.handleChangeDescription} /> */}
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-around',
@@ -142,7 +139,10 @@ class Deck extends PureComponent {
                 </div>
                 
                 <SectionHeader>
-                    Objectives
+                    <div style={{ display: 'flex'}}>
+                        <div style={{ marginRight: '.3rem'}}>Objectives</div>
+                        <ScoringOverview summary={objectiveSummary} glory={totalGlory} />
+                    </div>
                 </SectionHeader>
                 <CardsList list={objectives} toggle={this._toggleCardInDeck} />
                 {/* {
