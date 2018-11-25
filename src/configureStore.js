@@ -38,8 +38,8 @@ const configureStore = history => {
             mydecks,
             lastDeck,
         })), 
-        // loadPersistedOnModile(),
-        loadState(),
+        loadPersistedOnModile(),
+        //loadState(),
         // {},
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
         applyMiddleware(routerMiddleware(history)));

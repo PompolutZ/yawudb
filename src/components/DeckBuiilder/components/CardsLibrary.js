@@ -46,7 +46,7 @@ class VirtualizedCardsList extends Component {
 
     _renderItem = index => {
         const { card, expanded } = this.props.cards[index]; 
-        return <WUCard {...card} isAlter={index % 2 === 0} inDeck={this.props.currentDeck.includes(card.id)}
+        return <WUCard key={card.id} {...card} isAlter={index % 2 === 0} inDeck={this.props.currentDeck.includes(card.id)}
             toggleCardInDeck={this.props.toggleCardInDeck}
             expanded={expanded}
             onExpandChange={this._handleExpanded.bind(this, index)} />
@@ -133,6 +133,7 @@ class FilterableCardLibrary extends Component {
 
         const sorted = filteredCards.toJS().sort((c1, c2) => this._sort(c1, c2));
         const drawableCards = sorted.map(c => ({ card: c, expanded: false }))
+        console.log(currentDeck.toJS());
         // const content = sorted 
         //     .map((c, i) => {
         //         return <WUCard key={i} {...c} 

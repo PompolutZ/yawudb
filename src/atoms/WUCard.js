@@ -178,7 +178,7 @@ class WUCardAtom extends Component {
         const isRestricted = Boolean(restrictedCards[id]);
         const isBanned = Boolean(bannedCards[id]);
         const height = this.props.expanded ? 'auto' : 0;
-        
+
         return (
             <div style={{ backgroundColor: this.pickBackgroundColor(isRestricted, isBanned)}}>
                 <div style={{ display: 'flex', margin: '0 0 .5rem .5rem', padding: '.5rem 0 0 0'}}>

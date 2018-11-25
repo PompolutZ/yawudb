@@ -51,14 +51,15 @@ class Deck extends Component {
             );
         }
 
-        const { id, name, cards, sets, created, author } = this.state.deck;
+        const { id, name, desc, cards, sets, created, author } = this.state.deck;
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 {/* <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div> */}
                 <ReadonlyDeck 
                     id={id}
                     author={author} 
-                    name={name} 
+                    name={name}
+                    desc={desc} 
                     created={created} 
                     sets={sets} 
                     factionId={id.substr(0, id.length - 13)} 

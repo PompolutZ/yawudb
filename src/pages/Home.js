@@ -116,13 +116,14 @@ class Home extends Component {
                         <ReadonlyDeck 
                             id={this.props.lastDeck.id}
                             name={this.props.lastDeck.data.name} 
+                            desc={this.props.lastDeck.data.desc}
                             author={this.props.lastDeck.data.author} 
                             created={this.props.lastDeck.data.created} 
                             sets={this.props.lastDeck.data.sets} 
                             scoringSummary={this.props.lastDeck.data.scoringSummary}
                             factionId={this.props.lastDeck.id.substr(0, this.props.lastDeck.id.length - 13)} 
                             cards={new OrderedSet(this.props.lastDeck.data.cards.map(c => ({id: c, ...cardsDb[c]})))}
-                            canEdit={ this.props.lastDeck.data.authorId === this.props.userInfo.uid } />                        
+                            canEdit={ this.props.userInfo !== null && this.props.lastDeck.data.authorId === this.props.userInfo.uid } />                        
                     )
                 }
                 <FloatingActionButton isEnabled onClick={() => history.push('/deck/create')}>

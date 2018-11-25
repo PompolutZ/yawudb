@@ -19,7 +19,7 @@ class ErrorPresenter extends React.Component {
                     </div>
 
                     <div  style={{ color: 'blue', maxWidth: '80%'}}>
-                        { this.state.info }
+                        { this.props.info }
                     </div>
                 </div>
             </div>
