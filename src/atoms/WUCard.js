@@ -1,7 +1,6 @@
 import React, { PureComponent, Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -195,7 +194,7 @@ class WUCardAtom extends Component {
     }
 
     render() {
-        const { classes, type, id, scoreType, glory, name, set, isAlter, inDeck } = this.props;
+        const { classes, type, id, scoreType, glory, name, set, isAlter, inDeck, withAnimation } = this.props;
         const isRestricted = Boolean(restrictedCards[id]);
         const isBanned = Boolean(bannedCards[id]);
         const height = this.props.expanded ? 'auto' : 0;
@@ -221,7 +220,7 @@ class WUCardAtom extends Component {
                     </IconButton>
                 </div>
                 <AnimateHeight 
-                    duration={ 250 }
+                    duration={ withAnimation ? 250 : 0 }
                     height={ height } // see props documentation bellow
                     easing="ease-out">
                     <img className={classes.cardImg} alt={id.slice(-3)} src={`/assets/cards/${id}.png`} />

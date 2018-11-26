@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, warbandsWithDefaultSet } from '../data/index';
 import { pickCardColor } from '../utils/functions';
 import AnimateHeight from 'react-animate-height';
@@ -12,7 +10,6 @@ import { Set } from 'immutable';
 import MoreVerticalIcon from '@material-ui/icons/MoreVert';
 import DeckIcon from '../atoms/DeckIcon';
 import { withStyles } from '@material-ui/core/styles';
-import ObjectiveScoringOverview from '../atoms/ObjectiveScoringOverview';
 import SetsList from '../atoms/SetsList';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';

@@ -19,37 +19,29 @@ class VirtualizedCardsList extends Component {
         super(props);
         this.listWidth = this._calcListWidth();
         this.listHeight = this._calcListHeight();
+        this.state = {
+            cards: this.props.cards
+        }
     }
     
     _rowRenderer = params => {
-        // if(params.isScrolling) {
-        //     const { id, name } = this.props.cards[params.index].card;
-        //     return (
-        //         <div key={params.key} style={{...params.style, ...{ 
-        //             fontFamily: `'Roboto', sans-serif`, 
-        //             fontSize: '.8rem', 
-        //             backgroundColor: params.index % 2 === 0 ? 'rgb(224, 243, 236)' : 'White',
-        //             padding: '.5rem 0 0 2rem' }
-        //         }} >
-        //             { `${ id.slice(-3) }. ${ name }` }
-        //         </div>
-        //     )
-        // } else {
             const renderedItem = this._renderItem(params.index)
             return (
                 <div key={params.key} style={params.style} >
                     { renderedItem }
                 </div>
             );
-        // }
     }
 
     _renderItem = index => {
-        const { card, expanded } = this.props.cards[index]; 
-        return <WUCard key={card.id} {...card} isAlter={index % 2 === 0} inDeck={this.props.currentDeck.includes(card.id)}
+        const { card, expanded } = this.state.cards[index]; 
+        return <WUCard key={card.id} {...card} 
+            isAlter={index % 2 === 0} 
+            inDeck={this.props.currentDeck.includes(card.id)}
             toggleCardInDeck={this.props.toggleCardInDeck}
             expanded={expanded}
-            onExpandChange={this._handleExpanded.bind(this, index)} />
+            onExpandChange={this._handleExpanded.bind(this, index)}
+            withAnimation={false} />
     }
 
     _setRef = ref => {
@@ -57,13 +49,16 @@ class VirtualizedCardsList extends Component {
     }
 
     _handleExpanded = index => {
-        this.props.cards[index].expanded = !this.props.cards[index].expanded;
+        this.setState(state => ({ cards: [
+            ...state.cards.slice(0, index), 
+            {card: state.cards[index].card, expanded: !state.cards[index].expanded},
+            ...state.cards.slice(index + 1)]}));
         this.List.recomputeRowHeights();
         this.List.forceUpdate();
     }
 
     _calcRowHeight = params => {
-        const item = this.props.cards[params.index];
+        const item = this.state.cards[params.index];
         if(item) {
             return item.expanded ? 550 : 75;
         }    
@@ -122,7 +117,6 @@ class FilterableCardLibrary extends Component {
             filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
         }
 
-        // hide spells for Shadespire factions
         filteredCards = filteredCards.filter(c => {
             if (c.type === 3) {
                 return factionIndexes.indexOf(this.props.selectedFaction) > 8;
@@ -133,14 +127,6 @@ class FilterableCardLibrary extends Component {
 
         const sorted = filteredCards.toJS().sort((c1, c2) => this._sort(c1, c2));
         const drawableCards = sorted.map(c => ({ card: c, expanded: false }))
-        console.log(currentDeck.toJS());
-        // const content = sorted 
-        //     .map((c, i) => {
-        //         return <WUCard key={i} {...c} 
-        //             isAlter={i % 2 === 0} 
-        //             toggleCardInDeck={this._toggleCardInDeck.bind(this, c.id)} 
-        //             inDeck={currentDeck.some(id => id  === c.id)}  />
-        //     });
 
         return (
             <div>

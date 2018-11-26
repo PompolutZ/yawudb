@@ -57,7 +57,7 @@ class CardsList extends Component {
         return (
             <div style={{ margin: '.5rem'}}>
                 {
-                    this.props.list.map((v, i) => <ExpandableWUCard key={i} {...v} isAlter={i % 2 === 0} toggleCardInDeck={this.props.toggle} inDeck /> )
+                    this.props.list.map((v, i) => <ExpandableWUCard withAnimation key={i} {...v} isAlter={i % 2 === 0} toggleCardInDeck={this.props.toggle} inDeck /> )
                 }                
             </div>
         );
@@ -145,32 +145,19 @@ class Deck extends PureComponent {
                     </div>
                 </SectionHeader>
                 <CardsList list={objectives} toggle={this._toggleCardInDeck} />
-                {/* {
 
-                    objectives.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, this._toggleCardInDeck.bind(this, v.id), true))
-                } */}
                 <SectionHeader>
                     Gambits
                 </SectionHeader>
                 <CardsList list={gambits} toggle={this._toggleCardInDeck} />
 
-                {/* // <div style={{borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
-                //     <Typography variant="headline"></Typography>
-                // </div> */}
-                {/* {
-                    gambits.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, this._toggleCardInDeck.bind(this, v.id), true))
-                } */}
                 <SectionHeader>
                     Upgrades
                 </SectionHeader>
                 <CardsList list={upgrades} toggle={this._toggleCardInDeck} />
-
-                {/* {
-                    upgrades.toJS().map((v, i) => getWUCardByIdFromDB(v.id, v.id.slice(-3), v, i % 2 === 0, this._toggleCardInDeck.bind(this, v.id), true))
-                } */}
                 {
                     !this.props.editMode && (
-                        <div style={{display: 'flex', paddingBottom: '5rem'}}>
+                        <div style={{display: 'flex', paddingBottom: '10rem'}}>
                             <WUButton style={{margin: 'auto', color: 'red'}} onClick={onRemoveAll}>
                                 Remove all
                             </WUButton>
@@ -182,7 +169,7 @@ class Deck extends PureComponent {
                 }
                 {
                     this.props.editMode && (
-                        <div style={{display: 'flex', paddingBottom: '5rem'}}>
+                        <div style={{display: 'flex', paddingBottom: '10rem'}}>
                             <WUButton style={{margin: 'auto', color: 'red'}} onClick={onCancel}>
                                 Cancel
                             </WUButton>

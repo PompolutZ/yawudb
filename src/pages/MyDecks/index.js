@@ -1,6 +1,5 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import { db } from '../../firebase';
-// import DeckOverview from '../components/DeckOverview';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import AddIcon from '@material-ui/icons/Add';

@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
-import ObjectiveScoreTypeIcon from '../components/ObjectiveScoreTypeIcon';
 import Typography from '@material-ui/core/Typography';
 import SheduleIcon from '@material-ui/icons/Schedule';
 import FlashOnIcon from '@material-ui/icons/FlashOn';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import HourglassFullIcon from '@material-ui/icons/HourglassFull';
-import StarsIcon from '@material-ui/icons/Stars';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
