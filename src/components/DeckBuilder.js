@@ -167,7 +167,7 @@ class DeckBuilder extends Component {
                 .then(() => {
                     this.props.resetDeck();
                     this.setState({showNotification: true});
-                    this.props.history.push('/mydecks');
+                    this.props.history.push(`/view/deck/${deckId}`);
                 })
                 .catch(error => {
                     const otherBatch = db.batch();
@@ -181,7 +181,7 @@ class DeckBuilder extends Component {
                             .then(() => {
                                 this.props.resetDeck();
                                 this.setState({showNotification: true});
-                                this.props.history.push('/mydecks');
+                                this.props.history.push(`/view/deck/${deckId}`);
                             })
                             .catch(error => console.log(error));    
                 });
@@ -192,7 +192,7 @@ class DeckBuilder extends Component {
                 .then(() => {
                     this.props.resetDeck();
                     this.setState({showNotification: true});
-                    this.props.history.push('/');
+                    this.props.history.push(`/view/deck/${deckId}`);
                 })
                 .catch(error => console.log('ERROR', error));    
         }

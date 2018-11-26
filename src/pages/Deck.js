@@ -25,8 +25,8 @@ class Deck extends Component {
             } else {
                 const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
                 const data = deckRef.data();
-                let author;
-                if(data.author !== 'Anonymous') {
+                let author = data.author;
+                if(author !== 'Anonymous') {
                     const userRef = await db.collection('users').doc(data.author).get();
                     author = userRef.data().displayName;
                     this.setState({ isEditAllowed: this.props.uid === userRef.id });
