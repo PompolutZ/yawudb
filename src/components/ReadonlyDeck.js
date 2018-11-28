@@ -247,7 +247,6 @@ class ReadonlyDeck extends PureComponent {
                     </div>
                 </div>
             </div>
-
         );        
     }
 

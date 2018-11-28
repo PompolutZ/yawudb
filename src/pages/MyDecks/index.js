@@ -23,7 +23,7 @@ class DeckConflictsAndWarningsItem extends PureComponent {
     render() {
         const { conflict, warning, deckName } = this.props;
         return (
-            <div style={{ margin: '0 0 .5rem 1rem', fontSize: '.8rem', fontFamily: `'Roboto', sans-serif`}} onClick={this.handleClick}>
+            <div style={{ margin: '0 0 .5rem 1rem', fontSize: '.8rem', fontFamily: `'Roboto', sans-serif`, cursor: 'pointer'}} onClick={this.handleClick}>
                 {
                     !this.state.expanded && (
                         <div style={{ display: 'flex'}}>
@@ -252,6 +252,10 @@ class MyDecks extends Component {
                         <div>
                             <div className={classes.header}>
                                 <Switch isChecked={this.state.showConflicts} onChange={this.handleChangeShowConflicts} label="Show conflicts and warnings" />
+                                <Typography variant="subheading" className={classes.headerItem} style={{ marginBottom: '.5rem'}}>
+                                    <i>To use this feature mark sets you own in the <span style={{color: '#3B9979', cursor: 'pointer'}} onClick={this.handleProfileLinkClicked}><u>Profile</u></span> page.</i>
+                                </Typography>
+
                                 {
                                     this.state.showConflicts && (
                                         <div>
@@ -305,6 +309,10 @@ class MyDecks extends Component {
 
     handleChangeShowConflicts = e => {
         this.setState({ showConflicts: e.target.checked });
+    }
+
+    handleProfileLinkClicked = () => {
+        this.props.history.push('/profile');
     }
 
     handleClick = history => {
