@@ -1,7 +1,7 @@
 import { factionIndexes } from '../atoms/factions';
 import { setInfos } from '../atoms/sets';
 
-const getDbIndexByWaveAndCard = (wave, card) => {
+export const getDbIndexByWaveAndCard = (wave, card) => {
     return (`00` + wave).slice(-2) + (`000` + card).slice(-3);
 }
 

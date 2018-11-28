@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { db } from '../../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FloatingActionButton from '../../components/FloatingActionButton';
@@ -9,12 +9,181 @@ import { connect } from 'react-redux';
 import { addOrUpdateMyDeck, removeMyDecks } from '../../reducers/mydecks';
 import isEqual from 'lodash/isEqual';
 import DeckThumbnail from './atoms/DeckThumbnail';
-import { cardsDb, bannedCards, restrictedCards } from '../../data/index';
+import { cardsDb, bannedCards, restrictedCards, setInfos, getDbIndexByWaveAndCard, setsIndex } from '../../data/index';
+import { Set } from 'immutable';
+import ExpansionIcon from '../../atoms/ExpansionIcon';
+import { withStyles } from '@material-ui/core/styles';
+import Switch from '../../atoms/Switch';
+
+class DeckConflictsAndWarningsItem extends PureComponent {
+    state = {
+        expanded: false
+    }
+
+    render() {
+        const { conflict, warning, deckName } = this.props;
+        return (
+            <div style={{ margin: '0 0 .5rem 1rem', fontSize: '.8rem', fontFamily: `'Roboto', sans-serif`}} onClick={this.handleClick}>
+                {
+                    !this.state.expanded && (
+                        <div style={{ display: 'flex'}}>
+                            <div>Has</div>
+                            {
+                                conflict && (
+                                    <div style={{ marginLeft: '.3rem', color: 'crimson'}}><u>{conflict.length} conflict(s)</u></div>
+                                )
+                            }
+                            {
+                                conflict && (
+                                    <div style={{ marginLeft: '.3rem'}}>and</div>
+                                )
+                            }
+                            {
+                                warning && (
+                                    <div style={{ marginLeft: '.3rem', color: 'orange'}}><u>{warning.length} warning(s)</u></div>
+                                )
+                            }
+                        </div>
+                    )
+                }
+                {
+                    this.state.expanded && (
+                        <div>
+                            <div style={{ display: 'flex'}}>
+                                {
+                                    conflict && (
+                                        <div>Has</div>
+                                    )
+                                }
+                                {
+                                    conflict && (
+                                        <div style={{ marginLeft: '.3rem', color: 'crimson'}}>{conflict.length} conflict(s):</div>
+                                    )
+                                }
+                            </div>
+                            {
+                                conflict && conflict.map(id => {
+                                    return (
+                                        <div key={id} style={{ display: 'flex', marginBottom: '.2rem'}}>
+                                            <ExpansionIcon set={cardsDb[id].set} variant="small" />
+                                            <div style={{ marginLeft: '.3rem'}}>- {cardsDb[id].name}</div>
+                                        </div>
+                                    );
+                                })
+                            }
+                            <div style={{ display: 'flex'}}>
+                                {
+                                    conflict && (
+                                        <div>and</div>
+                                    )
+                                }
+                                {
+                                    !conflict && (
+                                        <div>Has</div>
+                                    )
+                                }
+                                {
+                                    warning && (
+                                        <div style={{ marginLeft: '.3rem', color: 'orange'}}>{warning.length} warning(s):</div>
+                                    )
+                                }
+                            </div>
+                            {
+                                warning && warning.map(id => {
+                                    return (
+                                        <div key={id} style={{ display: 'flex', marginBottom: '.2rem'}}>
+                                            <ExpansionIcon set={cardsDb[id].set} variant="small" />
+                                            <div style={{ marginLeft: '.3rem'}}>- {cardsDb[id].name}</div>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                    )
+                }
+                <div style={{ display: 'flex'}}>
+                    <div>with</div>
+                    <div style={{ marginLeft: '.3rem', fontWeight: '500'}}>{deckName}</div>
+                </div>
+            </div>
+        );
+    }
+
+    handleClick = () => {
+        this.setState(state => ({ expanded: !state.expanded }));
+    }
+}
+
+class DeckConflictsAndWarnings extends Component {
+    render() {
+        const hasConflicts = Boolean(this.props.conflicts);
+        const conflicts = hasConflicts ? Object.keys(this.props.conflicts) : [];
+        const hasWarnings = Boolean(this.props.warnings);
+        const warnings = hasWarnings ? Object.keys(this.props.warnings) : [];
+        const mergedKeys = new Set(conflicts).union(new Set(warnings));
+        // console.log(mergedKeys.toJS());
+        const decks = this.props.decks.reduce((acc, [key, val]) => {
+            acc[key] = val;
+            return acc;
+        }, {});
+        
+        for(let id of mergedKeys.toJS()) {
+            const conflict = hasConflicts ? this.props.conflicts[id] : null;
+            const warning = hasWarnings ? this.props.warnings[id] : null;
+            // console.log(conflict, warning);
+            console.log(`Has ${!conflict ? `` : `${conflict.length} conflicts and `}${!warning ? `` : `${warning.length} warnings`} with ${decks[id].name}.`)
+        }
+
+        return (
+            <div style={{ paddingBottom: '.5rem'}}>
+                {
+                    !this.props.showConflicts && <span></span>
+                }
+                {
+                    this.props.showConflicts && (
+                        <div>
+                            {
+                                mergedKeys.toJS().map((id, i) => {
+                                    const conflict = hasConflicts ? this.props.conflicts[id] : null;
+                                    const warning = hasWarnings ? this.props.warnings[id] : null;
+                                    
+                                    return <DeckConflictsAndWarningsItem key={i} conflict={conflict} warning={warning} deckName={decks[id].name}  />
+                                })
+                            }
+                        </div>
+                    )
+                }
+            </div>
+        )
+    }
+}
+
+const styles = theme => ({
+    header: {
+        margin: '0 1rem',
+        borderBottom: '1px solid lightgray',
+    },
+
+    headerItem : {
+        fontSize: '.7rem'
+    },
+
+    item: {
+        borderBottom: '1px solid lightgray',
+        margin: '1rem',
+        [theme.breakpoints.up('sm')]: {
+            maxWidth: '30rem'
+        },
+    }
+})
 
 class MyDecks extends Component {
     state = {
         loading: this.props.decks.length === 0,
-        showNotification: false
+        showNotification: false,
+        showConflicts: false,
+        conflicts: {},
+        warnings: {}
     }
 
     async componentDidMount() {
@@ -40,7 +209,9 @@ class MyDecks extends Component {
                 this.setState({loading: false});
             }
 
-            this.props.removeMissingDecks(ids);    
+            this.props.removeMissingDecks(ids);
+            
+            this.checkForConflictsOrWarnings();
         } catch(error) {
             console.log(error);
         }
@@ -54,16 +225,8 @@ class MyDecks extends Component {
         return true;
     }
 
-    handleClick = history => {
-        history.goBack();
-    }
-
-    handleThumbnailClick = id => {
-        this.props.history.push(`/view/deck/${id}`);
-    }
-
     render() {
-        const { history, decks } = this.props;
+        const { history, decks, classes } = this.props;
 
         return (
             <div>
@@ -87,25 +250,48 @@ class MyDecks extends Component {
                 {
                     !this.state.loading && decks.length > 0 && (
                         <div>
-                            {
-                                // decks.map(([id, deck]) => <DeckOverview key={id} isEditable {...deck} />)
+                            <div className={classes.header}>
+                                <Switch isChecked={this.state.showConflicts} onChange={this.handleChangeShowConflicts} label="Show conflicts and warnings" />
+                                {
+                                    this.state.showConflicts && (
+                                        <div>
+                                            <Typography className={classes.headerItem}>
+                                                <span style={{ color: 'crimson'}}>Conflict</span> means that you have only single copy of a card in your collection.
+                                            </Typography>
+                                            <Typography className={classes.headerItem}>
+                                                <span style={{ color: 'orange'}}>Warning</span> means that you have several copies of a card, but used them in more decks than copies.
+                                            </Typography>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            {/* <Switch checked={this.state.showConflicts} onChange={this.handleChangeShowConflicts} /> */}
+                            <div>
+                                {
+                                    decks.map(([id, deck]) => {
+                                        const bannedCardsCount = deck.cards.filter(id => Boolean(bannedCards[id])).length;
+                                        const restrictedCardsCount = deck.cards.filter(id => Boolean(restrictedCards[id])).length;
 
-                                decks.map(([id, deck]) => {
-                                    const bannedCardsCount = deck.cards.filter(id => Boolean(bannedCards[id])).length;
-                                    const restrictedCardsCount = deck.cards.filter(id => Boolean(restrictedCards[id])).length;
-
-                                    return <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, id)} 
-                                        key={id} 
-                                        factionId={id} 
-                                        title={deck.name} 
-                                        author={deck.author} 
-                                        date={deck.created}
-                                        sets={deck.sets}
-                                        objectives={deck.cards.map(c => ({ id: c, ...cardsDb[c]})).filter(c => c.type === 0)}
-                                        banned={bannedCardsCount}
-                                        restricted={restrictedCardsCount} />
-                                })
-                            }
+                                        return (
+                                            <div key={id} className={classes.item}>
+                                                <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, id)} 
+                                                    factionId={id} 
+                                                    title={deck.name} 
+                                                    author={deck.author} 
+                                                    date={deck.created}
+                                                    sets={deck.sets}
+                                                    objectives={deck.cards.map(c => ({ id: c, ...cardsDb[c]})).filter(c => c.type === 0)}
+                                                    banned={bannedCardsCount}
+                                                    restricted={restrictedCardsCount} />
+                                                <DeckConflictsAndWarnings showConflicts={this.state.showConflicts} 
+                                                    conflicts={this.state.conflicts[id]} 
+                                                    warnings={this.state.warnings[id]}
+                                                    decks={decks} />
+                                            </div>
+                                        );
+                                    })
+                                }
+                            </div>
                         </div>
                     )
                 }
@@ -116,11 +302,93 @@ class MyDecks extends Component {
             </div>
         );
     }
+
+    handleChangeShowConflicts = e => {
+        this.setState({ showConflicts: e.target.checked });
+    }
+
+    handleClick = history => {
+        history.push('/deck/create');
+    }
+
+    handleThumbnailClick = id => {
+        this.props.history.push(`/view/deck/${id}`);
+    }
+
+    checkForConflictsOrWarnings = () => {
+        console.log(this.props.ownSets);
+        const cardsInDecks = this.props.decks.reduce((acc, [id, deck]) => {
+            const inverted = deck.cards.reduce((iacc, c) => ({...iacc, ...{[c]: [id]}}), {});
+            for(let k in inverted) {
+                if(acc[k]) {
+                    acc[k] = [...acc[k], ...inverted[k]];
+                } else {
+                    acc[k] = [...inverted[k]];
+                }
+            }
+
+            return acc;
+        }, {});
+        
+        const conflictCandidates = Object.entries(cardsInDecks).filter(([k, v]) => v.length > 1);
+        console.log(conflictCandidates);
+
+        // convert ownSetsToCards
+        const ownCards = Object.entries(this.props.ownSets).reduce((acc, [set, copies]) => {
+            const s = setInfos[set];
+            const { wave } = s;
+            const setCards = Object.keys(s).filter(k => k !== 'wave').reduce((acc, k) => [...acc, ...s[k]], []).map(card => getDbIndexByWaveAndCard(wave, card));
+            for(let card of setCards) {
+                if(acc[card]) {
+                    acc[card] += 1 * copies;
+                } else {
+                    acc[card] = 1 * copies;
+                }
+            }
+
+            return acc;
+        }, {});
+
+        const conflictsOrWarnings = conflictCandidates.map(([k, v]) => ({ id: k, copies: ownCards[k], decks: v}));
+        console.log(conflictsOrWarnings);
+        const conflicts = conflictsOrWarnings.filter(({copies, decks}) => copies === 1 && decks.length > 1);
+        const deckConflicts = this.findConflictsOrWarnings(conflicts); 
+        const warnings = conflictsOrWarnings.filter(({ copies, decks}) => copies > 1 && decks.length > copies);
+        const deckWarnings = this.findConflictsOrWarnings(warnings);
+
+        this.setState({conflicts: deckConflicts, warnings: deckWarnings});
+    }
+
+    findConflictsOrWarnings = candidates => {
+        return candidates.reduce((acc, entry) => {
+            for(let deck of entry.decks) {
+                if(acc[deck]) {
+                    entry.decks.filter(d => d !== deck).reduce((iacc, d) => {
+                        if(iacc[d]) {
+                            iacc[d] = [...iacc[d], entry.id];
+                            return iacc;
+                        } else {
+                            iacc[d] = [entry.id];
+                            return iacc;
+                        }
+                    }, acc[deck]);
+                } else {
+                    acc[deck] = entry.decks.filter(d => d !== deck).reduce((iacc, d) => {
+                        iacc[d] = [entry.id]
+                        return iacc;
+                    }, {}); 
+                }
+            }
+
+            return acc;
+        }, {});        
+    }
 }
 
 const mapStateToProps = state => {
     return {
         userInfo: state.auth,
+        ownSets: state.userExpansions,
         decks: Object.entries(state.mydecks),
     }
 }
@@ -132,4 +400,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MyDecks));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(MyDecks)));

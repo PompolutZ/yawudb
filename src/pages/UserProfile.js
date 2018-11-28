@@ -162,7 +162,9 @@ class UserProfile extends Component {
     }
 
     handleCounterChange = (set, count) => {
-        this.setState(state => ({expansions: {...state.expansions, ...{[set]: count}}}))
+        this.setState(state => ({expansions: {...state.expansions, ...{[set]: count}}}), () => {
+            console.log(this.state.expansions);
+        })
     }
 
     handleSave = async () => {

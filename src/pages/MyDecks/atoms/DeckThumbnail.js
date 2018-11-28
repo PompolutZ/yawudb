@@ -7,9 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     root: {
         display: 'flex', 
-        margin: '1rem', 
-        borderBottom: '1px solid lightgray', 
-        padding: '0 0 1rem 0',
         [theme.breakpoints.up('sm')]: {
             maxWidth: '30rem'
         }

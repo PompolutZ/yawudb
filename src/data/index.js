@@ -21,7 +21,7 @@ export {
 
 export { duplicates } from './atoms/duplicatesDb';
 
-export { getCardsByFactionAndSets } from './utils/index';
+export { getCardsByFactionAndSets, getDbIndexByWaveAndCard } from './utils/index';
 
 export const cardType = ["Objective", "Ploy", "Upgrade", "Gambit Spell"]
 export const cardTypeIcons = ['objective-icon', 'ploy-icon', 'upgrade-icon', 'gambit spell-icon'];
