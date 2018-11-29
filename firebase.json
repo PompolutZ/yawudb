@@ -15,6 +15,22 @@
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "headers":[
+      {
+        "source": "/assets/cards/*.@(jpg|jpeg|gif|png)",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "max-age=5184000"
+        }]
+      },
+      {
+        "source": "service-worker.js",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "max-age=0"
+        }]
+      }
     ]
   }
 }
