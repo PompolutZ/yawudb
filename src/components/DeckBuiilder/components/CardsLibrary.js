@@ -127,10 +127,9 @@ class FilterableCardLibrary extends Component {
 
         const sorted = filteredCards.toJS().sort((c1, c2) => this._sort(c1, c2));
         const drawableCards = sorted.map(c => ({ card: c, expanded: false }))
-
         return (
             <div>
-                <VirtualizedCardsList cards={drawableCards} currentDeck={currentDeck} toggleCardInDeck={this._toggleCardInDeck}/>
+                <VirtualizedCardsList key={drawableCards.length * 31} cards={drawableCards} currentDeck={currentDeck} toggleCardInDeck={this._toggleCardInDeck}/>
             </div>
         );
     }
