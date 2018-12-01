@@ -13,14 +13,6 @@ class ErrorPresenter extends React.Component {
                     <div style={{ maxWidth: '80%'}}>
                         Worry not though! Help is on its way.
                     </div>
-
-                    <div style={{ color: 'red', maxWidth: '80%'}}>
-                        { this.props.error }
-                    </div>
-
-                    <div  style={{ color: 'blue', maxWidth: '80%'}}>
-                        { this.props.info }
-                    </div>
                 </div>
             </div>
         );
@@ -42,10 +34,10 @@ class ErrorBoundary extends React.Component {
         //this.setState({ error: error, info: info });
       // You can also log the error to an error reporting service
       //logErrorToMyService(error, info);
-      localStorage.removeItem('state');
       db.collection('errors').add({
-          error: error,
-          info: info
+          error: JSON.stringify(error.message),
+          stack: JSON.stringify(error.stack),
+          info: JSON.stringify(info)
       }).then(docRef => console.log('Error reported: ', docRef.id))
         .catch(error => console.log('Error adding error doc', error));
     }

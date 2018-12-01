@@ -2,9 +2,13 @@ import React, { PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { cardsDb } from '../data/index';
 import VirtualizedCardsList from '../components/VirtualizedCardsList';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import { connect } from 'react-redux';
 import { SET_SCROLL_INDEX } from '../reducers/library';
-import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+// import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -26,6 +30,46 @@ const styles = theme => ({
 const VIEW_AS_SIMPLE_LIST = 'VIEW_AS_SIMPLE_LIST';
 const VIEW_AS_CARD_IMAGES = 'VIEW_AS_CARD_IMAGES';  
 
+class LibraryViewVariantMenu extends PureComponent {
+    state = {
+        anchorEl: null
+    }
+
+    render() {
+        const { anchorEl } = this.state;
+
+        return (
+            <div style={this.props.style}>
+                <IconButton 
+                    aria-owns={anchorEl ? 'actions-menu' : undefined }
+                    aria-haspopup
+                    onClick={this.handleOpaneMenu}
+                    style={{ backgroundColor: '#3B9979', color: 'white', margin: '0 0 1rem 0'}}>
+                    <VisibilityIcon />
+                </IconButton>
+                <Menu
+                    id="actions-menu"
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={this.handleClose}>
+                    <MenuItem onClick={this.onSetViewVariant.bind(this, VIEW_AS_SIMPLE_LIST)}>View As Simple List</MenuItem>
+                    <MenuItem onClick={this.onSetViewVariant.bind(this, VIEW_AS_CARD_IMAGES)}>View As Scans</MenuItem>
+                </Menu>
+            </div>
+
+        );
+    }
+
+    onSetViewVariant = variant => {
+        this.props.onSetViewVariant(variant);
+        this.setState({ anchorEl: null });
+    }
+
+    handleOpaneMenu = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    }
+}
+
 class Library extends PureComponent {
     state = {
         cards: [],
@@ -45,12 +89,17 @@ class Library extends PureComponent {
         this.setState({ [event.target.name]: event.target.value });
     };
 
+    handleViewVariantChanged = variant => {
+        this.setState({ viewVariant: variant });
+    }
+
     render() {
         const { classes } = this.props;
 
         return (
             <div className={classes.root}>
-                <FormControl className={classes.formControl}>
+                <LibraryViewVariantMenu onSetViewVariant={this.handleViewVariantChanged} />
+                {/* <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="view-mode">View Library As:</InputLabel>
                     <Select
                         value={this.state.viewVariant}
@@ -63,7 +112,7 @@ class Library extends PureComponent {
                         <MenuItem value={VIEW_AS_SIMPLE_LIST}>Simple list</MenuItem>
                         <MenuItem value={VIEW_AS_CARD_IMAGES}>Card images</MenuItem>
                     </Select>
-                </FormControl>
+                </FormControl> */}
                 {
                     this.state.cards.length > 0 && (
                         <VirtualizedCardsList cards={this.state.cards}

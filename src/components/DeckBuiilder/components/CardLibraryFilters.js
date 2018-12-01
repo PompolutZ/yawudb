@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DelayedSearch from '../../DelayedSearch';
 import { IconButton } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import MoreHorizontalIcon from '@material-ui/icons/MoreHoriz';
 import AnimateHeight from 'react-animate-height';
 import ExpansionsToggle from '../../ExpansionsToggle';
 import CardTypeToggle from '../../CardTypeToggle';
@@ -34,7 +35,7 @@ class CardLibraryFilters extends Component {
                     
                     <DelayedSearch defaultValue={this.props.searchText} onSearchInputChange={this.props.onSearchTextChange} />
                     <IconButton style={{color: 'white', backgroundColor: '#3B9979'}} onClick={this.toggleFiltersAreaVisibility}>
-                        <FilterListIcon />
+                        <MoreHorizontalIcon />
                     </IconButton>
                 </div>
                 <AnimateHeight 

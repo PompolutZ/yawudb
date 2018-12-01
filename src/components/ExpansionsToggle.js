@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import ToggleImageButton from './ToggleImageButton';
 import { setInfos, setsIndex } from '../data/index';
 import * as _ from 'lodash';
+import ToggableExpansionIcon from '../atoms/ToggableExpansionIcon';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    root: {
+        display: 'flex', 
+        flexFlow: 'row wrap',
+        [theme.breakpoints.down('sm')] : {
+            maxWidth: '25rem',
+        }
+    }
+});
 
 class ExpansionsToggle extends Component {
     constructor(props) {
@@ -33,22 +45,27 @@ class ExpansionsToggle extends Component {
     }
 
     renderIndex(v){
-        const name = setsIndex[v];
-        return <ToggleImageButton key={name}
-                    isOff={!this.state.selectedExpansions.includes(parseInt(v, 10))} 
-                    onImage={`/assets/icons/${name}-icon.png`}
-                    offImage={`/assets/icons/${name}-icon-bw.png`}
-                    onToggle={this.handleToggle.bind(this, v)}
-                    />
+        return (
+            <ToggableExpansionIcon key={v} set={v} variant="large" isEnabled={this.state.selectedExpansions.includes(parseInt(v, 10))}
+                onClick={this.handleToggle} />
+        );
+        // const name = setsIndex[v];
+        // return <ToggleImageButton key={name}
+        //             isOff={!} 
+        //             onImage={`/assets/icons/${name}-icon.png`}
+        //             offImage={`/assets/icons/${name}-icon-bw.png`}
+        //             onToggle={this.handleToggle.bind(this, v)}
+        //             />
     }
 
     render() {
+        const { classes } = this.props;
         return (
-            <div>
+            <div className={classes.root}>
                 { _.keys(setInfos).map(v => this.renderIndex(v)) }
             </div>
         );
     }
 }
 
-export default ExpansionsToggle;
+export default withStyles(styles)(ExpansionsToggle);
