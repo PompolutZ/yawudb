@@ -111,8 +111,31 @@ class Decks extends Component {
         totalPages: 0
     }
 
-    componentDidMount = async () => {
-        await this._reloadWithFilters();
+    componentDidMount = () => {
+        this.loadInitial();
+    }
+
+    loadInitial = () => {
+        db.collection('decks')
+        .orderBy('created', 'desc')
+        .limit(10)
+        .get()
+        .then(qs => {
+            qs.forEach(async doc => {
+                const deck = doc.data();
+                if(deck.author !== 'Anonymous') {
+                    const userProfileRef = await db.collection('users').doc(deck.author).get();
+                    this.setState(state => ({ 
+                        loading: false, 
+                        decks: [...state.decks, ...[{...deck, id: doc.id, created: deck.created.toDate(), author: userProfileRef.data().displayName, authorId: deck.author}]]}));
+                } else {
+                    this.setState(state => ({ 
+                        loading: false, 
+                        decks: [...state.decks, ...[{...deck, id: doc.id, created: deck.created.toDate(), authorId: deck.author}]]}))
+                }
+            });
+        })
+        .catch(error => console.log(error));
     }
 
     _reloadWithFilters = async () => {
@@ -166,11 +189,14 @@ class Decks extends Component {
     }
 
     componentWillUnmount = () => {
-        this.subscription.unsubscribe();
+        if(this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     render() {
         const { classes, history } = this.props;
+        console.log(this.state.decks);
         return (
             <div className={classes.root}>
                 <div className={classnames(classes.filters)}>

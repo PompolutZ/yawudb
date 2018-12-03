@@ -27,6 +27,7 @@ import { SET_SETS } from '../reducers/cardLibraryFilters';
 import { connect } from 'react-redux';
 import { pickCardColor } from '../utils/functions';
 import RestrictedBannedCardsCount from '../atoms/RestrictedBannedCardsCount';
+import ExpansionIcon from '../atoms/ExpansionIcon';
 
 const styles = theme => ({
   card: {
@@ -188,7 +189,7 @@ class DeckOverview extends React.Component {
               <div style={{display: 'flex', alignItems: 'center', margin: 'auto 1rem .5rem 1rem'}}>
                   <div>Sets:</div>
                   {
-                      sets.sort((a, b) => a - b).map(s => <SetIcon key={s * 31}  set={s} />)
+                      sets.sort((a, b) => a - b).map(s => <ExpansionIcon key={s * 31}  set={s} />)
                   }
               </div>
 
