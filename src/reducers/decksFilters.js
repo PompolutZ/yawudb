@@ -17,4 +17,8 @@ const decksFilters = (state = initialState, action) => {
     }
 }
 
+export const mergeLoadedStateWithInitial = loadedState => {
+    return { ...initialState, ...loadedState.decksFilters };
+}
+
 export default decksFilters;

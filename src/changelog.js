@@ -1,4 +1,7 @@
 const changelog = {
+    "0.16.0" : {
+        "New Decks View": "New implementation of the decks browser. Currently in beta."
+    }, 
     "0.15.1" : {
         "Bug fixes": "Fixed few bugs which has been noticed.",
     },

@@ -27,4 +27,8 @@ const userExpansions = (state = initialState, action) => {
     }
 }
 
+export const mergeLoadedStateWithInitial = loadedState => {
+    return { ...initialState, ...loadedState.userExpansions };
+}
+
 export default userExpansions;

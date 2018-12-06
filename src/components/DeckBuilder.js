@@ -35,8 +35,8 @@ class DeckBuilder extends Component {
         return (
             <div className="wrapper" style={{display: 'flex', flexFlow: 'row wrap'}}>
                 <div className="filters">
-                    <CardLibraryFilters />
-                    <CardsLibrary />
+                    <CardLibraryFilters editMode={this.props.editMode} />
+                    <CardsLibrary editMode={this.props.editMode} />
                 </div>
                 <div className="sideDeck">
                     <Deck faction={this.props.selectedFaction}
@@ -48,15 +48,13 @@ class DeckBuilder extends Component {
                         changeSource={this.props.changeSource}
                         changeDescription={this.props.changeDescription}
                         selectedCards={this.props.currentDeck}
-                        addCard={this.props.addCard} 
-                        removeCard={this.props.removeCard}
                         onSave={this._saveCurrentDeck}
                         onUpdate={this._updateCurrentDeck}
                         onCancel={this._cancelUpdate}
                         onRemoveAll={this.props.clearDeck} />
                 </div>
                 <div className="fullscreenDeck" style={{visibility: (this.state.isMobileDeckVisible && window.matchMedia('(max-width: 800px)').matches) ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
-                    <Deck faction={this.props.selectedFaction} 
+                    <Deck faction={this.props.selectedFaction}
                         editMode={this.props.editMode} 
                         currentName={this.props.currentDeckName}
                         currentSource={this.props.currentDeckSource}
@@ -64,9 +62,7 @@ class DeckBuilder extends Component {
                         changeName={this.props.changeName}
                         changeSource={this.props.changeSource}
                         changeDescription={this.props.changeDescription}
-                        selectedCards={this.props.currentDeck} 
-                        addCard={this.props.addCard} 
-                        removeCard={this.props.removeCard}
+                        selectedCards={this.props.currentDeck}
                         onSave={this._saveCurrentDeck}
                         onUpdate={this._updateCurrentDeck}
                         onCancel={this._cancelUpdate}
@@ -122,7 +118,10 @@ class DeckBuilder extends Component {
 
     _resetAndGoBack = () => {
         this.props.history.goBack();
-        setTimeout(() => this.props.resetDeck(), 300);
+        setTimeout(() => {
+            this.props.resetDeck();
+            this.props.resetSearchText();
+        }, 300);
     }
 
     _saveCurrentDeck = () => {
@@ -180,6 +179,7 @@ class DeckBuilder extends Component {
                     otherBatch.commit()
                             .then(() => {
                                 this.props.resetDeck();
+                                this.props.resetSearchText();
                                 this.setState({showNotification: true});
                                 this.props.history.push(`/view/deck/${deckId}`);
                             })
@@ -191,6 +191,7 @@ class DeckBuilder extends Component {
                 .set(deckPayload)
                 .then(() => {
                     this.props.resetDeck();
+                    this.props.resetSearchText();
                     this.setState({showNotification: true});
                     this.props.history.push(`/view/deck/${deckId}`);
                 })

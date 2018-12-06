@@ -14,25 +14,52 @@ import {
 import { connect } from 'react-redux';
 
 import './DeckCreator.css';
+import { EDIT_RESET_DECK, EDIT_FACTION, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_ADD_CARD, EDIT_REMOVE_CARD, EDIT_CLEAR_ALL_CARDS_IN_DECK, EDIT_DECK_SOURCE } from '../reducers/deckUnderEdit';
+import { CHANGE_SEARCH_TEXT } from '../reducers/cardLibraryFilters';
 
 class DeckCreator extends Component {
     state = {
         isEdit: this.props.match.path.startsWith('/deck/edit')
     }
 
+    static getDerivedStateFromProps(props, state) {
+        const isEdit = props.match.path.startsWith('/deck/edit');
+        console.log(isEdit, props, state);
+        if(isEdit !== state.isEdit) {
+            return {
+                isEdit: isEdit,
+            }
+        }
+
+        return null;
+    }
+
     render() {
-        
+        const selectedFaction = this.state.isEdit ? this.props.editSelectedFaction : this.props.selectedFaction;
+        const setFaction = this.state.isEdit ? this.props.editFaction : this.props.setFaction;
+        console.log(this.state.isEdit)
         return (
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <div className="factionToggle">
-                    <FactionToggle editMode={this.state.isEdit} selectedFaction={this.props.selectedFaction} setFaction={this.props.setFaction} />
+                    <FactionToggle key={selectedFaction} editMode={this.state.isEdit} selectedFaction={selectedFaction} setFaction={setFaction} />
                 </div>
                 <DeckBuilder
-                    key={this.props.selectedFaction} 
+                    key={selectedFaction}
+                    selectedFaction={selectedFaction} 
                     editMode={this.state.isEdit}
-                    {...this.props} />
+                    currentDeck={this.state.isEdit ? this.props.editCurrentDeck : this.props.currentDeck}
+                    currentDeckName={this.state.isEdit ? this.props.editCurrentDeckName : this.props.currentDeckName}
+                    currentDeckSource={this.state.isEdit ? this.props.editCurrentDeckSource : this.props.currentDeckSource}
+                    currentDeckDescription={this.state.isEdit ? this.props.editCurrentDeckDescription : this.props.currentDeckDescription} 
+                    setFaction={this.state.isEdit ? this.props.editFaction : this.props.setFaction}
+                    changeName={this.state.isEdit ? this.props.editName : this.props.changeName}
+                    changeSource={this.state.isEdit ? this.props.editSource : this.props.changeSource}
+                    changeDescription={this.state.isEdit ? this.props.editDescription : this.props.changeDescription}
+                    clearDeck={this.state.isEdit ? this.props.editClearDeck : this.props.clearDeck}
+                    resetDeck={this.state.isEdit ? this.props.resetEditDeck : this.props.resetDeck}
+                    resetSearchText={this.props.resetSearchText} />
             </div>
-            );
+        );
     }
 }
 
@@ -44,8 +71,13 @@ const mapStateToProps = state => {
         currentDeckName: state.deckUnderBuild.name,
         currentDeckSource: state.deckUnderBuild.source,
         currentDeckDescription: state.deckUnderBuild.desc,
-        
-        //selectedSets: Object.keys(state.userExpansions),
+
+        editSelectedFaction: state.deckUnderEdit.faction,
+        editSelectedFactionDefaultSet: state.deckUnderEdit.factionDefaultSet,
+        editCurrentDeck: state.deckUnderEdit.deck,
+        editCurrentDeckName: state.deckUnderEdit.name,
+        editCurrentDeckSource: state.deckUnderEdit.source,
+        editCurrentDeckDescription: state.deckUnderEdit.desc,
     }
 }
 
@@ -59,6 +91,17 @@ const mapDispatchToProps = dispatch => {
         removeCard: card => dispatch({ type: REMOVE_CARD, card: card }),
         clearDeck: () => dispatch({ type: CLEAR_DECK }),
         resetDeck: () => dispatch({ type: RESET_DECK }),
+        
+        editFaction: (faction, defaultSet) => dispatch({ type: EDIT_FACTION, faction: faction, defaultSet: defaultSet }),
+        editName: value => dispatch({ type: EDIT_DECK_NAME, name: value }),
+        editSource: value => dispatch({ type: EDIT_DECK_SOURCE, source: value }),
+        editDescription: value => dispatch({ type: EDIT_DECK_DESCRIPTION, desc: value }),
+        editAddCard: card => dispatch({ type: EDIT_ADD_CARD, card: card }),
+        editRemoveCard: card => dispatch({ type: EDIT_REMOVE_CARD, card: card }),
+        editClearDeck: () => dispatch({ type: EDIT_CLEAR_ALL_CARDS_IN_DECK }),
+        resetEditDeck: () => dispatch({ type: EDIT_RESET_DECK }),
+
+        resetSearchText: () => dispatch({ type: CHANGE_SEARCH_TEXT, payload: '' }),
     }
 }
 

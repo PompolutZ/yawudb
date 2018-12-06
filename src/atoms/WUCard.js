@@ -5,10 +5,15 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ReportIcon from '@material-ui/icons/Report';
 import AddIcon from '@material-ui/icons/Add';
 import AnimateHeight from 'react-animate-height';
 import { cardType, totalCardsPerWave, setsIndex, bannedCards, restrictedCards } from '../data/index';
 import ObjectiveScoreTypeIcon from '../components/ObjectiveScoreTypeIcon';
+import { connect } from 'react-redux';
+import { ADD_CARD, REMOVE_CARD } from '../reducers/deckUnderBuild';
+import { Set } from 'immutable';
+import { EDIT_ADD_CARD, EDIT_REMOVE_CARD } from '../reducers/deckUnderEdit';
 
 const styles = theme => ({
     expand: {
@@ -71,26 +76,48 @@ const colorsTable = [
 ]
 
 class WUCardTypeImage extends PureComponent {
-    state = {
-        inDeck: this.props.inDeck
-    }
-
     handleClick = () => {
-        this.setState(state => ({ inDeck: !state.inDeck}))
-        this.props.toggle();
+        this.props.toggle(this.props.id);
     }
 
     render() {
         const icons = ['objective-icon', 'ploy-icon', 'upgrade-icon', 'gambit spell-icon'];
-        const { type, addButton, inTheDeck, notInTheDeck, isAlter, readonly } = this.props;
+        const { type, addButton, inTheDeck, isRestricted, notInTheDeck, isAlter, readonly, restrictedCardsCount } = this.props;
+
         return (
             <div style={{position: 'relative'}}>
                 <div style={{position: 'relative'}}>
                     <img src={`/assets/icons/${icons[type]}.png`} alt={icons[type]}
                         style={{ width: '3rem', height: '3rem'}} />
                     {
+                        isRestricted && (
+                            <div style={{ width: '2rem', height: '2rem', stroke: 'white', fill: 'Goldenrod', top: '0', right: '-.1rem', position: 'absolute' }}>
+                                {
+                                    restrictedCardsCount > 0 && (
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
+                                                style={{ width: '2rem', height: '2rem', stroke: 'white', fill: 'Goldenrod', top: '-.6rem', right: '-.8rem', position: 'absolute' }}>
+                                                <path d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27L15.73 3z"/>
+                                            </svg>                                      
+                                            <div style={{ width: '2rem', height: '2rem', stroke: 'white', top: '-.6rem', right: '-.8rem', position: 'absolute', display: 'flex'}}>
+                                                <Typography variant="body2" style={{ margin: 'auto', color: 'white'}}>
+                                                    {restrictedCardsCount}
+                                                </Typography>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    restrictedCardsCount === 0 && (
+                                        <ReportIcon style={{ width: '2rem', height: '2rem', stroke: 'white', fill: 'Goldenrod', top: '-.6rem', right: '-.8rem', position: 'absolute'}} />
+                                    )
+                                }
+                            </div>
+                        )
+                    }           
+                    {
                         !readonly &&
-                        <ButtonBase className={classnames(addButton, inTheDeck, {[notInTheDeck]: this.state.inDeck})} 
+                        <ButtonBase className={classnames(addButton, inTheDeck, {[notInTheDeck]: this.props.inDeck})} 
                                     style={{ border:`.1rem solid ${isAlter ? '#E0F3EC' : 'white'}` }}
                                     onClick={this.handleClick}>
                             <AddIcon style={{width: '1.2rem', margin: 'auto'}} />
@@ -160,17 +187,43 @@ class WUCardAtom extends Component {
     };
 
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.id !== this.props.id ||
+        const shouldUpdate = nextProps.id !== this.props.id ||
             nextProps.type !== this.props.type ||
             nextProps.scoreType !== this.props.scoreType ||
             nextProps.name !== this.props.name ||
             nextProps.isAlter !== this.props.isAlter ||
             nextProps.inDeck !== this.props.inDeck ||
-            nextProps.expanded !== this.props.expanded;
+            nextProps.expanded !== this.props.expanded ||
+            new Set(nextProps.createModeCurrentDeck).count() !== new Set(this.props.createModeCurrentDeck).count() ||
+            new Set(nextProps.editModeCurrentDeck).count() !== new Set(this.props.editModeCurrentDeck).count() ||
+            nextProps.createModeRestrictedCardsCount !== this.props.createModeRestrictedCardsCount ||
+            nextProps.editModeRestrictedCardsCount !== this.props.editModeRestrictedCardsCount;
+        
+        return shouldUpdate;            
     }
 
-    handleToggleCardInDeck = () => {
-        this.props.toggleCardInDeck(this.props.id);
+    handleToggleCardInDeck = id => {
+        if(this.props.editMode) {
+            this.handleToggleCardInEditMode(id);
+        } else {
+            this.handleToggleCardInCreateMode(id);
+        }
+    }
+
+    handleToggleCardInCreateMode = id => {
+        if(this.props.createModeCurrentDeck.includes(id)) {
+            this.props.removeCard(id);
+        } else {
+            this.props.addCard(id)
+        }
+    }
+
+    handleToggleCardInEditMode = id => {
+        if(this.props.editModeCurrentDeck.includes(id)) {
+            this.props.editRemoveCard(id);
+        } else {
+            this.props.editAddCard(id)
+        }
     }
 
     pickBackgroundColor = (isRestricted, isBanned) => {
@@ -194,18 +247,19 @@ class WUCardAtom extends Component {
     }
 
     render() {
-        const { classes, type, id, scoreType, glory, name, set, isAlter, inDeck, withAnimation } = this.props;
-        const isRestricted = Boolean(restrictedCards[id]);
+        const { classes, type, id, scoreType, glory, name, set, isAlter, isRestricted, withAnimation } = this.props;
         const isBanned = Boolean(bannedCards[id]);
         const height = this.props.expanded ? 'auto' : 0;
+        const inDeck = this.props.editMode ? this.props.editModeCurrentDeck.includes(id) : this.props.createModeCurrentDeck.includes(id);
+        const restrictedCardsCount = this.props.editMode ? this.props.editModeRestrictedCardsCount : this.props.createModeRestrictedCardsCount;
 
         return (
-            <div style={{ backgroundColor: this.pickBackgroundColor(isRestricted, isBanned)}}>
+            <div style={{ backgroundColor: this.pickBackgroundColor(false, false)}}>
                 <div style={{ display: 'flex', margin: '0 0 .5rem .5rem', padding: '.5rem 0 0 0'}}>
-                    <WUCardTypeImage {...classes} type={type} inDeck={inDeck} isAlter={isAlter} toggle={this.handleToggleCardInDeck} />
+                    <WUCardTypeImage {...classes} id={id} restrictedCardsCount={restrictedCardsCount} isRestricted={isRestricted} type={type} inDeck={inDeck} isAlter={isAlter} toggle={this.handleToggleCardInDeck} />
                     <WUCardInfo pickColor={this.pickForegroundColor} 
-                        isRestricted={isRestricted} 
-                        isBanned={isBanned} 
+                        isRestricted={false} 
+                        isBanned={false} 
                         set={set} 
                         name={name} 
                         scoreType={scoreType} 
@@ -230,4 +284,24 @@ class WUCardAtom extends Component {
     }
 }
 
-export default withStyles(styles)(WUCardAtom);
+const mapStateToProps = state => {
+    return {
+        createModeCurrentDeck: state.deckUnderBuild.deck,
+        createModeRestrictedCardsCount: state.deckUnderBuild.restrictedCardsCount,
+
+        editModeCurrentDeck: state.deckUnderEdit.deck,
+        editModeRestrictedCardsCount: state.deckUnderEdit.restrictedCardsCount,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addCard: card => dispatch({ type: ADD_CARD, card: card }),
+        removeCard: card => dispatch({ type: REMOVE_CARD, card: card }),
+
+        editAddCard: card => dispatch({ type: EDIT_ADD_CARD, card: card }),
+        editRemoveCard: card => dispatch({ type: EDIT_REMOVE_CARD, card: card }),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(WUCardAtom));

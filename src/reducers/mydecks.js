@@ -19,7 +19,9 @@ export const removeMyDecks = ids => {
     }
 }
 
-const mydecks = (state = {}, action) => {
+const initialState = {};
+
+const mydecks = (state = initialState, action) => {
     switch(action.type) {
          
         case ADD_OR_UPDATE_DECK: 
@@ -37,5 +39,10 @@ const mydecks = (state = {}, action) => {
             return state;
     }
 }
+
+export const mergeLoadedStateWithInitial = loadedState => {
+    return { ...initialState, ...loadedState.mydecks };
+}
+
 
 export default mydecks;

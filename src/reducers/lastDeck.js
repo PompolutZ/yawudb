@@ -19,7 +19,9 @@ export const removeMyDeck = id => {
     }
 }
 
-const lastDeck = (state = {}, action) => {
+const initialState = {};
+
+const lastDeck = (state = initialState, action) => {
     switch(action.type) {
          
         case ADD_OR_UPDATE_LAST_DECK: 
@@ -32,6 +34,10 @@ const lastDeck = (state = {}, action) => {
         default: 
             return state;
     }
+}
+
+export const mergeLoadedStateWithInitial = loadedState => {
+    return { ...initialState, ...loadedState.lastDeck };
 }
 
 export default lastDeck;

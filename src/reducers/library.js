@@ -13,4 +13,8 @@ const library = (state = initialState, action) => {
     }
 }
 
+export const mergeLoadedStateWithInitial = loadedState => {
+    return { ...initialState, ...loadedState.library };
+}
+
 export default library;

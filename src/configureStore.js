@@ -11,6 +11,7 @@ import library from './reducers/library';
 import userExpansions from './reducers/userExpansions';
 import mydecks from './reducers/mydecks';
 import lastDeck from './reducers/lastDeck';
+import deckUnderEdit from './reducers/deckUnderEdit';
 
 const loadPersistedOnModile = () => {
     if(window.matchMedia('(display-mode: standalone)').matches) {
@@ -37,9 +38,10 @@ const configureStore = history => {
             userExpansions,
             mydecks,
             lastDeck,
+            deckUnderEdit,
         })), 
-        loadPersistedOnModile(),
-        //loadState(),
+        //loadPersistedOnModile(),
+        loadState(),
         // {},
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
         applyMiddleware(routerMiddleware(history)));

@@ -9,4 +9,8 @@ function auth(state = null, action) {
     }
 }
 
+export const mergeLoadedStateWithInitial = loadedState => {
+    return { ...loadedState.auth };
+}
+
 export default auth;

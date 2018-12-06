@@ -1,7 +1,7 @@
 import React from 'react';
-import SetsList from '../../../atoms/SetsList';
-import ScoringOverview from '../../../atoms/ScoringOverview';
-import RestrictedBannedCardsCount from '../../../atoms/RestrictedBannedCardsCount';
+import SetsList from './SetsList';
+import ScoringOverview from './ScoringOverview';
+import RestrictedBannedCardsCount from './RestrictedBannedCardsCount';
 
 const DeckThumbnailHeader = ({ title, author, date, sets, scoringOverview, banned, restricted }) => (
     <div style={{ fontFamily: `'Roboto', sans-serif`}}>

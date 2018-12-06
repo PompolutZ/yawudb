@@ -21,7 +21,7 @@ class Statistics extends Component {
         this.setState({loading: true});
         let data = [];
         let decksCount = 0;
-        const query = await db.collection('decks').where('tags', 'array-contains', '1st place').get();
+        const query = await db.collection('decks').where('tags', 'array-contains', '1st place').where('created', '>=', new Date('2018-11-14')).get();
         query.forEach(doc => {
             data = [...data, ...doc.data().cards];
             decksCount++;

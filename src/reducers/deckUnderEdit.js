@@ -1,14 +1,14 @@
 import { Set } from 'immutable';
 import { factions, restrictedCards, cardsDb } from '../data/index';
 
-export const SET_FACTION = 'SET_FACTION';
-export const ADD_CARD = 'ADD_CARD';
-export const REMOVE_CARD = 'REMOVE_CARD';
-export const CLEAR_DECK = 'CLEAR_ALL_CARDS_IN_DECK';
-export const RESET_DECK = 'RESET_DECK';
-export const CHANGE_NAME = 'CHANGE_NAME';
-export const CHANGE_SOURCE = 'CHANGE_SOURCE'; 
-export const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION'; 
+export const EDIT_FACTION = 'EDIT_FACTION';
+export const EDIT_ADD_CARD = 'EDIT_ADD_CARD';
+export const EDIT_REMOVE_CARD = 'EDIT_REMOVE_CARD';
+export const EDIT_CLEAR_ALL_CARDS_IN_DECK = 'EDIT_CLEAR_ALL_CARDS_IN_DECK';
+export const EDIT_RESET_DECK = 'EDIT_RESET_DECK';
+export const EDIT_DECK_NAME = 'EDIT_DECK_NAME';
+export const EDIT_DECK_SOURCE = 'EDIT_DECK_SOURCE'; 
+export const EDIT_DECK_DESCRIPTION = 'EDIT_DECK_DESCRIPTION'; 
 
 const initialState = {
     name: `${factions['garreks-reavers']} Deck`,
@@ -23,23 +23,23 @@ const initialState = {
     restrictedCardsCount: 0
 }
 
-const deckUnderBuild = (state = initialState, action) => {
+const deckUnderEdit = (state = initialState, action) => {
     const c = cardsDb[action.card];
     switch(action.type) {
-        case SET_FACTION:
+        case EDIT_FACTION:
             const faction = action.faction.startsWith('n_') ? action.faction.slice(2) : action.faction;
             return { ...state, name: `${factions[faction]} Deck`, faction: action.faction, factionDefaultSet: action.defaultSet, deck: new Set() };
         
-        case CHANGE_NAME:
+        case EDIT_DECK_NAME:
             return { ...state, name: action.name } 
 
-        case CHANGE_SOURCE:
+        case EDIT_DECK_SOURCE:
             return { ...state, source: action.source } 
         
-        case CHANGE_DESCRIPTION:
+        case EDIT_DECK_DESCRIPTION:
             return { ...state, desc: action.desc } 
         
-        case ADD_CARD:
+        case EDIT_ADD_CARD:
             return { 
                 ...state, 
                 deck: new Set(state.deck).add(action.card),
@@ -49,7 +49,7 @@ const deckUnderBuild = (state = initialState, action) => {
                 restrictedCardsCount: isRestrictedCard(action.card) ? state.restrictedCardsCount + 1 : state.restrictedCardsCount, 
             }
 
-        case REMOVE_CARD:
+        case EDIT_REMOVE_CARD:
             return { 
                 ...state, 
                 deck: new Set(state.deck).delete(action.card),
@@ -59,10 +59,10 @@ const deckUnderBuild = (state = initialState, action) => {
                 restrictedCardsCount: isRestrictedCard(action.card) ? state.restrictedCardsCount - 1 : state.restrictedCardsCount, 
             }
             
-        case CLEAR_DECK:
+        case EDIT_CLEAR_ALL_CARDS_IN_DECK:
             return { ...state, deck: new Set(), objectivesCount: 0, gambitsCount: 0, upgradesCount: 0, restrictedCardsCount: 0 }     
         
-        case RESET_DECK: 
+        case EDIT_RESET_DECK: 
             return { 
                 ...state, 
                 name: `${factions[state.faction]} Deck`, 
@@ -96,7 +96,7 @@ const isRestrictedCard = id => {
 }
 
 export const mergeLoadedStateWithInitial = loadedState => {
-    return { ...initialState, ...loadedState.deckUnderBuild };
+    return { ...initialState, ...loadedState.deckUnderEdit };
 }
 
-export default deckUnderBuild;
+export default deckUnderEdit;

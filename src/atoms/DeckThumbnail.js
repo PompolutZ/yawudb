@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import DeckIcon from '../../../atoms/DeckIcon';
+import DeckIcon from './DeckIcon';
 import DeckThumbnailHeader from './DeckThumbnailHeader';
-import { idPrefixToFaction } from '../../../data';
+import { idPrefixToFaction } from '../data';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({

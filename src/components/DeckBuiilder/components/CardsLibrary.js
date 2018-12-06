@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { getCardsByFactionAndSets, cardsDb, factionIndexes } from '../../../data';
+import { getCardsByFactionAndSets, cardsDb, factionIndexes, bannedCards, restrictedCards } from '../../../data';
 import { List, AutoSizer } from 'react-virtualized';
 import { ADD_CARD, REMOVE_CARD } from '../../../reducers/deckUnderBuild';
 import { connect } from 'react-redux';
 import { Set } from 'immutable';
 import WUCard from '../../../atoms/WUCard';
 
-export const toggleCardInDeck = (id, currentDeck, addCard, removeCard) => {
-    if(currentDeck.includes(id)) {
-        removeCard(id);
-    } else {
-        addCard(id)
-    }
-}
+// export const toggleCardInDeck = (id, currentDeck, addCard, removeCard) => {
+//     if(currentDeck.includes(id)) {
+//         removeCard(id);
+//     } else {
+//         addCard(id)
+//     }
+// }
 
 class VirtualizedCardsList extends Component {
     constructor(props) {
@@ -35,13 +35,18 @@ class VirtualizedCardsList extends Component {
 
     _renderItem = index => {
         const { card, expanded } = this.state.cards[index]; 
-        return <WUCard key={card.id} {...card} 
+        return <WUCard key={card.id} {...card}
+            editMode={this.props.editMode}
+            isRestricted={this.props.isEligibleForOp && Boolean(restrictedCards[card.id])} 
             isAlter={index % 2 === 0} 
-            inDeck={this.props.currentDeck.includes(card.id)}
-            toggleCardInDeck={this.props.toggleCardInDeck}
+            toggleCardInDeck={this.handleToggleCardInDeck}
             expanded={expanded}
             onExpandChange={this._handleExpanded.bind(this, index)}
             withAnimation={false} />
+    }
+
+    handleToggleCardInDeck = id => {
+        this.props.toggleCardInDeck(id);
     }
 
     _setRef = ref => {
@@ -103,9 +108,11 @@ class VirtualizedCardsList extends Component {
 class FilterableCardLibrary extends Component {
 
     render() {
-        const { searchText, visibleCardTypes, currentDeck } = this.props;
+        const { searchText, visibleCardTypes, editMode } = this.props;
+        const currentDeck = editMode ? this.props.editModeCurrentDeck : this.props.createModeCurrentDeck;
         const cards = this._reloadCards().map(cid => ({id: cid, ...cardsDb[cid]}));
-        let filteredCards = cards.filter(({ type }) => visibleCardTypes.includes(type)); 
+        const bannedIds = Object.keys(bannedCards);
+        let filteredCards = cards.filter(({ type }) => visibleCardTypes.includes(type)).filter(({ id }) => this.props.eligibleForOP && !bannedIds.includes(id)); 
         if(isNaN(searchText)) {
             filteredCards = filteredCards 
                 .filter(c => {
@@ -117,19 +124,28 @@ class FilterableCardLibrary extends Component {
             filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
         }
 
+        const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
+
         filteredCards = filteredCards.filter(c => {
             if (c.type === 3) {
-                return factionIndexes.indexOf(this.props.selectedFaction) > 8;
+                return factionIndexes.indexOf(selectedFaction) > 8;
             }
                 
             return true;
         });
-
         const sorted = filteredCards.toJS().sort((c1, c2) => this._sort(c1, c2));
         const drawableCards = sorted.map(c => ({ card: c, expanded: false }))
         return (
             <div>
-                <VirtualizedCardsList key={drawableCards.length * 31} cards={drawableCards} currentDeck={currentDeck} toggleCardInDeck={this._toggleCardInDeck}/>
+                <VirtualizedCardsList 
+                    key={drawableCards.length * 31} 
+                    isEligibleForOp={this.props.eligibleForOP} 
+                    cards={drawableCards} 
+                    currentDeck={currentDeck} 
+                    toggleCardInDeck={this._toggleCardInDeck}
+                    editMode={this.props.editMode} 
+                    restrictedCardsCount={this.props.restrictedCardsCount}
+                    editRestrictedCardsCount={this.props.editRestrictedCardsCount} />
             </div>
         );
     }
@@ -151,14 +167,17 @@ class FilterableCardLibrary extends Component {
         }
     }
 
-    _toggleCardInDeck = id => {
-        toggleCardInDeck(id, this.props.currentDeck, this.props.addCard, this.props.removeCard);
-    }
+    // _toggleCardInDeck = id => {
+    //     toggleCardInDeck(id, this.props.currentDeck, this.props.addCard, this.props.removeCard);
+    // }
 
     _reloadCards = () => {
-        const factionCards = getCardsByFactionAndSets(this.props.selectedFaction, this.props.selectedSets, this.props.selectedFactionDefaultSet);
-        if(this.props.selectedSets.length > 0) {
-            const universalCards = getCardsByFactionAndSets('universal', this.props.selectedSets);
+        const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
+        const selectedFactionDefaultSet = this.props.editMode ? this.props.editModeFactionDefaultSet : this.props.createModeFactionDefaultSet;
+        const selectedSets = this.props.editMode ? this.props.editModeSelectedSets : this.props.createModeSelectedSets;
+        const factionCards = getCardsByFactionAndSets(selectedFaction, selectedSets, selectedFactionDefaultSet);
+        if(selectedSets.length > 0) {
+            const universalCards = getCardsByFactionAndSets('universal', selectedSets);
             return new Set(factionCards).union(new Set(universalCards));     
         } else {
             return new Set(factionCards);
@@ -170,11 +189,23 @@ const mapStateToProps = state => {
     return {
         searchText: state.cardLibraryFilters.searchText,
         visibleCardTypes: state.cardLibraryFilters.visibleCardTypes,
-        selectedSets: state.cardLibraryFilters.sets,
+        eligibleForOP: state.cardLibraryFilters.eligibleForOP,
+
+        createModeSelectedSets: state.cardLibraryFilters.createModeSets,
+        createModeSelectedFaction: state.deckUnderBuild.faction,
+        createModeFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
+        createModeCurrentDeck: state.deckUnderBuild.deck, 
+        restrictedCardsCount: state.deckUnderBuild.restrictedCardsCount,
+
+        editModeSelectedSets: state.cardLibraryFilters.editModeSets,
+        editModeSelectedFaction: state.deckUnderEdit.faction,
+        editModeFactionDefaultSet: state.deckUnderEdit.factionDefaultSet,
+        editModeCurrentDeck: state.deckUnderBuild.deck,
+        editRestrictedCardsCount: state.deckUnderEdit.restrictedCardsCount,
         
-        currentDeck: state.deckUnderBuild.deck,
-        selectedFaction: state.deckUnderBuild.faction,
-        selectedFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
+        // currentDeck: state.deckUnderBuild.deck,
+        // selectedFaction: state.deckUnderBuild.faction,
+        // selectedFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
     }
 }
 

@@ -4,9 +4,6 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import './index.css';
 import Home from './pages/Home';
-// import Decks from './pages/Decks';
-// import DeckCreator from './pages/DeckCreator';
-// import MyDecks from './pages/MyDecks';
 
 import registerServiceWorker from './registerServiceWorker';
 import Footer from './components/Footer';
@@ -19,6 +16,7 @@ import firebase, { db } from './firebase';
 import LazyLoading from './components/LazyLoading';
 import ErrorBoundary from './components/ErrorBoundary';
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions';
+
 const DeckCreator = lazy(() => import('./pages/DeckCreator'));
 const Decks = lazy(() => import('./pages/Decks'));
 const SignUp = lazy(() => import('./pages/SignUp'));
@@ -32,6 +30,7 @@ const UserProfile = lazy(() => import('./pages/UserProfile'));
 const Card = lazy(() => import('./pages/Card'));
 const MyDecks = lazy(() => import('./pages/MyDecks/index'));
 const Login = lazy(() => import('./pages/Login'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 
 const history = createBrowserHistory();
 const store = configureStore(history);
@@ -130,6 +129,7 @@ class App extends Component {
                                     <Route path="/about" render={(props) => <About {...props} />} />
                                     <Route path="/statistics" render={(props) => <Statistics {...props} />} />
                                     <Route path="/feedback" render={(props) => <Feedback {...props} />} />
+                                    <Route path="/privacy-policy" render={(props) => <PrivacyPolicy {...props} />} />
                     
                                     <PrivateRoute path="/mydecks" component={MyDecks} />
                                     <PrivateRoute path="/profile" component={UserProfile} />

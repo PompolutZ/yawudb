@@ -1,15 +1,16 @@
 import React, { Component, PureComponent } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { cardTypeIcons, cardsDb } from '../data/index';
+import { cardTypeIcons, cardsDb, restrictedCards } from '../data/index';
 import { Set } from 'immutable';
-import { toggleCardInDeck } from './DeckBuiilder/components/CardsLibrary';
+// import { toggleCardInDeck } from './DeckBuiilder/components/CardsLibrary';
 import DeckIcon from '../atoms/DeckIcon';
 import WUButton from '../atoms/Button';
 import WUTextField from '../atoms/WUTextField';
 import isEqual from 'lodash/isEqual';
 import ExpandableWUCard from '../atoms/ExpandableWUCard';
 import ScoringOverview from '../atoms/ScoringOverview';
+import { connect } from 'react-redux';
 
 class CardsTypeCounter extends Component {
     shouldComponentUpdate(nextProps, nextState) {
@@ -51,13 +52,23 @@ class SectionHeader extends PureComponent {
 
 class CardsList extends Component {
     shouldComponentUpdate(nextProps) {
-        return nextProps.list.length !== this.props.list.length;
+        return nextProps.list.length !== this.props.list.length ||
+            nextProps.restrictedCardsCount !== this.props.restrictedCardsCount;
     }
     render() {
         return (
             <div style={{ margin: '.5rem'}}>
                 {
-                    this.props.list.map((v, i) => <ExpandableWUCard withAnimation key={i} {...v} isAlter={i % 2 === 0} toggleCardInDeck={this.props.toggle} inDeck /> )
+                    this.props.list.map((props, i) => 
+                        <ExpandableWUCard {...props} 
+                            withAnimation inDeck
+                            key={i}
+                            restrictedCardsCount={this.props.restrictedCardsCount}
+                            isRestricted={this.props.isEligibleForOP && Boolean(restrictedCards[props.id])} 
+                            isAlter={i % 2 === 0} 
+                            toggleCardInDeck={this.props.toggle} 
+                            editMode={this.props.editMode}
+                            /> )
                 }                
             </div>
         );
@@ -68,7 +79,7 @@ class Deck extends PureComponent {
     state = {
         name: this.props.currentName,
         source: this.props.currentSource,
-        desc: this.props.currentDescription
+        desc: this.props.currentDescription,
     }
 
     handleChangeName = e => {
@@ -97,15 +108,15 @@ class Deck extends PureComponent {
     }
 
     render() {
-        const { selectedCards, faction, onSave, onRemoveAll, onCancel, onUpdate } = this.props;
-        const cards = new Set(selectedCards.map(id => ({id: id, ...cardsDb[id] })));
-        const objectives = cards.filter(v => v.type === 0).sort((c1, c2) => c1.name.localeCompare(c2.name)).toJS();
-        const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((c1, c2) => c1.name.localeCompare(c2.name)).toJS();
-        const upgrades = cards.filter(v => v.type === 2).sort((c1, c2) => c1.name.localeCompare(c2.name)).toJS();
-        const objectivesCount = objectives.length;
-        const gambitsCount = gambits.length;
+        const { faction, onSave, onRemoveAll, onCancel, onUpdate, editMode } = this.props;
+        const objectivesCount = editMode ? this.props.editObjectivesCount : this.props.objectivesCount;
+        const gambitsCount = editMode ? this.props.editGambitsCount : this.props.gambitsCount;
+        const upgradesCount = editMode ? this.props.editUpgradesCount : this.props.upgradesCount;
+        const cards = new Set(this.props.selectedCards.map(id => ({id: id, ...cardsDb[id] })));
+        const objectives = cards.filter(v => v.type === 0).sort((c1, c2) => c1.id - c2.id).toJS(); //c1.name.localeCompare(c2.name)
+        const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((c1, c2) => c1.id - c2.id).toJS();
+        const upgrades = cards.filter(v => v.type === 2).sort((c1, c2) => c1.id - c2.id).toJS();
         const spellsCount = gambits.filter(v => v.type === 3).length;
-        const upgradesCount = upgrades.length;
         const isValidForSave = objectivesCount === 12 && ((gambitsCount + upgradesCount) >= 20);
 
         const objectiveSummary = objectives.reduce((acc, c) => {
@@ -144,17 +155,17 @@ class Deck extends PureComponent {
                         <ScoringOverview summary={objectiveSummary} glory={totalGlory} />
                     </div>
                 </SectionHeader>
-                <CardsList list={objectives} toggle={this._toggleCardInDeck} />
+                <CardsList editMode={editMode} isEligibleForOP={this.props.isEligibleForOP} list={objectives} toggle={this._toggleCardInDeck} />
 
                 <SectionHeader>
                     Gambits
                 </SectionHeader>
-                <CardsList list={gambits} toggle={this._toggleCardInDeck} />
+                <CardsList editMode={editMode} isEligibleForOP={this.props.isEligibleForOP} list={gambits} toggle={this._toggleCardInDeck} />
 
                 <SectionHeader>
                     Upgrades
                 </SectionHeader>
-                <CardsList list={upgrades} toggle={this._toggleCardInDeck} />
+                <CardsList editMode={editMode} isEligibleForOP={this.props.isEligibleForOP} list={upgrades} toggle={this._toggleCardInDeck} />
                 {
                     !this.props.editMode && (
                         <div style={{display: 'flex', paddingBottom: '10rem'}}>
@@ -182,9 +193,21 @@ class Deck extends PureComponent {
             </div>
         );
     }
+}
 
-    _toggleCardInDeck = id => {
-        toggleCardInDeck(id, this.props.selectedCards, this.props.addCard, this.props.removeCard);
+const mapStateToProps = state => {
+    return {
+        isEligibleForOP: state.cardLibraryFilters.eligibleForOP,
+        restrictedCardsCount: state.deckUnderBuild.restrictedCardsCount,
+        objectivesCount: state.deckUnderBuild.objectivesCount,
+        gambitsCount: state.deckUnderBuild.gambitsCount,
+        upgradesCount: state.deckUnderBuild.upgradesCount,
+
+        editRestrictedCardsCount: state.deckUnderEdit.restrictedCardsCount,
+        editObjectivesCount: state.deckUnderEdit.objectivesCount,
+        editGambitsCount: state.deckUnderEdit.gambitsCount,
+        editUpgradesCount: state.deckUnderEdit.upgradesCount,
     }
 }
-export default Deck;
+
+export default connect(mapStateToProps, null)(Deck);

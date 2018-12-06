@@ -8,8 +8,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import FloatingActionButton from '../components/FloatingActionButton';
 import { withRouter } from 'react-router-dom';
-import { ADD_CARD, SET_FACTION, CHANGE_NAME, CHANGE_DESCRIPTION } from '../reducers/deckUnderBuild';
-import { SET_SETS } from '../reducers/cardLibraryFilters';
+import { SET_EDIT_MODE_SETS } from '../reducers/cardLibraryFilters';
+import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../reducers/deckUnderEdit';
 
 
 class Deck extends Component {
@@ -77,12 +77,13 @@ class Deck extends Component {
     }
 
     _editDeck = () => {
+        this.props.resetDeck();
         const { id, name, cards, sets, desc } = this.state.deck;
         const strippedId = id.substring(0, id.length - 13);
         const faction = strippedId.length > PREFIX_LENGTH ? strippedId : idPrefixToFaction[strippedId];
         const defaultSet = warbandsWithDefaultSet.filter(a => a.includes(faction));
         this.props.setFaction(faction, defaultSet[0][1]);
-        this.props.setSets(sets);
+        this.props.setEditModeSets(sets);
         for(let c of cards) {
             this.props.addCard(c);
         }
@@ -102,11 +103,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addCard: card => dispatch({ type: ADD_CARD, card: card}),
-        setName: name => dispatch({ type: CHANGE_NAME, name: name}),
-        setDescription: desc => dispatch({ type: CHANGE_DESCRIPTION, desc: desc }),
-        setFaction: (faction, defaultSet) => dispatch({ type: SET_FACTION, faction: faction, defaultSet: defaultSet }),
-        setSets: sets => dispatch({ type: SET_SETS, payload: sets })
+        addCard: card => dispatch({ type: EDIT_ADD_CARD, card: card}),
+        setName: name => dispatch({ type: EDIT_DECK_NAME, name: name}),
+        setDescription: desc => dispatch({ type: EDIT_DECK_DESCRIPTION, desc: desc }),
+        setFaction: (faction, defaultSet) => dispatch({ type: EDIT_FACTION, faction: faction, defaultSet: defaultSet }),
+        setEditModeSets: value => dispatch({ type: SET_EDIT_MODE_SETS, payload: value }),
+        resetDeck: () => dispatch({ type: EDIT_RESET_DECK }),
     }
 }
 
