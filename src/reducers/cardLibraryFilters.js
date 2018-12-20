@@ -1,4 +1,4 @@
-import { cardType, objectiveScoreType } from '../data/index';
+import { cardType, objectiveScoreType, setsIndex } from '../data/index';
 import keys from 'lodash/keys';
 
 export const CHANGE_SEARCH_TEXT = 'CHANGE_SEARCH_TEXT';
@@ -12,7 +12,7 @@ export const initialState = {
     searchText: '',
     visibleCardTypes: keys(cardType).map(k => parseInt(k, 10)),
     visibleObjectiveScoreTypes: keys(objectiveScoreType).map(k => parseInt(k, 10)),
-    createModeSets: [],
+    createModeSets: Object.keys(setsIndex),
     editModeSets: [],
     eligibleForOP: true
 }
