@@ -70,7 +70,7 @@ class Statistics extends Component {
             <div style={{margin: '.5rem'}}>
                 <Typography style={{marginBottom: '1rem'}}>
                     This page shows the statistics of cards and sets popularity based upon all decks 
-                    which <b>won</b> in tournaments since the release of <b>Warhammer Underworlds: Shadespire</b>.
+                    which <b>won</b> in tournaments since the addition of Banned and Restricted list.
                 </Typography>
                 <Typography style={{marginBottom: '1rem'}}>{`Total amount of decks in the statistics: ${this.state.decksCount}`}</Typography>
                 <Typography variant="title" style={{marginBottom: '.5rem'}}>{`Sets popularity:`}</Typography>
