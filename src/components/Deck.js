@@ -118,6 +118,8 @@ class Deck extends PureComponent {
         const upgrades = cards.filter(v => v.type === 2).sort((c1, c2) => c1.id - c2.id).toJS();
         const spellsCount = gambits.filter(v => v.type === 3).length;
         const isValidForSave = objectivesCount === 12 && ((gambitsCount + upgradesCount) >= 20);
+        const isObjectiveCardsSectionValid = objectivesCount === 12;
+        const isPowerCardsSectionValid = gambitsCount + upgradesCount > 20 && (gambitsCount <= upgradesCount);
 
         const objectiveSummary = objectives.reduce((acc, c) => {
             acc[c.scoreType] += 1;
@@ -138,7 +140,7 @@ class Deck extends PureComponent {
                 <div style={{ display: 'flex', margin: '.5rem' }}>
                     <WUTextField label="Description" value={this.state.desc} onValueChange={this.handleChangeDescription} />
                 </div>
-                <div style={{
+                {/* <div style={{
                     display: 'flex',
                     justifyContent: 'space-around',
                     marginBottom: '1.5rem',
@@ -147,25 +149,56 @@ class Deck extends PureComponent {
                     <CardsTypeCounter types={[0]} counts={[objectivesCount]} isValidCount={objectivesCount === 12} />
                     <CardsTypeCounter types={[1, 3]} counts={[gambitsCount - spellsCount, spellsCount]} isValidCount={(gambitsCount + upgradesCount) >= 20} />
                     <CardsTypeCounter types={[2]} counts={[upgradesCount]} isValidCount={(gambitsCount + upgradesCount) >= 20} />
+                </div> */}
+
+                <div style={{ background: isObjectiveCardsSectionValid ? 'rgba(0, 255, 0, .1)' : 'rgba(255, 0, 0, .2)', padding: '.5rem 0 .5rem 0', marginBottom: '.2rem'}}>
+                    <SectionHeader>
+                        <div style={{ display: 'flex'}}>
+                            <div style={{ marginRight: '.3rem'}}>{objectivesCount} Objectives</div>
+                            <ScoringOverview summary={objectiveSummary} glory={totalGlory} />
+                        </div>
+                        {
+                            !isObjectiveCardsSectionValid && (
+                                <Typography style={{ color: 'darkred'}}>- You must have exactly 12 objective cards.</Typography>
+                            )
+                        }
+                    </SectionHeader>
+                    <CardsList editMode={editMode} isEligibleForOP={this.props.isEligibleForOP} list={objectives} toggle={this._toggleCardInDeck} />
+                </div>                
+
+                <div style={{ background: isPowerCardsSectionValid ? 'rgba(0, 255, 0, .1)' : 'rgba(255, 0, 0, .2)', padding: '.5rem 0 .5rem 0', marginBottom: '.2rem'}}>
+                    <SectionHeader>
+                        <div>
+                            <div>{gambitsCount} Gambits</div>
+                            {
+                                gambitsCount + upgradesCount < 20 && (
+                                    <Typography style={{ color: 'darkred'}}>- You must have at least 20 power cards. Power cards are ploys, gambit spells and upgrades.</Typography>
+                                )
+                            }
+                            {
+                                gambitsCount > upgradesCount && (
+                                    <Typography style={{ color: 'darkred'}}>- You cannot have more gambit cards than upgrade cards.</Typography>
+                                )
+                            }
+                        </div>
+                    </SectionHeader>
+                    <CardsList editMode={editMode} isEligibleForOP={this.props.isEligibleForOP} list={gambits} toggle={this._toggleCardInDeck} />
                 </div>
                 
-                <SectionHeader>
-                    <div style={{ display: 'flex'}}>
-                        <div style={{ marginRight: '.3rem'}}>Objectives</div>
-                        <ScoringOverview summary={objectiveSummary} glory={totalGlory} />
-                    </div>
-                </SectionHeader>
-                <CardsList editMode={editMode} isEligibleForOP={this.props.isEligibleForOP} list={objectives} toggle={this._toggleCardInDeck} />
+                <div style={{ background: isPowerCardsSectionValid ? 'rgba(0, 255, 0, .1)' : 'rgba(255, 0, 0, .2)', padding: '.5rem 0 .5rem 0'}}>
+                    <SectionHeader>
+                        <div>
+                            <div>{upgradesCount} Upgrades</div>
+                            {
+                                gambitsCount + upgradesCount < 20 && (
+                                    <Typography style={{ color: 'darkred'}}>- You must have at least 20 power cards. Power cards are ploys, spells and upgrades.</Typography>
+                                )
+                            }
+                        </div>
 
-                <SectionHeader>
-                    Gambits
-                </SectionHeader>
-                <CardsList editMode={editMode} isEligibleForOP={this.props.isEligibleForOP} list={gambits} toggle={this._toggleCardInDeck} />
-
-                <SectionHeader>
-                    Upgrades
-                </SectionHeader>
-                <CardsList editMode={editMode} isEligibleForOP={this.props.isEligibleForOP} list={upgrades} toggle={this._toggleCardInDeck} />
+                    </SectionHeader>
+                    <CardsList editMode={editMode} isEligibleForOP={this.props.isEligibleForOP} list={upgrades} toggle={this._toggleCardInDeck} />
+                </div>            
                 {
                     !this.props.editMode && (
                         <div style={{display: 'flex', paddingBottom: '10rem'}}>
