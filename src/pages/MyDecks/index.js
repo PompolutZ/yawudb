@@ -57,6 +57,10 @@ class MyDecks extends Component {
 
             for(let deckId of userData.mydecks) {
                 const deckRef = await db.collection('decks').doc(deckId).get();
+                if(!deckRef.exists) {
+                    continue;
+                }
+
                 const data = deckRef.data();
                 const created = data.created.toDate();
                 this.props.addOrUpdate(deckId, data.created, {...data, id: deckId, created: created, author:this.props.userInfo.displayName, authorId: this.props.userInfo.uid});
@@ -186,7 +190,6 @@ class MyDecks extends Component {
     }
 
     checkForConflictsOrWarnings = () => {
-        console.log(this.props.ownSets);
         const cardsInDecks = this.props.decks.reduce((acc, [id, deck]) => {
             const inverted = deck.cards.reduce((iacc, c) => ({...iacc, ...{[c]: [id]}}), {});
             for(let k in inverted) {
@@ -200,11 +203,10 @@ class MyDecks extends Component {
             return acc;
         }, {});
         
-        const conflictCandidates = Object.entries(cardsInDecks).filter(([k, v]) => v.length > 1);
-        console.log(conflictCandidates);
+        const conflictCandidates = toPairs(cardsInDecks).filter(([k, v]) => v.length > 1);
 
         // convert ownSetsToCards
-        const ownCards = Object.entries(this.props.ownSets).reduce((acc, [set, copies]) => {
+        const ownCards = toPairs(this.props.ownSets).reduce((acc, [set, copies]) => {
             const s = setInfos[set];
             const { wave } = s;
             const setCards = Object.keys(s).filter(k => k !== 'wave').reduce((acc, k) => [...acc, ...s[k]], []).map(card => getDbIndexByWaveAndCard(wave, card));
@@ -220,7 +222,6 @@ class MyDecks extends Component {
         }, {});
 
         const conflictsOrWarnings = conflictCandidates.map(([k, v]) => ({ id: k, copies: ownCards[k], decks: v}));
-        console.log(conflictsOrWarnings);
         const conflicts = conflictsOrWarnings.filter(({copies, decks}) => copies === 1 && decks.length > 1);
         const deckConflicts = this.findConflictsOrWarnings(conflicts); 
         const warnings = conflictsOrWarnings.filter(({ copies, decks}) => copies > 1 && decks.length > copies);
@@ -259,7 +260,7 @@ const mapStateToProps = state => {
     return {
         userInfo: state.auth,
         ownSets: state.userExpansions,
-        decks: Object.entries(state.mydecks),
+        decks: toPairs(state.mydecks),
     }
 }
 
