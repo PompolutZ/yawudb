@@ -16,8 +16,6 @@ import { Subject, combineLatest, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import DeckThumbnail from '../atoms/DeckThumbnail';
 
-const uuid4 = require('uuid/v4');
-
 const styles = theme => ({
     root : {
         display: 'flex',
@@ -50,59 +48,6 @@ const styles = theme => ({
         }
     },
 });
-
-const pagesFromTotalPages = totalPages => {
-    const pages = [];
-    for(let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-    }
-
-    return pages;
-}
-
-class PaginationButton extends PureComponent {
-    render() {
-        return (
-            <ButtonBase 
-                style={{ 
-                    width: '3rem', 
-                    backgroundColor: this.props.selected ? '#3B9979' : '#8FC6B3',
-                    padding: '.5rem',
-                    borderRadius: '.2rem',
-                    margin: '0 0 .2rem .3rem'}}
-                onClick={this.handleClick}>
-                <Typography variant="button" style={{ color: 'white' }}>{this.props.pageNumber}</Typography>        
-            </ButtonBase>            
-        );
-    }
-
-    handleClick = () => {
-        this.props.onPageNumberClick(this.props.pageNumber);
-    }
-}
-
-class Pagination extends PureComponent {
-    state = {
-        currentPage: this.props.currentPage,
-        totalPages: pagesFromTotalPages(this.props.totalPages)
-    }
-
-    render() {
-        return (
-            <div style={{ display: 'flex', flexFlow: 'row wrap', margin: '1rem' }}>
-            {
-                this.state.totalPages.map(p => 
-                    <PaginationButton key={p} pageNumber={p} selected={p === this.state.currentPage} onPageNumberClick={this.selectPage} />)
-            }
-            </div>
-        );
-    }
-
-    selectPage = page => {
-        this.setState({ currentPage: page });
-        this.props.onCurrentPageChange(page);
-    }
-}
 
 class Navigator extends PureComponent {
     render() {

@@ -43,7 +43,13 @@ const cardLibraryFilters = (state = initialState, action) => {
 } 
 
 export const mergeLoadedStateWithInitial = loadedState => {
-    return { ...initialState, ...loadedState.cardLibraryFilters };
+    return { 
+        ...initialState, 
+        ...loadedState.cardLibraryFilters, 
+        searchText: initialState.searchText, 
+        visibleObjectiveScoreTypes: initialState.visibleObjectiveScoreTypes,
+        visibleCardTypes: initialState.visibleCardTypes
+    };
 }
 
 export default cardLibraryFilters;

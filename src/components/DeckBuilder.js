@@ -7,8 +7,6 @@ import { cardsDb, factionIdPrefix } from '../data/index';
 import firebase, { db } from '../firebase';
 
 import FloatingActionButton from '../components/FloatingActionButton';
-import ReorderIcon from '@material-ui/icons/Reorder';
-
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SimpleSnackbar from './SimpleSnackbar';

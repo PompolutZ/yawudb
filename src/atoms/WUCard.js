@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ReportIcon from '@material-ui/icons/Report';
 import AddIcon from '@material-ui/icons/Add';
 import AnimateHeight from 'react-animate-height';
-import { cardType, totalCardsPerWave, setsIndex, bannedCards, restrictedCards } from '../data/index';
+import { cardType, totalCardsPerWave, setsIndex, bannedCards } from '../data/index';
 import ObjectiveScoreTypeIcon from '../components/ObjectiveScoreTypeIcon';
 import { connect } from 'react-redux';
 import { ADD_CARD, REMOVE_CARD } from '../reducers/deckUnderBuild';

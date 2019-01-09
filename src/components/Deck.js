@@ -1,42 +1,14 @@
 import React, { Component, PureComponent } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { cardTypeIcons, cardsDb, restrictedCards } from '../data/index';
+import { cardsDb, restrictedCards } from '../data/index';
 import { Set } from 'immutable';
 // import { toggleCardInDeck } from './DeckBuiilder/components/CardsLibrary';
 import DeckIcon from '../atoms/DeckIcon';
 import WUButton from '../atoms/Button';
 import WUTextField from '../atoms/WUTextField';
-import isEqual from 'lodash/isEqual';
 import ExpandableWUCard from '../atoms/ExpandableWUCard';
 import ScoringOverview from '../atoms/ScoringOverview';
 import { connect } from 'react-redux';
-
-class CardsTypeCounter extends Component {
-    shouldComponentUpdate(nextProps, nextState) {
-        return !isEqual(nextProps, this.props);
-    }
-
-    render() {
-        const { types, counts, isValidCount } = this.props;
-        return (
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginRight: '2rem'
-            }}>
-                { types.map((t, i) => {
-                    if(counts[i] >= 0) {
-                        return <Avatar key={t} style={{marginRight: '.5rem'}} src={`/assets/icons/${cardTypeIcons[t]}.png`} />;
-                    }
-        
-                    return <span key={t}></span>;
-                })}
-                <Typography variant="title" color={isValidCount ? 'default' : 'error'}>{`${counts.reduce((total, num) => total + num)}`}</Typography>
-            </div>
-        );
-    }
-}
 
 class SectionHeader extends PureComponent {
     render() {
@@ -116,10 +88,9 @@ class Deck extends PureComponent {
         const objectives = cards.filter(v => v.type === 0).sort((c1, c2) => c1.id - c2.id).toJS(); //c1.name.localeCompare(c2.name)
         const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((c1, c2) => c1.id - c2.id).toJS();
         const upgrades = cards.filter(v => v.type === 2).sort((c1, c2) => c1.id - c2.id).toJS();
-        const spellsCount = gambits.filter(v => v.type === 3).length;
         const isValidForSave = objectivesCount === 12 && ((gambitsCount + upgradesCount) >= 20);
         const isObjectiveCardsSectionValid = objectivesCount === 12;
-        const isPowerCardsSectionValid = gambitsCount + upgradesCount > 20 && (gambitsCount <= upgradesCount);
+        const isPowerCardsSectionValid = gambitsCount + upgradesCount >= 20 && (gambitsCount <= upgradesCount);
 
         const objectiveSummary = objectives.reduce((acc, c) => {
             acc[c.scoreType] += 1;
@@ -147,7 +118,6 @@ class Deck extends PureComponent {
                     marginTop: '1.5rem'
                 }}>
                     <CardsTypeCounter types={[0]} counts={[objectivesCount]} isValidCount={objectivesCount === 12} />
-                    <CardsTypeCounter types={[1, 3]} counts={[gambitsCount - spellsCount, spellsCount]} isValidCount={(gambitsCount + upgradesCount) >= 20} />
                     <CardsTypeCounter types={[2]} counts={[upgradesCount]} isValidCount={(gambitsCount + upgradesCount) >= 20} />
                 </div> */}
 

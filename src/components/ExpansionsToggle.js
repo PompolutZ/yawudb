@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import ToggleImageButton from './ToggleImageButton';
-import { setInfos, setsIndex } from '../data/index';
+import { setInfos } from '../data/index';
 import * as _ from 'lodash';
 import ToggableExpansionIcon from '../atoms/ToggableExpansionIcon';
 import { withStyles } from '@material-ui/core/styles';

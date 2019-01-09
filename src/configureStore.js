@@ -13,19 +13,6 @@ import mydecks from './reducers/mydecks';
 import lastDeck from './reducers/lastDeck';
 import deckUnderEdit from './reducers/deckUnderEdit';
 
-const loadPersistedOnModile = () => {
-    if(window.matchMedia('(display-mode: standalone)').matches) {
-        return loadState();
-      }
-  
-      // Safari
-      if(window.navigator.standalone === true) {
-        return loadState();
-      }
-     
-    return {};  
-}
-
 const configureStore = history => {
     const store = createStore(
         connectRouter(history)(combineReducers({
@@ -40,7 +27,6 @@ const configureStore = history => {
             lastDeck,
             deckUnderEdit,
         })), 
-        //loadPersistedOnModile(),
         loadState(),
         // {},
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),

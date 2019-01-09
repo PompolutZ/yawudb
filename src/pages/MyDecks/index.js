@@ -9,9 +9,10 @@ import { connect } from 'react-redux';
 import { addOrUpdateMyDeck, removeMyDecks } from '../../reducers/mydecks';
 import isEqual from 'lodash/isEqual';
 import DeckThumbnail from '../../atoms/DeckThumbnail';
-import { cardsDb, bannedCards, restrictedCards, setInfos, getDbIndexByWaveAndCard, setsIndex } from '../../data/index';
+import { cardsDb, bannedCards, restrictedCards, setInfos, getDbIndexByWaveAndCard } from '../../data/index';
 import { withStyles } from '@material-ui/core/styles';
 import Switch from '../../atoms/Switch';
+import toPairs from 'lodash/toPairs';
 
 const DeckConflictsAndWarnings = lazy(() => import('./atoms/DeckConflictsAndWarnings'));
 

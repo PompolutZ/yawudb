@@ -1,4 +1,10 @@
 const changelog = {
+    "0.17.0" : {
+        "Validation": "Deck builder has validation for Objectives, Gambits and Upgrades, marking those sections red when then have issue and green when they are fine. Also provides explanations for deck building errors.",
+        "New Icons": "New icons for mobile version of the deck builder, to clearly mark switch between cards library and your deck.",
+        "Filtered Statistics": "Statistics page is based now only on winning decks since the introduction of Banned and Restricted cards list.",
+        "Bug fix": "Fixed bug which caused search text to be preserved between the pages, so after using it during deck build it was still applied to the deck during edit.",
+    },
     "0.16.0" : {
         "New Decks View": "New implementation of the decks browser. Currently in beta."
     }, 
