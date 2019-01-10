@@ -174,45 +174,45 @@ export const duplicates = {
         sets: [0]
     }, 
     "Annihilation" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Conquest" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Denial" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Hold Objective 1" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Hold Objective 2" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Hold Objective 3" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Hold Objective 4" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Hold Objective 5" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Supremacy" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Confusion" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Sidestep" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Great Fortitude" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Great Speed" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
     "Great Strength" : {
-        sets: [0]
+        sets: [0, 8]
     }, 
 }

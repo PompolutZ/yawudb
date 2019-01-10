@@ -18,18 +18,37 @@ const styles = theme => ({
     }
 });
 
+const SetImage = ({ set, percentage, style }) => (
+    <img src={`/assets/icons/${setsIndex[set]}-icon.png`} 
+        alt={`${setsIndex[set]}`} 
+        style={{...{width: `${0.5 + percentage}rem`, height: `${0.5 + percentage}rem`}, ...style}} />
+)
+
 class Card extends Component {
     state = {
         isExpanded: false
     }
 
     render() {
-        const {classes, id, name, set, percentage} = this.props;
+        const {classes, id, name, set, percentage, isDuplicated, sets} = this.props;
         const animateHeight = this.state.isExpanded ? 'auto' : 0;
         return (
             <div style={{display: 'flex', flexFlow: 'column wrap'}}>
                 <div style={{display: 'flex', alignItems: 'center', marginBottom: '.5rem'}}>
-                    <img src={`/assets/icons/${setsIndex[set]}-icon.png`} alt={`${setsIndex[set]}`} width="24" height="24" style={{marginRight: '.5rem'}} />
+                    {
+                        !isDuplicated && (
+                            <SetImage set={set} percentage={percentage} style={{ marginRight: '.5rem', }} />
+                        )
+                    }
+                    {
+                        isDuplicated && (
+                            <div style={{ display: 'flex', marginRight: '.5rem' }}>
+                                {
+                                    sets.map(s => <SetImage set={s} percentage={percentage} />)
+                                }
+                            </div>
+                        )
+                    }
                     <Typography variant="body2"
                         className={classes.cardName} 
                         style={{marginRight: '.5rem', fontSize: `${0.5 + percentage}rem`, color: pickCardColor(id)}}

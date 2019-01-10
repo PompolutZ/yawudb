@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { db } from '../firebase';
 import { List } from 'immutable'
-import { cardsDb, setsIndex, bannedCards, restrictedCards } from '../data/index';
+import { cardsDb, setsIndex, bannedCards, restrictedCards, duplicates } from '../data/index';
 import keys from 'lodash/keys';
+import values from 'lodash/values';
 import { Typography, CircularProgress } from '@material-ui/core';
 import { pickCardColor } from '../utils/functions';
 import Card from '../atoms/StatisticsCard';
@@ -47,17 +48,47 @@ class Statistics extends Component {
             .sort((v1, v2) => v2.weight - v1.weight)
             .toArray();
         
+        const cardsWithNamesAndWeight = cardsWithWeight.map(c => ({id: c.id, name: cardsDb[c.id].name, set: cardsDb[c.id].set, weight: c.weight}));
+        const duplicateCardNames = keys(duplicates);
+        const cards = cardsWithNamesAndWeight.reduce((acc, el) => {
+            if(duplicateCardNames.includes(el.name)) {
+                if(acc[el.name]) {
+                    acc[el.name].weight += el.weight;
+                } else {
+                    acc[el.name] = {
+                        name: el.name,
+                        weight: el.weight,
+                        set: el.set,
+                        id: el.id,
+                        isDup: true,
+                        sets: duplicates[el.name].sets
+                    }
+                }
+            } else {
+                acc[el.name] = {
+                    name: el.name,
+                    weight: el.weight,
+                    set: el.set,
+                    id: el.id
+                }
+            }
+
+            return acc;
+        }, {})
+        console.log(cardsWithNamesAndWeight);
+        console.log(values(cards).sort((a, b) => b.weight - a.weight));
+        
         let setsWithWeight = cardsWithWeight.map(c => {
             const card = cardsDb[c.id];
             return ({set: card.set, weight: c.weight});
-        }).reduce((acc, x) => {
+        }).reduce((acc, x) => { 
             acc[x.set] += x.weight;
             return acc;
         }, keys(setsIndex).fill(0));
 
         this.setState({
             loading: false,
-            cards: cardsWithWeight.map(c => ({id: c.id, name: cardsDb[c.id].name, set: cardsDb[c.id].set, weight: c.weight})),
+            cards: values(cards).sort((a, b) => b.weight - a.weight),
             sets: setsWithWeight,
             decksCount: decksCount
         });
@@ -112,7 +143,7 @@ class Statistics extends Component {
                     ) 
                 }
                 {
-                    this.state.cards.map(c => <Card key={c.id} id={c.id} name={c.name} set={c.set} percentage={c.weight / this.state.decksCount} />)
+                    this.state.cards.map(c => <Card key={c.id} id={c.id} name={c.name} set={c.set} percentage={c.weight / this.state.decksCount} isDuplicated={c.isDup} sets={c.sets} />)
                 }
                 </div>
             </div>

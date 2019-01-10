@@ -1,4 +1,7 @@
 const changelog = {
+    "0.18.0" : {
+        "Statistics": "Statistics page has been improved with duplicates merged and minor re-styling"
+    },
     "0.17.0" : {
         "Validation": "Deck builder has validation for Objectives, Gambits and Upgrades, marking those sections red when then have issue and green when they are fine. Also provides explanations for deck building errors.",
         "New Icons": "New icons for mobile version of the deck builder, to clearly mark switch between cards library and your deck.",
