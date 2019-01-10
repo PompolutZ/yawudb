@@ -1,14 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-
-const config = {
-    apiKey: "AIzaSyCnp7bCUUgp_f50T7r0Cdxws1UwGguHSUI",
-    authDomain: "yawudb.firebaseapp.com",
-    databaseURL: "https://yawudb.firebaseio.com",
-    projectId: "yawudb",
-    storageBucket: "yawudb.appspot.com",
-    messagingSenderId: "765225568277"
-  };
+const config = require('./firebase.conf');
 
 admin.initializeApp(config);  
 
