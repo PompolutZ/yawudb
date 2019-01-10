@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { db } from '../firebase';
 import { List } from 'immutable'
 import { cardsDb, setsIndex, bannedCards, restrictedCards } from '../data/index';
-import * as _ from 'lodash';
+import keys from 'lodash/keys';
 import { Typography, CircularProgress } from '@material-ui/core';
-import AnimateHeight from 'react-animate-height';
 import { pickCardColor } from '../utils/functions';
-
-import './Statistics.css';
+import Card from '../atoms/StatisticsCard';
 
 class Statistics extends Component {
     state = {
@@ -55,7 +53,7 @@ class Statistics extends Component {
         }).reduce((acc, x) => {
             acc[x.set] += x.weight;
             return acc;
-        }, _.keys(setsIndex).fill(0));
+        }, keys(setsIndex).fill(0));
 
         this.setState({
             loading: false,
@@ -117,37 +115,6 @@ class Statistics extends Component {
                     this.state.cards.map(c => <Card key={c.id} id={c.id} name={c.name} set={c.set} percentage={c.weight / this.state.decksCount} />)
                 }
                 </div>
-            </div>
-        );
-    }
-}
-
-class Card extends Component {
-    state = {
-        isExpanded: false
-    }
-
-    render() {
-        const {id, name, set, percentage} = this.props;
-        const animateHeight = this.state.isExpanded ? 'auto' : 0;
-        return (
-            <div style={{display: 'flex', flexFlow: 'column wrap'}}>
-                <div style={{display: 'flex', alignItems: 'center', marginBottom: '.5rem'}}>
-                    <img src={`/assets/icons/${setsIndex[set]}-icon.png`} alt={`${setsIndex[set]}`} width="24" height="24" style={{marginRight: '.5rem'}} />
-                    <Typography variant="body2"
-                        className="cardName" 
-                        style={{marginRight: '.5rem', fontSize: `${0.5 + percentage}rem`, color: pickCardColor(id)}}
-                        onClick={() => this.setState(state => ({isExpanded: !state.isExpanded}))}>
-                        <u>{`${name}`}</u>
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" style={{fontSize: `${0.5 + percentage}rem`}}>{`${(percentage * 100).toFixed(2)}%`}</Typography>
-                </div>
-                <AnimateHeight
-                    height={animateHeight}
-                    duration={250}
-                    easing="ease-out">
-                    <img className="card" src={`/assets/cards/${id}.png`} alt={id} style={{width: '100%'}} />
-                </AnimateHeight>
             </div>
         );
     }
