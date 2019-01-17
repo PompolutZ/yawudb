@@ -1,4 +1,4 @@
-import cardsdb from './cardsdb';
+import { cardsdb } from './cardsdb';
 
 export { 
     factions,

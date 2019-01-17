@@ -111,6 +111,7 @@ class FilterableCardLibrary extends Component {
         const { searchText, visibleCardTypes, editMode } = this.props;
         const currentDeck = editMode ? this.props.editModeCurrentDeck : this.props.createModeCurrentDeck;
         const cards = this._reloadCards().map(cid => ({id: cid, ...cardsDb[cid]}));
+        console.log(cards);
         const bannedIds = Object.keys(bannedCards);
         let filteredCards = cards.filter(({ type }) => visibleCardTypes.includes(type)).filter(({ id }) => this.props.eligibleForOP && !bannedIds.includes(id)); 
         if(isNaN(searchText)) {

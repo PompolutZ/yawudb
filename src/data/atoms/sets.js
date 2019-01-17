@@ -85,6 +85,16 @@ export const setInfos = {
         wave: 3,
         '0' : [293, 295, 300, 305, 307, 308, 321, 324, 325, 327, 347, 351, 352, 353, 357, 364, 367, 373, 375, 381, 382, 386, 391, 397, 400, 405, 406, 410, 417, 420, 425, 427, 438, 441, 442, 443, 456, 458, 459, 463, 468, 470, 483, 486, 487, 488, 490, 495, 503, 508, 513, 518, 522, 527, 528, 531, 536, 539, 544, 546, 552, 553],
     },
+    '14' : {
+        wave: 3,
+        '0' : [],
+        '13': [175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203]
+    },
+    '15' : {
+        wave: 3,
+        '0' : [],
+        '14': [204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232]
+    }
 }
 
 export const setsReleaseDates = {
@@ -102,6 +112,8 @@ export const setsReleaseDates = {
     "garreks-reavers" : new Date(2018, 9, 13),
     "steelhearts-champions" : new Date(2018, 9, 13),
     "echoes-of-glory" : new Date(2018, 9, 13),
+    "godsworn-hunt" : new Date(2019, 0, 26),
+    "mollogs-mob": new Date(2019, 0, 26),
 }
 
 export const setsIndex = [
@@ -122,7 +134,9 @@ export const setsIndex = [
     "zarbags-gitz",
     "garreks-reavers",
     "steelhearts-champions",
-    "echoes-of-glory" // 13
+    "echoes-of-glory", // 13
+    "godsworn-hunt",
+    "mollogs-mob",
 ]
 
 export const setsNames = [
@@ -143,6 +157,8 @@ export const setsNames = [
     "Zarbags Gitz Expansion",
     "Garreks Reavers Expansion",
     "Steelhearts Champions Expansion",
-    "Echoes Of Glory Expansion Card Set" // 13
+    "Echoes Of Glory Expansion Card Set", // 13
+    "Godsworn Hunt Expansion",
+    "Mollog's Mob Expansion",
 ]
 

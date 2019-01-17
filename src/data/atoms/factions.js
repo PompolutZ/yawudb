@@ -11,7 +11,9 @@ export const factions = {
     "stormsires-cursebreakers": "Stormsire's Cursebreakers",
     "thorns-of-the-briar-queen": "Thorns of the Briar Queen",
     "the-eyes-of-the-nine": "The Eyes of the Nine",
-    "zarbags-gitz": "Zarbag's Gitz"
+    "zarbags-gitz": "Zarbag's Gitz",
+    "godsworn-hunt": "Godsworn Hunt",
+    "mollogs-mob": "Mollog's Mob",
 }
 
 // 0 index stands for 'wave', so all the cards from Shadespire except Leader will be from wave 1,
@@ -42,7 +44,9 @@ export const factionIdPrefix = {
     "stormsires-cursebreakers": "stc",
     "thorns-of-the-briar-queen": "toftbq",
     "the-eyes-of-the-nine": "teotn",
-    "zarbags-gitz": "zg"
+    "zarbags-gitz": "zg",
+    "godsworn-hunt": "gh",
+    "mollogs-mob": "mm",
 }
 
 export const filterFactionByIdRange = {
@@ -107,12 +111,14 @@ export const idPrefixToFaction = {
     "stc" : "stormsires-cursebreakers",
     "toftbq" : "thorns-of-the-briar-queen",
     "teotn" : "the-eyes-of-the-nine",
-    "zg" : "zarbags-gitz"
+    "zg" : "zarbags-gitz",
+    "gh" : "godsworn-hunt",
+    "mm": "mollogs-mob",
 }
 
 // 0 index indicates the default set containing corresponding faction's cards
 export const factionSets = {
-    "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
     "garreks-reavers" : [0, 7, 11],
     "steelhearts-champions" : [0, 7, 12],
     "sepulchral-guard" : [1, 7],
@@ -124,7 +130,9 @@ export const factionSets = {
     "stormsires-cursebreakers": [8],
     "thorns-of-the-briar-queen": [8],
     "the-eyes-of-the-nine": [9],
-    "zarbags-gitz": [10]
+    "zarbags-gitz": [10],
+    "godsworn-hunt": [14],
+    "mollogs-mob": [15],
 }
 
 export const factionIndexes = [
@@ -141,6 +149,8 @@ export const factionIndexes = [
     "thorns-of-the-briar-queen",
     "the-eyes-of-the-nine",
     "zarbags-gitz",
+    "godsworn-hunt",
+    "mollogs-mob",
 ]
 
 export const warbandsWithDefaultSet = [
@@ -158,4 +168,6 @@ export const warbandsWithDefaultSet = [
     ["zarbags-gitz",10],
     ["n_garreks-reavers",11],
     ["n_steelhearts-champions",12],
+    ["godsworn-hunt", 14],
+    ["mollogs-mob", 15],
 ]

@@ -48,7 +48,8 @@ export const mergeLoadedStateWithInitial = loadedState => {
         ...loadedState.cardLibraryFilters, 
         searchText: initialState.searchText, 
         visibleObjectiveScoreTypes: initialState.visibleObjectiveScoreTypes,
-        visibleCardTypes: initialState.visibleCardTypes
+        visibleCardTypes: initialState.visibleCardTypes,
+        createModeSets: initialState.createModeSets,
     };
 }
 
