@@ -82,6 +82,46 @@ const PrivateRoute = connect(state => ({
     isAuthenticated: state.auth !== null
 }))(PrivateRouteContainer)   
 
+class TempPage extends Component {
+    componentDidMount = async () => {
+        const decksRef = await db.collection('decks').get();
+        const decks = [];
+        decksRef.forEach(deck => {
+            decks.push(deck.data().cards);
+        });
+
+        const r = decks.reduce((acc, el) => {
+            for (let card of el) {
+                const wave = parseInt(card.slice(0,2), 10);
+                const id = parseInt(card.slice(-3), 10);
+                acc[wave][id] += 1;
+            }
+
+            return acc;
+        }, [
+            -1,
+            [...[-1], ...new Array(437).fill(0, 0, 437)],
+            [...[-1], ...new Array(60).fill(0, 0, 60)],
+            [...[-1], ...new Array(557).fill(0, 0, 557)]
+        ]);
+
+        console.log(r);
+        await db.collection('meta').doc('cards_meta').set({
+            popularity_01: r[1],
+            popularity_02: r[2],
+            popularity_03: r[3]
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                This will update cards popularity in some nasty way...
+            </div>
+        );
+    }
+}
+
 class App extends Component {
     state = {
         error: ''
@@ -130,6 +170,7 @@ class App extends Component {
                                     <Route path="/statistics" render={(props) => <Statistics {...props} />} />
                                     <Route path="/feedback" render={(props) => <Feedback {...props} />} />
                                     <Route path="/privacy-policy" render={(props) => <PrivacyPolicy {...props} />} />
+                                    <Route path="/temp" render={(props) => <TempPage {...props} />} />
                     
                                     <PrivateRoute path="/mydecks" component={MyDecks} />
                                     <PrivateRoute path="/profile" component={UserProfile} />
