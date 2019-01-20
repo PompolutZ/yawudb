@@ -12,6 +12,8 @@ import userExpansions from './reducers/userExpansions';
 import mydecks from './reducers/mydecks';
 import lastDeck from './reducers/lastDeck';
 import deckUnderEdit from './reducers/deckUnderEdit';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const configureStore = history => {
     const store = createStore(
@@ -28,9 +30,9 @@ const configureStore = history => {
             deckUnderEdit,
         })), 
         loadState(),
-        // {},
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-        applyMiddleware(routerMiddleware(history)));
+        composeWithDevTools(
+            applyMiddleware(thunk, routerMiddleware(history))
+        ));
     
     store.subscribe(throttle(() => {
       saveState(store.getState());

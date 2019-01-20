@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
@@ -37,11 +37,11 @@ class FloatingActionButton extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Button variant="fab" 
-                    className={`fab ${classnames(classes.default, classes.mobileOnly, {[classes.enabled]: this.props.isEnabled})}`}
-                    onClick={() => this.props.onClick()}>
+            <Fab 
+                className={`fab ${classnames(classes.default, classes.mobileOnly, {[classes.enabled]: this.props.isEnabled})}`}
+                onClick={() => this.props.onClick()}>
                 {this.props.children}
-            </Button>
+            </Fab>
         );
     }
 }

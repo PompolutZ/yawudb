@@ -7,6 +7,7 @@ export const SET_EDIT_MODE_SETS = 'SET_EDIT_MODE_SETS';
 export const SET_VISIBLE_CARD_TYPES = 'SET_VISIBLE_CARD_TYPES';
 export const SET_VISIBLE_OBJECTIVE_SCORE_TYPES = 'SET_VISIBLE_OBJECTIVE_SCORE_TYPES';
 export const SET_ELIGIBLE_FOR_ORGANIZED_PLAY = "SET_ELIGIBLE_FOR_ORGANIZED_PLAY";
+export const SET_CARDS_RANKING = 'SET_CARDS_RANKING';
 
 export const initialState = {
     searchText: '',
@@ -14,7 +15,8 @@ export const initialState = {
     visibleObjectiveScoreTypes: keys(objectiveScoreType).map(k => parseInt(k, 10)),
     createModeSets: Object.keys(setsIndex),
     editModeSets: [],
-    eligibleForOP: true
+    eligibleForOP: true,
+    cardsRanking: [-1, [], [], []]
 }
 
 const cardLibraryFilters = (state = initialState, action) => {
@@ -35,7 +37,10 @@ const cardLibraryFilters = (state = initialState, action) => {
             return { ...state, visibleObjectiveScoreTypes: action.payload }    
 
         case SET_ELIGIBLE_FOR_ORGANIZED_PLAY:
-            return { ...state, eligibleForOP: action.payload }    
+            return { ...state, eligibleForOP: action.payload }
+            
+        case SET_CARDS_RANKING:
+            return { ...state, cardsRanking: action.payload }    
 
         default:
             return state;

@@ -90,6 +90,7 @@ class TempPage extends Component {
             decks.push(deck.data().cards);
         });
 
+        console.log(decks.length);
         const r = decks.reduce((acc, el) => {
             for (let card of el) {
                 const wave = parseInt(card.slice(0,2), 10);
@@ -107,9 +108,9 @@ class TempPage extends Component {
 
         console.log(r);
         await db.collection('meta').doc('cards_meta').set({
-            popularity_01: r[1],
-            popularity_02: r[2],
-            popularity_03: r[3]
+            1: r[1],
+            2: r[2],
+            3: r[3]
         });
     }
 
@@ -119,6 +120,16 @@ class TempPage extends Component {
                 This will update cards popularity in some nasty way...
             </div>
         );
+    }
+}
+
+const fetchCardsRanking = () => {
+    return function(dispatch) {
+        return db.collection('meta').doc('cards_meta').get().then(ref => {
+            const data = ref.data();
+            console.log('fetchCardsRanking', data);
+            dispatch({ type: 'SET_CARDS_RANKING', payload: [-1, data['1'], data['2'], data['3']]});
+        });
     }
 }
 
@@ -139,6 +150,8 @@ class App extends Component {
                 this.setState({ error: err });
             }
         });
+        
+        store.dispatch(fetchCardsRanking());
     }
 
     componentWillUnmount() {

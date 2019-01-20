@@ -110,8 +110,8 @@ class FilterableCardLibrary extends Component {
     render() {
         const { searchText, visibleCardTypes, editMode } = this.props;
         const currentDeck = editMode ? this.props.editModeCurrentDeck : this.props.createModeCurrentDeck;
-        const cards = this._reloadCards().map(cid => ({id: cid, ...cardsDb[cid]}));
-        console.log(cards);
+        const cards = this._reloadCards().map(cid => ({id: cid, ranking: this.props.cardsRanking[parseInt(cid.slice(0,2), 10)][parseInt(cid.slice(-3), 10)], ...cardsDb[cid]}));
+        
         const bannedIds = Object.keys(bannedCards);
         let filteredCards = cards.filter(({ type }) => visibleCardTypes.includes(type)).filter(({ id }) => this.props.eligibleForOP && !bannedIds.includes(id)); 
         if(isNaN(searchText)) {
@@ -155,22 +155,8 @@ class FilterableCardLibrary extends Component {
         const t1 = (card1.type === 1 || card1.type === 3) ? 1 : card1.type;
         const t2 = (card2.type === 1 || card2.type === 3) ? 1 : card2.type;
 
-        return t1 - t2 || card2.faction - card1.faction || card1.id - card2.id;
+        return t1 - t2 || card2.ranking - card1.ranking;
     }
-
-    _sortByType = (type1, type2) => {
-        if(type1 === 0 && (type2 === 1 || type2 === 3)) {
-            return -1;
-        }
-        
-        if((type1 === 1 || type1 === 3) && type2 === 2) {
-            return -1;
-        }
-    }
-
-    // _toggleCardInDeck = id => {
-    //     toggleCardInDeck(id, this.props.currentDeck, this.props.addCard, this.props.removeCard);
-    // }
 
     _reloadCards = () => {
         const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
@@ -191,6 +177,7 @@ const mapStateToProps = state => {
         searchText: state.cardLibraryFilters.searchText,
         visibleCardTypes: state.cardLibraryFilters.visibleCardTypes,
         eligibleForOP: state.cardLibraryFilters.eligibleForOP,
+        cardsRanking: state.cardLibraryFilters.cardsRanking,
 
         createModeSelectedSets: state.cardLibraryFilters.createModeSets,
         createModeSelectedFaction: state.deckUnderBuild.faction,
