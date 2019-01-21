@@ -9,13 +9,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Drawer, List, ListItem, ListItemText, Avatar } from '@material-ui/core';
+import { Drawer, List, ListItem, ListItemText, Avatar, Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import firebase from '../firebase';
 import { connect } from 'react-redux';
 import { SET_SCROLL_INDEX } from '../reducers/library';
+import { AddCardSVG, DeckSVG } from '../atoms/SVGs';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
     position: 'fixed',
@@ -35,7 +36,13 @@ const styles = {
     backgroundColor: '#3B9979'
   },
 
-};
+  desktopOnly: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    }
+  }
+});
 
 class MenuAppBar extends React.Component {
   state = {
@@ -92,6 +99,14 @@ class MenuAppBar extends React.Component {
       this.props.history.push('/library');
   }
 
+  navigateToDeckBuilder = () => {
+      this.props.history.push('/deck/create');
+  }
+
+  navigateToAllDecks = () => {
+      this.props.history.push('/decks');
+  }
+
   render() {
     const { classes, history } = this.props;
     const { anchorEl } = this.state;
@@ -100,13 +115,13 @@ class MenuAppBar extends React.Component {
     const sideList = (
         <div className={classes.list}>
           <List component="nav">
-            <ListItem button onClick={() => history.push('/deck/create')}>
+            <ListItem button onClick={this.navigateToDeckBuilder}>
                 <ListItemText primary="Deck Builder" />
             </ListItem>
             <ListItem button onClick={this.navigateToLibrary}>
                 <ListItemText primary={<div>Card Library<sup style={{ color: 'gray'}}>&alpha;</sup></div>} />
             </ListItem>
-            <ListItem button onClick={() => history.push('/decks')}>
+            <ListItem button onClick={this.navigateToAllDecks}>
                 <ListItemText primary="Decks" />
             </ListItem>
             <ListItem button onClick={() => history.push('/statistics')}>
@@ -132,35 +147,42 @@ class MenuAppBar extends React.Component {
             <Typography variant="title" color="inherit" className={classes.grow} onClick={this.navigateHome}>
                 { document.title }
             </Typography>
-            {this.props.isAuth && (
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <Avatar src={this.props.avatar} />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleProfile}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleMyDecks}>My decks</MenuItem>
-                  <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
-                </Menu>
-              </div>
+            <IconButton className={classes.desktopOnly} onClick={this.navigateToDeckBuilder}>
+              <AddCardSVG style={{ width: '1.5rem', height: '1.5rem' }} />
+            </IconButton>   
+            <IconButton className={classes.desktopOnly} onClick={this.navigateToAllDecks}>
+              <DeckSVG style={{ width: '1.5rem', height: '1.5rem'}} />
+            </IconButton>   
+            {
+              this.props.isAuth && (
+                <div>
+                  <IconButton
+                    aria-owns={open ? 'menu-appbar' : null}
+                    aria-haspopup="true"
+                    onClick={this.handleMenu}
+                    color="inherit"
+                  >
+                    <Avatar src={this.props.avatar} />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={open}
+                    onClose={this.handleClose}
+                  >
+                    <MenuItem onClick={this.handleProfile}>Profile</MenuItem>
+                    <MenuItem onClick={this.handleMyDecks}>My decks</MenuItem>
+                    <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
+                  </Menu>
+                </div>
             )}
             {
                 !this.props.isAuth && (
