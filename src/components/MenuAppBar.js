@@ -144,7 +144,7 @@ class MenuAppBar extends React.Component {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
-            <Typography variant="title" color="inherit" className={classes.grow} onClick={this.navigateHome}>
+            <Typography variant="subtitle1" color="inherit" className={classes.grow} onClick={this.navigateHome}>
                 { document.title }
             </Typography>
             <IconButton className={classes.desktopOnly} onClick={this.navigateToDeckBuilder}>
