@@ -25,7 +25,7 @@ class CardTypeToggle extends Component {
 
     renderIndex(name, index){
         return (
-            <div key={name} style={{ display: 'flex', alignItems: 'center', marginBottom: '.5rem'}}>
+            <div key={name} style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem'}}>
                 <ToggleImageButton 
                     isOff={!this.state.selectedCardTypes.includes(index)} 
                     onImage={`/assets/icons/${name.toLowerCase()}-icon.png`}
