@@ -84,13 +84,16 @@ const PrivateRoute = connect(state => ({
 
 class TempPage extends Component {
     componentDidMount = async () => {
-        const decksRef = await db.collection('decks').get();
+        const decksRef = await db.collection('decks').orderBy('created', 'desc').get();
         const decks = [];
+        const deckIds = [];
         decksRef.forEach(deck => {
             decks.push(deck.data().cards);
+            deckIds.push(deck.id);
         });
 
         console.log(decks.length);
+        
         const r = decks.reduce((acc, el) => {
             for (let card of el) {
                 const wave = parseInt(card.slice(0,2), 10);
@@ -112,6 +115,29 @@ class TempPage extends Component {
             2: r[2],
             3: r[3]
         });
+
+        console.log(deckIds);
+        const grouped = deckIds.reduce((acc, el) => {
+            const prefix = el.split('-')[0];
+            if(!!acc[prefix]) {
+                acc[prefix] = [el, ...acc[prefix]];
+            } else {
+                acc[prefix] = [el]
+            }
+
+            return acc;
+        }, {});
+
+        console.log(grouped);
+        await db.collection('meta').doc('all').set({
+            ids: deckIds
+        });
+
+        for (let k in grouped) {
+            await db.collection('meta').doc(k).set({
+                ids: grouped[k]
+            });
+        }
     }
 
     render() {

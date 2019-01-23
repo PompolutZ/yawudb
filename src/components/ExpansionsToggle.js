@@ -48,13 +48,6 @@ class ExpansionsToggle extends Component {
             <ToggableExpansionIcon key={v} set={v} variant="large" isEnabled={this.state.selectedExpansions.includes(parseInt(v, 10))}
                 onClick={this.handleToggle} />
         );
-        // const name = setsIndex[v];
-        // return <ToggleImageButton key={name}
-        //             isOff={!} 
-        //             onImage={`/assets/icons/${name}-icon.png`}
-        //             offImage={`/assets/icons/${name}-icon-bw.png`}
-        //             onToggle={this.handleToggle.bind(this, v)}
-        //             />
     }
 
     render() {

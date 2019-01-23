@@ -36,6 +36,9 @@ exports.countTotal =
     functions.firestore.document('/decks/{deckId}')
     .onWrite((change, context) => {
         const ref = db.collection('meta').doc('decks_meta');
+        const allDecksRef = db.collection('meta').doc('all');
+        const factionDecksRef = db.collection('meta').doc(change.after.id.split('-')[0]);
+
         if(!change.after.exists) {
             // document has been deleted
             return db.runTransaction(transaction => {
@@ -46,6 +49,18 @@ exports.countTotal =
             });
         } else if(change.after.exists && !change.before.exists) {
             return db.runTransaction(transaction => {
+                transaction.get(allDecksRef)
+                    .then(doc => {
+                        const updated = [change.after.id, ...doc.data().ids];
+                        transaction.update(allDecksRef, { ids: updated });
+                    });
+
+                transaction.get(factionDecksRef)
+                    .then(doc => {
+                        const updated = [change.after.id, ...doc.data().ids];
+                        transaction.update(factionDecksRef, { ids: updated });
+                    });        
+
                 return transaction.get(ref).then(doc => {
                     const newTotal = doc.data().total + 1;
                     transaction.update(ref, { total: newTotal });
