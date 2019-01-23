@@ -32,13 +32,84 @@ db.settings({ timestampsInSnapshots: true });
 //         return true;
 //     });
 
+exports.buildAllDecksIds =
+    functions.firestore.document('/decks/{deckId}')
+    .onWrite((change, context) => {
+        const allDecksRef = db.collection('meta').doc('all');
+        if(!change.after.exists) {
+            // document has been deleted
+            return db.runTransaction(transaction => {
+                return transaction.get(allDecksRef).then(doc => {
+                    const allDecks = doc.data().ids.filter(id => id !== change.before.id);
+                    transaction.update(allDecksRef, { ids: allDecks });
+                });
+            });
+        } else if(change.after.exists && !change.before.exists) { // document has been created
+            console.log('Creating deck id = ', change.after.id);
+            return db.runTransaction(t => {
+                return t.get(allDecksRef)
+                    .then(doc => {
+                        console.log('Updating all decks meta.');
+                        const updated = [change.after.id, ...doc.data().ids];
+                        t.update(allDecksRef, { ids: updated });
+                    });
+            });
+        } else if (change.after.exists && change.before.exists) {
+            // document has been updated
+            console.log('Updating deck id = ', change.after.id);
+            return db.runTransaction(transaction => {
+                return transaction.get(allDecksRef)
+                    .then(doc => {
+                        console.log('Updating all decks meta.');
+                        const allOtherIds = doc.data().ids.filter(el => el !== change.after.id);
+                        transaction.update(allDecksRef, { ids: [change.after.id, ...allOtherIds] });
+                    });
+            });
+        }
+
+        return null;
+    });
+
+exports.maintainFactionDeckIds =     
+    functions.firestore.document('/decks/{deckId}')
+    .onWrite((change, context) => {
+        const factionDecksRef = db.collection('meta').doc(change.after.id.split('-')[0]);
+        if(!change.after.exists) {
+            // document has been deleted
+            return db.runTransaction(transaction => {
+                return transaction.get(factionDecksRef).then(doc => {
+                    const allDecks = doc.data().ids.filter(id => id !== change.before.id);
+                    transaction.update(factionDecksRef, { ids: allDecks });
+                });
+            });
+        } else if(change.after.exists && !change.before.exists) { // document has been created
+            console.log('Creating deck id = ', change.after.id);
+            return db.runTransaction(t => {
+                return t.get(factionDecksRef)
+                    .then(doc => {
+                        const updated = [change.after.id, ...doc.data().ids];
+                        t.update(factionDecksRef, { ids: updated });
+                    });
+            });
+        } else if (change.after.exists && change.before.exists) {
+            // document has been updated
+            console.log('Updating deck id = ', change.after.id);
+            return db.runTransaction(transaction => {
+                return transaction.get(factionDecksRef)
+                    .then(doc => {
+                        const allOtherIds = doc.data().ids.filter(el => el !== change.after.id);
+                        transaction.update(factionDecksRef, { ids: [change.after.id, ...allOtherIds] });
+                    });
+            });
+        }
+
+        return null;
+    });
+
 exports.countTotal = 
     functions.firestore.document('/decks/{deckId}')
     .onWrite((change, context) => {
         const ref = db.collection('meta').doc('decks_meta');
-        const allDecksRef = db.collection('meta').doc('all');
-        const factionDecksRef = db.collection('meta').doc(change.after.id.split('-')[0]);
-
         if(!change.after.exists) {
             // document has been deleted
             return db.runTransaction(transaction => {
@@ -47,25 +118,18 @@ exports.countTotal =
                     transaction.update(ref, { total: newTotal });
                 });
             });
-        } else if(change.after.exists && !change.before.exists) {
-            return db.runTransaction(transaction => {
-                transaction.get(allDecksRef)
-                    .then(doc => {
-                        const updated = [change.after.id, ...doc.data().ids];
-                        transaction.update(allDecksRef, { ids: updated });
-                    });
-
-                transaction.get(factionDecksRef)
-                    .then(doc => {
-                        const updated = [change.after.id, ...doc.data().ids];
-                        transaction.update(factionDecksRef, { ids: updated });
-                    });        
-
-                return transaction.get(ref).then(doc => {
+        } else if(change.after.exists && !change.before.exists) { // document has been created
+            console.log('Creating deck id = ', change.after.id);
+            db.runTransaction(transaction => {
+                transaction.get(ref).then(doc => {
+                    console.log('Updating decks count total.');
                     const newTotal = doc.data().total + 1;
                     transaction.update(ref, { total: newTotal });
                 });
             });
+        } else if (change.after.exists && change.before.exists) {
+            // document has been updated
+            console.log('Updating deck id = ', change.after.id);
         }
 
         return null;
