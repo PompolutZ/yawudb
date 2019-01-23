@@ -44,7 +44,7 @@ class Card extends Component {
                         isDuplicated && (
                             <div style={{ display: 'flex', marginRight: '.5rem' }}>
                                 {
-                                    sets.map(s => <SetImage set={s} percentage={percentage} />)
+                                    sets.map(s => <SetImage key={s} set={s} percentage={percentage} />)
                                 }
                             </div>
                         )
