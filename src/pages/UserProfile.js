@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import { Typography, TextField, Button, IconButton } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { db } from '../firebase';
+import { db, realdb } from '../firebase';
 import AvatarPicker from '../components/AvatarPicker';
 import { setsIndex } from '../data/index';
 import { withStyles } from '@material-ui/core/styles';
@@ -66,6 +66,7 @@ class ExpansionCounter extends PureComponent {
                             width: '2rem',
                             height: '2rem',
                             marginRight: '.3rem',
+                            padding: 0,
                 }}>
                     <AddIcon className={classes.removeIcon} />
                 </IconButton>
@@ -87,8 +88,9 @@ class ExpansionCounter extends PureComponent {
                             width: '2rem',
                             height: '2rem',
                             marginLeft: '.3rem',
+                            padding: 0,
                 }}>
-                    <AddIcon />
+                    <AddIcon  />
                 </IconButton>
             </div>
         );
@@ -171,6 +173,10 @@ class UserProfile extends Component {
         const userRef = db.collection('users').doc(this.props.userInfo.uid);
         try {
             await userRef.update({ displayName: this.state.userName, avatar: this.state.avatar, expansions: this.state.expansions });
+            for(let [key, value] of Object.entries(this.props.mydecks)) {
+                const updatedDeck = {...value, authorDisplayName: this.state.userName, created: Date() };
+                await realdb.ref(`/decks/${key}`).set(updatedDeck);
+            }
             this.props.setUser({ ...this.props.userInfo, displayName: this.state.userName, avatar: this.state.avatar });
             this.props.updateUserExpansions(this.state.expansions);
         } catch(err) {
@@ -183,6 +189,7 @@ const mapStateToProps = state => {
     return {
         userInfo: state.auth,
         expansions: state.userExpansions,
+        mydecks: state.mydecks,
     }
 }
 

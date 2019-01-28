@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import firebase, { db } from '../firebase';
+import firebase, { db, realdb } from '../firebase';
 import { List } from 'immutable';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FloatingActionButton from '../components/FloatingActionButton';
@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { filterFactionByIdRange, bannedCards, restrictedCards, cardsDb } from '../data/index';
+import { filterFactionByIdRange, bannedCards, restrictedCards, cardsDb, factionIndexes, factionIdPrefix } from '../data/index';
 import { connect } from 'react-redux';
 import { SET_FACTIONS_FILTER } from '../reducers/decksFilters';
 import { withStyles } from '@material-ui/core/styles';
@@ -15,6 +15,7 @@ import classnames from 'classnames';
 import { Subject, combineLatest, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import DeckThumbnail from '../atoms/DeckThumbnail';
+import DeckCount from '../atoms/DeckCount';
 
 const styles = theme => ({
     root : {
@@ -34,7 +35,7 @@ const styles = theme => ({
     filters : {
         margin: '1rem',
         display: 'flex',
-        flexFlow: 'column nowrap',
+        flexFlow: 'row wrap',
         flex: '0 1 100%',
         [theme.breakpoints.up('md')]: {
             flex: '0 1 auto'
@@ -90,55 +91,90 @@ class Decks extends Component {
         loading: false,
         currentPage: 0,
         totalDecks: 0,
+        factionDecksCount: []
     }
 
     componentDidMount = async () => {
         this.setState({ loading: true });
+        const factionDecksCount = [];
+        for(let f of factionIndexes.slice(1)) {
+            const decksCountSnap = await realdb.ref(`/decks_meta/${factionIdPrefix[f]}/count`).once('value');
+            factionDecksCount.push({faction: f, count: decksCountSnap.val()});
+        }
 
-        const totalAmountOfDecks = await this.getTotalDecksCount();
-        console.log(totalAmountOfDecks);
-        const pages = this.preparePagesMeta(totalAmountOfDecks);
-        console.log(pages);
-        const firstPageMeta = await this.loadPage(1, null);
-        console.log(firstPageMeta);
-        const firstPage = {...pages[1], ...firstPageMeta};
+        const decksIds = await this.getDecksIds();
+        const pages = this.preparePagesMeta(decksIds);
+        const firstPageDecks = await this.loadPageData(pages[1].ids);
+        const firstPage = { ...pages[1], decks: firstPageDecks };
         
         this.setState({
             loading: false,
             pages: {...pages, 1: firstPage },
-            totalDecks: totalAmountOfDecks,
-            currentPage: 1
+            totalDecks: decksIds.length,
+            currentPage: 1,
+            factionDecksCount: factionDecksCount
         });
     }
 
-    getTotalDecksCount = async () => {
+    getDecksIds = async () => {
         try {
-            const decksMeta = await db.collection('meta').doc('decks_meta').get();
-            return decksMeta.data().total;
+            const idsSnap = await realdb.ref(`/decks_meta/${this.props.match.params.faction}/ids`).once('value');
+            return idsSnap.val();
         } catch(error) {
             console.log(error);
         }
     }
 
-    preparePagesMeta = totalAmountOfDecks => {
+    preparePagesMeta = ids => {
         const maxDecksPerPage = 10;
-        const totalPagesCount = Math.ceil(totalAmountOfDecks / 10);
-        const pages = {};
-        let decksFrom = 1;
-        let decksUntil = totalAmountOfDecks > maxDecksPerPage ? maxDecksPerPage : totalAmountOfDecks;
-        for(let i = 0; i < totalPagesCount; i += 1) {
-            pages[i + 1] = {
-                decksFrom: decksFrom,
-                decksUntil: decksUntil,
-                decks: [],
-                lastItemOnPage: null
+        const paginatedIds = ids.reduce((acc, el, index, arr) => {
+            if(index % maxDecksPerPage === 0) {
+                acc.push(arr.slice(index, index + maxDecksPerPage));
+            }
+
+            return acc;
+        }, []);
+
+        const meta = paginatedIds.reduce((acc, el, index, arr) => {
+            const from = arr.slice(0, index).reduce((total, el) => total += el.length, 0);
+            const until = from + el.length;
+            acc[index + 1] = {
+                ids: el,
+                decksFrom: from + 1,
+                decksUntil: until
             };
 
-            decksFrom = decksUntil + 1;
-            decksUntil = decksUntil + maxDecksPerPage > totalAmountOfDecks ? totalAmountOfDecks : decksUntil + maxDecksPerPage;
-        }
+            return acc;
+        }, {})
 
-        return pages;
+        return meta;
+    }
+
+    loadPageData = async (ids) => {
+        try {
+            let page = [];
+            for(let id of ids) {
+                //const deckDataRef = await db.collection('decks').doc(id).get();
+                const snapshot = await firebase.database().ref('/decks/' + id).once('value');
+                //const deck = deckDataRef.data();
+                const deck = snapshot.val();
+                console.log(id, deck);
+
+                let created;
+                if(deck.created.seconds) {
+                    created = new Date(0);
+                    created.setSeconds(deck.created.seconds);
+                } else {
+                    created = deck.created;
+                }
+
+                page.push({...deck, id: id, created: created});
+            }
+
+            return page;
+        } catch(err) {
+            console.error(err);
+        } 
     }
 
     loadPage = async (pageNumber, lastItemOnPreviousPage) => {
@@ -168,77 +204,10 @@ class Decks extends Component {
                 lastItemOnPage: lastItem,
                 decks: ds
             }
-
-            // const pageMeta = {...this.state.pages[pageNumber], lastItemOnPage: lastItem, decks: ds};
-
-            // return pageMeta;
-
-
-            // this.setState(state => ({ 
-            //     loading: false,
-            //     currentPage: page,
-            //     totalDecks: totalDecks,
-            //     shownAmountOfDecks: snapshot.size,
-            //     decksFrom: state.shownAmountOfDecks + 1,
-            //     decksTo: state.shownAmountOfDecks + snapshot.size,
-            //     shownAmountOfDecks: state.shownAmountOfDecks + snapshot.size,
-            //     decks: ds,
-            //     firstItemOnPage: {...state.firstItemOnPage, [page + 1]: lastItem }
-            // }));
         }
         catch(error) {
             console.error(error);
         }
-    }
-
-    _reloadWithFilters = async () => {
-        this.setState({ loading: true, decks: new List() });
-        const decksRef = db.collection('decks');
-        const id = firebase.firestore.FieldPath.documentId;
-        const queries = this.props.selectedFactions.map(faction => {
-            const { start, end } = filterFactionByIdRange[faction];
-            if(start && end) {
-                return decksRef.where(id(), ">=", start).where(id(), "<", end);
-            } else {
-                return decksRef.where(id(), ">=", start);
-            }
-        });
-
-        const observables = [];
-        for(let q of queries) {
-            const observable = new Subject();
-            q.onSnapshot(qs => {
-                const data = qs.docs.map(d => ({id: d.id, ...d.data()}));
-                observable.next(data);
-            });
-            observables.push(observable);
-        }
-
-        const combined = combineLatest(...observables);
-        const mapped = combined.pipe(switchMap(values => {
-            const reduced = values.reduce((acc, v) => [...acc, ...v], []);
-            return of(reduced);
-        }));
-        
-        this.subscription = mapped.subscribe(async result => {
-            const decks = [];
-            for(let r of result) {
-                const created = r.created.toDate();
-                if(r.author !== 'Anonymous') {
-                    const userProfileRef = await db.collection('users').doc(r.author).get();
-                    decks.push({ ...r, created: created, author: userProfileRef.data().displayName });
-                } else {
-                    decks.push({ ...r, created: created});
-                }
-            }
-
-            this.setState({ 
-                loading: false, 
-                currentPage: 1, 
-                totalPages: Math.ceil(result.length / 10), 
-                decks: decks.sort((d1, d2) => d2.created - d1.created), 
-                pageStart: 0 });
-        });
     }
 
     componentWillUnmount = () => {
@@ -247,19 +216,16 @@ class Decks extends Component {
         }
     }
 
+    handleDeckCountClick(faction) {
+        console.log('Ping!', faction);
+        this.props.history.replace(`/decks/${faction}`);
+    }
+
     render() {
         const { classes, history } = this.props;
         console.log('RENDER', this.state.pages);
         return (
             <div className={classes.root}>
-                {/* <div className={classnames(classes.filters)}>
-                    <Typography variant="body2" style={{marginBottom: '.5rem'}}>Show decks for selected factions:</Typography>
-                    <FactionsFilterToggle isVertical={window.matchMedia('(min-width: 800px)').matches} onFactionsChange={this.props.onFactionsChange} selectedFactions={this.props.selectedFactions} />
-                    <Button style={{backgroundColor: '#3B9979', color: 'white', alignSelf:'flex-end', marginTop: '1rem'}}
-                            onClick={this._reloadWithFilters}>
-                        Reload
-                    </Button>
-                </div> */}
                 <div className={classnames(classes.decksList)}>
                     {
                         this.state.loading && (
@@ -291,7 +257,7 @@ class Decks extends Component {
                                         <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, deck.id)} 
                                             factionId={deck.id} 
                                             title={deck.name} 
-                                            author={deck.author} 
+                                            author={deck.authorDisplayName} 
                                             date={deck.created}
                                             sets={deck.sets}
                                             objectives={deck.cards.map(c => ({ id: c, ...cardsDb[c]})).filter(c => c.type === 0)}
@@ -326,8 +292,9 @@ class Decks extends Component {
         //const totalAmountOfDecks = await this.getTotalDecksCount();
         // const pages = this.preparePagesMeta(totalAmountOfDecks);
         // console.log(pages);
-        const prevPageMeta = await this.loadPage(prevPageNumber, prevPageNumber === 1 ? null : this.state.pages[prevPageNumber - 1].lastItemOnPage);
-        const prevPage = {...this.state.pages[prevPageNumber], ...prevPageMeta};
+        //const prevPageMeta = await this.loadPage(prevPageNumber, prevPageNumber === 1 ? null : this.state.pages[prevPageNumber - 1].lastItemOnPage);
+        const prevPageDecks = await this.loadPageData(this.state.pages[prevPageNumber].ids);
+        const prevPage = {...this.state.pages[prevPageNumber], decks: prevPageDecks};
         
         this.setState(state => ({
             loading: false,
@@ -342,8 +309,9 @@ class Decks extends Component {
         //const totalAmountOfDecks = await this.getTotalDecksCount();
         // const pages = this.preparePagesMeta(totalAmountOfDecks);
         // console.log(pages);
-        const nextPageMeta = await this.loadPage(this.state.currentPage + 1, this.state.pages[this.state.currentPage].lastItemOnPage);
-        const nextPage = {...this.state.pages[this.state.currentPage + 1], ...nextPageMeta};
+        // const nextPageMeta = await this.loadPage(this.state.currentPage + 1, this.state.pages[this.state.currentPage].lastItemOnPage);
+        const nextPageDecks = await this.loadPageData(this.state.pages[this.state.currentPage + 1].ids);
+        const nextPage = {...this.state.pages[this.state.currentPage + 1], decks: nextPageDecks};
         
         this.setState(state => ({
             loading: false,

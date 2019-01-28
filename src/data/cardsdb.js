@@ -7207,6 +7207,7 @@ export const cardsdb = { '01001':
      set: 14,
      release: 1,
      glory: 5,
+     scoreType: 1,
      banned: true,
      restricted: true },
   '03180': 
@@ -7218,6 +7219,7 @@ export const cardsdb = { '01001':
      set: 14,
      release: 1,
      glory: 2,
+     scoreType: 2,
      banned: true,
      restricted: true },
   '03181': 
@@ -7229,6 +7231,7 @@ export const cardsdb = { '01001':
      set: 14,
      release: 1,
      glory: 3,
+     scoreType: 2,
      banned: true,
      restricted: true },
   '03182': 
@@ -7240,6 +7243,7 @@ export const cardsdb = { '01001':
      set: 14,
      release: 1,
      glory: 1,
+     scoreType: 1,
      banned: true,
      restricted: true },
   '03183': 
@@ -7251,6 +7255,7 @@ export const cardsdb = { '01001':
      set: 14,
      release: 1,
      glory: 3,
+     scoreType: 1,
      banned: true,
      restricted: true },
   '03184': 

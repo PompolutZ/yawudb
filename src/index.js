@@ -12,7 +12,7 @@ import MenuAppBar from './components/MenuAppBar';
 import { connect, Provider } from 'react-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 import configureStore from './configureStore';
-import firebase, { db } from './firebase';
+import firebase, { db, realdb } from './firebase';
 import LazyLoading from './components/LazyLoading';
 import ErrorBoundary from './components/ErrorBoundary';
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions';
@@ -84,16 +84,70 @@ const PrivateRoute = connect(state => ({
 
 class TempPage extends Component {
     componentDidMount = async () => {
-        const decksRef = await db.collection('decks').orderBy('created', 'desc').get();
+
+        // console.log(deckIds);
+        // const grouped = deckIds.reduceRight((acc, el) => {
+        //     const prefix = el.split('-')[0];
+        //     if(!!acc[prefix]) {
+        //         acc[prefix] = [el, ...acc[prefix]];
+        //     } else {
+        //         acc[prefix] = [el]
+        //     }
+
+        //     return acc;
+        // }, {});
+        // await realdb.ref('/decks_meta/all').set({
+        //     count: deckIds.length,
+        //     ids: deckIds        // const gh = ['gh-3a02ccf3e596', 'gh-a431f01aa268'];
+        // // console.log(grouped);
+
+        // });
+        // // await db.collection('meta').doc('all').set({
+            
+        // // });
+
+        // for (let k in grouped) {
+        //     await realdb.ref(`/decks_meta/${k}`).set({
+        //         count: grouped[k].length,
+        //         ids: grouped[k],
+        //     });
+        //     // await db.collection('meta').doc(k).set({
+                
+        //     // });
+        // }
+        // // const gh = ['gh-3a02ccf3e596', 'gh-a431f01aa268'];
+        // // await realdb.ref('/decks_meta/gh').set({
+        // //     count: gh.length,
+        // //     ids: gh
+        // // });
+    }
+
+    updateRatings = async () => {
+        const decksRef = await db.collection('decks').where('tags', 'array-contains', 'tournament deck').orderBy('created', 'asc').get();
         const decks = [];
+        // const fullDecks = {};
         const deckIds = [];
         decksRef.forEach(deck => {
             decks.push(deck.data().cards);
             deckIds.push(deck.id);
+            // fullDecks[deck.id] = {...deck.data(), updated: deck.data().created};
         });
 
         console.log(decks.length);
-        
+        // console.log(fullDecks);
+
+        // for(let k in fullDecks) {
+        //     const deck = fullDecks[k];
+        //     if(deck.author !== 'Anonymous') {
+        //         const userProfileRef = await db.collection('users').doc(deck.author).get();
+        //         deck.authorDisplayName = userProfileRef.data().displayName;
+        //     } else {
+        //         deck.authorDisplayName = 'Anonymous';
+        //     }
+
+        //     await firebase.database().ref('decks/' + k).set(deck);
+        // }
+
         const r = decks.reduce((acc, el) => {
             for (let card of el) {
                 const wave = parseInt(card.slice(0,2), 10);
@@ -116,34 +170,37 @@ class TempPage extends Component {
             3: r[3]
         });
 
-        console.log(deckIds);
-        const grouped = deckIds.reduce((acc, el) => {
-            const prefix = el.split('-')[0];
-            if(!!acc[prefix]) {
-                acc[prefix] = [el, ...acc[prefix]];
-            } else {
-                acc[prefix] = [el]
-            }
-
-            return acc;
-        }, {});
-
-        console.log(grouped);
-        await db.collection('meta').doc('all').set({
-            ids: deckIds
+        await realdb.ref('/cards_ratings').set({
+            1: r[1],
+            2: r[2],
+            3: r[3]
         });
+    }
 
-        for (let k in grouped) {
-            await db.collection('meta').doc(k).set({
-                ids: grouped[k]
-            });
-        }
+    handleClick = async () => {
+        await this.updateRatings();
+        // await realdb.ref('/test/counter').set({
+        //     current: 0,
+        // });
+        // await realdb.ref('/test/counter').transaction(counter => {
+        //     if(counter) {
+        //         counter.current += 1;
+        //         if(counter.ids) {
+        //             counter.ids = [`id${counter.current}`, ...counter.ids]
+        //         } else {
+        //             counter.ids = ['id']
+        //         }
+        //     } 
+
+        //     return counter;
+        // });
     }
 
     render() {
         return (
             <div>
                 This will update cards popularity in some nasty way...
+                <button onClick={this.handleClick}>Click Me</button>
             </div>
         );
     }
@@ -151,8 +208,8 @@ class TempPage extends Component {
 
 const fetchCardsRanking = () => {
     return function(dispatch) {
-        return db.collection('meta').doc('cards_meta').get().then(ref => {
-            const data = ref.data();
+        return realdb.ref('/cards_ratings').once('value').then(snapshot => {
+            const data = snapshot.val();
             console.log('fetchCardsRanking', data);
             dispatch({ type: 'SET_CARDS_RANKING', payload: [-1, data['1'], data['2'], data['3']]});
         });
@@ -164,7 +221,7 @@ class App extends Component {
         error: ''
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
             try {
                 if(user) {
@@ -177,7 +234,7 @@ class App extends Component {
             }
         });
         
-        store.dispatch(fetchCardsRanking());
+        store.dispatch(fetchCardsRanking())
     }
 
     componentWillUnmount() {
@@ -197,7 +254,7 @@ class App extends Component {
                             <Suspense fallback={<LazyLoading />}>
                                 <Switch>
                                     <Route exact path="/" component={Home} />
-                                    <Route path="/decks" render={(props) => <Decks {...props} />} />
+                                    <Route path="/decks/:faction" render={(props) => <Decks {...props} />} />
                                     <Route path="/library" render={(props) => <Library {...props} />} />
                                     <Route path="/deck/create" render={(props) => <DeckCreator {...props} />} />
                                     <Route path="/deck/edit/:id" render={(props) => <DeckCreator {...props} />} />

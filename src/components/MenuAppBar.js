@@ -104,7 +104,7 @@ class MenuAppBar extends React.Component {
   }
 
   navigateToAllDecks = () => {
-      this.props.history.push('/decks');
+      this.props.history.push('/decks/all');
   }
 
   render() {

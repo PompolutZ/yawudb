@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { db } from '../firebase';
+import { db, realdb } from '../firebase';
 import ReadonlyDeck from '../components/ReadonlyDeck';
 import { OrderedSet } from 'immutable';
 import { cardsDb, warbandsWithDefaultSet, idPrefixToFaction, PREFIX_LENGTH } from '../data/index';
@@ -18,21 +18,30 @@ class Deck extends Component {
         isEditAllowed: false
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
         try {
             if(this.props.mydecks[this.props.match.params.id]) {
                 this.setState(state => ({ deck: this.props.mydecks[this.props.match.params.id], isEditAllowed: true }));
             } else {
-                const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
-                const data = deckRef.data();
+                const snapshot = await realdb.ref('/decks/' + this.props.match.params.id).once('value');
+                const data = snapshot.val();
+                // const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
+                // const data = deckRef.data();
                 let author = data.author;
                 if(author !== 'Anonymous') {
-                    const userRef = await db.collection('users').doc(data.author).get();
-                    author = userRef.data().displayName;
-                    this.setState({ isEditAllowed: this.props.uid === userRef.id });
+                    // const userRef = await db.collection('users').doc(data.author).get();
+                    // author = userRef.data().displayName;
+                    this.setState({ isEditAllowed: this.props.uid === data.author });
                 }
-                const created = data.created.toDate();
-                this.setState({deck: {...data, id: this.props.match.params.id, created: created, author: author }}); //, author:this.props.userInfo.displayName
+
+                let created = new Date(0);
+                if(data.created && data.created.seconds) {
+                    created.setSeconds(data.created.seconds);
+                } else {
+                    created = new Date(data.created);
+                }
+
+                this.setState({deck: {...data, id: this.props.match.params.id, created: created }}); //, author:this.props.userInfo.displayName
             }
         } catch(error) {
             console.log(error);
@@ -51,13 +60,14 @@ class Deck extends Component {
             );
         }
 
-        const { id, name, desc, cards, sets, created, author } = this.state.deck;
+        const { id, name, desc, cards, sets, created, authorDisplayName } = this.state.deck;
+        console.log(this.state.deck);
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 {/* <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div> */}
                 <ReadonlyDeck 
                     id={id}
-                    author={author} 
+                    author={authorDisplayName} 
                     name={name}
                     desc={desc} 
                     created={created} 

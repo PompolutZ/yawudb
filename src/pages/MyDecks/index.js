@@ -1,5 +1,5 @@
 import React, { Component, Suspense, lazy } from 'react';
-import { db } from '../../firebase';
+import { db, realdb } from '../../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import AddIcon from '@material-ui/icons/Add';
@@ -56,14 +56,22 @@ class MyDecks extends Component {
             const ids = [];
 
             for(let deckId of userData.mydecks) {
-                const deckRef = await db.collection('decks').doc(deckId).get();
-                if(!deckRef.exists) {
+                const deck = await realdb.ref(`/decks/${deckId}`).once('value');
+                // const deckRef = await db.collection('decks').doc(deckId).get();
+                const data = deck.val();
+                if(data === null) {
                     continue;
                 }
 
-                const data = deckRef.data();
-                const created = data.created.toDate();
-                this.props.addOrUpdate(deckId, data.created, {...data, id: deckId, created: created, author:this.props.userInfo.displayName, authorId: this.props.userInfo.uid});
+                let created = new Date(0);
+                if(data.created && data.created.seconds) {
+                    created.setSeconds(data.created.seconds);
+                } else {
+                    created = new Date(data.created);
+                }
+
+                // const created = data.created.toDate();
+                this.props.addOrUpdate(deckId, created, { ...data, id: deckId, created: created });
                 ids.push(deckId);
             }
 
@@ -135,13 +143,13 @@ class MyDecks extends Component {
                                     decks.map(([id, deck]) => {
                                         const bannedCardsCount = deck.cards.filter(id => Boolean(bannedCards[id])).length;
                                         const restrictedCardsCount = deck.cards.filter(id => Boolean(restrictedCards[id])).length;
-
+                                        console.log(id, deck);
                                         return (
                                             <div key={id} className={classes.item}>
                                                 <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, id)} 
                                                     factionId={id} 
                                                     title={deck.name} 
-                                                    author={deck.author} 
+                                                    author={deck.authorDisplayName} 
                                                     date={deck.created}
                                                     sets={deck.sets}
                                                     objectives={deck.cards.map(c => ({ id: c, ...cardsDb[c]})).filter(c => c.type === 0)}

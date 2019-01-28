@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import "./Home.css";
-import { db } from '../firebase';
+import { db, realdb } from '../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ReadonlyDeck from '../components/ReadonlyDeck';
 import { OrderedSet } from 'immutable';
@@ -20,57 +20,25 @@ const getChangeLogItemsByKey = key => {
     .reduce((acc, v) => [...acc, {name: v, description: changelog[key][v]}], []);
 }
 
-const styles = {
-    root: {
-        display: 'flex',
-        flexFlow: 'column wrap'
-    },
-
-    item: {
-        fontFamily: 'roboto',
-        fontSize: '1rem',
-        color: 'white',
-        marginLeft: '1rem'
-    },
-
-    changeLogItem: {
-        fontFamily: 'roboto',
-        fontSize: '.7rem',
-        color: 'white',
-        display: 'flex',
-        flexFlow: 'column wrap',
-        marginLeft: '1rem',
-        alignItems: 'flex-start',
-        marginBottom: '.5rem'
-    },
-
-    entry: {
-        fontFamily: 'roboto',
-    }
-}
-
 class Home extends Component {
-    state = {
-        // lastAddedDeck: null
-    }
 
-    componentDidMount() {
-        db.collection('decks')
-            .orderBy('created', 'desc')
-            .limit(1)
-            .get()
-            .then(qs => qs.forEach(async doc => {
-                const deck = doc.data();
-                if(deck.author !== 'Anonymous') {
-                    const userProfileRef = await db.collection('users').doc(deck.author).get();
-                    this.props.addOrUpdate(doc.id, doc.created, {...deck, id: doc.id, created: deck.created.toDate(), author: userProfileRef.data().displayName, authorId: deck.author});
-                    // this.setState({lastAddedDeck: });
-                } else {
-                    this.props.addOrUpdate(doc.id, doc.created, {...deck, id: doc.id, created: deck.created.toDate(), authorId: deck.author});
-                    // this.setState({lastAddedDeck: });
-                }
-            }))
-            .catch(error => console.log(error));
+    componentDidMount = async () => {
+        try {
+            const lastDeckIdSnapshot = await realdb.ref('/lastDeck/id').once('value');
+            const lastDeckId = lastDeckIdSnapshot.val();
+            const lastDeckSnapshot = await realdb.ref(`/decks/${lastDeckId}`).once('value');
+            const data = lastDeckSnapshot.val();
+            let created = new Date(0);
+            if(data.created && data.created.seconds) {
+                created.setSeconds(data.created.seconds);
+            } else {
+                created = new Date(data.created);
+            }
+    
+            this.props.addOrUpdate(lastDeckId, created, { ...data, id: lastDeckId, created: created });
+        } catch(err) {
+            console.error('ERROR updating last added deck', err);
+        }
     }
 
     render() {
@@ -117,13 +85,13 @@ class Home extends Component {
                             id={this.props.lastDeck.id}
                             name={this.props.lastDeck.data.name} 
                             desc={this.props.lastDeck.data.desc}
-                            author={this.props.lastDeck.data.author} 
+                            author={this.props.lastDeck.data.authorDisplayName} 
                             created={this.props.lastDeck.data.created} 
                             sets={this.props.lastDeck.data.sets} 
                             scoringSummary={this.props.lastDeck.data.scoringSummary}
                             factionId={this.props.lastDeck.id.substr(0, this.props.lastDeck.id.length - 13)} 
                             cards={new OrderedSet(this.props.lastDeck.data.cards.map(c => ({id: c, ...cardsDb[c]})))}
-                            canEdit={ this.props.userInfo !== null && this.props.lastDeck.data.authorId === this.props.userInfo.uid } />                        
+                            canEdit={ this.props.userInfo !== null && this.props.lastDeck.data.author === this.props.userInfo.uid } />                        
                     )
                 }
                 <FloatingActionButton isEnabled onClick={() => history.push('/deck/create')}>
@@ -144,6 +112,35 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addOrUpdate: (id, timestamp, data) => dispatch(addOrUpdateLastDeck(id, timestamp, data)),
+    }
+}
+
+const styles = {
+    root: {
+        display: 'flex',
+        flexFlow: 'column wrap'
+    },
+
+    item: {
+        fontFamily: 'roboto',
+        fontSize: '1rem',
+        color: 'white',
+        marginLeft: '1rem'
+    },
+
+    changeLogItem: {
+        fontFamily: 'roboto',
+        fontSize: '.7rem',
+        color: 'white',
+        display: 'flex',
+        flexFlow: 'column wrap',
+        marginLeft: '1rem',
+        alignItems: 'flex-start',
+        marginBottom: '.5rem'
+    },
+
+    entry: {
+        fontFamily: 'roboto',
     }
 }
 

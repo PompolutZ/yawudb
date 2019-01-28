@@ -4,7 +4,7 @@ import { OrderedSet, Set } from 'immutable';
 
 import Deck from '../components/Deck';
 import { cardsDb, factionIdPrefix } from '../data/index';
-import firebase, { db } from '../firebase';
+import firebase, { db, realdb } from '../firebase';
 
 import FloatingActionButton from '../components/FloatingActionButton';
 import { connect } from 'react-redux';
@@ -88,36 +88,64 @@ class DeckBuilder extends Component {
         this.setState(state => ({isMobileDeckVisible: !state.isMobileDeckVisible}));
     }
 
-    _updateCurrentDeck = () => {
-        const objectiveScoringSummary = this.props.currentDeck.map(x => {
-            const { type, scoreType } = cardsDb[x];
-            if(type === 0) {
-                return scoreType;
+    _updateCurrentDeck = async () => {
+        try {
+            const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
+            const objectiveScoringSummary = this.props.currentDeck.map(x => {
+                const { type, scoreType } = cardsDb[x];
+                if(type === 0) {
+                    return scoreType;
+                }
+    
+                return -1;
+            }).reduce((acc, x) => {
+                if(x < 0) return acc;
+                acc[x] += 1;
+                return acc;
+            }, [0, 0, 0, 0]);
+    
+            const deckPayload = {
+                name: this.props.currentDeckName,
+                source: '',
+                desc: this.props.currentDeckDescription,
+                cards: new OrderedSet(this.props.currentDeck).toJS(),
+                sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
+                scoringSummary: objectiveScoringSummary,
+                tags: [],
+                created: Date(),
+                author: this.props.userInfo.uid,
+                authorDisplayName: this.props.isAuth ? this.props.userInfo.displayName : 'Anonymous',
             }
 
-            return -1;
-        }).reduce((acc, x) => {
-            if(x < 0) return acc;
-            acc[x] += 1;
-            return acc;
-        }, [0, 0, 0, 0]);
+            await realdb.ref('decks/' + this.props.match.params.id).set(deckPayload);
+            await realdb.ref('lastDeck').transaction(lastDeck => {
+                if(lastDeck) {
+                    lastDeck.id = this.props.match.params.id;
+                }
 
-        const deckPayload = {
-            name: this.props.currentDeckName,
-            source: '',
-            desc: this.props.currentDeckDescription,
-            cards: new OrderedSet(this.props.currentDeck).toJS(),
-            sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
-            scoringSummary: objectiveScoringSummary,
-            tags: [],
-            created: new Date(),
-            author: this.props.userInfo.uid
+                return lastDeck;
+            });
+
+            await this.moveIdToFront(realdb.ref('/decks_meta/all'), this.props.match.params.id);
+            await this.moveIdToFront(realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), this.props.match.params.id);
+
+            this._resetAndGoBack();
+        } catch(err) {
+            console.error('ERROR updating deck: ', err);
         }
+    }
 
-        const deckRef = db.collection('decks').doc(this.props.match.params.id);
-        deckRef.update(deckPayload)
-            .then(() => this._resetAndGoBack())
-            .catch(err => console.log(err));
+    moveIdToFront = (ref, id) => {
+        return ref.transaction(meta => {
+            if(meta) {
+                const diff = meta.ids.filter(x => x !== id);
+                console.log(diff);
+                meta.ids = [id, ...diff];
+                console.log(meta.ids);
+            }
+
+            return meta;
+        });
     }
 
     _cancelUpdate = () => {
@@ -132,79 +160,81 @@ class DeckBuilder extends Component {
         }, 300);
     }
 
-    _saveCurrentDeck = () => {
-        const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
-        const deckId = `${factionIdPrefix[faction]}-${uuid4().slice(-12)}`;
-        const objectiveScoringSummary = this.props.currentDeck.map(x => {
-            const { type, scoreType } = cardsDb[x];
-            if(type === 0) {
-                return scoreType;
+    _saveCurrentDeck = async () => {
+        try {
+            const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
+            const deckId = `${factionIdPrefix[faction]}-${uuid4().slice(-12)}`;
+            const objectiveScoringSummary = this.props.currentDeck.map(x => {
+                const { type, scoreType } = cardsDb[x];
+                
+                if(type === 0) {
+                    console.log(cardsDb[x], scoreType);
+                    return scoreType;
+                }
+    
+                return -1;
+            }).reduce((acc, x) => {
+                if(x < 0) return acc;
+                acc[x] += 1;
+                return acc;
+            }, [0, 0, 0, 0]);
+            
+            console.log(objectiveScoringSummary);
+    
+            const deckPayload = {
+                name: this.props.currentDeckName,
+                source: '',
+                desc: this.props.currentDeckDescription,
+                cards: new OrderedSet(this.props.currentDeck).toJS(),
+                sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
+                scoringSummary: objectiveScoringSummary,
+                tags: [],
+                created: Date(),
+                author: this.props.isAuth ? this.props.userInfo.uid : 'Anonymous',
+                authorDisplayName: this.props.isAuth ? this.props.userInfo.displayName : 'Anonymous',
             }
 
-            return -1;
-        }).reduce((acc, x) => {
-            if(x < 0) return acc;
-            acc[x] += 1;
-            return acc;
-        }, [0, 0, 0, 0]);
+            console.log(deckPayload);
+    
+            if(this.props.isAuth) {
+                await db.collection('users').doc(this.props.userInfo.uid).update({
+                    mydecks: firebase.firestore.FieldValue.arrayUnion(deckId)
+                });
+            }
 
+            await realdb.ref('decks/' + deckId).set(deckPayload);
+            await realdb.ref('lastDeck').transaction(lastDeck => {
+                if(lastDeck) {
+                    lastDeck.id = deckId;
+                }
 
-        const deckPayload = {
-            name: this.props.currentDeckName,
-            source: '',
-            desc: this.props.currentDeckDescription,
-            cards: new OrderedSet(this.props.currentDeck).toJS(),
-            sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
-            scoringSummary: objectiveScoringSummary,
-            tags: [],
-            created: new Date(),
-            author: this.props.isAuth ? this.props.userInfo.uid : 'Anonymous'
-        }
-
-        if(this.props.isAuth) {
-            const batch = db.batch();
-            const userRef = db.collection('users').doc(this.props.userInfo.uid);
-            const deckRef = db.collection('decks').doc(deckId);
-            batch.set(deckRef, deckPayload);
-            batch.update(userRef, {
-                mydecks: firebase.firestore.FieldValue.arrayUnion(deckId)
+                return lastDeck;
             });
 
-            batch.commit()
-                .then(() => {
-                    this.props.resetDeck();
-                    this.setState({showNotification: true});
-                    this.props.history.push(`/view/deck/${deckId}`);
-                })
-                .catch(error => {
-                    const otherBatch = db.batch();
-                    const userRef = db.collection('users').doc(this.props.userInfo.uid);
-                    const deckRef = db.collection('decks').doc(deckId);
-                    otherBatch.set(deckRef, deckPayload);
-                    otherBatch.set(userRef, {
-                        mydecks: [deckId]
-                    });
-                    otherBatch.commit()
-                            .then(() => {
-                                this.props.resetDeck();
-                                this.props.resetSearchText();
-                                this.setState({showNotification: true});
-                                this.props.history.push(`/view/deck/${deckId}`);
-                            })
-                            .catch(error => console.log(error));    
-                });
-        } else {
-            db.collection('decks')
-                .doc(deckId)
-                .set(deckPayload)
-                .then(() => {
-                    this.props.resetDeck();
-                    this.props.resetSearchText();
-                    this.setState({showNotification: true});
-                    this.props.history.push(`/view/deck/${deckId}`);
-                })
-                .catch(error => console.log('ERROR', error));    
+            await realdb.ref('/decks_meta/all').transaction(meta => this._updateMetaCountAndIds(meta, deckId));
+            await realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`).transaction(meta => this._updateMetaCountAndIds(meta, deckId));
+
+            this.props.resetDeck();
+            this.props.resetSearchText();
+            this.setState({showNotification: true});
+            this.props.history.push(`/view/deck/${deckId}`);
+
+        } catch(err) {
+            console.error('ERROR saving new deck: ', err);
         }
+    }
+
+    _updateMetaCountAndIds = (meta, deckId) => {
+        if(meta) {
+            meta.count += 1;
+            if(meta.ids) {
+                meta.ids = [deckId, ...meta.ids];
+            } else {
+                meta.ids = [deckId];
+            }
+        }
+
+        return meta;
     }
 }
 
