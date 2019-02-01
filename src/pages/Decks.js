@@ -91,16 +91,16 @@ class Decks extends Component {
         loading: false,
         currentPage: 0,
         totalDecks: 0,
-        factionDecksCount: []
+        // factionDecksCount: []
     }
 
     componentDidMount = async () => {
         this.setState({ loading: true });
-        const factionDecksCount = [];
-        for(let f of factionIndexes.slice(1)) {
-            const decksCountSnap = await realdb.ref(`/decks_meta/${factionIdPrefix[f]}/count`).once('value');
-            factionDecksCount.push({faction: f, count: decksCountSnap.val()});
-        }
+        // const factionDecksCount = [];
+        // for(let f of factionIndexes.slice(1)) {
+        //     const decksCountSnap = await realdb.ref(`/decks_meta/${factionIdPrefix[f]}/count`).once('value');
+        //     factionDecksCount.push({faction: f, count: decksCountSnap.val()});
+        // }
 
         const decksIds = await this.getDecksIds();
         const pages = this.preparePagesMeta(decksIds);
@@ -112,7 +112,7 @@ class Decks extends Component {
             pages: {...pages, 1: firstPage },
             totalDecks: decksIds.length,
             currentPage: 1,
-            factionDecksCount: factionDecksCount
+            // factionDecksCount: factionDecksCount
         });
     }
 

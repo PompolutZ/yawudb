@@ -25,7 +25,10 @@ const mydecks = (state = initialState, action) => {
     switch(action.type) {
          
         case ADD_OR_UPDATE_DECK: 
-            console.log(new Date(action.payload.timestamp) - new Date(state[action.payload.id].timestamp));
+            if(!state[action.payload.id]) {
+                return { ...state, [action.payload.id]: {...action.payload.data, timestamp: action.payload.timestamp} };    
+            }
+
             if(state.hasOwnProperty(action.payload.id) && (new Date(action.payload.timestamp) - new Date(state[action.payload.id].timestamp)) <= 0) {
                 return state;
             }

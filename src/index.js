@@ -123,30 +123,30 @@ class TempPage extends Component {
     }
 
     updateRatings = async () => {
-        const decksRef = await db.collection('decks').where('tags', 'array-contains', 'tournament deck').orderBy('created', 'asc').get();
+        const decksRef = await db.collection('decks').orderBy('created', 'desc').get();
         const decks = [];
-        // const fullDecks = {};
+        const fullDecks = {};
         const deckIds = [];
         decksRef.forEach(deck => {
             decks.push(deck.data().cards);
             deckIds.push(deck.id);
-            // fullDecks[deck.id] = {...deck.data(), updated: deck.data().created};
+            fullDecks[deck.id] = {...deck.data(), updated: deck.data().created};
         });
 
         console.log(decks.length);
-        // console.log(fullDecks);
+        console.log(fullDecks);
 
-        // for(let k in fullDecks) {
-        //     const deck = fullDecks[k];
-        //     if(deck.author !== 'Anonymous') {
-        //         const userProfileRef = await db.collection('users').doc(deck.author).get();
-        //         deck.authorDisplayName = userProfileRef.data().displayName;
-        //     } else {
-        //         deck.authorDisplayName = 'Anonymous';
-        //     }
+        for(let k in fullDecks) {
+            const deck = fullDecks[k];
+            if(deck.author !== 'Anonymous') {
+                const userProfileRef = await db.collection('users').doc(deck.author).get();
+                deck.authorDisplayName = userProfileRef.data().displayName;
+            } else {
+                deck.authorDisplayName = 'Anonymous';
+            }
 
-        //     await firebase.database().ref('decks/' + k).set(deck);
-        // }
+            await firebase.database().ref('decks/' + k).set(deck);
+        }
 
         const r = decks.reduce((acc, el) => {
             for (let card of el) {
@@ -175,6 +175,43 @@ class TempPage extends Component {
             2: r[2],
             3: r[3]
         });
+
+        console.log(deckIds);
+        const grouped = deckIds.reduceRight((acc, el) => {
+            const prefix = el.split('-')[0];
+            if(!!acc[prefix]) {
+                acc[prefix] = [el, ...acc[prefix]];
+            } else {
+                acc[prefix] = [el]
+            }
+
+            return acc;
+        }, {});
+        await realdb.ref('/decks_meta/all').set({
+            count: deckIds.length,
+            ids: deckIds        // const gh = ['gh-3a02ccf3e596', 'gh-a431f01aa268'];
+        // console.log(grouped);
+
+        });
+        // await db.collection('meta').doc('all').set({
+            
+        // });
+
+        for (let k in grouped) {
+            await realdb.ref(`/decks_meta/${k}`).set({
+                count: grouped[k].length,
+                ids: grouped[k],
+            });
+            // await db.collection('meta').doc(k).set({
+                
+            // });
+        }
+        // const gh = ['gh-3a02ccf3e596', 'gh-a431f01aa268'];
+        // await realdb.ref('/decks_meta/gh').set({
+        //     count: gh.length,
+        //     ids: gh
+        // });
+
     }
 
     handleClick = async () => {

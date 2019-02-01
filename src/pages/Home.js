@@ -24,7 +24,7 @@ class Home extends Component {
 
     componentDidMount = async () => {
         try {
-            const lastDeckIdSnapshot = await realdb.ref('/lastDeck/id').once('value');
+            const lastDeckIdSnapshot = await realdb.ref('/decks_meta/all/ids/0').once('value');
             const lastDeckId = lastDeckIdSnapshot.val();
             const lastDeckSnapshot = await realdb.ref(`/decks/${lastDeckId}`).once('value');
             const data = lastDeckSnapshot.val();
