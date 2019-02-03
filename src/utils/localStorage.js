@@ -8,6 +8,7 @@ import { mergeLoadedStateWithInitial as mergeLoadedMydecksWithInitial} from '../
 import { mergeLoadedStateWithInitial as mergeLoadedUserExpansionsWithInitial } from '../reducers/userExpansions';
 import { mergeLoadedStateWithInitial as mergeLoadedUserOwnSetsWithInitial } from '../reducers/userOwnSets';
 import { mergeLoadedStateWithInitial as mergeDeckUnderEditWithInitial } from '../reducers/deckUnderEdit';
+import { mergeLoadedStateWithInitial as mergeDecksMetaWithInitial } from '../reducers/decksMeta';
 
 export const loadState = () => {
     try {
@@ -29,6 +30,7 @@ export const loadState = () => {
             userExpansions: mergeLoadedUserExpansionsWithInitial(loadedState),
             userOwnSets: mergeLoadedUserOwnSetsWithInitial(loadedState),
             deckUnderEdit: mergeDeckUnderEditWithInitial(loadedState),
+            decksMeta: mergeDecksMetaWithInitial(loadedState),
         }
     } catch (error) {
         console.log(error);

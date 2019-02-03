@@ -16,6 +16,8 @@ import firebase, { db, realdb } from './firebase';
 import LazyLoading from './components/LazyLoading';
 import ErrorBoundary from './components/ErrorBoundary';
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions';
+import { factionIdPrefix } from './data/index';
+import values from 'lodash/values';
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'));
 const Decks = lazy(() => import('./pages/Decks'));
@@ -247,9 +249,20 @@ const fetchCardsRanking = () => {
     return function(dispatch) {
         return realdb.ref('/cards_ratings').once('value').then(snapshot => {
             const data = snapshot.val();
-            console.log('fetchCardsRanking', data);
             dispatch({ type: 'SET_CARDS_RANKING', payload: [-1, data['1'], data['2'], data['3']]});
         });
+    }
+}
+
+const subscribeOnDecksMeta = () => {
+    const factions = values(factionIdPrefix);
+    return dispatch => {
+        return factions.reduce(async (acc, el) => {
+            const snapshot = await realdb.ref(`/decks_meta/${el}`).once('value');
+            const meta = snapshot.val();
+            dispatch({ type: 'SET_DECKS_META', payload: {key: el, value: meta }});
+            return acc;
+        }, {});
     }
 }
 
@@ -271,7 +284,8 @@ class App extends Component {
             }
         });
         
-        store.dispatch(fetchCardsRanking())
+        store.dispatch(fetchCardsRanking());
+        store.dispatch(subscribeOnDecksMeta());
     }
 
     componentWillUnmount() {

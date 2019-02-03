@@ -12,6 +12,7 @@ import userExpansions from './reducers/userExpansions';
 import mydecks from './reducers/mydecks';
 import lastDeck from './reducers/lastDeck';
 import deckUnderEdit from './reducers/deckUnderEdit';
+import decksMeta from './reducers/decksMeta';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -28,6 +29,7 @@ const configureStore = history => {
             mydecks,
             lastDeck,
             deckUnderEdit,
+            decksMeta,
         })), 
         loadState(),
         composeWithDevTools(
