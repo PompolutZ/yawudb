@@ -4,7 +4,7 @@ import { realdb } from '../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ReadonlyDeck from '../components/ReadonlyDeck';
 import { OrderedSet } from 'immutable';
-import { cardsDb, factionIdPrefix, warbandsWithDefaultSet } from '../data';
+import { cardsDb, warbandsWithDefaultSet } from '../data';
 import FloatingActionButton from '../components/FloatingActionButton';
 import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
@@ -16,7 +16,6 @@ import { connect } from 'react-redux';
 import { addOrUpdateLastDeck } from '../reducers/lastDeck';
 import { SET_DECKS_META } from '../reducers/decksMeta';
 import { SET_FACTION } from '../reducers/deckUnderBuild';
-import values from 'lodash/values';
 import DecksMetaSummary from '../molecules/DecksMetaSummary';
 
 const getChangeLogItemsByKey = key => {
@@ -40,14 +39,6 @@ class Home extends Component {
             }
     
             this.props.addOrUpdate(lastDeckId, created, { ...data, id: lastDeckId, created: created });
-
-            // const factions = values(factionIdPrefix);
-            // const decksMeta = factions.reduce(async (acc, el) => {
-            //     const snapshot = await realdb.ref(`/decks_meta/${el}`).once('value');
-            //     const meta = snapshot.val();
-            //     this.props.addDecksMeta(el, meta);
-            //     return acc;
-            // }, {});
         } catch(err) {
             console.error('ERROR updating last added deck', err);
         }
@@ -107,8 +98,7 @@ class Home extends Component {
                                 sets={this.props.lastDeck.data.sets} 
                                 scoringSummary={this.props.lastDeck.data.scoringSummary}
                                 factionId={this.props.lastDeck.id.substr(0, this.props.lastDeck.id.length - 13)} 
-                                cards={new OrderedSet(this.props.lastDeck.data.cards.map(c => ({id: c, ...cardsDb[c]})))}
-                                canEdit={ this.props.userInfo !== null && this.props.lastDeck.data.author === this.props.userInfo.uid } />                        
+                                cards={new OrderedSet(this.props.lastDeck.data.cards.map(c => ({id: c, ...cardsDb[c]})))} />                        
                         )
                     }
                 </div>

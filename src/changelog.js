@@ -2,7 +2,8 @@ const changelog = {
     "0.19.0" : {
         "New DB": "App has been moved to use another database, which should give better overall experience. No data should have been lost during migration, but if you experience something, please contact me asap.",
         "Cards sorted by usage rating": "Cards in the deck builder are now pre-sorted based on their popularity in tournament decks.",
-        "Updated Home page": "Home page updated with quick links to see faction specific decks or create faction specific deck."
+        "Updated Home page": "Home page updated with quick links to see faction specific decks or create faction specific deck.",
+        "Delete Decks": "Authorized users should be able to delete their decks."
     },
     "0.18.0" : {
         "Statistics": "Statistics page has been improved with duplicates merged and minor re-styling"

@@ -3,7 +3,7 @@ import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, warbandsWithDefaultSet } from '../data/index';
+import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave } from '../data/index';
 import { pickCardColor } from '../utils/functions';
 import AnimateHeight from 'react-animate-height';
 import { Set } from 'immutable';
@@ -15,6 +15,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_EDIT_MODE_SETS } from '../reducers/cardLibraryFilters';
 import ScoringOverview from '../atoms/ScoringOverview';
+import Divider from '@material-ui/core/Divider';
 import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../reducers/deckUnderEdit';
 
 const SetIcon = ({ id, set }) => (
@@ -117,11 +118,19 @@ class DeckActionsMenu extends PureComponent {
                     open={Boolean(anchorEl)}
                     onClose={this.handleClose}>
                     {
-                        this.props.canEdit && (
+                        this.props.canUpdateOrDelete && (
                             <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
                         )
                     }
                     <MenuItem onClick={this.handleExportToPdf}>Save as PDF</MenuItem>
+                    {
+                        this.props.canUpdateOrDelete && (
+                            <div>
+                                <Divider />
+                                <MenuItem onClick={this.handleDelete} style={{ color: 'darkred' }}>Delete</MenuItem>
+                            </div>
+                        )
+                    }
                 </Menu>
             </div>
 
@@ -130,6 +139,11 @@ class DeckActionsMenu extends PureComponent {
 
     handleEdit = () => {
         this.props.onEdit();
+        this.handleClose();
+    }
+
+    handleDelete = () => {
+        this.props.onDelete();
         this.handleClose();
     }
 
@@ -193,7 +207,10 @@ class ReadonlyDeck extends PureComponent {
                             }
                         </div>
                     </div>
-                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf} canEdit={this.props.canEdit} onEdit={this._onEdit} />
+                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf} 
+                        canUpdateOrDelete={this.props.canUpdateOrDelete} 
+                        onEdit={this.props.onEdit}
+                        onDelete={this.props.onDelete} />
                 </div>
     
                 <MiniSectionHeader type={0}>
@@ -248,21 +265,6 @@ class ReadonlyDeck extends PureComponent {
                 </div>
             </div>
         );        
-    }
-
-    _onEdit = () => {
-        this.props.resetDeck();
-        const faction = idPrefixToFaction[this.props.factionId];
-        const defaultSet = warbandsWithDefaultSet.filter(a => a.includes(faction));
-        this.props.setFaction(faction, defaultSet[0][1]);
-        this.props.setEditModeSets(this.props.sets);
-        for(let c of this.props.cards) {
-            this.props.addCard(c.id);
-        }
-        
-        this.props.setName(this.props.name);
-        this.props.setDescription(this.props.desc);
-        this.props.history.push(`/deck/edit/${this.props.id}`);
     }
 
     _handleSaveAsPdf = () => {

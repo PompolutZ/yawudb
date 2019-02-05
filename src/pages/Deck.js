@@ -10,12 +10,14 @@ import FloatingActionButton from '../components/FloatingActionButton';
 import { withRouter } from 'react-router-dom';
 import { SET_EDIT_MODE_SETS } from '../reducers/cardLibraryFilters';
 import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../reducers/deckUnderEdit';
-
+import { removeMyDeck } from '../reducers/mydecks';
+import DeleteConfirmationDialog from '../atoms/DeleteConfirmationDialog';
 
 class Deck extends Component {
     state = {
         deck: null,
-        isEditAllowed: false
+        isEditAllowed: false,
+        isDeleteDialogVisible: false,
     }
 
     componentDidMount = async () => {
@@ -61,10 +63,8 @@ class Deck extends Component {
         }
 
         const { id, name, desc, cards, sets, created, authorDisplayName } = this.state.deck;
-        console.log(this.state.deck);
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
-                {/* <div style={{margin: '1rem auto 2rem auto', fontSize: '2rem'}}>Last added deck:</div> */}
                 <ReadonlyDeck 
                     id={id}
                     author={authorDisplayName} 
@@ -74,7 +74,16 @@ class Deck extends Component {
                     sets={sets} 
                     factionId={id.substr(0, id.length - 13)} 
                     cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))}
-                    canEdit={this.state.isEditAllowed} />
+                    canUpdateOrDelete={this.state.isEditAllowed}
+                    onEdit={this._editDeck}
+                    onDelete={this._deleteDeck} />
+
+                <DeleteConfirmationDialog title="Delete deck"
+                    description={`Are you sure you want to delete deck: '${name}'`}
+                    open={this.state.isDeleteDialogVisible}
+                    onCloseDialog={this.handleCloseDeleteDialog}
+                    onDeleteConfirmed={this.handleDeleteDeck}
+                    onDeleteRejected={this.handleCloseDeleteDialog} />     
                 {
                     this.state.isEditAllowed && (
                         <FloatingActionButton isEnabled onClick={this._editDeck}>
@@ -84,6 +93,52 @@ class Deck extends Component {
                 }
             </div>
         );
+    }
+
+    handleCloseDeleteDialog = () => {
+        this.setState({ isDeleteDialogVisible: false });
+    }
+
+    handleDeleteDeck = async () => {
+        try {
+            const { id } = this.state.deck;
+            this.props.removeDeck(id);
+            
+            const userRef = await db.collection('users').doc(this.props.uid).get();
+            const userDecks = userRef.data().mydecks.filter(deckId => deckId !== id);
+            await db.collection('users').doc(this.props.uid).update({
+                mydecks: userDecks
+            });
+
+            await realdb.ref(`/decks/${id}`).remove();
+
+            const prefix = id.split('-')[0];
+            await realdb.ref('/decks_meta/all').transaction(meta => {
+                if(meta) {
+                    const ids = meta.ids.filter(deckId => deckId !== id);
+                    meta.ids = ids;
+                    meta.count = ids.length;
+                }
+
+                return meta;
+            });
+
+            await realdb.ref(`/decks_meta/${prefix}`).transaction(meta => {
+                if(meta) {
+                    const ids = meta.ids.filter(deckId => deckId !== id);
+                    meta.ids = ids;
+                    meta.count = ids.length;
+                }
+
+                return meta;
+            });
+
+            this.handleCloseDeleteDialog();
+            this.props.history.push('/mydecks');
+
+        } catch (err) {
+            console.error("ERROR deleting deck: ", err);
+        }
     }
 
     _editDeck = () => {
@@ -102,6 +157,10 @@ class Deck extends Component {
         this.props.setDescription(desc);
         this.props.history.push(`/deck/edit/${id}`);
     }
+
+    _deleteDeck = async () => {
+        this.setState({ isDeleteDialogVisible: true });
+    }
 }
 
 const mapStateToProps = state => {
@@ -119,6 +178,7 @@ const mapDispatchToProps = dispatch => {
         setFaction: (faction, defaultSet) => dispatch({ type: EDIT_FACTION, faction: faction, defaultSet: defaultSet }),
         setEditModeSets: value => dispatch({ type: SET_EDIT_MODE_SETS, payload: value }),
         resetDeck: () => dispatch({ type: EDIT_RESET_DECK }),
+        removeDeck: id => dispatch(removeMyDeck(id)),
     }
 }
 

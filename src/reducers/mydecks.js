@@ -1,5 +1,8 @@
+import keys from 'lodash/keys';
+
 const ADD_OR_UPDATE_DECK = 'ADD_OR_UPDATE_DECK';
-const REMOVE_MY_DECKS = 'REMOVE_MY_DECKS'; 
+const REMOVE_MY_DECKS = 'REMOVE_MY_DECKS';
+const REMOVE_MY_DECK = 'REMOVE_MY_DECK' 
 
 export const addOrUpdateMyDeck = (id, timestamp, data) => {
     return {
@@ -16,6 +19,13 @@ export const removeMyDecks = ids => {
     return {
         type: REMOVE_MY_DECKS,
         payload: ids
+    }
+}
+
+export const removeMyDeck = id => {
+    return {
+        type: REMOVE_MY_DECK,
+        payload: id
     }
 }
 
@@ -38,6 +48,12 @@ const mydecks = (state = initialState, action) => {
         case REMOVE_MY_DECKS:
             const updated = action.payload.reduce((acc, id) => ({...acc, ...{[id]: state[id]}}), {});
             return updated;
+
+        case REMOVE_MY_DECK: 
+            return keys(state).filter(id => id !== action.payload).reduce((acc, el) => {
+                acc[el] = state[el];
+                return acc;
+            }, {});
 
         default: 
             return state;
