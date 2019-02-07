@@ -3,7 +3,7 @@ import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave } from '../data/index';
+import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, factions } from '../data/index';
 import { pickCardColor } from '../utils/functions';
 import AnimateHeight from 'react-animate-height';
 import { Set } from 'immutable';
@@ -122,7 +122,10 @@ class DeckActionsMenu extends PureComponent {
                             <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
                         )
                     }
-                    <MenuItem onClick={this.handleExportToPdf}>Save as PDF</MenuItem>
+                    <MenuItem onClick={this.handleExportToTextFile}>
+                        <a id="deckTextLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Text</a>
+                    </MenuItem>
+                    <MenuItem onClick={this.handleExportToPdf}>Download as PDF</MenuItem>
                     {
                         this.props.canUpdateOrDelete && (
                             <div>
@@ -149,6 +152,11 @@ class DeckActionsMenu extends PureComponent {
 
     handleExportToPdf = () => {
         this.props.onSaveAsPdf();
+        this.handleClose();
+    }
+
+    handleExportToTextFile = () => {
+        this.props.onSaveText(document.getElementById('deckTextLink'));
         this.handleClose();
     }
 
@@ -207,7 +215,8 @@ class ReadonlyDeck extends PureComponent {
                             }
                         </div>
                     </div>
-                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf} 
+                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf}
+                        onSaveText={this._handleSaveText} 
                         canUpdateOrDelete={this.props.canUpdateOrDelete} 
                         onEdit={this.props.onEdit}
                         onDelete={this.props.onDelete} />
@@ -332,6 +341,67 @@ class ReadonlyDeck extends PureComponent {
         const coords = { x: docX, y: docY };
         return coords;
     }
+
+    _handleSaveText = link => {
+        const { id, name, cards } = this.props;
+        console.log(this.props);
+        let newLineChar; 
+        if(navigator.platform.startsWith('Win')) {
+            newLineChar = '\r\n';
+        } else {
+            newLineChar = '\n';
+        }
+
+        const header = `Faction: ${factions[idPrefixToFaction[id.split('-')[0]]]}`;
+        const cardsjs = cards.toJS();
+        console.log(cardsjs);
+        const objectives = cardsjs.filter(c => c.type === 0);
+        const totalGlory = objectives.reduce((acc, c) => acc += c.glory, 0);
+        const objectivesAsText = objectives
+            .map(c => `${this._convertCardIdToPrintFormat(c.id)}${` - `}${c.name}${` - `}${c.glory} glory${newLineChar}`)
+            .reduce((acc, el) => acc += el, '');
+        const objectivesSection = `Objectives - Total glory: ${totalGlory}${newLineChar}-----------------------------${newLineChar}${objectivesAsText}`;
+
+        const gambits = cardsjs.filter(c => c.type === 1 || c.type === 3);
+        const gambitsAsText = gambits
+            .map(c => `${this._convertCardIdToPrintFormat(c.id)}${` - `}${c.name}${newLineChar}`)
+            .reduce((acc, el) => acc += el, '');
+        const gambitsSection = `Gambits (${gambits.length})${newLineChar}-----------------------------${newLineChar}${gambitsAsText}`;
+        
+        const upgrades = cardsjs.filter(c => c.type === 2);
+        const upgradesAsText = upgrades
+            .map(c => `${this._convertCardIdToPrintFormat(c.id)}${` - `}${c.name}${newLineChar}`)
+            .reduce((acc, el) => acc += el, '');
+        const upgradesSection = `Upgrades (${upgrades.length})${newLineChar}-----------------------------${newLineChar}${upgradesAsText}`;
+
+        const footer = `-----------------------------${newLineChar}Deck URL: ${window.location.href}`
+        
+        const content = [
+            header, 
+            `${newLineChar}${newLineChar}`, 
+            objectivesSection,
+            `${newLineChar}${newLineChar}`,
+            gambitsSection,
+            `${newLineChar}${newLineChar}`,
+            upgradesSection,
+            `${newLineChar}${newLineChar}`,
+            footer
+        ];
+        const file = new Blob(content, { type: 'text/plain'});
+        link.href = URL.createObjectURL(file);
+        link.download = `${name}.txt`;
+    }
+
+    _convertCardIdToPrintFormat = cardId => {
+        switch(cardId.slice(0,2)) {
+            case '02':
+                return `L${cardId.slice(-3)}`;
+            case '03':
+                return `N${cardId.slice(-3)}`;
+            default: 
+                return cardId.slice(-3);
+        }
+    }        
 }
 
 const mapDispatchToProps = dispatch => {
