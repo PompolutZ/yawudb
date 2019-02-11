@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "3.9.0",
     "@material-ui/icons": "^1.1.0",
+    "b64-to-blob": "^1.2.19",
     "connected-react-router": "^4.4.1",
     "firebase": "^5.4.1",
     "immutable": "^3.8.2",

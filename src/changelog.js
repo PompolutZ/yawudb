@@ -4,7 +4,8 @@ const changelog = {
         "Cards sorted by usage rating": "Cards in the deck builder are now pre-sorted based on their popularity in tournament decks.",
         "Updated Home page": "Home page updated with quick links to see faction specific decks or create faction specific deck.",
         "Delete Decks": "Authorized users should be able to delete their decks.",
-        "Export to Text file": "You can export your decks to txt files to share on social networks."
+        "Export to Text file": "You can export your decks to txt files to share on social networks.",
+        "Export To PNG (beta)": "First implementation of exporting the deck as png image, to make sharing your decks easier."
     },
     "0.18.0" : {
         "Statistics": "Statistics page has been improved with duplicates merged and minor re-styling"

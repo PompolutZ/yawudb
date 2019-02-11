@@ -3,7 +3,7 @@ import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, factions } from '../data/index';
+import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, factions, restrictedCards } from '../data/index';
 import { pickCardColor } from '../utils/functions';
 import AnimateHeight from 'react-animate-height';
 import { Set } from 'immutable';
@@ -17,6 +17,8 @@ import { SET_EDIT_MODE_SETS } from '../reducers/cardLibraryFilters';
 import ScoringOverview from '../atoms/ScoringOverview';
 import Divider from '@material-ui/core/Divider';
 import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../reducers/deckUnderEdit';
+import { Button } from '@material-ui/core';
+import b64toBlob from 'b64-to-blob';
 
 const SetIcon = ({ id, set }) => (
     <img id={id} style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt="icon" />
@@ -125,6 +127,9 @@ class DeckActionsMenu extends PureComponent {
                     <MenuItem onClick={this.handleExportToTextFile}>
                         <a id="deckTextLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Text</a>
                     </MenuItem>
+                    <MenuItem onClick={this.handleExportToImage}>
+                        <a id="deckImageLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Image</a>
+                    </MenuItem>
                     <MenuItem onClick={this.handleExportToPdf}>Download as PDF</MenuItem>
                     {
                         this.props.canUpdateOrDelete && (
@@ -160,6 +165,11 @@ class DeckActionsMenu extends PureComponent {
         this.handleClose();
     }
 
+    handleExportToImage = () => {
+        this.props.onSaveImage(document.getElementById('deckImageLink'));
+        this.handleClose();
+    }
+
     handleClick = event => {
         this.setState({ anchorEl: event.currentTarget });
     }
@@ -184,7 +194,41 @@ const styles = theme => ({
     }
 });
 
+const cardWidthPx = 532 / 2;
+const cardHeightPx = 744 / 2;
+
+const calcCanvasSize = cards => {
+    const objectives = cards.toJS().filter(c => c.type === 0);
+    const gambits = cards.toJS().filter(c => c.type === 1 || c.type === 3);
+    const upgrades = cards.toJS().filter(c => c.type === 2);
+
+    const objectivesWidth = 4 * (cardWidthPx + 10); 
+    const gambitsWidth = 4 * (cardWidthPx + 10); 
+    const upgradesWidth = 4 * (cardWidthPx + 10);
+    
+    const width = objectivesWidth + 21 + gambitsWidth + 21 + upgradesWidth;
+
+    const objectivesHeight = Math.ceil(objectives.length / 4) * (cardHeightPx + 10); 
+    const gambitsHeight = Math.ceil(gambits.length / 4) * (cardHeightPx + 10); 
+    const upgradesHeight = Math.ceil(upgrades.length / 4) * (cardHeightPx + 10);
+
+    const height = Math.max(objectivesHeight, gambitsHeight, upgradesHeight) + 20;
+
+    return {
+        width: width,
+        height: height
+    }
+}
+
 class ReadonlyDeck extends PureComponent {
+    state = {
+        deckCanvasSize: { width: 0, height: 0 }
+    }
+
+    componentDidMount = () => {
+        this.setState({ deckCanvasSize: calcCanvasSize(this.props.cards )});
+    }
+
     render() {
         const { classes, name, author, factionId, cards, sets, created } = this.props;
         const objectives = cards.filter(v => v.type === 0).sort((a, b) => a.name.localeCompare(b.name));
@@ -216,7 +260,8 @@ class ReadonlyDeck extends PureComponent {
                         </div>
                     </div>
                     <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf}
-                        onSaveText={this._handleSaveText} 
+                        onSaveText={this._handleSaveText}
+                        onSaveImage={this._handleSaveImage} 
                         canUpdateOrDelete={this.props.canUpdateOrDelete} 
                         onEdit={this.props.onEdit}
                         onDelete={this.props.onDelete} />
@@ -270,6 +315,15 @@ class ReadonlyDeck extends PureComponent {
                     </div>
                     <div id="cardNumberMeasurer" style={{ display: 'inline-flex', backgroundColor: 'magenta', flexFlow: 'column', fontFamily: 'Helvetica', fontSize: '.5rem'}}>
                         000/000
+                    </div>
+                    <div id="cardsPreloadedImages">
+                        {
+                            cards.map(c => <img key={c.id} id={`card_${c.id}`} src={`/assets/cards/${c.id}.png`} />)
+                        }
+                    </div>
+                    <div>
+                        <canvas id="deckCanvas" width={this.state.deckCanvasSize.width} height={this.state.deckCanvasSize.height}>
+                        </canvas>
                     </div>
                 </div>
             </div>
@@ -374,7 +428,8 @@ class ReadonlyDeck extends PureComponent {
             .reduce((acc, el) => acc += el, '');
         const upgradesSection = `Upgrades (${upgrades.length})${newLineChar}-----------------------------${newLineChar}${upgradesAsText}`;
 
-        const footer = `-----------------------------${newLineChar}Deck URL: ${window.location.href}`
+        const location = window.location.href.endsWith(id) ? window.location.href : `${window.location.href}view/deck/${id}`;
+        const footer = `-----------------------------${newLineChar}Deck URL: ${location}`;
         
         const content = [
             header, 
@@ -390,6 +445,111 @@ class ReadonlyDeck extends PureComponent {
         const file = new Blob(content, { type: 'text/plain'});
         link.href = URL.createObjectURL(file);
         link.download = `${name}.txt`;
+    }
+
+    _handleSaveImage = link => {
+        const { cards } = this.props;
+
+        const canvas = document.getElementById('deckCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const objectives = cards.toJS().filter(c => c.type === 0).reduce((acc, el, i, arr) => {
+            if(i % 4 === 0) {
+                acc.push(arr.slice(i, i + 4));
+            }
+            return acc;
+        }, []);
+
+        const gambits = cards.toJS().filter(c => c.type === 1 || c.type === 3).reduce((acc, el, i, arr) => {
+            if(i % 4 === 0) {
+                acc.push(arr.slice(i, i + 4));
+            }
+            return acc;
+        }, []);
+
+        const upgrades = cards.toJS().filter(c => c.type === 2).reduce((acc, el, i, arr) => {
+            if(i % 4 === 0) {
+                acc.push(arr.slice(i, i + 4));
+            }
+            return acc;
+        }, []);
+
+        try {
+            let cursorX = 10;
+            let cursorY = 10;
+            for(let row of objectives) {
+                for(let c of row) {
+                    if(restrictedCards[c.id]) {
+                        ctx.fillStyle = 'Goldenrod';
+                        ctx.fillRect(cursorX - 5, cursorY - 5, cardWidthPx + 10, cardHeightPx + 10);
+                    }
+
+                    const image = document.getElementById(`card_${c.id}`);
+                    ctx.drawImage(image, cursorX, cursorY, cardWidthPx, cardHeightPx);
+                    cursorX += cardWidthPx + 10;
+                }
+    
+                cursorX = 10;
+                cursorY += cardHeightPx + 10;
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(4 * (cardWidthPx + 10) + 10, 5);
+            ctx.lineTo(4 * (cardWidthPx + 10) + 10, 3 * (cardHeightPx + 10) + 10);
+            ctx.stroke();
+
+            cursorY = 10;
+            cursorX = 4 * (cardWidthPx + 10) + 21;
+            for(let row of gambits) {
+                for(let c of row) {
+                    if(restrictedCards[c.id]) {
+                        ctx.fillStyle = 'Goldenrod';
+                        ctx.fillRect(cursorX - 5, cursorY - 5, cardWidthPx + 10, cardHeightPx + 10);
+                    }
+
+                    const image = document.getElementById(`card_${c.id}`);
+                    ctx.drawImage(image, cursorX, cursorY, cardWidthPx, cardHeightPx);
+                    cursorX += cardWidthPx + 10;
+                }
+    
+                cursorX = 4 * (cardWidthPx + 10) + 21;
+                cursorY += cardHeightPx + 10;
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(8 * (cardWidthPx + 10) + 20, 5);
+            ctx.lineTo(8 * (cardWidthPx + 10) + 20, 3 * (cardHeightPx + 10) + 10);
+            ctx.stroke();
+
+            cursorY = 10;
+            cursorX = 8 * (cardWidthPx + 10) + 31;
+            for(let row of upgrades) {
+                for(let c of row) {
+                    if(restrictedCards[c.id]) {
+                        ctx.fillStyle = 'Goldenrod';
+                        ctx.fillRect(cursorX - 5, cursorY - 5, cardWidthPx + 10, cardHeightPx + 10);
+                    }
+
+                    const image = document.getElementById(`card_${c.id}`);
+                    ctx.drawImage(image, cursorX, cursorY, cardWidthPx, cardHeightPx);
+                    cursorX += cardWidthPx + 10;
+                }
+    
+                cursorX = 8 * (cardWidthPx + 10) + 31;
+                cursorY += cardHeightPx + 10;
+            }
+
+            const dataUrl = canvas.toDataURL();
+            const contentType = 'image/png';
+            const b64Data = dataUrl.slice('data:image/png;base64,'.length);
+            const blob = b64toBlob(b64Data, contentType);
+            link.href = URL.createObjectURL(blob);
+            link.download = `deck2.png`;
+        } catch(err) {
+            console.error(err);
+        }
     }
 
     _convertCardIdToPrintFormat = cardId => {
