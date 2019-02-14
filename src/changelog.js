@@ -7,6 +7,7 @@ const changelog = {
         "Export to Text file": "You can export your decks to txt files to share on social networks.",
         "Export To PNG (beta)": "First implementation of exporting the deck as png image, to make sharing your decks easier.",
         "Draft decks": "Logged in users should be able to save their decks as drafts. When the deck is in Draft state it should be visible on MyDecks page but not on Decks page.",
+        "Bug fixes" : "Fixed bug when locally cached deck didn't updated after changes were made up until it was requested from the server."
     },
     "0.18.0" : {
         "Statistics": "Statistics page has been improved with duplicates merged and minor re-styling"

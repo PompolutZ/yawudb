@@ -13,6 +13,7 @@ import SimpleSnackbar from './SimpleSnackbar';
 import CardLibraryFilters from './DeckBuiilder/components/CardLibraryFilters';
 import CardsLibrary from './DeckBuiilder/components/CardsLibrary';
 import { AddCardSVG, DeckSVG } from '../atoms/SVGs';
+import { addOrUpdateMyDeck } from '../reducers/mydecks';
 
 const uuid4 = require('uuid/v4');
 
@@ -106,6 +107,7 @@ class DeckBuilder extends Component {
                 return acc;
             }, [0, 0, 0, 0]);
     
+            const updated = Date();
             const deckPayload = {
                 name: this.props.currentDeckName,
                 source: '',
@@ -114,10 +116,12 @@ class DeckBuilder extends Component {
                 sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
                 scoringSummary: objectiveScoringSummary,
                 tags: [],
-                created: Date(),
+                created: updated,
                 author: this.props.userInfo.uid,
                 authorDisplayName: this.props.isAuth ? this.props.userInfo.displayName : 'Anonymous',
             }
+
+            this.props.addOrUpdateDeck(this.props.match.params.id, updated, {...deckPayload, id: this.props.match.params.id});
 
             await realdb.ref('decks/' + this.props.match.params.id).set(deckPayload);
             if(!args.isDraft) {
@@ -249,4 +253,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(withRouter(DeckBuilder));
+const mapDispatchToProps = dispatch => {
+    return {
+        addOrUpdateDeck: (id, timestamp, data) => dispatch(addOrUpdateMyDeck(id, timestamp, data)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DeckBuilder));

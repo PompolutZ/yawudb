@@ -164,7 +164,6 @@ class MyDecks extends Component {
                                             upgrades: 0
                                         });
 
-                                        console.log(counts);
                                         const isDraft = counts.objectives < 12 || (counts.upgrades + counts.gambits < 20) || (counts.gambits > counts.upgrades);
 
                                         return (

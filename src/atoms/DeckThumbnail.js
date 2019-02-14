@@ -25,8 +25,6 @@ class DeckThumbnail extends PureComponent {
             summary: [0, 0, 0, 0]
         });
 
-        console.log(isDraft);
-
         return (
             <div className={classes.root} onClick={this.props.onClick}>
                 <DeckIcon width="3rem" height="3rem" faction={idPrefixToFaction[factionId.split('-')[0]]} />
