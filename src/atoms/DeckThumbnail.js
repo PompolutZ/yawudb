@@ -15,7 +15,7 @@ const styles = theme => ({
 
 class DeckThumbnail extends PureComponent {
     render() {
-        const { classes, factionId, title, author, date, sets, objectives, banned, restricted } = this.props;
+        const { classes, factionId, title, author, date, sets, objectives, banned, restricted, isDraft } = this.props;
         const scoringOverview = objectives.reduce((acc, o) => {
             acc.summary[o.scoreType] += 1;
             acc.glory += o.glory;
@@ -24,6 +24,8 @@ class DeckThumbnail extends PureComponent {
             glory: 0,
             summary: [0, 0, 0, 0]
         });
+
+        console.log(isDraft);
 
         return (
             <div className={classes.root} onClick={this.props.onClick}>
@@ -35,7 +37,8 @@ class DeckThumbnail extends PureComponent {
                     sets={sets} 
                     scoringOverview={scoringOverview}
                     banned={banned}
-                    restricted={restricted} />
+                    restricted={restricted}
+                    isDraft={isDraft} />
             </div>
         );
     }

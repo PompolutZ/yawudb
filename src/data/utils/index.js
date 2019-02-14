@@ -8,7 +8,10 @@ export const getDbIndexByWaveAndCard = (wave, card) => {
 export const getCardsByFactionAndSets = (faction, selectedSets, factionDefaultSet) => {
     const defaultFactionCards = faction !== 'universal' ? [factionDefaultSet] : [] 
     let cardIds = [];
-    const setsWithFactionSet = [...selectedSets, ...defaultFactionCards];
+    console.log(selectedSets);
+    const selectedSetsSafe = selectedSets ? selectedSets : [];
+    
+    const setsWithFactionSet = [...selectedSetsSafe, ...defaultFactionCards];
     const fIndex = factionIndexes.indexOf(faction.startsWith('n_') ? faction.slice(2) : faction);
     for (let s of setsWithFactionSet) {
         const set = setInfos[s];

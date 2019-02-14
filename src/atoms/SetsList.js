@@ -12,7 +12,7 @@ const styles = theme => ({
 const SetsList = ({ classes, sets }) => (
     <div className={classes.root}>
         {
-            sets.map(s => <ExpansionIcon key={s} set={s} />)
+            sets && sets.map(s => <ExpansionIcon key={s} set={s} />)
         }
     </div>
 );

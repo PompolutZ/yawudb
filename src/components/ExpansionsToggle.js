@@ -18,7 +18,7 @@ class ExpansionsToggle extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedExpansions: this.props.selectedSets.map(x => parseInt(x, 10)),
+            selectedExpansions: this.props.selectedSets ? this.props.selectedSets.map(x => parseInt(x, 10)) : [],
         }
 
         this.handleToggle = this.handleToggle.bind(this);

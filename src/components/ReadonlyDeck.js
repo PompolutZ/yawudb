@@ -222,11 +222,36 @@ const calcCanvasSize = cards => {
 
 class ReadonlyDeck extends PureComponent {
     state = {
-        deckCanvasSize: { width: 0, height: 0 }
+        deckCanvasSize: { width: 0, height: 0 },
+        isDraft: false,
     }
 
     componentDidMount = () => {
-        this.setState({ deckCanvasSize: calcCanvasSize(this.props.cards )});
+        const cards = this.props.cards.toJS();
+        const counts = cards.reduce((acc, el) => {
+            switch(el.type) {
+                case 0: 
+                    acc.objectives += 1;
+                    return acc;
+
+                case 2: 
+                    acc.upgrades += 1;
+                    return acc;
+
+                default: 
+                    acc.gambits += 1;
+                    return acc;
+            }
+        }, {
+            objectives: 0,
+            gambits: 0,
+            upgrades: 0
+        });
+
+        this.setState({ 
+            deckCanvasSize: calcCanvasSize(this.props.cards ), 
+            isDraft: counts.objectives < 12 || (counts.upgrades + counts.gambits < 20) || counts.gambits > counts.upgrades 
+        });
     }
 
     render() {
@@ -237,6 +262,7 @@ class ReadonlyDeck extends PureComponent {
         const spellsCount = gambits.filter(v => v.type === 3).count();
     
         const createdDate = created ? ` | ${new Date(created).toLocaleDateString()}` : '';
+        const draft = this.state.isDraft ? ` | Draft` : '';
         const objectiveSummary = new Set(objectives).groupBy(c => c.scoreType).reduce((r, v, k) => {
             r[k] = v.count();
             return r;
@@ -252,7 +278,11 @@ class ReadonlyDeck extends PureComponent {
                     <DeckIcon width="4rem" height="4rem" faction={idPrefixToFaction[factionId]} />
                     <div style={{flex: '1 1 auto'}}>
                         <div style={{ fontFamily: 'roboto', fontSize: '1rem', fontWeight: 'bold'}}>{name}</div>
-                        <div style={{ fontFamily: 'roboto', fontSize: '.7rem', }}>{`${author}${createdDate}`}</div>
+                        <div style={{ fontFamily: 'roboto', fontSize: '.7rem', }}>
+                            <span>{author}</span>
+                            <span>{createdDate}</span>
+                            <span style={{ color: 'darkorange' }}>{draft}</span>
+                        </div>
                         <div style={{margin: '.2rem 0 0 0'}}>
                             {
                                 <SetsList sets={sets} />
@@ -448,7 +478,7 @@ class ReadonlyDeck extends PureComponent {
     }
 
     _handleSaveImage = link => {
-        const { cards } = this.props;
+        const { cards, name } = this.props;
 
         const canvas = document.getElementById('deckCanvas');
         const ctx = canvas.getContext('2d');
@@ -546,7 +576,7 @@ class ReadonlyDeck extends PureComponent {
             const b64Data = dataUrl.slice('data:image/png;base64,'.length);
             const blob = b64toBlob(b64Data, contentType);
             link.href = URL.createObjectURL(blob);
-            link.download = `deck2.png`;
+            link.download = `${name}.png`;
         } catch(err) {
             console.error(err);
         }

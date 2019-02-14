@@ -50,7 +50,8 @@ class DeckBuilder extends Component {
                         onSave={this._saveCurrentDeck}
                         onUpdate={this._updateCurrentDeck}
                         onCancel={this._cancelUpdate}
-                        onRemoveAll={this.props.clearDeck} />
+                        onRemoveAll={this.props.clearDeck}
+                        isAuth={this.props.isAuth} />
                 </div>
                 <div className="fullscreenDeck" style={{visibility: (this.state.isMobileDeckVisible && window.matchMedia('(max-width: 800px)').matches) ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
                     <Deck faction={this.props.selectedFaction}
@@ -65,7 +66,8 @@ class DeckBuilder extends Component {
                         onSave={this._saveCurrentDeck}
                         onUpdate={this._updateCurrentDeck}
                         onCancel={this._cancelUpdate}
-                        onRemoveAll={this.props.clearDeck} />
+                        onRemoveAll={this.props.clearDeck}
+                        isAuth={this.props.isAuth} />
                 </div>
                 { this.state.showNotification && <SimpleSnackbar position="center" message="Save was successful!" /> }
                 <FloatingActionButton isEnabled onClick={this._handleShowDeckMobile}>
@@ -88,7 +90,7 @@ class DeckBuilder extends Component {
         this.setState(state => ({isMobileDeckVisible: !state.isMobileDeckVisible}));
     }
 
-    _updateCurrentDeck = async () => {
+    _updateCurrentDeck = async args => {
         try {
             const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
             const objectiveScoringSummary = this.props.currentDeck.map(x => {
@@ -118,17 +120,19 @@ class DeckBuilder extends Component {
             }
 
             await realdb.ref('decks/' + this.props.match.params.id).set(deckPayload);
-            await realdb.ref('lastDeck').transaction(lastDeck => {
-                if(lastDeck) {
-                    lastDeck.id = this.props.match.params.id;
-                }
-
-                return lastDeck;
-            });
-
-            await this.moveIdToFront(realdb.ref('/decks_meta/all'), this.props.match.params.id);
-            await this.moveIdToFront(realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), this.props.match.params.id);
-
+            if(!args.isDraft) {
+                await realdb.ref('lastDeck').transaction(lastDeck => {
+                    if(lastDeck) {
+                        lastDeck.id = this.props.match.params.id;
+                    }
+    
+                    return lastDeck;
+                });
+    
+                await this.moveIdToFront(realdb.ref('/decks_meta/all'), this.props.match.params.id);
+                await this.moveIdToFront(realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), this.props.match.params.id);
+            }
+            
             this._resetAndGoBack();
         } catch(err) {
             console.error('ERROR updating deck: ', err);
@@ -142,6 +146,7 @@ class DeckBuilder extends Component {
                 console.log(diff);
                 meta.ids = [id, ...diff];
                 console.log(meta.ids);
+                meta.count = meta.ids.length;
             }
 
             return meta;
@@ -160,7 +165,7 @@ class DeckBuilder extends Component {
         }, 300);
     }
 
-    _saveCurrentDeck = async () => {
+    _saveCurrentDeck = async args => {
         try {
             const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
             const deckId = `${factionIdPrefix[faction]}-${uuid4().slice(-12)}`;
@@ -178,8 +183,6 @@ class DeckBuilder extends Component {
                 acc[x] += 1;
                 return acc;
             }, [0, 0, 0, 0]);
-            
-            console.log(objectiveScoringSummary);
     
             const deckPayload = {
                 name: this.props.currentDeckName,
@@ -194,8 +197,6 @@ class DeckBuilder extends Component {
                 authorDisplayName: this.props.isAuth ? this.props.userInfo.displayName : 'Anonymous',
             }
 
-            console.log(deckPayload);
-    
             if(this.props.isAuth) {
                 await db.collection('users').doc(this.props.userInfo.uid).update({
                     mydecks: firebase.firestore.FieldValue.arrayUnion(deckId)
@@ -203,22 +204,24 @@ class DeckBuilder extends Component {
             }
 
             await realdb.ref('decks/' + deckId).set(deckPayload);
-            await realdb.ref('lastDeck').transaction(lastDeck => {
-                if(lastDeck) {
-                    lastDeck.id = deckId;
-                }
 
-                return lastDeck;
-            });
-
-            await realdb.ref('/decks_meta/all').transaction(meta => this._updateMetaCountAndIds(meta, deckId));
-            await realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`).transaction(meta => this._updateMetaCountAndIds(meta, deckId));
+            if(!args.isDraft) {
+                await realdb.ref('lastDeck').transaction(lastDeck => {
+                    if(lastDeck) {
+                        lastDeck.id = deckId;
+                    }
+    
+                    return lastDeck;
+                });
+    
+                await realdb.ref('/decks_meta/all').transaction(meta => this._updateMetaCountAndIds(meta, deckId));
+                await realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`).transaction(meta => this._updateMetaCountAndIds(meta, deckId));
+            }
 
             this.props.resetDeck();
             this.props.resetSearchText();
             this.setState({showNotification: true});
             this.props.history.push(`/view/deck/${deckId}`);
-
         } catch(err) {
             console.error('ERROR saving new deck: ', err);
         }
@@ -226,12 +229,13 @@ class DeckBuilder extends Component {
 
     _updateMetaCountAndIds = (meta, deckId) => {
         if(meta) {
-            meta.count += 1;
             if(meta.ids) {
                 meta.ids = [deckId, ...meta.ids];
             } else {
                 meta.ids = [deckId];
             }
+
+            meta.count = meta.ids.length;
         }
 
         return meta;

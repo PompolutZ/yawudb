@@ -163,7 +163,7 @@ class FilterableCardLibrary extends Component {
         const selectedFactionDefaultSet = this.props.editMode ? this.props.editModeFactionDefaultSet : this.props.createModeFactionDefaultSet;
         const selectedSets = this.props.editMode ? this.props.editModeSelectedSets : this.props.createModeSelectedSets;
         const factionCards = getCardsByFactionAndSets(selectedFaction, selectedSets, selectedFactionDefaultSet);
-        if(selectedSets.length > 0) {
+        if(selectedSets && selectedSets.length > 0) {
             const universalCards = getCardsByFactionAndSets('universal', selectedSets);
             return new Set(factionCards).union(new Set(universalCards));     
         } else {

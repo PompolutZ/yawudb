@@ -141,9 +141,32 @@ class MyDecks extends Component {
                             <div>
                                 {
                                     decks.map(([id, deck]) => {
-                                        const bannedCardsCount = deck.cards.filter(id => Boolean(bannedCards[id])).length;
-                                        const restrictedCardsCount = deck.cards.filter(id => Boolean(restrictedCards[id])).length;
-                                        console.log(id, deck);
+                                        const cards = deck.cards ? deck.cards.map(c => ({ id: c, ...cardsDb[c]})) : [];
+                                        const bannedCardsCount = cards.filter(id => Boolean(bannedCards[id])).length;
+                                        const restrictedCardsCount = cards.filter(id => Boolean(restrictedCards[id])).length;
+                                        const counts = cards.reduce((acc, el) => {
+                                            switch(el.type) {
+                                                case 0: 
+                                                    acc.objectives += 1;
+                                                    return acc;
+
+                                                case 2: 
+                                                    acc.upgrades += 1;
+                                                    return acc;
+
+                                                default: 
+                                                    acc.gambits += 1;
+                                                    return acc;
+                                            }
+                                        }, {
+                                            objectives: 0,
+                                            gambits: 0,
+                                            upgrades: 0
+                                        });
+
+                                        console.log(counts);
+                                        const isDraft = counts.objectives < 12 || (counts.upgrades + counts.gambits < 20) || (counts.gambits > counts.upgrades);
+
                                         return (
                                             <div key={id} className={classes.item}>
                                                 <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, id)} 
@@ -152,9 +175,10 @@ class MyDecks extends Component {
                                                     author={deck.authorDisplayName} 
                                                     date={deck.created}
                                                     sets={deck.sets}
-                                                    objectives={deck.cards.map(c => ({ id: c, ...cardsDb[c]})).filter(c => c.type === 0)}
+                                                    objectives={cards ? cards.filter(c => c.type === 0) : []}
                                                     banned={bannedCardsCount}
-                                                    restricted={restrictedCardsCount} />
+                                                    restricted={restrictedCardsCount}
+                                                    isDraft={isDraft} />
                                                 {
                                                     this.state.showConflicts && (
                                                         <Suspense fallback={<CircularProgress style={{color: '#3B9979'}} />}>
@@ -199,7 +223,7 @@ class MyDecks extends Component {
 
     checkForConflictsOrWarnings = () => {
         const cardsInDecks = this.props.decks.reduce((acc, [id, deck]) => {
-            const inverted = deck.cards.reduce((iacc, c) => ({...iacc, ...{[c]: [id]}}), {});
+            const inverted = deck.cards ? deck.cards.reduce((iacc, c) => ({...iacc, ...{[c]: [id]}}), {}) : {};
             for(let k in inverted) {
                 if(acc[k]) {
                     acc[k] = [...acc[k], ...inverted[k]];

@@ -5,7 +5,8 @@ const changelog = {
         "Updated Home page": "Home page updated with quick links to see faction specific decks or create faction specific deck.",
         "Delete Decks": "Authorized users should be able to delete their decks.",
         "Export to Text file": "You can export your decks to txt files to share on social networks.",
-        "Export To PNG (beta)": "First implementation of exporting the deck as png image, to make sharing your decks easier."
+        "Export To PNG (beta)": "First implementation of exporting the deck as png image, to make sharing your decks easier.",
+        "Draft decks": "Logged in users should be able to save their decks as drafts. When the deck is in Draft state it should be visible on MyDecks page but not on Decks page.",
     },
     "0.18.0" : {
         "Statistics": "Statistics page has been improved with duplicates merged and minor re-styling"

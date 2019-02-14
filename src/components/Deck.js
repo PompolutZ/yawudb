@@ -175,9 +175,20 @@ class Deck extends PureComponent {
                             <WUButton style={{margin: 'auto', color: 'red'}} onClick={onRemoveAll}>
                                 Remove all
                             </WUButton>
-                            <WUButton style={{margin: 'auto'}} disabled={!isValidForSave} onClick={onSave}>
-                                Save
-                            </WUButton>
+                            {
+                                this.props.isAuth && (
+                                    <WUButton style={{margin: 'auto'}} onClick={onSave} args={{isDraft: !isValidForSave}}>
+                                        { isValidForSave ? 'Save' : 'Save Draft' }
+                                    </WUButton>
+                                )
+                            }
+                            {
+                                !this.props.isAuth && (
+                                    <WUButton style={{margin: 'auto'}} disabled={!isValidForSave} onClick={onSave} args={{isDraft: !isValidForSave}}>
+                                        Save
+                                    </WUButton>
+                                )
+                            }
                         </div>
                     )
                 }
@@ -187,8 +198,8 @@ class Deck extends PureComponent {
                             <WUButton style={{margin: 'auto', color: 'red'}} onClick={onCancel}>
                                 Cancel
                             </WUButton>
-                            <WUButton style={{margin: 'auto'}} disabled={!isValidForSave} onClick={onUpdate}>
-                                Update
+                            <WUButton style={{margin: 'auto'}} onClick={onUpdate} args={{isDraft: !isValidForSave}}>
+                            { isValidForSave ? 'Update' : 'Update Draft' }
                             </WUButton>
                         </div>
                     )

@@ -7,9 +7,13 @@ class WUButton extends Component {
         return !isEqual(nextProps, this.props);
     }
 
+    handleClick = () => {
+        this.props.onClick(this.props.args);
+    }
+
     render() {
         return (
-            <Button style={{ ...this.props.style }} disabled={this.props.disabled} onClick={this.props.onClick}>
+            <Button style={{ ...this.props.style }} disabled={this.props.disabled} onClick={this.handleClick}>
                 { this.props.children }
             </Button>
         );

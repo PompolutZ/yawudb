@@ -63,6 +63,7 @@ class Deck extends Component {
         }
 
         const { id, name, desc, cards, sets, created, authorDisplayName } = this.state.deck;
+        const cardsSet = !cards ? new OrderedSet() : new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})));
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <ReadonlyDeck 
@@ -73,7 +74,7 @@ class Deck extends Component {
                     created={created} 
                     sets={sets} 
                     factionId={id.substr(0, id.length - 13)} 
-                    cards={new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})))}
+                    cards={cardsSet}
                     canUpdateOrDelete={this.state.isEditAllowed}
                     onEdit={this._editDeck}
                     onDelete={this._deleteDeck} />
@@ -149,8 +150,10 @@ class Deck extends Component {
         const defaultSet = warbandsWithDefaultSet.filter(a => a.includes(faction));
         this.props.setFaction(faction, defaultSet[0][1]);
         this.props.setEditModeSets(sets);
-        for(let c of cards) {
-            this.props.addCard(c);
+        if(cards) {
+            for(let c of cards) {
+                this.props.addCard(c);
+            }
         }
         
         this.props.setName(name);
