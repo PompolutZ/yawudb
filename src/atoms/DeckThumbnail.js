@@ -27,7 +27,7 @@ class DeckThumbnail extends PureComponent {
 
         return (
             <div className={classes.root} onClick={this.props.onClick}>
-                <DeckIcon width="3rem" height="3rem" faction={idPrefixToFaction[factionId.split('-')[0]]} />
+                <DeckIcon width="3rem" height="3rem" faction={idPrefixToFaction[factionId.split('-')[0]]} style={{ cursor: 'pointer' }} />
                 <DeckThumbnailHeader 
                     title={title} 
                     author={author} 

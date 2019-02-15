@@ -5,7 +5,7 @@ import RestrictedBannedCardsCount from './RestrictedBannedCardsCount';
 
 const DeckThumbnailHeader = ({ title, author, date, sets, scoringOverview, banned, restricted, isDraft }) => (
     <div style={{ fontFamily: `'Roboto', sans-serif`}}>
-        <div style={{ fontSize: '.8rem', fontWeight: '500' }}>{title}</div>
+        <div style={{ fontSize: '.8rem', fontWeight: '500', cursor: 'pointer' }}>{title}</div>
         {
             !date && (
                 <div style={{ fontSize: '.8rem' }}>{author}</div>
