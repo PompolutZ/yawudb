@@ -48,6 +48,7 @@ class Home extends Component {
         const { classes, history } = this.props;
         const lastUpdateKey = Object.keys(changelog)[0];
         const lastUpdate = getChangeLogItemsByKey(lastUpdateKey);
+
         return(
             <div className={classes.root}>
                 <div className={classes.columnOne}>
@@ -89,7 +90,8 @@ class Home extends Component {
                     }
                     {
                         this.props.lastDeck.id && (
-                            <ReadonlyDeck 
+                            <ReadonlyDeck
+                                isNarrow={window.screen.width > 1280} 
                                 id={this.props.lastDeck.id}
                                 name={this.props.lastDeck.data.name} 
                                 desc={this.props.lastDeck.data.desc}

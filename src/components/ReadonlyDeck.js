@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
+import classnames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -179,20 +180,41 @@ class DeckActionsMenu extends PureComponent {
     }
 }
 
+class DeckActionMenuLarge extends PureComponent {
+    render() {
+        const { canUpdateOrDelete, onEdit, onDelete, onSaveAsPdf } = this.props;
+        return (
+            <React.Fragment>
+                {
+                    canUpdateOrDelete && <Button onClick={onEdit} style={{ color: '#3B9979' }}>Edit</Button>
+                }
+                <Button onClick={this.handleExportToTextFile}>
+                    <a id="deckTextLinkLarge" style={{ color: 'inherit', textDecoration: 'none'}}>Export as Text</a>
+                </Button>
+                <Button onClick={this.handleExportToImage}>
+                    <a id="deckImageLinkLarge" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Image</a>
+                </Button>
+                <Button onClick={onSaveAsPdf}>Export As PDF</Button>
+                {
+                    canUpdateOrDelete && <Button onClick={onDelete} style={{ color: 'darkred' }}>Delete</Button>
+                }
+            </React.Fragment>
+        );
+    }
+
+    handleExportToTextFile = () => {
+        this.props.onSaveText(document.getElementById('deckTextLinkLarge'));
+    }
+
+    handleExportToImage = () => {
+        this.props.onSaveImage(document.getElementById('deckImageLinkLarge'));
+    }
+}
+
 const idToPrintId = id => {
     const wavePrefix = id.substr(0, 2);
     return `${id.slice(-3)}/${totalCardsPerWave[parseInt(wavePrefix, 10)]}`;
 }
-
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexFlow: 'column',
-        [theme.breakpoints.up('sm')]: {
-            maxWidth: '30rem'
-        }
-    }
-});
 
 const cardWidthPx = 532 / 2;
 const cardHeightPx = 744 / 2;
@@ -219,6 +241,54 @@ const calcCanvasSize = cards => {
         height: height
     }
 }
+
+const styles = theme => ({
+    root: {
+        display: 'flex',
+        flexFlow: 'column',
+        [theme.breakpoints.up('sm')]: {
+            maxWidth: '30rem'
+        },
+        [theme.breakpoints.up('lg')]: {
+            maxWidth: '100%'
+        }
+    },
+
+    deckHeader: {
+        display: 'flex',
+        margin: '1rem 0 0 .5rem',
+    },
+
+    deckHeaderMenu: {
+        [theme.breakpoints.up('lg')]: {
+            display: 'none'
+        }
+    },
+
+    deckHeaderButtons: {
+        display: 'none',
+        [theme.breakpoints.up('lg')]: {
+            display: 'flex',
+            margin: '0 1rem 0 0',
+        }
+    },
+
+    deckBody: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        [theme.breakpoints.up('lg')]: {
+            flexFlow: 'row wrap',
+            justifyContent: 'space-around',
+        }
+    },
+
+    section: {
+        flex: '1 100%',
+        [theme.breakpoints.up('lg')]: {
+            flex: '1 1 calc(100% / 3)',
+        },
+    },
+});
 
 class ReadonlyDeck extends PureComponent {
     state = {
@@ -255,7 +325,7 @@ class ReadonlyDeck extends PureComponent {
     }
 
     render() {
-        const { classes, name, author, factionId, cards, sets, created } = this.props;
+        const { classes, name, author, factionId, cards, sets, created, isNarrow } = this.props;
         const objectives = cards.filter(v => v.type === 0).sort((a, b) => a.name.localeCompare(b.name));
         const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((a, b) => a.name.localeCompare(b.name));
         const upgrades = cards.filter(v => v.type === 2).sort((a, b) => a.name.localeCompare(b.name));
@@ -270,11 +340,8 @@ class ReadonlyDeck extends PureComponent {
 
         const totalGlory = objectives.reduce((acc, c) => acc + c.glory, 0);
         return (    
-            <div className={classes.root}>
-                <div style={{
-                    display: 'flex',
-                    margin: '0 0 0 .5rem',
-                }}>
+            <div className={classes.root} style={{ maxWidth: isNarrow ? '30rem' : '' }}>
+                <div className={classes.deckHeader}>
                     <DeckIcon width="4rem" height="4rem" faction={idPrefixToFaction[factionId]} />
                     <div style={{flex: '1 1 auto'}}>
                         <div style={{ fontFamily: 'roboto', fontSize: '1rem', fontWeight: 'bold'}}>{name}</div>
@@ -289,47 +356,85 @@ class ReadonlyDeck extends PureComponent {
                             }
                         </div>
                     </div>
-                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf}
-                        onSaveText={this._handleSaveText}
-                        onSaveImage={this._handleSaveImage} 
-                        canUpdateOrDelete={this.props.canUpdateOrDelete} 
-                        onEdit={this.props.onEdit}
-                        onDelete={this.props.onDelete} />
-                </div>
-    
-                <MiniSectionHeader type={0}>
-                    <div style={{ display: 'flex'}}>
-                        <div style={{ display: 'flex'}}>
-                            <ScoringOverview summary={objectiveSummary} glory={totalGlory} />
-                        </div>
-                    </div>
-                </MiniSectionHeader>
-                { 
-                    objectives.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
-                }
-                <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
-                    <img src={`/assets/icons/${cardTypeIcons[1]}.png`}
-                        alt={cardTypeIcons[1]}
-                        style={{ margin: '0 0 0 .5rem', width: '1.5rem', height: '1.5rem'}} />
                     {
-                        spellsCount > 0 && (
-                            <img src={`/assets/icons/${cardTypeIcons[3]}.png`}
-                                alt={cardTypeIcons[3]}
-                            style={{ margin: '0 .3rem 0 .3rem', width: '1.5rem', height: '1.5rem'}} />
-                        )                    
+                        isNarrow && (
+                            <div>
+                                <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf}
+                                    onSaveText={this._handleSaveText}
+                                    onSaveImage={this._handleSaveImage} 
+                                    canUpdateOrDelete={this.props.canUpdateOrDelete} 
+                                    onEdit={this.props.onEdit}
+                                    onDelete={this.props.onDelete} />
+                            </div>
+                        )
                     }
-                    <div style={{ fontFamily: 'roboto', fontSize: '1.2rem', margin: '0 .3rem 0 .3rem'}}>
-                        {`Gambits`}
-                    </div>
+                    {
+                        !isNarrow && (
+                            <React.Fragment>
+                                <div className={classes.deckHeaderMenu}>
+                                    <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf}
+                                        onSaveText={this._handleSaveText}
+                                        onSaveImage={this._handleSaveImage} 
+                                        canUpdateOrDelete={this.props.canUpdateOrDelete} 
+                                        onEdit={this.props.onEdit}
+                                        onDelete={this.props.onDelete} />
+                                </div>
+                                <div className={classes.deckHeaderButtons}>
+                                    <DeckActionMenuLarge 
+                                        onSaveAsPdf={this._handleSaveAsPdf}
+                                        onSaveText={this._handleSaveText}
+                                        onSaveImage={this._handleSaveImage} 
+                                        canUpdateOrDelete={this.props.canUpdateOrDelete} 
+                                        onEdit={this.props.onEdit}
+                                        onDelete={this.props.onDelete} />
+                                </div>
+                            </React.Fragment>
+                        )
+                    }
                 </div>
-                {
-                    gambits.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
-                }
-                <MiniSectionHeader type={2} />
-                {
-                    upgrades.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
-                }
-                {/* for pdf export */}
+                <div className={classes.deckBody}>
+                    <div className={classes.section} style={{ flex: isNarrow ? '1 100%' : ''}}>
+                        <MiniSectionHeader type={0}>
+                            <div style={{ display: 'flex'}}>
+                                <div style={{ display: 'flex'}}>
+                                    <ScoringOverview summary={objectiveSummary} glory={totalGlory} />
+                                </div>
+                            </div>
+                        </MiniSectionHeader>
+                        { 
+                            objectives.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
+                        }
+                    </div>
+
+                    <div className={classes.section}  style={{ flex: isNarrow ? '1 100%' : ''}}>
+                        <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
+                            <img src={`/assets/icons/${cardTypeIcons[1]}.png`}
+                                alt={cardTypeIcons[1]}
+                                style={{ margin: '0 0 0 .5rem', width: '1.5rem', height: '1.5rem'}} />
+                            {
+                                spellsCount > 0 && (
+                                    <img src={`/assets/icons/${cardTypeIcons[3]}.png`}
+                                        alt={cardTypeIcons[3]}
+                                    style={{ margin: '0 .3rem 0 .3rem', width: '1.5rem', height: '1.5rem'}} />
+                                )                    
+                            }
+                            <div style={{ fontFamily: 'roboto', fontSize: '1.2rem', margin: '0 .3rem 0 .3rem'}}>
+                                {`Gambits`}
+                            </div>
+                        </div>
+                        {
+                            gambits.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
+                        }
+                    </div>
+                    <div className={classes.section}  style={{ flex: isNarrow ? '1 100%' : ''}}>
+                        <MiniSectionHeader type={2} />
+                        {
+                            upgrades.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
+                        }
+                    </div>    
+                </div>
+                
+                {/* for exports */}
                 <div id="pdf-export-elements" style={{ position: 'fixed', left: 50000, top: 0, zIndex: 100}}>
                     <img id="factionDeckIcon" src={`/assets/icons/${idPrefixToFaction[factionId]}-deck.png`} alt="factionDeckIcon" />
                     <img id="wave-01" src={`/assets/icons/wave-01-icon.png`} alt="wave-01" />
