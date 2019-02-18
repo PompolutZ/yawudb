@@ -62,11 +62,15 @@ class Login extends Component {
 
                 <OrSeparator />
 
-                <EmailAndPasswordForm purpose="Sign in" onUseCredentials={this.handleEmailAndPasswordLogin} />
+                <EmailAndPasswordForm purpose="Sign in" onUseCredentials={this.handleEmailAndPasswordLogin} onResetPasswordClick={this.handlePasswordResetRequest} />
                 <ErrorMessage error={this.state.loginError} />
                 <CreateAccount styles={{ margin: '1rem 0 2rem 0'}} />
             </div>
         );
+    }
+
+    handlePasswordResetRequest = () => {
+        this.props.history.push('/requestPasswordReset');
     }
 
     handleFacebookLogin = () => {

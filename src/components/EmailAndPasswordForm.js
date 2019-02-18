@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
-import { TextField, Button } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
 
 const emailAndPasswordStyles = theme => ({
@@ -41,7 +43,9 @@ class EmailPasswordForm extends PureComponent {
                     onChange={this.handleChangePassword}
                     margin="normal"
                 />
-                <Button style={{ color: '#3B9979'}} onClick={this.handleClick}>{this.props.purpose}</Button>
+
+                <Link onClick={this.props.onResetPasswordClick} style={{ color: '#3B9979', cursor: 'pointer'}}>Forgot your password?</Link>
+                <Button style={{ color: '#3B9979', marginTop: '1rem'}} onClick={this.handleClick}>{this.props.purpose}</Button>
             </div>
         );
     }

@@ -1,4 +1,7 @@
 const changelog = {
+    "0.20.0" : {
+        "Password Reset": "It should be possible to reset forgotten password from now on."
+    },
     "0.19.0" : {
         "New DB": "App has been moved to use another database, which should give better overall experience. No data should have been lost during migration, but if you experience something, please contact me asap.",
         "Cards sorted by usage rating": "Cards in the deck builder are now pre-sorted based on their popularity in tournament decks.",

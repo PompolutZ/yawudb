@@ -20,6 +20,10 @@ const initialState = {
 const userExpansions = (state = initialState, action) => {
     switch(action.type) {
         case UPDATE_EXPANSIONS: 
+            if (!action.payload) {
+                return initialState;
+            }
+            
             return action.payload;
 
         default:

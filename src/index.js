@@ -33,6 +33,7 @@ const Card = lazy(() => import('./pages/Card'));
 const MyDecks = lazy(() => import('./pages/MyDecks/index'));
 const Login = lazy(() => import('./pages/Login'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const PasswordResetRequest = lazy(() => import('./pages/PasswordResetRequest'));
 
 const history = createBrowserHistory();
 const store = configureStore(history);
@@ -317,6 +318,7 @@ class App extends Component {
                                     <Route path="/statistics" render={(props) => <Statistics {...props} />} />
                                     <Route path="/feedback" render={(props) => <Feedback {...props} />} />
                                     <Route path="/privacy-policy" render={(props) => <PrivacyPolicy {...props} />} />
+                                    <Route path="/requestPasswordReset" render={(props) => <PasswordResetRequest {...props} />} />
                                     <Route path="/temp" render={(props) => <TempPage {...props} />} />
                     
                                     <PrivateRoute path="/mydecks" component={MyDecks} />
@@ -354,7 +356,7 @@ class App extends Component {
 
             const profile = userProfileRef.data();
             this.props.onLogin({ displayName: profile.displayName, role: profile.role, avatar: profile.avatar, uid });
-            this.props.updateUserExpansions(profile.expansions)
+            this.props.updateUserExpansions(profile.expansions);
             if(history.location.pathname === '/login') {
                 history.push('/mydecks');
             }
