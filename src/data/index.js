@@ -40,9 +40,10 @@ export const cardsDb = {
 }
 
 export const bannedCards = {
-    '01329': 1,
-    '01347': 1,
-    '01368': 1
+    '01329': 1, // Great Concussion
+    '01347': 1, // Quick Thinker
+    '01368': 1, // Time Trap
+    '03317': 1, // Extreme Flank
 };
 
 export const restrictedCards = {
@@ -56,6 +57,8 @@ export const restrictedCards = {
     '03342': 1,
     '01280': 1,
     '01284': 1,
+    '01291': 1, //Superior Tactician
+
     '01321': 1,
     '01332': 1,
     '01343': 1,
@@ -63,14 +66,17 @@ export const restrictedCards = {
     '01348': 1,
     '01369': 1,
     '01372': 1,
+
     '01373': 1,
     '01376': 1,
+    '01384': 1, // Deathly Fortitude
     '01393': 1,
     '01395': 1,
     '01410': 1,
     '01412': 1,
     '03539': 1,
     '01420': 1,
+    '03543': 1, // Sudden Growth
     '01424': 1,
 }
 

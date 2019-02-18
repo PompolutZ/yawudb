@@ -1,6 +1,7 @@
 const changelog = {
     "0.20.0" : {
-        "Password Reset": "It should be possible to reset forgotten password from now on."
+        "Password Reset": "It should be possible to reset forgotten password from now on.",
+        "UPDATED BAR list": "Latest BAR list restrictions has been applied",
     },
     "0.19.0" : {
         "New DB": "App has been moved to use another database, which should give better overall experience. No data should have been lost during migration, but if you experience something, please contact me asap.",
