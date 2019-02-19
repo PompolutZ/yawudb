@@ -259,9 +259,10 @@ const subscribeOnDecksMeta = () => {
     const factions = values(factionIdPrefix);
     return dispatch => {
         return factions.reduce(async (acc, el) => {
-            const snapshot = await realdb.ref(`/decks_meta/${el}`).once('value');
-            const meta = snapshot.val();
-            dispatch({ type: 'SET_DECKS_META', payload: {key: el, value: meta }});
+            realdb.ref(`/decks_meta/${el}`).on('value', snapshot => {
+                const meta = snapshot.val();
+                dispatch({ type: 'SET_DECKS_META', payload: {key: el, value: meta }});
+            });
             return acc;
         }, {});
     }
