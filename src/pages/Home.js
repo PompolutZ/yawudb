@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./Home.css";
 import { realdb } from '../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ReadonlyDeck from '../components/ReadonlyDeck';
+import ReadonlyDeck from '../components/ReadonlyDeck/index';
 import { OrderedSet } from 'immutable';
 import { cardsDb, warbandsWithDefaultSet } from '../data';
 import FloatingActionButton from '../components/FloatingActionButton';

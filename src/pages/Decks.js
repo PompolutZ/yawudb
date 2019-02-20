@@ -1,21 +1,17 @@
 import React, { Component, PureComponent } from 'react';
 import firebase, { db, realdb } from '../firebase';
-import { List } from 'immutable';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FloatingActionButton from '../components/FloatingActionButton';
 import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { filterFactionByIdRange, bannedCards, restrictedCards, cardsDb, factionIndexes, factionIdPrefix } from '../data/index';
+import { bannedCards, restrictedCards, cardsDb } from '../data/index';
 import { connect } from 'react-redux';
 import { SET_FACTIONS_FILTER } from '../reducers/decksFilters';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { Subject, combineLatest, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import DeckThumbnail from '../atoms/DeckThumbnail';
-import DeckCount from '../atoms/DeckCount';
 
 const styles = theme => ({
     root : {

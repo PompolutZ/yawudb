@@ -1,29 +1,27 @@
-import React, { PureComponent } from 'react';
-import ObjectiveScoreTypeIcon from './ObjectiveScoreTypeIcon';
+import React, { PureComponent, lazy } from 'react';
 import classnames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { setsIndex, cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, factions, restrictedCards } from '../data/index';
-import { pickCardColor } from '../utils/functions';
-import AnimateHeight from 'react-animate-height';
+import { cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, factions, restrictedCards } from '../../data/index';
+import { pickCardColor } from '../../utils/functions';
 import { Set } from 'immutable';
 import MoreVerticalIcon from '@material-ui/icons/MoreVert';
-import DeckIcon from '../atoms/DeckIcon';
+import DeckIcon from '../../atoms/DeckIcon';
 import { withStyles } from '@material-ui/core/styles';
-import SetsList from '../atoms/SetsList';
+import SetsList from '../../atoms/SetsList';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { SET_EDIT_MODE_SETS } from '../reducers/cardLibraryFilters';
-import ScoringOverview from '../atoms/ScoringOverview';
+import { SET_EDIT_MODE_SETS } from '../../reducers/cardLibraryFilters';
+import ScoringOverview from '../../atoms/ScoringOverview';
 import Divider from '@material-ui/core/Divider';
-import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../reducers/deckUnderEdit';
+import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../../reducers/deckUnderEdit';
 import { Button } from '@material-ui/core';
 import b64toBlob from 'b64-to-blob';
+import Card from './atoms/Card';
 
-const SetIcon = ({ id, set }) => (
-    <img id={id} style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt="icon" />
-)
+const DeckActionsMenu = lazy(() => import('./atoms/DeckActionsMenu'));
+const DeckActionMenuLarge = lazy(() => import('./atoms/DeckActionsMenuLarge'));
 
 const MiniSectionHeader = ({ type, children }) => (
     <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
@@ -38,178 +36,6 @@ const MiniSectionHeader = ({ type, children }) => (
         </div>
     </div>
 );
-
-const cardStyles = theme => ({
-    img: {
-        width: '90%',
-        margin: '.5rem 5%',
-        [theme.breakpoints.up('sm')]: {
-            maxWidth: '20rem'
-        }
-    }
-});
-
-class Card extends PureComponent {
-    state = {
-        expanded: false
-    }
-
-    render() {
-        const { card, classes } = this.props;
-        const animateHeight = this.state.expanded ? 'auto' : 0;
-
-        return (
-            <div>
-                <div style={{ display: 'flex', alignItems: 'center', margin: '0 0 .5rem 1rem' }}
-                    onClick={this._toggleExpanded}>
-                    <SetIcon id={`${card.id}`} set={card.set} />
-                    <div style={{ color: pickCardColor(card.id)}}><u>{card.name}</u></div>
-                    {
-                        card.glory && (
-                            <div style={{ marginLeft: '.3rem'}}>({card.glory})</div>                        
-                        )
-                    }
-                    {
-                        card.scoreType >= 0 && (
-                            <ObjectiveScoreTypeIcon type={card.scoreType} style={{width: '.8rem', height: '.8rem'}} />
-                        )
-                    }
-                    <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem', color: 'gray', fontSize: '.7rem'}}>
-                        <div>(</div>
-                        { idToPrintId(card.id) }
-                        <img id={idToPrintId(card.id)} alt={`wave-${card.id.substr(0,2)}`} src={`/assets/icons/wave-${card.id.substr(0,2)}-icon.png`} 
-                            style={{ width: '.7rem', height: '.7rem'}} />
-                        <div>)</div>
-                    </div>
-                </div>
-                <AnimateHeight
-                    height={animateHeight}
-                    duration={250}
-                    easing="ease-out">
-                    <img className={classes.img} src={`/assets/cards/${card.id}.png`} alt={card.id} />
-                </AnimateHeight>
-            </div>
-        );
-    }
-
-    _toggleExpanded = () => {
-        this.setState(state => ({ expanded: !state.expanded }));
-    }
-}
-
-const StyledCard = withStyles(cardStyles)(Card);
-
-class DeckActionsMenu extends PureComponent {
-    state = {
-        anchorEl: null
-    }
-
-    render() {
-        const { anchorEl } = this.state;
-
-        return (
-            <div style={this.props.style}>
-                <IconButton 
-                    aria-owns={anchorEl ? 'actions-menu' : undefined }
-                    aria-haspopup
-                    onClick={this.handleClick}>
-                    <MoreVerticalIcon />
-                </IconButton>
-                <Menu
-                    id="actions-menu"
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={this.handleClose}>
-                    {
-                        this.props.canUpdateOrDelete && (
-                            <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
-                        )
-                    }
-                    <MenuItem onClick={this.handleExportToTextFile}>
-                        <a id="deckTextLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Text</a>
-                    </MenuItem>
-                    <MenuItem onClick={this.handleExportToImage}>
-                        <a id="deckImageLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Image</a>
-                    </MenuItem>
-                    <MenuItem onClick={this.handleExportToPdf}>Download as PDF</MenuItem>
-                    {
-                        this.props.canUpdateOrDelete && (
-                            <div>
-                                <Divider />
-                                <MenuItem onClick={this.handleDelete} style={{ color: 'darkred' }}>Delete</MenuItem>
-                            </div>
-                        )
-                    }
-                </Menu>
-            </div>
-
-        );
-    }
-
-    handleEdit = () => {
-        this.props.onEdit();
-        this.handleClose();
-    }
-
-    handleDelete = () => {
-        this.props.onDelete();
-        this.handleClose();
-    }
-
-    handleExportToPdf = () => {
-        this.props.onSaveAsPdf();
-        this.handleClose();
-    }
-
-    handleExportToTextFile = () => {
-        this.props.onSaveText(document.getElementById('deckTextLink'));
-        this.handleClose();
-    }
-
-    handleExportToImage = () => {
-        this.props.onSaveImage(document.getElementById('deckImageLink'));
-        this.handleClose();
-    }
-
-    handleClick = event => {
-        this.setState({ anchorEl: event.currentTarget });
-    }
-
-    handleClose = () => {
-        this.setState({ anchorEl: null });
-    }
-}
-
-class DeckActionMenuLarge extends PureComponent {
-    render() {
-        const { canUpdateOrDelete, onEdit, onDelete, onSaveAsPdf } = this.props;
-        return (
-            <React.Fragment>
-                {
-                    canUpdateOrDelete && <Button onClick={onEdit} style={{ color: '#3B9979' }}>Edit</Button>
-                }
-                <Button onClick={this.handleExportToTextFile}>
-                    <a id="deckTextLinkLarge" style={{ color: 'inherit', textDecoration: 'none'}}>Export as Text</a>
-                </Button>
-                <Button onClick={this.handleExportToImage}>
-                    <a id="deckImageLinkLarge" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Image</a>
-                </Button>
-                <Button onClick={onSaveAsPdf}>Export As PDF</Button>
-                {
-                    canUpdateOrDelete && <Button onClick={onDelete} style={{ color: 'darkred' }}>Delete</Button>
-                }
-            </React.Fragment>
-        );
-    }
-
-    handleExportToTextFile = () => {
-        this.props.onSaveText(document.getElementById('deckTextLinkLarge'));
-    }
-
-    handleExportToImage = () => {
-        this.props.onSaveImage(document.getElementById('deckImageLinkLarge'));
-    }
-}
 
 const idToPrintId = id => {
     const wavePrefix = id.substr(0, 2);
@@ -288,6 +114,24 @@ const styles = theme => ({
             flex: '1 1 calc(100% / 3)',
         },
     },
+
+    sectionItems: {
+        display: 'flex', 
+        flexFlow: 'column nowrap', 
+    },
+
+    cardsSectionItems: {
+        display: 'flex', 
+        flexFlow: 'row wrap', 
+        justifyContent: 'center'
+    },
+
+    cardsSection: {
+        flex: '1 100%',
+        // [theme.breakpoints.up('lg')]: {
+        //     flex: '1 1 calc(100% / 3)',
+        // },
+    }
 });
 
 class ReadonlyDeck extends PureComponent {
@@ -380,7 +224,9 @@ class ReadonlyDeck extends PureComponent {
                                         onDelete={this.props.onDelete} />
                                 </div>
                                 <div className={classes.deckHeaderButtons}>
-                                    <DeckActionMenuLarge 
+                                    <DeckActionMenuLarge
+                                        cardsView={this.props.cardsView} 
+                                        onCardsViewChange={this.props.onCardsViewChange}
                                         onSaveAsPdf={this._handleSaveAsPdf}
                                         onSaveText={this._handleSaveText}
                                         onSaveImage={this._handleSaveImage} 
@@ -393,7 +239,7 @@ class ReadonlyDeck extends PureComponent {
                     }
                 </div>
                 <div className={classes.deckBody}>
-                    <div className={classes.section} style={{ flex: isNarrow ? '1 100%' : ''}}>
+                    <div className={classnames(classes.section, {[classes.cardsSection] : this.props.cardsView})} style={{ flex: isNarrow ? '1 100%' : ''}}>
                         <MiniSectionHeader type={0}>
                             <div style={{ display: 'flex'}}>
                                 <div style={{ display: 'flex'}}>
@@ -401,12 +247,14 @@ class ReadonlyDeck extends PureComponent {
                                 </div>
                             </div>
                         </MiniSectionHeader>
-                        { 
-                            objectives.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
-                        }
+                        <div className={classnames(classes.sectionItems, {[classes.cardsSectionItems] : this.props.cardsView})}>
+                            { 
+                                objectives.toJS().map((v, i) => <Card key={i} card={v} asImage={this.props.cardsView} /> )
+                            }
+                        </div>
                     </div>
 
-                    <div className={classes.section}  style={{ flex: isNarrow ? '1 100%' : ''}}>
+                    <div className={classnames(classes.section, {[classes.cardsSection] : this.props.cardsView})}  style={{ flex: isNarrow ? '1 100%' : ''}}>
                         <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
                             <img src={`/assets/icons/${cardTypeIcons[1]}.png`}
                                 alt={cardTypeIcons[1]}
@@ -422,15 +270,19 @@ class ReadonlyDeck extends PureComponent {
                                 {`Gambits`}
                             </div>
                         </div>
-                        {
-                            gambits.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
-                        }
+                        <div className={classnames(classes.sectionItems, {[classes.cardsSectionItems] : this.props.cardsView})}>
+                            {
+                                gambits.toJS().map((v, i) => <Card key={i} card={v} asImage={this.props.cardsView} /> )
+                            }
+                        </div>
                     </div>
-                    <div className={classes.section}  style={{ flex: isNarrow ? '1 100%' : ''}}>
+                    <div className={classnames(classes.section, {[classes.cardsSection] : this.props.cardsView})}  style={{ flex: isNarrow ? '1 100%' : ''}}>
                         <MiniSectionHeader type={2} />
-                        {
-                            upgrades.toJS().map((v, i) => <StyledCard key={i} card={v} /> )
-                        }
+                        <div className={classnames(classes.sectionItems, {[classes.cardsSectionItems] : this.props.cardsView})}>
+                            {
+                                upgrades.toJS().map((v, i) => <Card key={i} card={v} asImage={this.props.cardsView} /> )
+                            }
+                        </div>
                     </div>    
                 </div>
                 

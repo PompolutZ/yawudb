@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { db, realdb } from '../firebase';
-import ReadonlyDeck from '../components/ReadonlyDeck';
+import ReadonlyDeck from '../components/ReadonlyDeck/index';
 import { OrderedSet } from 'immutable';
 import { cardsDb, warbandsWithDefaultSet, idPrefixToFaction, PREFIX_LENGTH } from '../data/index';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import FloatingActionButton from '../components/FloatingActionButton';
@@ -12,12 +12,14 @@ import { SET_EDIT_MODE_SETS } from '../reducers/cardLibraryFilters';
 import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../reducers/deckUnderEdit';
 import { removeMyDeck } from '../reducers/mydecks';
 import DeleteConfirmationDialog from '../atoms/DeleteConfirmationDialog';
+import { withStyles } from '@material-ui/core/styles';
 
 class Deck extends Component {
     state = {
         deck: null,
         isEditAllowed: false,
         isDeleteDialogVisible: false,
+        cardsView: false,
     }
 
     componentDidMount = async () => {
@@ -27,12 +29,8 @@ class Deck extends Component {
             } else {
                 const snapshot = await realdb.ref('/decks/' + this.props.match.params.id).once('value');
                 const data = snapshot.val();
-                // const deckRef = await db.collection('decks').doc(this.props.match.params.id).get();
-                // const data = deckRef.data();
                 let author = data.author;
                 if(author !== 'Anonymous') {
-                    // const userRef = await db.collection('users').doc(data.author).get();
-                    // author = userRef.data().displayName;
                     this.setState({ isEditAllowed: this.props.uid === data.author });
                 }
 
@@ -62,11 +60,14 @@ class Deck extends Component {
             );
         }
 
+        const { classes } = this.props;
         const { id, name, desc, cards, sets, created, authorDisplayName } = this.state.deck;
         const cardsSet = !cards ? new OrderedSet() : new OrderedSet(cards.map(c => ({id: c, ...cardsDb[c]})));
         return(
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <ReadonlyDeck 
+                    onCardsViewChange={this.handleChangeView}
+                    cardsView={this.state.cardsView}
                     id={id}
                     author={authorDisplayName} 
                     name={name}
@@ -94,6 +95,10 @@ class Deck extends Component {
                 }
             </div>
         );
+    }
+
+    handleChangeView = () => {
+        this.setState(state => ({ cardsView: !state.cardsView}));
     }
 
     handleCloseDeleteDialog = () => {
@@ -185,4 +190,13 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Deck));
+const styles = theme => ({
+    viewAsBtn: {
+        display: 'none',
+        [theme.breakpoints.up('lg')] : {
+            display: 'flex',
+        }
+    }
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Deck)));
