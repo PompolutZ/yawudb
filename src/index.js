@@ -18,6 +18,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions';
 import { factionIdPrefix } from './data/index';
 import values from 'lodash/values';
+import { Button } from '@material-ui/core';
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'));
 const Decks = lazy(() => import('./pages/Decks'));
@@ -268,6 +269,59 @@ const subscribeOnDecksMeta = () => {
     }
 }
 
+class Template extends Component {
+    state = {
+        cards: []
+    }
+
+    componentDidMount = () => {
+        this.setState({ cards: ['1_03338', '2_03338', '1_02024', '1_02042', '1_02044', '1_02049', '1_03550', '2_03550', '1_03551']})
+    }
+
+    render() {
+        return (
+            <div>
+                <Button onClick={this.handlePrint}>Print</Button>
+                {
+                    this.state.cards.map(c => {
+                        return <img id={c} key={c} src={`/assets/cards/${c.slice(-5)}.png`} />
+                    })
+                }
+            </div>
+        )
+    }
+
+    handlePrint = () => {
+        import('jspdf').then(({ default: jsPDF }) => {
+            let doc = new jsPDF({
+                unit: 'mm'
+            });
+
+            const w = 64.5;
+            const h = 89.9;
+
+            let rowIdx = 0;
+            let x = 5;
+            let y = 5;
+            let idx = 0;
+
+            for(let c of this.state.cards) {
+                doc.addImage(document.getElementById(c), 'png', x, y, w, h, '', 'SLOW');
+                x += w + 5;
+                idx += 1;
+                
+                if(idx % 3 === 0) {
+                    rowIdx += 1;
+                    x = 5;
+                    y = rowIdx * (h + 10);
+                }
+            }
+
+            doc.save('cards.pdf');
+        });
+    }
+}
+
 class App extends Component {
     state = {
         error: ''
@@ -321,6 +375,7 @@ class App extends Component {
                                     <Route path="/privacy-policy" render={(props) => <PrivacyPolicy {...props} />} />
                                     <Route path="/requestPasswordReset" render={(props) => <PasswordResetRequest {...props} />} />
                                     <Route path="/temp" render={(props) => <TempPage {...props} />} />
+                                    {/* <Route path="/template" render={(props) => <Template {...props} />} /> */}
                     
                                     <PrivateRoute path="/mydecks" component={MyDecks} />
                                     <PrivateRoute path="/profile" component={UserProfile} />

@@ -10,12 +10,17 @@ import {
     CLEAR_DECK,
     RESET_DECK, 
     CHANGE_DESCRIPTION} from '../reducers/deckUnderBuild';
-
-import { connect } from 'react-redux';
-
-import './DeckCreator.css';
-import { EDIT_RESET_DECK, EDIT_FACTION, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_ADD_CARD, EDIT_REMOVE_CARD, EDIT_CLEAR_ALL_CARDS_IN_DECK, EDIT_DECK_SOURCE } from '../reducers/deckUnderEdit';
+import { 
+    EDIT_RESET_DECK, 
+    EDIT_FACTION, 
+    EDIT_DECK_NAME, 
+    EDIT_DECK_DESCRIPTION, 
+    EDIT_ADD_CARD, 
+    EDIT_REMOVE_CARD, 
+    EDIT_CLEAR_ALL_CARDS_IN_DECK, 
+    EDIT_DECK_SOURCE } from '../reducers/deckUnderEdit';
 import { CHANGE_SEARCH_TEXT } from '../reducers/cardLibraryFilters';
+import { connect } from 'react-redux';
 
 class DeckCreator extends Component {
     state = {
@@ -40,7 +45,7 @@ class DeckCreator extends Component {
         console.log(this.state.isEdit)
         return (
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
-                <div className="factionToggle">
+                <div>
                     <FactionToggle key={selectedFaction} editMode={this.state.isEdit} selectedFaction={selectedFaction} setFaction={setFaction} />
                 </div>
                 <DeckBuilder

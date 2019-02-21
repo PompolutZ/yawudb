@@ -4,6 +4,7 @@ import { factions, warbandsWithDefaultSet } from '../data/index';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Typography, IconButton } from '@material-ui/core';
 import AnimateHeight from 'react-animate-height';
+import { withStyles } from '@material-ui/core/styles';
 
 const SelectedFaction = ({ faction, style }) => (
     <div style={{...style, ...{
@@ -48,13 +49,14 @@ class FactionToggle extends Component {
     }     
 
     render() {
+        const { classes, editMode, style } = this.props;
         const height = this.state.isExpanded ? 'auto' : 0;
         return (
-            <div>
-                <div style={{...this.props.style, ...{display: 'flex', marginTop: '1rem', alignItems: 'center'}}}>
+            <div className={classes.root}>
+                <div style={{...style, ...{display: 'flex', marginTop: '1rem', alignItems: 'center'}}}>
                     <SelectedFaction faction={this.state.selectedFaction} style={{flex: '1 1 auto'}} />
                     {
-                        !this.props.editMode && (
+                        !editMode && (
                             <IconButton style={{color: 'white', backgroundColor: '#3B9979'}}
                                         onClick={() => this.setState(state => ({isExpanded: !state.isExpanded}))}>
                                 <ExpandMoreIcon />
@@ -78,7 +80,15 @@ class FactionToggle extends Component {
             
         );
     }
-
 }
 
-export default FactionToggle;
+const styles = theme => ({
+    root: {
+        width: '98%',
+        [theme.breakpoints.up('lg')] : {
+            width: '49.5%'
+        }
+    },
+});
+
+export default withStyles(styles)(FactionToggle);
