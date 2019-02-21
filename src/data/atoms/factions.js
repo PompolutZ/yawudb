@@ -49,6 +49,23 @@ export const factionIdPrefix = {
     "mollogs-mob": "mm",
 }
 
+export const factionMembers = {
+    "garreks-reavers" : ['Garrek', 'Saek', 'Karsus', 'Targor', 'Arnulf'],
+    "steelhearts-champions" : ['Steelheart', 'Obryn', 'Angharad'],
+    "sepulchral-guard" : ['Warden', 'Champion', 'Prince', 'Harvester', 'Petitioner', 'Petitioner', 'Petitioner'],
+    "ironskulls-boyz" : ['Gurzag', 'Bonekutta', 'Hakka', 'Basha'],
+    "the-chosen-axes" : ['Grimnir', 'Tefk', 'Vol', 'Maegrim'],
+    "spiteclaws-swarm" : ['Skritch', 'Krrk', 'Lurking', 'Festering', 'Hungering'],
+    "magores-fiends" : ['Magore', 'Riptooth', 'Zharkus', 'Ghartok'],
+    "the-farstriders" : ['Sanson', 'Almeric', 'Elias'],
+    "stormsires-cursebreakers": ['Stormsire', 'Ammis', 'Rastus'],
+    "thorns-of-the-briar-queen": ['Briar Queen', 'Varclav', 'The Ever-hanged', 'Chainrasp', 'Chainrasp', 'Chainrasp', 'Chainrasp'],
+    "the-eyes-of-the-nine": ['Vortemis', `K'charik`, `Narvia`, 'Turosh', 'Blue Horror'],
+    "zarbags-gitz": ['Zarbag', 'Sourtongue', 'Drizgit', 'Bonekrakka', 'Gobbaluk', 'Prog', 'Stikkit', 'Redkap', 'Dibbz'],
+    "godsworn-hunt": ['Theddra', 'Grundann', 'Jagathra', 'Shond', 'Ollo', 'Grawl'],
+    "mollogs-mob": ['Mollog', 'Bat Squig', 'Stalagsquig', 'Spiteshroom'],
+}
+
 export const filterFactionByIdRange = {
     "garreks-reavers" : {
         start: 'gr',
