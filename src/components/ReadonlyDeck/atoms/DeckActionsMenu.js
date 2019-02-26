@@ -34,6 +34,8 @@ class DeckActionsMenu extends PureComponent {
                             <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
                         )
                     }
+                    <MenuItem onClick={this.props.onCopy}>Copy</MenuItem>
+                    <Divider />
                     <MenuItem onClick={this.handleExportToTextFile}>
                         <a id="deckTextLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Text</a>
                     </MenuItem>

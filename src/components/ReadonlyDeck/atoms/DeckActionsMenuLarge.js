@@ -6,12 +6,13 @@ import { Button } from '@material-ui/core';
 
 class DeckActionMenuLarge extends PureComponent {
     render() {
-        const { canUpdateOrDelete, onEdit, onDelete, onSaveAsPdf } = this.props;
+        const { canUpdateOrDelete, onEdit, onCopy, onDelete, onSaveAsPdf } = this.props;
         return (
             <React.Fragment>
                 {
                     canUpdateOrDelete && <Button onClick={onEdit} style={{ color: '#3B9979' }}>Edit</Button>
                 }
+                <Button onClick={onCopy}>Copy</Button>
                 <Button onClick={this.props.onCardsViewChange}>
                     { this.props.cardsView ? 'View as List' : 'View as Cards'}
                 </Button>

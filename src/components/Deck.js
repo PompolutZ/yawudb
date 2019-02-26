@@ -111,15 +111,6 @@ class Deck extends PureComponent {
                 <div style={{ display: 'flex', margin: '.5rem' }}>
                     <WUTextField label="Description" value={this.state.desc} onValueChange={this.handleChangeDescription} />
                 </div>
-                {/* <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    marginBottom: '1.5rem',
-                    marginTop: '1.5rem'
-                }}>
-                    <CardsTypeCounter types={[0]} counts={[objectivesCount]} isValidCount={objectivesCount === 12} />
-                    <CardsTypeCounter types={[2]} counts={[upgradesCount]} isValidCount={(gambitsCount + upgradesCount) >= 20} />
-                </div> */}
 
                 <div style={{ background: isObjectiveCardsSectionValid ? 'rgba(0, 255, 0, .1)' : 'rgba(255, 0, 0, .2)', padding: '.5rem 0 .5rem 0', marginBottom: '.2rem'}}>
                     <SectionHeader>

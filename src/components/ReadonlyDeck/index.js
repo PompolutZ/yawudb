@@ -1,12 +1,8 @@
 import React, { PureComponent, lazy } from 'react';
 import classnames from 'classnames';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import { cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, factions, restrictedCards } from '../../data/index';
 import { pickCardColor } from '../../utils/functions';
 import { Set } from 'immutable';
-import MoreVerticalIcon from '@material-ui/icons/MoreVert';
 import DeckIcon from '../../atoms/DeckIcon';
 import { withStyles } from '@material-ui/core/styles';
 import SetsList from '../../atoms/SetsList';
@@ -14,9 +10,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_EDIT_MODE_SETS } from '../../reducers/cardLibraryFilters';
 import ScoringOverview from '../../atoms/ScoringOverview';
-import Divider from '@material-ui/core/Divider';
 import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../../reducers/deckUnderEdit';
-import { Button } from '@material-ui/core';
 import b64toBlob from 'b64-to-blob';
 import Card from './atoms/Card';
 
@@ -128,9 +122,6 @@ const styles = theme => ({
 
     cardsSection: {
         flex: '1 100%',
-        // [theme.breakpoints.up('lg')]: {
-        //     flex: '1 1 calc(100% / 3)',
-        // },
     }
 });
 
@@ -208,6 +199,7 @@ class ReadonlyDeck extends PureComponent {
                                     onSaveImage={this._handleSaveImage} 
                                     canUpdateOrDelete={this.props.canUpdateOrDelete} 
                                     onEdit={this.props.onEdit}
+                                    onCopy={this.props.onCopy}
                                     onDelete={this.props.onDelete} />
                             </div>
                         )
@@ -221,6 +213,7 @@ class ReadonlyDeck extends PureComponent {
                                         onSaveImage={this._handleSaveImage} 
                                         canUpdateOrDelete={this.props.canUpdateOrDelete} 
                                         onEdit={this.props.onEdit}
+                                        onCopy={this.props.onCopy}
                                         onDelete={this.props.onDelete} />
                                 </div>
                                 <div className={classes.deckHeaderButtons}>
@@ -232,6 +225,7 @@ class ReadonlyDeck extends PureComponent {
                                         onSaveImage={this._handleSaveImage} 
                                         canUpdateOrDelete={this.props.canUpdateOrDelete} 
                                         onEdit={this.props.onEdit}
+                                        onCopy={this.props.onCopy}
                                         onDelete={this.props.onDelete} />
                                 </div>
                             </React.Fragment>

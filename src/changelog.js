@@ -1,6 +1,7 @@
 const changelog = {
     "0.21.0" : {
-        "Fighters Info": "Now it should be possible to see fighters cards when you are building your next deck"
+        "Fighters Info": "Now it should be possible to see fighters cards when you are building your next deck",
+        "Copy decks": "It should be possible to create a copy of a deck. After save it will receive its unique id. Note: Because it allows you to create exact copies of other decks, please, use reasonably :)"
     },
     "0.20.0" : {
         "Password Reset": "It should be possible to reset forgotten password from now on.",

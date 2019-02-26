@@ -3,13 +3,14 @@ import { db, realdb } from '../firebase';
 import ReadonlyDeck from '../components/ReadonlyDeck/index';
 import { OrderedSet } from 'immutable';
 import { cardsDb, warbandsWithDefaultSet, idPrefixToFaction, PREFIX_LENGTH } from '../data/index';
-import { CircularProgress, Button } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import FloatingActionButton from '../components/FloatingActionButton';
 import { withRouter } from 'react-router-dom';
-import { SET_EDIT_MODE_SETS } from '../reducers/cardLibraryFilters';
+import { SET_EDIT_MODE_SETS, SET_CREATE_MODE_SETS } from '../reducers/cardLibraryFilters';
 import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../reducers/deckUnderEdit';
+import { ADD_CARD, CHANGE_NAME, CHANGE_DESCRIPTION, SET_FACTION, RESET_DECK } from '../reducers/deckUnderBuild';
 import { removeMyDeck } from '../reducers/mydecks';
 import DeleteConfirmationDialog from '../atoms/DeleteConfirmationDialog';
 import { withStyles } from '@material-ui/core/styles';
@@ -78,6 +79,7 @@ class Deck extends Component {
                     cards={cardsSet}
                     canUpdateOrDelete={this.state.isEditAllowed}
                     onEdit={this._editDeck}
+                    onCopy={this._copyDeck}
                     onDelete={this._deleteDeck} />
 
                 <DeleteConfirmationDialog title="Delete deck"
@@ -169,6 +171,25 @@ class Deck extends Component {
     _deleteDeck = async () => {
         this.setState({ isDeleteDialogVisible: true });
     }
+
+    _copyDeck = () => {
+        this.props.copyResetDeck();
+        const { id, name, cards, sets } = this.state.deck;
+        const strippedId = id.substring(0, id.length - 13);
+        const faction = strippedId.length > PREFIX_LENGTH ? strippedId : idPrefixToFaction[strippedId];
+        const defaultSet = warbandsWithDefaultSet.filter(a => a.includes(faction));
+        this.props.copySetFaction(faction, defaultSet[0][1]);
+        this.props.copyCreateModeSets(sets);
+        if(cards) {
+            for(let c of cards) {
+                this.props.copyAddCard(c);
+            }
+        }
+
+        this.props.copyChangeName(`${name} - COPY`);
+        this.props.copyChangeDescription();
+        this.props.history.push(`/deck/create`);
+    }
 }
 
 const mapStateToProps = state => {
@@ -187,6 +208,13 @@ const mapDispatchToProps = dispatch => {
         setEditModeSets: value => dispatch({ type: SET_EDIT_MODE_SETS, payload: value }),
         resetDeck: () => dispatch({ type: EDIT_RESET_DECK }),
         removeDeck: id => dispatch(removeMyDeck(id)),
+
+        copyAddCard: card => dispatch({ type: ADD_CARD, card: card }),
+        copyChangeName: name => dispatch({ type: CHANGE_NAME, name: name }),
+        copyChangeDescription: () => dispatch({ type: CHANGE_DESCRIPTION, desc: '' }),
+        copySetFaction: (faction, defaultSet) => dispatch({ type: SET_FACTION, faction: faction, defaultSet: defaultSet }),
+        copyCreateModeSets: value => dispatch({ type: SET_CREATE_MODE_SETS, payload: value }),
+        copyResetDeck: () => dispatch({ type: RESET_DECK }),
     }
 }
 
