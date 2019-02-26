@@ -52,7 +52,7 @@ export const factionIdPrefix = {
 export const factionMembers = {
     "garreks-reavers" : ['Garrek', 'Saek', 'Karsus', 'Targor', 'Arnulf'],
     "steelhearts-champions" : ['Steelheart', 'Obryn', 'Angharad'],
-    "sepulchral-guard" : ['Warden', 'Champion', 'Prince', 'Harvester', 'Petitioner', 'Petitioner', 'Petitioner'],
+    "sepulchral-guard" : ['Warden', 'Champion', 'Prince', 'Harvester', 'Petitioner'],
     "ironskulls-boyz" : ['Gurzag', 'Bonekutta', 'Hakka', 'Basha'],
     "the-chosen-axes" : ['Grimnir', 'Tefk', 'Vol', 'Maegrim'],
     "spiteclaws-swarm" : ['Skritch', 'Krrk', 'Lurking', 'Festering', 'Hungering'],

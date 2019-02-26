@@ -1,5 +1,6 @@
 import React from 'react';
-import ReportProblemIcon from '@material-ui/icons/ReportProblem';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import LockIcon from '@material-ui/icons/Lock';
 import Typography from '@material-ui/core/Typography';
 import { pickCardColor } from '../utils/functions';
 import { bannedCards, restrictedCards } from '../data/index';
@@ -9,7 +10,7 @@ const RestrictedBannedCardsCount = ({ banned, restricted, style }) => (
     {
         banned > 0 && (
             <div style={{ display: 'flex', alignItems: 'center'}}>
-                <ReportProblemIcon style={{color: pickCardColor(Object.keys(bannedCards)[0])}} />
+                <NotInterestedIcon style={{color: pickCardColor(Object.keys(bannedCards)[0])}} />
                 <Typography style={{ color: pickCardColor(Object.keys(bannedCards)[0])}}>{banned}</Typography>
             </div>
         )
@@ -17,7 +18,7 @@ const RestrictedBannedCardsCount = ({ banned, restricted, style }) => (
     {
         restricted > 0 && (
             <div style={{ display: 'flex', alignItems: 'center'}}>
-                <ReportProblemIcon style={{color: pickCardColor(Object.keys(restrictedCards)[0])}} />
+                <LockIcon style={{color: pickCardColor(Object.keys(restrictedCards)[0])}} />
                 <Typography style={{ color: pickCardColor(Object.keys(restrictedCards)[0])}}>{restricted}</Typography>
             </div>
         )

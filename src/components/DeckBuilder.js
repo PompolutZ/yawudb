@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import "./DeckBuilder.css";
 import { OrderedSet, Set } from 'immutable';
 
@@ -14,6 +14,9 @@ import CardLibraryFilters from './DeckBuiilder/components/CardLibraryFilters';
 import CardsLibrary from './DeckBuiilder/components/CardsLibrary';
 import { AddCardSVG, DeckSVG } from '../atoms/SVGs';
 import { addOrUpdateMyDeck } from '../reducers/mydecks';
+import { Tabs, Tab } from '@material-ui/core';
+import CardsTab from './DeckBuiilder/atoms/CardsTab';
+import FightersInfoList from '../atoms/FightersInfoList';
 
 const uuid4 = require('uuid/v4');
 
@@ -28,7 +31,8 @@ class DeckBuilder extends Component {
         searchText: "",
         filtersVisible: false,
         visibleCardTypes: [0, 1, 2, 3],
-        showNotification: false
+        showNotification: false,
+        tabIndex: 0,
     };
 
     render() {
@@ -36,9 +40,23 @@ class DeckBuilder extends Component {
             <div className="wrapper" style={{display: 'flex', flexFlow: 'row wrap'}}>
                 <div className="filters">
                     <CardLibraryFilters editMode={this.props.editMode} />
-                    <CardsLibrary editMode={this.props.editMode} />
+                    <Tabs variant="fullWidth" value={this.state.tabIndex} onChange={this.handleTabChange}>
+                        <Tab label={<CardsTab editMode={this.props.editMode} />} />
+                        <Tab label='Fighters' />
+                    </Tabs>
+
+                    {
+                        this.state.tabIndex === 0 && (
+                            <CardsLibrary editMode={this.props.editMode} />
+                        )
+                    }
+                    {
+                        this.state.tabIndex === 1 && (
+                            <FightersInfoList faction={this.props.selectedFaction} />
+                        )
+                    }
                 </div>
-                <div className="sideDeck">
+                <div className="sideDeck" style={{ display: window.screen.width < 800 ? 'none' : ''}}>
                     <Deck faction={this.props.selectedFaction}
                         editMode={this.props.editMode} 
                         currentName={this.props.currentDeckName}
@@ -85,6 +103,10 @@ class DeckBuilder extends Component {
                 </FloatingActionButton>
             </div>
             );
+    }
+
+    handleTabChange = (event, value) => {
+        this.setState({ tabIndex: value });
     }
 
     _handleShowDeckMobile = () => {

@@ -1,4 +1,7 @@
 const changelog = {
+    "0.21.0" : {
+        "Fighters Info": "Now it should be possible to see fighters cards when you are building your next deck"
+    },
     "0.20.0" : {
         "Password Reset": "It should be possible to reset forgotten password from now on.",
         "Cards View": "On the desktop you can now swtich between names view and card's images view.",

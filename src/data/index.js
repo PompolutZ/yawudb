@@ -9,7 +9,8 @@ export {
     idPrefixToFaction,
     factionSets,
     factionIndexes,
-    warbandsWithDefaultSet
+    warbandsWithDefaultSet,
+    factionMembers
 } from './atoms/factions';
 
 export {
