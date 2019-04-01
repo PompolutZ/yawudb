@@ -4,7 +4,6 @@ import { OrderedSet, Set } from 'immutable';
 
 import Deck from '../components/Deck';
 import { cardsDb, factionIdPrefix } from '../data/index';
-import firebase, { db, realdb } from '../firebase';
 
 import FloatingActionButton from '../components/FloatingActionButton';
 import { connect } from 'react-redux';
@@ -17,6 +16,7 @@ import { addOrUpdateMyDeck } from '../reducers/mydecks';
 import { Tabs, Tab } from '@material-ui/core';
 import CardsTab from './DeckBuiilder/atoms/CardsTab';
 import FightersInfoList from '../atoms/FightersInfoList';
+import { withFirebase } from '../firebase';
 
 const uuid4 = require('uuid/v4');
 
@@ -145,9 +145,9 @@ class DeckBuilder extends Component {
 
             this.props.addOrUpdateDeck(this.props.match.params.id, updated, {...deckPayload, id: this.props.match.params.id});
 
-            await realdb.ref('decks/' + this.props.match.params.id).set(deckPayload);
+            await this.props.firebase.realdb.ref('decks/' + this.props.match.params.id).set(deckPayload);
             if(!args.isDraft) {
-                await realdb.ref('lastDeck').transaction(lastDeck => {
+                await this.props.firebase.realdb.ref('lastDeck').transaction(lastDeck => {
                     if(lastDeck) {
                         lastDeck.id = this.props.match.params.id;
                     }
@@ -155,8 +155,8 @@ class DeckBuilder extends Component {
                     return lastDeck;
                 });
     
-                await this.moveIdToFront(realdb.ref('/decks_meta/all'), this.props.match.params.id);
-                await this.moveIdToFront(realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), this.props.match.params.id);
+                await this.moveIdToFront(this.props.firebase.realdb.ref('/decks_meta/all'), this.props.match.params.id);
+                await this.moveIdToFront(this.props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), this.props.match.params.id);
             }
             
             this._resetAndGoBack();
@@ -224,15 +224,15 @@ class DeckBuilder extends Component {
             }
 
             if(this.props.isAuth) {
-                await db.collection('users').doc(this.props.userInfo.uid).update({
-                    mydecks: firebase.firestore.FieldValue.arrayUnion(deckId)
+                await this.props.firebase.db.collection('users').doc(this.props.userInfo.uid).update({
+                    mydecks: this.props.firebase.firestoreArrayUnion(deckId)
                 });
             }
 
-            await realdb.ref('decks/' + deckId).set(deckPayload);
+            await this.props.firebase.realdb.ref('decks/' + deckId).set(deckPayload);
 
             if(!args.isDraft) {
-                await realdb.ref('lastDeck').transaction(lastDeck => {
+                await this.props.firebase.realdb.ref('lastDeck').transaction(lastDeck => {
                     if(lastDeck) {
                         lastDeck.id = deckId;
                     }
@@ -240,8 +240,8 @@ class DeckBuilder extends Component {
                     return lastDeck;
                 });
     
-                await realdb.ref('/decks_meta/all').transaction(meta => this._updateMetaCountAndIds(meta, deckId));
-                await realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`).transaction(meta => this._updateMetaCountAndIds(meta, deckId));
+                await this.props.firebase.realdb.ref('/decks_meta/all').transaction(meta => this._updateMetaCountAndIds(meta, deckId));
+                await this.props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`).transaction(meta => this._updateMetaCountAndIds(meta, deckId));
             }
 
             this.props.resetDeck();
@@ -281,4 +281,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DeckBuilder));
+export default connect(mapStateToProps, mapDispatchToProps)(withFirebase(withRouter(DeckBuilder)));

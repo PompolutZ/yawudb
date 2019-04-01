@@ -1,5 +1,4 @@
 import React, { Component, Suspense, lazy } from 'react';
-import { db, realdb } from '../../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import AddIcon from '@material-ui/icons/Add';
@@ -13,6 +12,7 @@ import { cardsDb, bannedCards, restrictedCards, setInfos, getDbIndexByWaveAndCar
 import { withStyles } from '@material-ui/core/styles';
 import Switch from '../../atoms/Switch';
 import toPairs from 'lodash/toPairs';
+import { withFirebase } from '../../firebase';
 
 const DeckConflictsAndWarnings = lazy(() => import('./atoms/DeckConflictsAndWarnings'));
 
@@ -46,7 +46,7 @@ class MyDecks extends Component {
 
     async componentDidMount() {
         try {
-            const userDataRef = await db.collection('users').doc(this.props.userInfo.uid).get();
+            const userDataRef = await this.firebase.db.collection('users').doc(this.props.userInfo.uid).get();
             const userData = userDataRef.data();
             if(!userData) {
                 this.setState({loading: false});
@@ -56,7 +56,7 @@ class MyDecks extends Component {
             const ids = [];
 
             for(let deckId of userData.mydecks) {
-                const deck = await realdb.ref(`/decks/${deckId}`).once('value');
+                const deck = await this.props.firebase.realdb.ref(`/decks/${deckId}`).once('value');
                 // const deckRef = await db.collection('decks').doc(deckId).get();
                 const data = deck.val();
                 if(data === null) {
@@ -302,4 +302,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(MyDecks)));
+export default connect(mapStateToProps, mapDispatchToProps)(withFirebase(withRouter(withStyles(styles)(MyDecks))));

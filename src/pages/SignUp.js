@@ -3,9 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import EmailAndPasswordForm from '../components/EmailAndPasswordForm';
 import { TextField } from '@material-ui/core';
-import firebase, { db } from '../firebase';
 import AvatarPicker from '../components/AvatarPicker';
 import { connect } from 'react-redux';
+import { withFirebase } from '../firebase';
 
 const styles = theme => ({
     container: {
@@ -76,7 +76,7 @@ class SignUp extends PureComponent {
     handleSignUp = async (username, password) => {
         try {
             this.setState({ signUpError: null });
-            const result = await firebase.auth().createUserWithEmailAndPassword(username, password);
+            const result = await this.props.firebase.auth.createUserWithEmailAndPassword(username, password);
             const payload = {
                 displayName: this.state.displayName,
                 mydecks: [],
@@ -86,7 +86,7 @@ class SignUp extends PureComponent {
 
             const uid = result.user.uid;
 
-            await db.collection('users').doc(uid).set(payload);
+            await this.props.firebase.db.collection('users').doc(uid).set(payload);
             this.props.onSignUp({ displayName: payload.displayName, role: payload.role, avatar: payload.avatar, uid });
             this.props.history.push('/mydecks')
         } catch(err) {
@@ -99,4 +99,4 @@ const mapDispatchToProps = dispatch => ({
     onSignUp: user => dispatch({type: 'SET_USER', user: user})
 })
 
-export default connect(null, mapDispatchToProps)(withRouter(withStyles(styles)(SignUp)));
+export default connect(null, mapDispatchToProps)(withFirebase(withRouter(withStyles(styles)(SignUp))));

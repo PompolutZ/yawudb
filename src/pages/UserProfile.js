@@ -1,13 +1,13 @@
 import React, { Component, PureComponent } from 'react';
 import { Typography, TextField, Button, IconButton } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { db, realdb } from '../firebase';
 import AvatarPicker from '../components/AvatarPicker';
 import { setsIndex } from '../data/index';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionIcon from '../atoms/ExpansionIcon';
 import AddIcon from '@material-ui/icons/Add';
 import { UPDATE_EXPANSIONS } from '../reducers/userExpansions';
+import { withFirebase } from '../firebase';
 
 const expansionCounterStyle = theme => ({
     root: {
@@ -170,12 +170,12 @@ class UserProfile extends Component {
     }
 
     handleSave = async () => {
-        const userRef = db.collection('users').doc(this.props.userInfo.uid);
+        const userRef = this.props.firebase.db.collection('users').doc(this.props.userInfo.uid);
         try {
             await userRef.update({ displayName: this.state.userName, avatar: this.state.avatar, expansions: this.state.expansions });
             for(let [key, value] of Object.entries(this.props.mydecks)) {
                 const updatedDeck = {...value, authorDisplayName: this.state.userName, created: Date() };
-                await realdb.ref(`/decks/${key}`).set(updatedDeck);
+                await this.props.firebase.realdb.ref(`/decks/${key}`).set(updatedDeck);
             }
             this.props.setUser({ ...this.props.userInfo, displayName: this.state.userName, avatar: this.state.avatar });
             this.props.updateUserExpansions(this.state.expansions);
@@ -200,4 +200,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(withFirebase(UserProfile));

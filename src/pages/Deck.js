@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { db, realdb } from '../firebase';
+import { db, realdb } from '../firebase/firebase';
 import ReadonlyDeck from '../components/ReadonlyDeck/index';
 import { OrderedSet } from 'immutable';
 import { cardsDb, warbandsWithDefaultSet, idPrefixToFaction, PREFIX_LENGTH } from '../data/index';
@@ -14,6 +14,7 @@ import { ADD_CARD, CHANGE_NAME, CHANGE_DESCRIPTION, SET_FACTION, RESET_DECK } fr
 import { removeMyDeck } from '../reducers/mydecks';
 import DeleteConfirmationDialog from '../atoms/DeleteConfirmationDialog';
 import { withStyles } from '@material-ui/core/styles';
+import { withFirebase } from '../firebase';
 
 class Deck extends Component {
     state = {
@@ -28,7 +29,7 @@ class Deck extends Component {
             if(this.props.mydecks[this.props.match.params.id]) {
                 this.setState(state => ({ deck: this.props.mydecks[this.props.match.params.id], isEditAllowed: true }));
             } else {
-                const snapshot = await realdb.ref('/decks/' + this.props.match.params.id).once('value');
+                const snapshot = await this.props.firebase.realdb.ref('/decks/' + this.props.match.params.id).once('value');
                 const data = snapshot.val();
                 let author = data.author;
                 if(author !== 'Anonymous') {
@@ -112,16 +113,16 @@ class Deck extends Component {
             const { id } = this.state.deck;
             this.props.removeDeck(id);
             
-            const userRef = await db.collection('users').doc(this.props.uid).get();
+            const userRef = await this.props.firebase.db.collection('users').doc(this.props.uid).get();
             const userDecks = userRef.data().mydecks.filter(deckId => deckId !== id);
-            await db.collection('users').doc(this.props.uid).update({
+            await this.props.firebase.db.collection('users').doc(this.props.uid).update({
                 mydecks: userDecks
             });
 
-            await realdb.ref(`/decks/${id}`).remove();
+            await this.props.firebase.realdb.ref(`/decks/${id}`).remove();
 
             const prefix = id.split('-')[0];
-            await realdb.ref('/decks_meta/all').transaction(meta => {
+            await this.props.firebase.realdb.ref('/decks_meta/all').transaction(meta => {
                 if(meta) {
                     const ids = meta.ids.filter(deckId => deckId !== id);
                     meta.ids = ids;
@@ -131,7 +132,7 @@ class Deck extends Component {
                 return meta;
             });
 
-            await realdb.ref(`/decks_meta/${prefix}`).transaction(meta => {
+            await this.props.firebase.realdb.ref(`/decks_meta/${prefix}`).transaction(meta => {
                 if(meta) {
                     const ids = meta.ids.filter(deckId => deckId !== id);
                     meta.ids = ids;
@@ -227,4 +228,4 @@ const styles = theme => ({
     }
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Deck)));
+export default withFirebase(withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Deck))));

@@ -30,10 +30,13 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set REACT_APP_STAGE=local && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "flist": "firebase list",
+    "stage": "(set REACT_APP_STAGE=staging && react-scripts build) && npm run stage_deploy",
+    "stage_deploy": "firebase deploy --project staging"
   },
   "browserslist": [
     ">0.2%",

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "yawudb"
+    "prod": "yawudb",
+    "staging": "yawudb-test"
   }
 }

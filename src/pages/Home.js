@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { realdb } from '../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ReadonlyDeck from '../components/ReadonlyDeck/index';
 import { OrderedSet } from 'immutable';
@@ -16,6 +15,7 @@ import { addOrUpdateLastDeck } from '../reducers/lastDeck';
 import { SET_DECKS_META } from '../reducers/decksMeta';
 import { SET_FACTION } from '../reducers/deckUnderBuild';
 import DecksMetaSummary from '../molecules/DecksMetaSummary';
+import { withFirebase } from '../firebase';
 
 const getChangeLogItemsByKey = key => {
     return Object.keys(changelog[key])
@@ -26,9 +26,9 @@ class Home extends Component {
 
     componentDidMount = async () => {
         try {
-            const lastDeckIdSnapshot = await realdb.ref('/decks_meta/all/ids/0').once('value');
+            const lastDeckIdSnapshot = await this.props.firebase.realdb.ref('/decks_meta/all/ids/0').once('value');
             const lastDeckId = lastDeckIdSnapshot.val();
-            const lastDeckSnapshot = await realdb.ref(`/decks/${lastDeckId}`).once('value');
+            const lastDeckSnapshot = await this.props.firebase.realdb.ref(`/decks/${lastDeckId}`).once('value');
             const data = lastDeckSnapshot.val();
             let created = new Date(0);
             if(data.created && data.created.seconds) {
@@ -193,4 +193,4 @@ const styles = theme => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(Home)));
+export default connect(mapStateToProps, mapDispatchToProps)(withFirebase(withRouter(withStyles(styles)(Home))));

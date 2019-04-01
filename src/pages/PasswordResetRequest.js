@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { auth } from '../firebase';
 import { TextField, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
+import { withFirebase } from '../firebase';
 
 
 class PasswordResetRequest extends PureComponent {
@@ -55,7 +55,7 @@ class PasswordResetRequest extends PureComponent {
 
     handleClick = async () => {
         try {
-            await auth.sendPasswordResetEmail(this.state.email);
+            await this.props.firebase.auth.sendPasswordResetEmail(this.state.email);
             this.setState({ emailSent: true });
             const intervalHook = setInterval(() => {
                 this.setState(state => ({ redirectCountdown: state.redirectCountdown - 1}), () => {
@@ -96,4 +96,4 @@ const styles = theme => ({
     }
 });
 
-export default withRouter(withStyles(styles)(PasswordResetRequest));
+export default withFirebase(withRouter(withStyles(styles)(PasswordResetRequest)));

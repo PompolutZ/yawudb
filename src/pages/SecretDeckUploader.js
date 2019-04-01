@@ -4,7 +4,7 @@ import FactionToggle from '../components/FactionToggle';
 import { Button } from '@material-ui/core';
 import { cardsDb, factionIdPrefix } from '../data/index';
 import { Set } from 'immutable';
-import { db } from '../firebase';
+import { withFirebase } from '../firebase';
 
 const uuid4 = require('uuid/v4');
 
@@ -126,7 +126,7 @@ class SecretDeckUploader extends Component {
         }
 
         console.log(deckId, deckPayload);
-        db.collection('decks')
+        this.props.firebase.db.collection('decks')
         .doc(deckId)
         .set(deckPayload)
         .then(() => {
@@ -196,4 +196,4 @@ class SecretDeckUploader extends Component {
     }
 }
 
-export default SecretDeckUploader;
+export default withFirebase(SecretDeckUploader);

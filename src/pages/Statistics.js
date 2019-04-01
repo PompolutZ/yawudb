@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { db } from '../firebase';
 import { List } from 'immutable'
 import { cardsDb, setsIndex, bannedCards, restrictedCards, duplicates } from '../data/index';
 import keys from 'lodash/keys';
@@ -7,6 +6,7 @@ import values from 'lodash/values';
 import { Typography, CircularProgress } from '@material-ui/core';
 import { pickCardColor } from '../utils/functions';
 import Card from '../atoms/StatisticsCard';
+import { withFirebase } from '../firebase';
 
 class Statistics extends Component {
     state = {
@@ -20,7 +20,7 @@ class Statistics extends Component {
         this.setState({loading: true});
         let data = [];
         let decksCount = 0;
-        const query = await db.collection('decks').where('tags', 'array-contains', '1st place').where('created', '>=', new Date('2018-11-14')).get();
+        const query = await this.props.firebase.db.collection('decks').where('tags', 'array-contains', '1st place').where('created', '>=', new Date('2018-11-14')).get();
         query.forEach(doc => {
             data = [...data, ...doc.data().cards];
             decksCount++;
@@ -160,4 +160,4 @@ const SetWeight = ({ set, weight}) => (
     </div>
 );
 
-export default Statistics;
+export default withFirebase(Statistics);

@@ -12,13 +12,13 @@ import MenuAppBar from './components/MenuAppBar';
 import { connect, Provider } from 'react-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 import configureStore from './configureStore';
-import firebase, { db, realdb } from './firebase';
 import LazyLoading from './components/LazyLoading';
 import ErrorBoundary from './components/ErrorBoundary';
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions';
 import { factionIdPrefix } from './data/index';
 import values from 'lodash/values';
 import { Button } from '@material-ui/core';
+import Firebase, { FirebaseContext, withFirebase } from './firebase';
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'));
 const Decks = lazy(() => import('./pages/Decks'));
@@ -127,7 +127,7 @@ class TempPage extends Component {
     }
 
     updateRatings = async () => {
-        const decksRef = await db.collection('decks').orderBy('created', 'desc').get();
+        const decksRef = await this.props.firebase.db.collection('decks').orderBy('created', 'desc').get();
         const decks = [];
         const fullDecks = {};
         const deckIds = [];
@@ -143,13 +143,13 @@ class TempPage extends Component {
         for(let k in fullDecks) {
             const deck = fullDecks[k];
             if(deck.author !== 'Anonymous') {
-                const userProfileRef = await db.collection('users').doc(deck.author).get();
+                const userProfileRef = await this.props.firebase.db.collection('users').doc(deck.author).get();
                 deck.authorDisplayName = userProfileRef.data().displayName;
             } else {
                 deck.authorDisplayName = 'Anonymous';
             }
 
-            await firebase.database().ref('decks/' + k).set(deck);
+            await this.props.firebase.realdb.ref('decks/' + k).set(deck);
         }
 
         const r = decks.reduce((acc, el) => {
@@ -168,13 +168,13 @@ class TempPage extends Component {
         ]);
 
         console.log(r);
-        await db.collection('meta').doc('cards_meta').set({
+        await this.props.firebase.db.collection('meta').doc('cards_meta').set({
             1: r[1],
             2: r[2],
             3: r[3]
         });
 
-        await realdb.ref('/cards_ratings').set({
+        await this.props.firebase.realdb.ref('/cards_ratings').set({
             1: r[1],
             2: r[2],
             3: r[3]
@@ -191,7 +191,8 @@ class TempPage extends Component {
 
             return acc;
         }, {});
-        await realdb.ref('/decks_meta/all').set({
+
+        await this.props.firebase.realdb.ref('/decks_meta/all').set({
             count: deckIds.length,
             ids: deckIds        // const gh = ['gh-3a02ccf3e596', 'gh-a431f01aa268'];
         // console.log(grouped);
@@ -202,7 +203,7 @@ class TempPage extends Component {
         // });
 
         for (let k in grouped) {
-            await realdb.ref(`/decks_meta/${k}`).set({
+            await this.props.firebase.realdb.ref(`/decks_meta/${k}`).set({
                 count: grouped[k].length,
                 ids: grouped[k],
             });
@@ -247,27 +248,8 @@ class TempPage extends Component {
     }
 }
 
-const fetchCardsRanking = () => {
-    return function(dispatch) {
-        return realdb.ref('/cards_ratings').once('value').then(snapshot => {
-            const data = snapshot.val();
-            dispatch({ type: 'SET_CARDS_RANKING', payload: [-1, data['1'], data['2'], data['3']]});
-        });
-    }
-}
+const TempPageWithFirebase = withFirebase(TempPage);
 
-const subscribeOnDecksMeta = () => {
-    const factions = values(factionIdPrefix);
-    return dispatch => {
-        return factions.reduce(async (acc, el) => {
-            realdb.ref(`/decks_meta/${el}`).on('value', snapshot => {
-                const meta = snapshot.val();
-                dispatch({ type: 'SET_DECKS_META', payload: {key: el, value: meta }});
-            });
-            return acc;
-        }, {});
-    }
-}
 
 class Template extends Component {
     state = {
@@ -327,8 +309,31 @@ class App extends Component {
         error: ''
     }
 
+    // fetchCardsRanking = () => {
+    //     console.log(this.props);
+    //     return function(dispatch) {
+    //         return this.props.firebase.realdb.ref('/cards_ratings').once('value').then(snapshot => {
+    //             const data = snapshot.val();
+    //             dispatch({ type: 'SET_CARDS_RANKING', payload: [-1, data['1'], data['2'], data['3']]});
+    //         });
+    //     }
+    // }
+    
+    // subscribeOnDecksMeta = () => {
+    //     const factions = values(factionIdPrefix);
+    //     return dispatch => {
+    //         return factions.reduce(async (acc, el) => {
+    //             this.props.firebase.realdb.ref(`/decks_meta/${el}`).on('value', snapshot => {
+    //                 const meta = snapshot.val();
+    //                 dispatch({ type: 'SET_DECKS_META', payload: {key: el, value: meta }});
+    //             });
+    //             return acc;
+    //         }, {});
+    //     }
+    // }
+
     componentDidMount = () => {
-        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        this.unsubscribe = this.props.firebase.auth.onAuthStateChanged(user => {
             try {
                 if(user) {
                     this._handleAuthUser(user.uid);
@@ -339,13 +344,20 @@ class App extends Component {
                 this.setState({ error: err });
             }
         });
+
+        this.counterRef = this.props.firebase.realdb.ref('counter');
+        this.counterRef.set(0);
+        this.counterRef.on('value', snapshot => {
+            console.log('COUNTER: ', snapshot.val());
+        })
         
-        store.dispatch(fetchCardsRanking());
-        store.dispatch(subscribeOnDecksMeta());
+        // store.dispatch(this.fetchCardsRanking());
+        // store.dispatch(this.subscribeOnDecksMeta());
     }
 
     componentWillUnmount() {
         this.unsubscribe();
+        this.counterRef.off();
     }
 
     render() {
@@ -393,11 +405,11 @@ class App extends Component {
 
     _handleAuthUser = async uid => {
         try {
-            const userProfileRef = await db.collection('users').doc(uid).get();
+            const userProfileRef = await this.props.firebase.db.collection('users').doc(uid).get();
             
             if(!userProfileRef.exists) {
                 const displayName = `Soul${Math.floor(Math.random() * Math.floor(1000))}`;
-                await db.collection('users').doc(uid).set({
+                await this.props.firebase.db.collection('users').doc(uid).set({
                     displayName: displayName,
                     mydecks: [],
                     role: 'soul',
@@ -430,11 +442,13 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const ConnectedApp = connect(null, mapDispatchToProps)(App);
+const ConnectedApp = connect(null, mapDispatchToProps)(withFirebase(App));
 
 const Root = () => (
     <Provider store={store}>
-        <ConnectedApp />
+        <FirebaseContext.Provider value={new Firebase()}>
+            <ConnectedApp />
+        </FirebaseContext.Provider>
     </Provider>
 );
 
