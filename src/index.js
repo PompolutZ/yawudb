@@ -257,7 +257,8 @@ class Template extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ cards: ['1_03338', '2_03338', '1_02024', '1_02042', '1_02044', '1_02049', '1_03550', '2_03550', '1_03551']})
+        //'1_02024', '1_02049', '2_02049', '1_03550', '1_03551', '1_03323', '1_03322', '1_01257', '1_01348',
+        this.setState({ cards: [ '1_01272', '1_01362', '1_01378', '1_03499', '1_03529']}) //
     }
 
     render() {
@@ -387,7 +388,7 @@ class App extends Component {
                                     <Route path="/privacy-policy" render={(props) => <PrivacyPolicy {...props} />} />
                                     <Route path="/requestPasswordReset" render={(props) => <PasswordResetRequest {...props} />} />
                                     <Route path="/temp" render={(props) => <TempPage {...props} />} />
-                                    {/* <Route path="/template" render={(props) => <Template {...props} />} /> */}
+                                    <Route path="/template" render={(props) => <Template {...props} />} />
                     
                                     <PrivateRoute path="/mydecks" component={MyDecks} />
                                     <PrivateRoute path="/profile" component={UserProfile} />

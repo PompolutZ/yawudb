@@ -76,7 +76,7 @@ class SignUp extends PureComponent {
     handleSignUp = async (username, password) => {
         try {
             this.setState({ signUpError: null });
-            const result = await this.props.firebase.auth.createUserWithEmailAndPassword(username, password);
+            const result = await this.props.firebase.createUserWithEmailAndPassword(username, password);
             const payload = {
                 displayName: this.state.displayName,
                 mydecks: [],

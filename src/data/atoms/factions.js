@@ -14,10 +14,12 @@ export const factions = {
     "zarbags-gitz": "Zarbag's Gitz",
     "godsworn-hunt": "Godsworn Hunt",
     "mollogs-mob": "Mollog's Mob",
+    "thundriks-profiteers": "Thundrik’s Profiteers",
+    "yltharis-guardians": "Ylthari’s Guardians"
 }
 
-// 0 index stands for 'wave', so all the cards from Shadespire except Leader will be from wave 1,
-// Leaders are wave 2, Nightvault is gonna be wave 3
+// // 0 index stands for 'wave', so all the cards from Shadespire except Leader will be from wave 1,
+// // Leaders are wave 2, Nightvault is gonna be wave 3
 export const factionCards = {
     "universal" : [1, 233, 437],
     "garreks-reavers" : [1, 1, 29],
@@ -47,6 +49,8 @@ export const factionIdPrefix = {
     "zarbags-gitz": "zg",
     "godsworn-hunt": "gh",
     "mollogs-mob": "mm",
+    "thundriks-profiteers": "tp",
+    "yltharis-guardians": "yg"
 }
 
 export const factionMembers = {
@@ -64,6 +68,8 @@ export const factionMembers = {
     "zarbags-gitz": ['Zarbag', 'Sourtongue', 'Drizgit', 'Bonekrakka', 'Gobbaluk', 'Prog', 'Stikkit', 'Redkap', 'Dibbz'],
     "godsworn-hunt": ['Theddra', 'Grundann', 'Jagathra', 'Shond', 'Ollo', 'Grawl'],
     "mollogs-mob": ['Mollog', 'Bat Squig', 'Stalagsquig', 'Spiteshroom'],
+    "thundriks-profiteers": [],
+    "yltharis-guardians": ['Ylthari', 'Ahnslaine', 'Gallanghann', 'Skhathael']
 }
 
 export const filterFactionByIdRange = {
@@ -131,11 +137,13 @@ export const idPrefixToFaction = {
     "zg" : "zarbags-gitz",
     "gh" : "godsworn-hunt",
     "mm": "mollogs-mob",
+    "tp": "thundriks-profiteers",
+    "yg": "yltharis-guardians"
 }
 
 // 0 index indicates the default set containing corresponding faction's cards
 export const factionSets = {
-    "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
     "garreks-reavers" : [0, 7, 11],
     "steelhearts-champions" : [0, 7, 12],
     "sepulchral-guard" : [1, 7],
@@ -150,6 +158,8 @@ export const factionSets = {
     "zarbags-gitz": [10],
     "godsworn-hunt": [14],
     "mollogs-mob": [15],
+    "thundriks-profiteers": [16],
+    "yltharis-guardians": [17]
 }
 
 export const factionIndexes = [
@@ -168,6 +178,8 @@ export const factionIndexes = [
     "zarbags-gitz",
     "godsworn-hunt",
     "mollogs-mob",
+    "thundriks-profiteers",
+    "yltharis-guardians"
 ]
 
 export const warbandsWithDefaultSet = [
@@ -187,4 +199,6 @@ export const warbandsWithDefaultSet = [
     ["n_steelhearts-champions",12],
     ["godsworn-hunt", 14],
     ["mollogs-mob", 15],
+    ["thundriks-profiteers", 16],
+    ["yltharis-guardians", 17],
 ]

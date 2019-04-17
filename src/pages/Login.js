@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import firebase from '../firebase';
+//import firebase from '../firebase/firebase';
 import GoogleButton from 'react-google-button';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import EmailAndPasswordForm from '../components/EmailAndPasswordForm';
+import { withFirebase } from '../firebase';
 
 
 const OrSeparator = () => (
@@ -55,10 +56,12 @@ class Login extends Component {
     }
 
     render() {
+        const { firebase } = this.props;
+
         return(
             <div style={{display: 'flex', alignItems: 'center', flexFlow: 'column nowrap'}}>
-                <FacebookLoginButton onClick={this.handleFacebookLogin} style={{margin: '1rem', width: '19rem'}} />
-                <GoogleButton onClick={this.handleGoogleLogin} style={{margin: '0 1rem 1rem 1rem', width: '20rem'}} />
+                <FacebookLoginButton onClick={firebase.signInWithFacebookProvider} style={{margin: '1rem', width: '19rem'}} />
+                <GoogleButton onClick={firebase.signInWithGoogleProvider} style={{margin: '0 1rem 1rem 1rem', width: '20rem'}} />
 
                 <OrSeparator />
 
@@ -73,18 +76,10 @@ class Login extends Component {
         this.props.history.push('/requestPasswordReset');
     }
 
-    handleFacebookLogin = () => {
-        this.handleLogin(new firebase.auth.FacebookAuthProvider());
-    }
-
-    handleGoogleLogin = () => {
-        this.handleLogin(new firebase.auth.GoogleAuthProvider());
-    }
-
     handleEmailAndPasswordLogin = async (username, password) => {
         try {
             this.setState({ loginError: null });
-            await firebase.auth().signInWithEmailAndPassword(username, password);
+            await this.props.firebase.signInWithEmailAndPassword(username, password);
         } catch(err) {
             if(err.code === 'auth/user-not-found') {
                 this.setState({ loginError: "Sorry, but you either mistyped your email and/or password or you need to sign up." });
@@ -93,16 +88,12 @@ class Login extends Component {
             }
         }
     }
-
-    handleLogin = provider => {
-        firebase.auth().signInWithRedirect(provider);
-    }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onLogin: user => dispatch({type: 'SET_USER', user: user})
-    }
-}
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         onLogin: user => dispatch({type: 'SET_USER', user: user})
+//     }
+// }
 
-export default connect(null, mapDispatchToProps)(withRouter(Login));
+export default withRouter(withFirebase(Login));//connect(null, mapDispatchToProps)();

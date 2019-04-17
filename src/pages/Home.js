@@ -28,8 +28,10 @@ class Home extends Component {
         try {
             const lastDeckIdSnapshot = await this.props.firebase.realdb.ref('/decks_meta/all/ids/0').once('value');
             const lastDeckId = lastDeckIdSnapshot.val();
+            console.log(lastDeckId);
             const lastDeckSnapshot = await this.props.firebase.realdb.ref(`/decks/${lastDeckId}`).once('value');
             const data = lastDeckSnapshot.val();
+            console.log(data);
             let created = new Date(0);
             if(data.created && data.created.seconds) {
                 created.setSeconds(data.created.seconds);

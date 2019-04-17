@@ -46,7 +46,7 @@ class MyDecks extends Component {
 
     async componentDidMount() {
         try {
-            const userDataRef = await this.firebase.db.collection('users').doc(this.props.userInfo.uid).get();
+            const userDataRef = await this.props.firebase.db.collection('users').doc(this.props.userInfo.uid).get();
             const userData = userDataRef.data();
             if(!userData) {
                 this.setState({loading: false});

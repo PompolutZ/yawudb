@@ -11,10 +11,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Drawer, List, ListItem, ListItemText, Avatar, Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-import firebase from '../firebase';
+//import firebase from '../firebase/firebase';
 import { connect } from 'react-redux';
 import { SET_SCROLL_INDEX } from '../reducers/library';
 import { AddCardSVG, DeckSVG } from '../atoms/SVGs';
+import { withFirebase } from '../firebase';
 
 const styles = theme => ({
   root: {
@@ -75,7 +76,7 @@ class MenuAppBar extends React.Component {
 
   handleSignOut = () => {
         this.handleClose();
-        firebase.auth().signOut().then(() =>{
+        this.props.firebase.signOut().then(() =>{
           this.props.history.push('/');
         }).catch(err => console.log(err));
     }
@@ -251,4 +252,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(MenuAppBar)));
+export default connect(mapStateToProps, mapDispatchToProps)(withFirebase(withRouter(withStyles(styles)(MenuAppBar))));

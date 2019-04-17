@@ -25,10 +25,13 @@ const config =
     process.env.REACT_APP_STAGE === 'prod' ? prodConfig : devConfig;
 
 class Firebase {
+
     constructor() {
         app.initializeApp(config);
 
         this.auth = app.auth();
+        this.signInWithFacebookProvider = () => this.auth.signInWithRedirect(new app.auth.FacebookAuthProvider());
+        this.signInWithGoogleProvider = () => this.auth.signInWithRedirect(new app.auth.GoogleAuthProvider());
         
         this.db = app.firestore();
         this.db.settings({ timestampsInSnapshots: true });
@@ -37,6 +40,18 @@ class Firebase {
     }
 
     firestoreArrayUnion = value => this.db.FieldValue.arrayUnion(value);
+
+    signInWithEmailAndPassword = (email, password) => {
+        return this.auth.signInWithEmailAndPassword(email, password);
+    }
+
+    createUserWithEmailAndPassword = (email, password) => {
+        return this.auth.createUserWithEmailAndPassword(email, password);
+    }
+
+    signOut = () => {
+        return this.auth.signOut();
+    }
 }
 
 export default Firebase;
