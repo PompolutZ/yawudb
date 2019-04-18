@@ -34,7 +34,7 @@ class Firebase {
         this.signInWithGoogleProvider = () => this.auth.signInWithRedirect(new app.auth.GoogleAuthProvider());
         
         this.db = app.firestore();
-        this.db.settings({ timestampsInSnapshots: true });
+        // this.db.settings({ timestampsInSnapshots: true });
 
         this.realdb = app.database();
     }
