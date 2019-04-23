@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { SET_DECKS_META } from '../reducers/decksMeta';
 
 function DeckCount({ classes, prefix, firebase, decksMeta, addDecksMeta }) {
-    const [count, setCount] = React.useState(decksMeta[prefix].count);
+    const initCount = () => decksMeta[prefix] ? decksMeta[prefix].count : 0;
+    const [count, setCount] = React.useState(initCount());
 
     React.useEffect(() => {
         const ref = firebase.realdb.ref(`/decks_meta/${prefix}`);
@@ -17,7 +18,7 @@ function DeckCount({ classes, prefix, firebase, decksMeta, addDecksMeta }) {
         });
 
         return () => ref.off();
-    }, [decksMeta[prefix].count])
+    }, [])
 
     return (
         <div className={classes.root}>
