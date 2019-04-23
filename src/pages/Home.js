@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ReadonlyDeck from '../components/ReadonlyDeck/index';
 import { OrderedSet } from 'immutable';
-import { cardsDb, warbandsWithDefaultSet } from '../data';
+import { cardsDb, warbandsWithDefaultSet, factionIdPrefix } from '../data';
 import FloatingActionButton from '../components/FloatingActionButton';
 import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { SET_DECKS_META } from '../reducers/decksMeta';
 import { SET_FACTION } from '../reducers/deckUnderBuild';
 import DecksMetaSummary from '../molecules/DecksMetaSummary';
 import { withFirebase } from '../firebase';
+import DeckCount from '../atoms/DeckCount';
 
 const getChangeLogItemsByKey = key => {
     return Object.keys(changelog[key])
@@ -74,7 +75,12 @@ class Home extends Component {
                         </div>
                     </div>
                     
-                    <DecksMetaSummary onAddNewDeckClick={this.handleAddDeckClicked} onDecksCountClick={this.handleNavigateToDecksByPrefix} />
+                    {/* <DecksMetaSummary onAddNewDeckClick={this.handleAddDeckClicked} onDecksCountClick={this.handleNavigateToDecksByPrefix} /> */}
+                    {
+                        Object.values(factionIdPrefix).map(factionPrefix => (
+                            <DeckCount key={factionPrefix} prefix={factionPrefix} />
+                        ))
+                    }
                 </div>
 
                 <div className={classes.columnTwo}>
