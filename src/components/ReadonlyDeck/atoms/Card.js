@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import BlockIcon from '@material-ui/icons/Block';
 import LockIcon from '@material-ui/icons/Lock';
+import CardRule from '../../../atoms/CardRule';
 
 const idToPrintId = id => {
     const wavePrefix = id.substr(0, 2);
@@ -19,7 +20,8 @@ const SetIcon = ({ id, set }) => (
 
 class Card extends PureComponent {
     state = {
-        expanded: false
+        expanded: false,
+        useTextFallback: false,
     }
 
     render() {
@@ -80,7 +82,16 @@ class Card extends PureComponent {
                                 height={animateHeight}
                                 duration={250}
                                 easing="ease-out">
-                                <img className={classes.img} src={`/assets/cards/${card.id}.png`} alt={card.id} />
+                                {
+                                    !this.state.useTextFallback && (
+                                        <img onError={this._handleImageError} onLoad={this._handleImageLoaded} className={classes.img} src={`/assets/cards/${card.id}.png`} alt={card.id} />
+                                    )
+                                }
+                                {
+                                    this.state.useTextFallback && (
+                                        <CardRule rule={card.rule} />
+                                    )
+                                }
                             </AnimateHeight>
                         </React.Fragment>
                     )
@@ -91,6 +102,14 @@ class Card extends PureComponent {
 
     _toggleExpanded = () => {
         this.setState(state => ({ expanded: !state.expanded }));
+    }
+
+    _handleImageLoaded = () => {
+        this.setState({ useTextFallback: false });
+    }
+
+    _handleImageError = e => {
+        this.setState({ useTextFallback: true });
     }
 }
 

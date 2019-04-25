@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { ADD_CARD, REMOVE_CARD } from '../reducers/deckUnderBuild';
 import { Set } from 'immutable';
 import { EDIT_ADD_CARD, EDIT_REMOVE_CARD } from '../reducers/deckUnderEdit';
+import CardRule from './CardRule';
 
 const styles = theme => ({
     expand: {
@@ -184,6 +185,7 @@ class WUCardInfo extends PureComponent {
 class WUCardAtom extends Component {
     state = { 
         color: 0, 
+        useTextFallback: false,
     };
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -197,7 +199,8 @@ class WUCardAtom extends Component {
             new Set(nextProps.createModeCurrentDeck).count() !== new Set(this.props.createModeCurrentDeck).count() ||
             new Set(nextProps.editModeCurrentDeck).count() !== new Set(this.props.editModeCurrentDeck).count() ||
             nextProps.createModeRestrictedCardsCount !== this.props.createModeRestrictedCardsCount ||
-            nextProps.editModeRestrictedCardsCount !== this.props.editModeRestrictedCardsCount;
+            nextProps.editModeRestrictedCardsCount !== this.props.editModeRestrictedCardsCount ||
+            nextState.useTextFallback !== this.state.useTextFallback;
         
         return shouldUpdate;            
     }
@@ -247,7 +250,7 @@ class WUCardAtom extends Component {
     }
 
     render() {
-        const { classes, type, id, scoreType, glory, name, set, isAlter, isRestricted, withAnimation } = this.props;
+        const { classes, type, id, scoreType, glory, name, set, rule, isAlter, isRestricted, withAnimation } = this.props;
         const isBanned = Boolean(bannedCards[id]);
         const height = this.props.expanded ? 'auto' : 0;
         const inDeck = this.props.editMode ? this.props.editModeCurrentDeck.includes(id) : this.props.createModeCurrentDeck.includes(id);
@@ -277,10 +280,27 @@ class WUCardAtom extends Component {
                     duration={ withAnimation ? 250 : 0 }
                     height={ height } // see props documentation bellow
                     easing="ease-out">
-                    <img className={classes.cardImg} alt={id.slice(-3)} src={`/assets/cards/${id}.png`} />
+                    {
+                        !this.state.useTextFallback && (
+                            <img onError={this.handleImageError} onLoad={this.handleImageLoaded} className={classes.cardImg} alt={id.slice(-3)} src={`/assets/cards/${id}.png`} />
+                        )
+                    }
+                    {
+                        this.state.useTextFallback && (
+                            <CardRule rule={rule} /> 
+                        )
+                    }
                 </AnimateHeight>
             </div>
         );
+    }
+
+    handleImageLoaded = () => {
+        this.setState({ useTextFallback: false });
+    }
+
+    handleImageError = () => {
+        this.setState({ useTextFallback: true });
     }
 }
 
