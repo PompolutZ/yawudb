@@ -322,7 +322,7 @@ class ReadonlyDeck extends PureComponent {
                 unit: 'px'
             });
     
-            let docX = 10;
+            let docX = 20;
             let docY = 10;
             const rem = 16;
             doc.addImage(document.getElementById('factionDeckIcon'), 'png', docX, docY, rem * 1.5, rem * 1.5, '', 'SLOW');
@@ -347,14 +347,14 @@ class ReadonlyDeck extends PureComponent {
     }
 
     addToPdf = (doc, header, cards, docX, docY, rem) => {
-        docX = 10;
+        docX = 20;
         docY = docY + rem * 2;
         doc.setFont('Helvetica', 'bold');
         doc.setFontSize(rem * .8);
         doc.setTextColor('black');
         doc.text(header, docX, docY);
         
-        docX = 10;
+        docX = 20;
         docY = docY + rem *.5;
         doc.setFont('Helvetica', '');
         doc.setFontSize(rem * .6);
