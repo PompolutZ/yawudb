@@ -18,7 +18,7 @@ class DeckThumbnail extends PureComponent {
         const { classes, factionId, title, author, date, sets, objectives, banned, restricted, isDraft } = this.props;
         const scoringOverview = objectives.reduce((acc, o) => {
             acc.summary[o.scoreType] += 1;
-            acc.glory += o.glory;
+            acc.glory += Number(o.glory);
             return acc;
         }, {
             glory: 0,

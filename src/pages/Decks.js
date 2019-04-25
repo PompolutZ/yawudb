@@ -151,7 +151,7 @@ class Decks extends Component {
             let page = [];
             for(let id of ids) {
                 //const deckDataRef = await db.collection('decks').doc(id).get();
-                const snapshot = await this.props.firebase.firebase.database().ref('/decks/' + id).once('value');
+                const snapshot = await this.props.firebase.realdb.ref('/decks/' + id).once('value');
                 //const deck = deckDataRef.data();
                 const deck = snapshot.val();
                 console.log(id, deck);
