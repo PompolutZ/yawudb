@@ -8607,7 +8607,7 @@ export const cardsdb = {
   "03242" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Aetheric Augmentation",
     "release" : 1,
     "restricted" : false,
@@ -8619,7 +8619,7 @@ export const cardsdb = {
   "03243" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Ambitious Attack",
     "release" : 1,
     "restricted" : false,
@@ -8631,7 +8631,7 @@ export const cardsdb = {
   "03244" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Atmospheric Isolation",
     "release" : 1,
     "restricted" : false,
@@ -8643,7 +8643,7 @@ export const cardsdb = {
   "03245" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Prepared Position",
     "release" : 1,
     "restricted" : false,
@@ -8655,7 +8655,7 @@ export const cardsdb = {
   "03246" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Protect the Boss",
     "release" : 1,
     "restricted" : false,
@@ -8667,7 +8667,7 @@ export const cardsdb = {
   "03247" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Quiet Contemplation",
     "release" : 1,
     "restricted" : false,
@@ -8679,7 +8679,7 @@ export const cardsdb = {
   "03248" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Seek the Skyvessel",
     "release" : 1,
     "restricted" : false,
@@ -8691,7 +8691,7 @@ export const cardsdb = {
   "03249" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Timed Charge",
     "release" : 1,
     "restricted" : false,
@@ -8703,7 +8703,7 @@ export const cardsdb = {
   "03250" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Toxic Gases",
     "release" : 1,
     "restricted" : false,
@@ -8715,7 +8715,7 @@ export const cardsdb = {
   "03251" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Unyielding",
     "release" : 1,
     "restricted" : false,
@@ -8727,7 +8727,7 @@ export const cardsdb = {
   "03252" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Ancestral Fortitude",
     "release" : 1,
     "restricted" : false,
@@ -8739,7 +8739,7 @@ export const cardsdb = {
   "03253" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Ancestral Might",
     "release" : 1,
     "restricted" : false,
@@ -8751,7 +8751,7 @@ export const cardsdb = {
   "03254" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Augmented Buoyancy",
     "release" : 1,
     "restricted" : false,
@@ -8763,7 +8763,7 @@ export const cardsdb = {
   "03255" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Breath of Grungni",
     "release" : 1,
     "restricted" : false,
@@ -8775,7 +8775,7 @@ export const cardsdb = {
   "03256" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Empowered Aethershot",
     "release" : 1,
     "restricted" : false,
@@ -8787,7 +8787,7 @@ export const cardsdb = {
   "03257" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Magmalt Draught",
     "release" : 1,
     "restricted" : false,
@@ -8799,7 +8799,7 @@ export const cardsdb = {
   "03258" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Paymaster",
     "release" : 1,
     "restricted" : false,
@@ -8811,7 +8811,7 @@ export const cardsdb = {
   "03259" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Punishing Retort",
     "release" : 1,
     "restricted" : false,
@@ -8823,7 +8823,7 @@ export const cardsdb = {
   "03260" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Rapid Reload",
     "release" : 1,
     "restricted" : false,
@@ -8835,7 +8835,7 @@ export const cardsdb = {
   "03261" : {
     "banned" : false,
     "faction" : 15,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Swashbuckler",
     "release" : 1,
     "restricted" : false,
@@ -8955,7 +8955,7 @@ export const cardsdb = {
   "03271" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Curse of the Dwindling",
     "release" : 1,
     "restricted" : false,
@@ -8967,7 +8967,7 @@ export const cardsdb = {
   "03272" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Healing Amphora",
     "release" : 1,
     "restricted" : false,
@@ -8979,7 +8979,7 @@ export const cardsdb = {
   "03273" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Last Guardians",
     "release" : 1,
     "restricted" : false,
@@ -8991,7 +8991,7 @@ export const cardsdb = {
   "03274" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Leech Power",
     "release" : 1,
     "restricted" : false,
@@ -9003,7 +9003,7 @@ export const cardsdb = {
   "03275" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Mesmerising Gaze",
     "release" : 1,
     "restricted" : false,
@@ -9015,7 +9015,7 @@ export const cardsdb = {
   "03276" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Pangs of the Great Lack",
     "release" : 1,
     "restricted" : false,
@@ -9027,7 +9027,7 @@ export const cardsdb = {
   "03277" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Revenant Rage",
     "release" : 1,
     "restricted" : false,
@@ -9039,7 +9039,7 @@ export const cardsdb = {
   "03278" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Springseed Step",
     "release" : 1,
     "restricted" : false,
@@ -9051,7 +9051,7 @@ export const cardsdb = {
   "03279" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Strength of the Burgeoning",
     "release" : 1,
     "restricted" : false,
@@ -9063,7 +9063,7 @@ export const cardsdb = {
   "03280" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Writhing Roots",
     "release" : 1,
     "restricted" : false,
@@ -9075,7 +9075,7 @@ export const cardsdb = {
   "03281" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Cage of Thorns",
     "release" : 1,
     "restricted" : false,
@@ -9087,7 +9087,7 @@ export const cardsdb = {
   "03282" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Constant Growth",
     "release" : 1,
     "restricted" : false,
@@ -9099,7 +9099,7 @@ export const cardsdb = {
   "03283" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Enraged Spite",
     "release" : 1,
     "restricted" : false,
@@ -9111,7 +9111,7 @@ export const cardsdb = {
   "03284" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Inescapable Grasp",
     "release" : 1,
     "restricted" : false,
@@ -9123,7 +9123,7 @@ export const cardsdb = {
   "03285" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Menacing Step",
     "release" : 1,
     "restricted" : false,
@@ -9135,7 +9135,7 @@ export const cardsdb = {
   "03286" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Pinning Shot",
     "release" : 1,
     "restricted" : false,
@@ -9147,7 +9147,7 @@ export const cardsdb = {
   "03287" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Spiteful Thorns",
     "release" : 1,
     "restricted" : false,
@@ -9159,7 +9159,7 @@ export const cardsdb = {
   "03288" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Unflinching Guardian",
     "release" : 1,
     "restricted" : false,
@@ -9171,7 +9171,7 @@ export const cardsdb = {
   "03289" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Vengeful Blow",
     "release" : 1,
     "restricted" : false,
@@ -9183,7 +9183,7 @@ export const cardsdb = {
   "03290" : {
     "banned" : false,
     "faction" : 16,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Warding Stance",
     "release" : 1,
     "restricted" : false,
@@ -10454,7 +10454,7 @@ export const cardsdb = {
   "03390" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Aetherflux",
     "release" : 1,
     "restricted" : false,
@@ -10477,7 +10477,7 @@ export const cardsdb = {
   "03392" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Amnesiac Backlash",
     "release" : 1,
     "restricted" : false,
@@ -10544,7 +10544,7 @@ export const cardsdb = {
   "03398" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Black-powder Sphere",
     "release" : 1,
     "restricted" : false,
@@ -10556,7 +10556,7 @@ export const cardsdb = {
   "03399" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Bolt of Inspiration",
     "release" : 1,
     "restricted" : false,
@@ -10689,7 +10689,7 @@ export const cardsdb = {
   "03411" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Empathic Exchange",
     "release" : 1,
     "restricted" : false,
@@ -10712,7 +10712,7 @@ export const cardsdb = {
   "03413" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Entropic Curse",
     "release" : 1,
     "restricted" : false,
@@ -10746,7 +10746,7 @@ export const cardsdb = {
   "03416" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Flexible Strategy",
     "release" : 1,
     "restricted" : false,
@@ -10890,7 +10890,7 @@ export const cardsdb = {
   "03429" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Lifesurge",
     "release" : 1,
     "restricted" : false,
@@ -10902,7 +10902,7 @@ export const cardsdb = {
   "03430" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Magical Damping",
     "release" : 1,
     "restricted" : false,
@@ -10914,7 +10914,7 @@ export const cardsdb = {
   "03431" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Magical Dearth",
     "release" : 1,
     "restricted" : false,
@@ -10937,7 +10937,7 @@ export const cardsdb = {
   "03433" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Noble Sacrifice",
     "release" : 1,
     "restricted" : false,
@@ -10960,7 +10960,7 @@ export const cardsdb = {
   "03435" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Piling On",
     "release" : 1,
     "restricted" : false,
@@ -11071,7 +11071,7 @@ export const cardsdb = {
   "03445" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Shifting Reflection",
     "release" : 1,
     "restricted" : false,
@@ -11094,7 +11094,7 @@ export const cardsdb = {
   "03447" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Silence",
     "release" : 1,
     "restricted" : false,
@@ -11139,7 +11139,7 @@ export const cardsdb = {
   "03451" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Sphere of Aqshy",
     "release" : 1,
     "restricted" : false,
@@ -11184,7 +11184,7 @@ export const cardsdb = {
   "03455" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Sphere of Ghyran",
     "release" : 1,
     "restricted" : false,
@@ -11251,7 +11251,7 @@ export const cardsdb = {
   "03461" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Stand and Shoot",
     "release" : 1,
     "restricted" : false,
@@ -11263,7 +11263,7 @@ export const cardsdb = {
   "03462" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Strategic Sorcery",
     "release" : 1,
     "restricted" : false,
@@ -11297,7 +11297,7 @@ export const cardsdb = {
   "03465" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Terrifying Visage",
     "release" : 1,
     "restricted" : false,
@@ -11309,7 +11309,7 @@ export const cardsdb = {
   "03466" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Trading Up",
     "release" : 1,
     "restricted" : false,
@@ -11343,7 +11343,7 @@ export const cardsdb = {
   "03469" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Unfocused Blast",
     "release" : 1,
     "restricted" : false,
@@ -11465,7 +11465,7 @@ export const cardsdb = {
   "03480" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Blessing of Hydragos",
     "release" : 1,
     "restricted" : false,
@@ -11477,7 +11477,7 @@ export const cardsdb = {
   "03481" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Blessing of Ignax",
     "release" : 1,
     "restricted" : false,
@@ -11566,7 +11566,7 @@ export const cardsdb = {
   "03489" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Crown of Avarice",
     "release" : 1,
     "restricted" : false,
@@ -11611,7 +11611,7 @@ export const cardsdb = {
   "03493" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Duellist's Speed",
     "release" : 1,
     "restricted" : false,
@@ -11623,7 +11623,7 @@ export const cardsdb = {
   "03494" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Earthing Stone",
     "release" : 1,
     "restricted" : false,
@@ -11668,7 +11668,7 @@ export const cardsdb = {
   "03498" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Fading Form",
     "release" : 1,
     "restricted" : false,
@@ -11691,7 +11691,7 @@ export const cardsdb = {
   "03500" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Fated Blade",
     "release" : 1,
     "restricted" : false,
@@ -11769,7 +11769,7 @@ export const cardsdb = {
   "03507" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Hammer of Scorn",
     "release" : 1,
     "restricted" : false,
@@ -11792,7 +11792,7 @@ export const cardsdb = {
   "03509" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Hunter's Tenacity",
     "release" : 1,
     "restricted" : false,
@@ -11859,7 +11859,7 @@ export const cardsdb = {
   "03515" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Nullstone Arrows",
     "release" : 1,
     "restricted" : false,
@@ -11915,7 +11915,7 @@ export const cardsdb = {
   "03520" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Nullstone Mace",
     "release" : 1,
     "restricted" : false,
@@ -11949,7 +11949,7 @@ export const cardsdb = {
   "03523" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Paradox Armour",
     "release" : 1,
     "restricted" : false,
@@ -12027,7 +12027,7 @@ export const cardsdb = {
   "03530" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Quick Learner",
     "release" : 1,
     "restricted" : false,
@@ -12061,7 +12061,7 @@ export const cardsdb = {
   "03533" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Reinforced Armour",
     "release" : 1,
     "restricted" : false,
@@ -12084,7 +12084,7 @@ export const cardsdb = {
   "03535" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Scroll of Recall",
     "release" : 1,
     "restricted" : false,
@@ -12140,7 +12140,7 @@ export const cardsdb = {
   "03540" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Spinning Defence",
     "release" : 1,
     "restricted" : false,
@@ -12218,7 +12218,7 @@ export const cardsdb = {
   "03547" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Tome of Healing",
     "release" : 1,
     "restricted" : false,
@@ -12241,7 +12241,7 @@ export const cardsdb = {
   "03549" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Tome of Insight",
     "release" : 1,
     "restricted" : false,
@@ -12308,7 +12308,7 @@ export const cardsdb = {
   "03555" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Voidsceptre",
     "release" : 1,
     "restricted" : false,
@@ -12331,7 +12331,7 @@ export const cardsdb = {
   "03557" : {
     "banned" : false,
     "faction" : 0,
-    "glory" : "-",
+    "glory" : "",
     "name" : "Well of Power",
     "release" : 1,
     "restricted" : false,

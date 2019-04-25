@@ -97,7 +97,7 @@ class Deck extends PureComponent {
             return acc;
         }, [0, 0, 0, 0]);
 
-        const totalGlory = objectives.reduce((acc, c) => acc + c.glory, 0);
+        const totalGlory = objectives.reduce((acc, c) => acc + Number(c.glory), 0);
         return (
             <div>
                 <div style={{

@@ -34,12 +34,11 @@ class Firebase {
         this.signInWithGoogleProvider = () => this.auth.signInWithRedirect(new app.auth.GoogleAuthProvider());
         
         this.db = app.firestore();
+        this.firestoreArrayUnion = value => app.firestore.FieldValue.arrayUnion(value);
         // this.db.settings({ timestampsInSnapshots: true });
 
         this.realdb = app.database();
     }
-
-    firestoreArrayUnion = value => this.db.FieldValue.arrayUnion(value);
 
     signInWithEmailAndPassword = (email, password) => {
         return this.auth.signInWithEmailAndPassword(email, password);

@@ -173,7 +173,7 @@ class ReadonlyDeck extends PureComponent {
             return r;
         }, [0, 0, 0, 0]);
 
-        const totalGlory = objectives.reduce((acc, c) => acc + c.glory, 0);
+        const totalGlory = objectives.reduce((acc, c) => acc + Number(c.glory), 0);
         return (    
             <div className={classes.root} style={{ maxWidth: isNarrow ? '30rem' : '' }}>
                 <div className={classes.deckHeader}>
@@ -391,7 +391,7 @@ class ReadonlyDeck extends PureComponent {
         const cardsjs = cards.toJS();
         console.log(cardsjs);
         const objectives = cardsjs.filter(c => c.type === 0);
-        const totalGlory = objectives.reduce((acc, c) => acc += c.glory, 0);
+        const totalGlory = objectives.reduce((acc, c) => acc += Number(c.glory), 0);
         const objectivesAsText = objectives
             .map(c => `${this._convertCardIdToPrintFormat(c.id)}${` - `}${c.name}${` - `}${c.glory} glory${newLineChar}`)
             .reduce((acc, el) => acc += el, '');

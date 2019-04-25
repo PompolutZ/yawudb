@@ -116,18 +116,18 @@ class DeckBuilder extends Component {
     _updateCurrentDeck = async args => {
         try {
             const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
-            const objectiveScoringSummary = this.props.currentDeck.map(x => {
-                const { type, scoreType } = cardsDb[x];
-                if(type === 0) {
-                    return scoreType;
-                }
+            // const objectiveScoringSummary = this.props.currentDeck.map(x => {
+            //     const { type, scoreType } = cardsDb[x];
+            //     if(type === 0) {
+            //         return scoreType;
+            //     }
     
-                return -1;
-            }).reduce((acc, x) => {
-                if(x < 0) return acc;
-                acc[x] += 1;
-                return acc;
-            }, [0, 0, 0, 0]);
+            //     return -1;
+            // }).reduce((acc, x) => {
+            //     if(x < 0) return acc;
+            //     acc[x] += 1;
+            //     return acc;
+            // }, [0, 0, 0, 0]);
     
             const updated = Date();
             const deckPayload = {
@@ -136,7 +136,7 @@ class DeckBuilder extends Component {
                 desc: this.props.currentDeckDescription,
                 cards: new OrderedSet(this.props.currentDeck).toJS(),
                 sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
-                scoringSummary: objectiveScoringSummary,
+                scoringSummary: [0, 0, 0, 0],
                 tags: [],
                 created: updated,
                 author: this.props.userInfo.uid,
@@ -195,20 +195,20 @@ class DeckBuilder extends Component {
         try {
             const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
             const deckId = `${factionIdPrefix[faction]}-${uuid4().slice(-12)}`;
-            const objectiveScoringSummary = this.props.currentDeck.map(x => {
-                const { type, scoreType } = cardsDb[x];
+            // const objectiveScoringSummary = this.props.currentDeck.map(x => {
+            //     const { type, scoreType } = cardsDb[x];
                 
-                if(type === 0) {
-                    console.log(cardsDb[x], scoreType);
-                    return scoreType;
-                }
+            //     if(type === 0) {
+            //         console.log(cardsDb[x], scoreType);
+            //         return scoreType;
+            //     }
     
-                return -1;
-            }).reduce((acc, x) => {
-                if(x < 0) return acc;
-                acc[x] += 1;
-                return acc;
-            }, [0, 0, 0, 0]);
+            //     return -1;
+            // }).reduce((acc, x) => {
+            //     if(x < 0) return acc;
+            //     acc[x] += 1;
+            //     return acc;
+            // }, [0, 0, 0, 0]);
     
             const deckPayload = {
                 name: this.props.currentDeckName,
@@ -216,7 +216,7 @@ class DeckBuilder extends Component {
                 desc: this.props.currentDeckDescription,
                 cards: new OrderedSet(this.props.currentDeck).toJS(),
                 sets: new OrderedSet(this.props.currentDeck.map(c => cardsDb[c].set)).toJS(),
-                scoringSummary: objectiveScoringSummary,
+                scoringSummary: [0, 0, 0, 0],
                 tags: [],
                 created: Date(),
                 author: this.props.isAuth ? this.props.userInfo.uid : 'Anonymous',
