@@ -1,4 +1,11 @@
 const changelog = {
+    "0.22.0" : {
+        "New cards": "Added Thundrik’s Profiteers and Ylthari’s Guardians expansions. Cards images will be added after their official release at warhammerunderworlds.com",
+        "Rules fallback": "Since cards' images usually released few weeks after info about expansions, a rules fallabck feature has been added. If by any reason you don't see card image, you still should be able to see card's rule.",
+        "Faction specific cards first" : "You will see faction's specific cards first in the Deck Builder.",
+        "Bug Fixes": "Fixed few minor bugs and issues reported by users.",
+        "NOTE!" : "We've made few internal changes which should improve quality of the app, but because of that you might expirience other issues. Please, do not hesitate to report them."
+    },
     "0.21.0" : {
         "Fighters Info": "Now it should be possible to see fighters cards when you are building your next deck",
         "Copy decks": "It should be possible to create a copy of a deck. After save it will receive its unique id. Note: Because it allows you to create exact copies of other decks, please, use reasonably :)"

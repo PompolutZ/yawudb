@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import AddNewDeckButton from '../atoms/AddNewDeckButton';
 import { idPrefixToFaction } from '../data/index';
-import toPairs from 'lodash/toPairs';
+import { withFirebase } from '../firebase';
+import { SET_DECKS_META } from '../reducers/decksMeta';
 
 class DecksCount extends PureComponent {
     render() {
@@ -20,24 +21,27 @@ class DecksCount extends PureComponent {
     }
 }
 
-class DecksMetaSummary extends PureComponent {
-    render() {
-        const { classes, decksMeta } = this.props;
-        return (
-            <div className={classes.root}>
-                {
-                    toPairs(decksMeta).map(([prefix, meta], i) => {
-                        return (
-                            <div key={prefix} className={classes.item}>
-                                <AddNewDeckButton faction={idPrefixToFaction[prefix]} onClickAdd={this.props.onAddNewDeckClick} />
-                                <DecksCount count={meta.count} prefix={prefix} onClick={this.props.onDecksCountClick} />
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        );
-    }
+function DeckMetaSummary({ classes, prefix, firebase, decksMeta, addDecksMeta, onAddNewDeckClick, onDecksCountClick }) {
+    const initCount = () => decksMeta[prefix] ? decksMeta[prefix].count : 0;
+    const [count, setCount] = React.useState(initCount());
+
+    React.useEffect(() => {
+        const ref = firebase.realdb.ref(`/decks_meta/${prefix}`);
+        ref.on('value', snapshot => {
+            const currentMeta = snapshot.val();
+            setCount(currentMeta.count);
+            addDecksMeta(prefix, currentMeta);
+        });
+
+        return () => ref.off();
+    }, [])
+
+    return (
+        <div className={classes.root}>
+            <AddNewDeckButton faction={idPrefixToFaction[prefix]} onClickAdd={onAddNewDeckClick} />
+            <DecksCount count={count} prefix={prefix} onClick={onDecksCountClick} />
+        </div>
+    );
 }
 
 const mapStateToProps = state => {
@@ -46,19 +50,18 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        addDecksMeta: (key, value) => dispatch({ type: SET_DECKS_META, payload: {key: key, value: value }}),
+    }
+}
+
 const styles = theme => ({
     root: {
         display: 'flex', 
-        flexFlow: 'row wrap', 
-        justifyContent: 'space-around',
-        [theme.breakpoints.up('md')]: {
-            justifyContent: 'flex-start',
-        }
-    },
-
-    item: {
-        display: 'flex', alignItems: 'center', margin: '.5rem'
+        alignItems: 'center', 
+        margin: '.5rem',
     }
 });
 
-export default connect(mapStateToProps, null)(withStyles(styles)(DecksMetaSummary));
+export default connect(mapStateToProps, mapDispatchToProps)(withFirebase(withStyles(styles)(DeckMetaSummary)));

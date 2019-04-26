@@ -68,7 +68,7 @@ export const factionMembers = {
     "zarbags-gitz": ['Zarbag', 'Sourtongue', 'Drizgit', 'Bonekrakka', 'Gobbaluk', 'Prog', 'Stikkit', 'Redkap', 'Dibbz'],
     "godsworn-hunt": ['Theddra', 'Grundann', 'Jagathra', 'Shond', 'Ollo', 'Grawl'],
     "mollogs-mob": ['Mollog', 'Bat Squig', 'Stalagsquig', 'Spiteshroom'],
-    "thundriks-profiteers": [],
+    "thundriks-profiteers": ['Bjorgen', 'Dead-Eye Lund', 'Enrik', 'Khazgan', 'Garodd'],
     "yltharis-guardians": ['Ylthari', 'Ahnslaine', 'Gallanghann', 'Skhathael']
 }
 

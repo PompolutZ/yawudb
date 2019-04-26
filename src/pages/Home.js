@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { addOrUpdateLastDeck } from '../reducers/lastDeck';
 import { SET_DECKS_META } from '../reducers/decksMeta';
 import { SET_FACTION } from '../reducers/deckUnderBuild';
-import DecksMetaSummary from '../molecules/DecksMetaSummary';
+import DeckMetaSummary from '../molecules/DecksMetaSummary';
 import { withFirebase } from '../firebase';
 import DeckCount from '../atoms/DeckCount';
 
@@ -29,10 +29,8 @@ class Home extends Component {
         try {
             const lastDeckIdSnapshot = await this.props.firebase.realdb.ref('/decks_meta/all/ids/0').once('value');
             const lastDeckId = lastDeckIdSnapshot.val();
-            console.log(lastDeckId);
             const lastDeckSnapshot = await this.props.firebase.realdb.ref(`/decks/${lastDeckId}`).once('value');
             const data = lastDeckSnapshot.val();
-            console.log(data);
             let created = new Date(0);
             if(data.created && data.created.seconds) {
                 created.setSeconds(data.created.seconds);
@@ -74,13 +72,19 @@ class Home extends Component {
                             }
                         </div>
                     </div>
-                    
-                    {/* <DecksMetaSummary onAddNewDeckClick={this.handleAddDeckClicked} onDecksCountClick={this.handleNavigateToDecksByPrefix} /> */}
-                    {
-                        Object.values(factionIdPrefix).map(factionPrefix => (
-                            <DeckCount key={factionPrefix} prefix={factionPrefix} />
-                        ))
-                    }
+
+                    <div className={classes.metaSummary}>
+                        {
+                            Object.values(factionIdPrefix).map(factionPrefix => (
+                                <DeckMetaSummary 
+                                    key={factionPrefix} 
+                                    prefix={factionPrefix} 
+                                    onAddNewDeckClick={this.handleAddDeckClicked} 
+                                    onDecksCountClick={this.handleNavigateToDecksByPrefix} />
+                                // <DeckCount key={factionPrefix} prefix={factionPrefix} />
+                            ))
+                        }
+                    </div>        
                 </div>
 
                 <div className={classes.columnTwo}>
@@ -198,6 +202,15 @@ const styles = theme => ({
 
     entry: {
         fontFamily: 'roboto',
+    },
+
+    metaSummary: {
+        display: 'flex', 
+        flexFlow: 'row wrap', 
+        justifyContent: 'space-around',
+        [theme.breakpoints.up('md')]: {
+            justifyContent: 'flex-start',
+        }
     }
 });
 

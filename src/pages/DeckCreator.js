@@ -29,7 +29,6 @@ class DeckCreator extends Component {
 
     static getDerivedStateFromProps(props, state) {
         const isEdit = props.match.path.startsWith('/deck/edit');
-        console.log(isEdit, props, state);
         if(isEdit !== state.isEdit) {
             return {
                 isEdit: isEdit,
@@ -42,7 +41,6 @@ class DeckCreator extends Component {
     render() {
         const selectedFaction = this.state.isEdit ? this.props.editSelectedFaction : this.props.selectedFaction;
         const setFaction = this.state.isEdit ? this.props.editFaction : this.props.setFaction;
-        console.log(this.state.isEdit)
         return (
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <div>

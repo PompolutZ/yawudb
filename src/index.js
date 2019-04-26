@@ -15,8 +15,6 @@ import configureStore from './configureStore';
 import LazyLoading from './components/LazyLoading';
 import ErrorBoundary from './components/ErrorBoundary';
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions';
-import { factionIdPrefix } from './data/index';
-import values from 'lodash/values';
 import { Button } from '@material-ui/core';
 import Firebase, { FirebaseContext, withFirebase } from './firebase';
 
@@ -345,15 +343,6 @@ class App extends Component {
                 this.setState({ error: err });
             }
         });
-
-        this.counterRef = this.props.firebase.realdb.ref('counter');
-        this.counterRef.set(0);
-        this.counterRef.on('value', snapshot => {
-            console.log('COUNTER: ', snapshot.val());
-        })
-        
-        // store.dispatch(this.fetchCardsRanking());
-        // store.dispatch(this.subscribeOnDecksMeta());
     }
 
     componentWillUnmount() {
