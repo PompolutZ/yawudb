@@ -30,13 +30,17 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "set REACT_APP_STAGE=local && react-scripts start",
+    "start": "set REACT_APP_STAGE=local&& react-scripts start",
     "build": "react-scripts build",
+    "build_stage": "set REACT_APP_STAGE=staging&& react-scripts build",
+    "build_prod": "set REACT_APP_STAGE=prod&& react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flist": "firebase list",
-    "stage": "(set REACT_APP_STAGE=staging && react-scripts build) && npm run stage_deploy",
-    "stage_deploy": "firebase deploy --project staging"
+    "stage": "yarn run build_stage && yarn run stage_deploy",
+    "stage_deploy": "firebase deploy --project staging",
+    "production": "yarn run build_prod && yarn run production_deploy",
+    "production_deploy": "firebase deploy --project prod"
   },
   "browserslist": [
     ">0.2%",
