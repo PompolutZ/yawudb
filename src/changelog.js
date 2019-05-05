@@ -1,4 +1,7 @@
 const changelog = {
+    "0.22.1" : {
+        "Card Scans": "109 cards from Thundrik’s Profiteers and Ylthari’s Guardians expansions have received official images"
+    },
     "0.22.0" : {
         "New cards": "Added Thundrik’s Profiteers and Ylthari’s Guardians expansions. Cards images will be added after their official release at warhammerunderworlds.com",
         "Rules fallback": "Since cards' images usually released few weeks after info about expansions, a rules fallabck feature has been added. If by any reason you don't see card image, you still should be able to see card's rule.",

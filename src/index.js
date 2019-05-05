@@ -15,6 +15,8 @@ import configureStore from './configureStore';
 import LazyLoading from './components/LazyLoading';
 import ErrorBoundary from './components/ErrorBoundary';
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions';
+import { factionIdPrefix } from './data/index';
+import values from 'lodash/values';
 import { Button } from '@material-ui/core';
 import Firebase, { FirebaseContext, withFirebase } from './firebase';
 

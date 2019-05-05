@@ -8506,6 +8506,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if your warband took an enemy leader out of action in the preceding action phase\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03234" : {
@@ -8518,6 +8519,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if the third different friendly fighter makes an Attack action with a Range of 3 or more targeting the same fighter in this phase\r",
     "set" : 16,
+    "scoreType": 0,
     "type" : 0
   },
   "03235" : {
@@ -8530,6 +8532,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if a friendly fighter scores a critical hit with an Attack action with a Range of 3 or more\r",
     "set" : 16,
+    "scoreType": 0,
     "type" : 0
   },
   "03236" : {
@@ -8542,6 +8545,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if two or more friendly fighters are in no one's territory\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03237" : {
@@ -8554,6 +8558,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you did not discard any objective cards in the preceding action phase. If you do, you cannot discard any objective cards in this end phase\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03238" : {
@@ -8566,6 +8571,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you hold three or more objectives\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03239" : {
@@ -8578,6 +8584,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if your warband takes an enemy fighter with a Wounds characteristic of 4 or more out of action\r",
     "set" : 16,
+    "scoreType": 0,
     "type" : 0
   },
   "03240" : {
@@ -8590,6 +8597,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you have 5 or more unspent glory points\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03241" : {
@@ -8602,6 +8610,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if all friendly fighters are in your territory and no enemy fighters are in your territory\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03242" : {
@@ -8854,6 +8863,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if no enemy fighters are holding objectives\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03263" : {
@@ -8866,6 +8876,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if at least 3 wound tokens were removed from the fighter cards of friendly fighters in the preceding action phase\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03264" : {
@@ -8878,6 +8889,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in the third end phase if no friendly fighter is out of action\r",
     "set" : 17,
+    "scoreType": 2,
     "type" : 0
   },
   "03265" : {
@@ -8890,6 +8902,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if your warband makes its second or subsequent reaction in this phase\r",
     "set" : 17,
+    "scoreType": 0,
     "type" : 0
   },
   "03266" : {
@@ -8902,6 +8915,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you hold all the objectives in at least one player's territory\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03267" : {
@@ -8914,6 +8928,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if 3 or more enemy fighters are out of action\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03268" : {
@@ -8926,6 +8941,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if your warband successfully casts their second or subsequent spell in this phase\r",
     "set" : 17,
+    "scoreType": 0,
     "type" : 0
   },
   "03269" : {
@@ -8938,6 +8954,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if a friendly fighter takes an enemy fighter out of action with a Charge action\r",
     "set" : 17,
+    "scoreType": 0,
     "type" : 0
   },
   "03270" : {
@@ -8950,6 +8967,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if at least one friendly fighter is out of action, and at least twice as many enemy fighters as friendly fighters are out of action\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03271" : {
@@ -9280,6 +9298,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you have at least one fighter on the battlefield and your warband took no Attack actions in the preceding action phase\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03298" : {
@@ -9292,6 +9311,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in the third end phase if there are no fighters out of action\r",
     "set" : 17,
+    "scoreType": 2,
     "type" : 0
   },
   "03299" : {
@@ -9304,6 +9324,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if you roll three or more dice in an attack or defence roll and they all show a different symbol\r",
     "set" : 16,
+    "scoreType": 0,
     "type" : 0
   },
   "03300" : {
@@ -9329,6 +9350,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you have scored at least 2 other objective cards in this phase\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03302" : {
@@ -9341,6 +9363,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if a friendly fighter makes a Move action through a lethal hex that damages them but doesn't take them out of action\r",
     "set" : 16,
+    "scoreType": 0,
     "type" : 0
   },
   "03303" : {
@@ -9431,6 +9454,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if a friendly fighter takes an enemy fighter out of action while at least three hexes from that fighter\r",
     "set" : 16,
+    "scoreType": 0,
     "type" : 0
   },
   "03310" : {
@@ -9495,6 +9519,7 @@ export const cardsdb = {
     "restrictions" : "-",
     "rule" : "Score this card immediately if your warband takes an enemy fighter out of action, and that fighter has at least one Katophrane Tome.",
     "set" : 15,
+    "scoreType": 0,
     "type" : 0
   },
   "03315" : {
@@ -9520,6 +9545,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you have no power cards in your hand\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03317" : {
@@ -9688,6 +9714,7 @@ export const cardsdb = {
     "restrictions" : "-",
     "rule" : "Score this in the thrid end phase if you have at least 9 unspent glory points.",
     "set" : 14,
+    "scoreType": 2,
     "type" : 0
   },
   "03330" : {
@@ -9765,6 +9792,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you have at least one fighter on the battlefield and your warband made no Move actions in the preceding action phase\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03336" : {
@@ -9816,6 +9844,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if your warband made a Move action in four or more activations in the preceding action phase\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03340" : {
@@ -9841,6 +9870,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if a friendly fighter made an Attack action in the preceding action phase printed on an upgrade that your played in the same phase\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03342" : {
@@ -9892,6 +9922,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if your warband successfully cast four or more spells in the preceding action phase\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03346" : {
@@ -9943,6 +9974,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if you use your warband's third action or card that Scatters in the same phase\r",
     "set" : 16,
+    "scoreType": 0,
     "type" : 0
   },
   "03350" : {
@@ -10033,6 +10065,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if you roll three or more dice in an attack or defence roll and they all show the same symbol\r",
     "set" : 17,
+    "scoreType": 0,
     "type" : 0
   },
   "03357" : {
@@ -10071,6 +10104,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in the third end phase if you took the second activation in each round\r",
     "set" : 16,
+    "scoreType": 2,
     "type" : 0
   },
   "03360" : {
@@ -10096,6 +10130,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you removed at least one wound token from each of at least two surviving friendly fighters in the preceding action phase\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03362" : {
@@ -10108,6 +10143,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if all surviving friendly fighters (at least three) have at least one Katophrane Tome\r",
     "set" : 17,
+    "scoreType": 1,
     "type" : 0
   },
   "03363" : {
@@ -10198,6 +10234,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if a friendly fighter takes an enemy wizard out of action with a spell\r",
     "set" : 17,
+    "scoreType": 0,
     "type" : 0
   },
   "03370" : {
@@ -10236,6 +10273,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this immediately if all surviving friendly fighters (at least three) have one or more Guard tokens\r",
     "set" : 17,
+    "scoreType": 0,
     "type" : 0
   },
   "03373" : {
@@ -10300,6 +10338,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if you hold objectives 2 and 5\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03378" : {
@@ -10338,6 +10377,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if a single friendly fighter took three or more enemy fighters out of action in the preceding action phase\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03381" : {
@@ -10388,6 +10428,7 @@ export const cardsdb = {
     "restrictions" : "",
     "rule" : "Score this in an end phase if the same friendly fighter made both an Attack action with a Range of 1 or 2 and an Attack action with a Range of 3 or more in the preceding action phase\r",
     "set" : 16,
+    "scoreType": 1,
     "type" : 0
   },
   "03385" : {
@@ -10432,7 +10473,7 @@ export const cardsdb = {
   "03388" : {
     "banned" : false,
     "faction" : 0,
-    "name" : "Abasoth's Unmasking",
+    "name" : "Abasoth's Unmaking",
     "release" : 1,
     "restricted" : false,
     "restrictions" : "-",
