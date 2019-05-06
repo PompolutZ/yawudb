@@ -177,7 +177,7 @@ const styles = theme => ({
     columnTwo: {
         flex: '1 100%',
         [theme.breakpoints.up('md')]: {
-            flex: '1 auto',
+            flex: '1 40%',
             order: 0,
         }
     },
