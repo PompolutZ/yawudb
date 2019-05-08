@@ -59,7 +59,7 @@ class CardLibraryFilters extends Component {
                             <div>Toggle Types:</div>
                             <div style={{flex: '1 1 auto', height: '1rem', borderBottom: '1px solid gray', margin: 'auto 1rem 0 .5rem'}}></div> 
                         </div>
-                        <CardTypeToggle selectedCardTypes={this.props.visibleCardTypes} oncardTypesChange={this.props.onVisibleCardTypesChange} />
+                        <CardTypeToggle />
                     </div>
                     <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
                         <Switch label="Organised Play" isChecked={this.props.eligibleForOP} onChange={this.handleChangeEligibleForOrganizedPlay} />

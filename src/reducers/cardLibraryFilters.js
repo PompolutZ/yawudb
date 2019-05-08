@@ -11,8 +11,8 @@ export const SET_CARDS_RANKING = 'SET_CARDS_RANKING';
 
 export const initialState = {
     searchText: '',
-    visibleCardTypes: keys(cardType).map(k => parseInt(k, 10)),
-    visibleObjectiveScoreTypes: keys(objectiveScoreType).map(k => parseInt(k, 10)),
+    visibleCardTypes: keys(cardType).map(Number),
+    visibleObjectiveScoreTypes: keys(objectiveScoreType).map(Number),
     createModeSets: Object.keys(setsIndex),
     editModeSets: [],
     eligibleForOP: true,

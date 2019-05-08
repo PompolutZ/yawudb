@@ -41,7 +41,7 @@ class DeckBuilder extends Component {
                 <div className="filters">
                     <CardLibraryFilters editMode={this.props.editMode} />
                     <Tabs variant="fullWidth" value={this.state.tabIndex} onChange={this.handleTabChange}>
-                        <Tab label={<CardsTab editMode={this.props.editMode} />} />
+                        <Tab label={<CardsTab editMode={this.props.editMode} isSelected={this.state.tabIndex === 0} />} />
                         <Tab label='Fighters' />
                     </Tabs>
 

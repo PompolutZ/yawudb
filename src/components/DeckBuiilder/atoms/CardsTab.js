@@ -4,29 +4,78 @@ import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import classnames from 'classnames';
 import LockIcon from '@material-ui/icons/Lock';
+import { SET_VISIBLE_CARD_TYPES } from '../../../reducers/cardLibraryFilters';
+import { Set } from 'immutable';
 
-class CardsTab extends PureComponent {
-    render() {
-        const { classes, editMode } = this.props;
-        return (
-            <div className={classes.root}>
-                <Typography variant="subheading" className={classes.header}>cards</Typography>
-                <div className={classes.subhead}>
-                    <img src={`/assets/icons/objective-icon.png`} alt="objective" className={classes.icon} />
-                    <Typography className={classes.item}>{editMode ? this.props.editObjectivesCount : this.props.objectivesCount}</Typography>
-                    <div style={{ display: 'flex', position: 'relative', marginRight: '.5rem' }}>
-                        <img src={`/assets/icons/gambit spell-icon.png`} alt="ploy" className={classes.icon} />
-                        <img src={`/assets/icons/ploy-icon.png`} alt="spell" className={classnames(classes.icon, classes.fixedIcon)} />
-                    </div>
-                    <Typography className={classes.item}>{editMode ? this.props.editGambitsCount : this.props.gambitsCount}</Typography>
-                    <img src={`/assets/icons/upgrade-icon.png`} alt="upgrade" className={classes.icon} />
-                    <Typography className={classes.item}>{editMode ? this.props.editUpgradesCount : this.props.upgradesCount}</Typography>
-                    <LockIcon className={classes.icon} />
-                    <Typography className={classes.item}>{editMode ? this.props.editRestrictedCardsCount : this.props.restrictedCardsCount}</Typography>
-                </div>
-            </div>
-        );
+function ToggleBox({ children, isVisible, onToggle }) {
+    return (
+        <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            opacity: isVisible ? 1 : '.4',
+        }} onClick={onToggle}>
+            { children }
+        </div>
+    )
+}
+
+function CardsTab(props) {
+    const { classes, editMode, isSelected } = props;
+    const visibleCardTypes = new Set(props.types);
+
+    const toggleTypeAtIndex = index => () => {
+        if(!isSelected) return; 
+
+        if(visibleCardTypes.includes(index)) {
+            props.onTypesChanged(visibleCardTypes.delete(index).toJS())
+        } else {
+            props.onTypesChanged(visibleCardTypes.add(index).toJS())
+        }
     }
+
+    const toggleTypeAtIndexesOneAndThree = () => {
+        if(!isSelected) return; 
+
+        if(visibleCardTypes.includes(1) || visibleCardTypes.includes(3)) {
+            props.onTypesChanged(visibleCardTypes.delete(1).delete(3).toJS());
+        } else {
+            props.onTypesChanged(visibleCardTypes.add(1).add(3).toJS());
+        }
+    }
+
+    return (
+        <div className={classes.root}>
+            <Typography variant="subheading" className={classes.header}>cards</Typography>
+            <div className={classes.subhead}>
+                <ToggleBox isVisible={visibleCardTypes.includes(0)} onToggle={toggleTypeAtIndex(0)}>
+                    <React.Fragment>
+                        <img src={`/assets/icons/objective-icon.png`} alt="objective" className={classes.icon} />
+                        <Typography className={classes.item}>{editMode ? props.editObjectivesCount : props.objectivesCount}</Typography>
+                    </React.Fragment>
+                </ToggleBox>
+
+                <ToggleBox isVisible={visibleCardTypes.includes(1) || visibleCardTypes.includes(3)} onToggle={toggleTypeAtIndexesOneAndThree}>
+                    <React.Fragment>
+                        <div style={{ display: 'flex', position: 'relative', marginRight: '.5rem' }}>
+                            <img src={`/assets/icons/gambit spell-icon.png`} alt="ploy" className={classes.icon} />
+                            <img src={`/assets/icons/ploy-icon.png`} alt="spell" className={classnames(classes.icon, classes.fixedIcon)} />
+                        </div>
+                        <Typography className={classes.item}>{editMode ? props.editGambitsCount : props.gambitsCount}</Typography>
+                    </React.Fragment>
+                </ToggleBox>
+
+                <ToggleBox isVisible={visibleCardTypes.includes(2)} onToggle={toggleTypeAtIndex(2)}>
+                    <React.Fragment>
+                        <img src={`/assets/icons/upgrade-icon.png`} alt="upgrade" className={classes.icon} />
+                        <Typography className={classes.item}>{editMode ? props.editUpgradesCount : props.upgradesCount}</Typography>
+                    </React.Fragment>
+                </ToggleBox>
+
+                <LockIcon className={classes.icon} />
+                <Typography className={classes.item}>{editMode ? props.editRestrictedCardsCount : props.restrictedCardsCount}</Typography>
+            </div>
+        </div>
+    );
 }
 
 const styles = theme => ({
@@ -72,6 +121,8 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
+    types: state.cardLibraryFilters.visibleCardTypes,
+
     restrictedCardsCount: state.deckUnderBuild.restrictedCardsCount,
     objectivesCount: state.deckUnderBuild.objectivesCount,
     gambitsCount: state.deckUnderBuild.gambitsCount,
@@ -83,4 +134,10 @@ const mapStateToProps = state => ({
     editUpgradesCount: state.deckUnderEdit.upgradesCount,
 })
 
-export default connect(mapStateToProps, null)(withStyles(styles)(CardsTab));
+const mapDispatchToProps = dispatch => {
+    return {
+        onTypesChanged: value => dispatch({ type: SET_VISIBLE_CARD_TYPES, payload: value }),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CardsTab));

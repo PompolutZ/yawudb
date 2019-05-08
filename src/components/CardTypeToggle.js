@@ -1,49 +1,52 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ToggleImageButton from './ToggleImageButton';
 import { cardType } from '../data/index';
 import { Typography } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { SET_VISIBLE_CARD_TYPES } from '../reducers/cardLibraryFilters';
 import { Set } from 'immutable';
 
-class CardTypeToggle extends Component {
-    state = {
-        selectedCardTypes: new Set(this.props.selectedCardTypes),
-    }
+function CardTypeToggle({ types, onTypesChanged }) {
+    const visibleCardTypes = new Set(types);
 
-    handleToggle = index => {
-        if(this.state.selectedCardTypes.includes(index)) {
-            this.setState(state => ({ selectedCardTypes: state.selectedCardTypes.delete(index)} ));
+    const toggleTypeAtIndex = index => () => {
+        if(visibleCardTypes.includes(index)) {
+            onTypesChanged(visibleCardTypes.delete(index).toJS())
         } else {
-            this.setState(state => ({ selectedCardTypes: state.selectedCardTypes.add(index)} ));
+            onTypesChanged(visibleCardTypes.add(index).toJS())
         }
-        
-        if(this.timeoutId) {
-            clearTimeout(this.timeoutId);
-        }
-
-        this.timeoutId = setTimeout(() => this.props.oncardTypesChange(this.state.selectedCardTypes.toJS()), 250);
     }
 
-    renderIndex(name, index){
-        return (
-            <div key={name} style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem'}}>
-                <ToggleImageButton 
-                    isOff={!this.state.selectedCardTypes.includes(index)} 
-                    onImage={`/assets/icons/${name.toLowerCase()}-icon.png`}
-                    offImage={`/assets/icons/${name.toLowerCase()}-icon-bw.png`}
-                    onToggle={this.handleToggle.bind(this, index)}
-                    />
-                <Typography variant="title" style={{margin: '0 0 0 .5rem', opacity: !this.state.selectedCardTypes.includes(index) ? '.4' : 1}}>{name}</Typography>        
-            </div>
-        );
-    }
+    const renderIndex = (name, index) => (
+        <div key={name} style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem'}}>
+            <ToggleImageButton 
+                isOff={!visibleCardTypes.includes(index)} 
+                onImage={`/assets/icons/${name.toLowerCase()}-icon.png`}
+                offImage={`/assets/icons/${name.toLowerCase()}-icon-bw.png`}
+                onToggle={toggleTypeAtIndex(index)}
+                />
+            <Typography variant="title" style={{margin: '0 0 0 .5rem', opacity: !visibleCardTypes.includes(index) ? '.4' : 1}}>{name}</Typography>        
+        </div>
+    )
 
-    render() {
-        return (
-            <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
-                { cardType.map((v, i) => this.renderIndex(v, i)) }
-            </div>
-        );
+    return (
+        <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
+            { cardType.map((v, i) => renderIndex(v, i)) }
+        </div>
+    )
+}
+
+const mapStateToProps = state => {
+    return {
+        types: state.cardLibraryFilters.visibleCardTypes,
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onTypesChanged: value => dispatch({ type: SET_VISIBLE_CARD_TYPES, payload: value }),
     }
 }
 
-export default CardTypeToggle;
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardTypeToggle);
