@@ -66,12 +66,6 @@ const styles = theme => ({
     root: {
         display: 'flex',
         flexFlow: 'column',
-        [theme.breakpoints.up('sm')]: {
-            maxWidth: '30rem'
-        },
-        [theme.breakpoints.up('lg')]: {
-            maxWidth: '100%'
-        }
     },
 
     deckHeader: {
@@ -175,7 +169,7 @@ class ReadonlyDeck extends PureComponent {
 
         const totalGlory = objectives.reduce((acc, c) => acc + Number(c.glory), 0);
         return (    
-            <div className={classes.root} style={{ maxWidth: isNarrow ? '30rem' : '' }}>
+            <div className={classes.root}>
                 <div className={classes.deckHeader}>
                     <DeckIcon width="4rem" height="4rem" faction={idPrefixToFaction[factionId]} />
                     <div style={{flex: '1 1 auto'}}>
@@ -198,6 +192,7 @@ class ReadonlyDeck extends PureComponent {
                                     onSaveText={this._handleSaveText}
                                     onSaveImage={this._handleSaveImage} 
                                     canUpdateOrDelete={this.props.canUpdateOrDelete} 
+                                    onSaveVassalFiles={this._handleSaveVassalFiles}
                                     onEdit={this.props.onEdit}
                                     onCopy={this.props.onCopy}
                                     onDelete={this.props.onDelete} />
@@ -210,7 +205,8 @@ class ReadonlyDeck extends PureComponent {
                                 <div className={classes.deckHeaderMenu}>
                                     <DeckActionsMenu onSaveAsPdf={this._handleSaveAsPdf}
                                         onSaveText={this._handleSaveText}
-                                        onSaveImage={this._handleSaveImage} 
+                                        onSaveImage={this._handleSaveImage}
+                                        onSaveVassalFiles={this._handleSaveVassalFiles}
                                         canUpdateOrDelete={this.props.canUpdateOrDelete} 
                                         onEdit={this.props.onEdit}
                                         onCopy={this.props.onCopy}
@@ -223,6 +219,7 @@ class ReadonlyDeck extends PureComponent {
                                         onSaveAsPdf={this._handleSaveAsPdf}
                                         onSaveText={this._handleSaveText}
                                         onSaveImage={this._handleSaveImage} 
+                                        onSaveVassalFiles={this._handleSaveVassalFiles}
                                         canUpdateOrDelete={this.props.canUpdateOrDelete} 
                                         onEdit={this.props.onEdit}
                                         onCopy={this.props.onCopy}
@@ -375,6 +372,43 @@ class ReadonlyDeck extends PureComponent {
 
         const coords = { x: docX, y: docY };
         return coords;
+    }
+
+    _handleSaveVassalFiles = () => {
+        const { id, name, cards } = this.props;
+        const cardsjs = cards.toJS();
+
+        const objectives = cardsjs
+            .filter(c => c.type === 0)
+            .map((o, i) => 
+                String.fromCharCode(27) + `+/1557197572988/obs;70,130;Objectives background.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\treturn;Return to Deck;66,130;;Select destination\\\tpiece;;;${o.id}.png;${o.id}/null;\t\\\tnull;1246;227;${i}'`);
+
+        this.downloadVassalDeckWithTempLink(objectives, `${name}_OBJECTIVES.txt`);
+
+        const powers = cardsjs
+            .filter(c => c.type !== 0)
+            .map((o, i) => 
+                String.fromCharCode(27) + `+/155730172${i}/obs;70,130;powercardsback.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\treturn;Return to Deck;66,130;;Select destination\\\tpiece;;;${o.id}.png;${o.id}/null;\t\\\tnull;926;227;${i}\r`);
+
+        this.downloadVassalDeckWithTempLink(powers, `${name}_POWERS.txt`);                
+    }
+
+    downloadVassalDeckWithTempLink = (deck, fileName) => {
+        const tempDownloadLink = document.createElement('a');
+        tempDownloadLink.style.display = 'none';
+        document.body.appendChild(tempDownloadLink);
+
+        const content = [
+            'DECK\t\r',
+            ...deck
+        ]
+
+        const file = new Blob(content, { type: 'text/plain'});
+        tempDownloadLink.href = URL.createObjectURL(file);
+        tempDownloadLink.download = fileName;
+        tempDownloadLink.click();
+
+        document.body.removeChild(tempDownloadLink);
     }
 
     _handleSaveText = link => {

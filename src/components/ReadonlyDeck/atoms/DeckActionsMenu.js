@@ -43,6 +43,10 @@ class DeckActionsMenu extends PureComponent {
                         <a id="deckImageLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Image</a>
                     </MenuItem>
                     <MenuItem onClick={this.handleExportToPdf}>Download as PDF</MenuItem>
+                    <Divider />
+                    <MenuItem onClick={this.handleExportVassalFiles} style={{ position: 'relative'}}>
+                        Download Vassal Decks
+                    </MenuItem>
                     {
                         this.props.canUpdateOrDelete && (
                             <div>
@@ -74,6 +78,11 @@ class DeckActionsMenu extends PureComponent {
 
     handleExportToTextFile = () => {
         this.props.onSaveText(document.getElementById('deckTextLink'));
+        this.handleClose();
+    }
+
+    handleExportVassalFiles = () => {
+        this.props.onSaveVassalFiles();
         this.handleClose();
     }
 

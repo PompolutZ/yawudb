@@ -23,6 +23,7 @@ class DeckActionMenuLarge extends PureComponent {
                 <Button onClick={this.handleExportToImage}>
                     <a id="deckImageLinkLarge" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Image</a>
                 </Button>
+                <Button onClick={this.props.onSaveVassalFiles}>Download Vassal Decks</Button>
                 <Button onClick={onSaveAsPdf}>Export As PDF</Button>
                 {
                     canUpdateOrDelete && <Button onClick={onDelete} style={{ color: 'darkred' }}>Delete</Button>
