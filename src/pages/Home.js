@@ -16,7 +16,7 @@ import { SET_DECKS_META } from '../reducers/decksMeta';
 import { SET_FACTION } from '../reducers/deckUnderBuild';
 import DeckMetaSummary from '../molecules/DecksMetaSummary';
 import { withFirebase } from '../firebase';
-import DeckCount from '../atoms/DeckCount';
+import AutosuggestSearch from '../components/AutosuggestSearch';
 
 const getChangeLogItemsByKey = key => {
     return Object.keys(changelog[key])
@@ -73,6 +73,10 @@ class Home extends Component {
                         </div>
                     </div>
 
+                    <div style={{ margin: '1rem', display: 'flex'}}>
+                        <AutosuggestSearch onClick={this.handleGlobalSearchClick} />
+                    </div>
+
                     <div className={classes.metaSummary}>
                         {
                             Object.values(factionIdPrefix).map(factionPrefix => (
@@ -121,6 +125,10 @@ class Home extends Component {
                 </FloatingActionButton>
             </div>
         );
+    }
+
+    handleGlobalSearchClick = payload => {
+        this.props.history.push(`/view/card/${payload.id}`);
     }
 
     handleAddDeckClicked = faction => {
