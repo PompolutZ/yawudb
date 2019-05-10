@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 import { withStyles } from '@material-ui/core/styles'
 import { cardsdb } from '../data/cardsdb'
+import { cardTypeIcons, setsIndex } from '../data'
 import toPairs from 'lodash/toPairs'
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
@@ -33,16 +34,25 @@ function renderInputComponent(inputProps) {
     )
 }
 
-function renderSuggestion(suggestion, { query, isHighlighted }) {
+const renderSuggestion = onMenuItemClick => (suggestion, { query, isHighlighted }) => {
     const matches = match(suggestion.label, query)
     const parts = parse(suggestion.label, matches)
+
+    const handleMenuSuggestionClicked = () => {
+        onMenuItemClick(suggestion);
+    }
 
     return (
         <MenuItem
             selected={isHighlighted}
             component="div"
+            onClick={handleMenuSuggestionClicked}
         >
-            <div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ position: 'relative', marginRight: '.5rem', width: '2rem', height: '1.5rem' }}>
+                    <img src={`/assets/icons/${cardTypeIcons[suggestion.type]}.png`} style={{ width: '1.5rem', height: '1.5rem', position: 'absolute', top: 0, left: 0 }} />
+                    <img src={`/assets/icons/${setsIndex[suggestion.set]}-icon.png`} style={{ width: '1.5rem', height: '1.5rem', position: 'absolute', top: 0, left: 12 }} />
+                </div>
                 {parts.map((part, index) =>
                     part.highlight ? (
                         <span key={String(index)} style={{ fontWeight: 500 }}>
@@ -66,7 +76,10 @@ function getSuggestions(value) {
     const suggestions = toPairs(cardsdb).map(([id, card]) => ({
         id: id,
         label: card.name,
-    }))
+        type: card.type,
+        set: card.set
+    }));
+
     return inputLength === 0
         ? []
         : suggestions.filter(suggestion => {
@@ -146,7 +159,7 @@ function AutosuggestSearch({ classes, onClick }) {
         onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
         onSuggestionsClearRequested: handleSuggestionsClearRequested,
         getSuggestionValue: getCurrentSuggestion,
-        renderSuggestion,
+        renderSuggestion: renderSuggestion(onClick),
     }
 
     return (
