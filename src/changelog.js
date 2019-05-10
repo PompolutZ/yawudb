@@ -1,4 +1,9 @@
 const changelog = {
+    "0.23.0" : {
+        "Card Search": "Now its possible to quickly search for any card right from the home page.",
+        "Quick Filter By Type": "This addition should be useful for mobile users like me, you can now filter cards by type by clicking on type on the cards type of the deck builder.",
+        "End Routes": "I have noticed that sometimes you want to just get back from the page you are now, especially when you use app pinned to home screen of your iPhone. Now the menu 'sandwich' button will be replaced with arrow back when you are on certain pages."
+    },
     "0.22.1" : {
         "Card Scans": "109 cards from Thundrik’s Profiteers and Ylthari’s Guardians expansions have received official images"
     },
