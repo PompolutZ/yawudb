@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import "./DeckBuilder.css";
 import { OrderedSet, Set } from 'immutable';
 

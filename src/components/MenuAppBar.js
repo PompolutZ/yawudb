@@ -24,6 +24,7 @@ import { connect } from 'react-redux'
 import { SET_SCROLL_INDEX } from '../reducers/library'
 import { AddCardSVG, DeckSVG } from '../atoms/SVGs'
 import { withFirebase } from '../firebase'
+import * as ROUTES from '../constants/routes';
 
 const styles = theme => ({
     root: {
@@ -39,10 +40,6 @@ const styles = theme => ({
     menuButton: {
         marginLeft: -12,
         marginRight: 20,
-    },
-
-    wuPrimaryColor: {
-        backgroundColor: '#3B9979',
     },
 
     desktopOnly: {
@@ -77,55 +74,39 @@ class MenuAppBar extends React.Component {
         this.setState({ anchorEl: null })
     }
 
-    handleMyDecks = () => {
-        this.props.history.push('/mydecks')
-        this.handleClose()
+    handleCloseMenuAndNavigateToRoute = route => () => {
+        this.handleClose();
+        this.props.history.push(route);
+    }
+
+    handleNavigateToRoute = route => () => {
+        this.props.history.push(route);
     }
 
     handleSignOut = () => {
         this.handleClose()
         this.props.firebase
             .signOut()
-            .then(() => {
-                this.props.history.push('/')
-            })
+            .then(this.navigateHome)
             .catch(err => console.log(err))
     }
 
-    handleSignIn = () => {
-        this.props.history.push('/login')
-        this.handleClose()
-    }
-
-    handleProfile = () => {
-        this.props.history.push('/profile')
-        this.handleClose()
-    }
-
     navigateHome = () => {
-        this.props.history.push('/')
+        this.props.history.push(ROUTES.HOME)
     }
 
-    navigateToLibrary = () => {
-        this.props.resetScrollIndex()
-        this.props.history.push('/library')
-    }
-
-    navigateToDeckBuilder = () => {
-        this.props.history.push('/deck/create')
-    }
-
-    navigateToAllDecks = () => {
-        this.props.history.push('/decks/all')
-    }
+    // navigateToLibrary = () => {
+    //     this.props.resetScrollIndex()
+    //     this.props.history.push('/library')
+    // }
 
     navigateBack = () => {
       this.props.history.goBack();
     }
 
     isEndRoute = () =>
-        this.props.currentLocation.startsWith('/view/card') ||
-        this.props.currentLocation.startsWith('/view/deck')
+        this.props.currentLocation.startsWith(ROUTES.VIEW_CARD) ||
+        this.props.currentLocation.startsWith(ROUTES.VIEW_DECK)
 
     render() {
         const { classes, history } = this.props
@@ -135,10 +116,10 @@ class MenuAppBar extends React.Component {
         const sideList = (
             <div className={classes.list}>
                 <List component="nav">
-                    <ListItem button onClick={this.navigateToDeckBuilder}>
+                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.CREATE_NEW_DECK)}>
                         <ListItemText primary="Deck Builder" />
                     </ListItem>
-                    <ListItem button onClick={this.navigateToLibrary}>
+                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.CARDS_LIBRARY)}>
                         <ListItemText
                             primary={
                                 <div>
@@ -148,12 +129,12 @@ class MenuAppBar extends React.Component {
                             }
                         />
                     </ListItem>
-                    <ListItem button onClick={this.navigateToAllDecks}>
+                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.BROWSE_ALL_DECKS)}>
                         <ListItemText primary="Decks" />
                     </ListItem>
                     <ListItem
                         button
-                        onClick={() => history.push('/statistics')}
+                        onClick={() => history.push(ROUTES.STATISTICS)}
                     >
                         <ListItemText
                             primary={
@@ -164,10 +145,10 @@ class MenuAppBar extends React.Component {
                             }
                         />
                     </ListItem>
-                    <ListItem button onClick={() => history.push('/feedback')}>
+                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.FEEDBACK)}>
                         <ListItemText primary="Feedback" />
                     </ListItem>
-                    <ListItem button onClick={() => history.push('/about')}>
+                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.ABOUT)}>
                         <ListItemText primary="About" />
                     </ListItem>
                 </List>
@@ -178,7 +159,6 @@ class MenuAppBar extends React.Component {
             <div className={classes.root}>
                 <AppBar
                     position="fixed"
-                    classes={{ colorPrimary: classes.wuPrimaryColor }}
                 >
                     <Toolbar>
                         {!this.isEndRoute() && (
@@ -251,10 +231,10 @@ class MenuAppBar extends React.Component {
                                     open={open}
                                     onClose={this.handleClose}
                                 >
-                                    <MenuItem onClick={this.handleProfile}>
+                                    <MenuItem onClick={this.handleCloseMenuAndNavigateToRoute(ROUTES.PROFILE)}>
                                         Profile
                                     </MenuItem>
-                                    <MenuItem onClick={this.handleMyDecks}>
+                                    <MenuItem onClick={this.handleCloseMenuAndNavigateToRoute(ROUTES.MY_DECKS)}>
                                         My decks
                                     </MenuItem>
                                     <MenuItem onClick={this.handleSignOut}>
@@ -287,7 +267,7 @@ class MenuAppBar extends React.Component {
                                     open={open}
                                     onClose={this.handleClose}
                                 >
-                                    <MenuItem onClick={this.handleSignIn}>
+                                    <MenuItem onClick={this.handleCloseMenuAndNavigateToRoute(ROUTES.SIGN_IN)}>
                                         Sign in
                                     </MenuItem>
                                 </Menu>

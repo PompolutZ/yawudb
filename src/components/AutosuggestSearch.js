@@ -153,6 +153,11 @@ function AutosuggestSearch({ classes, onClick }) {
         onClick(lastPickedSuggestion)
     }
 
+    const handleKeyPress = event => {
+        if(event.key !== 'Enter') return;
+        onClick(lastPickedSuggestion);
+    }
+
     const autosuggestProps = {
         renderInputComponent,
         suggestions: suggestions,
@@ -171,6 +176,7 @@ function AutosuggestSearch({ classes, onClick }) {
                     placeholder: 'Search for a card name',
                     value: text,
                     onChange: handleChange,
+                    onKeyPress: handleKeyPress,
                 }}
                 theme={{
                     container: classes.container,

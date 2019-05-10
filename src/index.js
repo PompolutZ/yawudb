@@ -15,11 +15,10 @@ import configureStore from './configureStore'
 import LazyLoading from './components/LazyLoading'
 import ErrorBoundary from './components/ErrorBoundary'
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions'
-import { factionIdPrefix } from './data/index'
-import values from 'lodash/values'
 import { Button } from '@material-ui/core'
 import Firebase, { FirebaseContext, withFirebase } from './firebase'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import * as ROUTES from './constants/routes';
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'))
 const Decks = lazy(() => import('./pages/Decks'))
@@ -70,7 +69,7 @@ class PrivateRouteContainer extends React.Component {
                     ) : (
                         <Redirect
                             to={{
-                                pathname: '/login',
+                                pathname: ROUTES.SIGN_IN,
                                 state: { from: props.location },
                             }}
                         />
@@ -384,67 +383,67 @@ class App extends Component {
                         <div style={{ paddingTop: '4rem' }}>
                             <Suspense fallback={<LazyLoading />}>
                                 <Switch>
-                                    <Route exact path="/" component={Home} />
+                                    <Route exact path={ROUTES.HOME} component={Home} />
                                     <Route
-                                        path="/decks/:faction"
+                                        path={`${ROUTES.BROWSE_DECKS_FOR}/:faction`}
                                         render={props => <Decks {...props} />}
                                     />
                                     <Route
-                                        path="/library"
+                                        path={ROUTES.CARDS_LIBRARY}
                                         render={props => <Library {...props} />}
                                     />
                                     <Route
-                                        path="/deck/create"
+                                        path={ROUTES.CREATE_NEW_DECK}
                                         render={props => (
                                             <DeckCreator {...props} />
                                         )}
                                     />
                                     <Route
-                                        path="/deck/edit/:id"
+                                        path={ROUTES.EDIT_DECK}
                                         render={props => (
                                             <DeckCreator {...props} />
                                         )}
                                     />
                                     <Route
-                                        path="/login"
+                                        path={ROUTES.SIGN_IN}
                                         render={props => <Login {...props} />}
                                     />
                                     <Route
-                                        path="/user/signup"
+                                        path={ROUTES.SIGN_UP}
                                         render={props => <SignUp {...props} />}
                                     />
                                     <Route
-                                        path="/view/deck/:id"
+                                        path={ROUTES.VIEW_DECK_ID}
                                         render={props => <Deck {...props} />}
                                     />
                                     <Route
-                                        path="/view/card/:id"
+                                        path={ROUTES.VIEW_CARD_ID}
                                         render={props => <Card {...props} />}
                                     />
                                     <Route
-                                        path="/about"
+                                        path={ROUTES.ABOUT}
                                         render={props => <About {...props} />}
                                     />
                                     <Route
-                                        path="/statistics"
+                                        path={ROUTES.STATISTICS}
                                         render={props => (
                                             <Statistics {...props} />
                                         )}
                                     />
                                     <Route
-                                        path="/feedback"
+                                        path={ROUTES.FEEDBACK}
                                         render={props => (
                                             <Feedback {...props} />
                                         )}
                                     />
                                     <Route
-                                        path="/privacy-policy"
+                                        path={ROUTES.PRIVACY_POLICY}
                                         render={props => (
                                             <PrivacyPolicy {...props} />
                                         )}
                                     />
                                     <Route
-                                        path="/requestPasswordReset"
+                                        path={ROUTES.PASSWORD_RESET}
                                         render={props => (
                                             <PasswordResetRequest {...props} />
                                         )}
@@ -463,11 +462,11 @@ class App extends Component {
                                     />
 
                                     <PrivateRoute
-                                        path="/mydecks"
+                                        path={ROUTES.MY_DECKS}
                                         component={MyDecks}
                                     />
                                     <PrivateRoute
-                                        path="/profile"
+                                        path={ROUTES.PROFILE}
                                         component={UserProfile}
                                     />
                                     <PrivateRoute
@@ -557,8 +556,8 @@ const theme = createMuiTheme({
             // contrastText: will be calculated to contrast with palette.primary.main
         },
         secondary: {
-            light: '#0066ff',
-            main: '#0044ff',
+            //light: '#0066ff',
+            main: '#4b806e',
             // dark: will be calculated from palette.secondary.main,
             contrastText: '#ffcc00',
         },
