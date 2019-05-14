@@ -7,24 +7,19 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
 import {
     Drawer,
     List,
     ListItem,
     ListItemText,
-    Avatar,
-    Button,
 } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
-//import firebase from '../firebase/firebase';
 import { connect } from 'react-redux'
-import { SET_SCROLL_INDEX } from '../reducers/library'
-import { AddCardSVG, DeckSVG } from '../atoms/SVGs'
-import { withFirebase } from '../firebase'
-import * as ROUTES from '../constants/routes';
+import { SET_SCROLL_INDEX } from '../../reducers/library'
+import { AddCardSVG, DeckSVG } from '../../atoms/SVGs'
+import { withFirebase } from '../../firebase'
+import * as ROUTES from '../../constants/routes';
+import AccountMenuButton from './AccountMenuButton';
 
 const styles = theme => ({
     root: {
@@ -95,11 +90,6 @@ class MenuAppBar extends React.Component {
         this.props.history.push(ROUTES.HOME)
     }
 
-    // navigateToLibrary = () => {
-    //     this.props.resetScrollIndex()
-    //     this.props.history.push('/library')
-    // }
-
     navigateBack = () => {
       this.props.history.goBack();
     }
@@ -110,8 +100,6 @@ class MenuAppBar extends React.Component {
 
     render() {
         const { classes, history } = this.props
-        const { anchorEl } = this.state
-        const open = Boolean(anchorEl)
 
         const sideList = (
             <div className={classes.list}>
@@ -207,72 +195,8 @@ class MenuAppBar extends React.Component {
                                 style={{ width: '1.5rem', height: '1.5rem' }}
                             />
                         </IconButton>
-                        {this.props.isAuth && (
-                            <div>
-                                <IconButton
-                                    aria-owns={open ? 'menu-appbar' : null}
-                                    aria-haspopup="true"
-                                    onClick={this.handleMenu}
-                                    color="inherit"
-                                >
-                                    <Avatar src={this.props.avatar} />
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={this.handleClose}
-                                >
-                                    <MenuItem onClick={this.handleCloseMenuAndNavigateToRoute(ROUTES.PROFILE)}>
-                                        Profile
-                                    </MenuItem>
-                                    <MenuItem onClick={this.handleCloseMenuAndNavigateToRoute(ROUTES.MY_DECKS)}>
-                                        My decks
-                                    </MenuItem>
-                                    <MenuItem onClick={this.handleSignOut}>
-                                        Sign out
-                                    </MenuItem>
-                                </Menu>
-                            </div>
-                        )}
-                        {!this.props.isAuth && (
-                            <div>
-                                <IconButton
-                                    aria-owns={open ? 'menu-appbar' : null}
-                                    aria-haspopup="true"
-                                    onClick={this.handleMenu}
-                                    color="inherit"
-                                >
-                                    <AccountCircle />
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={this.handleClose}
-                                >
-                                    <MenuItem onClick={this.handleCloseMenuAndNavigateToRoute(ROUTES.SIGN_IN)}>
-                                        Sign in
-                                    </MenuItem>
-                                </Menu>
-                            </div>
-                        )}
+
+                        <AccountMenuButton />
                     </Toolbar>
                 </AppBar>
                 <div>

@@ -116,18 +116,6 @@ class DeckBuilder extends Component {
     _updateCurrentDeck = async args => {
         try {
             const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
-            // const objectiveScoringSummary = this.props.currentDeck.map(x => {
-            //     const { type, scoreType } = cardsDb[x];
-            //     if(type === 0) {
-            //         return scoreType;
-            //     }
-    
-            //     return -1;
-            // }).reduce((acc, x) => {
-            //     if(x < 0) return acc;
-            //     acc[x] += 1;
-            //     return acc;
-            // }, [0, 0, 0, 0]);
     
             const updated = Date();
             const deckPayload = {

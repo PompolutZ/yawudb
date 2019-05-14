@@ -18,7 +18,7 @@ import { UPDATE_EXPANSIONS } from './reducers/userExpansions'
 import { Button } from '@material-ui/core'
 import Firebase, { FirebaseContext, withFirebase } from './firebase'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import * as ROUTES from './constants/routes';
+import * as ROUTES from './constants/routes'
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'))
 const Decks = lazy(() => import('./pages/Decks'))
@@ -329,29 +329,6 @@ class App extends Component {
         error: '',
     }
 
-    // fetchCardsRanking = () => {
-    //     console.log(this.props);
-    //     return function(dispatch) {
-    //         return this.props.firebase.realdb.ref('/cards_ratings').once('value').then(snapshot => {
-    //             const data = snapshot.val();
-    //             dispatch({ type: 'SET_CARDS_RANKING', payload: [-1, data['1'], data['2'], data['3']]});
-    //         });
-    //     }
-    // }
-
-    // subscribeOnDecksMeta = () => {
-    //     const factions = values(factionIdPrefix);
-    //     return dispatch => {
-    //         return factions.reduce(async (acc, el) => {
-    //             this.props.firebase.realdb.ref(`/decks_meta/${el}`).on('value', snapshot => {
-    //                 const meta = snapshot.val();
-    //                 dispatch({ type: 'SET_DECKS_META', payload: {key: el, value: meta }});
-    //             });
-    //             return acc;
-    //         }, {});
-    //     }
-    // }
-
     componentDidMount = () => {
         this.unsubscribe = this.props.firebase.auth.onAuthStateChanged(user => {
             try {
@@ -363,12 +340,13 @@ class App extends Component {
             } catch (err) {
                 this.setState({ error: err })
             }
-        })
+        });
     }
 
     componentWillUnmount() {
         this.unsubscribe()
         this.counterRef.off()
+        this.props.firebase.decks().off();
     }
 
     render() {
@@ -383,9 +361,15 @@ class App extends Component {
                         <div style={{ paddingTop: '4rem' }}>
                             <Suspense fallback={<LazyLoading />}>
                                 <Switch>
-                                    <Route exact path={ROUTES.HOME} component={Home} />
                                     <Route
-                                        path={`${ROUTES.BROWSE_DECKS_FOR}/:faction`}
+                                        exact
+                                        path={ROUTES.HOME}
+                                        component={Home}
+                                    />
+                                    <Route
+                                        path={`${
+                                            ROUTES.BROWSE_DECKS_FOR
+                                        }/:faction`}
                                         render={props => <Decks {...props} />}
                                     />
                                     <Route
