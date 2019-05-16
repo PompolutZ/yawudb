@@ -21,6 +21,7 @@ import {
     EDIT_DECK_SOURCE } from '../reducers/deckUnderEdit';
 import { CHANGE_SEARCH_TEXT } from '../reducers/cardLibraryFilters';
 import { connect } from 'react-redux';
+import FactionToggleDesktopBase from '../atoms/FactionToggleDesktop';
 
 class DeckCreator extends Component {
     state = {
@@ -44,7 +45,8 @@ class DeckCreator extends Component {
         return (
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <div>
-                    <FactionToggle key={selectedFaction} editMode={this.state.isEdit} selectedFaction={selectedFaction} setFaction={setFaction} />
+                    {/* <FactionToggle key={selectedFaction} editMode={this.state.isEdit} selectedFaction={selectedFaction} setFaction={setFaction} /> */}
+                    <FactionToggleDesktopBase faction={selectedFaction} edit={this.state.isEdit} setFaction={setFaction} />
                 </div>
                 <DeckBuilder
                     key={selectedFaction}

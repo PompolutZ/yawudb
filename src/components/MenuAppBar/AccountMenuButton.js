@@ -45,7 +45,7 @@ function AccountMenuButton({ history }) {
 
     return (
         <React.Fragment>
-            {isAuth && (
+            {!!authUser && (
                 <React.Fragment>
                     <IconButton
                         aria-owns={open ? 'menu-appbar' : null}
@@ -87,7 +87,7 @@ function AccountMenuButton({ history }) {
                     </Menu>
                 </React.Fragment>
             )}
-            {!isAuth && (
+            {authUser === null && (
                 <React.Fragment>
                     <IconButton
                         aria-owns={open ? 'menu-appbar' : null}
