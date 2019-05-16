@@ -14,7 +14,14 @@ const styles = theme => ({
     root: {
         display: 'flex',
         flexFlow: 'column nowrap',
-        margin: '1rem'
+        margin: '.5rem',
+        width: 'calc(100% - 1rem)',
+        height: '100%',
+    },
+
+    cardsContainer: {
+        width: '100%',
+        height: '100%',
     },
     
     formControl: {
@@ -71,9 +78,14 @@ class LibraryViewVariantMenu extends PureComponent {
 }
 
 class Library extends PureComponent {
-    state = {
-        cards: [],
-        viewVariant: VIEW_AS_SIMPLE_LIST
+    constructor(props) {
+        super(props);
+        this.state = {
+            cards: [],
+            viewVariant: VIEW_AS_SIMPLE_LIST
+        }
+
+        this.cardsContainerRef = React.createRef();
     }
 
     componentDidMount = () => {
@@ -99,29 +111,18 @@ class Library extends PureComponent {
         return (
             <div className={classes.root}>
                 <LibraryViewVariantMenu onSetViewVariant={this.handleViewVariantChanged} />
-                {/* <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="view-mode">View Library As:</InputLabel>
-                    <Select
-                        value={this.state.viewVariant}
-                        onChange={this.handleChange}
-                        inputProps={{
-                            name: 'viewVariant',
-                            id: 'view-mode',
-                        }}
-                    >
-                        <MenuItem value={VIEW_AS_SIMPLE_LIST}>Simple list</MenuItem>
-                        <MenuItem value={VIEW_AS_CARD_IMAGES}>Card images</MenuItem>
-                    </Select>
-                </FormControl> */}
+                <div className={classes.cardsContainer} ref={this.cardsContainerRef}>
                 {
                     this.state.cards.length > 0 && (
                         <VirtualizedCardsList cards={this.state.cards}
                             key={this.state.viewVariant} 
+                            containerRef={this.cardsContainerRef.current}
                             scrollIndex={this.props.scrollIndex}
                             setLastScrollIndex={this.props.setLastScrollIndex}
                             variant={this.state.viewVariant} />
                     )
                 }
+                </div>
             </div>
         );
     }

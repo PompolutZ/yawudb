@@ -352,13 +352,13 @@ class App extends Component {
     render() {
         return (
             <ConnectedRouter history={history}>
-                <div>
+                <div style={{width: '100%', height: '100%'}}>
                     <MenuAppBar />
 
                     <div>{this.state.error}</div>
 
                     <ErrorBoundary>
-                        <div style={{ paddingTop: '4rem' }}>
+                        <div style={{ margin: '4.5rem 0 0 0', width: '100%', height: '100%', boxSizing: 'border-box' }}>
                             <Suspense fallback={<LazyLoading />}>
                                 <Switch>
                                     <Route
@@ -550,13 +550,15 @@ const theme = createMuiTheme({
 })
 
 const Root = () => (
-    <Provider store={store}>
-        <FirebaseContext.Provider value={new Firebase()}>
-            <MuiThemeProvider theme={theme}>
-                <ConnectedApp />
-            </MuiThemeProvider>
-        </FirebaseContext.Provider>
-    </Provider>
+    <div style={{ width: '100%', height: '100%' }}>
+        <Provider store={store}>
+            <FirebaseContext.Provider value={new Firebase()}>
+                <MuiThemeProvider theme={theme}>
+                    <ConnectedApp />
+                </MuiThemeProvider>
+            </FirebaseContext.Provider>
+        </Provider>
+    </div>
 )
 
 ReactDOM.render(<Root />, document.getElementById('root'))

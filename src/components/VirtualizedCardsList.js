@@ -246,14 +246,15 @@ class VirtualizedCardsList extends Component {
     }
 
     render() {
+        const { containerRef } = this.props;
         return (
             <AutoSizer disableHeight>
                 {
                     () => (
                         <List
                         ref={this._setRef}
-                        width={345}
-                        height={550}
+                        width={containerRef.offsetWidth}
+                        height={containerRef.offsetHeight}
                         rowCount={this.props.cards.length}
                         rowHeight={this._calcRowHeight}
                         rowRenderer={this._rowRenderer}
