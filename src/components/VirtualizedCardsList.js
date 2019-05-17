@@ -190,7 +190,30 @@ const CardImageViewWithStyles = withRouter(withStyles(cardImageViewStyles)(CardI
 const VIEW_AS_SIMPLE_LIST = 'VIEW_AS_SIMPLE_LIST';
 const VIEW_AS_CARD_IMAGES = 'VIEW_AS_CARD_IMAGES';  
 
+const ratio = 744 / 532;
+
 class VirtualizedCardsList extends Component {
+    state = {
+        cardRows: [],
+        cardRenderWidth: 0,
+        cardRenderHeight: 0,
+    }
+
+    componentDidMount(){
+        console.log(this.props.cards);
+        console.log(this.props.containerRef.offsetWidth);
+        console.log(ratio);
+        const itemsPerRow = 4;
+        const rows = this.props.cards.reduce((result, item, index, array) => {
+            if(index % itemsPerRow === 0) {
+                result.push(array.slice(index, index + itemsPerRow));
+            }
+
+            return result;
+        }, []);
+        
+        this.setState({ cardRows: rows, cardRenderWidth: this.props.containerRef.offsetWidth / itemsPerRow, cardRenderHeight: this.props.containerRef.offsetWidth / itemsPerRow * ratio });
+    }
 
     _rowRenderer = params => {
         const renderedItem = this._renderItem(params.index)
@@ -206,16 +229,17 @@ class VirtualizedCardsList extends Component {
             return <span></span>
         }
 
-        switch(this.props.variant) {
-            case VIEW_AS_SIMPLE_LIST: 
-                return <CardNameViewWithStyles index={index} setLastScrollIndex={this.props.setLastScrollIndex} {...this.props.cards[index]} />
-            
-            case VIEW_AS_CARD_IMAGES:
-                return <CardImageViewWithStyles {...this.props.cards[index]} />    
-
-            default:
-                return <span></span>;    
-        }
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                {
+                    this.state.cardRows[index] && this.state.cardRows[index].map(card => (
+                        <div key={card.id} style={{ width: this.state.cardRenderWidth, height: this.state.cardRenderHeight, display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+                            <img style={{ width: '90%' }} src={`/assets/cards/${card.id}.png`} />
+                        </div>
+                    ))
+                }
+            </div>
+        )
     }
 
     _setRef = ref => {
@@ -228,23 +252,6 @@ class VirtualizedCardsList extends Component {
         this.List.forceUpdate();
     }
 
-    _calcRowHeight = params => {
-        if (!this.props.cards[params.index].hasOwnProperty('name')) {
-            return 0;
-        }
-
-        switch(this.props.variant) {
-            case VIEW_AS_SIMPLE_LIST: 
-                return 36;
-            
-            case VIEW_AS_CARD_IMAGES:
-                return 550; 
-                
-            default:
-                return 0;    
-        }
-    }
-
     render() {
         const { containerRef } = this.props;
         return (
@@ -255,8 +262,8 @@ class VirtualizedCardsList extends Component {
                         ref={this._setRef}
                         width={containerRef.offsetWidth}
                         height={containerRef.offsetHeight}
-                        rowCount={this.props.cards.length}
-                        rowHeight={this._calcRowHeight}
+                        rowCount={this.state.cardRows.length}
+                        rowHeight={this.state.cardRenderHeight}
                         rowRenderer={this._rowRenderer}
                         scrollToIndex={this.props.scrollIndex} />
                     )

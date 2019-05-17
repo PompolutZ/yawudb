@@ -110,7 +110,6 @@ class Library extends PureComponent {
 
         return (
             <div className={classes.root}>
-                <LibraryViewVariantMenu onSetViewVariant={this.handleViewVariantChanged} />
                 <div className={classes.cardsContainer} ref={this.cardsContainerRef}>
                 {
                     this.state.cards.length > 0 && (
