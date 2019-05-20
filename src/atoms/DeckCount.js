@@ -12,7 +12,6 @@ function DeckCount({ classes, prefix, firebase, decksMeta, addDecksMeta }) {
         const ref = firebase.realdb.ref(`/decks_meta/${prefix}`);
         ref.on('value', snapshot => {
             const currentMeta = snapshot.val();
-            console.log(currentMeta);
             setCount(currentMeta.count);
             addDecksMeta(prefix, currentMeta);
         });

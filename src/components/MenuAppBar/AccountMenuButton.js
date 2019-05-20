@@ -13,8 +13,6 @@ import useAuthUser from '../../hooks/useAuthUser';
 function AccountMenuButton({ history }) {
     const firebase = React.useContext(FirebaseContext)
     const authUser = useAuthUser();
-    console.log(authUser);
-    const [isAuth, setIsAuth] = React.useState(Boolean(authUser));
     const [anchorEl, setAnchorEl] = React.useState(null)
     const open = Boolean(anchorEl)
 

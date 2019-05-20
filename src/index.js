@@ -324,6 +324,14 @@ class Template extends Component {
     }
 }
 
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
 class App extends Component {
     state = {
         error: '',
@@ -341,6 +349,35 @@ class App extends Component {
                 this.setState({ error: err })
             }
         });
+
+        const start = new Date();
+        const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
+        const end = new Date();
+        console.log(Object.keys(decks).length, 'decks in', end - start, 'ms');
+
+        if(isEmpty(decks)) {
+            this.props.firebase.decks().once('value').then(s => localStorage.setItem('yawudb_decks', JSON.stringify(s.val())));
+        } else {
+            const decksRef = this.props.firebase.decks();
+            decksRef.on('child_added', data => {
+                if(decks[data.key]) return;
+                const updatedDecks = {...decks, [data.key]: data.val()};
+                localStorage.setItem('yawudb_decks', JSON.stringify(updatedDecks));
+                console.log('DECK ADDED: ', data.key, data.val());
+            });
+    
+            decksRef.on('child_changed', data => {
+                const updatedDecks = {...decks, [data.key]: data.val()};
+                localStorage.setItem('yawudb_decks', JSON.stringify(updatedDecks));
+                console.log('DECK CHANGED: ', data.key, data.val());
+            });
+    
+            decksRef.on('child_removed', data => {
+                delete decks[data.key];
+                localStorage.setItem('yawudb_decks', JSON.stringify(decks));
+                console.log('DECK REMOVED: ', data.key, data.val());
+            });
+        }
     }
 
     componentWillUnmount() {

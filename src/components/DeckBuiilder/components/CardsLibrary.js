@@ -162,7 +162,6 @@ class FilterableCardLibrary extends Component {
     _reloadCards = () => {
         const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
         const selectedFactionDefaultSet = this.props.editMode ? this.props.editModeFactionDefaultSet : this.props.createModeFactionDefaultSet;
-        console.log(selectedFactionDefaultSet)
         const selectedSets = this.props.editMode ? this.props.editModeSelectedSets : this.props.createModeSelectedSets;
         const factionCards = getCardsByFactionAndSets(selectedFaction, selectedSets, selectedFactionDefaultSet);
         if(selectedSets && selectedSets.length > 0) {

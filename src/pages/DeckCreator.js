@@ -45,8 +45,8 @@ class DeckCreator extends Component {
         return (
             <div style={{display: 'flex', flexFlow: 'column nowrap'}}>
                 <div>
-                    {/* <FactionToggle key={selectedFaction} editMode={this.state.isEdit} selectedFaction={selectedFaction} setFaction={setFaction} /> */}
-                    <FactionToggleDesktopBase faction={selectedFaction} edit={this.state.isEdit} setFaction={setFaction} />
+                    <FactionToggle key={selectedFaction} editMode={this.state.isEdit} selectedFaction={selectedFaction} setFaction={setFaction} />
+                    {/* <FactionToggleDesktopBase faction={selectedFaction} edit={this.state.isEdit} setFaction={setFaction} /> */}
                 </div>
                 <DeckBuilder
                     key={selectedFaction}

@@ -157,9 +157,7 @@ class DeckBuilder extends Component {
         return ref.transaction(meta => {
             if(meta) {
                 const diff = meta.ids.filter(x => x !== id);
-                console.log(diff);
                 meta.ids = [id, ...diff];
-                console.log(meta.ids);
                 meta.count = meta.ids.length;
             }
 

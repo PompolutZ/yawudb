@@ -8,7 +8,6 @@ function FactionIcon({ classes, faction, cardsSet, selected, onSelected }) {
     const strippedFaction = faction.startsWith('n_') ? faction.slice(2) : faction;
     
     const handleClick = () => {
-        console.log(cardsSet);
         onSelected([faction, cardsSet]);
     }
 
