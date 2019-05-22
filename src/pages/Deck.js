@@ -26,28 +26,41 @@ class Deck extends Component {
 
     componentDidMount = async () => {
         try {
+            console.log(this.props.location.state);
             if(this.props.mydecks[this.props.match.params.id]) {
                 this.setState(state => ({ deck: this.props.mydecks[this.props.match.params.id], isEditAllowed: true }));
             } else {
-                const snapshot = await this.props.firebase.realdb.ref('/decks/' + this.props.match.params.id).once('value');
-                const data = snapshot.val();
-                let author = data.author;
-                if(author !== 'Anonymous') {
-                    this.setState({ isEditAllowed: this.props.uid === data.author });
+                if(this.props.location.state) {
+                    this.setState({ 
+                        deck: {...this.props.location.state, id: this.props.match.params.id, },
+                        isEditAllowed: this.props.uid === this.props.location.state.author
+                    });
                 }
-
-                let created = new Date(0);
-                if(data.created && data.created.seconds) {
-                    created.setSeconds(data.created.seconds);
-                } else {
-                    created = new Date(data.created);
-                }
-
-                this.setState({deck: {...data, id: this.props.match.params.id, created: created }}); //, author:this.props.userInfo.displayName
+                
+                this.props.firebase.deck(this.props.match.params.id).on('value', snapshot => {
+                    const data = snapshot.val();
+                    let author = data.author;
+                    if(author !== 'Anonymous') {
+                        this.setState({ isEditAllowed: this.props.uid === data.author });
+                    }
+    
+                    let created = new Date(0);
+                    if(data.created && data.created.seconds) {
+                        created.setSeconds(data.created.seconds);
+                    } else {
+                        created = new Date(data.created);
+                    }
+    
+                    this.setState({deck: {...data, id: this.props.match.params.id, created: created }});
+                })
             }
         } catch(error) {
             console.log(error);
         }
+    }
+
+    componentWillUnmount() {
+        this.props.firebase.deck(this.props.match.params.id).off();
     }
 
     render() {

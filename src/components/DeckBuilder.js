@@ -181,20 +181,14 @@ class DeckBuilder extends Component {
         try {
             const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
             const deckId = `${factionIdPrefix[faction]}-${uuid4().slice(-12)}`;
-            // const objectiveScoringSummary = this.props.currentDeck.map(x => {
-            //     const { type, scoreType } = cardsDb[x];
-                
-            //     if(type === 0) {
-            //         console.log(cardsDb[x], scoreType);
-            //         return scoreType;
-            //     }
-    
-            //     return -1;
-            // }).reduce((acc, x) => {
-            //     if(x < 0) return acc;
-            //     acc[x] += 1;
+            // const scoringOverview = this.props.currentDeck.filter(c => cardsDb[c].).reduce((acc, o) => {
+            //     acc.summary[o.scoreType] += 1;
+            //     acc.glory += Number(o.glory);
             //     return acc;
-            // }, [0, 0, 0, 0]);
+            // }, {
+            //     glory: 0,
+            //     summary: [0, 0, 0, 0]
+            // });
     
             const deckPayload = {
                 name: this.props.currentDeckName,

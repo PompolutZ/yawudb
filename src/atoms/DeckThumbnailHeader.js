@@ -2,13 +2,17 @@ import React from 'react';
 import SetsList from './SetsList';
 import ScoringOverview from './ScoringOverview';
 import RestrictedBannedCardsCount from './RestrictedBannedCardsCount';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
-const DeckThumbnailHeader = ({ title, author, date, sets, scoringOverview, banned, restricted, isDraft }) => (
-    <div style={{ fontFamily: `'Roboto', sans-serif`}}>
-        <div style={{ fontSize: '.8rem', fontWeight: '500', cursor: 'pointer' }}>{title}</div>
+const DeckThumbnailHeader = ({ classes, title, author, date, sets, scoringOverview, banned, restricted, isDraft }) => (
+    <div className={classes.root}>
+        <Typography variant="subtitle2" noWrap style={{maxWidth: '18rem' }}>{title}</Typography>
+        {/* <div style={{ fontSize: '.8rem', fontWeight: '500', cursor: 'pointer' }}></div> */}
+        <div style={{ marginBottom: '.2rem'}}>
         {
             !date && (
-                <div style={{ fontSize: '.8rem' }}>{author}</div>
+                <div style={{ fontSize: '.6rem', color: 'gray', fontWeight: '300' }}>{author}</div>
             ) 
         }
         {
@@ -21,10 +25,16 @@ const DeckThumbnailHeader = ({ title, author, date, sets, scoringOverview, banne
                 <div style={{ fontStyle: 'italic', color: 'darkorange' }}>Draft</div>
             )
         }
+        </div>
         <SetsList sets={sets} />
         <ScoringOverview summary={scoringOverview.summary} glory={scoringOverview.glory} />
-        <RestrictedBannedCardsCount banned={banned} restricted={restricted} />
     </div>
 );
 
-export default DeckThumbnailHeader;
+const styles = theme => ({
+    root: {
+        fontFamily: `'Roboto', sans-serif`,
+    },
+})
+
+export default withStyles(styles)(DeckThumbnailHeader);

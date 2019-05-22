@@ -10,16 +10,16 @@ const RestrictedBannedCardsCount = ({ banned, restricted, style }) => (
     {
         banned > 0 && (
             <div style={{ display: 'flex', alignItems: 'center'}}>
-                <NotInterestedIcon style={{color: pickCardColor(Object.keys(bannedCards)[0])}} />
-                <Typography style={{ color: pickCardColor(Object.keys(bannedCards)[0])}}>{banned}</Typography>
+                <NotInterestedIcon style={{ color: pickCardColor(Object.keys(bannedCards)[0]), width: '.7rem'}} />
+                <Typography style={{ color: pickCardColor(Object.keys(bannedCards)[0]), fontSize: '.7rem'}}>{banned}</Typography>
             </div>
         )
     }
     {
         restricted > 0 && (
             <div style={{ display: 'flex', alignItems: 'center'}}>
-                <LockIcon style={{color: pickCardColor(Object.keys(restrictedCards)[0])}} />
-                <Typography style={{ color: pickCardColor(Object.keys(restrictedCards)[0])}}>{restricted}</Typography>
+                <LockIcon style={{color: pickCardColor(Object.keys(restrictedCards)[0]), width: '.7rem'}} />
+                <Typography style={{ color: pickCardColor(Object.keys(restrictedCards)[0]), fontSize: '.7rem'}}>{restricted}</Typography>
             </div>
         )
     }

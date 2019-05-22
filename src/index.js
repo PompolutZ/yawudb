@@ -382,20 +382,19 @@ class App extends Component {
 
     componentWillUnmount() {
         this.unsubscribe()
-        this.counterRef.off()
         this.props.firebase.decks().off();
     }
 
     render() {
         return (
             <ConnectedRouter history={history}>
-                <div style={{width: '100%', height: '100%'}}>
+                <div style={{width: '100%', height: '100%', display: 'flex', flexFlow: 'column nowrap'}}>
                     <MenuAppBar />
 
                     <div>{this.state.error}</div>
 
                     <ErrorBoundary>
-                        <div style={{ margin: '4.5rem 0 0 0', width: '100%', height: '100%', boxSizing: 'border-box' }}>
+                        <div id="yawudb_main" style={{ margin: '4.5rem 0 0 0', width: '100%', flex: '1 0 80%', boxSizing: 'border-box' }}>
                             <Suspense fallback={<LazyLoading />}>
                                 <Switch>
                                     <Route
