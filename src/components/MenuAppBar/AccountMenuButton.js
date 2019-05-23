@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
+import Divider from '@material-ui/core/Divider'
 import Avatar from '@material-ui/core/Avatar';
 import { withRouter } from 'react-router-dom'
 //import firebase from '../firebase/firebase';
@@ -74,13 +75,14 @@ function AccountMenuButton({ history }) {
                         >
                             Profile
                         </MenuItem>
-                        <MenuItem
+                        {/* <MenuItem
                             onClick={handleCloseMenuAndNavigateToRoute(
                                 ROUTES.MY_DECKS
                             )}
                         >
                             My decks
-                        </MenuItem>
+                        </MenuItem> */}
+                        <Divider />
                         <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
                     </Menu>
                 </React.Fragment>

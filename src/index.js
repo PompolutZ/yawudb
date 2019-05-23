@@ -388,7 +388,7 @@ class App extends Component {
     render() {
         return (
             <ConnectedRouter history={history}>
-                <div style={{width: '100%', height: '100%', display: 'flex', flexFlow: 'column nowrap'}}>
+                <div style={{width: '100%', height: '100%', display: 'flex', flexFlow: 'column nowrap' }}>
                     <MenuAppBar />
 
                     <div>{this.state.error}</div>
@@ -480,11 +480,17 @@ class App extends Component {
                                             <Template {...props} />
                                         )}
                                     />
+                                    <Route
+                                        path={ROUTES.MY_DECKS}
+                                        render={props => (
+                                            <MyDecks {...props} />
+                                        )}
+                                    />
 
-                                    <PrivateRoute
+                                    {/* <PrivateRoute
                                         path={ROUTES.MY_DECKS}
                                         component={MyDecks}
-                                    />
+                                    /> */}
                                     <PrivateRoute
                                         path={ROUTES.PROFILE}
                                         component={UserProfile}
@@ -498,7 +504,9 @@ class App extends Component {
                         </div>
                     </ErrorBoundary>
 
-                    <Footer />
+                    <div>
+                        <Footer />                        
+                    </div>
                 </div>
             </ConnectedRouter>
         )

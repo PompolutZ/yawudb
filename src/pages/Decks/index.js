@@ -50,6 +50,7 @@ function Decks({ classes, match }) {
         console.log('Subscribe on all decks');
         firebase.decksMetaIds('all').on('value', snapshot => {
             setDeckIds(snapshot.val());
+            console.log('New Deck Incoming');
             localStorage.setItem('yawudb_deck_ids', JSON.stringify(snapshot.val()));
         });
 
@@ -62,7 +63,7 @@ function Decks({ classes, match }) {
     useEffect(() => {
         console.log('New Faction: ', match.params.faction);
         setFilteredDeckIds(filterDeckIds(deckIds, match.params.faction));
-    }, [match.params.faction]);
+    }, [match.params.faction, deckIds]);
 
     return (
         <div className={classes.root}>

@@ -6,20 +6,21 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import {
     Drawer,
     List,
     ListItem,
     ListItemText,
+    Divider,
 } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { SET_SCROLL_INDEX } from '../../reducers/library'
 import { AddCardSVG, DeckSVG } from '../../atoms/SVGs'
 import { withFirebase } from '../../firebase'
-import * as ROUTES from '../../constants/routes';
-import AccountMenuButton from './AccountMenuButton';
+import * as ROUTES from '../../constants/routes'
+import AccountMenuButton from './AccountMenuButton'
 
 const styles = theme => ({
     root: {
@@ -70,12 +71,12 @@ class MenuAppBar extends React.Component {
     }
 
     handleCloseMenuAndNavigateToRoute = route => () => {
-        this.handleClose();
-        this.props.history.push(route);
+        this.handleClose()
+        this.props.history.push(route)
     }
 
     handleNavigateToRoute = route => () => {
-        this.props.history.push(route);
+        this.props.history.push(route)
     }
 
     handleSignOut = () => {
@@ -91,7 +92,7 @@ class MenuAppBar extends React.Component {
     }
 
     navigateBack = () => {
-      this.props.history.goBack();
+        this.props.history.goBack()
     }
 
     isEndRoute = () =>
@@ -104,10 +105,20 @@ class MenuAppBar extends React.Component {
         const sideList = (
             <div className={classes.list}>
                 <List component="nav">
-                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.CREATE_NEW_DECK)}>
+                    <ListItem
+                        button
+                        onClick={this.handleNavigateToRoute(
+                            ROUTES.CREATE_NEW_DECK
+                        )}
+                    >
                         <ListItemText primary="Deck Builder" />
                     </ListItem>
-                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.CARDS_LIBRARY)}>
+                    <ListItem
+                        button
+                        onClick={this.handleNavigateToRoute(
+                            ROUTES.CARDS_LIBRARY
+                        )}
+                    >
                         <ListItemText
                             primary={
                                 <div>
@@ -117,12 +128,19 @@ class MenuAppBar extends React.Component {
                             }
                         />
                     </ListItem>
-                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.BROWSE_ALL_DECKS)}>
+                    <ListItem
+                        button
+                        onClick={this.handleNavigateToRoute(
+                            ROUTES.BROWSE_ALL_DECKS
+                        )}
+                    >
                         <ListItemText primary="Decks" />
                     </ListItem>
                     <ListItem
                         button
-                        onClick={() => history.push(ROUTES.STATISTICS)}
+                        onClick={this.handleNavigateToRoute(
+                            ROUTES.STATISTICS
+                        )}
                     >
                         <ListItemText
                             primary={
@@ -133,21 +151,43 @@ class MenuAppBar extends React.Component {
                             }
                         />
                     </ListItem>
-                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.FEEDBACK)}>
-                        <ListItemText primary="Feedback" />
-                    </ListItem>
-                    <ListItem button onClick={this.handleNavigateToRoute(ROUTES.ABOUT)}>
-                        <ListItemText primary="About" />
-                    </ListItem>
+
+                    <Divider />
+                    <List component="nav">
+                        <ListItem
+                            button
+                            onClick={this.handleNavigateToRoute(
+                                ROUTES.MY_DECKS
+                            )}
+                        >
+                            <ListItemText primary="My Decks" />
+                        </ListItem>
+                    </List>
+
+                    <Divider />
+                    <List component="nav">
+                        <ListItem
+                            button
+                            onClick={this.handleNavigateToRoute(
+                                ROUTES.FEEDBACK
+                            )}
+                        >
+                            <ListItemText primary="Feedback" />
+                        </ListItem>
+                        <ListItem
+                            button
+                            onClick={this.handleNavigateToRoute(ROUTES.ABOUT)}
+                        >
+                            <ListItemText primary="About" />
+                        </ListItem>
+                    </List>
                 </List>
             </div>
         )
 
         return (
             <div className={classes.root}>
-                <AppBar
-                    position="fixed"
-                >
+                <AppBar position="fixed">
                     <Toolbar>
                         {!this.isEndRoute() && (
                             <IconButton
@@ -159,8 +199,7 @@ class MenuAppBar extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                         )}
-                        {
-                          this.isEndRoute() && (
+                        {this.isEndRoute() && (
                             <IconButton
                                 className={classes.menuButton}
                                 color="inherit"
@@ -169,8 +208,7 @@ class MenuAppBar extends React.Component {
                             >
                                 <ArrowBackIcon />
                             </IconButton>
-                          )
-                        }
+                        )}
                         <Typography
                             variant="subtitle1"
                             color="inherit"

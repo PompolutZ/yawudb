@@ -26,7 +26,9 @@ const styles = theme => ({
     },
 })
 
-function FluidDeckThumbnail({ classes, history, deckId, deck, isDraft }) {
+function FluidDeckThumbnail({ classes, history, deckId, deck, isDraft, canUpdateOrDelete }) {
+    if(!deck) return <span></span>;
+    
     const cards =
         (deck.cards && deck.cards.map(cardId => cardsDb[cardId])) || []
     const { name, authorDisplayName, created, sets } = deck
@@ -49,7 +51,7 @@ function FluidDeckThumbnail({ classes, history, deckId, deck, isDraft }) {
         deck.cards && deck.cards.filter(c => Boolean(restrictedCards[c])).length
     const orginizedPlayValid = banned === 0 && restricted <= 5
 
-    const handleClick = () => history.push(`${VIEW_DECK}/${deckId}`, deck);
+    const handleClick = () => history.push(`${VIEW_DECK}/${deckId}`, {deck: deck, canUpdateOrDelete: canUpdateOrDelete });
 
     return (
         <div className={classes.root} onClick={handleClick}>

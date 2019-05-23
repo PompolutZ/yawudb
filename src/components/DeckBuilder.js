@@ -127,7 +127,7 @@ class DeckBuilder extends Component {
                 scoringSummary: [0, 0, 0, 0],
                 tags: [],
                 created: updated,
-                author: this.props.userInfo.uid,
+                author: this.props.isAuth ? this.props.userInfo.uid : 'Anonymous',
                 authorDisplayName: this.props.isAuth ? this.props.userInfo.displayName : 'Anonymous',
             }
 
@@ -222,6 +222,12 @@ class DeckBuilder extends Component {
     
                 await this.props.firebase.realdb.ref('/decks_meta/all').transaction(meta => this._updateMetaCountAndIds(meta, deckId));
                 await this.props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`).transaction(meta => this._updateMetaCountAndIds(meta, deckId));
+            }
+
+            // User should be able easily access anon decks in the current browser
+            if(!this.props.isAuth) {
+                const anonDeckIds = JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || [];
+                localStorage.setItem('yawudb_anon_deck_ids', JSON.stringify([...anonDeckIds, deckId]));
             }
 
             this.props.resetDeck();

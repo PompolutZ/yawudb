@@ -32,8 +32,8 @@ class Deck extends Component {
             } else {
                 if(this.props.location.state) {
                     this.setState({ 
-                        deck: {...this.props.location.state, id: this.props.match.params.id, },
-                        isEditAllowed: this.props.uid === this.props.location.state.author
+                        deck: {...this.props.location.state.deck, id: this.props.match.params.id, },
+                        isEditAllowed: this.props.location.state.canUpdateOrDelete
                     });
                 }
                 
@@ -123,14 +123,9 @@ class Deck extends Component {
 
     handleDeleteDeck = async () => {
         try {
+            console.log(this.props.uid);
             const { id } = this.state.deck;
-            this.props.removeDeck(id);
-            
-            const userRef = await this.props.firebase.db.collection('users').doc(this.props.uid).get();
-            const userDecks = userRef.data().mydecks.filter(deckId => deckId !== id);
-            await this.props.firebase.db.collection('users').doc(this.props.uid).update({
-                mydecks: userDecks
-            });
+            this.props.firebase.deck(id).off();
 
             await this.props.firebase.realdb.ref(`/decks/${id}`).remove();
 
@@ -155,9 +150,22 @@ class Deck extends Component {
                 return meta;
             });
 
+            if(this.props.uid) {
+                this.props.removeDeck(id);
+            
+                const userRef = await this.props.firebase.db.collection('users').doc(this.props.uid).get();
+                const userDecks = userRef.data().mydecks.filter(deckId => deckId !== id);
+                await this.props.firebase.db.collection('users').doc(this.props.uid).update({
+                    mydecks: userDecks
+                });
+            } else {
+                const anonDeckIds = JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || [];
+                const updated = anonDeckIds.filter(deckId => deckId !== id);
+                localStorage.setItem('yawudb_anon_deck_ids', JSON.stringify(updated));
+            }
+
             this.handleCloseDeleteDialog();
             this.props.history.push('/mydecks');
-
         } catch (err) {
             console.error("ERROR deleting deck: ", err);
         }
