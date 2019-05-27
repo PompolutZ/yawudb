@@ -115,6 +115,7 @@ class DeckBuilder extends Component {
 
     _updateCurrentDeck = async args => {
         try {
+            const cache = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
             const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
     
             const updated = Date();
@@ -147,6 +148,8 @@ class DeckBuilder extends Component {
                 await this.moveIdToFront(this.props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), this.props.match.params.id);
             }
             
+            localStorage.setItem('yawudb_decks', JSON.stringify({ ...cache, [this.props.match.params.id]: deckPayload }));
+
             this._resetAndGoBack();
         } catch(err) {
             console.error('ERROR updating deck: ', err);
@@ -179,6 +182,7 @@ class DeckBuilder extends Component {
 
     _saveCurrentDeck = async args => {
         try {
+            const cache = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
             const faction = this.props.selectedFaction.startsWith('n_') ? this.props.selectedFaction.slice(2) : this.props.selectedFaction;
             const deckId = `${factionIdPrefix[faction]}-${uuid4().slice(-12)}`;
             // const scoringOverview = this.props.currentDeck.filter(c => cardsDb[c].).reduce((acc, o) => {
@@ -230,10 +234,12 @@ class DeckBuilder extends Component {
                 localStorage.setItem('yawudb_anon_deck_ids', JSON.stringify([...anonDeckIds, deckId]));
             }
 
+            localStorage.setItem('yawudb_decks', JSON.stringify({ ...cache, [deckId]: deckPayload }));
+
             this.props.resetDeck();
             this.props.resetSearchText();
             this.setState({showNotification: true});
-            this.props.history.push(`/view/deck/${deckId}`);
+            this.props.history.push(`/view/deck/${deckId}`, {deck: deckPayload, canUpdateOrDelete: true });
         } catch(err) {
             console.error('ERROR saving new deck: ', err);
         }

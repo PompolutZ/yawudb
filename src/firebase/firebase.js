@@ -58,37 +58,49 @@ class Firebase {
         this.auth.onAuthStateChanged(user => {
             if (user) {
                 const userDocRef = this.db.collection('users').doc(user.uid)
+                const anonDeckIds =
+                    JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) ||
+                    []
+                console.log(anonDeckIds)
                 userDocRef.get().then(userSnapshot => {
                     if (!userSnapshot.exists) {
                         const displayName = `Soul${Math.floor(
                             Math.random() * Math.floor(1000)
                         )}`
 
-                        userDocRef
-                            .set({
-                                displayName: displayName,
-                                mydecks: [],
-                                role: 'soul',
-                                avatar: `/assets/icons/garreks-reavers-icon.png`,
-                                expansions: {},
+                        const newUserBase = {
+                            displayName: displayName,
+                            mydecks: anonDeckIds,
+                            role: 'soul',
+                            avatar: `/assets/icons/garreks-reavers-icon.png`,
+                            expansions: {},
+                        }
+
+                        userDocRef.set(newUserBase).then(() => {
+                            console.log('User has been created')
+                            next({
+                                ...newUserBase,
+                                uid: user.uid,
+                                isNew: true,
                             })
-                            .then(() => {
-                                next({
-                                    uid: user.uid,
-                                    displayName: displayName,
-                                    mydecks: [],
-                                    role: 'soul',
-                                    avatar: `/assets/icons/garreks-reavers-icon.png`,
-                                    expansions: {},
-                                })
-                            })
+                        })
                     } else {
                         const profile = userSnapshot.data()
-                        next({
+                        console.log('User exist, so just extracting data.')
+
+                        const userData = {
                             displayName: profile.displayName,
                             role: profile.role,
                             avatar: profile.avatar,
-                            uid: user.uid,
+                            expansions: profile.expansions || {},
+                            mydecks: [...profile.mydecks, ...anonDeckIds.filter(anonId => !profile.mydecks.includes(anonId))],
+                        }
+                        userDocRef.set(userData).then(() => {
+                            next({
+                                ...userData,
+                                uid: user.uid,
+                                isNew: false,
+                            })
                         })
                     }
                 })

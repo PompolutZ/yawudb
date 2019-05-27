@@ -338,17 +338,57 @@ class App extends Component {
     }
 
     componentDidMount = () => {
-        this.unsubscribe = this.props.firebase.auth.onAuthStateChanged(user => {
-            try {
-                if (user) {
-                    this._handleAuthUser(user.uid)
-                } else {
-                    this.props.onSignOut()
+        this.unsubscribe = this.props.firebase.onAuthUserListener(async user => {
+            console.log('SIGN IN', user);
+            if(user.isNew) {
+                // new user
+                console.log('Login New User', {
+                    displayName: user.displayName,
+                    role: user.role,
+                    avatar: user.avatar,
+                    uid: user.uid,
+                    mydecks: user.mydecks,
+                });
+                this.props.onLogin({
+                    displayName: user.displayName,
+                    uid: user.uid,
+                    role: 'soul',
+                    avatar: `/assets/icons/garreks-reavers-icon.png`,
+                    mydecks: user.mydecks,
+                })
+                this.props.updateUserExpansions(user.expansions)
+                history.push('/profile')
+            } else {
+                //const profile = userProfileRef.data()
+                console.log('Login Not New User', {
+                    displayName: user.displayName,
+                    role: user.role,
+                    avatar: user.avatar,
+                    uid: user.uid,
+                    mydecks: user.mydecks,
+                });
+                this.props.onLogin({
+                    displayName: user.displayName,
+                    role: user.role,
+                    avatar: user.avatar,
+                    uid: user.uid,
+                    mydecks: user.mydecks,
+                })
+                this.props.updateUserExpansions(user.expansions)
+                if (history.location.pathname === '/login') {
+                    history.push('/mydecks')
                 }
-            } catch (err) {
-                this.setState({ error: err })
             }
-        });
+            // try {
+            //     if (user) {
+            //         this._handleAuthUser(user.uid)
+            //     } else {
+            //         this.props.onSignOut()
+            //     }
+            // } catch (err) {
+            //     this.setState({ error: err })
+            // }
+        }, () => this.props.onSignOut());
 
         const start = new Date();
         const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {};

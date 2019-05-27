@@ -263,11 +263,12 @@ import FluidDeckThumbnail from '../../atoms/FluidDeckThumbnail'
 function VirtualizedDecksList({ source }) {
     const start = new Date()
     const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {}
+    const [anonDeckIds, setAnonDeckIds] = React.useState(JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || []);
     console.log('LOADED', new Date() - start)
     const [data, setData] = React.useState(source)
     const [scrollIndex, setScrollIndex] = React.useState(0);
-    const [ref, setRef] = React.useState(null);
-    const [rowHeight, setRowHeight] = React.useState(100)
+    // const [ref, setRef] = React.useState(null);
+    // const [rowHeight, setRowHeight] = React.useState(100)
     const width = document.getElementById('yawudb_main').offsetWidth
     const height = document.getElementById('yawudb_main').offsetHeight
 
@@ -281,6 +282,7 @@ function VirtualizedDecksList({ source }) {
             <FluidDeckThumbnail
                 deckId={data[index]}
                 deck={decks[data[index]]}
+                canUpdateOrDelete={anonDeckIds.some(anonDeckId => anonDeckId === data[index])}
             />
         )
     }

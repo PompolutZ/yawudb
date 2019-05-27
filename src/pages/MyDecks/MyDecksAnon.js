@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Typography, Divider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import FluidDeckThumbnail from '../../atoms/FluidDeckThumbnail';
+import { FirebaseContext } from '../../firebase';
 
 function MyDecksAnon({ classes }) {
+    const firebase = useContext(FirebaseContext);
     const [deckIds, setDeckIds] = useState(JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || []);
     const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
+    console.log(deckIds);
+    useEffect(() => {
+        firebase.decks().on('value', snapshot => {
+            console.log('DECKS on value: ');
+            setDeckIds(JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || []);
+        });
+
+        return () => firebase.decks().off();
+    }, []);
+
     return (
         <div className={classes.root}>
             <Typography className={classes.info}>

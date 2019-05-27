@@ -171,11 +171,13 @@ class UserProfile extends Component {
 
     handleSave = async () => {
         const userRef = this.props.firebase.db.collection('users').doc(this.props.userInfo.uid);
+        const cache = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
         try {
             await userRef.update({ displayName: this.state.userName, avatar: this.state.avatar, expansions: this.state.expansions });
             for(let [key, value] of Object.entries(this.props.mydecks)) {
                 const updatedDeck = {...value, authorDisplayName: this.state.userName, created: Date() };
                 await this.props.firebase.realdb.ref(`/decks/${key}`).set(updatedDeck);
+                localStorage.setItem('yawudb_decks', JSON.stringify({...cache, [key]: updatedDeck }));
             }
             this.props.setUser({ ...this.props.userInfo, displayName: this.state.userName, avatar: this.state.avatar });
             this.props.updateUserExpansions(this.state.expansions);

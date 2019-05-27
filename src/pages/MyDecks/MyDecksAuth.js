@@ -14,6 +14,7 @@ import Switch from '../../atoms/Switch';
 import toPairs from 'lodash/toPairs';
 import { withFirebase } from '../../firebase';
 import useAuthUser from '../../hooks/useAuthUser';
+import FluidDeckThumbnail from '../../atoms/FluidDeckThumbnail';
 
 const DeckConflictsAndWarnings = lazy(() => import('./atoms/DeckConflictsAndWarnings'));
 
@@ -28,8 +29,8 @@ const styles = theme => ({
     },
 
     item: {
-        borderBottom: '1px solid lightgray',
-        margin: '1rem',
+        // borderBottom: '1px solid lightgray',
+        // margin: '1rem',
         [theme.breakpoints.up('sm')]: {
             maxWidth: '30rem'
         },
@@ -42,49 +43,83 @@ class MyDecksAuth extends Component {
         showNotification: false,
         showConflicts: false,
         conflicts: {},
-        warnings: {}
+        warnings: {},
     }
 
     async componentDidMount() {
-        try {
-            const userDataRef = await this.props.firebase.db.collection('users').doc(this.props.userInfo.uid).get();
-            const userData = userDataRef.data();
-            if(!userData) {
-                this.setState({loading: false});
-                return;
+        console.log(this.props.userInfo);
+        const userDataRef = await this.props.firebase.db.collection('users').doc(this.props.userInfo.uid).get();
+        const userData = userDataRef.data();
+
+        const cache = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
+        const anonDeckIds = JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || [];
+        const { uid, displayName } = this.props.userInfo;
+        const ids = [];
+
+        for(let id of userData.mydecks) {
+            const data = cache[id];
+            console.log(data);
+            let created = new Date(0);
+            if(data.created && data.created.seconds) {
+                created.setSeconds(data.created.seconds);
+            } else {
+                created = new Date(data.created);
             }
 
-            const ids = [];
+            // change anon deck author
+            if(data.author === "Anonymous") {
+                const updatedData = {
+                    ...data,
+                    author: uid,
+                    authorDisplayName: displayName
+                };
 
-            for(let deckId of userData.mydecks) {
-                const deck = await this.props.firebase.realdb.ref(`/decks/${deckId}`).once('value');
-                // const deckRef = await db.collection('decks').doc(deckId).get();
-                const data = deck.val();
-                if(data === null) {
-                    continue;
-                }
+                await this.props.firebase.deck(id).update(updatedData);
 
-                let created = new Date(0);
-                if(data.created && data.created.seconds) {
-                    created.setSeconds(data.created.seconds);
-                } else {
-                    created = new Date(data.created);
-                }
+                const updatedAnonIds = anonDeckIds.filter(anonDeckId => anonDeckId !== id);
+                localStorage.setItem('yawudb_anon_deck_ids', JSON.stringify(updatedAnonIds));
+                localStorage.setItem('yawudb_decks', JSON.stringify({...cache, [id]: updatedData }));
 
-                // const created = data.created.toDate();
-                this.props.addOrUpdate(deckId, created, { ...data, id: deckId, created: created });
-                ids.push(deckId);
+                this.props.addOrUpdate(id, created, { ...updatedData, id: id, created: created });
+                console.log('PUSH UPDATED')
+                ids.push(id);
+            } else {
+                console.log('JUST PUSH')
+                this.props.addOrUpdate(id, created, { ...data, id: id, created: created });
+                ids.push(id);
             }
-
-            this.props.removeMissingDecks(ids);
-            this.checkForConflictsOrWarnings();
-
-            if(this.state.loading) {
-                this.setState({loading: false});
-            }
-        } catch(error) {
-            console.log(error);
         }
+
+        this.props.removeMissingDecks(ids);
+        this.checkForConflictsOrWarnings();
+
+        if(this.state.loading) {
+            this.setState({loading: false});
+        }
+        
+        // try {
+        //     if(!userData) {
+        //         this.setState({loading: false});
+        //         return;
+        //     }
+
+        //     const ids = [];
+
+        //     for(let deckId of userData.mydecks) {
+        //         const deck = await this.props.firebase.realdb.ref(`/decks/${deckId}`).once('value');
+        //         // const deckRef = await db.collection('decks').doc(deckId).get();
+        //         const data = deck.val();
+        //         if(data === null) {
+        //             continue;
+        //         }
+
+
+        //         // const created = data.created.toDate();
+        //     }
+
+        // } catch(error) {
+        //     console.log(error);
+        // }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -97,6 +132,7 @@ class MyDecksAuth extends Component {
 
     render() {
         const { history, decks, classes } = this.props;
+        const cache = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
 
         return (
             <div>
@@ -169,7 +205,13 @@ class MyDecksAuth extends Component {
 
                                         return (
                                             <div key={id} className={classes.item}>
-                                                <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, id)} 
+                                                            <FluidDeckThumbnail
+                                                                deckId={id}
+                                                                deck={cache[id]}
+                                                                canUpdateOrDelete
+                                                            />
+
+                                                {/* <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, id)} 
                                                     factionId={id} 
                                                     title={deck.name} 
                                                     author={deck.authorDisplayName} 
@@ -178,7 +220,7 @@ class MyDecksAuth extends Component {
                                                     objectives={cards ? cards.filter(c => c.type === 0) : []}
                                                     banned={bannedCardsCount}
                                                     restricted={restrictedCardsCount}
-                                                    isDraft={isDraft} />
+                                                    isDraft={isDraft} /> */}
                                                 {
                                                     this.state.showConflicts && (
                                                         <Suspense fallback={<CircularProgress style={{color: '#3B9979'}} />}>
