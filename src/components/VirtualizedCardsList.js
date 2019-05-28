@@ -191,6 +191,7 @@ const VIEW_AS_SIMPLE_LIST = 'VIEW_AS_SIMPLE_LIST';
 const VIEW_AS_CARD_IMAGES = 'VIEW_AS_CARD_IMAGES';  
 
 const ratio = 744 / 532;
+const minOptimalWidth = 200;
 
 class VirtualizedCardsList extends Component {
     state = {
@@ -203,7 +204,8 @@ class VirtualizedCardsList extends Component {
         console.log(this.props.cards);
         console.log(this.props.containerRef.offsetWidth);
         console.log(ratio);
-        const itemsPerRow = 4;
+        const itemsPerRow = Math.floor(this.props.containerRef.offsetWidth / minOptimalWidth);
+        console.log(itemsPerRow)
         const rows = this.props.cards.reduce((result, item, index, array) => {
             if(index % itemsPerRow === 0) {
                 result.push(array.slice(index, index + itemsPerRow));
@@ -212,6 +214,7 @@ class VirtualizedCardsList extends Component {
             return result;
         }, []);
         
+        console.log(this.props.containerRef.offsetWidth / itemsPerRow);
         this.setState({ cardRows: rows, cardRenderWidth: this.props.containerRef.offsetWidth / itemsPerRow, cardRenderHeight: this.props.containerRef.offsetWidth / itemsPerRow * ratio });
     }
 
