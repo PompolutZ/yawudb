@@ -96,30 +96,6 @@ class MyDecksAuth extends Component {
         if(this.state.loading) {
             this.setState({loading: false});
         }
-        
-        // try {
-        //     if(!userData) {
-        //         this.setState({loading: false});
-        //         return;
-        //     }
-
-        //     const ids = [];
-
-        //     for(let deckId of userData.mydecks) {
-        //         const deck = await this.props.firebase.realdb.ref(`/decks/${deckId}`).once('value');
-        //         // const deckRef = await db.collection('decks').doc(deckId).get();
-        //         const data = deck.val();
-        //         if(data === null) {
-        //             continue;
-        //         }
-
-
-        //         // const created = data.created.toDate();
-        //     }
-
-        // } catch(error) {
-        //     console.log(error);
-        // }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -179,8 +155,6 @@ class MyDecksAuth extends Component {
                                 {
                                     decks.map(([id, deck]) => {
                                         const cards = deck.cards ? deck.cards.map(c => ({ id: c, ...cardsDb[c]})) : [];
-                                        const bannedCardsCount = cards.filter(id => Boolean(bannedCards[id])).length;
-                                        const restrictedCardsCount = cards.filter(id => Boolean(restrictedCards[id])).length;
                                         const counts = cards.reduce((acc, el) => {
                                             switch(el.type) {
                                                 case 0: 
@@ -209,18 +183,8 @@ class MyDecksAuth extends Component {
                                                                 deckId={id}
                                                                 deck={cache[id]}
                                                                 canUpdateOrDelete
+                                                                isDraft={isDraft}
                                                             />
-
-                                                {/* <DeckThumbnail onClick={this.handleThumbnailClick.bind(this, id)} 
-                                                    factionId={id} 
-                                                    title={deck.name} 
-                                                    author={deck.authorDisplayName} 
-                                                    date={deck.created}
-                                                    sets={deck.sets}
-                                                    objectives={cards ? cards.filter(c => c.type === 0) : []}
-                                                    banned={bannedCardsCount}
-                                                    restricted={restrictedCardsCount}
-                                                    isDraft={isDraft} /> */}
                                                 {
                                                     this.state.showConflicts && (
                                                         <Suspense fallback={<CircularProgress style={{color: '#3B9979'}} />}>
@@ -257,10 +221,6 @@ class MyDecksAuth extends Component {
 
     handleClick = history => {
         history.push('/deck/create');
-    }
-
-    handleThumbnailClick = id => {
-        this.props.history.push(`/view/deck/${id}`);
     }
 
     checkForConflictsOrWarnings = () => {

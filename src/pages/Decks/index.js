@@ -14,6 +14,7 @@ import DeckThumbnail from '../../atoms/DeckThumbnail';
 import { withFirebase, FirebaseContext } from '../../firebase';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import VirtualizedDecksList from './VirtualizedDecksList';
+import FactionFilter from './FactionFilter';
 
 class DecksListContainer extends React.PureComponent {
     constructor(props) {
@@ -38,13 +39,18 @@ const filterDeckIds = (deckIds, faction) => () => deckIds.filter(id => {
     }
 })
 
-function Decks({ classes, match }) {
+function Decks({ classes, history, match }) {
     const firebase = useContext(FirebaseContext);
     const [deckIds, setDeckIds] = useState(JSON.parse(localStorage.getItem('yawudb_deck_ids')) || []);
     const [filteredDeckIds, setFilteredDeckIds] = useState(filterDeckIds(deckIds, match.params.faction));
 
     console.log(deckIds);
     //const list = JSON.parse(deckIds);
+
+    const handleSelect = prefix => () => {
+        console.log('Main', prefix);
+        history.replace(`/decks/${prefix === match.params.faction ? 'all' : prefix}`);
+    }
     
     useEffect(() => {
         console.log('Subscribe on all decks');
@@ -67,7 +73,12 @@ function Decks({ classes, match }) {
 
     return (
         <div className={classes.root}>
-            <VirtualizedDecksList source={filteredDeckIds} />
+            <div className={classes.filterContainer}>
+                <FactionFilter selectedFaction={match.params.faction} onSelect={handleSelect} />
+            </div>
+            <div id="yawudb_decks_container" className={classes.decksContainer}>
+                <VirtualizedDecksList source={filteredDeckIds} />
+            </div>
         </div>
     )
 }
@@ -75,7 +86,28 @@ function Decks({ classes, match }) {
 const styles = theme => ({
     root: {
         height: '100%',
-        width: '100%'
+        width: '100%',
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        [theme.breakpoints.up('md')]: {
+            flexFlow: 'row nowrap',
+        }
+    },
+
+    decksContainer: {
+        // height: '80%',
+        // width: '100%',
+        flex: '1 100%',
+        [theme.breakpoints.up('md')]: {
+            flex: '1 1',
+        }
+    },
+
+    filterContainer: {
+        //flex: '1 auto',
+        [theme.breakpoints.up('md')]: {
+            flex: '0 1',
+        }
     }
 });
 

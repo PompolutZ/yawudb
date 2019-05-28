@@ -1,4 +1,8 @@
 const changelog = {
+    "0.24.0" : {
+        "Decks Page": "Decks page has been redesigned to be faster, pagination has been replaced with virtualization.",
+        "Anonimous Deck Creation": "User should be able to not only create, but also update or delete decks created anonymously. When user logging in, all anonymously created decks should be merged with his own decks."
+    },
     "0.23.0" : {
         "Card Search": "Now its possible to quickly search for any card right from the home page.",
         "Quick Filter By Type": "This addition should be useful for mobile users like me, you can now filter cards by type by clicking on type on the cards type of the deck builder.",
