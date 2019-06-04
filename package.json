@@ -33,6 +33,7 @@
   },
   "scripts": {
     "start": "set REACT_APP_STAGE=local&& react-scripts start",
+    "start_fix": "set REACT_APP_STAGE=prod&& react-scripts start",
     "build": "react-scripts build",
     "build_stage": "set REACT_APP_STAGE=staging&& react-scripts build",
     "build_prod": "set REACT_APP_STAGE=prod&& react-scripts build",
