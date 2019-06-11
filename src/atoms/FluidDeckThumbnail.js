@@ -38,7 +38,7 @@ function FluidDeckThumbnail({
 }) {
     const firebase = React.useContext(FirebaseContext)
     const [data, setData] = React.useState(deck)
-    const [loading, setLoading] = React.useState(!data);
+    const [loading, setLoading] = React.useState(!deck);
     
     const cards = data && data.cards && data.cards.map(cardId => cardsDb[cardId]) || []
     const scoringOverview = cards
@@ -115,7 +115,7 @@ function FluidDeckThumbnail({
                     </div>
                 </div>
             )}
-            {!loading && (
+            {!loading && Boolean(data) && (
                 <React.Fragment>
                     <div style={{ margin: 'auto 0', position: 'relative' }}>
                         <DeckIcon
