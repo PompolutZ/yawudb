@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import DeckIcon from './DeckIcon'
 import DeckThumbnailHeader from './DeckThumbnailHeader'
 import {
@@ -10,15 +10,17 @@ import {
 import { withStyles } from '@material-ui/core/styles'
 import NoValidIcon from '@material-ui/icons/ReportProblem'
 import RestrictedBannedCardsCount from './RestrictedBannedCardsCount'
-import { withRouter } from 'react-router-dom';
-import { VIEW_DECK } from '../constants/routes';
+import { withRouter } from 'react-router-dom'
+import { VIEW_DECK } from '../constants/routes'
+import { FirebaseContext } from '../firebase'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = theme => ({
     root: {
         display: 'flex',
         borderBottom: `1px solid ${theme.palette.primary.main}`,
-        margin: '0 .5rem',
-        padding: '.5rem',
+        margin: '0 0 .5rem 0',
+        padding: '.3rem',
         pointer: 'cursor',
         [theme.breakpoints.up('sm')]: {
             maxWidth: '30rem',
@@ -26,12 +28,19 @@ const styles = theme => ({
     },
 })
 
-function FluidDeckThumbnail({ classes, history, deckId, deck, isDraft, canUpdateOrDelete }) {
-    if(!deck) return <span></span>;
+function FluidDeckThumbnail({
+    classes,
+    history,
+    deckId,
+    deck,
+    isDraft,
+    canUpdateOrDelete,
+}) {
+    const firebase = React.useContext(FirebaseContext)
+    const [data, setData] = React.useState(deck)
+    const [loading, setLoading] = React.useState(!data);
     
-    const cards =
-        (deck.cards && deck.cards.map(cardId => cardsDb[cardId])) || []
-    const { name, authorDisplayName, created, sets } = deck
+    const cards = data && data.cards && data.cards.map(cardId => cardsDb[cardId]) || []
     const scoringOverview = cards
         .filter(c => c.type === 0)
         .reduce(
@@ -45,55 +54,110 @@ function FluidDeckThumbnail({ classes, history, deckId, deck, isDraft, canUpdate
                 summary: [0, 0, 0, 0],
             }
         )
-    const banned =
-        deck.cards && deck.cards.filter(c => Boolean(bannedCards[c])).length
-    const restricted =
-        deck.cards && deck.cards.filter(c => Boolean(restrictedCards[c])).length
+
+    React.useEffect(() => {
+        if(!data) {
+            setLoading(true);
+        }
+
+        firebase.deck(deckId).on('value', snapshot => {
+            const data = snapshot.val();
+            setData(data);
+            setLoading(false);
+            const cachedDecks = JSON.parse(localStorage.getItem('yawudb_decks'));
+            localStorage.setItem('yawudb_decks', JSON.stringify({...cachedDecks, [deckId]: data }));
+        })
+
+        return () => firebase.deck(deckId).off()
+    }, [])
+
+    React.useEffect(() => {
+        setData(deck);
+    }, [deck])
+
+    const banned = data &&
+        data.cards && data.cards.filter(c => Boolean(bannedCards[c])).length
+    const restricted = data &&
+        data.cards && data.cards.filter(c => Boolean(restrictedCards[c])).length
     const orginizedPlayValid = banned === 0 && restricted <= 5
 
-    const handleClick = () => history.push(`${VIEW_DECK}/${deckId}`, {deck: deck, canUpdateOrDelete: canUpdateOrDelete });
+    const handleClick = () =>
+        history.push(`${VIEW_DECK}/${deckId}`, {
+            deck: deck,
+            canUpdateOrDelete: canUpdateOrDelete,
+        })
 
     return (
-        <div className={classes.root} onClick={handleClick}>
-            <div style={{ margin: 'auto 0', position: 'relative' }}>
-                <DeckIcon
-                    width="3rem"
-                    height="3rem"
-                    faction={idPrefixToFaction[deckId.split('-')[0]]}
-                    style={{ cursor: 'pointer' }}
-                />
-                {!orginizedPlayValid && (
+        <div
+            className={classes.root}
+            onClick={handleClick}
+        >
+            {loading && (
+                <div
+                    style={{
+                        flex: 1,
+                        display: 'flex',
+                    }}
+                >
+                    <DeckIcon
+                        width="3rem"
+                        height="3rem"
+                        faction={idPrefixToFaction[deckId.split('-')[0]]}
+                        style={{ cursor: 'pointer' }}
+                    />
                     <div
                         style={{
-                            position: 'absolute',
-                            bottom: -20,
-                            left: 0,
-                            color: 'crimson',
+                            flex: 1,
                             display: 'flex',
-                            alignItems: 'flex-end'
                         }}
                     >
-                        <NoValidIcon style={{ width: '1.2rem'}} />
-                        <RestrictedBannedCardsCount
-                            banned={banned}
-                            restricted={restricted}
-                        />
+                        <CircularProgress style={{ margin: 'auto' }} />
                     </div>
-                )}
-                {/*                  */}
-            </div>
-            <DeckThumbnailHeader
-                title={name}
-                author={authorDisplayName}
-                date={created}
-                sets={sets}
-                scoringOverview={scoringOverview}
-                banned={banned}
-                restricted={restricted}
-                isDraft={isDraft}
-            />
+                </div>
+            )}
+            {!loading && (
+                <React.Fragment>
+                    <div style={{ margin: 'auto 0', position: 'relative' }}>
+                        <DeckIcon
+                            width="3rem"
+                            height="3rem"
+                            faction={idPrefixToFaction[deckId.split('-')[0]]}
+                            style={{ cursor: 'pointer' }}
+                        />
+                        {!orginizedPlayValid && (
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    bottom: -20,
+                                    left: 0,
+                                    color: 'crimson',
+                                    display: 'flex',
+                                    alignItems: 'flex-end',
+                                }}
+                            >
+                                <NoValidIcon style={{ width: '1.2rem' }} />
+                                <RestrictedBannedCardsCount
+                                    banned={banned}
+                                    restricted={restricted}
+                                />
+                            </div>
+                        )}
+                    </div>
+                    <DeckThumbnailHeader
+                        title={data.name}
+                        author={data.authorDisplayName}
+                        date={data.created}
+                        sets={data.sets}
+                        scoringOverview={scoringOverview}
+                        banned={banned}
+                        restricted={restricted}
+                        isDraft={isDraft}
+                    />
+                </React.Fragment>
+            )}
+            {/*  */}
         </div>
     )
 }
 
-export default withRouter(withStyles(styles)(FluidDeckThumbnail));
+export default withRouter(withStyles(styles)(FluidDeckThumbnail))
