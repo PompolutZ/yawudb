@@ -19,6 +19,7 @@ import { Button } from '@material-ui/core'
 import Firebase, { FirebaseContext, withFirebase } from './firebase'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import * as ROUTES from './constants/routes'
+import { Helmet } from 'react-helmet'
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'))
 const Decks = lazy(() => import('./pages/Decks'))
@@ -263,7 +264,40 @@ class Template extends Component {
     componentDidMount = () => {
         //'1_02024', '1_02049', '2_02049', '1_03550', '1_03551', '1_03323', '1_03322', '1_01257', '1_01348',
         this.setState({
-            cards: ["1_01190", "1_01180", "1_01291", "1_01192", "1_01391", "1_01183", "1_03493", "1_01194", "1_03373", "1_01361", "1_03550", "1_01273", "1_03385", "1_03551", "1_03420", "1_01331", "1_01343", "1_01178", "1_01201", "1_01234", "1_03302", "1_01334", "1_01257", "1_01378", "1_01389", "1_03503", "1_03305", "1_01348", "1_01327", "1_01339", "1_01306", "1_03529"],
+            cards: [
+                '1_01190',
+                '1_01180',
+                '1_01291',
+                '1_01192',
+                '1_01391',
+                '1_01183',
+                '1_03493',
+                '1_01194',
+                '1_03373',
+                '1_01361',
+                '1_03550',
+                '1_01273',
+                '1_03385',
+                '1_03551',
+                '1_03420',
+                '1_01331',
+                '1_01343',
+                '1_01178',
+                '1_01201',
+                '1_01234',
+                '1_03302',
+                '1_01334',
+                '1_01257',
+                '1_01378',
+                '1_01389',
+                '1_03503',
+                '1_03305',
+                '1_01348',
+                '1_01327',
+                '1_01339',
+                '1_01306',
+                '1_03529',
+            ],
         }) //
     }
 
@@ -294,18 +328,18 @@ class Template extends Component {
             const h = 89.9
 
             const pages = this.state.cards.reduce((acc, el, index, array) => {
-                if(index % 9 === 0) {
-                    acc.push(array.slice(index, index + 9));
+                if (index % 9 === 0) {
+                    acc.push(array.slice(index, index + 9))
                 }
-                return acc;
+                return acc
             }, [])
 
-            console.log(pages);
-            for(let page of pages) {
+            console.log(pages)
+            for (let page of pages) {
                 {
-                    const index = pages.indexOf(page);
-                    if(index > 0) {
-                        doc.addPage();
+                    const index = pages.indexOf(page)
+                    if (index > 0) {
+                        doc.addPage()
                     }
                 }
 
@@ -332,11 +366,9 @@ class Template extends Component {
                         rowIdx += 1
                         x = 3
                         y = rowIdx * h + rowIdx * 5
-                        console.log(x, y);
+                        console.log(x, y)
                     }
                 }
-
-
             }
 
             doc.save('cards.pdf')
@@ -345,11 +377,10 @@ class Template extends Component {
 }
 
 function isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) return false
     }
-    return true;
+    return true
 }
 
 class App extends Component {
@@ -358,217 +389,288 @@ class App extends Component {
     }
 
     componentDidMount = () => {
-        this.unsubscribe = this.props.firebase.onAuthUserListener(async user => {
-            console.log('SIGN IN', user);
-            if(user.isNew) {
-                // new user
-                console.log('Login New User', {
-                    displayName: user.displayName,
-                    role: user.role,
-                    avatar: user.avatar,
-                    uid: user.uid,
-                    mydecks: user.mydecks,
-                });
-                this.props.onLogin({
-                    displayName: user.displayName,
-                    uid: user.uid,
-                    role: 'soul',
-                    avatar: `/assets/icons/garreks-reavers-icon.png`,
-                    mydecks: user.mydecks,
-                })
-                this.props.updateUserExpansions(user.expansions)
-                history.push('/profile')
-            } else {
-                //const profile = userProfileRef.data()
-                console.log('Login Not New User', {
-                    displayName: user.displayName,
-                    role: user.role,
-                    avatar: user.avatar,
-                    uid: user.uid,
-                    mydecks: user.mydecks,
-                });
-                this.props.onLogin({
-                    displayName: user.displayName,
-                    role: user.role,
-                    avatar: user.avatar,
-                    uid: user.uid,
-                    mydecks: user.mydecks,
-                })
-                this.props.updateUserExpansions(user.expansions)
-                if (history.location.pathname === '/login') {
-                    history.push('/mydecks')
+        this.unsubscribe = this.props.firebase.onAuthUserListener(
+            async user => {
+                console.log('SIGN IN', user)
+                if (user.isNew) {
+                    // new user
+                    console.log('Login New User', {
+                        displayName: user.displayName,
+                        role: user.role,
+                        avatar: user.avatar,
+                        uid: user.uid,
+                        mydecks: user.mydecks,
+                    })
+                    this.props.onLogin({
+                        displayName: user.displayName,
+                        uid: user.uid,
+                        role: 'soul',
+                        avatar: `/assets/icons/garreks-reavers-icon.png`,
+                        mydecks: user.mydecks,
+                    })
+                    this.props.updateUserExpansions(user.expansions)
+                    history.push('/profile')
+                } else {
+                    //const profile = userProfileRef.data()
+                    console.log('Login Not New User', {
+                        displayName: user.displayName,
+                        role: user.role,
+                        avatar: user.avatar,
+                        uid: user.uid,
+                        mydecks: user.mydecks,
+                    })
+                    this.props.onLogin({
+                        displayName: user.displayName,
+                        role: user.role,
+                        avatar: user.avatar,
+                        uid: user.uid,
+                        mydecks: user.mydecks,
+                    })
+                    this.props.updateUserExpansions(user.expansions)
+                    if (history.location.pathname === '/login') {
+                        history.push('/mydecks')
+                    }
                 }
-            }
-            // try {
-            //     if (user) {
-            //         this._handleAuthUser(user.uid)
-            //     } else {
-            //         this.props.onSignOut()
-            //     }
-            // } catch (err) {
-            //     this.setState({ error: err })
-            // }
-        }, () => this.props.onSignOut());
+                // try {
+                //     if (user) {
+                //         this._handleAuthUser(user.uid)
+                //     } else {
+                //         this.props.onSignOut()
+                //     }
+                // } catch (err) {
+                //     this.setState({ error: err })
+                // }
+            },
+            () => this.props.onSignOut()
+        )
 
-        const start = new Date();
-        const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
-        const end = new Date();
-        console.log(Object.keys(decks).length, 'decks in', end - start, 'ms');
+        const start = new Date()
+        const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {}
+        const end = new Date()
+        console.log(Object.keys(decks).length, 'decks in', end - start, 'ms')
 
-        if(isEmpty(decks)) {
-            this.props.firebase.decks().once('value').then(s => localStorage.setItem('yawudb_decks', JSON.stringify(s.val())));
+        if (isEmpty(decks)) {
+            this.props.firebase
+                .decks()
+                .once('value')
+                .then(s =>
+                    localStorage.setItem(
+                        'yawudb_decks',
+                        JSON.stringify(s.val())
+                    )
+                )
         } else {
-            const decksRef = this.props.firebase.decks();
+            const decksRef = this.props.firebase.decks()
             decksRef.on('child_added', data => {
-                if(decks[data.key]) return;
-                const updatedDecks = {...decks, [data.key]: data.val()};
-                localStorage.setItem('yawudb_decks', JSON.stringify(updatedDecks));
-                console.log('DECK ADDED: ', data.key, data.val());
-            });
-    
+                if (decks[data.key]) return
+                const updatedDecks = { ...decks, [data.key]: data.val() }
+                localStorage.setItem(
+                    'yawudb_decks',
+                    JSON.stringify(updatedDecks)
+                )
+                console.log('DECK ADDED: ', data.key, data.val())
+            })
+
             decksRef.on('child_changed', data => {
-                const updatedDecks = {...decks, [data.key]: data.val()};
-                localStorage.setItem('yawudb_decks', JSON.stringify(updatedDecks));
-                console.log('DECK CHANGED: ', data.key, data.val());
-            });
-    
+                const updatedDecks = { ...decks, [data.key]: data.val() }
+                localStorage.setItem(
+                    'yawudb_decks',
+                    JSON.stringify(updatedDecks)
+                )
+                console.log('DECK CHANGED: ', data.key, data.val())
+            })
+
             decksRef.on('child_removed', data => {
-                delete decks[data.key];
-                localStorage.setItem('yawudb_decks', JSON.stringify(decks));
-                console.log('DECK REMOVED: ', data.key, data.val());
-            });
+                delete decks[data.key]
+                localStorage.setItem('yawudb_decks', JSON.stringify(decks))
+                console.log('DECK REMOVED: ', data.key, data.val())
+            })
         }
     }
 
     componentWillUnmount() {
         this.unsubscribe()
-        this.props.firebase.decks().off();
+        this.props.firebase.decks().off()
     }
 
     render() {
         return (
-            <ConnectedRouter history={history}>
-                <div style={{width: '100%', height: '100%', display: 'flex', flexFlow: 'column nowrap' }}>
-                    <MenuAppBar />
+            <React.Fragment>
+                <Helmet>
+                    <title>
+                        Warhammer Underworlds (Shadespire and Nightvault)
+                        Database and Deck Builder.
+                    </title>
+                    <meta
+                        name="description"
+                        content="YAWUDB is a fastest and the most mobile friendly Warhammer Underworlds: Shadespire and Warhammer Underworlds: Nightvault user's decks database and deck builder."
+                    />
+                    <meta property="og:title" content="Warhammer Underworlds (Shadespire and Nightvault) Database and Deck Builder." />
+                    <meta
+                        property="og:description"
+                        content="YAWUDB is a fastest and the most mobile friendly Warhammer Underworlds: Shadespire and Warhammer Underworlds: Nightvault user's decks database and deck builder."
+                    />
+                    <meta property="og:type" content="website" />
+                    <meta property="og:url" content="https://yawudb.com" />
+                    <meta
+                        property="og:image"
+                        content="https://yawudb.com/yawudb.png"
+                    />
+                </Helmet>
+                <ConnectedRouter history={history}>
+                    <div
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            flexFlow: 'column nowrap',
+                        }}
+                    >
+                        <MenuAppBar />
 
-                    <div>{this.state.error}</div>
+                        <div>{this.state.error}</div>
 
-                    <ErrorBoundary>
-                        <div id="yawudb_main" style={{ margin: '4.5rem 0 0 0', width: '100%', flex: '1 0 80%', boxSizing: 'border-box' }}>
-                            <Suspense fallback={<LazyLoading />}>
-                                <Switch>
-                                    <Route
-                                        exact
-                                        path={ROUTES.HOME}
-                                        component={Home}
-                                    />
-                                    <Route
-                                        path={`${
-                                            ROUTES.BROWSE_DECKS_FOR
-                                        }/:faction`}
-                                        render={props => <Decks {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.CARDS_LIBRARY}
-                                        render={props => <Library {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.CREATE_NEW_DECK}
-                                        render={props => (
-                                            <DeckCreator {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.EDIT_DECK}
-                                        render={props => (
-                                            <DeckCreator {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.SIGN_IN}
-                                        render={props => <Login {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.SIGN_UP}
-                                        render={props => <SignUp {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.VIEW_DECK_ID}
-                                        render={props => <Deck {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.VIEW_CARD_ID}
-                                        render={props => <Card {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.ABOUT}
-                                        render={props => <About {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.STATISTICS}
-                                        render={props => (
-                                            <Statistics {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.FEEDBACK}
-                                        render={props => (
-                                            <Feedback {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.PRIVACY_POLICY}
-                                        render={props => (
-                                            <PrivacyPolicy {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.PASSWORD_RESET}
-                                        render={props => (
-                                            <PasswordResetRequest {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path="/temp"
-                                        render={props => (
-                                            <TempPage {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path="/template"
-                                        render={props => (
-                                            <Template {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.MY_DECKS}
-                                        render={props => (
-                                            <MyDecks {...props} />
-                                        )}
-                                    />
+                        <ErrorBoundary>
+                            <div
+                                id="yawudb_main"
+                                style={{
+                                    margin: '4.5rem 0 0 0',
+                                    width: '100%',
+                                    flex: '1 0 80%',
+                                    boxSizing: 'border-box',
+                                }}
+                            >
+                                <Suspense fallback={<LazyLoading />}>
+                                    <Switch>
+                                        <Route
+                                            exact
+                                            path={ROUTES.HOME}
+                                            component={Home}
+                                        />
+                                        <Route
+                                            path={`${
+                                                ROUTES.BROWSE_DECKS_FOR
+                                            }/:faction`}
+                                            render={props => (
+                                                <Decks {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.CARDS_LIBRARY}
+                                            render={props => (
+                                                <Library {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.CREATE_NEW_DECK}
+                                            render={props => (
+                                                <DeckCreator {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.EDIT_DECK}
+                                            render={props => (
+                                                <DeckCreator {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.SIGN_IN}
+                                            render={props => (
+                                                <Login {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.SIGN_UP}
+                                            render={props => (
+                                                <SignUp {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.VIEW_DECK_ID}
+                                            render={props => (
+                                                <Deck {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.VIEW_CARD_ID}
+                                            render={props => (
+                                                <Card {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.ABOUT}
+                                            render={props => (
+                                                <About {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.STATISTICS}
+                                            render={props => (
+                                                <Statistics {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.FEEDBACK}
+                                            render={props => (
+                                                <Feedback {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.PRIVACY_POLICY}
+                                            render={props => (
+                                                <PrivacyPolicy {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.PASSWORD_RESET}
+                                            render={props => (
+                                                <PasswordResetRequest
+                                                    {...props}
+                                                />
+                                            )}
+                                        />
+                                        <Route
+                                            path="/temp"
+                                            render={props => (
+                                                <TempPage {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path="/template"
+                                            render={props => (
+                                                <Template {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            path={ROUTES.MY_DECKS}
+                                            render={props => (
+                                                <MyDecks {...props} />
+                                            )}
+                                        />
 
-                                    {/* <PrivateRoute
+                                        {/* <PrivateRoute
                                         path={ROUTES.MY_DECKS}
                                         component={MyDecks}
                                     /> */}
-                                    <PrivateRoute
-                                        path={ROUTES.PROFILE}
-                                        component={UserProfile}
-                                    />
-                                    <PrivateRoute
-                                        path="/secret/deck-uploader"
-                                        component={SecretDeckUploader}
-                                    />
-                                </Switch>
-                            </Suspense>
-                        </div>
-                    </ErrorBoundary>
+                                        <PrivateRoute
+                                            path={ROUTES.PROFILE}
+                                            component={UserProfile}
+                                        />
+                                        <PrivateRoute
+                                            path="/secret/deck-uploader"
+                                            component={SecretDeckUploader}
+                                        />
+                                    </Switch>
+                                </Suspense>
+                            </div>
+                        </ErrorBoundary>
 
-                    <div>
-                        <Footer />                        
+                        <div>
+                            <Footer />
+                        </div>
                     </div>
-                </div>
-            </ConnectedRouter>
+                </ConnectedRouter>
+            </React.Fragment>
         )
     }
 

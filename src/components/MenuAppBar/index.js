@@ -215,7 +215,7 @@ class MenuAppBar extends React.Component {
                             className={classes.grow}
                             onClick={this.navigateHome}
                         >
-                            {document.title}
+                            YAWUDB
                         </Typography>
                         <IconButton
                             className={classes.desktopOnly}

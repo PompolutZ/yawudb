@@ -8,6 +8,7 @@ import { SET_SCROLL_INDEX } from '../reducers/library';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Helmet } from 'react-helmet';
 // import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 const styles = theme => ({
@@ -109,20 +110,27 @@ class Library extends PureComponent {
         const { classes } = this.props;
 
         return (
-            <div className={classes.root}>
-                <div className={classes.cardsContainer} ref={this.cardsContainerRef}>
-                {
-                    this.state.cards.length > 0 && (
-                        <VirtualizedCardsList cards={this.state.cards}
-                            key={this.state.viewVariant} 
-                            containerRef={this.cardsContainerRef.current}
-                            scrollIndex={this.props.scrollIndex}
-                            setLastScrollIndex={this.props.setLastScrollIndex}
-                            variant={this.state.viewVariant} />
-                    )
-                }
+            <React.Fragment>
+                <Helmet>
+                    <title>Warhammer Underworlds: Nightvault (Shadespire) Cards Library</title>
+                    <link rel="canonical" href="https://yawudb.com/library" />
+                </Helmet>
+                
+                <div className={classes.root}>
+                    <div className={classes.cardsContainer} ref={this.cardsContainerRef}>
+                    {
+                        this.state.cards.length > 0 && (
+                            <VirtualizedCardsList cards={this.state.cards}
+                                key={this.state.viewVariant} 
+                                containerRef={this.cardsContainerRef.current}
+                                scrollIndex={this.props.scrollIndex}
+                                setLastScrollIndex={this.props.setLastScrollIndex}
+                                variant={this.state.viewVariant} />
+                        )
+                    }
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }
