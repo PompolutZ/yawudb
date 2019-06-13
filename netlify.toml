@@ -5,4 +5,9 @@
 
 [context.production]
   command = "yarn netlify_build_stage"
+
+[context.staging]
+  command = "yarn netlify_build_stage"
+
+
   
