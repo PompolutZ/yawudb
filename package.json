@@ -1,6 +1,6 @@
 {
   "name": "wudb",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "3.9.0",
