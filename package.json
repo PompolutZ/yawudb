@@ -33,11 +33,11 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "set REACT_APP_STAGE=local&& react-scripts start",
-    "start_fix": "set REACT_APP_STAGE=prod&& react-scripts start",
-    "build": "react-scripts build",
-    "build_stage": "set REACT_APP_STAGE=staging&& react-scripts build",
-    "build_prod": "set REACT_APP_STAGE=prod&& react-scripts build",
+    "start": "react-app-env --env-file=staging.env start",
+    "start_fix": "react-app-env --env-file=production.env start",
+    "build": "react-app-env build",
+    "build_stage": "react-app-env --env-file=staging.env build",
+    "build_prod": "react-app-env --env-file=production.env build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flist": "firebase list",
@@ -51,5 +51,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "react-app-env": "^1.2.3"
+  }
 }

@@ -28,5 +28,8 @@ yarn-error.log*
 firebase.conf.js
 firestore.rules
 database.rules.json
-/src/firebase/config.js
+
+# environments
+production.env
+staging.env
 
