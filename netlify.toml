@@ -1,0 +1,8 @@
+[build]
+  base    = ""
+  command = "yarn netlify_build_stage"
+  publish = "/build"
+
+[context.production]
+  command = "yarn netlify_build_stage"
+  
