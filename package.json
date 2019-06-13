@@ -36,7 +36,7 @@
     "start": "react-app-env --env-file=staging.env start",
     "start_fix": "react-app-env --env-file=production.env start",
     "build": "react-app-env build",
-    "netlify_build_stage": "react-script build",
+    "netlify_build_stage": "react-scripts build",
     "build_stage": "react-app-env --env-file=staging.env build",
     "build_prod": "react-app-env --env-file=production.env build",
     "test": "react-scripts test --env=jsdom",
