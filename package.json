@@ -43,7 +43,6 @@
     "eject": "react-scripts eject",
     "flist": "firebase list",
     "stage": "yarn run build_stage && yarn run stage_deploy",
-    "netlify_stage": "yarn run netlify_build_stage && yarn run stage_deploy",
     "stage_deploy": "firebase deploy --project staging",
     "production": "yarn run build_prod && yarn run production_deploy",
     "production_deploy": "firebase deploy --project prod"
