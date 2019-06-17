@@ -508,7 +508,8 @@ class App extends Component {
                     <meta property="og:title" content="Warhammer Underworlds (Shadespire and Nightvault) Database and Deck Builder." />
                     <meta
                         property="og:description"
-                        content="YAWUDB is a fastest and the most mobile friendly Warhammer Underworlds: Shadespire and Warhammer Underworlds: Nightvault user's decks database and deck builder."
+                        content="HELLO!!!"
+                        //content="YAWUDB is a fastest and the most mobile friendly Warhammer Underworlds: Shadespire and Warhammer Underworlds: Nightvault user's decks database and deck builder."
                     />
                     <meta property="og:type" content="website" />
                     <meta property="og:url" content="https://yawudb.com" />
