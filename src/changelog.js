@@ -1,4 +1,8 @@
 const changelog = {
+    "0.24.1" : {
+        "Updated BAR" : "'Longstrider' and 'Tome of Offerings' has been added to the BAR list.",
+        "Power's Unbound": "Thanks to John (https://canyourollacrit.com) and Aman (https://www.hexesandwarbands.com/) expansion has been added. Images will be added when they are officially released."
+    },
     "0.24.0" : {
         "Decks Page": "Decks page has been redesigned to be faster, pagination has been replaced with virtualization.",
         "Anonimous Deck Creation": "User should be able to not only create, but also update or delete decks created anonymously. When user logging in, all anonymously created decks should be merged with his own decks."

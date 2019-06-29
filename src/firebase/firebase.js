@@ -25,7 +25,6 @@ const config = {
 
 class Firebase {
     constructor() {
-        console.log('HERE!', process.env);
         app.initializeApp(config)
 
         this.auth = app.auth()

@@ -143,7 +143,7 @@ export const idPrefixToFaction = {
 
 // 0 index indicates the default set containing corresponding faction's cards
 export const factionSets = {
-    "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+    "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
     "garreks-reavers" : [0, 7, 11],
     "steelhearts-champions" : [0, 7, 12],
     "sepulchral-guard" : [1, 7],
@@ -152,14 +152,14 @@ export const factionSets = {
     "spiteclaws-swarm" : [4, 7],
     "magores-fiends" : [5, 7],
     "the-farstriders" : [6, 7],
-    "stormsires-cursebreakers": [8],
-    "thorns-of-the-briar-queen": [8],
-    "the-eyes-of-the-nine": [9],
-    "zarbags-gitz": [10],
-    "godsworn-hunt": [14],
-    "mollogs-mob": [15],
-    "thundriks-profiteers": [16],
-    "yltharis-guardians": [17]
+    "stormsires-cursebreakers": [8, 18],
+    "thorns-of-the-briar-queen": [8, 18],
+    "the-eyes-of-the-nine": [9, 18],
+    "zarbags-gitz": [10, 18],
+    "godsworn-hunt": [14, 18],
+    "mollogs-mob": [15, 18],
+    "thundriks-profiteers": [16, 18],
+    "yltharis-guardians": [17, 18]
 }
 
 export const factionIndexes = [
@@ -172,14 +172,14 @@ export const factionIndexes = [
     "spiteclaws-swarm",
     "magores-fiends",
     "the-farstriders", // 8
-    "stormsires-cursebreakers",
-    "thorns-of-the-briar-queen",
-    "the-eyes-of-the-nine",
-    "zarbags-gitz",
-    "godsworn-hunt",
-    "mollogs-mob",
-    "thundriks-profiteers",
-    "yltharis-guardians"
+    "stormsires-cursebreakers", // 9
+    "thorns-of-the-briar-queen", // 10
+    "the-eyes-of-the-nine", // 11
+    "zarbags-gitz", // 12
+    "godsworn-hunt", // 13
+    "mollogs-mob", // 14
+    "thundriks-profiteers", // 15
+    "yltharis-guardians" // 16
 ]
 
 export const warbandsWithDefaultSet = [

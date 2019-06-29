@@ -1,4 +1,5 @@
 import { cardsdb } from './cardsdb';
+import powersUnboundCards from './dbs/powers_unbound_db';
 
 export { 
     factions,
@@ -31,13 +32,15 @@ export const objectiveScoreType = ['score-immediately', 'score-end-phase', 'scor
 export const totalCardsPerWave = {
     1: 437,
     2: 60,
-    3: 557
+    3: 557,
+    4: 60,
 }
 
 export const universalCardsStartNumber = 233;
 
 export const cardsDb = {
-    ...cardsdb                                                                 
+    ...cardsdb,
+    ...powersUnboundCards                                                                 
 }
 
 export const bannedCards = {
@@ -55,6 +58,7 @@ export const restrictedCards = {
     '01257': 1,
     '03319': 1,
     '03342': 1,
+    '03343': 1, // Longstrider
     '01280': 1,
     '01284': 1,
     '01291': 1, //Superior Tactician
@@ -78,5 +82,6 @@ export const restrictedCards = {
     '01420': 1,
     '03543': 1, // Sudden Growth
     '01424': 1,
+    '03550': 1, // Tome of Offerings
 }
 

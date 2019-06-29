@@ -162,6 +162,18 @@ export const setInfos = {
             549,
             557],
         '16': [262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290]
+    },
+    '18': {
+        wave: 4,
+        '0' : [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60],
+        '9': [1,2,3],
+        '10': [4,5,6],
+        '11': [7,8,9],
+        '12': [10,11,12],
+        '13': [13,14,15],
+        '14': [16,17,18],
+        '15': [19,20,21],
+        '16': [22,23,24],
     }
 }
 
@@ -215,7 +227,8 @@ export const setsIndex = [
     "godsworn-hunt",
     "mollogs-mob",
     "thundriks-profiteers",
-    "yltharis-guardians"
+    "yltharis-guardians", // 17
+    "powers-unbound", // 18
 ]
 
 export const setsNames = [
@@ -240,6 +253,7 @@ export const setsNames = [
     "Godsworn Hunt Expansion",
     "Mollog's Mob Expansion",
     "Thundrik’s Profiteers Expansion",
-    "Ylthari’s Guardians Expansion"
+    "Ylthari’s Guardians Expansion",
+    "Powers Unbound Expansion Card Set" // 18
 ]
 

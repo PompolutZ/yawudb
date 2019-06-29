@@ -15,11 +15,13 @@ import configureStore from './configureStore'
 import LazyLoading from './components/LazyLoading'
 import ErrorBoundary from './components/ErrorBoundary'
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions'
+import { SET_CARDS_RANKING } from './reducers/cardLibraryFilters'
 import { Button } from '@material-ui/core'
 import Firebase, { FirebaseContext, withFirebase } from './firebase'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import * as ROUTES from './constants/routes'
 import { Helmet } from 'react-helmet'
+import { idPrefixToFaction } from './data';
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'))
 const Decks = lazy(() => import('./pages/Decks'))
@@ -85,41 +87,58 @@ const PrivateRoute = connect(state => ({
     isAuthenticated: state.auth !== null,
 }))(PrivateRouteContainer)
 
-class TempPage extends Component {
-    componentDidMount = async () => {
-        // console.log(deckIds);
-        // const grouped = deckIds.reduceRight((acc, el) => {
-        //     const prefix = el.split('-')[0];
-        //     if(!!acc[prefix]) {
-        //         acc[prefix] = [el, ...acc[prefix]];
-        //     } else {
-        //         acc[prefix] = [el]
-        //     }
-        //     return acc;
-        // }, {});
-        // await realdb.ref('/decks_meta/all').set({
-        //     count: deckIds.length,
-        //     ids: deckIds        // const gh = ['gh-3a02ccf3e596', 'gh-a431f01aa268'];
-        // // console.log(grouped);
-        // });
-        // // await db.collection('meta').doc('all').set({
-        // // });
-        // for (let k in grouped) {
-        //     await realdb.ref(`/decks_meta/${k}`).set({
-        //         count: grouped[k].length,
-        //         ids: grouped[k],
-        //     });
-        //     // await db.collection('meta').doc(k).set({
-        //     // });
-        // }
-        // // const gh = ['gh-3a02ccf3e596', 'gh-a431f01aa268'];
-        // // await realdb.ref('/decks_meta/gh').set({
-        // //     count: gh.length,
-        // //     ids: gh
-        // // });
-    }
+function MetaReset(props) {
+    const firebase = React.useContext(FirebaseContext);
 
+    React.useEffect(() => {
+        firebase.decks().once('value').then(s => {
+            const data = s.val();
+            console.log(Object.entries(data));
+            const init = Object.entries(data).map(([id, value]) => {
+                let created = new Date(0)
+                if (value.created && value.created.seconds) {
+                    created.setSeconds(value.created.seconds)
+                } else {
+                    created = new Date(value.created)
+                }
+
+                return ({ id: id, date: created})
+            }).sort((a, b) => b.date - a.date);
+            // const afterSort = init
+            console.log(init);
+            const allIds = init.map(x => x.id);
+            console.log(allIds)
+
+            // firebase.realdb.ref('/decks_meta/all').set({
+            //     count: allIds.length,
+            //     ids: allIds
+            // }).then(() => console.log('UPDATED META ALL'));
+
+            const prefixes = Object.keys(idPrefixToFaction);
+            for(let prefix of prefixes) {
+                const ids = allIds.filter(id => id.startsWith(prefix));
+                // firebase.realdb.ref(`/decks_meta/${prefix}`).set({
+                //     count: ids.length,
+                //     ids: ids
+                // }).then(() => console.log(`UPDATED META FOR ${prefix}`));
+            }
+
+            // const result = Object.entries(data).map(([id, value]) => ({...value, id: id, created: new Date(value.created)}));
+            // const sorted = result.sort((a, b) => a.created - b.created);
+            // console.log(sorted.slice(0, 10));
+        })
+    }, []);
+
+    return (
+        <div>
+            Meta Reset
+        </div>
+    )
+}
+
+class TempPage extends Component {
     updateRatings = async () => {
+        
         const decksRef = await this.props.firebase.db
             .collection('decks')
             .orderBy('created', 'desc')
@@ -169,6 +188,7 @@ class TempPage extends Component {
                 [...[-1], ...new Array(437).fill(0, 0, 437)],
                 [...[-1], ...new Array(60).fill(0, 0, 60)],
                 [...[-1], ...new Array(557).fill(0, 0, 557)],
+                [...[-1], ...new Array(60).fill(0, 0, 60)],
             ]
         )
 
@@ -180,12 +200,14 @@ class TempPage extends Component {
                 1: r[1],
                 2: r[2],
                 3: r[3],
+                4: r[4]
             })
 
         await this.props.firebase.realdb.ref('/cards_ratings').set({
             1: r[1],
             2: r[2],
             3: r[3],
+            4: r[4],
         })
 
         console.log(deckIds)
@@ -444,6 +466,15 @@ class App extends Component {
             () => this.props.onSignOut()
         )
 
+        this.props.firebase.realdb.ref('/cards_ratings').once('value').then(snapshot => {
+            console.log('RATINGS', snapshot.val());
+            this.props.updateCardRanks(snapshot.val());
+        })
+
+        this.props.firebase.realdb.ref('/decks_meta/all/ids').once('value').then(s => {
+            console.log('IDS', s.val());
+        })
+
         const start = new Date()
         const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {}
         const end = new Date()
@@ -468,7 +499,6 @@ class App extends Component {
                     'yawudb_decks',
                     JSON.stringify(updatedDecks)
                 )
-                console.log('DECK ADDED: ', data.key, data.val())
             })
 
             decksRef.on('child_changed', data => {
@@ -477,13 +507,11 @@ class App extends Component {
                     'yawudb_decks',
                     JSON.stringify(updatedDecks)
                 )
-                console.log('DECK CHANGED: ', data.key, data.val())
             })
 
             decksRef.on('child_removed', data => {
                 delete decks[data.key]
                 localStorage.setItem('yawudb_decks', JSON.stringify(decks))
-                console.log('DECK REMOVED: ', data.key, data.val())
             })
         }
     }
@@ -632,7 +660,7 @@ class App extends Component {
                                         <Route
                                             path="/temp"
                                             render={props => (
-                                                <TempPage {...props} />
+                                                <TempPageWithFirebase {...props} />
                                             )}
                                         />
                                         <Route
@@ -660,6 +688,8 @@ class App extends Component {
                                             path="/secret/deck-uploader"
                                             component={SecretDeckUploader}
                                         />
+                                        <PrivateRoute path="/secret/meta-reset"
+                                        component={MetaReset} />
                                     </Switch>
                                 </Suspense>
                             </div>
@@ -729,6 +759,7 @@ const mapDispatchToProps = dispatch => {
         onSignOut: () => dispatch({ type: 'CLEAR_USER' }),
         updateUserExpansions: expansions =>
             dispatch({ type: UPDATE_EXPANSIONS, payload: expansions }),
+        updateCardRanks: ranks => dispatch({ type: SET_CARDS_RANKING, payload: ranks }),    
     }
 }
 
