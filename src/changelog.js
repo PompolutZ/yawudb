@@ -1,4 +1,7 @@
 const changelog = {
+    "0.25.0" : {
+        "Export to other builders": "It should be possible to export your decks to my fellas at https://www.underworldsdb.com and https://www.underworlds-deckers.com. It should also be possible to open from their builders here."
+    },
     "0.24.1" : {
         "Updated BAR" : "'Longstrider' and 'Tome of Offerings' has been added to the BAR list.",
         "Power's Unbound": "Thanks to John (https://canyourollacrit.com) and Aman (https://www.hexesandwarbands.com/) expansion has been added. Images will be added when they are officially released."

@@ -108,7 +108,7 @@ class MenuAppBar extends React.Component {
                     <ListItem
                         button
                         onClick={this.handleNavigateToRoute(
-                            ROUTES.CREATE_NEW_DECK
+                            '/deck/create'
                         )}
                     >
                         <ListItemText primary="Deck Builder" />

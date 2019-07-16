@@ -47,6 +47,19 @@ class DeckActionsMenu extends PureComponent {
                     <MenuItem onClick={this.handleExportVassalFiles} style={{ position: 'relative'}}>
                         Download Vassal Decks
                     </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={this.handleExportToOtherWebsite(this.props.exportToUDB)} style={{ position: 'relative'}}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <img style={{ marginRight: '.3rem'}} src="https://www.underworldsdb.com/favicon.ico" width="16" height="16" />
+                            Open on UnderworldsDB
+                        </div>
+                    </MenuItem>
+                    <MenuItem onClick={this.handleExportToOtherWebsite(this.props.exportToUDS)} style={{ position: 'relative'}}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <img style={{ marginRight: '.3rem'}} src="https://www.underworlds-deckers.com/images/faviconNew.png" width="16" height="16" />
+                            Open on Underworld-Deckers
+                        </div>
+                    </MenuItem>
                     {
                         this.props.canUpdateOrDelete && (
                             <div>
@@ -73,6 +86,11 @@ class DeckActionsMenu extends PureComponent {
 
     handleExportToPdf = () => {
         this.props.onSaveAsPdf();
+        this.handleClose();
+    }
+
+    handleExportToOtherWebsite = invokeExport => () => {
+        invokeExport();
         this.handleClose();
     }
 

@@ -27,7 +27,7 @@ class DeckBuilder extends Component {
         factionCards: new OrderedSet(),
         universalCards: new OrderedSet(),
         deck: new OrderedSet(),
-        isMobileDeckVisible: this.props.editMode,
+        isMobileDeckVisible: this.props.editMode || this.props.transferMode,
         searchText: "",
         filtersVisible: false,
         visibleCardTypes: [0, 1, 2, 3],

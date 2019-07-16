@@ -195,6 +195,8 @@ class ReadonlyDeck extends PureComponent {
                                     onSaveVassalFiles={this._handleSaveVassalFiles}
                                     onEdit={this.props.onEdit}
                                     onCopy={this.props.onCopy}
+                                    exportToUDB={this._handleExportToUDB}
+                                    exportToUDS={this._handleExportToUDS}
                                     onDelete={this.props.onDelete} />
                             </div>
                         )
@@ -210,6 +212,8 @@ class ReadonlyDeck extends PureComponent {
                                         canUpdateOrDelete={this.props.canUpdateOrDelete} 
                                         onEdit={this.props.onEdit}
                                         onCopy={this.props.onCopy}
+                                        exportToUDB={this._handleExportToUDB}
+                                        exportToUDS={this._handleExportToUDS}
                                         onDelete={this.props.onDelete} />
                                 </div>
                                 <div className={classes.deckHeaderButtons}>
@@ -223,6 +227,8 @@ class ReadonlyDeck extends PureComponent {
                                         canUpdateOrDelete={this.props.canUpdateOrDelete} 
                                         onEdit={this.props.onEdit}
                                         onCopy={this.props.onCopy}
+                                        exportToUDB={this._handleExportToUDB}
+                                        exportToUDS={this._handleExportToUDS}
                                         onDelete={this.props.onDelete} />
                                 </div>
                             </React.Fragment>
@@ -576,7 +582,33 @@ class ReadonlyDeck extends PureComponent {
             default: 
                 return cardId.slice(-3);
         }
-    }        
+    } 
+    
+    _handleExportToUDB = () => {
+        const encodeToUDB = card => {
+            if(card.startsWith('02')) return `L${Number(card.slice(-3))}`;
+            if(card.startsWith('03')) return `N${Number(card.slice(-3))}`;
+            if(card.startsWith('04')) return `P${Number(card.slice(-3))}`;
+
+            return Number(card.slice(-3));
+        }
+
+        const udbEncodedCards = this.props.cards.toJS().map(card => card.id).map(encodeToUDB).sort().join();
+        window.open(`https://www.underworldsdb.com/shared.php?deck=0,${udbEncodedCards}`);
+    }
+
+    _handleExportToUDS = () => {
+        const encodeToUDS = card => {
+            if(card.startsWith('02')) return `1${Number(card.slice(-3))}`;
+            if(card.startsWith('03')) return `2${Number(card.slice(-3))}`;
+            if(card.startsWith('04')) return `3${Number(card.slice(-3))}`;
+
+            return `${Number(card.slice(-3))}`;
+        }
+
+        const udsEncodedCards = this.props.cards.toJS().map(card => card.id).map(encodeToUDS).sort().join();
+        window.open(`https://www.underworlds-deckers.com/en/tournament-decks/?Deck=https://yawudb.com/cards,${udsEncodedCards}`)
+    }
 }
 
 const mapDispatchToProps = dispatch => {

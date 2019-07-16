@@ -25,17 +25,71 @@ import { CHANGE_SEARCH_TEXT } from '../reducers/cardLibraryFilters'
 import { connect } from 'react-redux'
 import FactionToggleDesktopBase from '../atoms/FactionToggleDesktop'
 import { Helmet } from 'react-helmet';
+import { cardsIdToFactionIndex, factionIndexes, warbandsWithDefaultSet, factionIndexesWithDefaultSet } from '../data/atoms/factions';
+
+const decodeFaction = cards => {
+    for (let card of cards) {
+        if(!cardsIdToFactionIndex[card]) continue;
+
+        return cardsIdToFactionIndex[card];
+    }
+}
+
+const decodeUDS = card => {
+    if(card.length < 4) return '01' + `000${card}`.slice(-3);
+    if(card.startsWith('1')) return '02' + `000${card.slice(1)}`.slice(-3);
+    if(card.startsWith('2')) return '03' + `000${card.slice(1)}`.slice(-3);
+    if(card.startsWith('3')) return '04' + `000${card.slice(1)}`.slice(-3);
+}
+
+const decodeUDB = card => {
+    if(card.toUpperCase().startsWith('L')) return '02' + `000${card.slice(1)}`.slice(-3);
+    if(card.toUpperCase().startsWith('N')) return '03' + `000${card.slice(1)}`.slice(-3);
+    if(card.toUpperCase().startsWith('P')) return '04' + `000${card.slice(1)}`.slice(-3);
+    return '01' + `000${card}`.slice(-3);
+}
+
+const getDecodingFunction = encoding => {
+    if(encoding === 'udb') return decodeUDB;
+
+    return decodeUDS;
+}
 
 class DeckCreator extends Component {
     state = {
-        isEdit: this.props.match.path.startsWith('/deck/edit'),
+        isEdit: this.props.match.params.action === 'edit',
+        isTransfer: this.props.match.params.action === 'transfer',
+    }
+
+    componentDidMount() {
+        const action = this.props.match.params.action;
+        if(action !== 'transfer') return;
+
+        const transferData = this.props.match.params.data.split(',');
+        console.log(transferData);
+        this.props.clearDeck();
+
+        const decode = getDecodingFunction(transferData[0]);
+        const decodedCardsIds = transferData.slice(1).map(decode);
+        const [decodedFaction, decodedFactionDefaultSet] = factionIndexesWithDefaultSet[decodeFaction(decodedCardsIds)];
+        console.log(decodedFaction);
+        this.props.setFaction(decodedFaction, decodedFactionDefaultSet);
+        console.log(decodedCardsIds);
+        decodedCardsIds.forEach(cardId => this.props.addCard(cardId));
     }
 
     static getDerivedStateFromProps(props, state) {
-        const isEdit = props.match.path.startsWith('/deck/edit')
+        const isEdit = props.match.params.action === 'edit';
         if (isEdit !== state.isEdit) {
             return {
                 isEdit: isEdit,
+            }
+        }
+
+        const isTransfer = props.match.params.action === 'transfer';
+        if(isTransfer !== state.isTransfer) {
+            return {
+                isTransfer: isTransfer,
             }
         }
 
@@ -72,6 +126,7 @@ class DeckCreator extends Component {
                         key={selectedFaction}
                         selectedFaction={selectedFaction}
                         editMode={this.state.isEdit}
+                        transferMode={this.state.isTransfer}
                         currentDeck={
                             this.state.isEdit
                                 ? this.props.editCurrentDeck

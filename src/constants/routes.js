@@ -8,7 +8,7 @@ export const PRIVACY_POLICY = '/privacy-policy';
 export const PROFILE = '/profile';
 export const MY_DECKS = '/mydecks';
 
-export const CREATE_NEW_DECK = '/deck/create';
+export const CREATE_NEW_DECK = '/deck/:action/:data?';
 export const EDIT_DECK = `/deck/edit/:id`;
 
 export const CARDS_LIBRARY  = '/library';

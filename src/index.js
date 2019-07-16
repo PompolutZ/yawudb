@@ -21,7 +21,7 @@ import Firebase, { FirebaseContext, withFirebase } from './firebase'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import * as ROUTES from './constants/routes'
 import { Helmet } from 'react-helmet'
-import { idPrefixToFaction } from './data';
+import { idPrefixToFaction, cardsDb } from './data';
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'))
 const Decks = lazy(() => import('./pages/Decks'))
@@ -88,50 +88,62 @@ const PrivateRoute = connect(state => ({
 }))(PrivateRouteContainer)
 
 function MetaReset(props) {
-    const firebase = React.useContext(FirebaseContext);
+    const [data, setData] = React.useState(null);
 
     React.useEffect(() => {
-        firebase.decks().once('value').then(s => {
-            const data = s.val();
-            console.log(Object.entries(data));
-            const init = Object.entries(data).map(([id, value]) => {
-                let created = new Date(0)
-                if (value.created && value.created.seconds) {
-                    created.setSeconds(value.created.seconds)
-                } else {
-                    created = new Date(value.created)
-                }
-
-                return ({ id: id, date: created})
-            }).sort((a, b) => b.date - a.date);
-            // const afterSort = init
-            console.log(init);
-            const allIds = init.map(x => x.id);
-            console.log(allIds)
-
-            // firebase.realdb.ref('/decks_meta/all').set({
-            //     count: allIds.length,
-            //     ids: allIds
-            // }).then(() => console.log('UPDATED META ALL'));
-
-            const prefixes = Object.keys(idPrefixToFaction);
-            for(let prefix of prefixes) {
-                const ids = allIds.filter(id => id.startsWith(prefix));
-                // firebase.realdb.ref(`/decks_meta/${prefix}`).set({
-                //     count: ids.length,
-                //     ids: ids
-                // }).then(() => console.log(`UPDATED META FOR ${prefix}`));
+        const cards = Object.entries(cardsDb).reduce((acc, [k, v]) => {
+            if(v.faction > 0) {
+                acc[k] = v.faction;
             }
 
-            // const result = Object.entries(data).map(([id, value]) => ({...value, id: id, created: new Date(value.created)}));
-            // const sorted = result.sort((a, b) => a.created - b.created);
-            // console.log(sorted.slice(0, 10));
-        })
-    }, []);
+            return acc;
+        }, {});
+        setData(cards);
+    }, [])
+    // const firebase = React.useContext(FirebaseContext);
+
+    // React.useEffect(() => {
+    //     firebase.decks().once('value').then(s => {
+    //         const data = s.val();
+    //         console.log(Object.entries(data));
+    //         const init = Object.entries(data).map(([id, value]) => {
+    //             let created = new Date(0)
+    //             if (value.created && value.created.seconds) {
+    //                 created.setSeconds(value.created.seconds)
+    //             } else {
+    //                 created = new Date(value.created)
+    //             }
+
+    //             return ({ id: id, date: created})
+    //         }).sort((a, b) => b.date - a.date);
+    //         // const afterSort = init
+    //         console.log(init);
+    //         const allIds = init.map(x => x.id);
+    //         console.log(allIds)
+
+    //         // firebase.realdb.ref('/decks_meta/all').set({
+    //         //     count: allIds.length,
+    //         //     ids: allIds
+    //         // }).then(() => console.log('UPDATED META ALL'));
+
+    //         const prefixes = Object.keys(idPrefixToFaction);
+    //         for(let prefix of prefixes) {
+    //             const ids = allIds.filter(id => id.startsWith(prefix));
+    //             // firebase.realdb.ref(`/decks_meta/${prefix}`).set({
+    //             //     count: ids.length,
+    //             //     ids: ids
+    //             // }).then(() => console.log(`UPDATED META FOR ${prefix}`));
+    //         }
+
+    //         // const result = Object.entries(data).map(([id, value]) => ({...value, id: id, created: new Date(value.created)}));
+    //         // const sorted = result.sort((a, b) => a.created - b.created);
+    //         // console.log(sorted.slice(0, 10));
+    //     })
+    // }, []);
 
     return (
         <div>
-            Meta Reset
+            <pre>{JSON.stringify(data, null, 4)}</pre>
         </div>
     )
 }
@@ -595,12 +607,12 @@ class App extends Component {
                                                 <DeckCreator {...props} />
                                             )}
                                         />
-                                        <Route
+                                        {/* <Route
                                             path={ROUTES.EDIT_DECK}
                                             render={props => (
                                                 <DeckCreator {...props} />
                                             )}
-                                        />
+                                        /> */}
                                         <Route
                                             path={ROUTES.SIGN_IN}
                                             render={props => (
