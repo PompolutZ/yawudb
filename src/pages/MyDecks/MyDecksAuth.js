@@ -160,6 +160,7 @@ class MyDecksAuth extends Component {
                             <div>
                                 {
                                     decks.map(([id, deck]) => {
+                                        console.log(id)
                                         const cards = deck.cards ? deck.cards.map(c => ({ id: c, ...cardsDb[c]})) : [];
                                         const counts = cards.reduce((acc, el) => {
                                             switch(el.type) {

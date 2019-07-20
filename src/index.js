@@ -88,207 +88,65 @@ const PrivateRoute = connect(state => ({
 }))(PrivateRouteContainer)
 
 function MetaReset(props) {
-    const [data, setData] = React.useState(null);
-
-    React.useEffect(() => {
-        const cards = Object.entries(cardsDb).reduce((acc, [k, v]) => {
-            if(v.faction > 0) {
-                acc[k] = v.faction;
-            }
-
-            return acc;
-        }, {});
-        setData(cards);
-    }, [])
-    // const firebase = React.useContext(FirebaseContext);
+    // const [data, setData] = React.useState(null);
 
     // React.useEffect(() => {
-    //     firebase.decks().once('value').then(s => {
-    //         const data = s.val();
-    //         console.log(Object.entries(data));
-    //         const init = Object.entries(data).map(([id, value]) => {
-    //             let created = new Date(0)
-    //             if (value.created && value.created.seconds) {
-    //                 created.setSeconds(value.created.seconds)
-    //             } else {
-    //                 created = new Date(value.created)
-    //             }
-
-    //             return ({ id: id, date: created})
-    //         }).sort((a, b) => b.date - a.date);
-    //         // const afterSort = init
-    //         console.log(init);
-    //         const allIds = init.map(x => x.id);
-    //         console.log(allIds)
-
-    //         // firebase.realdb.ref('/decks_meta/all').set({
-    //         //     count: allIds.length,
-    //         //     ids: allIds
-    //         // }).then(() => console.log('UPDATED META ALL'));
-
-    //         const prefixes = Object.keys(idPrefixToFaction);
-    //         for(let prefix of prefixes) {
-    //             const ids = allIds.filter(id => id.startsWith(prefix));
-    //             // firebase.realdb.ref(`/decks_meta/${prefix}`).set({
-    //             //     count: ids.length,
-    //             //     ids: ids
-    //             // }).then(() => console.log(`UPDATED META FOR ${prefix}`));
+    //     const cards = Object.entries(cardsDb).reduce((acc, [k, v]) => {
+    //         if(v.faction > 0) {
+    //             acc[k] = v.faction;
     //         }
 
-    //         // const result = Object.entries(data).map(([id, value]) => ({...value, id: id, created: new Date(value.created)}));
-    //         // const sorted = result.sort((a, b) => a.created - b.created);
-    //         // console.log(sorted.slice(0, 10));
-    //     })
-    // }, []);
+    //         return acc;
+    //     }, {});
+    //     setData(cards);
+    // }, [])
+    const firebase = React.useContext(FirebaseContext);
+
+    React.useEffect(() => {
+        firebase.decks().once('value').then(s => {
+            const data = s.val();
+            console.log(Object.entries(data));
+            const init = Object.entries(data).map(([id, value]) => {
+                let created = new Date(0)
+                if (value.created && value.created.seconds) {
+                    created.setSeconds(value.created.seconds)
+                } else {
+                    created = new Date(value.created)
+                }
+
+                return ({ id: id, date: created})
+            }).sort((a, b) => b.date - a.date);
+            // const afterSort = init
+            console.log(init);
+            const allIds = init.map(x => x.id).slice(1);
+            console.log(allIds)
+
+            firebase.realdb.ref('/decks_meta/all').set({
+                count: allIds.length,
+                ids: allIds
+            }).then(() => console.log('UPDATED META ALL'));
+
+            const prefixes = Object.keys(idPrefixToFaction);
+            for(let prefix of prefixes) {
+                const ids = allIds.filter(id => id.startsWith(prefix));
+                firebase.realdb.ref(`/decks_meta/${prefix}`).set({
+                    count: ids.length,
+                    ids: ids
+                }).then(() => console.log(`UPDATED META FOR ${prefix}`));
+            }
+
+            // const result = Object.entries(data).map(([id, value]) => ({...value, id: id, created: new Date(value.created)}));
+            // const sorted = result.sort((a, b) => a.created - b.created);
+            // console.log(sorted.slice(0, 10));
+        })
+    }, []);
 
     return (
         <div>
-            <pre>{JSON.stringify(data, null, 4)}</pre>
+            {/* <pre>{JSON.stringify(data, null, 4)}</pre> */}
         </div>
     )
 }
-
-class TempPage extends Component {
-    updateRatings = async () => {
-        
-        const decksRef = await this.props.firebase.db
-            .collection('decks')
-            .orderBy('created', 'desc')
-            .get()
-        const decks = []
-        const fullDecks = {}
-        const deckIds = []
-        decksRef.forEach(deck => {
-            decks.push(deck.data().cards)
-            deckIds.push(deck.id)
-            fullDecks[deck.id] = {
-                ...deck.data(),
-                updated: deck.data().created,
-            }
-        })
-
-        console.log(decks.length)
-        console.log(fullDecks)
-
-        for (let k in fullDecks) {
-            const deck = fullDecks[k]
-            if (deck.author !== 'Anonymous') {
-                const userProfileRef = await this.props.firebase.db
-                    .collection('users')
-                    .doc(deck.author)
-                    .get()
-                deck.authorDisplayName = userProfileRef.data().displayName
-            } else {
-                deck.authorDisplayName = 'Anonymous'
-            }
-
-            await this.props.firebase.realdb.ref('decks/' + k).set(deck)
-        }
-
-        const r = decks.reduce(
-            (acc, el) => {
-                for (let card of el) {
-                    const wave = parseInt(card.slice(0, 2), 10)
-                    const id = parseInt(card.slice(-3), 10)
-                    acc[wave][id] += 1
-                }
-
-                return acc
-            },
-            [
-                -1,
-                [...[-1], ...new Array(437).fill(0, 0, 437)],
-                [...[-1], ...new Array(60).fill(0, 0, 60)],
-                [...[-1], ...new Array(557).fill(0, 0, 557)],
-                [...[-1], ...new Array(60).fill(0, 0, 60)],
-            ]
-        )
-
-        console.log(r)
-        await this.props.firebase.db
-            .collection('meta')
-            .doc('cards_meta')
-            .set({
-                1: r[1],
-                2: r[2],
-                3: r[3],
-                4: r[4]
-            })
-
-        await this.props.firebase.realdb.ref('/cards_ratings').set({
-            1: r[1],
-            2: r[2],
-            3: r[3],
-            4: r[4],
-        })
-
-        console.log(deckIds)
-        const grouped = deckIds.reduceRight((acc, el) => {
-            const prefix = el.split('-')[0]
-            if (!!acc[prefix]) {
-                acc[prefix] = [el, ...acc[prefix]]
-            } else {
-                acc[prefix] = [el]
-            }
-
-            return acc
-        }, {})
-
-        await this.props.firebase.realdb.ref('/decks_meta/all').set({
-            count: deckIds.length,
-            ids: deckIds, // const gh = ['gh-3a02ccf3e596', 'gh-a431f01aa268'];
-            // console.log(grouped);
-        })
-        // await db.collection('meta').doc('all').set({
-
-        // });
-
-        for (let k in grouped) {
-            await this.props.firebase.realdb.ref(`/decks_meta/${k}`).set({
-                count: grouped[k].length,
-                ids: grouped[k],
-            })
-            // await db.collection('meta').doc(k).set({
-
-            // });
-        }
-        // const gh = ['gh-3a02ccf3e596', 'gh-a431f01aa268'];
-        // await realdb.ref('/decks_meta/gh').set({
-        //     count: gh.length,
-        //     ids: gh
-        // });
-    }
-
-    handleClick = async () => {
-        await this.updateRatings()
-        // await realdb.ref('/test/counter').set({
-        //     current: 0,
-        // });
-        // await realdb.ref('/test/counter').transaction(counter => {
-        //     if(counter) {
-        //         counter.current += 1;
-        //         if(counter.ids) {
-        //             counter.ids = [`id${counter.current}`, ...counter.ids]
-        //         } else {
-        //             counter.ids = ['id']
-        //         }
-        //     }
-
-        //     return counter;
-        // });
-    }
-
-    render() {
-        return (
-            <div>
-                This will update cards popularity in some nasty way...
-                <button onClick={this.handleClick}>Click Me</button>
-            </div>
-        )
-    }
-}
-
-const TempPageWithFirebase = withFirebase(TempPage)
 
 class Template extends Component {
     state = {
@@ -667,12 +525,6 @@ class App extends Component {
                                                 <PasswordResetRequest
                                                     {...props}
                                                 />
-                                            )}
-                                        />
-                                        <Route
-                                            path="/temp"
-                                            render={props => (
-                                                <TempPageWithFirebase {...props} />
                                             )}
                                         />
                                         <Route

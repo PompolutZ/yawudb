@@ -132,23 +132,23 @@ class DeckBuilder extends Component {
                 authorDisplayName: this.props.isAuth ? this.props.userInfo.displayName : 'Anonymous',
             }
 
-            this.props.addOrUpdateDeck(this.props.match.params.id, updated, {...deckPayload, id: this.props.match.params.id});
+            this.props.addOrUpdateDeck(this.props.match.params.data, updated, {...deckPayload, id: this.props.match.params.data});
 
-            await this.props.firebase.realdb.ref('decks/' + this.props.match.params.id).set(deckPayload);
+            await this.props.firebase.realdb.ref('decks/' + this.props.match.params.data).set(deckPayload);
             if(!args.isDraft) {
                 await this.props.firebase.realdb.ref('lastDeck').transaction(lastDeck => {
                     if(lastDeck) {
-                        lastDeck.id = this.props.match.params.id;
+                        lastDeck.id = this.props.match.params.data;
                     }
     
                     return lastDeck;
                 });
     
-                await this.moveIdToFront(this.props.firebase.realdb.ref('/decks_meta/all'), this.props.match.params.id);
-                await this.moveIdToFront(this.props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), this.props.match.params.id);
+                await this.moveIdToFront(this.props.firebase.realdb.ref('/decks_meta/all'), this.props.match.params.data);
+                await this.moveIdToFront(this.props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), this.props.match.params.data);
             }
             
-            localStorage.setItem('yawudb_decks', JSON.stringify({ ...cache, [this.props.match.params.id]: deckPayload }));
+            localStorage.setItem('yawudb_decks', JSON.stringify({ ...cache, [this.props.match.params.data]: deckPayload }));
 
             this._resetAndGoBack();
         } catch(err) {
@@ -159,6 +159,7 @@ class DeckBuilder extends Component {
     moveIdToFront = (ref, id) => {
         return ref.transaction(meta => {
             if(meta) {
+                console.log('META', this.props.match.params);
                 const diff = meta.ids.filter(x => x !== id);
                 meta.ids = [id, ...diff];
                 meta.count = meta.ids.length;
