@@ -41,9 +41,11 @@ class DecksListContainer extends React.PureComponent {
 
 const filterDeckIds = (deckIds, faction) => () =>
     deckIds.filter(id => {
+        if(!id) return false;
+        
         switch (faction) {
             case 'all':
-                return true
+                return true    
             default:
                 return id.startsWith(faction)
         }
