@@ -13,6 +13,8 @@ import ScoringOverview from '../../atoms/ScoringOverview';
 import { EDIT_ADD_CARD, EDIT_DECK_NAME, EDIT_DECK_DESCRIPTION, EDIT_FACTION, EDIT_RESET_DECK } from '../../reducers/deckUnderEdit';
 import b64toBlob from 'b64-to-blob';
 import Card from './atoms/Card';
+import { Typography } from '@material-ui/core';
+import LockIcon from '@material-ui/icons/Lock';
 
 const DeckActionsMenu = lazy(() => import('./atoms/DeckActionsMenu'));
 const DeckActionMenuLarge = lazy(() => import('./atoms/DeckActionsMenuLarge'));
@@ -119,6 +121,46 @@ const styles = theme => ({
     }
 });
 
+function DeckSummary({ factionPrefix, name, author, date, draft, sets, amount }) {
+    return (
+        <React.Fragment>
+            <DeckIcon width="4rem" height="4rem" faction={idPrefixToFaction[factionPrefix]} />
+            <div style={{flex: '1 1 auto'}}>
+                <div style={{ fontFamily: 'roboto', fontSize: '1rem', fontWeight: 'bold'}}>{name}</div>
+                <div style={{ fontFamily: 'roboto', fontSize: '.7rem', }}>
+                    <span>{author}</span>
+                    <span>{date}</span>
+                    <span style={{ color: 'darkorange' }}>{draft}</span>
+                </div>
+                <div style={{margin: '.2rem 0 0 0'}}>
+                    {
+                        <SetsList sets={sets} />
+                    }
+                </div>
+                <div style={{ margin: '.2rem 0 0 0', display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItem: 'center', marginRight: '.3rem' }}>
+                        <img src={`/assets/icons/objective-icon.png`} style={{ width: '1rem', height: '1rem' }} />
+                        <Typography>{amount && amount.objectives}</Typography>
+                    </div>
+                    <div style={{ display: 'flex', alignItem: 'center', marginRight: '.3rem' }}>
+                        <img src={`/assets/icons/ploy-icon.png`} style={{ width: '1rem', height: '1rem' }} />
+                        <img src={`/assets/icons/gambit spell-icon.png`} style={{ width: '1rem', height: '1rem' }} />
+                        <Typography>{amount && amount.gambits}</Typography>
+                    </div>
+                    <div style={{ display: 'flex', alignItem: 'center', marginRight: '.3rem' }}>
+                        <img src={`/assets/icons/upgrade-icon.png`} style={{ width: '1rem', height: '1rem' }} />
+                        <Typography>{amount && amount.upgrades}</Typography>
+                    </div>
+                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                        <LockIcon style={{ width: '1rem', color: 'Goldenrod'}} />
+                        <Typography>{amount && amount.restricted}</Typography>
+                    </div>
+                </div>
+            </div>
+        </React.Fragment>
+    )
+}
+
 class ReadonlyDeck extends PureComponent {
     state = {
         deckCanvasSize: { width: 0, height: 0 },
@@ -167,11 +209,26 @@ class ReadonlyDeck extends PureComponent {
             return r;
         }, [0, 0, 0, 0]);
 
+        const amount = {
+            objectives: objectives.toJS().length,
+            gambits: gambits.toJS().length,
+            upgrades: upgrades.toJS().length,
+            restricted: cards.toJS().map(c => Boolean(restrictedCards[c.id])).filter(c => c === true).length
+        }
+
         const totalGlory = objectives.reduce((acc, c) => acc + Number(c.glory), 0);
         return (    
             <div className={classes.root}>
                 <div className={classes.deckHeader}>
-                    <DeckIcon width="4rem" height="4rem" faction={idPrefixToFaction[factionId]} />
+                    <DeckSummary
+                        factionPrefix={factionId}
+                        name={name}
+                        author={author}
+                        date={createdDate}
+                        draft={draft}
+                        sets={sets}
+                        amount={amount} />
+                    {/* <DeckIcon width="4rem" height="4rem" faction={idPrefixToFaction[factionId]} />
                     <div style={{flex: '1 1 auto'}}>
                         <div style={{ fontFamily: 'roboto', fontSize: '1rem', fontWeight: 'bold'}}>{name}</div>
                         <div style={{ fontFamily: 'roboto', fontSize: '.7rem', }}>
@@ -184,7 +241,7 @@ class ReadonlyDeck extends PureComponent {
                                 <SetsList sets={sets} />
                             }
                         </div>
-                    </div>
+                    </div> */}
                     {
                         isNarrow && (
                             <div>

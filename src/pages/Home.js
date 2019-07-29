@@ -144,7 +144,7 @@ class Home extends Component {
                     )}
                     {this.props.lastDeck.id && (
                         <ReadonlyDeck
-                            isNarrow={window.screen.width > 1280}
+                            isNarrow={window.screen.width >= 1280}
                             id={this.props.lastDeck.id}
                             name={this.props.lastDeck.data.name}
                             desc={this.props.lastDeck.data.desc}
