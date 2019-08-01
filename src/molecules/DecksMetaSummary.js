@@ -27,6 +27,7 @@ function DeckMetaSummary({ classes, prefix, firebase, decksMeta, addDecksMeta, o
 
     React.useEffect(() => {
         const ref = firebase.realdb.ref(`/decks_meta/${prefix}`);
+        console.log(prefix, idPrefixToFaction[prefix]);
         ref.on('value', snapshot => {
             const currentMeta = snapshot.val();
             setCount(currentMeta.count);

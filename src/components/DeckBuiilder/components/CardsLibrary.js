@@ -110,7 +110,9 @@ class FilterableCardLibrary extends Component {
     render() {
         const { searchText, visibleCardTypes, editMode } = this.props;
         const currentDeck = editMode ? this.props.editModeCurrentDeck : this.props.createModeCurrentDeck;
-        const cards = this._reloadCards().map(cid => ({id: cid, ranking: this.props.cardsRanking[parseInt(cid.slice(0,2), 10)][parseInt(cid.slice(-3), 10)], ...cardsDb[cid]}));
+        const cards = this._reloadCards().map(cid => {
+            return {id: cid, ranking: this.props.cardsRanking[parseInt(cid.slice(0,2), 10)][parseInt(cid.slice(-3), 10)], ...cardsDb[cid]};
+        });
         
         const bannedIds = Object.keys(bannedCards);
         let filteredCards = cards.filter(({ type }) => visibleCardTypes.includes(type)).filter(({ id }) => this.props.eligibleForOP && !bannedIds.includes(id)); 

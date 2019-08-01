@@ -73,7 +73,10 @@ class FactionToggle extends Component {
                         { warbandsWithDefaultSet.slice(0, 8).map(([faction, defaultSet]) => this.renderFactionToggleButton(faction, defaultSet)) }                        
 
                         <Typography>Nightvault factions:</Typography>
-                        { warbandsWithDefaultSet.slice(8).map(([faction, defaultSet]) => this.renderFactionToggleButton(faction, defaultSet)) }                        
+                        { warbandsWithDefaultSet.slice(8, 18).map(([faction, defaultSet]) => this.renderFactionToggleButton(faction, defaultSet)) }                        
+
+                        <Typography>Dreadfane:</Typography>
+                        { warbandsWithDefaultSet.slice(18).map(([faction, defaultSet]) => this.renderFactionToggleButton(faction, defaultSet)) }                        
                     </div>
                 </AnimateHeight>
             </div>

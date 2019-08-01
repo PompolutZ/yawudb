@@ -1,5 +1,6 @@
 import { cardsdb } from './cardsdb';
 import powersUnboundCards from './dbs/powers_unbound_db';
+import { dreadfaneDb } from './dbs/dreadfane_db';
 
 export { 
     factions,
@@ -34,13 +35,15 @@ export const totalCardsPerWave = {
     2: 60,
     3: 557,
     4: 60,
+    5: 124,
 }
 
 export const universalCardsStartNumber = 233;
 
 export const cardsDb = {
     ...cardsdb,
-    ...powersUnboundCards                                                                 
+    ...powersUnboundCards,
+    ...dreadfaneDb                                                              
 }
 
 export const bannedCards = {

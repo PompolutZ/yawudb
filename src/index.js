@@ -23,6 +23,7 @@ import * as ROUTES from './constants/routes'
 import { Helmet } from 'react-helmet'
 import { idPrefixToFaction, cardsDb } from './data'
 import Query from './pages/Query'
+import CardsRating from './pages/CardsRating';
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'))
 const Decks = lazy(() => import('./pages/Decks'))
@@ -579,6 +580,9 @@ class App extends Component {
                                             path="/secret/meta-reset"
                                             component={MetaReset}
                                         />
+                                        <PrivateRoute
+                                            peth="/secret/cards-rating"
+                                            component={CardsRating} />
                                     </Switch>
                                 </Suspense>
                             </div>

@@ -15,7 +15,9 @@ export const factions = {
     "godsworn-hunt": "Godsworn Hunt",
     "mollogs-mob": "Mollog's Mob",
     "thundriks-profiteers": "Thundrik’s Profiteers",
-    "yltharis-guardians": "Ylthari’s Guardians"
+    "yltharis-guardians": "Ylthari’s Guardians",
+    "ironsouls-condemners": "Ironsoul's Condemners",
+    "lady-harrows-mournflight": "Lady Harrow's Mournflight",
 }
 
 // // 0 index stands for 'wave', so all the cards from Shadespire except Leader will be from wave 1,
@@ -50,7 +52,9 @@ export const factionIdPrefix = {
     "godsworn-hunt": "gh",
     "mollogs-mob": "mm",
     "thundriks-profiteers": "tp",
-    "yltharis-guardians": "yg"
+    "yltharis-guardians": "yg",
+    "ironsouls-condemners": "ic",
+    "lady-harrows-mournflight": "lhm",
 }
 
 export const factionMembers = {
@@ -138,7 +142,9 @@ export const idPrefixToFaction = {
     "gh" : "godsworn-hunt",
     "mm": "mollogs-mob",
     "tp": "thundriks-profiteers",
-    "yg": "yltharis-guardians"
+    "yg": "yltharis-guardians",
+    "ic": "ironsouls-condemners",
+    "lhm": "lady-harrows-mournflight",
 }
 
 // 0 index indicates the default set containing corresponding faction's cards
@@ -179,7 +185,10 @@ export const factionIndexes = [
     "godsworn-hunt", // 13
     "mollogs-mob", // 14
     "thundriks-profiteers", // 15
-    "yltharis-guardians" // 16
+    "yltharis-guardians", // 16
+    "ironsouls-condemners", // 17
+    "lady-harrows-mournflight", // 18
+
 ]
 
 export const factionIndexesWithDefaultSet = [
@@ -199,10 +208,11 @@ export const factionIndexesWithDefaultSet = [
     ["godsworn-hunt", 14], // 13
     ["mollogs-mob", 15], // 14
     ["thundriks-profiteers", 16], // 15
-    ["yltharis-guardians", 17], // 16
+    ["yltharis-guardians", 17], // 16,
+    ["ironsouls-condemners", 19], // 17
+    ["lady-harrows-mournflight", 19], // 18
+
 ]
-
-
 
 export const warbandsWithDefaultSet = [
     ["garreks-reavers",0],
@@ -223,6 +233,8 @@ export const warbandsWithDefaultSet = [
     ["mollogs-mob", 15],
     ["thundriks-profiteers", 16],
     ["yltharis-guardians", 17],
+    ["ironsouls-condemners", 19], // 17
+    ["lady-harrows-mournflight", 19], // 18
 ]
 
 export const cardsIdToFactionIndex = {

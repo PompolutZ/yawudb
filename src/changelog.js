@@ -1,4 +1,7 @@
 const changelog = {
+    "0.26.0" : {
+        "Dreadfane": "Added Dreadfane expansion with Ironsoul's Condemners and Lady Harrow's Mournflight warbands",
+    },
     "0.25.0" : {
         "Export to other builders": "It should be possible to export your decks to my fellas at https://www.underworldsdb.com and https://www.underworlds-deckers.com. It should also be possible to open from their builders here."
     },
