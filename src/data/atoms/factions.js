@@ -73,7 +73,9 @@ export const factionMembers = {
     "godsworn-hunt": ['Theddra', 'Grundann', 'Jagathra', 'Shond', 'Ollo', 'Grawl'],
     "mollogs-mob": ['Mollog', 'Bat Squig', 'Stalagsquig', 'Spiteshroom'],
     "thundriks-profiteers": ['Bjorgen', 'Dead-Eye Lund', 'Enrik', 'Khazgan', 'Garodd'],
-    "yltharis-guardians": ['Ylthari', 'Ahnslaine', 'Gallanghann', 'Skhathael']
+    "yltharis-guardians": ['Ylthari', 'Ahnslaine', 'Gallanghann', 'Skhathael'],
+    "ironsouls-condemners": ['Ironsoul', 'Blightbane', 'Tavian'],
+    "lady-harrows-mournflight": ['Lady Harrow', 'The Anguished One', 'The Maiden', 'Widow Caitha'],
 }
 
 export const filterFactionByIdRange = {
