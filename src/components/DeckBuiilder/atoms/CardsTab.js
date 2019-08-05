@@ -72,7 +72,7 @@ function CardsTab(props) {
                 </ToggleBox>
 
                 <LockIcon className={classes.icon} />
-                <Typography className={classes.item}>{editMode ? props.editRestrictedCardsCount : props.restrictedCardsCount}</Typography>
+                <Typography className={classes.item}>{editMode ? props.editRestrictedCardsCount : props.restrictedCardsCount}/5</Typography>
             </div>
         </div>
     );

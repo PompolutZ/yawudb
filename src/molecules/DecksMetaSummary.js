@@ -30,7 +30,7 @@ function DeckMetaSummary({ classes, prefix, firebase, decksMeta, addDecksMeta, o
         console.log(prefix, idPrefixToFaction[prefix]);
         ref.on('value', snapshot => {
             const currentMeta = snapshot.val();
-            setCount(currentMeta.count);
+            setCount(currentMeta ? currentMeta.count : 0);
             addDecksMeta(prefix, currentMeta);
         });
 

@@ -292,16 +292,8 @@ class App extends Component {
     componentDidMount = () => {
         this.unsubscribe = this.props.firebase.onAuthUserListener(
             async user => {
-                console.log('SIGN IN', user)
                 if (user.isNew) {
                     // new user
-                    console.log('Login New User', {
-                        displayName: user.displayName,
-                        role: user.role,
-                        avatar: user.avatar,
-                        uid: user.uid,
-                        mydecks: user.mydecks,
-                    })
                     this.props.onLogin({
                         displayName: user.displayName,
                         uid: user.uid,
@@ -313,13 +305,6 @@ class App extends Component {
                     history.push('/profile')
                 } else {
                     //const profile = userProfileRef.data()
-                    console.log('Login Not New User', {
-                        displayName: user.displayName,
-                        role: user.role,
-                        avatar: user.avatar,
-                        uid: user.uid,
-                        mydecks: user.mydecks,
-                    })
                     this.props.onLogin({
                         displayName: user.displayName,
                         role: user.role,
@@ -346,10 +331,10 @@ class App extends Component {
         )
 
         this.props.firebase.realdb
-            .ref('/cards_ratings')
+            // .ref('/cards_ratings')
+            .ref('/cards_ranks')
             .once('value')
             .then(snapshot => {
-                console.log('RATINGS', snapshot.val())
                 this.props.updateCardRanks(snapshot.val())
             })
 
@@ -357,7 +342,6 @@ class App extends Component {
             .ref('/decks_meta/all/ids')
             .once('value')
             .then(s => {
-                console.log('IDS', s.val())
             })
 
         const start = new Date()
@@ -581,7 +565,7 @@ class App extends Component {
                                             component={MetaReset}
                                         />
                                         <PrivateRoute
-                                            peth="/secret/cards-rating"
+                                            path="/secret/cards-rating/:faction?"
                                             component={CardsRating} />
                                     </Switch>
                                 </Suspense>

@@ -40,6 +40,8 @@ export const totalCardsPerWave = {
 
 export const universalCardsStartNumber = 233;
 
+export const firstUniversalCardPerWave = [0, 1233, 2017, 3291, 4025, 5065]
+
 export const cardsDb = {
     ...cardsdb,
     ...powersUnboundCards,

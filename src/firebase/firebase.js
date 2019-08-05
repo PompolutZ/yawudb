@@ -61,7 +61,6 @@ class Firebase {
                 const anonDeckIds =
                     JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) ||
                     []
-                console.log(anonDeckIds)
                 userDocRef.get().then(userSnapshot => {
                     if (!userSnapshot.exists) {
                         const displayName = `Soul${Math.floor(

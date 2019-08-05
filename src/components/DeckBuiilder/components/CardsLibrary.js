@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getCardsByFactionAndSets, cardsDb, factionIndexes, bannedCards, restrictedCards } from '../../../data';
+import { getCardsByFactionAndSets, cardsDb, factionIndexes, bannedCards, restrictedCards, factionIdPrefix } from '../../../data';
 import { List, AutoSizer } from 'react-virtualized';
 import { ADD_CARD, REMOVE_CARD } from '../../../reducers/deckUnderBuild';
 import { connect } from 'react-redux';
@@ -65,19 +65,19 @@ class VirtualizedCardsList extends Component {
     _calcRowHeight = params => {
         const item = this.state.cards[params.index];
         if(item) {
-            return item.expanded ? 550 : 75;
+            return item.expanded ? 550 : 70;
         }    
 
-        return 75;
+        return 70;
     }
 
     _calcListWidth = () => {
         const screenWidth = window.screen.width;
         if(screenWidth < 800) {
-            return screenWidth - 16;
+            return screenWidth;
         }
             
-        return screenWidth / 2 - 16;
+        return screenWidth / 2;
     }
 
     _calcListHeight = () => {
@@ -86,7 +86,7 @@ class VirtualizedCardsList extends Component {
 
     render() {
         return (
-            <div style={{ margin: '0 .5rem'}}>
+            <div style={{ margin: '0 0'}}>
                 <AutoSizer disableHeight>
                     {
                         () => (
@@ -110,8 +110,13 @@ class FilterableCardLibrary extends Component {
     render() {
         const { searchText, visibleCardTypes, editMode } = this.props;
         const currentDeck = editMode ? this.props.editModeCurrentDeck : this.props.createModeCurrentDeck;
+        const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
+        const selectedFactionPrefix = factionIdPrefix[selectedFaction];
         const cards = this._reloadCards().map(cid => {
-            return {id: cid, ranking: this.props.cardsRanking[parseInt(cid.slice(0,2), 10)][parseInt(cid.slice(-3), 10)], ...cardsDb[cid]};
+            const universalRank = this.props.cardsRanking && this.props.cardsRanking['universal'][cid] ? this.props.cardsRanking['universal'][cid] : 0;
+            const rank = this.props.cardsRanking && this.props.cardsRanking[selectedFactionPrefix] && this.props.cardsRanking[selectedFactionPrefix][cid] ? this.props.cardsRanking[selectedFactionPrefix][cid] * 10000 : universalRank;
+            //const rank = 0;
+            return {id: cid, ranking: rank, ...cardsDb[cid]};
         });
         
         const bannedIds = Object.keys(bannedCards);
@@ -127,7 +132,7 @@ class FilterableCardLibrary extends Component {
             filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
         }
 
-        const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
+        //const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
 
         filteredCards = filteredCards.filter(c => {
             if (c.type === 3) {
@@ -158,7 +163,7 @@ class FilterableCardLibrary extends Component {
         const t1 = (card1.type === 1 || card1.type === 3) ? 1 : card1.type;
         const t2 = (card2.type === 1 || card2.type === 3) ? 1 : card2.type;
 
-        return t1 - t2 || card2.faction - card1.faction || card2.ranking - card1.ranking;
+        return t1 - t2 || card2.ranking - card1.ranking; // || card2.faction - card1.faction
     }
 
     _reloadCards = () => {

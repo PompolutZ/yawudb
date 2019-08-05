@@ -96,7 +96,7 @@ const isRestrictedCard = id => {
 }
 
 export const mergeLoadedStateWithInitial = loadedState => {
-    return { ...initialState, ...loadedState.deckUnderBuild };
+    return { ...initialState, ...loadedState.deckUnderBuild, deck: new Set(loadedState.deckUnderBuild.deck) };
 }
 
 export default deckUnderBuild;
