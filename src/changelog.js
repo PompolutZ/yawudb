@@ -1,4 +1,7 @@
 const changelog = {
+    "0.27.0": {
+        "Cards Ranks": "Now cards have faction specific ranking and general ranking for universal cards. In the deck builder you should see then ordered by faction specific rank first and then by their universal rank. The rank is from 0 to 10 reflected with stars."
+    },
     "0.26.0" : {
         "Dreadfane": "Added Dreadfane expansion with Ironsoul's Condemners and Lady Harrow's Mournflight warbands",
     },
