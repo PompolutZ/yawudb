@@ -4,15 +4,16 @@ import { dreadfaneDb } from './dbs/dreadfane_db';
 
 export { 
     factions,
-    factionCards,
+    // factionCards,
     PREFIX_LENGTH,
     factionIdPrefix,
-    filterFactionByIdRange,
+    // filterFactionByIdRange,
     idPrefixToFaction,
-    factionSets,
+    // factionSets,
     factionIndexes,
     warbandsWithDefaultSet,
-    factionMembers
+    factionMembers,
+    factionIndexesWithDefaultSet
 } from './atoms/factions';
 
 export {

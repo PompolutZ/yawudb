@@ -8,6 +8,9 @@ export const factions = {
     "spiteclaws-swarm" : "Spiteclaw's Swarm",
     "magores-fiends" : "Magore's Fiends",
     "the-farstriders" : "The Farstriders",
+
+    // NIGHTVAULT
+
     "stormsires-cursebreakers": "Stormsire's Cursebreakers",
     "thorns-of-the-briar-queen": "Thorns of the Briar Queen",
     "the-eyes-of-the-nine": "The Eyes of the Nine",
@@ -16,23 +19,31 @@ export const factions = {
     "mollogs-mob": "Mollog's Mob",
     "thundriks-profiteers": "Thundrik’s Profiteers",
     "yltharis-guardians": "Ylthari’s Guardians",
+
+    // DREADFANE
+
     "ironsouls-condemners": "Ironsoul's Condemners",
     "lady-harrows-mournflight": "Lady Harrow's Mournflight",
+
+    // BEASTGRAVE
+
+    // "grashraks-despoilers": "Grashrak’s Despoilers",
+    // "skaeths-wild-hunt": "Skaeth’s Wild Hunt",
 }
 
 // // 0 index stands for 'wave', so all the cards from Shadespire except Leader will be from wave 1,
 // // Leaders are wave 2, Nightvault is gonna be wave 3
-export const factionCards = {
-    "universal" : [1, 233, 437],
-    "garreks-reavers" : [1, 1, 29],
-    "steelhearts-champions" : [1, 30, 58],
-    "sepulchral-guard" : [1, 59, 87],
-    "ironskulls-boyz" : [1, 88, 116],
-    "the-chosen-axes" : [1, 117, 145],
-    "spiteclaws-swarm" : [1, 146, 174],
-    "magores-fiends" : [1, 175, 203],
-    "the-farstriders" : [1, 204, 232],
-}
+// export const factionCards = {
+//     "universal" : [1, 233, 437],
+//     "garreks-reavers" : [1, 1, 29],
+//     "steelhearts-champions" : [1, 30, 58],
+//     "sepulchral-guard" : [1, 59, 87],
+//     "ironskulls-boyz" : [1, 88, 116],
+//     "the-chosen-axes" : [1, 117, 145],
+//     "spiteclaws-swarm" : [1, 146, 174],
+//     "magores-fiends" : [1, 175, 203],
+//     "the-farstriders" : [1, 204, 232],
+// }
 
 export const PREFIX_LENGTH = "toftbq".length + 1;
 
@@ -45,6 +56,9 @@ export const factionIdPrefix = {
     "spiteclaws-swarm" : "ss",
     "magores-fiends" : "mf",
     "the-farstriders" : "tf",
+
+    // NIGHTVAULT
+
     "stormsires-cursebreakers": "stc",
     "thorns-of-the-briar-queen": "toftbq",
     "the-eyes-of-the-nine": "teotn",
@@ -53,8 +67,16 @@ export const factionIdPrefix = {
     "mollogs-mob": "mm",
     "thundriks-profiteers": "tp",
     "yltharis-guardians": "yg",
+
+    // DREADFANE
+
     "ironsouls-condemners": "ic",
     "lady-harrows-mournflight": "lhm",
+
+    // BEASTGRAVE
+
+    // "grashraks-despoilers": "gd",
+    // "skaeths-wild-hunt": "swh",
 }
 
 export const factionMembers = {
@@ -66,6 +88,9 @@ export const factionMembers = {
     "spiteclaws-swarm" : ['Skritch', 'Krrk', 'Lurking', 'Festering', 'Hungering'],
     "magores-fiends" : ['Magore', 'Riptooth', 'Zharkus', 'Ghartok'],
     "the-farstriders" : ['Sanson', 'Almeric', 'Elias'],
+
+    // NIGHTVAULT
+
     "stormsires-cursebreakers": ['Stormsire', 'Ammis', 'Rastus'],
     "thorns-of-the-briar-queen": ['Briar Queen', 'Varclav', 'The Ever-hanged', 'Chainrasp', 'Chainrasp', 'Chainrasp', 'Chainrasp'],
     "the-eyes-of-the-nine": ['Vortemis', `K'charik`, `Narvia`, 'Turosh', 'Blue Horror'],
@@ -74,59 +99,67 @@ export const factionMembers = {
     "mollogs-mob": ['Mollog', 'Bat Squig', 'Stalagsquig', 'Spiteshroom'],
     "thundriks-profiteers": ['Bjorgen', 'Dead-Eye Lund', 'Enrik', 'Khazgan', 'Garodd'],
     "yltharis-guardians": ['Ylthari', 'Ahnslaine', 'Gallanghann', 'Skhathael'],
+
+    // DREADFANE
+
     "ironsouls-condemners": ['Ironsoul', 'Blightbane', 'Tavian'],
     "lady-harrows-mournflight": ['Lady Harrow', 'The Anguished One', 'The Maiden', 'Widow Caitha'],
+
+    // BEASTGRAVE
+
+    // "grashraks-despoilers": ['', '', '', '', '', ''],
+    // "skaeths-wild-hunt": ['','','','',''],
 }
 
-export const filterFactionByIdRange = {
-    "garreks-reavers" : {
-        start: 'gr',
-        end: 'ib'
-    },
-    "steelhearts-champions" : {
-        start: "sc",
-        end: 'sg'
-    },
-    "sepulchral-guard" : {
-        start: "sg",
-        end: 'ss'
-    },
-    "ironskulls-boyz" : {
-        start: 'ib',
-        end: 'mf'
-    },
-    "the-chosen-axes" : {
-        start: "tca",
-        end: 'teotn'
-    },
-    "spiteclaws-swarm" : {
-        start: "ss",
-        end: 'stc'
-    },
-    "magores-fiends" : {
-        start: 'mf',
-        end: 'sc'
-    },
-    "the-farstriders" : {
-        start: "tf",
-        end: "toftbq"
-    },
-    "stormsires-cursebreakers": {
-        start: "stc",
-        end: 'tca'
-    },
-    "thorns-of-the-briar-queen": {
-        start: "toftbq",
-        end: 'zg'
-    },
-    "the-eyes-of-the-nine": { 
-        start: "teotn",
-        end: 'tf'
-    },
-    "zarbags-gitz": {
-        start: "zg"
-    }
-}
+// export const filterFactionByIdRange = {
+//     "garreks-reavers" : {
+//         start: 'gr',
+//         end: 'ib'
+//     },
+//     "steelhearts-champions" : {
+//         start: "sc",
+//         end: 'sg'
+//     },
+//     "sepulchral-guard" : {
+//         start: "sg",
+//         end: 'ss'
+//     },
+//     "ironskulls-boyz" : {
+//         start: 'ib',
+//         end: 'mf'
+//     },
+//     "the-chosen-axes" : {
+//         start: "tca",
+//         end: 'teotn'
+//     },
+//     "spiteclaws-swarm" : {
+//         start: "ss",
+//         end: 'stc'
+//     },
+//     "magores-fiends" : {
+//         start: 'mf',
+//         end: 'sc'
+//     },
+//     "the-farstriders" : {
+//         start: "tf",
+//         end: "toftbq"
+//     },
+//     "stormsires-cursebreakers": {
+//         start: "stc",
+//         end: 'tca'
+//     },
+//     "thorns-of-the-briar-queen": {
+//         start: "toftbq",
+//         end: 'zg'
+//     },
+//     "the-eyes-of-the-nine": { 
+//         start: "teotn",
+//         end: 'tf'
+//     },
+//     "zarbags-gitz": {
+//         start: "zg"
+//     }
+// }
 
 export const idPrefixToFaction = {
     "gr": "garreks-reavers",
@@ -137,6 +170,9 @@ export const idPrefixToFaction = {
     "ss" : "spiteclaws-swarm",
     "mf" : "magores-fiends",
     "tf" : "the-farstriders",
+
+    // NIGHTVAULT
+
     "stc" : "stormsires-cursebreakers",
     "toftbq" : "thorns-of-the-briar-queen",
     "teotn" : "the-eyes-of-the-nine",
@@ -145,30 +181,38 @@ export const idPrefixToFaction = {
     "mm": "mollogs-mob",
     "tp": "thundriks-profiteers",
     "yg": "yltharis-guardians",
+
+    // DREADFANE
+
     "ic": "ironsouls-condemners",
     "lhm": "lady-harrows-mournflight",
+
+    // BEASTGRAVE
+
+    // "gd": "grashraks-despoilers",
+    // "swh": "skaeths-wild-hunt",
 }
 
 // 0 index indicates the default set containing corresponding faction's cards
-export const factionSets = {
-    "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-    "garreks-reavers" : [0, 7, 11],
-    "steelhearts-champions" : [0, 7, 12],
-    "sepulchral-guard" : [1, 7],
-    "ironskulls-boyz" : [2, 7],
-    "the-chosen-axes" : [3, 7],
-    "spiteclaws-swarm" : [4, 7],
-    "magores-fiends" : [5, 7],
-    "the-farstriders" : [6, 7],
-    "stormsires-cursebreakers": [8, 18],
-    "thorns-of-the-briar-queen": [8, 18],
-    "the-eyes-of-the-nine": [9, 18],
-    "zarbags-gitz": [10, 18],
-    "godsworn-hunt": [14, 18],
-    "mollogs-mob": [15, 18],
-    "thundriks-profiteers": [16, 18],
-    "yltharis-guardians": [17, 18]
-}
+// export const factionSets = {
+//     "universal" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+//     "garreks-reavers" : [0, 7, 11],
+//     "steelhearts-champions" : [0, 7, 12],
+//     "sepulchral-guard" : [1, 7],
+//     "ironskulls-boyz" : [2, 7],
+//     "the-chosen-axes" : [3, 7],
+//     "spiteclaws-swarm" : [4, 7],
+//     "magores-fiends" : [5, 7],
+//     "the-farstriders" : [6, 7],
+//     "stormsires-cursebreakers": [8, 18],
+//     "thorns-of-the-briar-queen": [8, 18],
+//     "the-eyes-of-the-nine": [9, 18],
+//     "zarbags-gitz": [10, 18],
+//     "godsworn-hunt": [14, 18],
+//     "mollogs-mob": [15, 18],
+//     "thundriks-profiteers": [16, 18],
+//     "yltharis-guardians": [17, 18]
+// }
 
 export const factionIndexes = [
     "universal",
@@ -180,6 +224,9 @@ export const factionIndexes = [
     "spiteclaws-swarm",
     "magores-fiends",
     "the-farstriders", // 8
+
+    // NIGHTVAULT
+
     "stormsires-cursebreakers", // 9
     "thorns-of-the-briar-queen", // 10
     "the-eyes-of-the-nine", // 11
@@ -188,9 +235,16 @@ export const factionIndexes = [
     "mollogs-mob", // 14
     "thundriks-profiteers", // 15
     "yltharis-guardians", // 16
+
+    // DREADFANE
+
     "ironsouls-condemners", // 17
     "lady-harrows-mournflight", // 18
 
+    // BEASTGRAVE
+
+    // "grashraks-despoilers",
+    // "skaeths-wild-hunt",
 ]
 
 export const factionIndexesWithDefaultSet = [
@@ -203,6 +257,9 @@ export const factionIndexesWithDefaultSet = [
     ["spiteclaws-swarm", 4],
     ["magores-fiends", 5],
     ["the-farstriders", 6], // 8
+
+    // NIGHTVAULT
+
     ["stormsires-cursebreakers", 8], // 9
     ["thorns-of-the-briar-queen", 8], // 10
     ["the-eyes-of-the-nine", 9], // 11
@@ -211,9 +268,16 @@ export const factionIndexesWithDefaultSet = [
     ["mollogs-mob", 15], // 14
     ["thundriks-profiteers", 16], // 15
     ["yltharis-guardians", 17], // 16,
+
+    // DREADFANE
+
     ["ironsouls-condemners", 19], // 17
     ["lady-harrows-mournflight", 19], // 18
 
+    // BEASTGRAVE
+
+    // ["grashraks-despoilers", -1]
+    // ["skaeths-wild-hunt", -1]
 ]
 
 export const warbandsWithDefaultSet = [
@@ -225,6 +289,9 @@ export const warbandsWithDefaultSet = [
     ["spiteclaws-swarm",4],
     ["magores-fiends",5],
     ["the-farstriders",6],
+
+    // NIGHTVAULT
+
     ["stormsires-cursebreakers",8],
     ["thorns-of-the-briar-queen",8],
     ["the-eyes-of-the-nine",9],
@@ -235,8 +302,16 @@ export const warbandsWithDefaultSet = [
     ["mollogs-mob", 15],
     ["thundriks-profiteers", 16],
     ["yltharis-guardians", 17],
+
+    // DREADFANE
+
     ["ironsouls-condemners", 19], // 17
     ["lady-harrows-mournflight", 19], // 18
+
+    // BEASTGRAVE
+
+    // ["grashraks-despoilers", -1]
+    // ["skaeths-wild-hunt", -1]
 ]
 
 export const cardsIdToFactionIndex = {
@@ -787,7 +862,7 @@ export const cardsIdToFactionIndex = {
     "04007": 11,
     "04008": 11,
     "04009": 11,
-    "040010": 12,
+    "04010": 12,
     "04011": 12,
     "04012": 12,
     "04013": 13,

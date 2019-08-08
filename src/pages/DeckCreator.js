@@ -25,7 +25,7 @@ import { CHANGE_SEARCH_TEXT } from '../reducers/cardLibraryFilters'
 import { connect } from 'react-redux'
 import FactionToggleDesktopBase from '../atoms/FactionToggleDesktop'
 import { Helmet } from 'react-helmet';
-import { cardsIdToFactionIndex, factionIndexes, warbandsWithDefaultSet, factionIndexesWithDefaultSet } from '../data/atoms/factions';
+import { cardsIdToFactionIndex, factionIndexesWithDefaultSet } from '../data/atoms/factions';
 
 const decodeFaction = cards => {
     for (let card of cards) {
