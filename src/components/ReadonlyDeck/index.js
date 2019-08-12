@@ -19,13 +19,13 @@ import LockIcon from '@material-ui/icons/Lock';
 const DeckActionsMenu = lazy(() => import('./atoms/DeckActionsMenu'));
 const DeckActionMenuLarge = lazy(() => import('./atoms/DeckActionsMenuLarge'));
 
-const MiniSectionHeader = ({ type, children }) => (
+const MiniSectionHeader = ({ type, amount, children }) => (
     <div style={{borderBottom: '1px solid gray', margin: '1rem .5rem 1rem .5rem', padding: '0 0 .3rem 0', display: 'flex', alignItems: 'center'}}>
         <img src={`/assets/icons/${cardTypeIcons[type]}.png`}
             alt={cardTypeIcons[type]}
             style={{ margin: '0 .3rem 0 .5rem', width: '1.5rem', height: '1.5rem'}} />
         <div style={{ fontFamily: 'roboto', fontSize: '1.2rem', margin: '0 .3rem 0 0'}}>
-            {`${cardType[type]}s`}
+            {`${amount} ${cardType[type]}s`}
         </div>
         <div style={{ display: 'flex', margin: '0 0 0 0'}}>
             { children }
@@ -294,7 +294,7 @@ class ReadonlyDeck extends PureComponent {
                 </div>
                 <div className={classes.deckBody}>
                     <div className={classnames(classes.section, {[classes.cardsSection] : this.props.cardsView})} style={{ flex: isNarrow ? '1 100%' : ''}}>
-                        <MiniSectionHeader type={0}>
+                        <MiniSectionHeader type={0} amount={objectives.toJS().length}>
                             <div style={{ display: 'flex'}}>
                                 <div style={{ display: 'flex'}}>
                                     <ScoringOverview summary={objectiveSummary} glory={totalGlory} />
@@ -321,7 +321,7 @@ class ReadonlyDeck extends PureComponent {
                                 )                    
                             }
                             <div style={{ fontFamily: 'roboto', fontSize: '1.2rem', margin: '0 .3rem 0 .3rem'}}>
-                                {`Gambits`}
+                                {`${gambits.toJS().length} Gambits`}
                             </div>
                         </div>
                         <div className={classnames(classes.sectionItems, {[classes.cardsSectionItems] : this.props.cardsView})}>
@@ -331,7 +331,7 @@ class ReadonlyDeck extends PureComponent {
                         </div>
                     </div>
                     <div className={classnames(classes.section, {[classes.cardsSection] : this.props.cardsView})}  style={{ flex: isNarrow ? '1 100%' : ''}}>
-                        <MiniSectionHeader type={2} />
+                        <MiniSectionHeader type={2}  amount={upgrades.toJS().length} />
                         <div className={classnames(classes.sectionItems, {[classes.cardsSectionItems] : this.props.cardsView})}>
                             {
                                 upgrades.toJS().map((v, i) => <Card key={i} card={v} asImage={this.props.cardsView} /> )

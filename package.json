@@ -9,6 +9,7 @@
     "b64-to-blob": "^1.2.19",
     "connected-react-router": "^4.4.1",
     "firebase": "^5.9.4",
+    "firebase-functions": "^3.2.0",
     "immutable": "^3.8.2",
     "jspdf": "^1.4.1",
     "lodash": "^4.17.10",
@@ -55,5 +56,8 @@
   ],
   "devDependencies": {
     "react-app-env": "^1.2.3"
+  },
+  "engines": {
+    "node": "10.15.3"
   }
 }
