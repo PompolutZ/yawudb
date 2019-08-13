@@ -1,11 +1,54 @@
 import React, { PureComponent } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import classnames from 'classnames';
 import LockIcon from '@material-ui/icons/Lock';
 import { SET_VISIBLE_CARD_TYPES } from '../../../reducers/cardLibraryFilters';
 import { Set } from 'immutable';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        alignItems: 'center',
+    },
+
+    header: {
+        fontSize: '.8rem'
+    },
+
+    subhead: {
+        display: 'flex',
+        padding: 'auto 1rem',
+        alignItems: 'center',
+    },
+
+    icon: {
+        width: '1rem',
+        height: '1rem',
+        color: 'goldenrod',
+        [theme.breakpoints.up('md')] : {
+            width: '1.5rem',
+            height: '1.5rem',
+        }
+    },
+
+    fixedIcon: {
+        position: 'absolute',
+        left: '.5rem',
+        top: '0',
+        zIndex: '1',
+    },
+
+    item: {
+        fontSize: '1rem',
+        [theme.breakpoints.up('md')] : {
+            fontSize: '1.5rem',
+        },
+        margin: '0 .5rem 0 .2rem'
+    }
+}));
 
 function ToggleBox({ children, isVisible, onToggle }) {
     return (
@@ -20,7 +63,8 @@ function ToggleBox({ children, isVisible, onToggle }) {
 }
 
 function CardsTab(props) {
-    const { classes, editMode, isSelected } = props;
+    const classes = useStyles();
+    const { editMode, isSelected } = props;
     const visibleCardTypes = new Set(props.types);
 
     const toggleTypeAtIndex = index => () => {
@@ -45,7 +89,7 @@ function CardsTab(props) {
 
     return (
         <div className={classes.root}>
-            <Typography variant="subheading" className={classes.header}>cards</Typography>
+            <Typography variant="subtitle2" className={classes.header}>cards</Typography>
             <div className={classes.subhead}>
                 <ToggleBox isVisible={visibleCardTypes.includes(0)} onToggle={toggleTypeAtIndex(0)}>
                     <React.Fragment>
@@ -78,48 +122,6 @@ function CardsTab(props) {
     );
 }
 
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexFlow: 'column nowrap',
-        alignItems: 'center',
-    },
-
-    header: {
-        fontSize: '.8rem'
-    },
-
-    subhead: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-
-    icon: {
-        width: '1rem',
-        height: '1rem',
-        color: 'goldenrod',
-        [theme.breakpoints.up('md')] : {
-            width: '1.5rem',
-            height: '1.5rem',
-        }
-    },
-
-    fixedIcon: {
-        position: 'absolute',
-        left: '.5rem',
-        top: '0',
-        zIndex: '1',
-    },
-
-    item: {
-        fontSize: '1rem',
-        [theme.breakpoints.up('md')] : {
-            fontSize: '1.5rem',
-        },
-        margin: '0 .8rem 0 .2rem'
-    }
-});
-
 const mapStateToProps = state => ({
     types: state.cardLibraryFilters.visibleCardTypes,
 
@@ -140,4 +142,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CardsTab));
+export default connect(mapStateToProps, mapDispatchToProps)(CardsTab);

@@ -13,7 +13,7 @@ const SelectedFaction = ({ faction, style }) => (
         margin: '.5rem',
     }}}>
         <img alt={`${faction}`} style={{width: '3.5rem', height: '3.5rem', margin: '0 1rem 0 0rem'}} src={`/assets/icons/${faction.startsWith('n_') ? faction.slice(2) : faction}-icon.png`} />
-        <Typography variant="title">{`${faction.startsWith('n_') ? factions[faction.slice(2)] : factions[faction]}`}</Typography>
+        <Typography variant="body1">{`${faction.startsWith('n_') ? factions[faction.slice(2)] : factions[faction]}`}</Typography>
     </div>
 );
 

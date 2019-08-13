@@ -25,7 +25,7 @@ function CardTypeToggle({ types, onTypesChanged }) {
                 offImage={`/assets/icons/${name.toLowerCase()}-icon-bw.png`}
                 onToggle={toggleTypeAtIndex(index)}
                 />
-            <Typography variant="title" style={{margin: '0 0 0 .5rem', opacity: !visibleCardTypes.includes(index) ? '.4' : 1}}>{name}</Typography>        
+            <Typography variant="h6" style={{margin: '0 0 0 .5rem', opacity: !visibleCardTypes.includes(index) ? '.4' : 1}}>{name}</Typography>        
         </div>
     )
 

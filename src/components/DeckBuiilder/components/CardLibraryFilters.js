@@ -63,7 +63,7 @@ class CardLibraryFilters extends Component {
                     </div>
                     <div style={{borderBottom: '1px solid gray', paddingBottom: '1rem', margin: '1rem .5rem 0 .5rem'}}>
                         <Switch label="Organised Play" isChecked={this.props.eligibleForOP} onChange={this.handleChangeEligibleForOrganizedPlay} />
-                        <Typography variant="subheading" style={{ fontSize: '.7rem', marginBottom: '.5rem'}}>
+                        <Typography variant="subtitle1" style={{ fontSize: '.7rem', marginBottom: '.5rem'}}>
                             <i>Removes banned cards from the cards list.</i>
                         </Typography>
                     </div>

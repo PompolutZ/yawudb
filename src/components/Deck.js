@@ -14,7 +14,7 @@ class SectionHeader extends PureComponent {
     render() {
         return (
             <div style={{borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
-                <Typography variant="headline">
+                <Typography variant="h6">
                     { this.props.children }
                 </Typography>
             </div>

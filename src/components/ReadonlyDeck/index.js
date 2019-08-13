@@ -346,6 +346,8 @@ class ReadonlyDeck extends PureComponent {
                     <img id="wave-01" src={`/assets/icons/wave-01-icon.png`} alt="wave-01" />
                     <img id="wave-02" src={`/assets/icons/wave-02-icon.png`} alt="wave-02" />
                     <img id="wave-03" src={`/assets/icons/wave-03-icon.png`} alt="wave-03" />
+                    <img id="wave-04" src={`/assets/icons/wave-04-icon.png`} alt="wave-04" />
+                    <img id="wave-05" src={`/assets/icons/wave-05-icon.png`} alt="wave-05" />
                     <div id="textMeasureContainer" style={{ display: 'inline-flex', backgroundColor: 'magenta', flexFlow: 'column', width: 'auto'}}>
                         {
                             cards.map(c => {

@@ -198,14 +198,12 @@ class VirtualizedCardsList extends Component {
         cardRows: [],
         cardRenderWidth: 0,
         cardRenderHeight: 0,
+        width: document.getElementById('yawudb_main').offsetWidth,
+        height: document.getElementById('yawudb_main').offsetHeight,
     }
 
     componentDidMount(){
-        console.log(this.props.cards);
-        console.log(this.props.containerRef.offsetWidth);
-        console.log(ratio);
-        const itemsPerRow = Math.floor(this.props.containerRef.offsetWidth / minOptimalWidth);
-        console.log(itemsPerRow)
+        const itemsPerRow = Math.floor(this.state.width / minOptimalWidth);
         const rows = this.props.cards.reduce((result, item, index, array) => {
             if(index % itemsPerRow === 0) {
                 result.push(array.slice(index, index + itemsPerRow));
@@ -214,8 +212,7 @@ class VirtualizedCardsList extends Component {
             return result;
         }, []);
         
-        console.log(this.props.containerRef.offsetWidth / itemsPerRow);
-        this.setState({ cardRows: rows, cardRenderWidth: this.props.containerRef.offsetWidth / itemsPerRow, cardRenderHeight: this.props.containerRef.offsetWidth / itemsPerRow * ratio });
+        this.setState({ cardRows: rows, cardRenderWidth: this.state.width / itemsPerRow, cardRenderHeight: this.state.width / itemsPerRow * ratio });
     }
 
     _rowRenderer = params => {
@@ -263,8 +260,8 @@ class VirtualizedCardsList extends Component {
                     () => (
                         <List
                         ref={this._setRef}
-                        width={containerRef.offsetWidth}
-                        height={containerRef.offsetHeight}
+                        width={this.state.width}
+                        height={this.state.height}
                         rowCount={this.state.cardRows.length}
                         rowHeight={this.state.cardRenderHeight}
                         rowRenderer={this._rowRenderer}
