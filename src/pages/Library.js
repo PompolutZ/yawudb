@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     },
     
     selectEmpty: {
-        marginTop: theme.spacing.unit(2),
+        marginTop: theme.spacing(2),
     },    
 }));
 
