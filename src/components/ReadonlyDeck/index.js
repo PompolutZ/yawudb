@@ -445,15 +445,15 @@ class ReadonlyDeck extends PureComponent {
 
         const objectives = cardsjs
             .filter(c => c.type === 0)
-            .map((o, i) => 
-                String.fromCharCode(27) + `+/1565950328319/report;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\tmark;MapLayers\\\tobs;70,130;Objectives background.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\tdelete;Delete;68,195\\\\\\\tpiece;;;${o.id}.png;${o.id}/-1\tCardsLayers\\\tnull;\\\\\t\\\\\\\tnull;2852;244;${i}`);
+            .map((c, i) => 
+                String.fromCharCode(27) + `+/1567515031160/report;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\tmark;MapLayers\\\tobs;70,130;Objectives background.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\tdelete;Delete;68,195\\\\\\\tpiece;;;${c.id}.png;${c.id}/-1\tCardsLayers\\\tnull;\\\\\t\\\\\\\tnull;2852;244;15255\r`);
 
         this.downloadVassalDeckWithTempLink(objectives, `${name}_OBJECTIVES.txt`);
 
         const powers = cardsjs
             .filter(c => c.type !== 0)
-            .map((o, i) => 
-                String.fromCharCode(27) + `+/1565950320832/report;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\tmark;MapLayers\\\tobs;70,130;powercardsback.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\tdelete;Delete;68,195\\\\\\\tpiece;;;${o.id}.png;${o.id}/-1\tCardsLayers\\\tnull;\\\\\t\\\\\\\tnull;2543;244;${i}\r`);
+            .map((c, i) => 
+                String.fromCharCode(27) + `+/1565950320832/report;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\tmark;MapLayers\\\tobs;70,130;powercardsback.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\tdelete;Delete;68,195\\\\\\\tpiece;;;${c.id}.png;${c.id}/-1\tCardsLayers\\\tnull;\\\\\t\\\\\\\tnull;2543;244;14555\r`);
 
         this.downloadVassalDeckWithTempLink(powers, `${name}_POWERS.txt`);                
     }
