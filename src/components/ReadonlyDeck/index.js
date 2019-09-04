@@ -1,6 +1,6 @@
 import React, { PureComponent, lazy } from 'react';
 import classnames from 'classnames';
-import { cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, factions, restrictedCards } from '../../data/index';
+import { cardTypeIcons, idPrefixToFaction, cardType, totalCardsPerWave, factions, restrictedCards, bannedCards } from '../../data/index';
 import { pickCardColor } from '../../utils/functions';
 import { Set } from 'immutable';
 import DeckIcon from '../../atoms/DeckIcon';
@@ -348,6 +348,9 @@ class ReadonlyDeck extends PureComponent {
                     <img id="wave-03" src={`/assets/icons/wave-03-icon.png`} alt="wave-03" />
                     <img id="wave-04" src={`/assets/icons/wave-04-icon.png`} alt="wave-04" />
                     <img id="wave-05" src={`/assets/icons/wave-05-icon.png`} alt="wave-05" />
+                    <img id="op_valid" src={`/assets/icons/ApprovedStamp.png`} alt="Organized Play Approved Stamp" />
+                    <img id="op_not_valid" src={`/assets/icons/NotValidStamp.png`} alt="Organized Play Denied Stamp" />
+                    <img id="restrictedIcon" src={`/assets/icons/restricted_card_icon.png`} alt="Restricted Icon" />
                     <div id="textMeasureContainer" style={{ display: 'inline-flex', backgroundColor: 'magenta', flexFlow: 'column', width: 'auto'}}>
                         {
                             cards.map(c => {
@@ -402,7 +405,22 @@ class ReadonlyDeck extends PureComponent {
     
             let coords = this.addToPdf(doc, 'Objectives (12):', objectives, docX, docY, rem);
             coords = this.addToPdf(doc, `Gambits (${gambits.count()}):`, gambits, coords.x, coords.y, rem);
-            this.addToPdf(doc, `Upgrades (${upgrades.count()}):`, upgrades, coords.x, coords.y, rem);
+            coords = this.addToPdf(doc, `Upgrades (${upgrades.count()}):`, upgrades, coords.x, coords.y, rem);
+
+            const objs = objectives.toJS().map(c => c.id);
+            const gs = gambits.toJS().map(c => c.id);
+            const us = upgrades.toJS().map(c => c.id);
+            const barCount = [...objs, ...gs, ...us].filter(id => Boolean(restrictedCards[id]) || Boolean(bannedCards[id])).length;
+            const isOrganizedPlayValid = objs.length === 12 && gs.length <= us.length && (gs.length + us.length) >= 20 && barCount <= 5;
+
+            console.log(coords.x, coords.y);
+            const measuredWidth = document.getElementById(`textMeasureContainer`).clientWidth;
+            const otherMeasuredWidth = document.getElementById(`cardNumberMeasurer`).clientWidth;
+            if(isOrganizedPlayValid) {
+                doc.addImage(document.getElementById('op_valid'), 'png', coords.x + measuredWidth + otherMeasuredWidth + rem * 2, coords.y, rem * 8, rem * 8, '', 'SLOW');
+            } else {
+                doc.addImage(document.getElementById('op_not_valid'), 'png', coords.x + measuredWidth + otherMeasuredWidth + rem * 2, coords.y, rem * 8, rem * 8, '', 'SLOW');
+            }
     
             doc.save(`${name}.pdf`);
         })
@@ -431,6 +449,9 @@ class ReadonlyDeck extends PureComponent {
             doc.text(`${idToPrintId(card.id)}`, docX + 10 + measuredWidth, docY + 5);
             const otherMeasuredWidth = document.getElementById(`cardNumberMeasurer`).clientWidth;
             doc.addImage(document.getElementById(`wave-${card.id.substr(0, 2)}`), 'png', docX + 10 + measuredWidth + otherMeasuredWidth, docY - 2, 8, 8);
+            if(Boolean(restrictedCards[card.id])) {
+                doc.addImage(document.getElementById('restrictedIcon'), 'png', docX + 10 + measuredWidth + otherMeasuredWidth + 10, docY - 2, 8, 8);
+            }
             docY += 10;
             doc.setTextColor('black');
         }

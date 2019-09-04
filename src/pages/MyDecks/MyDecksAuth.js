@@ -141,7 +141,7 @@ class MyDecksAuth extends Component {
                         <div>
                             <div className={classes.header}>
                                 <Switch isChecked={this.state.showConflicts} onChange={this.handleChangeShowConflicts} label="Show conflicts and warnings" />
-                                <Typography variant="subheading" className={classes.headerItem} style={{ marginBottom: '.5rem'}}>
+                                <Typography variant="subtitle2" className={classes.headerItem} style={{ marginBottom: '.5rem'}}>
                                     <i>To use this feature mark sets you own in the <span style={{color: '#3B9979', cursor: 'pointer'}} onClick={this.handleProfileLinkClicked}><u>Profile</u></span> page.</i>
                                 </Typography>
 

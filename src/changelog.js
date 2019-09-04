@@ -1,4 +1,8 @@
 const changelog = {
+    "0.28.0": {
+        "Improved PDF export": "Decks exported as PDF should have now stamp whether they are valid or not valid for organized play. Also there is an icon next to restricted cards.",
+        "Bug fixes": "The bug when decks exported to Vassal didn't have Delete trait should be fixed."
+    },
     "0.27.0": {
         "Cards Ranks": "Now cards have faction specific ranking and general ranking for universal cards. In the deck builder you should see then ordered by faction specific rank first and then by their universal rank. The rank is from 0 to 10 reflected with stars."
     },
