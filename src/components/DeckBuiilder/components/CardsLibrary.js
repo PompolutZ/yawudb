@@ -116,11 +116,16 @@ class FilterableCardLibrary extends Component {
             const universalRank = this.props.cardsRanking && this.props.cardsRanking['universal'][cid] ? this.props.cardsRanking['universal'][cid] : 0;
             const rank = this.props.cardsRanking && this.props.cardsRanking[selectedFactionPrefix] && this.props.cardsRanking[selectedFactionPrefix][cid] ? this.props.cardsRanking[selectedFactionPrefix][cid] * 10000 : universalRank;
             //const rank = 0;
-            return {id: cid, ranking: rank, ...cardsDb[cid]};
+            const card = {id: cid, ranking: rank, ...cardsDb[cid]};
+            return card;
         });
         
-        const bannedIds = Object.keys(bannedCards);
-        let filteredCards = cards.filter(({ type }) => visibleCardTypes.includes(type)).filter(({ id }) => this.props.eligibleForOP && !bannedIds.includes(id)); 
+        let filteredCards = cards
+            .filter(({ type }) => visibleCardTypes.includes(type))
+            .filter(({ id, faction }) => {
+                return this.props.eligibleForOP && Number(faction) === 0 ? !Boolean(bannedCards[id]) && Number(id.slice(0, 2)) > 2 : true
+            });
+        
         if(isNaN(searchText)) {
             filteredCards = filteredCards 
                 .filter(c => {
@@ -132,8 +137,6 @@ class FilterableCardLibrary extends Component {
             filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
         }
 
-        //const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
-
         filteredCards = filteredCards.filter(c => {
             if (c.type === 3) {
                 return factionIndexes.indexOf(selectedFaction) > 8;
@@ -141,6 +144,7 @@ class FilterableCardLibrary extends Component {
                 
             return true;
         });
+
         const sorted = filteredCards.toJS().sort((c1, c2) => this._sort(c1, c2));
         const drawableCards = sorted.map(c => ({ card: c, expanded: false }))
         return (
