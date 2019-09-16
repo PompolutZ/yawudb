@@ -110,7 +110,6 @@ const factionColorsTable = {
 
 function Rank({ color, value }) {
     const normalized = value >= 10000 ? value / 10000 : value;
-    console.log(Math.floor(normalized / 2), normalized);
     const wholeStarsCount = Math.floor(normalized / 2);
     const wholeStars = isNaN(wholeStarsCount) ? [] : new Array(wholeStarsCount).fill(1);
     const halfStars = normalized % 2 > 0 ? [0] : [];

@@ -33,6 +33,7 @@ const DeckThumbnailHeader = ({ classes, title, author, date, sets, scoringOvervi
 
 const styles = theme => ({
     root: {
+        marginLeft: '1rem',
         fontFamily: `'Roboto', sans-serif`,
     },
 })

@@ -16,6 +16,11 @@ import decksMeta from './reducers/decksMeta';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+const composeEnhancers = composeWithDevTools({ 
+    trace: true, 
+    traceLimit: 25 
+}); 
+
 const configureStore = history => {
     const store = createStore(
         connectRouter(history)(combineReducers({
@@ -32,9 +37,10 @@ const configureStore = history => {
             decksMeta,
         })), 
         loadState(),
-        composeWithDevTools(
+        composeEnhancers(
             applyMiddleware(thunk, routerMiddleware(history))
-        ));
+        )
+        );
     
     store.subscribe(throttle(() => {
       saveState(store.getState());
@@ -42,5 +48,32 @@ const configureStore = history => {
     
     return store;
 }
+
+// const configureStore = history => {
+//     const store = createStore(
+//         connectRouter(history)(combineReducers({
+//             auth,
+//             userOwnSets,
+//             deckUnderBuild,
+//             decksFilters,
+//             cardLibraryFilters,
+//             library,
+//             userExpansions,
+//             mydecks,
+//             lastDeck,
+//             deckUnderEdit,
+//             decksMeta,
+//         })), 
+//         loadState(),
+//         composeWithDevTools(
+//             applyMiddleware(thunk, routerMiddleware(history))
+//         ));
+    
+//     store.subscribe(throttle(() => {
+//       saveState(store.getState());
+//     }, 1000));
+    
+//     return store;
+// }
 
 export default configureStore;

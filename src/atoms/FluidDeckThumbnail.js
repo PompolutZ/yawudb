@@ -76,10 +76,13 @@ function FluidDeckThumbnail({
     }, [deck])
 
     const banned = data &&
-        data.cards && data.cards.filter(c => Boolean(bannedCards[c])).length
+        data.cards && data.cards.filter(c => Boolean(bannedCards[c])).length;
+
     const restricted = data &&
-        data.cards && data.cards.filter(c => Boolean(restrictedCards[c])).length
-    const orginizedPlayValid = banned === 0 && restricted <= 5
+        data.cards && data.cards.filter(c => Boolean(restrictedCards[c])).length;
+
+    const rotatedOut = data && data.cards && data.cards.map(cardId => ({ ...cardsDb[cardId], id: cardId })).filter(c => c.faction === 0 && Number(c.id.slice(0, 2) < 3)).length;        
+    const orginizedPlayValid = banned === 0 && restricted <= 5 && rotatedOut <= 0
 
     const handleClick = () =>
         history.push(`${VIEW_DECK}/${deckId}`, {
@@ -139,6 +142,7 @@ function FluidDeckThumbnail({
                                 <RestrictedBannedCardsCount
                                     banned={banned}
                                     restricted={restricted}
+                                    rotatedOut={rotatedOut}
                                 />
                             </div>
                         )}
