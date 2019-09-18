@@ -1,4 +1,10 @@
 const changelog = {
+    "0.29.0": {
+        "Beastgrave": "Added all the cards and factions from the Beastgrave Core Set",
+        "Rotated Out Cards": "Added new icon depicting rotated out cards, which should be visible on all deck headers.",
+        "Organized Play": "Add information to the deck headers whether this deck is valid for the Organized Play.",
+        "Filter Rotate Out cards": "Switch Organized Play on the Deck Builder's Filters will remove sets and all the universals from the Season 1",
+    },
     "0.28.0": {
         "Improved PDF export": "Decks exported as PDF should have now stamp whether they are valid or not valid for organized play. Also there is an icon next to restricted cards.",
         "Bug fixes": "The bug when decks exported to Vassal didn't have Delete trait should be fixed."

@@ -23,3 +23,5 @@ export const VIEW_CARD_ID = '/view/card/:id';
 
 export const VIEW_DECK = '/view/deck';
 export const VIEW_DECK_ID = '/view/deck/:id';
+
+export const GAME_ASSISTANT = '/gameassistant';

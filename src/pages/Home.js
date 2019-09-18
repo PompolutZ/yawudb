@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ReadonlyDeck from '../components/ReadonlyDeck/index'
 import { OrderedSet } from 'immutable'
-import { cardsDb, warbandsWithDefaultSet, factionIdPrefix } from '../data'
+import { cardsDb, warbandsWithDefaultSet, factionIdPrefix, factionIndexes } from '../data'
 import FloatingActionButton from '../components/FloatingActionButton'
 import AddIcon from '@material-ui/icons/Add'
 import { withRouter } from 'react-router-dom'
@@ -102,17 +102,23 @@ class Home extends Component {
                     </div>
 
                     <div className={classes.metaSummary}>
-                        {Object.values(factionIdPrefix).map(factionPrefix => (
-                            <DeckMetaSummary
-                                key={factionPrefix}
-                                prefix={factionPrefix}
+                        {
+                            [
+                                ...factionIndexes.slice(19),
+                                ...factionIndexes.slice(9, 17),
+                                ...factionIndexes.slice(1, 9),
+                                ...factionIndexes.slice(17, 19),    
+                            ].map(faction => (
+                                <DeckMetaSummary
+                                key={factionIdPrefix[faction]}
+                                prefix={factionIdPrefix[faction]}
                                 onAddNewDeckClick={this.handleAddDeckClicked}
                                 onDecksCountClick={
                                     this.handleNavigateToDecksByPrefix
                                 }
                             />
-                            // <DeckCount key={factionPrefix} prefix={factionPrefix} />
-                        ))}
+                            ))
+                        }
                     </div>
                 </div>
 

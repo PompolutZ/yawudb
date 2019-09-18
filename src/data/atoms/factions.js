@@ -93,8 +93,8 @@ export const factionMembers = {
 
     // BEASTGRAVE
 
-    "grashraks-despoilers": ['Grashrak', 'Draknar', 'Murgroth', 'Korsh', '', ''],
-    "skaeths-wild-hunt": ['Skaeths','Lighaen','Karthaen','',''],
+    "grashraks-despoilers": ['Grashrak', 'Draknar', 'Murgroth', 'Korsh', 'Gnarl', 'Ushkor'],
+    "skaeths-wild-hunt": ['Skaeths','Lighaen','Karthaen','Kurnoth4','Kurnoth5'],
 }
 
 export const idPrefixToFaction = {

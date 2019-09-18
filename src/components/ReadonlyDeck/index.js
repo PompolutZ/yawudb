@@ -31,6 +31,7 @@ import { Typography } from '@material-ui/core'
 import LockIcon from '@material-ui/icons/Lock'
 import NotInterestedIcon from '@material-ui/icons/NotInterested'
 import MobileOffIcon from '@material-ui/icons/MobileOff'
+import * as ROUTES from '../../constants/routes';
 
 const DeckActionsMenu = lazy(() => import('./atoms/DeckActionsMenu'))
 const DeckActionMenuLarge = lazy(() => import('./atoms/DeckActionsMenuLarge'))
@@ -420,6 +421,7 @@ class ReadonlyDeck extends PureComponent {
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
                                 onDelete={this.props.onDelete}
+                                exportToGamesAssistant={this._handleExportToGamesAssistant}
                             />
                         </div>
                     )}
@@ -441,6 +443,7 @@ class ReadonlyDeck extends PureComponent {
                                     exportToUDB={this._handleExportToUDB}
                                     exportToUDS={this._handleExportToUDS}
                                     onDelete={this.props.onDelete}
+                                    exportToGamesAssistant={this._handleExportToGamesAssistant}
                                 />
                             </div>
                             <div className={classes.deckHeaderButtons}>
@@ -1215,6 +1218,15 @@ class ReadonlyDeck extends PureComponent {
         window.open(
             `https://www.underworlds-deckers.com/en/tournament-decks/?Deck=https://yawudb.com/cards,${udsEncodedCards}`
         )
+    }
+
+    _handleExportToGamesAssistant = () => {
+        console.log(this.props);
+        this.props.history.push(ROUTES.GAME_ASSISTANT, {
+            cards: this.props.cards.toJS(),
+            factionId: this.props.factionId,
+            name: this.props.name,
+        })
     }
 }
 

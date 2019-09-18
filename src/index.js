@@ -40,6 +40,7 @@ const MyDecks = lazy(() => import('./pages/MyDecks/index'))
 const Login = lazy(() => import('./pages/Login'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const PasswordResetRequest = lazy(() => import('./pages/PasswordResetRequest'))
+const GameAssistant = lazy(() => import('./pages/GameAssistant'));
 
 const history = createBrowserHistory()
 const store = configureStore(history)
@@ -424,6 +425,7 @@ class App extends Component {
                             height: '100%',
                             display: 'flex',
                             flexFlow: 'column nowrap',
+                            overflowX: 'hidden',
                         }}
                     >
                         <MenuAppBar />
@@ -567,6 +569,9 @@ class App extends Component {
                                         <PrivateRoute
                                             path="/secret/cards-rating/:faction?"
                                             component={CardsRating} />
+                                        <PrivateRoute 
+                                            path={ROUTES.GAME_ASSISTANT}
+                                            component={GameAssistant} />
                                     </Switch>
                                 </Suspense>
                             </div>

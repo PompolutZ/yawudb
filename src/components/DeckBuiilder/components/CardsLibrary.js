@@ -167,7 +167,7 @@ class FilterableCardLibrary extends Component {
         const t1 = (card1.type === 1 || card1.type === 3) ? 1 : card1.type;
         const t2 = (card2.type === 1 || card2.type === 3) ? 1 : card2.type;
 
-        return t1 - t2 || card2.ranking - card1.ranking; // || card2.faction - card1.faction
+        return t1 - t2 || card2.ranking - card1.ranking || card2.faction - card1.faction;
     }
 
     _reloadCards = () => {

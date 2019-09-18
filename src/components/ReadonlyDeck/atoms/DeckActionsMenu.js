@@ -60,6 +60,11 @@ class DeckActionsMenu extends PureComponent {
                             Open on Underworld-Deckers
                         </div>
                     </MenuItem>
+                    {/* <MenuItem onClick={this.handleOpenInGamesAssitant} style={{ position: 'relative'}}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            Open in Games Assistant
+                        </div>
+                    </MenuItem> */}
                     {
                         this.props.canUpdateOrDelete && (
                             <div>
@@ -106,6 +111,11 @@ class DeckActionsMenu extends PureComponent {
 
     handleExportToImage = () => {
         this.props.onSaveImage(document.getElementById('deckImageLink'));
+        this.handleClose();
+    }
+
+    handleOpenInGamesAssitant = () => {
+        this.props.exportToGamesAssistant();
         this.handleClose();
     }
 
