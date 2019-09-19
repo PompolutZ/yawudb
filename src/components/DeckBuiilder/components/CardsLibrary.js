@@ -105,75 +105,11 @@ class VirtualizedCardsList extends Component {
     }
 }
 
-class FilterableCardLibrary extends Component {
-
-    render() {
-        const { searchText, visibleCardTypes, editMode } = this.props;
-        const currentDeck = editMode ? this.props.editModeCurrentDeck : this.props.createModeCurrentDeck;
-        const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
-        const selectedFactionPrefix = factionIdPrefix[selectedFaction];
-        const cards = this._reloadCards().map(cid => {
-            const universalRank = this.props.cardsRanking && this.props.cardsRanking['universal'][cid] ? this.props.cardsRanking['universal'][cid] : 0;
-            const rank = this.props.cardsRanking && this.props.cardsRanking[selectedFactionPrefix] && this.props.cardsRanking[selectedFactionPrefix][cid] ? this.props.cardsRanking[selectedFactionPrefix][cid] * 10000 : universalRank;
-            //const rank = 0;
-            const card = {id: cid, ranking: rank, ...cardsDb[cid]};
-            return card;
-        });
-        
-        let filteredCards = cards
-            .filter(({ type }) => visibleCardTypes.includes(type))
-            .filter(({ id, faction }) => {
-                return this.props.eligibleForOP && Number(faction) === 0 ? !Boolean(bannedCards[id]) && Number(id.slice(0, 2)) > 2 : true
-            });
-        
-        if(isNaN(searchText)) {
-            filteredCards = filteredCards 
-                .filter(c => {
-                    if(!searchText) return true;
-
-                    return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
-                });
-        } else {
-            filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
-        }
-
-        filteredCards = filteredCards.filter(c => {
-            if (c.type === 3) {
-                return factionIndexes.indexOf(selectedFaction) > 8;
-            }
-                
-            return true;
-        });
-
-        const sorted = filteredCards.toJS().sort((c1, c2) => this._sort(c1, c2));
-        const drawableCards = sorted.map(c => ({ card: c, expanded: false }))
-        return (
-            <div>
-                <VirtualizedCardsList 
-                    key={drawableCards.length * 31} 
-                    isEligibleForOp={this.props.eligibleForOP} 
-                    cards={drawableCards} 
-                    currentDeck={currentDeck} 
-                    toggleCardInDeck={this._toggleCardInDeck}
-                    editMode={this.props.editMode} 
-                    restrictedCardsCount={this.props.restrictedCardsCount}
-                    editRestrictedCardsCount={this.props.editRestrictedCardsCount} />
-            </div>
-        );
-    }
-
-    _sort = (card1, card2) => {
-
-        const t1 = (card1.type === 1 || card1.type === 3) ? 1 : card1.type;
-        const t2 = (card2.type === 1 || card2.type === 3) ? 1 : card2.type;
-
-        return t1 - t2 || card2.ranking - card1.ranking || card2.faction - card1.faction;
-    }
-
-    _reloadCards = () => {
-        const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
-        const selectedFactionDefaultSet = this.props.editMode ? this.props.editModeFactionDefaultSet : this.props.createModeFactionDefaultSet;
-        const selectedSets = this.props.editMode ? this.props.editModeSelectedSets : this.props.createModeSelectedSets;
+function FilterableCardLibrary(props) {
+    const _reloadCards = () => {
+        const selectedFaction = props.editMode ? props.editModeSelectedFaction : props.createModeSelectedFaction;
+        const selectedFactionDefaultSet = props.editMode ? props.editModeFactionDefaultSet : props.createModeFactionDefaultSet;
+        const selectedSets = props.editMode ? props.editModeSelectedSets : props.createModeSelectedSets;
         const factionCards = getCardsByFactionAndSets(selectedFaction, selectedSets, selectedFactionDefaultSet);
         if(selectedSets && selectedSets.length > 0) {
             const universalCards = getCardsByFactionAndSets('universal', selectedSets);
@@ -182,6 +118,68 @@ class FilterableCardLibrary extends Component {
             return new Set(factionCards);
         }
     }
+
+    const _sort = (card1, card2) => {
+
+        const t1 = (card1.type === 1 || card1.type === 3) ? 1 : card1.type;
+        const t2 = (card2.type === 1 || card2.type === 3) ? 1 : card2.type;
+
+        return t1 - t2 || card2.ranking - card1.ranking || card2.faction - card1.faction;
+    }
+
+    const { searchText, visibleCardTypes, editMode } = props;
+    const currentDeck = editMode ? props.editModeCurrentDeck : props.createModeCurrentDeck;
+    const selectedFaction = props.editMode ? props.editModeSelectedFaction : props.createModeSelectedFaction;
+    const selectedFactionPrefix = factionIdPrefix[selectedFaction];
+    const cards = _reloadCards().map(cid => {
+        const universalRank = props.cardsRanking && props.cardsRanking['universal'][cid] ? props.cardsRanking['universal'][cid] : 0;
+        const rank = props.cardsRanking && props.cardsRanking[selectedFactionPrefix] && props.cardsRanking[selectedFactionPrefix][cid] ? props.cardsRanking[selectedFactionPrefix][cid] * 10000 : universalRank;
+        
+        const card = {id: cid, ranking: rank, ...cardsDb[cid]};
+        return card;
+    });
+    
+    let filteredCards = cards
+        .filter(({ type }) => visibleCardTypes.includes(type))
+        .filter(({ id, faction }) => {
+            return props.eligibleForOP && Number(faction) === 0 ? !Boolean(bannedCards[id]) && Number(id.slice(0, 2)) > 2 : true
+        });
+    
+    if(isNaN(searchText)) {
+        filteredCards = filteredCards 
+            .filter(c => {
+                if(!searchText) return true;
+
+                return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
+            });
+    } else {
+        filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
+    }
+
+    filteredCards = filteredCards.filter(c => {
+        if (c.type === 3) {
+            return factionIndexes.indexOf(selectedFaction) > 8;
+        }
+            
+        return true;
+    });
+
+    const sorted = filteredCards.toJS().sort((c1, c2) => _sort(c1, c2));
+    const drawableCards = sorted.map(c => ({ card: c, expanded: false }))    
+    
+    return (
+        <div>
+            <VirtualizedCardsList 
+                key={drawableCards.length * 31} 
+                isEligibleForOp={props.eligibleForOP} 
+                cards={drawableCards} 
+                currentDeck={currentDeck} 
+                // toggleCardInDeck={_toggleCardInDeck}
+                editMode={props.editMode} 
+                restrictedCardsCount={props.restrictedCardsCount}
+                editRestrictedCardsCount={props.editRestrictedCardsCount} />
+        </div>
+    );
 }
 
 const mapStateToProps = state => {

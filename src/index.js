@@ -339,55 +339,55 @@ class App extends Component {
                 this.props.updateCardRanks(snapshot.val())
             })
 
-        this.props.firebase.realdb
-            .ref('/decks_meta/all/ids')
-            .once('value')
-            .then(s => {
-            })
+        // this.props.firebase.realdb
+        //     .ref('/decks_meta/all/ids')
+        //     .once('value')
+        //     .then(s => {
+        //     })
 
-        const start = new Date()
-        const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {}
-        const end = new Date()
-        console.log(Object.keys(decks).length, 'decks in', end - start, 'ms')
+        // const start = new Date()
+        // const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {}
+        // const end = new Date()
+        // console.log(Object.keys(decks).length, 'decks in', end - start, 'ms')
 
-        if (isEmpty(decks)) {
-            this.props.firebase
-                .decks()
-                .once('value')
-                .then(s =>
-                    localStorage.setItem(
-                        'yawudb_decks',
-                        JSON.stringify(s.val())
-                    )
-                )
-        } else {
-            const decksRef = this.props.firebase.decks()
-            decksRef.on('child_added', data => {
-                if (decks[data.key]) return
-                const updatedDecks = { ...decks, [data.key]: data.val() }
-                localStorage.setItem(
-                    'yawudb_decks',
-                    JSON.stringify(updatedDecks)
-                )
-            })
+        // if (isEmpty(decks)) {
+        //     this.props.firebase
+        //         .decks()
+        //         .once('value')
+        //         .then(s =>
+        //             localStorage.setItem(
+        //                 'yawudb_decks',
+        //                 JSON.stringify(s.val())
+        //             )
+        //         )
+        // } else {
+        //     const decksRef = this.props.firebase.decks()
+        //     decksRef.on('child_added', data => {
+        //         if (decks[data.key]) return
+        //         const updatedDecks = { ...decks, [data.key]: data.val() }
+        //         localStorage.setItem(
+        //             'yawudb_decks',
+        //             JSON.stringify(updatedDecks)
+        //         )
+        //     })
 
-            decksRef.on('child_changed', data => {
-                const updatedDecks = { ...decks, [data.key]: data.val() }
-                localStorage.setItem(
-                    'yawudb_decks',
-                    JSON.stringify(updatedDecks)
-                )
-            })
+        //     decksRef.on('child_changed', data => {
+        //         const updatedDecks = { ...decks, [data.key]: data.val() }
+        //         localStorage.setItem(
+        //             'yawudb_decks',
+        //             JSON.stringify(updatedDecks)
+        //         )
+        //     })
 
-            decksRef.on('child_removed', data => {
-                delete decks[data.key]
-                localStorage.setItem('yawudb_decks', JSON.stringify(decks))
-            })
-        }
+        //     decksRef.on('child_removed', data => {
+        //         delete decks[data.key]
+        //         localStorage.setItem('yawudb_decks', JSON.stringify(decks))
+        //     })
+        // }
     }
 
     componentWillUnmount() {
-        this.unsubscribe()
+        // this.unsubscribe()
         this.props.firebase.decks().off()
     }
 
