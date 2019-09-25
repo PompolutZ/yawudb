@@ -11,6 +11,8 @@ export const MY_DECKS = '/mydecks';
 export const CREATE_NEW_DECK = '/deck/:action/:data?';
 export const EDIT_DECK = `/deck/edit/:id`;
 
+export const CREATOR_ROOT = '/deck/:action/:data?';
+
 export const CARDS_LIBRARY  = '/library';
 export const BROWSE_ALL_DECKS = '/decks/all';
 export const BROWSE_DECKS_FOR = '/decks';

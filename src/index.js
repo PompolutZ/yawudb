@@ -464,7 +464,7 @@ class App extends Component {
                                             )}
                                         />
                                         <Route
-                                            path={ROUTES.CREATE_NEW_DECK}
+                                            path={ROUTES.CREATOR_ROOT}
                                             render={props => (
                                                 <DeckCreator {...props} />
                                             )}
