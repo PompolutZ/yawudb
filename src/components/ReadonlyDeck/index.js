@@ -906,8 +906,7 @@ class ReadonlyDeck extends PureComponent {
             .filter(c => c.type === 0)
             .map(
                 (c, i) =>
-                    String.fromCharCode(27) +
-                    `+/1567515031160/report;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\tmark;MapLayers\\\tobs;70,130;Objectives background.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\tdelete;Delete;68,195\\\\\\\tpiece;;;${c.id}.png;${c.id}/-1\tCardsLayers\\\tnull;\\\\\t\\\\\\\tnull;2852;244;15255\r`
+                    String.fromCharCode(27) + `+/1567515031160/report;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\tmark;MapLayers\\\tobs;70,130;Objectives background.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\tdelete;Delete;68,195\\\\\\\tpiece;;;${c.id}.png;${c.id}/-1\tCardsLayers\\\tnull;\\\\\t\\\\\\\tnull;2852;244;15255`
             )
 
         this.downloadVassalDeckWithTempLink(
@@ -919,8 +918,7 @@ class ReadonlyDeck extends PureComponent {
             .filter(c => c.type !== 0)
             .map(
                 (c, i) =>
-                    String.fromCharCode(27) +
-                    `+/1565950320832/report;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\tmark;MapLayers\\\tobs;70,130;powercardsback.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\tdelete;Delete;68,195\\\\\\\tpiece;;;${c.id}.png;${c.id}/-1\tCardsLayers\\\tnull;\\\\\t\\\\\\\tnull;2543;244;14555\r`
+                    String.fromCharCode(27) + `+/1565950320832/report;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\tmark;MapLayers\\\tobs;70,130;powercardsback.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\tdelete;Delete;68,195\\\\\\\tpiece;;;${c.id}.png;${c.id}/-1\tCardsLayers\\\tnull;\\\\\t\\\\\\\tnull;2543;244;14555`
             )
 
         this.downloadVassalDeckWithTempLink(powers, `${name}_POWERS.txt`)

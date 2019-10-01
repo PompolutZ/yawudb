@@ -27,34 +27,67 @@ const getChangeLogItemsByKey = key => {
 
 class Home extends Component {
     componentDidMount = () => {
-        this.props.firebase.realdb
-            .ref('/decks_meta/all/ids/0')
-            .on('value', async lastDeckIdSnapshot => {
+        this.unsubscribe = this.props.firebase.decksMetaDb().doc('all').onSnapshot(async doc => {
+            const lastItem = doc.data().ids.slice(-1).reduce((_, deckId) => deckId);
+            if(lastItem) {
                 try {
-                    const lastDeckId = lastDeckIdSnapshot.val()
                     const lastDeckSnapshot = await this.props.firebase.realdb
-                        .ref(`/decks/${lastDeckId}`)
+                        .ref(`/decks/${lastItem}`)
                         .once('value')
                     const data = lastDeckSnapshot.val()
                     let created = new Date(0)
+
                     if (data.created && data.created.seconds) {
                         created.setSeconds(data.created.seconds)
                     } else {
                         created = new Date(data.created)
                     }
 
-                    this.props.addOrUpdate(lastDeckId, created, {
+                    this.props.addOrUpdate(lastItem, created, {
                         ...data,
-                        id: lastDeckId,
+                        id: lastItem,
                         created: created,
                     })
                 } catch (err) {
                     console.error('ERROR updating last added deck', err)
                 }
-            })
+            }
+        });
+
+        // this.props.firebase.realdb
+        //     .ref('/decks_meta/all/ids/0')
+        //     .on('value', async lastDeckIdSnapshot => {
+        //         try {
+        //             const lastDeckId = lastDeckIdSnapshot.val()
+        //             const lastDeckSnapshot = await this.props.firebase.realdb
+        //                 .ref(`/decks/${lastDeckId}`)
+        //                 .once('value')
+        //             const data = lastDeckSnapshot.val()
+        //             let created = new Date(0)
+
+        //             if (data.created && data.created.seconds) {
+        //                 created.setSeconds(data.created.seconds)
+        //             } else {
+        //                 created = new Date(data.created)
+        //             }
+
+        //             this.props.addOrUpdate(lastDeckId, created, {
+        //                 ...data,
+        //                 id: lastDeckId,
+        //                 created: created,
+        //             })
+        //         } catch (err) {
+        //             console.error('ERROR updating last added deck', err)
+        //         }
+        //     })
     }
 
     componentWillUnmount = () => {
+        if(this.unsubscribe) {
+            this.unsubscribe();
+            this.unsubscribe = null;
+        }
+
         this.props.firebase.realdb
             .ref('/decks_meta/all/ids/0')
             .off();

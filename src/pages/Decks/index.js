@@ -83,20 +83,16 @@ function Decks({ classes, history, match }) {
     }
 
     useEffect(() => {
-        console.log('Subscribe on all decks')
-        firebase.decksMetaIds('all').on('value', snapshot => {
-            setDeckIds(snapshot.val())
-            console.log('New Deck Incoming')
-            localStorage.setItem(
-                'yawudb_deck_ids',
-                JSON.stringify(snapshot.val())
-            )
+        firebase.decksMetaDb().doc('all').get().then(doc => {
+            if(doc.exists) {
+                const ids = doc.data().ids.reverse();
+                setDeckIds(ids);
+                localStorage.setItem(
+                    'yawudb_deck_ids',
+                    JSON.stringify(ids)
+                )
+            }
         })
-
-        return () => {
-            console.log('Ubsubscribe from all decks')
-            firebase.decksMetaIds(match.params.faction).off()
-        }
     }, [])
 
     useEffect(() => {

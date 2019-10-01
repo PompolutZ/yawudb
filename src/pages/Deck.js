@@ -6,6 +6,7 @@ import {
     cardsDb,
     warbandsWithDefaultSet,
     idPrefixToFaction,
+    factionIdPrefix,
     factions,
     PREFIX_LENGTH,
 } from '../data/index'
@@ -127,45 +128,20 @@ function Deck(props) {
 
             await firebase.realdb.ref(`/decks/${id}`).remove()
 
-            const prefix = id.split('-')[0]
-            await firebase.realdb.ref('/decks_meta/all').transaction(meta => {
-                if (meta) {
-                    const ids = meta.ids.filter(deckId => deckId !== id)
-                    meta.ids = ids
-                    meta.count = ids.length
-                }
+            props.firebase.decksMetaDb().doc('all').update({
+                ids: props.firebase.firestoreArrayRemove(id)
+            });
 
-                return meta
-            })
-
-            await firebase.realdb
-                .ref(`/decks_meta/${prefix}`)
-                .transaction(meta => {
-                    if (meta) {
-                        const ids = meta.ids.filter(deckId => deckId !== id)
-                        meta.ids = ids
-                        meta.count = ids.length
-                    }
-
-                    return meta
-                })
+            props.firebase.decksMetaDb().doc(id.split('-')[0]).update({
+                ids: props.firebase.firestoreArrayRemove(id)
+            });
 
             if (props.uid) {
                 props.removeDeck(id)
 
-                const userRef = await firebase.db
-                    .collection('users')
-                    .doc(props.uid)
-                    .get()
-                const userDecks = userRef
-                    .data()
-                    .mydecks.filter(deckId => deckId !== id)
-                await firebase.db
-                    .collection('users')
-                    .doc(props.uid)
-                    .update({
-                        mydecks: userDecks,
-                    })
+                firebase.db.collection('users').doc(props.uid).update({
+                    mydecks: props.firebase.firestoreArrayRemove(id)
+                });
             } else {
                 const anonDeckIds =
                     JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) ||
@@ -210,7 +186,6 @@ function Deck(props) {
 
     const _deleteDeck = async () => {
         setIsDeleteDialogVisible(true)
-        // this.setState({ isDeleteDialogVisible: true })
     }
 
     const _copyDeck = () => {

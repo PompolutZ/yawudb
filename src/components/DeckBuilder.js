@@ -43,6 +43,12 @@ function DeckBuilder(props) {
 
     const _updateCurrentDeck = async args => {
         try {
+            if(!props.match.params.id) {
+                console.log('ping', props.match.params.id);
+                _resetAndGoBack();
+                return;
+            }
+
             const cache = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
             const faction = selectedFaction.startsWith('n_') ? selectedFaction.slice(2) : selectedFaction;
     
@@ -55,28 +61,26 @@ function DeckBuilder(props) {
                 sets: new OrderedSet(currentDeck.map(c => cardsDb[c].set)).toJS(),
                 scoringSummary: [0, 0, 0, 0],
                 tags: [],
-                created: updated,
-                author: isAuth ? userInfo.uid : 'Anonymous',
-                authorDisplayName: isAuth ? userInfo.displayName : 'Anonymous',
+                lastModified: Date(),
             }
 
-            props.addOrUpdateDeck(props.match.params.data, updated, {...deckPayload, id: props.match.params.data});
+            props.addOrUpdateDeck(props.match.params.id, updated, {...deckPayload, id: props.match.params.id});
 
-            await props.firebase.realdb.ref('decks/' + props.match.params.data).set(deckPayload);
-            if(!args.isDraft) {
-                await props.firebase.realdb.ref('lastDeck').transaction(lastDeck => {
-                    if(lastDeck) {
-                        lastDeck.id = props.match.params.data;
-                    }
+            await props.firebase.realdb.ref('decks/' + props.match.params.id).update(deckPayload);
+            // if(!args.isDraft) {
+            //     // await props.firebase.realdb.ref('lastDeck').transaction(lastDeck => {
+            //     //     if(lastDeck) {
+            //     //         lastDeck.id = props.match.params.data;
+            //     //     }
     
-                    return lastDeck;
-                });
+            //     //     return lastDeck;
+            //     // });
     
-                await _moveIdToFront(props.firebase.realdb.ref('/decks_meta/all'), props.match.params.data);
-                await _moveIdToFront(props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), props.match.params.data);
-            }
+            //     // await _moveIdToFront(props.firebase.realdb.ref('/decks_meta/all'), props.match.params.data);
+            //     // await _moveIdToFront(props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), props.match.params.data);
+            // }
             
-            localStorage.setItem('yawudb_decks', JSON.stringify({ ...cache, [props.match.params.data]: deckPayload }));
+            localStorage.setItem('yawudb_decks', JSON.stringify({ ...cache, [props.match.params.id]: deckPayload }));
 
             _resetAndGoBack();
         } catch(err) {
@@ -84,17 +88,17 @@ function DeckBuilder(props) {
         }
     }
 
-    const _moveIdToFront = (ref, id) => {
-        return ref.transaction(meta => {
-            if(meta) {
-                const diff = meta.ids.filter(x => x !== id);
-                meta.ids = [id, ...diff];
-                meta.count = meta.ids.length;
-            }
+    // const _moveIdToFront = (ref, id) => {
+    //     return ref.transaction(meta => {
+    //         if(meta) {
+    //             const diff = meta.ids.filter(x => x !== id);
+    //             meta.ids = [id, ...diff];
+    //             meta.count = meta.ids.length;
+    //         }
 
-            return meta;
-        });
-    }
+    //         return meta;
+    //     });
+    // }
 
     const _saveCurrentDeck = async args => {
         try {
@@ -124,16 +128,14 @@ function DeckBuilder(props) {
             await props.firebase.realdb.ref('decks/' + deckId).set(deckPayload);
 
             if(!args.isDraft) {
-                await props.firebase.realdb.ref('lastDeck').transaction(lastDeck => {
-                    if(lastDeck) {
-                        lastDeck.id = deckId;
-                    }
-    
-                    return lastDeck;
+
+                props.firebase.decksMetaDb().doc('all').update({
+                    ids: props.firebase.firestoreArrayUnion(deckId)
                 });
-    
-                await props.firebase.realdb.ref('/decks_meta/all').transaction(meta => _updateMetaCountAndIds(meta, deckId));
-                await props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`).transaction(meta => _updateMetaCountAndIds(meta, deckId));
+
+                props.firebase.decksMetaDb().doc(factionIdPrefix[faction]).update({
+                    ids: props.firebase.firestoreArrayUnion(deckId)
+                });
             }
 
             // User should be able easily access anon decks in the current browser
@@ -153,19 +155,19 @@ function DeckBuilder(props) {
         }
     }
 
-    const _updateMetaCountAndIds = (meta, deckId) => {
-        if(meta) {
-            if(meta.ids) {
-                meta.ids = [deckId, ...meta.ids];
-            } else {
-                meta.ids = [deckId];
-            }
+    // const _updateMetaCountAndIds = (meta, deckId) => {
+    //     if(meta) {
+    //         if(meta.ids) {
+    //             meta.ids = [deckId, ...meta.ids];
+    //         } else {
+    //             meta.ids = [deckId];
+    //         }
 
-            meta.count = meta.ids.length;
-        }
+    //         meta.count = meta.ids.length;
+    //     }
 
-        return meta;
-    }
+    //     return meta;
+    // }
 
     const _resetAndGoBack = () => {
         props.history.goBack();

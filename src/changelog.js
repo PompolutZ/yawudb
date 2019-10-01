@@ -1,4 +1,7 @@
 const changelog = {
+    "0.29.3": {
+        "Bug fixes": "Either some bugs has been fixed or I have made things even worse."
+    },
     "0.29.0": {
         "Beastgrave": "Added all the cards and factions from the Beastgrave Core Set",
         "Rotated Out Cards": "Added new icon depicting rotated out cards, which should be visible on all deck headers.",

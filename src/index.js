@@ -24,6 +24,7 @@ import { Helmet } from 'react-helmet'
 import { idPrefixToFaction, cardsDb } from './data'
 import Query from './pages/Query'
 import CardsRating from './pages/CardsRating';
+import Admin from './pages/Admin'
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'))
 const Decks = lazy(() => import('./pages/Decks'))
@@ -569,6 +570,9 @@ class App extends Component {
                                         <PrivateRoute
                                             path="/secret/cards-rating/:faction?"
                                             component={CardsRating} />
+                                        <PrivateRoute
+                                            path="/secret/admin"
+                                            component={Admin} />
                                         <PrivateRoute 
                                             path={ROUTES.GAME_ASSISTANT}
                                             component={GameAssistant} />

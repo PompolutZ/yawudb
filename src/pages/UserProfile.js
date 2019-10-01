@@ -8,6 +8,7 @@ import ExpansionIcon from '../atoms/ExpansionIcon';
 import AddIcon from '@material-ui/icons/Add';
 import { UPDATE_EXPANSIONS } from '../reducers/userExpansions';
 import { withFirebase } from '../firebase';
+import keys from 'lodash/keys';
 
 const expansionCounterStyle = theme => ({
     root: {
@@ -141,16 +142,21 @@ class UserProfile extends Component {
                     Note: Your profile name will be visible to others as an author name for the decks you've made.
                 </Typography>    
 
-                <Typography variant="caption" style={{ margin: '0 1rem 0 1.8rem', minWidth: '20rem'}}>
+                <Typography variant="subtitle2" style={{ margin: '0 1rem 0 1.8rem', minWidth: '20rem'}}>
                     Mark which sets and how many of them you own.
                     This information is required for you to use "Find conflicts in your decks" feature.
                 </Typography>
                 <div style={{ display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-evenly'}}>
                     {
-                        setsIndex.map((s, i) => <StyledExpansionCounter key={s} set={i} count={this.state.expansions[i]} onCounterChange={this.handleCounterChange} />)
+                        setsIndex.map((s, i) => <StyledExpansionCounter key={s} set={i} count={this.state.expansions[i]} />)
                     }
                 </div>
                 <Button style={{ margin: '1rem auto'}} onClick={this.handleSave}>Save</Button>    
+
+                <Button style={{ color: 'red' }} onClick={this.handleDeleteCache}>Delete Cache</Button>
+                <Typography variant="subtitle2" style={{ margin: '0 1rem 0 1.8rem', minWidth: '20rem'}}>
+                    Experimental attempt to make dirty clean up.
+                </Typography>
             </div>
         );
     }   
@@ -167,6 +173,14 @@ class UserProfile extends Component {
         this.setState(state => ({expansions: {...state.expansions, ...{[set]: count}}}), () => {
             console.log(this.state.expansions);
         })
+    }
+
+    handleDeleteCache = () => {
+        var yawudbKeys = keys(localStorage).filter(key => key.startsWith('yawudb'));
+        for(let k of yawudbKeys) {
+            localStorage.removeItem(k);
+        }
+        localStorage.removeItem('state');
     }
 
     handleSave = async () => {

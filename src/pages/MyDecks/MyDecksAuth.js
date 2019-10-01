@@ -63,7 +63,6 @@ class MyDecksAuth extends Component {
                 const refetched = await this.props.firebase.deck(id).once('value');
                 data = refetched.val();
                 localStorage.setItem('yawudb_decks', JSON.stringify({...cache, [id]: data }))
-                continue;
             }
 
             let created = new Date(0);

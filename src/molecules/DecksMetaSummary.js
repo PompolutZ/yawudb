@@ -26,15 +26,18 @@ function DeckMetaSummary({ classes, prefix, firebase, decksMeta, addDecksMeta, o
     const [count, setCount] = React.useState(initCount());
 
     React.useEffect(() => {
-        const ref = firebase.realdb.ref(`/decks_meta/${prefix}`);
-        console.log(prefix, idPrefixToFaction[prefix]);
-        ref.on('value', snapshot => {
-            const currentMeta = snapshot.val();
-            setCount(currentMeta ? currentMeta.count : 0);
-            addDecksMeta(prefix, currentMeta);
+        const unsubscribe = firebase.decksMetaDb().doc(prefix).onSnapshot(doc => {
+            const metadata = doc.data();
+            if(metadata && metadata.ids) {
+                setCount(metadata.ids.length);
+                addDecksMeta(prefix, ({count: metadata.ids.length, ids: metadata.ids }))
+            } else {
+                setCount(0);
+                addDecksMeta(prefix, ({count: 0, ids: [] }))
+            }
         });
 
-        return () => ref.off();
+        return () => unsubscribe();
     }, [])
 
     return (
