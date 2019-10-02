@@ -15,12 +15,12 @@ function FactionIcon({ classes, faction, cardsSet, selected, onSelected }) {
         <ButtonBase onClick={handleClick}>
             { 
                 selected && (
-                    <img className={classnames(classes.default, {[classes.selected]: selected})} src={`/assets/icons/${strippedFaction}-icon.png`} />
+                    <img className={classnames(classes.default, {[classes.selected]: selected})} alt={strippedFaction} src={`/assets/icons/${strippedFaction}-icon.png`} />
                 )
             }
             { 
                 !selected && (
-                    <img className={classnames(classes.default, {[classes.selected]: selected})} src={`/assets/icons/${strippedFaction}-icon-bw.png`} />
+                    <img className={classnames(classes.default, {[classes.selected]: selected})} alt={strippedFaction} src={`/assets/icons/${strippedFaction}-icon-bw.png`} />
                 )
             }
         </ButtonBase>

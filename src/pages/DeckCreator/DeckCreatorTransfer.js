@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import FactionToggle from '../../components/FactionToggle'
 import DeckBuilder from '../../components/DeckBuilder'
 import {
@@ -11,22 +11,10 @@ import {
     RESET_DECK,
     CHANGE_DESCRIPTION,
 } from '../../reducers/deckUnderBuild'
-import {
-    EDIT_RESET_DECK,
-    EDIT_FACTION,
-    EDIT_DECK_NAME,
-    EDIT_DECK_DESCRIPTION,
-    EDIT_ADD_CARD,
-    EDIT_REMOVE_CARD,
-    EDIT_CLEAR_ALL_CARDS_IN_DECK,
-    EDIT_DECK_SOURCE,
-} from '../../reducers/deckUnderEdit'
 import { CHANGE_SEARCH_TEXT } from '../../reducers/cardLibraryFilters'
 import { connect } from 'react-redux'
-import FactionToggleDesktopBase from '../../atoms/FactionToggleDesktop'
 import { Helmet } from 'react-helmet';
 import { cardsIdToFactionIndex, factionIndexesWithDefaultSet } from '../../data/atoms/factions';
-import { Switch, Route, Link } from 'react-router-dom';
 
 const decodeFaction = cards => {
     for (let card of cards) {

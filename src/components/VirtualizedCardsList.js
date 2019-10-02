@@ -120,8 +120,6 @@ class CardNameView extends PureComponent {
     }
 }
 
-const CardNameViewWithStyles = withRouter(withStyles(cardNameViewStyles)(CardNameView));
-
 const cardImageViewStyles = theme => ({
     root: {
         display: 'flex',
@@ -185,11 +183,6 @@ class CardImageView extends PureComponent {
     }
 }
 
-const CardImageViewWithStyles = withRouter(withStyles(cardImageViewStyles)(CardImageView));
-
-const VIEW_AS_SIMPLE_LIST = 'VIEW_AS_SIMPLE_LIST';
-const VIEW_AS_CARD_IMAGES = 'VIEW_AS_CARD_IMAGES';  
-
 const ratio = 744 / 532;
 const minOptimalWidth = 200;
 
@@ -234,7 +227,7 @@ class VirtualizedCardsList extends Component {
                 {
                     this.state.cardRows[index] && this.state.cardRows[index].map(card => (
                         <div key={card.id} style={{ width: this.state.cardRenderWidth, height: this.state.cardRenderHeight, display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <img style={{ width: '90%' }} src={`/assets/cards/${card.id}.png`} />
+                            <img style={{ width: '90%' }} alt={card.name} src={`/assets/cards/${card.id}.png`} />
                         </div>
                     ))
                 }
@@ -253,7 +246,6 @@ class VirtualizedCardsList extends Component {
     }
 
     render() {
-        const { containerRef } = this.props;
         return (
             <AutoSizer disableHeight>
                 {

@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
-import { db, realdb } from '../firebase/firebase'
+import React from 'react'
 import ReadonlyDeck from '../components/ReadonlyDeck/index'
 import { OrderedSet } from 'immutable'
 import {
     cardsDb,
     warbandsWithDefaultSet,
     idPrefixToFaction,
-    factionIdPrefix,
     factions,
     PREFIX_LENGTH,
 } from '../data/index'
@@ -39,14 +37,14 @@ import { makeStyles } from '@material-ui/core/styles'
 import { withFirebase } from '../firebase'
 import { Helmet } from 'react-helmet'
 
-const useStyles = makeStyles(theme => ({
-    viewAsBtn: {
-        display: 'none',
-        [theme.breakpoints.up('lg')]: {
-            display: 'flex',
-        },
-    },
-}))
+// const useStyles = makeStyles(theme => ({
+//     viewAsBtn: {
+//         display: 'none',
+//         [theme.breakpoints.up('lg')]: {
+//             display: 'flex',
+//         },
+//     },
+// }))
 
 function Deck(props) {
     const { location, match, history } = props
@@ -58,8 +56,6 @@ function Deck(props) {
         false
     )
     const [cardsView, setCardsView] = React.useState(false)
-
-    const classes = useStyles()
 
     const { id, name, desc, cards, sets, created, authorDisplayName } =
         deck || {}

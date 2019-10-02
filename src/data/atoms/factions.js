@@ -29,6 +29,7 @@ export const factions = {
 
     "grashraks-despoilers": "Grashrak’s Despoilers",
     "skaeths-wild-hunt": "Skaeth’s Wild Hunt",
+    //"the-grymwatch": "The Grymwatch",
 }
 
 export const PREFIX_LENGTH = "toftbq".length + 1;
@@ -63,6 +64,7 @@ export const factionIdPrefix = {
 
     "grashraks-despoilers": "gd",
     "skaeths-wild-hunt": "swh",
+    // "the-grymwatch": "tg",
 }
 
 export const factionMembers = {
@@ -95,6 +97,7 @@ export const factionMembers = {
 
     "grashraks-despoilers": ['Grashrak', 'Draknar', 'Murgroth', 'Korsh', 'Gnarl', 'Ushkor'],
     "skaeths-wild-hunt": ['Skaeths','Lighaen','Karthaen','Kurnoth4','Kurnoth5'],
+    // "the-grymwatch": ['Duke Crakmarrow', '', '', '', '', ''],
 }
 
 export const idPrefixToFaction = {
@@ -127,6 +130,7 @@ export const idPrefixToFaction = {
 
     "gd": "grashraks-despoilers",
     "swh": "skaeths-wild-hunt",
+    // "tg": "the-grymwatch",
 }
 
 export const factionIndexes = [
@@ -160,6 +164,7 @@ export const factionIndexes = [
 
     "grashraks-despoilers", // 19
     "skaeths-wild-hunt", // 20
+    // "the-grymwatch", // 21
 ]
 
 export const factionIndexesWithDefaultSet = [
@@ -192,7 +197,8 @@ export const factionIndexesWithDefaultSet = [
     // BEASTGRAVE
 
     ["grashraks-despoilers", 20], // 19
-    ["skaeths-wild-hunt", 20] // 20
+    ["skaeths-wild-hunt", 20], // 20
+    // ["the-grymwatch", 21] // 21
 ]
 
 export const warbandsWithDefaultSet = [
@@ -226,7 +232,8 @@ export const warbandsWithDefaultSet = [
     // BEASTGRAVE
 
     ["grashraks-despoilers", 20], // 19
-    ["skaeths-wild-hunt", 20] // 20
+    ["skaeths-wild-hunt", 20], // 20
+    // ["the-grymwatch", 21] // 21
 ]
 
 export const cardsIdToFactionIndex = {
@@ -919,5 +926,37 @@ export const cardsIdToFactionIndex = {
     "06061": 20,
     "06062": 20,
     "06063": 20,
-    "06064": 20,    
+    "06064": 20,
+    "06065": 21,
+    "06066": 21,
+    "06067": 21,
+    "06068": 21,
+    "06069": 21,
+    "06070": 21,
+    "06071": 21,
+    "06072": 21,
+    "06073": 21,
+    "06074": 21,
+    "06075": 21,
+    "06076": 21,
+    "06077": 21,
+    "06078": 21,
+    "06079": 21,
+    "06080": 21,
+    "06081": 21,
+    "06082": 21,
+    "06083": 21,
+    "06084": 21,
+    "06085": 21,
+    "06086": 21,
+    "06087": 21,
+    "06088": 21,
+    "06089": 21,
+    "06090": 21,
+    "06091": 21,
+    "06092": 21,
+    "06093": 21,
+    "06094": 21,
+    "06095": 21,
+    "06096": 21,        
 };

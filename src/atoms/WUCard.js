@@ -1,30 +1,23 @@
-import React, { PureComponent, Component } from 'react'
+import React, { PureComponent } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import classnames from 'classnames'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
 import ButtonBase from '@material-ui/core/ButtonBase'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import ReportIcon from '@material-ui/icons/Report'
 import AddIcon from '@material-ui/icons/Add'
 import AnimateHeight from 'react-animate-height'
 import {
     cardType,
     totalCardsPerWave,
     setsIndex,
-    bannedCards,
     factionIdPrefix,
 } from '../data/index'
 import ObjectiveScoreTypeIcon from '../components/ObjectiveScoreTypeIcon'
 import { connect } from 'react-redux'
 import { ADD_CARD, REMOVE_CARD } from '../reducers/deckUnderBuild'
-import { Set } from 'immutable'
 import { EDIT_ADD_CARD, EDIT_REMOVE_CARD } from '../reducers/deckUnderEdit'
 import CardRule from './CardRule'
-import { RestrictedCardSVG, Ranking } from './SVGs';
 import LockIcon from '@material-ui/icons/Lock';
 import StarIcon from '@material-ui/icons/Star';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 
 const useStyles = makeStyles(theme => ({
@@ -346,7 +339,6 @@ class WUCardInfo extends PureComponent {
 function WUCardAtom(props) {
     const classes = useStyles();
     const [useTextFallback, setUseTextFallback] = React.useState(false);
-    const [color, setColor] = React.useState(0);
     const {
         type,
         id,
@@ -359,7 +351,7 @@ function WUCardAtom(props) {
         isRestricted,
         withAnimation,
     } = props;
-    const isBanned = Boolean(bannedCards[id])
+
     const factionPrefix = factionIdPrefix[props.editMode ? props.editModeFaction : props.createModeFaction];
     const height = props.expanded ? 'auto' : 0
     const inDeck = props.editMode

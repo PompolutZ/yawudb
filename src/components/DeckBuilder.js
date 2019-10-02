@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./DeckBuilder.css";
-import { OrderedSet, Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import Deck from '../components/Deck';
 import { cardsDb, factionIdPrefix } from '../data/index';
@@ -17,11 +17,8 @@ import { Tabs, Tab } from '@material-ui/core';
 import CardsTab from './DeckBuiilder/atoms/CardsTab';
 import FightersInfoList from '../atoms/FightersInfoList';
 import { withFirebase } from '../firebase';
-import { makeStyles } from '@material-ui/core/styles';
 
 const uuid4 = require('uuid/v4');
-
-const useStyles = makeStyles(theme => ({}));
 
 function DeckBuilder(props) {
     const { editMode, transferMode, isAuth, userInfo} = props;
@@ -50,7 +47,6 @@ function DeckBuilder(props) {
             }
 
             const cache = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
-            const faction = selectedFaction.startsWith('n_') ? selectedFaction.slice(2) : selectedFaction;
     
             const updated = Date();
             const deckPayload = {

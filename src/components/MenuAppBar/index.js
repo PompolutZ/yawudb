@@ -100,7 +100,7 @@ class MenuAppBar extends React.Component {
         this.props.currentLocation.startsWith(ROUTES.VIEW_DECK)
 
     render() {
-        const { classes, history } = this.props
+        const { classes } = this.props
 
         const sideList = (
             <div className={classes.list}>

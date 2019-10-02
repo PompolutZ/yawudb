@@ -30,7 +30,6 @@ import Card from './atoms/Card'
 import { Typography } from '@material-ui/core'
 import LockIcon from '@material-ui/icons/Lock'
 import NotInterestedIcon from '@material-ui/icons/NotInterested'
-import MobileOffIcon from '@material-ui/icons/MobileOff'
 import * as ROUTES from '../../constants/routes';
 
 const DeckActionsMenu = lazy(() => import('./atoms/DeckActionsMenu'))
@@ -206,7 +205,7 @@ function DeckSummary({
                             marginRight: '.3rem',
                         }}
                     >
-                        <img
+                        <img alt="objective-icon"
                             src={`/assets/icons/objective-icon.png`}
                             style={{ width: '1rem', height: '1rem' }}
                         />
@@ -219,11 +218,11 @@ function DeckSummary({
                             marginRight: '.3rem',
                         }}
                     >
-                        <img
+                        <img alt="ploy-icon"
                             src={`/assets/icons/ploy-icon.png`}
                             style={{ width: '1rem', height: '1rem' }}
                         />
-                        <img
+                        <img alt="gambit spell-icon"
                             src={`/assets/icons/gambit spell-icon.png`}
                             style={{ width: '1rem', height: '1rem' }}
                         />
@@ -236,7 +235,7 @@ function DeckSummary({
                             marginRight: '.3rem',
                         }}
                     >
-                        <img
+                        <img alt="upgrade-icon"
                             src={`/assets/icons/upgrade-icon.png`}
                             style={{ width: '1rem', height: '1rem' }}
                         />

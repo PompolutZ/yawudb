@@ -2,13 +2,9 @@ import React from 'react'
 import { List, AutoSizer } from 'react-virtualized'
 import FluidDeckThumbnail from '../../atoms/FluidDeckThumbnail'
 
-
-
 function VirtualizedDecksList({ source }) {
-    const start = new Date()
     const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {}
-    const [anonDeckIds, setAnonDeckIds] = React.useState(JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || []);
-    console.log('LOADED', new Date() - start)
+    const [anonDeckIds] = React.useState(JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || []);
     const [data, setData] = React.useState(source)
     const [scrollIndex, setScrollIndex] = React.useState(0);
     
@@ -32,9 +28,6 @@ function VirtualizedDecksList({ source }) {
     }
 
     const renderRow = params => {
-        const deckId = data[params.index]
-        
-
         const renderedItem = renderItem(params.index)
         return (
             <div key={params.key} style={params.style}>
@@ -44,12 +37,8 @@ function VirtualizedDecksList({ source }) {
     }
 
     const calcRowHeight = params => {
-        
-
         return 90
     }
-
-    
 
     return (
         <AutoSizer disableHeight>

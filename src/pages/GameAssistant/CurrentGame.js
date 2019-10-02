@@ -7,8 +7,6 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import { idPrefixToFaction } from '../../data'
-import { Switch, Route, Link } from 'react-router-dom'
-import * as ROUTES from '../../constants/routes'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles(theme => ({
@@ -82,7 +80,7 @@ function CurrentGame(props) {
     const theme = useTheme()
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [selectedFactionId, setSelectedFactionId] = useState('')
-    const [selectedDeckName, setSelectedDeckName] = useState('')
+    const [, setSelectedDeckName] = useState('')
     const [objectivesDrawPile, setObjectivesDrawPile] = useState([])
     const [powersDrawPile, setPowersDrawPile] = useState([])
     const [objectivesHand, setObjectivesHand] = useState({})

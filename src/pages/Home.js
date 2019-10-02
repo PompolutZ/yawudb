@@ -94,7 +94,7 @@ class Home extends Component {
     }
 
     render() {
-        const { classes, history } = this.props
+        const { classes } = this.props
         const lastUpdateKey = Object.keys(changelog)[0]
         const lastUpdate = getChangeLogItemsByKey(lastUpdateKey)
 
