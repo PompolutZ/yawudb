@@ -9,7 +9,7 @@ import {
     restrictedCards,
     bannedCards,
 } from '../../data/index'
-import { pickCardColor } from '../../utils/functions'
+import { pickCardColor, checkDeckValidFormats, ignoreAsDublicate } from '../../utils/functions'
 import { Set } from 'immutable'
 import DeckIcon from '../../atoms/DeckIcon'
 import { withStyles } from '@material-ui/core/styles'
@@ -31,6 +31,7 @@ import { Typography } from '@material-ui/core'
 import LockIcon from '@material-ui/icons/Lock'
 import NotInterestedIcon from '@material-ui/icons/NotInterested'
 import * as ROUTES from '../../constants/routes';
+import PlayFormatsValidity from '../../atoms/PlayFormatsValidity'
 
 const DeckActionsMenu = lazy(() => import('./atoms/DeckActionsMenu'))
 const DeckActionMenuLarge = lazy(() => import('./atoms/DeckActionsMenuLarge'))
@@ -165,6 +166,7 @@ function DeckSummary({
     draft,
     sets,
     amount,
+    playFormats,
 }) {
     return (
         <React.Fragment>
@@ -241,27 +243,8 @@ function DeckSummary({
                         />
                         <Typography>{amount && amount.upgrades}</Typography>
                     </div>
-                    <div style={{ display: 'flex', alignItem: 'center' }}>
-                        <LockIcon
-                            style={{ width: '1rem', color: 'Goldenrod' }}
-                        />
-                        <Typography>{amount && amount.restricted}</Typography>
-                    </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography variant="subtitle2">
-                        {   amount && (
-                            amount.restricted > 5 ||
-                        amount.banned > 0 ||
-                        amount.rotatedOut > 0) ? (
-                            <span style={{ color: 'red' }}>NOT VALID</span>
-                        ) : (
-                            <span style={{ color: 'green' }}>VALID</span>
-                        )}
-                        <span> for Organized Play</span>
-                    </Typography>
                     {
-                        amount && amount.restricted > 5 && (
+                        amount && amount.restricted > 0 && (
                             <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem' }}>
                                 <Typography variant="subtitle2">|</Typography>
                                 <LockIcon style={{ width: '.9rem', color: 'Goldenrod', marginLeft: '.3rem' }} />
@@ -270,7 +253,7 @@ function DeckSummary({
                         )
                     }
                     {
-                        amount && amount.banned > 5 && (
+                        amount && amount.banned > 0 && (
                             <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem' }}>
                                 <Typography variant="subtitle2">|</Typography>
                                 <NotInterestedIcon style={{ width: '.9rem', color: 'darkred', marginLeft: '.3rem' }} />
@@ -279,7 +262,7 @@ function DeckSummary({
                         )
                     }
                     {
-                        amount && amount.rotatedOut > 5 && (
+                        amount && amount.rotatedOut > 0 && (
                             <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem' }}>
                                 <Typography variant="subtitle2">|</Typography>
                                 <img src={`/assets/icons/rotatedOut.png`} style={{ width: '.9rem', height: '.9rem' }} />
@@ -288,6 +271,8 @@ function DeckSummary({
                         )
                     }
                 </div>
+
+                <PlayFormatsValidity validFormats={playFormats} />
             </div>
         </React.Fragment>
     )
@@ -378,7 +363,7 @@ class ReadonlyDeck extends PureComponent {
             .filter(c => c === true)
             .count()
         const rotatedOutCount = cards
-            .filter(c => c.faction === 0 && Number(c.id.slice(0, 2)) < 3)
+            .filter(c => c.faction === 0 && Number(c.id) < 3000 && !ignoreAsDublicate(c.name))
             .count()
 
         const amount = {
@@ -395,6 +380,8 @@ class ReadonlyDeck extends PureComponent {
             0
         )
 
+        const playFormats = checkDeckValidFormats(cards.map(c => c.id).toJS());
+
         return (
             <div className={classes.root}>
                 <div className={classes.deckHeader}>
@@ -406,6 +393,7 @@ class ReadonlyDeck extends PureComponent {
                         draft={draft}
                         sets={sets}
                         amount={amount}
+                        playFormats={playFormats}
                     />
                     {isNarrow && (
                         <div>
