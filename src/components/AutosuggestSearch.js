@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 import { withStyles } from '@material-ui/core/styles'
-import { cardsdb } from '../data/cardsdb'
+import { cardsDb } from '../data'
 import { cardTypeIcons, setsIndex } from '../data'
 import toPairs from 'lodash/toPairs'
 import IconButton from '@material-ui/core/IconButton';
@@ -73,7 +73,7 @@ function getSuggestions(value) {
     const inputValue = deburr(value.trim()).toLowerCase()
     const inputLength = inputValue.length
     let count = 0
-    const suggestions = toPairs(cardsdb).map(([id, card]) => ({
+    const suggestions = toPairs(cardsDb).map(([id, card]) => ({
         id: id,
         label: card.name,
         type: card.type,

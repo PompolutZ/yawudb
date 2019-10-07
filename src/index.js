@@ -10,7 +10,7 @@ import Footer from './components/Footer'
 import MenuAppBar from './components/MenuAppBar'
 
 import { connect, Provider } from 'react-redux'
-import createBrowserHistory from 'history/createBrowserHistory'
+import { createBrowserHistory } from 'history'
 import configureStore from './configureStore'
 import LazyLoading from './components/LazyLoading'
 import ErrorBoundary from './components/ErrorBoundary'

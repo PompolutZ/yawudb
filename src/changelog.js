@@ -1,4 +1,11 @@
 const changelog = {
+    "0.31.1": {
+        "The Grymwatch": "All Hail The King! Grymwatch is here!.."
+    },
+    "0.30.0": {
+        "Play Formats": "Organized play switch has been changed to play type switch. Deck's thumbnails show information which formats of play this deck is eligible for.",
+        "Known bugs": "PDF export needs to be updated.",
+    },
     "0.29.3": {
         "Bug fixes": "Either some bugs has been fixed or I have made things even worse."
     },

@@ -29,7 +29,7 @@ export const factions = {
 
     "grashraks-despoilers": "Grashrak’s Despoilers",
     "skaeths-wild-hunt": "Skaeth’s Wild Hunt",
-    //"the-grymwatch": "The Grymwatch",
+    "the-grymwatch": "The Grymwatch",
 }
 
 export const PREFIX_LENGTH = "toftbq".length + 1;
@@ -64,7 +64,7 @@ export const factionIdPrefix = {
 
     "grashraks-despoilers": "gd",
     "skaeths-wild-hunt": "swh",
-    // "the-grymwatch": "tg",
+    "the-grymwatch": "tg",
 }
 
 export const factionMembers = {
@@ -97,7 +97,7 @@ export const factionMembers = {
 
     "grashraks-despoilers": ['Grashrak', 'Draknar', 'Murgroth', 'Korsh', 'Gnarl', 'Ushkor'],
     "skaeths-wild-hunt": ['Skaeths','Lighaen','Karthaen','Kurnoth4','Kurnoth5'],
-    // "the-grymwatch": ['Duke Crakmarrow', '', '', '', '', ''],
+    "the-grymwatch": ['Duke Crakmarrow', '', '', '', '', ''],
 }
 
 export const idPrefixToFaction = {
@@ -130,7 +130,7 @@ export const idPrefixToFaction = {
 
     "gd": "grashraks-despoilers",
     "swh": "skaeths-wild-hunt",
-    // "tg": "the-grymwatch",
+    "tg": "the-grymwatch",
 }
 
 export const factionIndexes = [
@@ -164,7 +164,7 @@ export const factionIndexes = [
 
     "grashraks-despoilers", // 19
     "skaeths-wild-hunt", // 20
-    // "the-grymwatch", // 21
+    "the-grymwatch", // 21
 ]
 
 export const factionIndexesWithDefaultSet = [
@@ -198,7 +198,7 @@ export const factionIndexesWithDefaultSet = [
 
     ["grashraks-despoilers", 20], // 19
     ["skaeths-wild-hunt", 20], // 20
-    // ["the-grymwatch", 21] // 21
+    ["the-grymwatch", 21] // 21
 ]
 
 export const warbandsWithDefaultSet = [
@@ -233,7 +233,7 @@ export const warbandsWithDefaultSet = [
 
     ["grashraks-despoilers", 20], // 19
     ["skaeths-wild-hunt", 20], // 20
-    // ["the-grymwatch", 21] // 21
+    ["the-grymwatch", 21] // 21
 ]
 
 export const cardsIdToFactionIndex = {

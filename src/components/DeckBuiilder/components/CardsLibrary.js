@@ -127,7 +127,7 @@ function FilterableCardLibrary(props) {
         return t1 - t2 || card2.ranking - card1.ranking || card2.faction - card1.faction;
     }
 
-    const { searchText, visibleCardTypes, editMode } = props;
+    const { searchText, visibleCardTypes, editMode, deckPlayFormat } = props;
     const currentDeck = editMode ? props.editModeCurrentDeck : props.createModeCurrentDeck;
     const selectedFaction = props.editMode ? props.editModeSelectedFaction : props.createModeSelectedFaction;
     const selectedFactionPrefix = factionIdPrefix[selectedFaction];
@@ -142,7 +142,14 @@ function FilterableCardLibrary(props) {
     let filteredCards = cards
         .filter(({ type }) => visibleCardTypes.includes(type))
         .filter(({ id, faction }) => {
-            return props.eligibleForOP && Number(faction) === 0 ? !Boolean(bannedCards[id]) && Number(id.slice(0, 2)) > 2 : true
+            switch(deckPlayFormat) {
+                case 'championship':
+                    return Number(faction) === 0 ? !Boolean(bannedCards[id]) && Number(id) >= 3000 : true;
+                case 'relic':
+                    return !Boolean(bannedCards[id]);
+                default: 
+                    return true;
+            }
         });
     
     if(isNaN(searchText)) {
@@ -188,6 +195,7 @@ const mapStateToProps = state => {
         visibleCardTypes: state.cardLibraryFilters.visibleCardTypes,
         eligibleForOP: state.cardLibraryFilters.eligibleForOP,
         cardsRanking: state.cardLibraryFilters.cardsRanking,
+        deckPlayFormat: state.cardLibraryFilters.deckPlayFormat,
 
         createModeSelectedSets: state.cardLibraryFilters.createModeSets,
         createModeSelectedFaction: state.deckUnderBuild.faction,
@@ -200,10 +208,6 @@ const mapStateToProps = state => {
         editModeFactionDefaultSet: state.deckUnderEdit.factionDefaultSet,
         editModeCurrentDeck: state.deckUnderBuild.deck,
         editRestrictedCardsCount: state.deckUnderEdit.restrictedCardsCount,
-        
-        // currentDeck: state.deckUnderBuild.deck,
-        // selectedFaction: state.deckUnderBuild.faction,
-        // selectedFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
     }
 }
 

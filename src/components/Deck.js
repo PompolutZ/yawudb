@@ -80,7 +80,7 @@ class Deck extends PureComponent {
     }
 
     render() {
-        const { faction, onSave, onRemoveAll, onCancel, onUpdate, editMode } = this.props;
+        const { faction, onSave, onRemoveAll, onCancel, onUpdate, editMode, deckPlayFormat } = this.props;
         const objectivesCount = editMode ? this.props.editObjectivesCount : this.props.objectivesCount;
         const gambitsCount = editMode ? this.props.editGambitsCount : this.props.gambitsCount;
         const upgradesCount = editMode ? this.props.editUpgradesCount : this.props.upgradesCount;
@@ -98,8 +98,9 @@ class Deck extends PureComponent {
         const objectives = cards.filter(v => v.type === 0).sort((c1, c2) => c1.id - c2.id).toJS(); //c1.name.localeCompare(c2.name)
         const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((c1, c2) => c1.id - c2.id).toJS();
         const upgrades = cards.filter(v => v.type === 2).sort((c1, c2) => c1.id - c2.id).toJS();
-        const isValidForSave = objectivesCount === 12 && ((gambitsCount + upgradesCount) >= 20);
-        const isObjectiveCardsSectionValid = objectivesCount === 12;
+        const surgesCount = objectives.filter(x => x.scoreType === 0).length;
+        const isValidForSave = deckPlayFormat === 'open' ? objectivesCount === 12 && (gambitsCount + upgradesCount) >= 20 : objectivesCount === 12 && (gambitsCount + upgradesCount) >= 20 && surgesCount < 7;
+        const isObjectiveCardsSectionValid = deckPlayFormat === 'open' ? objectivesCount === 12 : objectivesCount === 12 && surgesCount < 7;
         const isPowerCardsSectionValid = gambitsCount + upgradesCount >= 20 && (gambitsCount <= upgradesCount);
 
         const objectiveSummary = objectives.reduce((acc, c) => {
@@ -130,7 +131,10 @@ class Deck extends PureComponent {
                         </div>
                         {
                             !isObjectiveCardsSectionValid && (
-                                <Typography style={{ color: 'darkred'}}>- You must have exactly 12 objective cards.</Typography>
+                                <div>
+                                    <Typography style={{ color: 'darkred'}}>- You must have exactly 12 objective cards.</Typography>
+                                    <Typography style={{ color: 'darkred'}}>{deckPlayFormat !== 'open' && surgesCount > 6 ? '- You cannot have more than 6 Surge (score immediately) cards' : ''}</Typography>
+                                </div>
                             )
                         }
                     </SectionHeader>
@@ -215,6 +219,7 @@ const mapStateToProps = state => {
         cardsRanking: state.cardLibraryFilters.cardsRanking,
 
         isEligibleForOP: state.cardLibraryFilters.eligibleForOP,
+        deckPlayFormat: state.cardLibraryFilters.deckPlayFormat,
         restrictedCardsCount: state.deckUnderBuild.restrictedCardsCount,
         objectivesCount: state.deckUnderBuild.objectivesCount,
         gambitsCount: state.deckUnderBuild.gambitsCount,

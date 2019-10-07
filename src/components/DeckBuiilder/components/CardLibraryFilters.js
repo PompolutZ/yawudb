@@ -70,14 +70,10 @@ function CardLibraryFilters(props) {
         setFiltersAreaHeight(prev => prev === 0 ? 'auto' : 0);
     }
 
-    const handleChangeEligibleForOrganizedPlay = e => {
-        props.onChangeEligibleForOrganizedPlay(e.target.checked);
-    }
-
     const handleFormatChange = format => () => {
         setFormat(format);
         props.onChangeDeckPlayFormat(format);
-        props.onChangeEligibleForOrganizedPlay(format === 'championship');
+        props.onChangeEligibleForOrganizedPlay(format !== 'open');
     }
 
     return (
@@ -124,10 +120,6 @@ function CardLibraryFilters(props) {
 
                     <DeckPlayFormatToggle selectedFormat={format} onFormatChange={handleFormatChange} />
                     <DeckPlayFormatInfo format={format} />
-                    {/* <Switch label="Organised Play" isChecked={this.props.eligibleForOP} onChange={this.handleChangeEligibleForOrganizedPlay} />
-                    <Typography variant="subtitle1" style={{ fontSize: '.7rem', marginBottom: '.5rem'}}>
-                        <i>Removes banned cards from the cards list. Removes Season 1 Universal cards.</i>
-                    </Typography> */}
                 </div>
             </AnimateHeight>
         </div>

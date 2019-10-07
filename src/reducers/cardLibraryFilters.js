@@ -53,7 +53,6 @@ const cardLibraryFilters = (state = initialState, action) => {
 } 
 
 export const mergeLoadedStateWithInitial = loadedState => {
-    console.log(loadedState, initialState);
     return { 
         ...initialState, 
         ...loadedState.cardLibraryFilters, 

@@ -55,14 +55,15 @@ class ExpansionsToggle extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                { _.keys(setInfos).slice(this.props.eligibleForOP ? rotatedOutSetsIndexes.length : 0).map(v => this.renderIndex(v)) }
+                { _.keys(setInfos).slice(this.props.deckPlayFormat === 'championship' ? rotatedOutSetsIndexes.length : 0).map(v => this.renderIndex(v)) }
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    eligibleForOP: state.cardLibraryFilters.eligibleForOP
+    eligibleForOP: state.cardLibraryFilters.eligibleForOP,
+    deckPlayFormat: state.cardLibraryFilters.deckPlayFormat
 });
 
 export default withStyles(styles)(connect(mapStateToProps)(ExpansionsToggle));
