@@ -86,17 +86,17 @@ class VirtualizedCardsList extends Component {
 
     render() {
         return (
-            <div style={{ margin: '0 0'}}>
-                <AutoSizer disableHeight>
+            <div style={{ margin: '0 0', height: '100%'}}>
+                <AutoSizer>
                     {
-                        () => (
+                        ({width, height}) => (
                             <List
-                            ref={this._setRef}
-                            width={this.listWidth}
-                            height={this.listHeight}
-                            rowCount={this.props.cards.length}
-                            rowHeight={this._calcRowHeight}
-                            rowRenderer={this._rowRenderer} />
+                                ref={this._setRef}
+                                width={width}
+                                height={height}
+                                rowCount={this.props.cards.length}
+                                rowHeight={this._calcRowHeight}
+                                rowRenderer={this._rowRenderer} />                            
                         )
                     }
                 </AutoSizer>
@@ -175,7 +175,7 @@ function FilterableCardLibrary(props) {
     const drawableCards = sorted.map(c => ({ card: c, expanded: false }))    
     
     return (
-        <div>
+        <div style={{ height: '100vh'}}>
             <VirtualizedCardsList 
                 key={drawableCards.length * 31} 
                 isEligibleForOp={props.eligibleForOP} 

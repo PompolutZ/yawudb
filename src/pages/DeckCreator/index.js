@@ -6,7 +6,7 @@ import DeckCreatorTransfer from './DeckCreatorTransfer';
 
 function DeckCreator() {
     return (
-        <div>
+        <div style={{ height: '100%' }}>
             <Switch>
                 <Route exact path="/deck/create" component={DeckCreatorNew} />
                 <Route exact path="/deck/edit/:id" component={DeckCreatorEdit} />

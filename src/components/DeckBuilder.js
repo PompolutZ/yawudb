@@ -17,6 +17,27 @@ import { Tabs, Tab } from '@material-ui/core';
 import CardsTab from './DeckBuiilder/atoms/CardsTab';
 import FightersInfoList from '../atoms/FightersInfoList';
 import { withFirebase } from '../firebase';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        flexGrow: 1,
+        height: '100%',
+    },
+
+    paper: {
+        flexGrow: 1,
+        height: '100%',
+    },
+
+    leftPaperInner: {
+        height: '100%', 
+        display: 'flex',
+        flexFlow: 'column nowrap',
+    },
+}))
 
 const uuid4 = require('uuid/v4');
 
@@ -24,7 +45,7 @@ function DeckBuilder(props) {
     const { editMode, transferMode, isAuth, userInfo} = props;
     const { selectedFaction, currentDeckName, currentDeckSource, currentDeckDescription, currentDeck } = props;
     const { changeName, changeSource, changeDescription, clearDeck, resetDeck, resetSearchText } = props;
-    // const classes = useStyles();
+    const classes = useStyles();
 
     const [tabIndex, setTabIndex] = React.useState(0);
     const [isMobileDeckVisible, setIsMobileDeckVisible] = React.useState(editMode || transferMode);
@@ -178,71 +199,151 @@ function DeckBuilder(props) {
     }
 
     return (
-            <div className="wrapper" style={{display: 'flex', flexFlow: 'row wrap'}}>
-                <div className="filters">
-                    <CardLibraryFilters editMode={editMode} />
-                    <Tabs variant="fullWidth" value={tabIndex} onChange={handleTabChange}>
-                        <Tab label={<CardsTab editMode={editMode} isSelected={tabIndex === 0} />} />
-                        <Tab label='Fighters' />
-                    </Tabs>
+        <div className={classes.root}>
+            <Grid container spacing={1} style={{ height: '98%' }}>
+                <Grid item xs={12} md={6}>
+                    <Paper className={classes.paper}>
+                        <div className={classes.leftPaperInner}>
+                            <div>
+                                <CardLibraryFilters editMode={editMode} />
+                            </div>
+                            <div>
+                                <Tabs variant="fullWidth" value={tabIndex} onChange={handleTabChange}>
+                                    <Tab label={<CardsTab editMode={editMode} isSelected={tabIndex === 0} />} />
+                                    <Tab label='Fighters' />
+                                </Tabs>
+                            </div>
+                            <div style={{ flex: '1 100%'}}>
+                                {
+                                    tabIndex === 0 && (
+                                        <CardsLibrary editMode={editMode} />
+                                    )
+                                }
+                                {
+                                    tabIndex === 1 && (
+                                        <FightersInfoList faction={selectedFaction} />
+                                    )
+                                }
+                            </div>
+                        </div>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <Paper className={classes.paper}>
+                        <div className="sideDeck" style={{ display: window.screen.width < 800 ? 'none' : ''}}>
+                            <Deck faction={selectedFaction}
+                                editMode={editMode} 
+                                currentName={currentDeckName}
+                                currentSource={currentDeckSource}
+                                currentDescription={currentDeckDescription}
+                                changeName={changeName}
+                                changeSource={changeSource}
+                                changeDescription={changeDescription}
+                                selectedCards={currentDeck}
+                                onSave={_saveCurrentDeck}
+                                onUpdate={_updateCurrentDeck}
+                                onCancel={_cancelUpdate}
+                                onRemoveAll={clearDeck}
+                                isAuth={isAuth} />
+                        </div>
+                        <div className="fullscreenDeck" style={{visibility: (isMobileDeckVisible && window.matchMedia('(max-width: 800px)').matches) ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
+                            <Deck faction={selectedFaction}
+                                editMode={editMode} 
+                                currentName={currentDeckName}
+                                currentSource={currentDeckSource}
+                                currentDescription={currentDeckDescription}
+                                changeName={changeName}
+                                changeSource={changeSource}
+                                changeDescription={changeDescription}
+                                selectedCards={currentDeck}
+                                onSave={_saveCurrentDeck}
+                                onUpdate={_updateCurrentDeck}
+                                onCancel={_cancelUpdate}
+                                onRemoveAll={clearDeck}
+                                isAuth={isAuth} />
+                        </div>
+                    </Paper>
+                </Grid>
+            </Grid>
+            { showNotification && <SimpleSnackbar position="center" message="Save was successful!" /> }
+            <FloatingActionButton isEnabled onClick={_handleShowDeckMobile}>
+                {
+                    !isMobileDeckVisible && (
+                        <DeckSVG />
+                    )
+                }
+                {
+                    isMobileDeckVisible && (
+                        <AddCardSVG />
+                    )
+                }
+            </FloatingActionButton>
+        </div>
+            // <div style={{display: 'flex', flexFlow: 'row wrap'}}>
+            //     <div className="filters">
+                    // <CardLibraryFilters editMode={editMode} />
+                    // <Tabs variant="fullWidth" value={tabIndex} onChange={handleTabChange}>
+                    //     <Tab label={<CardsTab editMode={editMode} isSelected={tabIndex === 0} />} />
+                    //     <Tab label='Fighters' />
+                    // </Tabs>
 
-                    {
-                        tabIndex === 0 && (
-                            <CardsLibrary editMode={editMode} />
-                        )
-                    }
-                    {
-                        tabIndex === 1 && (
-                            <FightersInfoList faction={selectedFaction} />
-                        )
-                    }
-                </div>
-                <div className="sideDeck" style={{ display: window.screen.width < 800 ? 'none' : ''}}>
-                    <Deck faction={selectedFaction}
-                        editMode={editMode} 
-                        currentName={currentDeckName}
-                        currentSource={currentDeckSource}
-                        currentDescription={currentDeckDescription}
-                        changeName={changeName}
-                        changeSource={changeSource}
-                        changeDescription={changeDescription}
-                        selectedCards={currentDeck}
-                        onSave={_saveCurrentDeck}
-                        onUpdate={_updateCurrentDeck}
-                        onCancel={_cancelUpdate}
-                        onRemoveAll={clearDeck}
-                        isAuth={isAuth} />
-                </div>
-                <div className="fullscreenDeck" style={{visibility: (isMobileDeckVisible && window.matchMedia('(max-width: 800px)').matches) ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
-                    <Deck faction={selectedFaction}
-                        editMode={editMode} 
-                        currentName={currentDeckName}
-                        currentSource={currentDeckSource}
-                        currentDescription={currentDeckDescription}
-                        changeName={changeName}
-                        changeSource={changeSource}
-                        changeDescription={changeDescription}
-                        selectedCards={currentDeck}
-                        onSave={_saveCurrentDeck}
-                        onUpdate={_updateCurrentDeck}
-                        onCancel={_cancelUpdate}
-                        onRemoveAll={clearDeck}
-                        isAuth={isAuth} />
-                </div>
-                { showNotification && <SimpleSnackbar position="center" message="Save was successful!" /> }
-                <FloatingActionButton isEnabled onClick={_handleShowDeckMobile}>
-                    {
-                        !isMobileDeckVisible && (
-                            <DeckSVG />
-                        )
-                    }
-                    {
-                        isMobileDeckVisible && (
-                            <AddCardSVG />
-                        )
-                    }
-                </FloatingActionButton>
-            </div>
+                    // {
+                    //     tabIndex === 0 && (
+                    //         <CardsLibrary editMode={editMode} />
+                    //     )
+                    // }
+                    // {
+                    //     tabIndex === 1 && (
+                    //         <FightersInfoList faction={selectedFaction} />
+                    //     )
+                    // }
+            //     </div>
+                // <div className="sideDeck" style={{ display: window.screen.width < 800 ? 'none' : ''}}>
+                //     <Deck faction={selectedFaction}
+                //         editMode={editMode} 
+                //         currentName={currentDeckName}
+                //         currentSource={currentDeckSource}
+                //         currentDescription={currentDeckDescription}
+                //         changeName={changeName}
+                //         changeSource={changeSource}
+                //         changeDescription={changeDescription}
+                //         selectedCards={currentDeck}
+                //         onSave={_saveCurrentDeck}
+                //         onUpdate={_updateCurrentDeck}
+                //         onCancel={_cancelUpdate}
+                //         onRemoveAll={clearDeck}
+                //         isAuth={isAuth} />
+                // </div>
+                // <div className="fullscreenDeck" style={{visibility: (isMobileDeckVisible && window.matchMedia('(max-width: 800px)').matches) ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
+                //     <Deck faction={selectedFaction}
+                //         editMode={editMode} 
+                //         currentName={currentDeckName}
+                //         currentSource={currentDeckSource}
+                //         currentDescription={currentDeckDescription}
+                //         changeName={changeName}
+                //         changeSource={changeSource}
+                //         changeDescription={changeDescription}
+                //         selectedCards={currentDeck}
+                //         onSave={_saveCurrentDeck}
+                //         onUpdate={_updateCurrentDeck}
+                //         onCancel={_cancelUpdate}
+                //         onRemoveAll={clearDeck}
+                //         isAuth={isAuth} />
+                // </div>
+                // { showNotification && <SimpleSnackbar position="center" message="Save was successful!" /> }
+                // <FloatingActionButton isEnabled onClick={_handleShowDeckMobile}>
+                //     {
+                //         !isMobileDeckVisible && (
+                //             <DeckSVG />
+                //         )
+                //     }
+                //     {
+                //         isMobileDeckVisible && (
+                //             <AddCardSVG />
+                //         )
+                //     }
+                // </FloatingActionButton>
+            // </div>
             );
 }
 
