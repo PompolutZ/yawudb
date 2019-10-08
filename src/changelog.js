@@ -1,6 +1,7 @@
 const changelog = {
-    "0.31.2": {
-        "The Grymwatch": "All Hail The King! Grymwatch is here!.. Now with card images (I hope). Thanks to Pietro Nucci from Underworld-Deckers for the images."
+    "0.31.3": {
+        "The Grymwatch": "All Hail The King! Grymwatch is here!.. Now with card images (I hope). Thanks to Pietro Nucci from Underworld-Deckers for the images.",
+        "Scroll bug fix": "Fixed bug on iOS when scrolling wasn't smooth or even impossible at times."
     },
     "0.30.0": {
         "Play Formats": "Organized play switch has been changed to play type switch. Deck's thumbnails show information which formats of play this deck is eligible for.",

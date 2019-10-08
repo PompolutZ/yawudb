@@ -294,6 +294,8 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexFlow: 'column nowrap',
         overflowX: 'hidden',
+        overflowY: 'scroll',
+        WebkitOverflowScrolling: 'touch',
     },
 }));
 
