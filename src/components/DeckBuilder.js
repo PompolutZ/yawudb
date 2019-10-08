@@ -19,7 +19,9 @@ import FightersInfoList from '../atoms/FightersInfoList';
 import { withFirebase } from '../firebase';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Slide from '@material-ui/core/Slide';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -46,6 +48,7 @@ function DeckBuilder(props) {
     const { selectedFaction, currentDeckName, currentDeckSource, currentDeckDescription, currentDeck } = props;
     const { changeName, changeSource, changeDescription, clearDeck, resetDeck, resetSearchText } = props;
     const classes = useStyles();
+    const theme = useTheme();
 
     const [tabIndex, setTabIndex] = React.useState(0);
     const [isMobileDeckVisible, setIsMobileDeckVisible] = React.useState(editMode || transferMode);
@@ -84,18 +87,6 @@ function DeckBuilder(props) {
             props.addOrUpdateDeck(props.match.params.id, updated, {...deckPayload, id: props.match.params.id});
 
             await props.firebase.realdb.ref('decks/' + props.match.params.id).update(deckPayload);
-            // if(!args.isDraft) {
-            //     // await props.firebase.realdb.ref('lastDeck').transaction(lastDeck => {
-            //     //     if(lastDeck) {
-            //     //         lastDeck.id = props.match.params.data;
-            //     //     }
-    
-            //     //     return lastDeck;
-            //     // });
-    
-            //     // await _moveIdToFront(props.firebase.realdb.ref('/decks_meta/all'), props.match.params.data);
-            //     // await _moveIdToFront(props.firebase.realdb.ref(`/decks_meta/${factionIdPrefix[faction]}`), props.match.params.data);
-            // }
             
             localStorage.setItem('yawudb_decks', JSON.stringify({ ...cache, [props.match.params.id]: deckPayload }));
 
@@ -104,18 +95,6 @@ function DeckBuilder(props) {
             console.error('ERROR updating deck: ', err);
         }
     }
-
-    // const _moveIdToFront = (ref, id) => {
-    //     return ref.transaction(meta => {
-    //         if(meta) {
-    //             const diff = meta.ids.filter(x => x !== id);
-    //             meta.ids = [id, ...diff];
-    //             meta.count = meta.ids.length;
-    //         }
-
-    //         return meta;
-    //     });
-    // }
 
     const _saveCurrentDeck = async args => {
         try {
@@ -172,20 +151,6 @@ function DeckBuilder(props) {
         }
     }
 
-    // const _updateMetaCountAndIds = (meta, deckId) => {
-    //     if(meta) {
-    //         if(meta.ids) {
-    //             meta.ids = [deckId, ...meta.ids];
-    //         } else {
-    //             meta.ids = [deckId];
-    //         }
-
-    //         meta.count = meta.ids.length;
-    //     }
-
-    //     return meta;
-    // }
-
     const _resetAndGoBack = () => {
         props.history.goBack();
         setTimeout(() => {
@@ -228,42 +193,44 @@ function DeckBuilder(props) {
                         </div>
                     </Paper>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                    <Paper className={classes.paper}>
-                        <div className="sideDeck" style={{ display: window.screen.width < 800 ? 'none' : ''}}>
-                            <Deck faction={selectedFaction}
-                                editMode={editMode} 
-                                currentName={currentDeckName}
-                                currentSource={currentDeckSource}
-                                currentDescription={currentDeckDescription}
-                                changeName={changeName}
-                                changeSource={changeSource}
-                                changeDescription={changeDescription}
-                                selectedCards={currentDeck}
-                                onSave={_saveCurrentDeck}
-                                onUpdate={_updateCurrentDeck}
-                                onCancel={_cancelUpdate}
-                                onRemoveAll={clearDeck}
-                                isAuth={isAuth} />
-                        </div>
-                        <div className="fullscreenDeck" style={{visibility: (isMobileDeckVisible && window.matchMedia('(max-width: 800px)').matches) ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
-                            <Deck faction={selectedFaction}
-                                editMode={editMode} 
-                                currentName={currentDeckName}
-                                currentSource={currentDeckSource}
-                                currentDescription={currentDeckDescription}
-                                changeName={changeName}
-                                changeSource={changeSource}
-                                changeDescription={changeDescription}
-                                selectedCards={currentDeck}
-                                onSave={_saveCurrentDeck}
-                                onUpdate={_updateCurrentDeck}
-                                onCancel={_cancelUpdate}
-                                onRemoveAll={clearDeck}
-                                isAuth={isAuth} />
-                        </div>
-                    </Paper>
-                </Grid>
+                <Slide in={ useMediaQuery(theme.breakpoints.up('md')) ? true : isMobileDeckVisible } 
+                    direction="up"
+                    timeout={{ 
+                        enter: useMediaQuery(theme.breakpoints.up('md')) ? 0 : 175, 
+                        exit: useMediaQuery(theme.breakpoints.up('md')) ? 0 : 75 
+                    }} 
+                    style={{
+                        backgroundColor: useMediaQuery(theme.breakpoints.up('md')) ? 'white' : 'rgba(0, 0, 0, .5)',
+                        top: 60, 
+                        left: 0,
+                        bottom: 0,
+                        right: 0,
+                        zIndex: 10,
+                        paddingBottom: useMediaQuery(theme.breakpoints.up('md')) ? 0 : '1rem', 
+                        position: useMediaQuery(theme.breakpoints.up('md')) ? 'static' : 'fixed',
+                    }}>
+                    <Grid item xs={12} md={6} style={{ 
+                            overflow: useMediaQuery(theme.breakpoints.up('md')) ? 'hidden' : 'auto',
+                            backgroundColor: 'white'
+                        }}>
+                        <Paper className={classes.paper}>
+                                <Deck faction={selectedFaction}
+                                        editMode={editMode} 
+                                        currentName={currentDeckName}
+                                        currentSource={currentDeckSource}
+                                        currentDescription={currentDeckDescription}
+                                        changeName={changeName}
+                                        changeSource={changeSource}
+                                        changeDescription={changeDescription}
+                                        selectedCards={currentDeck}
+                                        onSave={_saveCurrentDeck}
+                                        onUpdate={_updateCurrentDeck}
+                                        onCancel={_cancelUpdate}
+                                        onRemoveAll={clearDeck}
+                                        isAuth={isAuth} />
+                        </Paper>
+                    </Grid>
+                </Slide>
             </Grid>
             { showNotification && <SimpleSnackbar position="center" message="Save was successful!" /> }
             <FloatingActionButton isEnabled onClick={_handleShowDeckMobile}>

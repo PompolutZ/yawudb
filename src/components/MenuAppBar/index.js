@@ -26,7 +26,7 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
         position: 'fixed',
-        zIndex: '42',
+        zIndex: 1000,
         width: '100%',
     },
     grow: {
