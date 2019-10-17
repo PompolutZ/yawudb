@@ -610,7 +610,7 @@ export const beastgraveDB = {
         "scoreType": 0
     },
     "06070": {
-        "name": "Glory to the Court",
+        "name": "Glory of the Court",
         "release": 1,
         "faction": 21,
         "type": 0,
