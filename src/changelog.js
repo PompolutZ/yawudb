@@ -1,4 +1,7 @@
 const changelog = {
+    "0.32.0": {
+        "BAR 5": "Quick and dirty fix for new Championship format",
+    },
     "0.31.3": {
         "The Grymwatch": "All Hail The King! Grymwatch is here!.. Now with card images (I hope). Thanks to Pietro Nucci from Underworld-Deckers for the images.",
         "Scroll bug fix": "Fixed bug on iOS when scrolling wasn't smooth or even impossible at times."

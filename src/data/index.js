@@ -59,56 +59,54 @@ export const cardsDb = {
     ...beastgraveDB,                                                              
 }
 
-export const bannedCards = {
-    '01329': 1, // Great Concussion
-    '01347': 1, // Quick Thinker
-    '01368': 1, // Time Trap
+export const championshipForsakenCards = {
     '03317': 1, // Extreme Flank
+    '04048': 1, // Upper Hand
+}
+
+export const championshipRestrictedCards = {
+    // OBJECTIVE CARDS
+    '03291': 1, // Acolyte of the Katophranes (Nightvault #291)
+    '04025': 1, // Burst of Speed (Power Unbound #25)
+    '03302': 1, // Calculated Risk (Nightvault #302)
+    '03342': 1, // Loner (Nightvault #342)
+    '03343': 1, // Longstrider (Nightvault #343)
+    '03371': 1, // Sorcerous Scouring (Nightvault #371)
+    '04036': 1, // Warning Shot (Power Unbound #36)
+    // POWER CARDS
+    '03436': 1, // Pit Trap (Nightvault #436)
+    '04046': 1, // Sorcerous Flourish (Power Unbound #46)
+    '03451': 1, // Sphere of Aqshy (Nightvault #451)
+    '03539': 1, // Slumbering Key (Nightvault #539)
+    '04057': 1, // Spiritbond (Power Unbound #57)
+    '03543': 1, // Sudden Growth (Nightvault #543)
+    '03550': 1, // Tome of Offerings (Nightvault #550)
+    '03557': 1, // Well of Power (Nightvault #557)
+}
+
+
+export const bannedCards = {
+    '03317': 1, // Extreme Flank
+    '04048': 1, // Upper Hand
 };
 
 export const restrictedCards = {
-    '01234': 1,
-    '01235': 1,
-    '01243': 1,
-    '01252': 1,
-    '01257': 1,
-    '03319': 1,
-    '03342': 1,
-    '03343': 1, // Longstrider
-    '01280': 1,
-    '01284': 1,
-    '01291': 1, //Superior Tactician
-    '03291': 1,
-    '04025': 1,
-    '03302': 1,
-    '03371': 1,
-    '04036': 1,
-
-    '01321': 1,
-    '01332': 1,
-    '01343': 1,
-    '03436': 1,
-    '01348': 1,
-    '01369': 1,
-    '01372': 1,
-    '04046': 1,
-    '03451': 1,
-    '04048': 1,
-
-    '01373': 1,
-    '01376': 1,
-    '01384': 1, // Deathly Fortitude
-    '01393': 1,
-    '01395': 1,
-    '01410': 1,
-    '01412': 1,
-    '03539': 1,
-    '01420': 1,
-    '03543': 1, // Sudden Growth
-    '01424': 1,
-    '03550': 1, // Tome of Offerings
-    '03476': 1,
-    '04057': 1,
-    '03557': 1,
+    // OBJECTIVE CARDS
+    '03291': 1, // Acolyte of the Katophranes (Nightvault #291)
+    '04025': 1, // Burst of Speed (Power Unbound #25)
+    '03302': 1, // Calculated Risk (Nightvault #302)
+    '03342': 1, // Loner (Nightvault #342)
+    '03343': 1, // Longstrider (Nightvault #343)
+    '03371': 1, // Sorcerous Scouring (Nightvault #371)
+    '04036': 1, // Warning Shot (Power Unbound #36)
+    // POWER CARDS
+    '03436': 1, // Pit Trap (Nightvault #436)
+    '04046': 1, // Sorcerous Flourish (Power Unbound #46)
+    '03451': 1, // Sphere of Aqshy (Nightvault #451)
+    '03539': 1, // Slumbering Key (Nightvault #539)
+    '04057': 1, // Spiritbond (Power Unbound #57)
+    '03543': 1, // Sudden Growth (Nightvault #543)
+    '03550': 1, // Tome of Offerings (Nightvault #550)
+    '03557': 1, // Well of Power (Nightvault #557)
 }
 

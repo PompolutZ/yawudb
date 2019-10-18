@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import Typography from '@material-ui/core/Typography';
-import { cardsDb, restrictedCards, factionIdPrefix } from '../data/index';
+import { cardsDb, restrictedCards, factionIdPrefix, bannedCards } from '../data/index';
 import { Set } from 'immutable';
 // import { toggleCardInDeck } from './DeckBuiilder/components/CardsLibrary';
 import DeckIcon from '../atoms/DeckIcon';
@@ -36,7 +36,8 @@ class CardsList extends Component {
                             withAnimation inDeck
                             key={i}
                             restrictedCardsCount={this.props.restrictedCardsCount}
-                            isRestricted={this.props.isEligibleForOP && Boolean(restrictedCards[props.id])} 
+                            isRestricted={this.props.isEligibleForOP && Boolean(restrictedCards[props.id])}
+                            isBanned={this.props.isEligibleForOP && Boolean(bannedCards[props.id])} 
                             isAlter={i % 2 === 0} 
                             toggleCardInDeck={this.props.toggle} 
                             editMode={this.props.editMode}

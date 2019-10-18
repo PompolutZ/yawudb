@@ -19,6 +19,7 @@ import CardRule from './CardRule'
 import LockIcon from '@material-ui/icons/Lock';
 import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
+import NotInterestedIcon from '@material-ui/icons/NotInterested'
 
 const useStyles = makeStyles(theme => ({
     expand: {
@@ -155,6 +156,7 @@ class WUCardInfo extends PureComponent {
     render() {
         const {
             isRestricted,
+            isBanned,
             set,
             name,
             scoreType,
@@ -169,6 +171,11 @@ class WUCardInfo extends PureComponent {
                     {
                         isRestricted && (
                             <LockIcon style={{ width: '1rem', height: '1rem', margin: '.2rem .3rem 0 0', fill: 'goldenrod'}} />
+                        )
+                    }
+                    {
+                        isBanned && (
+                            <NotInterestedIcon style={{ width: '1rem', height: '1rem', margin: '.2rem .3rem 0 0', fill: 'darkred'}} />
                         )
                     }
                     <Typography
@@ -349,6 +356,7 @@ function WUCardAtom(props) {
         rule,
         isAlter,
         isRestricted,
+        isBanned,
         withAnimation,
     } = props;
 
@@ -442,7 +450,7 @@ function WUCardAtom(props) {
             <WUCardInfo
                 pickColor={pickForegroundColor}
                 isRestricted={isRestricted}
-                isBanned={false}
+                isBanned={isBanned}
                 set={set}
                 name={name}
                 scoreType={scoreType}
