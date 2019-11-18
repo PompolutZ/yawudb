@@ -43,6 +43,7 @@ const Login = lazy(() => import('./pages/Login'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const PasswordResetRequest = lazy(() => import('./pages/PasswordResetRequest'))
 const GameAssistant = lazy(() => import('./pages/GameAssistant'));
+const WarbandsInfoPage = lazy(() => import('./pages/WarbandsInfo'));
 
 const history = createBrowserHistory()
 const store = configureStore(history)
@@ -495,6 +496,11 @@ function App(props) {
                                             <Query {...props} />
                                         )}
                                     />
+                                    <Route
+                                        path={ROUTES.VIEW_WARBAND_ID}
+                                        render={props => (
+                                            <WarbandsInfoPage {...props} />
+                                        )} />
 
                                     {/* <PrivateRoute
                                     path={ROUTES.MY_DECKS}

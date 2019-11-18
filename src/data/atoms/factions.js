@@ -30,6 +30,7 @@ export const factions = {
     "grashraks-despoilers": "Grashrak’s Despoilers",
     "skaeths-wild-hunt": "Skaeth’s Wild Hunt",
     "the-grymwatch": "The Grymwatch",
+    "rippas-snarlfangs": "Rippa's Snarlfangs"
 }
 
 export const PREFIX_LENGTH = "toftbq".length + 1;
@@ -65,6 +66,7 @@ export const factionIdPrefix = {
     "grashraks-despoilers": "gd",
     "skaeths-wild-hunt": "swh",
     "the-grymwatch": "tg",
+    "rippas-snarlfangs" : 'rs'
 }
 
 export const factionMembers = {
@@ -98,6 +100,7 @@ export const factionMembers = {
     "grashraks-despoilers": ['Grashrak', 'Draknar', 'Murgroth', 'Korsh', 'Gnarl', 'Ushkor'],
     "skaeths-wild-hunt": ['Skaeths','Lighaen','Karthaen','Kurnoth4','Kurnoth5'],
     "the-grymwatch": ['Duke Crakmarrow', '', '', '', '', ''],
+    "rippas-snarlfangs": ['Rippa', 'Stabbit', 'Mean-Eye']
 }
 
 export const idPrefixToFaction = {
@@ -131,6 +134,7 @@ export const idPrefixToFaction = {
     "gd": "grashraks-despoilers",
     "swh": "skaeths-wild-hunt",
     "tg": "the-grymwatch",
+    "rs": "rippas-snarlfangs",
 }
 
 export const factionIndexes = [
@@ -165,6 +169,7 @@ export const factionIndexes = [
     "grashraks-despoilers", // 19
     "skaeths-wild-hunt", // 20
     "the-grymwatch", // 21
+    "rippas-snarlfangs", // 22
 ]
 
 export const factionIndexesWithDefaultSet = [
@@ -199,6 +204,7 @@ export const factionIndexesWithDefaultSet = [
     ["grashraks-despoilers", 20], // 19
     ["skaeths-wild-hunt", 20], // 20
     ["the-grymwatch", 21] // 21
+    ["rippas-snarlfangs", 22],
 ]
 
 export const warbandsWithDefaultSet = [
@@ -233,7 +239,8 @@ export const warbandsWithDefaultSet = [
 
     ["grashraks-despoilers", 20], // 19
     ["skaeths-wild-hunt", 20], // 20
-    ["the-grymwatch", 21] // 21
+    ["the-grymwatch", 21], // 21
+    ["rippas-snarlfangs", 22]
 ]
 
 export const cardsIdToFactionIndex = {
@@ -958,5 +965,37 @@ export const cardsIdToFactionIndex = {
     "06093": 21,
     "06094": 21,
     "06095": 21,
-    "06096": 21,        
+    "06096": 21,    
+    "06097": 22,
+    "06098": 22,
+    "06099": 22,
+    "06100": 22,
+    "06101": 22,
+    "06102": 22,
+    "06103": 22,
+    "06104": 22,
+    "06105": 22,
+    "06106": 22,
+    "06107": 22,
+    "06108": 22,
+    "06109": 22,
+    "06110": 22,
+    "06111": 22,
+    "06112": 22,
+    "06113": 22,
+    "06114": 22,
+    "06115": 22,
+    "06116": 22,
+    "06117": 22,
+    "06118": 22,
+    "06119": 22,
+    "06120": 22,
+    "06121": 22,
+    "06122": 22,
+    "06123": 22,
+    "06124": 22,
+    "06125": 22,
+    "06126": 22,
+    "06127": 22,
+    "06128": 22,        
 };

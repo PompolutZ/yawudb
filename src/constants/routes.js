@@ -22,6 +22,7 @@ export const ABOUT = '/about';
 
 export const VIEW_CARD = '/view/card';
 export const VIEW_CARD_ID = '/view/card/:id';
+export const VIEW_WARBAND_ID = '/view/warband/:name?';
 
 export const VIEW_DECK = '/view/deck';
 export const VIEW_DECK_ID = '/view/deck/:id';

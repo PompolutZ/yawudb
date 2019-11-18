@@ -1,4 +1,7 @@
 const changelog = {
+    "0.33.0": {
+        "Rippas And Gift Pack": "Quick and dirty fix for Rippas and Gift Pack",
+    },
     "0.32.0": {
         "BAR 5": "Quick and dirty fix for new Championship format",
     },

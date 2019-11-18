@@ -57,11 +57,11 @@ class DeckActionsMenu extends PureComponent {
                             Open on Underworld-Deckers
                         </div>
                     </MenuItem>
-                    {/* <MenuItem onClick={this.handleOpenInGamesAssitant} style={{ position: 'relative'}}>
+                    <MenuItem onClick={this.handleOpenInGamesAssitant} style={{ position: 'relative'}}>
                         <div style={{ display: 'flex', alignItems: 'center'}}>
                             Open in Games Assistant
                         </div>
-                    </MenuItem> */}
+                    </MenuItem>
                     {
                         this.props.canUpdateOrDelete && (
                             <div>

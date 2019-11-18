@@ -1,4 +1,4 @@
-import { bannedCards, restrictedCards, cardsDb } from '../data/index';
+import { bannedCards, restrictedCards, cardsDb, championshipForsakenCards, relicForsakenCards, championshipRestrictedCards } from '../data/index';
 
 export const checkStandalone = () => {
     return window.matchMedia('(display-mode: standalone)').matches ||
@@ -72,22 +72,44 @@ export const checkDeckValidFormats = cardIds => {
     const cards = cardIds.map(id => ({ ...cardsDb[id], id: id }));
     const onlyUniversals = cards.filter(c => c.faction === 0);
 
-    const anyBannedCards = onlyUniversals.some(c => Boolean(bannedCards[c.id]));
+    const anyChampionshipForsaken = onlyUniversals.some(c => checkCardForsakenFor(c.id, 'championship'));
+    const anyRelicForsaken = onlyUniversals.some(c => checkCardForsakenFor(c.id, 'relic'));
+    const championshipRestrictedCount = onlyUniversals.filter(c => checkCardRestrictedFor(c.id, 'championship')).length;
+    const surgesCount = cards.filter(c => c.type === 0 && c.scoreType === 0).length;
     const anyOutOfSeason = onlyUniversals.some(c => Number(c.id) < 3000 && !ignoreAsDublicate(c.name));
-    const tooManyRestricted = onlyUniversals.filter(c => Boolean(restrictedCards[c.id])).length > 5;
-    const tooManySurges = cards.filter(c => c.type === 0 && c.scoreType === 0).length > 6;
 
     const validForFormats = ['open'];
 
-    if(!(anyBannedCards || anyOutOfSeason || tooManyRestricted || tooManySurges)) {
+    if(!(anyChampionshipForsaken || anyOutOfSeason || championshipRestrictedCount > 3 || surgesCount > 6)) {
         validForFormats.push('championship');
     }
 
-    if(!(anyBannedCards || tooManyRestricted || tooManySurges)) {
+    if(!(anyRelicForsaken)) {
         validForFormats.push('relic');
     }
 
     return validForFormats;
+}
+
+export const checkCardForsakenFor = (cardId, format) => {
+    switch(format) {
+        case 'championship': 
+            return Boolean(championshipForsakenCards[cardId]);
+
+        case 'relic': 
+            return Boolean(relicForsakenCards[cardId]);
+        
+        default: return false;
+    }
+}
+
+export const checkCardRestrictedFor = (cardId, format) => {
+    switch(format) {
+        case 'championship': 
+            return Boolean(championshipRestrictedCards[cardId]);
+        
+        default: return false;
+    }
 }
 
 

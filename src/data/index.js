@@ -2,6 +2,7 @@ import { cardsdb } from './cardsdb';
 import powersUnboundCards from './dbs/powers_unbound_db';
 import { dreadfaneDb } from './dbs/dreadfane_db';
 import { beastgraveDB } from './dbs/beastgrave_db';
+import {beastgraveGiftPackDb } from './dbs/beastgrave_giftpack_db';
 
 export { 
     factions,
@@ -40,6 +41,7 @@ export const totalCardsPerWave = {
     4: 60,
     5: 124,
     6: 438,
+    7: 32,
 }
 
 export const deckPlayFormats = [
@@ -56,8 +58,40 @@ export const cardsDb = {
     ...cardsdb,
     ...powersUnboundCards,
     ...dreadfaneDb,
-    ...beastgraveDB,                                                              
+    ...beastgraveDB,     
+    ...beastgraveGiftPackDb,                                                         
 }
+
+// export const championshipForsakenCards = {
+//     '03317': 1, // Extreme Flank
+//     '04048': 1, // Upper Hand
+// }
+
+// export const championshipRestrictedCards = {
+//     // OBJECTIVE CARDS
+//     '03291': 1, // Acolyte of the Katophranes (Nightvault #291)
+//     '04025': 1, // Burst of Speed (Power Unbound #25)
+//     '03302': 1, // Calculated Risk (Nightvault #302)
+//     '03342': 1, // Loner (Nightvault #342)
+//     '03343': 1, // Longstrider (Nightvault #343)
+//     '03371': 1, // Sorcerous Scouring (Nightvault #371)
+//     '04036': 1, // Warning Shot (Power Unbound #36)
+//     // POWER CARDS
+//     '03436': 1, // Pit Trap (Nightvault #436)
+//     '04046': 1, // Sorcerous Flourish (Power Unbound #46)
+//     '03451': 1, // Sphere of Aqshy (Nightvault #451)
+//     '03539': 1, // Slumbering Key (Nightvault #539)
+//     '04057': 1, // Spiritbond (Power Unbound #57)
+//     '03543': 1, // Sudden Growth (Nightvault #543)
+//     '03550': 1, // Tome of Offerings (Nightvault #550)
+//     '03557': 1, // Well of Power (Nightvault #557)
+// }
+
+
+export const bannedCards = {
+    '03317': 1, // Extreme Flank
+    '04048': 1, // Upper Hand
+};
 
 export const championshipForsakenCards = {
     '03317': 1, // Extreme Flank
@@ -84,11 +118,19 @@ export const championshipRestrictedCards = {
     '03557': 1, // Well of Power (Nightvault #557)
 }
 
-
-export const bannedCards = {
-    '03317': 1, // Extreme Flank
-    '04048': 1, // Upper Hand
-};
+export const relicForsakenCards = {
+    // OBJECTIVE CARDS
+    '03317': 1, // Extreme Flank (Nightvault #317)
+    '03340': 1, // Keep Them Guessing (Nightvault #340)
+    // POWER CARDS
+    '03391': 1, // Aggressive Defence (Nightvault #391)
+    '03397': 1, // Baffling Illusion (Nightvault #397)
+    '01329': 1, // Great Concussion (Shadespire #329)
+    '01336': 1, // Last Chance (Shadespire #336)
+    '01347': 1, // Quick Thinker (Shadespire #347)
+    '01368': 1, // Time Trap (Shadespire #368)
+    '04048': 1, // Upper Hand (Power Unbound #48)    
+}
 
 export const restrictedCards = {
     // OBJECTIVE CARDS

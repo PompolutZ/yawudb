@@ -32,6 +32,7 @@ import LockIcon from '@material-ui/icons/Lock'
 import NotInterestedIcon from '@material-ui/icons/NotInterested'
 import * as ROUTES from '../../constants/routes';
 import PlayFormatsValidity from '../../atoms/PlayFormatsValidity'
+import DetailedPlayStyleValidity from '../../atoms/DetailedPlayStyleValidity'
 
 const DeckActionsMenu = lazy(() => import('./atoms/DeckActionsMenu'))
 const DeckActionMenuLarge = lazy(() => import('./atoms/DeckActionsMenuLarge'))
@@ -243,7 +244,7 @@ function DeckSummary({
                         />
                         <Typography>{amount && amount.upgrades}</Typography>
                     </div>
-                    {
+                    {/* {
                         amount && amount.restricted > 0 && (
                             <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem' }}>
                                 <Typography variant="subtitle2">|</Typography>
@@ -269,10 +270,8 @@ function DeckSummary({
                                 <Typography variant="subtitle2">{amount && amount.rotatedOut}</Typography>
                             </div>
                         )
-                    }
+                    } */}
                 </div>
-
-                <PlayFormatsValidity validFormats={playFormats} />
             </div>
         </React.Fragment>
     )
@@ -393,7 +392,6 @@ class ReadonlyDeck extends PureComponent {
                         draft={draft}
                         sets={sets}
                         amount={amount}
-                        playFormats={playFormats}
                     />
                     {isNarrow && (
                         <div>
@@ -458,6 +456,9 @@ class ReadonlyDeck extends PureComponent {
                         </React.Fragment>
                     )}
                 </div>
+
+                <DetailedPlayStyleValidity validFormats={playFormats} cards={cards.map(c => c.id).toJS()} />
+
                 <div className={classes.deckBody}>
                     <div
                         className={classnames(classes.section, {
@@ -621,6 +622,16 @@ class ReadonlyDeck extends PureComponent {
                     <img
                         id="wave-05"
                         src={`/assets/icons/wave-05-icon.png`}
+                        alt="wave-05"
+                    />
+                    <img
+                        id="wave-06"
+                        src={`/assets/icons/wave-06-icon.png`}
+                        alt="wave-05"
+                    />
+                    <img
+                        id="wave-07"
+                        src={`/assets/icons/wave-07-icon.png`}
                         alt="wave-05"
                     />
                     <img
@@ -1170,6 +1181,7 @@ class ReadonlyDeck extends PureComponent {
             if (card.startsWith('04')) return `P${Number(card.slice(-3))}`
             if (card.startsWith('05')) return `D${Number(card.slice(-3))}`
             if (card.startsWith('06')) return `B${Number(card.slice(-3))}`
+            if (card.startsWith('07')) return `G${Number(card.slice(-3))}`
 
             return Number(card.slice(-3))
         }
@@ -1192,6 +1204,7 @@ class ReadonlyDeck extends PureComponent {
             if (card.startsWith('04')) return `${3000 + Number(card.slice(-3))}`
             if (card.startsWith('05')) return `${4000 + Number(card.slice(-3))}`
             if (card.startsWith('06')) return `${5000 + Number(card.slice(-3))}`
+            if (card.startsWith('07')) return `${6000 + Number(card.slice(-3))}`
 
             return `${Number(card.slice(-3))}`
         }
