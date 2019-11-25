@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { idPrefixToFaction } from '../../data';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link, useLocation } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import { animated, useSpring } from 'react-spring'; 
 import { useScroll } from 'react-use-gesture';
@@ -60,40 +62,43 @@ const clamp = (value, clampAt = 30) => {
   };
 
 function Startup(props) {
-    console.log(props);
+    const { state } = useLocation();
+    console.log(state.cards);
     const classes = useStyles();
-    const [style, set] = useSpring(() => ({
-        transform: 'perspective(500px) rotateY(25deg)'
-    }));
+    const objectives = state.cards.filter(c => c.type === 0).map(c => c.id).join();
+    const powers = state.cards.filter(c => c.type !== 0).map(c => c.id).join();
+    // const [style, set] = useSpring(() => ({
+    //     transform: 'perspective(500px) rotateY(25deg)'
+    // }));
 
-    const bind = useScroll(event => {
-        set({
-            transform: `perspective(500px) rotateY(${
-                event.scrolling ? clamp(event.delta[0]) : 0
-            }deg)`
-        })
-    })
-    // const [selectedFactionId, setSelectedFactionId] = useState('');
-    // const [selectedDeckName, setSelectedDeckName] = useState('');
-    // const [selectedDeck, setSelectedDeck] = useState([]);
-
-    // useEffect(() => {
-    //     setSelectedFactionId(props.location.state.factionId);
-    //     setSelectedDeckName(props.location.state.name);
-    //     setSelectedDeck(props.location.state.cards);
-    // }, []);
-
-    // const handleStart = () => {
-    //     props.history.push(`${ROUTES.GAME_ASSISTANT}/game/1`, {
-    //         factionId: selectedFactionId,
-    //         name: selectedDeckName,
-    //         cards: selectedDeck
+    // const bind = useScroll(event => {
+    //     set({
+    //         transform: `perspective(500px) rotateY(${
+    //             event.scrolling ? clamp(event.delta[0]) : 0
+    //         }deg)`
     //     })
-    // }
+    // })
+
+    const onTextFieldFocus = e => {
+        e.target.select();
+    }
 
     return (
-        <div className={classes.root}>
-            <div className={classes.container} {...bind()}>
+        <div className={classes.root} style={{ display: 'flex', flexFlow: 'column wrap' }}>
+            <Typography style={{ maxWidth: '300px' }}>Objectives:</Typography>
+            <Divider />
+            <TextField fullWidth
+                multiline
+                value={objectives}
+                onFocus={onTextFieldFocus} />
+            <br />
+            <Typography>Power cards:</Typography>
+            <Divider />
+            <TextField fullWidth
+                multiline
+                value={powers}
+                onFocus={onTextFieldFocus} />
+            {/* <div className={classes.container} {...bind()}>
                 {
                     props.location.state.cards.map(card => (
                         <animated.div 
@@ -106,7 +111,7 @@ function Startup(props) {
                             />
                     ))
                 }
-            </div>
+            </div> */}
             {/* <div>
                 <Typography variant="subtitle2">Current Deck:</Typography>
                 <div className={classes.deckHeader}>
