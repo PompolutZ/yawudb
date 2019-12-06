@@ -203,7 +203,7 @@ export const factionIndexesWithDefaultSet = [
 
     ["grashraks-despoilers", 20], // 19
     ["skaeths-wild-hunt", 20], // 20
-    ["the-grymwatch", 21] // 21
+    ["the-grymwatch", 21], // 21
     ["rippas-snarlfangs", 22],
 ]
 
