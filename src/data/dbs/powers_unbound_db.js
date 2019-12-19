@@ -77,7 +77,7 @@ export default {
         "set": 18,
         "rule": "Roll a defence dice each time this fighter suffers any amount of damage. On a roll of Crit this fighter does not suffer that damage\r"
     },
-    "040010": {
+    "04010": {
         "name": "Petty Vindication",
         "release": 1,
         "faction": 12,
