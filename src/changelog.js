@@ -1,4 +1,7 @@
 const changelog = {
+    "0.34.0": {
+        "New FAR Update": "Keep Them Guessing and Aggresive Defence are now forsaken. Scrum, Temporary Victory, Transfixing Stare, Tome of Vitality and Rebound are restricted for Championship format.",
+    },
     "0.33.0": {
         "Rippas And Gift Pack": "Quick and dirty fix for Rippas and Gift Pack",
     },

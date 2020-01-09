@@ -91,11 +91,15 @@ export const cardsDb = {
 export const bannedCards = {
     '03317': 1, // Extreme Flank
     '04048': 1, // Upper Hand
+    '03340': 1, // Keep Them Guessing
+    '03391': 1, // Aggresive Defence
 };
 
 export const championshipForsakenCards = {
     '03317': 1, // Extreme Flank
     '04048': 1, // Upper Hand
+    '03340': 1, // Keep Them Guessing
+    '03391': 1, // Aggresive Defence
 }
 
 export const championshipRestrictedCards = {
@@ -107,6 +111,8 @@ export const championshipRestrictedCards = {
     '03343': 1, // Longstrider (Nightvault #343)
     '03371': 1, // Sorcerous Scouring (Nightvault #371)
     '04036': 1, // Warning Shot (Power Unbound #36)
+    '06299': 1, // Scrum (Beastgrave #299)
+    '06308': 1, // Temporary Victory (Beastgrave #308)
     // POWER CARDS
     '03436': 1, // Pit Trap (Nightvault #436)
     '04046': 1, // Sorcerous Flourish (Power Unbound #46)
@@ -116,6 +122,10 @@ export const championshipRestrictedCards = {
     '03543': 1, // Sudden Growth (Nightvault #543)
     '03550': 1, // Tome of Offerings (Nightvault #550)
     '03557': 1, // Well of Power (Nightvault #557)
+    '03467': 1, // Transfixing Stare (Nightvault #467)
+    '03551': 1, // Tome of Vitality (Nightvault #351)
+    '01349': 1, // Rebound (Shadespire #349)
+    '07021': 1, // Rebound (Beastgrave Gift Pack #21)
 }
 
 export const relicForsakenCards = {
@@ -141,6 +151,8 @@ export const restrictedCards = {
     '03343': 1, // Longstrider (Nightvault #343)
     '03371': 1, // Sorcerous Scouring (Nightvault #371)
     '04036': 1, // Warning Shot (Power Unbound #36)
+    '06299': 1, // Scrum (Beastgrave #299)
+    '06308': 1, // Temporary Victory (Beastgrave #308)
     // POWER CARDS
     '03436': 1, // Pit Trap (Nightvault #436)
     '04046': 1, // Sorcerous Flourish (Power Unbound #46)
@@ -150,5 +162,9 @@ export const restrictedCards = {
     '03543': 1, // Sudden Growth (Nightvault #543)
     '03550': 1, // Tome of Offerings (Nightvault #550)
     '03557': 1, // Well of Power (Nightvault #557)
+    '03467': 1, // Transfixing Stare (Nightvault #467)
+    '03551': 1, // Tome of Vitality (Nightvault #351)
+    '01349': 1, // Rebound (Shadespire #349)
+    '07021': 1, // Rebound (Beastgrave Gift Pack #21)
 }
 
