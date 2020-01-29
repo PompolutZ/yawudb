@@ -1,4 +1,7 @@
 const changelog = {
+    "0.35.0": {
+        "Hrothgorn's Mantrappers": "Added Hrothgorn's Mantrappers Expansion",
+    },
     "0.34.0": {
         "New FAR Update": "Keep Them Guessing and Aggresive Defence are now forsaken. Scrum, Temporary Victory, Transfixing Stare, Tome of Vitality and Rebound are restricted for Championship format.",
     },

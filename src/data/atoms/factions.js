@@ -30,7 +30,11 @@ export const factions = {
     "grashraks-despoilers": "Grashrak’s Despoilers",
     "skaeths-wild-hunt": "Skaeth’s Wild Hunt",
     "the-grymwatch": "The Grymwatch",
-    "rippas-snarlfangs": "Rippa's Snarlfangs"
+    "rippas-snarlfangs": "Rippa's Snarlfangs",
+    "hrothgorns-mantrappers": "Hrothgorn's Mantrappers",
+    //"the-wurmspat": "The Wurmspat",
+    // "Morgok's Krushas",
+    // "Morgwaeth's Blade Coven"
 }
 
 export const PREFIX_LENGTH = "toftbq".length + 1;
@@ -66,7 +70,9 @@ export const factionIdPrefix = {
     "grashraks-despoilers": "gd",
     "skaeths-wild-hunt": "swh",
     "the-grymwatch": "tg",
-    "rippas-snarlfangs" : 'rs'
+    "rippas-snarlfangs" : 'rs',
+    "hrothgorns-mantrappers": "hm",
+    //"the-wurmspat": "tw",
 }
 
 export const factionMembers = {
@@ -100,7 +106,9 @@ export const factionMembers = {
     "grashraks-despoilers": ['Grashrak', 'Draknar', 'Murgroth', 'Korsh', 'Gnarl', 'Ushkor'],
     "skaeths-wild-hunt": ['Skaeths','Lighaen','Karthaen','Kurnoth4','Kurnoth5'],
     "the-grymwatch": ['Duke Crakmarrow', '', '', '', '', ''],
-    "rippas-snarlfangs": ['Rippa', 'Stabbit', 'Mean-Eye']
+    "rippas-snarlfangs": ['Rippa', 'Stabbit', 'Mean-Eye'],
+    "hrothgorns-mantrappers": ["Hrothgorn", "Thrafnir", "Bushwakka", "Quiv", "Luggit and Thwak"],
+    //"the-wurmspat": ["", "", ""],
 }
 
 export const idPrefixToFaction = {
@@ -135,6 +143,8 @@ export const idPrefixToFaction = {
     "swh": "skaeths-wild-hunt",
     "tg": "the-grymwatch",
     "rs": "rippas-snarlfangs",
+    "hm": "hrothgorns-mantrappers",
+    //"tw": "the-wurmspat",
 }
 
 export const factionIndexes = [
@@ -170,6 +180,8 @@ export const factionIndexes = [
     "skaeths-wild-hunt", // 20
     "the-grymwatch", // 21
     "rippas-snarlfangs", // 22
+    "hrothgorns-mantrappers", // 23
+    //"the-wurmspat", // 24
 ]
 
 export const factionIndexesWithDefaultSet = [
@@ -205,6 +217,8 @@ export const factionIndexesWithDefaultSet = [
     ["skaeths-wild-hunt", 20], // 20
     ["the-grymwatch", 21], // 21
     ["rippas-snarlfangs", 22],
+    ["hrothgorns-mantrappers", 24], // 23
+    //["the-wurmspat", 25], // 23
 ]
 
 export const warbandsWithDefaultSet = [
@@ -240,7 +254,9 @@ export const warbandsWithDefaultSet = [
     ["grashraks-despoilers", 20], // 19
     ["skaeths-wild-hunt", 20], // 20
     ["the-grymwatch", 21], // 21
-    ["rippas-snarlfangs", 22]
+    ["rippas-snarlfangs", 22],
+    ["hrothgorns-mantrappers", 24],
+    //["the-wurmspat", 25], // 23
 ]
 
 export const cardsIdToFactionIndex = {
@@ -997,5 +1013,69 @@ export const cardsIdToFactionIndex = {
     "06125": 22,
     "06126": 22,
     "06127": 22,
-    "06128": 22,        
+    "06128": 22,   
+    "06129": 24,
+    "06130": 24,
+    "06131": 24,
+    "06132": 24,
+    "06133": 24,
+    "06134": 24,
+    "06135": 24,
+    "06136": 24,
+    "06137": 24,
+    "06138": 24,
+    "06139": 24,
+    "06140": 24,
+    "06141": 24,
+    "06142": 24,
+    "06143": 24,
+    "06144": 24,
+    "06145": 24,
+    "06146": 24,
+    "06147": 24,
+    "06148": 24,
+    "06149": 24,
+    "06150": 24,
+    "06151": 24,
+    "06152": 24,
+    "06153": 24,
+    "06154": 24,
+    "06155": 24,
+    "06156": 24,
+    "06157": 24,
+    "06158": 24,
+    "06159": 24,
+    "06160": 24,
+    "06161": 23,
+    "06162": 23,
+    "06163": 23,
+    "06164": 23,
+    "06165": 23,
+    "06166": 23,
+    "06167": 23,
+    "06168": 23,
+    "06169": 23,
+    "06170": 23,
+    "06171": 23,
+    "06172": 23,
+    "06173": 23,
+    "06174": 23,
+    "06175": 23,
+    "06176": 23,
+    "06177": 23,
+    "06178": 23,
+    "06179": 23,
+    "06180": 23,
+    "06181": 23,
+    "06182": 23,
+    "06183": 23,
+    "06184": 23,
+    "06185": 23,
+    "06186": 23,
+    "06187": 23,
+    "06188": 23,
+    "06189": 23,
+    "06190": 23,
+    "06191": 23,
+    "06192": 23,         
 };

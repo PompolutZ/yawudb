@@ -111,6 +111,7 @@ function FilterableCardLibrary(props) {
         const selectedFactionDefaultSet = props.editMode ? props.editModeFactionDefaultSet : props.createModeFactionDefaultSet;
         const selectedSets = props.editMode ? props.editModeSelectedSets : props.createModeSelectedSets;
         const factionCards = getCardsByFactionAndSets(selectedFaction, selectedSets, selectedFactionDefaultSet);
+        console.log(factionCards);
         if(selectedSets && selectedSets.length > 0) {
             const universalCards = getCardsByFactionAndSets('universal', selectedSets);
             return new Set(factionCards).union(new Set(universalCards));     
@@ -152,6 +153,7 @@ function FilterableCardLibrary(props) {
             }
         });
     
+    console.log(filteredCards);    
     if(isNaN(searchText)) {
         filteredCards = filteredCards 
             .filter(c => {

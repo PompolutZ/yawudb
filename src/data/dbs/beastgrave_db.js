@@ -842,7 +842,7 @@ export const beastgraveDB = {
     "06097": {
         "name": "Burning Spite",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "**Surge:** Score this immediately after an activation if two or more surviving friendly fighters are Inspired.",
@@ -852,7 +852,7 @@ export const beastgraveDB = {
     "06098": {
         "name": "Chase Down",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "**Surge:** Score this immediately after an activation if two or more friendly fighters are adjacent to the same enemy fighter.",
@@ -862,7 +862,7 @@ export const beastgraveDB = {
     "06099": {
         "name": "Conquered Land",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "Score this in an end phase if your warband holds all objectives in one or more player's territories.",
@@ -872,7 +872,7 @@ export const beastgraveDB = {
     "06100": {
         "name": "Cruel Hunters",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "**Dual:** Score this in an end phase \\n *If:* Two or more enemy fighters are out of action \\n *And:* One or more friendly fighters are in enemy territory.",
@@ -882,7 +882,7 @@ export const beastgraveDB = {
     "06101": {
         "name": "Feeding Time",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "**Surge:** Score this immediately when an enemy fighter is taken out of action by a friendly fighter's Snarlfang's Jaws **Attack action**.",
@@ -892,7 +892,7 @@ export const beastgraveDB = {
     "06102": {
         "name": "Lay Waste",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "Score this in an end phase if all enemy fighter's are out of action.",
@@ -902,7 +902,7 @@ export const beastgraveDB = {
     "06103": {
         "name": "Leading the Charge",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "**Surge:** Score this immediately after your **Leader** makes a successful **Attack action** as part of a **Charge action**.",
@@ -912,7 +912,7 @@ export const beastgraveDB = {
     "06104": {
         "name": "Loaded with Plunder",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "Score this in an end phase if one or more friendly fighters have three or more upgrades.",
@@ -922,7 +922,7 @@ export const beastgraveDB = {
     "06105": {
         "name": "Marking Your Territory",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "Score this in an end phase if your warband holds one or more objectives in enemy territory.",
@@ -932,7 +932,7 @@ export const beastgraveDB = {
     "06106": {
         "name": "No Mercy",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "**Surge:** Score this immediately after a friendly fighter's successful **Attack action** that targeted an enemy fighter with one or more wound tokens.",
@@ -942,7 +942,7 @@ export const beastgraveDB = {
     "06107": {
         "name": "Plunderers",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "Score this in an end phase if each surviving friendly fighter has one or more upgrades.",
@@ -952,7 +952,7 @@ export const beastgraveDB = {
     "06108": {
         "name": "Swift Hunters",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 0,
         "set": 22,
         "rule": "Score this in an end phase if three or more surviving friendly fighters each have one or more Move and/or Charge tokens.",
@@ -962,7 +962,7 @@ export const beastgraveDB = {
     "06109": {
         "name": "Defensive Manoeuvre",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "**Choose** one friendly fighter. **Push** that fighter up to 1 hex away from the nearest enemy fighter. **Give** the friendly fighter one Guard token."
@@ -970,7 +970,7 @@ export const beastgraveDB = {
     "06110": {
         "name": "Furious Reprisal",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "**Reaction:** Play this after an enemy fighter's **Attack action** that targeted a friendly fighter. That friendly fighter makes an **Attack action** that must target that enemy fighter, and you can **re-roll** any number of dice in the attack roll."
@@ -978,7 +978,7 @@ export const beastgraveDB = {
     "06111": {
         "name": "Hamstring",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "**Reaction:** Play this after a friendly fighter's  successful Snarlfang's Jaws **Attack action**. **Give** the target of that **Attack action** one Move token."
@@ -986,7 +986,7 @@ export const beastgraveDB = {
     "06112": {
         "name": "Narrow Escape",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "**Reaction:** Play this when a friendly fighter is **dealt** damage, before placing wound tokens on their fighter card. Reduce that damage by 1, to a minimum of 1."
@@ -994,7 +994,7 @@ export const beastgraveDB = {
     "06113": {
         "name": "Pack Tactics",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "**Choose** one friendly fighter and up to two friendly fighters adjacent to that fighter. **Push** each chosen fighter 1 hex."
@@ -1002,7 +1002,7 @@ export const beastgraveDB = {
     "06114": {
         "name": "Savage Mauling",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "The first Range 1 or Range 2 **Attack action** made by a friendly fighter in the next activation has +1 Dice and +1 Damage for each **supporting** friendly fighter."
@@ -1010,7 +1010,7 @@ export const beastgraveDB = {
     "06115": {
         "name": "Smell Weakness",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "The first **Attack action** made by a friendly fighter in the next activation has **Cleave** and **Ensnare** if the target has one or more wound tokens."
@@ -1018,7 +1018,7 @@ export const beastgraveDB = {
     "06116": {
         "name": "Unbridled Ferocity",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "**Reaction:** Play this after a friendly fighter's failed Snarlfang's Jaws **Attack action**. That fighter makes a Snarlfang's Jaws **Attack action**."
@@ -1026,7 +1026,7 @@ export const beastgraveDB = {
     "06117": {
         "name": "Venomous Spittle",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "**Reaction:** Play this after a friendly fighter's successful Snarlfang's Jaws **Attack action**. The target of that **Attack action** is **dealt** 1 damage at the end of each action phase. This effect **persists** until the target is out of action."
@@ -1034,7 +1034,7 @@ export const beastgraveDB = {
     "06118": {
         "name": "Vindictive Attack",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 1,
         "set": 22,
         "rule": "+2 Dice to the first **Attack action** made by a friendly fighter in the next activation."
@@ -1042,7 +1042,7 @@ export const beastgraveDB = {
     "06119": {
         "name": "Bonded",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "When this fighter makes an **Attack action** that targets an adjacent enemy fighter, or is the target of an **Attack action** made by an adjacent enemy fighter, this fighter is considered to have one additional **supporting** fighter."
@@ -1050,7 +1050,7 @@ export const beastgraveDB = {
     "06120": {
         "name": "Boss Hat",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "If your **leader** is out of action: \\n +1 Defence \\n +1 Damage to this fighter's Range 1 and Range 2 **Attack actions**."
@@ -1058,7 +1058,7 @@ export const beastgraveDB = {
     "06121": {
         "name": "Circling Hunter",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "**Reaction:** After this fighter's **Attack action** (but not during a superaction) or after an **Attack action** that targets this fighter (but not during a superaction), **push** this fighter 1 hex."
@@ -1066,7 +1066,7 @@ export const beastgraveDB = {
     "06122": {
         "name": "Embittered Survivor",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "+1 Wounds."
@@ -1074,7 +1074,7 @@ export const beastgraveDB = {
     "06123": {
         "name": "Fiendish Jab",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "+1 Damage to this fighter's Stabbin' Stikka **Attack action** for each :atCrit: in the attack roll."
@@ -1082,7 +1082,7 @@ export const beastgraveDB = {
     "06124": {
         "name": "Hidden Slitta",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "[:Hex: 1 - :atFury: 3 - :boom: 1 -(Cleave)-]"
@@ -1090,7 +1090,7 @@ export const beastgraveDB = {
     "06125": {
         "name": "Hunt as One",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "When this fighter supports a friendly fighter, this fighter is considered to be two **supporting** fighters."
@@ -1098,7 +1098,7 @@ export const beastgraveDB = {
     "06126": {
         "name": "Loping Strides",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "+2 Move."
@@ -1106,7 +1106,7 @@ export const beastgraveDB = {
     "06127": {
         "name": "Pack Leader",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "You can **re-roll** any number of dice in this fighter's attack rolls for the Snarlfang's Jaws **Attack action**."
@@ -1114,10 +1114,310 @@ export const beastgraveDB = {
     "06128": {
         "name": "Quickdrop Venom",
         "release": 1,
-        "faction": 21,
+        "faction": 22,
         "type": 2,
         "set": 22,
         "rule": "**Reaction:** After this fighter's successful **Attack action** (other than a Snarlfang's Jaws **Attack action**), roll one attack dice. On a :atSmash: or :atCrit: the target of that **Attack action** is **dealt** 1 damage."
+    },
+    "06161": {
+        "name": "Always Moving",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "**Dual:** Score this in an end phase \\n *If:* There is at least one surviving friendly fighter \\n *And:* There are no friendly fighters in your territory.",
+        "glory": 2,
+        "scoreType": 1
+    },
+    "06162": {
+        "name": "Arm of the Everwinter",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately when your warband **removes** a feature token from the battlefield, or flips a feature token.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "06163": {
+        "name": "Boxed In",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately after an activation if there are three of more friendly fighters adjacent to the same enemy fighter.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "06164": {
+        "name": "Butchering",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "Score this in an end phase if there are more enemy figthers out of action than surviving enemy fighters.",
+        "glory": 2,
+        "scoreType": 1
+    },
+    "06165": {
+        "name": "Dinner Time",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately when an enemy fighter Moves into, is **pushed** into or is **placed** in the same hex as a friendly Trap model.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "06166": {
+        "name": "Extra Crunchy",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately when your warband takes an enemy fighter with three or more upgrades out of action.",
+        "glory": 2,
+        "scoreType": 0
+    },
+    "06167": {
+        "name": "Flush Them Out",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately if your warband **pushes** an enemy fighter that is not adjacent to your **leader**, and after the **push** they are adjacent to your **leader**.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "06168": {
+        "name": "Hunter's Feast",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge, Dual:** Score this immediately \\n *When:* Your **leader's Attack action** takes an enemy fighter out of action \\n *And:* Your **Leader** made one or more **Attack actions** that took an enemy fighter out of action earlier in this phase.",
+        "glory": 2,
+        "scoreType": 0
+    },
+    "06169": {
+        "name": "Momentarily Sated",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "Score this in an end phase if *all enemy fighters* are out of action.",
+        "glory": 5,
+        "scoreType": 1
+    },
+    "06170": {
+        "name": "Surprising Competence",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately when a friendly **Gnoblar's Attack action** takes an enemy fighter out of action.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "06171": {
+        "name": "Top of the Food Chain",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "Score this in an end phase if your **leader** is the only surviving **leader**.",
+        "glory": 1,
+        "scoreType": 1
+    },
+    "06172": {
+        "name": "Unexpected Cunning",
+        "release": 1,
+        "faction": 23,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately after playing your third or subsequent power card in the same phase.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "06173": {
+        "name": "Carnivore Senses",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "The first **Attack action** made by a friendly **Hunter** in the next activation has **Ensnare**."
+    },
+    "06174": {
+        "name": "Driven Onwards",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "**Choose** one friendly fighter that has on or more Move tokens. **Remove** those tokens."
+    },
+    "06175": {
+        "name": "Frozen Earth",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "Pick a feature token in a hex that contains or is adjacent to your **leader**. **Remove** it from the battlefield."
+    },
+    "06176": {
+        "name": "Gnoblar Scramble",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "**Push** each friendly **Gnoblar** up to 2 hexes."
+    },
+    "06177": {
+        "name": "Gotcha!",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "**Reaction:** Play this after a friendly fighter's successful Trap Launcher **Attack action** that does not take the target out of action. **Give** the target one Move token."
+    },
+    "06178": {
+        "name": "Icy Breath",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "**Choose** one enemy fighter within 3 hexes of your **leader** and roll one magic dice. On a roll of :MagChannel: or :MagCrit: the chosen fighter is **dealt** 1 damage."
+    },
+    "06179": {
+        "name": "More Traps",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "Pick one feature token in a hex that contains or is adjacent to a friendly Bushwakka. Flip that token."
+    },
+    "06180": {
+        "name": "Near Miss",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "**Reaction:** Play this after a friendly **Hunter's** failed **Attack action**. **Push** the target 1 hex."
+    },
+    "06181": {
+        "name": "Quick Snack",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "**Reaction:** Play this after an enemy fighter adjacent to your **leader** is taken out of action. If the enemy fighter's Wounds characteristic is 4 or more, **Heal (2)** your **leader**, otherwise **Heal (1)** your **leader**."
+    },
+    "06182": {
+        "name": "Ravenous Fury",
+        "release": 1,
+        "faction": 23,
+        "type": 1,
+        "set": 24,
+        "rule": "**Reaction:** Play this after your **leader's** failed Range 1 **Attack action**. Your **leader** makes one **Attack action**."
+    },
+    "06183": {
+        "name": "Desperate Parry",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "**Reaction:** During an **Attack action** that targets this fighter, before the deal damage step, roll one defence dice. On a roll of :dfBlock: or :dfCrit: the combat sequence ends and this fighter is **dealt** no damage. Then **discard** this card."
+    },
+    "06184": {
+        "name": "Famed Hunter",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "You can **re-roll** one attack dice in this fighter's attack rolls."
+    },
+    "06185": {
+        "name": "Hunting Beast",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "**Reaction:** After this fighter's successful **Attack action**, pick one: \\n **Push** the target 1 hex, or **push** this fighter 1 hex."
+    },
+    "06186": {
+        "name": "Living Avalanche",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "+1 Damage to this fighter's Range 1 and Range 2 **Attack actions**."
+    },
+    "06187": {
+        "name": "Massive Bulk",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "-2 Move (to a minimum of 0) \\n +2 Wounds."
+    },
+    "06188": {
+        "name": "Plucky Pair",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "Rolls of :atSup1: are successes in this fighter's attack rolls and defence rolls."
+    },
+    "06189": {
+        "name": "Savage Instinct",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "This fighter's Range 1 and Range 2 **Attack actions** have **Ensnare**."
+    },
+    "06190": {
+        "name": "Scion of the Everwinter",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "**Action: Give** each adjacent enemy fighter one Move token."
+    },
+    "06191": {
+        "name": "Toughened Hide",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "When this fighter is **dealt** damage, reduce that damage by 1 (to a minimum of 1)."
+    },
+    "06192": {
+        "name": "Veteran Hunter",
+        "release": 1,
+        "faction": 23,
+        "type": 2,
+        "set": 24,
+        "rule": "**Action: Draw** up to two power cards."
+    },
+    "06261": {
+        "name": "Against the Wall",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately when an enemy fighter in an **edge** hex is taken out of action.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "06262": {
+        "name": "Aggresive Strategy",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 24,
+        "rule": "Score this in an end phase if you have scored 5 or more **surge** objective cards.",
+        "glory": 2,
+        "scoreType": 1
     },
     "06264": {
         "name": "Annihilation",
@@ -1138,6 +1438,16 @@ export const beastgraveDB = {
         "rule": "**Hybrid:** Score this in an end phase \\n *If:* A friendly fighter has 4 or more wound tokens \\n *Or:* A surviving friendly fighter has a Move and/or Wounds characteristic or 8 or more.",
         "glory": 1,
         "scoreType": 1
+    },
+    "06269": {
+        "name": "Blaze a Trail",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately after an activation if each surviving friendly fighter is in enemy territory and adjacent to no enemy fighters.",
+        "glory": 1,
+        "scoreType": 0
     },
     "06270": {
         "name": "Brought to Bay",
@@ -1289,6 +1599,16 @@ export const beastgraveDB = {
         "glory": 2,
         "scoreType": 1
     },
+    "06297": {
+        "name": "Rising Power",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately after a friendly fighter **casts** a spell and you rolled three or more dice in the casting roll.",
+        "glory": 1,
+        "scoreType": 0
+    },
     "06298": {
         "name": "Run Ragged",
         "release": 1,
@@ -1306,6 +1626,16 @@ export const beastgraveDB = {
         "type": 0,
         "set": 21,
         "rule": "**Surge:** Score this immediately after an activation if four or more fighters on the battlefield are in a single group in which each fighter is adjacent to at least one other fighter in that group.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "06302": {
+        "name": "Skilled Duellist",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge:** Score this immediately after a friendly fighter's successful **Attack action** made as a reaction to that fighter's **Attack action** with **Combo**.",
         "glory": 1,
         "scoreType": 0
     },
@@ -1338,6 +1668,16 @@ export const beastgraveDB = {
         "rule": "**Surge, Dual:** Score this immediately after an activation \\n *If:* Your warband holds one or more objectives in friendly territory \\n *And:* Your warband holds one or more objectives in enemy territory.",
         "glory": 1,
         "scoreType": 0
+    },
+    "06307": {
+        "name": "Team Effort",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 24,
+        "rule": "**Dual:** Score this in an end phase \\n *If:* There are two or more surviving friendly fighters \\n *And:* Each surviving friendly fighter made one or more actions in the previous phase.",
+        "glory": 1,
+        "scoreType": 1
     },
     "06308": {
         "name": "Temporary Victory",
@@ -1379,6 +1719,36 @@ export const beastgraveDB = {
         "glory": 2,
         "scoreType": 1
     },
+    "06316": {
+        "name": "Triumphant Hunt",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 24,
+        "rule": "**Dual:** Score this in an end phase \\n *If:* Three or more enemy fighters are out of action \\n *And:* At least one enemy **Quarry** is out of action.",
+        "glory": 2,
+        "scoreType": 1
+    },
+    "06317": {
+        "name": "Uncontested",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 24,
+        "rule": "**Dual:** Score this in an end phase \\n *If:* Your warband holds two or more objectives \\n *And:* No enemy fighters hold objectives.",
+        "glory": 3,
+        "scoreType": 1
+    },
+    "06318": {
+        "name": "Unexpected Pitfall",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 24,
+        "rule": "**Surge, Hybrid:** Score this immediately \\n *After:* An enemy fighter is taken out of action by a **lethal** hex \\n *Or:* An enemy fighter is taken out of action by damage **dealt** by a gambit you played.",
+        "glory": 1,
+        "scoreType": 0
+    },
     "06319": {
         "name": "Veteran Survivors",
         "release": 1,
@@ -1388,6 +1758,30 @@ export const beastgraveDB = {
         "rule": "Score this in the third end phase if there are three or more surviving friendly **Hunters**.",
         "glory": 2,
         "scoreType": 2
+    },
+    "06322": {
+        "name": "Blindside",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 24,
+        "rule": "**Reaction:** Play this during an **Attack action**, before the attack roll. **Push** one friendly fighter up to 2 hexes so that they are a **supporting** fighter."
+    },
+    "06324": {
+        "name": "Buried Instinct",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 24,
+        "rule": "**Reaction:** Play this during an **Attack action**, that targets a friendly fighter, before the attack roll. **Give** that friendly fighter one Guard token. If that friendly fighter is **Quarry**, you can also **re-roll** 1 dice in the defence roll for that **Attack action**."
+    },
+    "06325": {
+        "name": "Chain Attack",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 24,
+        "rule": "The first **Attack action** made by a friendly fighter in the next activation has **Combo**."
     },
     "06326": {
         "name": "Cloaked in Shadow",
@@ -1428,6 +1822,14 @@ export const beastgraveDB = {
         "type": 1,
         "set": 22,
         "rule": "**Push** one friendly **Hunter** 1 hex closer to an enemy fighter. That enemy fighter is a **Quarry**. This effect persists until that enemy fighter is taken out of action."
+    },
+    "06334": {
+        "name": "Dragged into the Darkness",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 24,
+        "rule": "**Choose** one enemy fighter that has one or more Move tokens. The chosen fighter is **dealt** 1 damage if that damage would take the chosen fighter out of action."
     },
     "06336": {
         "name": "Eldritch Haze",
@@ -1525,6 +1927,14 @@ export const beastgraveDB = {
         "set": 21,
         "rule": "Pick one objective token and move it into an adjacent hex up to two times. You cannot move it into a **lethal** hex or a hex that includes a feature token."
     },
+    "06364": {
+        "name": "Rocksnake Toxin",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 24,
+        "rule": "**Poison** \\n **Choose** one enemy fighter adjacent to one or more friendly fighters. The chosen fighter is **dealt** 1 damage at the end of each action phase. This effect **persists** until the chosen fighter is taken out of action."
+    },
     "06366": {
         "name": "Sidestep",
         "release": 1,
@@ -1557,6 +1967,14 @@ export const beastgraveDB = {
         "set": 22,
         "rule": "**Poison** \\n Choose one enemy fighter adjacent to one or more friendly fighters. The enemy fighter is **dealt** 1 damage after each **Move action** they make. This effect **persists** until the enemy fighter is out of action."
     },
+    "06371": {
+        "name": "Sudden Scarcity",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 24,
+        "rule": "The next time an opponent spends any glory points to give a fighter an upgrade, they must spend 1 additional glory point to do so. This effect **persists** until the end of the phase."
+    },
     "06373": {
         "name": "Tracking",
         "release": 1,
@@ -1572,6 +1990,30 @@ export const beastgraveDB = {
         "type": 1,
         "set": 22,
         "rule": "Pick one feature token in an **empty** hex in your territory. Flip that token."
+    },
+    "06375": {
+        "name": "Unnatural Truce",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 24,
+        "rule": "**Draw** up to two power cards. Each other player **draws** up to one power card."
+    },
+    "06376": {
+        "name": "Vicious Beast",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 24,
+        "rule": "**Place** the scatter token on a **lethal** hex, then do the following twice. **Scatter 1** from that hex: any fighter in the **end hex** is **dealt** 1 damage."
+    },
+    "06378": {
+        "name": "Wildform",
+        "release": 1,
+        "faction": 0,
+        "type": 3,
+        "set": 24,
+        "rule": "**Spell**: This spell is **cast** if there are two or more of the same symbol in the casting roll. If this spell is **cast**, +1 Damage to the caster's Range 1 and Range 2 **Attack actions**, and they gain one or more of the following, corresponding to the symbols in the roll. \\n **2+** :MagChannel: : +1 Move \\n **2+** :MagFocus: : +1 Wounds \\n **2+** :MagCrit: : +1 Defence \\n This spell **persists** until the caster is taken out of action."
     },
     "06380": {
         "name": "Amberbone Axe",
@@ -1589,6 +2031,14 @@ export const beastgraveDB = {
         "set": 22,
         "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 2 -(Knockback 1)-] \\n If this **Attack action** takes an enemy fighter out of action, **discard** this card and gain 1 glory point."
     },
+    "06384": {
+        "name": "Amberbone Spear",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 24,
+        "rule": "[:Hex: 2 - :atSmash: 2 - :boom: 2] \\n If this **Attack action** takes an enemy fighter out of action, **discard** this card and gain 1 glory point."
+    },
     "06386": {
         "name": "Avatar of the Ur-grub",
         "release": 1,
@@ -1596,6 +2046,14 @@ export const beastgraveDB = {
         "type": 2,
         "set": 22,
         "rule": "This card cannot be included in your deck. \\n This card cannot be removed from this fighter. \\n This fighter is a **Quarry**. \\n This fighter's Range 1 and Range 2 **Attack actions** have +1 Damage and **Ensnare**. \\n **Reaction:** After this fighter's successful Range 1 or Range 2 **Attack action**, **Heal** (1) this fighter."
+    },
+    "06388": {
+        "name": "Binding Chain",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 24,
+        "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 2 -(Combo)-] "
     },
     "06389": {
         "name": "Bloodthief",
@@ -1612,6 +2070,22 @@ export const beastgraveDB = {
         "type": 2,
         "set": 20,
         "rule": "**Reaction:** During a Range 1 **Attack action**, after this fighter is **driven back**, but before they are **dealt** damage by any **lethal** hexes, their attacker is **dealt** 1 damage."
+    },
+    "06393": {
+        "name": "Cryptic Companion",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 24,
+        "rule": "This fighter is a **Quarry**. If this fighter is a **Quarry** and is holding an objective at the end of an action phase, gain 1 glory point."
+    },
+    "06395": {
+        "name": "Finishing Blow",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 24,
+        "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 2] \\n **Reaction:** After this fighter's successful **Attack action** with **Combo**, make this **Attack action**. It must target the same fighter. +2 Damage to this **Attack action** when made in this way."
     },
     "06396": {
         "name": "Great Fortitude",
@@ -1653,6 +2127,14 @@ export const beastgraveDB = {
         "set": 22,
         "rule": "**Reaction:** After an activation, place one Potency counter on this card and lose one glory point. \\n +1 Damage to this fighter's Range 1 and Range 2 **Attack actions** for each Potency counter on this card."
     },
+    "06402": {
+        "name": "Hunter's Caution",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 24,
+        "rule": "This fighter is a **Hunter**. If this fighter is the target of a **Quarry's Attack action**, you can **re-roll** one dice in the defence roll."
+    },
     "06403": {
         "name": "Hunter's Reflexes",
         "release": 1,
@@ -1693,6 +2175,14 @@ export const beastgraveDB = {
         "set": 22,
         "rule": "**Reaction:** After this fighter ends a **push** or a **Move action** in a hex that contains a feature token, or is **placed** in a hex that contains a feature token, flip that token."
     },
+    "06413": {
+        "name": "Mandibles of the Ur-grub",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 24,
+        "rule": "**Ur-grub Aspect** \\n **Reaction:** After this fighter's successful Range 1 **Attack action**, **Heal (1)** this fighter."
+    },
     "06414": {
         "name": "Mazzig's Many Legs",
         "release": 1,
@@ -1716,6 +2206,14 @@ export const beastgraveDB = {
         "type": 2,
         "set": 20,
         "rule": "This fighter is a **Hunter**. You can **re-roll** one dice in the attack rolls for this fighter's **Attack actions** that target a **Quarry**."
+    },
+    "06420": {
+        "name": "Quintok's Combative Cantrip",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 24,
+        "rule": "**Lost Page** \\n **Spell Action (:MagFocus:):** If **cast**, **push** one adjacent enemy fighter up to 1 hex, then **give** the caster one Guard token, then **push** the caster up to 1 hex."
     },
     "06421": {
         "name": "Repeating Mirror",
@@ -1757,6 +2255,14 @@ export const beastgraveDB = {
         "set": 21,
         "rule": "This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter is on Guard."
     },
+    "06432": {
+        "name": "Terrifying Aura",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 24,
+        "rule": "This fighter is not and cannot be a **Quarry**. In addition, opponents cannot **re-roll** dice in attack rolls for **Attack actions** that target this fighter."
+    },
     "06434": {
         "name": "Trophy Belt",
         "release": 1,
@@ -1764,5 +2270,13 @@ export const beastgraveDB = {
         "type": 2,
         "set": 21,
         "rule": "Gain 1 spent glory point when this fighter's **Attack action** takes an adjacent enemy fighter out of action. Gain 1 unspent glory point instead if the target was a **Quarry**."
+    },
+    "06436": {
+        "name": "Victor's Speed",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 24,
+        "rule": "+1 Move \\n **Reaction:** After a friendly fighter's **Attack action** that takes an enemy fighter out of action, if this card is in your hand, give this upgrade to that fighter. This does not cost any glory points."
     }
 }

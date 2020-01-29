@@ -202,7 +202,20 @@ export const setInfos = {
         // beastgrave gift pack
         wave: 7,
         '0': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
-    }
+    },
+    '24': {
+        //"hrothgorns-mantrappers", // 23
+        wave: 6,
+        '0': [261,262,269,297,302,307,316,317,318,322,324,325,334,364,371,375,376,378,384,388,393,395,402,413,420,432,436],
+        '23': [161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192]
+    },
+    // '25': {
+    //     //""the-wurmspat"", // 24
+    //     wave: 6,
+    //     '0': [],
+    //     '24': [129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160]
+    // },
+
 }
 
 // function printArray(lastNumber) {
@@ -267,6 +280,8 @@ export const setsIndex = [
     "the-grymwatch", // 21
     "rippas-snarlfangs", // 22
     "beastgrave-gift-pack", // 23
+    "hrothgorns-mantrappers", // 24
+    //"the-wurmspat", // 25
 ]
 
 export const setsNames = [
@@ -300,8 +315,10 @@ export const setsNames = [
     // BEASTGRAVE
     "Beastgrave Core Set", // 20
     "The Grymwatch Expansion", // 21
-    "Rippa's Snarlfangs", // 22
+    "Rippa's Snarlfangs Expansion", // 22
     "Beastgrave Gift Pack", // 23
+    "Hrothgorn's Mantrappers Expansion", // 24
+    "The Wurmspat Expansion", // 25
 ]
 
 export const rotatedOutSetsIndexes = [0, 1, 2, 3, 4, 5, 6];
