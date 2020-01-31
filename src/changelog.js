@@ -1,4 +1,7 @@
 const changelog = {
+    "0.36.0": {
+        "The Wurmspat": "Added The Wurmspat Expansion",
+    },
     "0.35.0": {
         "Hrothgorn's Mantrappers": "Added Hrothgorn's Mantrappers Expansion",
     },

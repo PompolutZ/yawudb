@@ -32,7 +32,7 @@ export const factions = {
     "the-grymwatch": "The Grymwatch",
     "rippas-snarlfangs": "Rippa's Snarlfangs",
     "hrothgorns-mantrappers": "Hrothgorn's Mantrappers",
-    //"the-wurmspat": "The Wurmspat",
+    "the-wurmspat": "The Wurmspat",
     // "Morgok's Krushas",
     // "Morgwaeth's Blade Coven"
 }
@@ -72,7 +72,7 @@ export const factionIdPrefix = {
     "the-grymwatch": "tg",
     "rippas-snarlfangs" : 'rs',
     "hrothgorns-mantrappers": "hm",
-    //"the-wurmspat": "tw",
+    "the-wurmspat": "tw",
 }
 
 export const factionMembers = {
@@ -108,7 +108,7 @@ export const factionMembers = {
     "the-grymwatch": ['Duke Crakmarrow', '', '', '', '', ''],
     "rippas-snarlfangs": ['Rippa', 'Stabbit', 'Mean-Eye'],
     "hrothgorns-mantrappers": ["Hrothgorn", "Thrafnir", "Bushwakka", "Quiv", "Luggit and Thwak"],
-    //"the-wurmspat": ["", "", ""],
+    "the-wurmspat": ["Fecula", "Ghulgogh", "Sepsimus"],
 }
 
 export const idPrefixToFaction = {
@@ -144,7 +144,7 @@ export const idPrefixToFaction = {
     "tg": "the-grymwatch",
     "rs": "rippas-snarlfangs",
     "hm": "hrothgorns-mantrappers",
-    //"tw": "the-wurmspat",
+    "tw": "the-wurmspat",
 }
 
 export const factionIndexes = [
@@ -181,7 +181,7 @@ export const factionIndexes = [
     "the-grymwatch", // 21
     "rippas-snarlfangs", // 22
     "hrothgorns-mantrappers", // 23
-    //"the-wurmspat", // 24
+    "the-wurmspat", // 24
 ]
 
 export const factionIndexesWithDefaultSet = [
@@ -218,7 +218,7 @@ export const factionIndexesWithDefaultSet = [
     ["the-grymwatch", 21], // 21
     ["rippas-snarlfangs", 22],
     ["hrothgorns-mantrappers", 24], // 23
-    //["the-wurmspat", 25], // 23
+    ["the-wurmspat", 25], // 23
 ]
 
 export const warbandsWithDefaultSet = [
@@ -256,7 +256,7 @@ export const warbandsWithDefaultSet = [
     ["the-grymwatch", 21], // 21
     ["rippas-snarlfangs", 22],
     ["hrothgorns-mantrappers", 24],
-    //["the-wurmspat", 25], // 23
+    ["the-wurmspat", 25], // 23
 ]
 
 export const cardsIdToFactionIndex = {
