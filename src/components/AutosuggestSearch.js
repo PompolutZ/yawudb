@@ -101,9 +101,10 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         flexGrow: 1,
+        color: theme.palette.primary.main,
     },
     container: {
-        // backgroundColor: 'magenta',
+        fontSize: '1.5rem',
         flexGrow: 1,
         position: 'relative',
     },
@@ -177,6 +178,8 @@ function AutosuggestSearch({ classes, onClick }) {
                     value: text,
                     onChange: handleChange,
                     onKeyPress: handleKeyPress,
+                    variant: 'outlined',
+                    color: 'primary',
                 }}
                 theme={{
                     container: classes.container,

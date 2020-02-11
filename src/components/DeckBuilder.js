@@ -113,6 +113,7 @@ function DeckBuilder(props) {
                 created: Date(),
                 author: isAuth ? userInfo.uid : 'Anonymous',
                 authorDisplayName: isAuth ? userInfo.displayName : 'Anonymous',
+                private: isAuth,
             }
 
             if(isAuth) {
@@ -123,8 +124,8 @@ function DeckBuilder(props) {
 
             await props.firebase.realdb.ref('decks/' + deckId).set(deckPayload);
 
-            if(!args.isDraft) {
-
+            // update meta for non-draft and public decks
+            if(!args.isDraft && !isAuth) {
                 props.firebase.decksMetaDb().doc('all').update({
                     ids: props.firebase.firestoreArrayUnion(deckId)
                 });

@@ -28,58 +28,31 @@ const getChangeLogItemsByKey = key => {
 class Home extends Component {
     componentDidMount = () => {
         this.unsubscribe = this.props.firebase.decksMetaDb().doc('all').onSnapshot(async doc => {
-            const lastItem = doc.data().ids.slice(-1).reduce((_, deckId) => deckId);
-            if(lastItem) {
-                try {
-                    const lastDeckSnapshot = await this.props.firebase.realdb
-                        .ref(`/decks/${lastItem}`)
-                        .once('value')
-                    const data = lastDeckSnapshot.val()
-                    let created = new Date(0)
+            // const lastItem = doc.data().ids.slice(-1).reduce((_, deckId) => deckId);
+            // if(lastItem) {
+            //     try {
+            //         const lastDeckSnapshot = await this.props.firebase.realdb
+            //             .ref(`/decks/${lastItem}`)
+            //             .once('value')
+            //         const data = lastDeckSnapshot.val()
+            //         let created = new Date(0)
 
-                    if (data.created && data.created.seconds) {
-                        created.setSeconds(data.created.seconds)
-                    } else {
-                        created = new Date(data.created)
-                    }
+            //         if (data.created && data.created.seconds) {
+            //             created.setSeconds(data.created.seconds)
+            //         } else {
+            //             created = new Date(data.created)
+            //         }
 
-                    this.props.addOrUpdate(lastItem, created, {
-                        ...data,
-                        id: lastItem,
-                        created: created,
-                    })
-                } catch (err) {
-                    console.error('ERROR updating last added deck', err)
-                }
-            }
+            //         this.props.addOrUpdate(lastItem, created, {
+            //             ...data,
+            //             id: lastItem,
+            //             created: created,
+            //         })
+            //     } catch (err) {
+            //         console.error('ERROR updating last added deck', err)
+            //     }
+            // }
         });
-
-        // this.props.firebase.realdb
-        //     .ref('/decks_meta/all/ids/0')
-        //     .on('value', async lastDeckIdSnapshot => {
-        //         try {
-        //             const lastDeckId = lastDeckIdSnapshot.val()
-        //             const lastDeckSnapshot = await this.props.firebase.realdb
-        //                 .ref(`/decks/${lastDeckId}`)
-        //                 .once('value')
-        //             const data = lastDeckSnapshot.val()
-        //             let created = new Date(0)
-
-        //             if (data.created && data.created.seconds) {
-        //                 created.setSeconds(data.created.seconds)
-        //             } else {
-        //                 created = new Date(data.created)
-        //             }
-
-        //             this.props.addOrUpdate(lastDeckId, created, {
-        //                 ...data,
-        //                 id: lastDeckId,
-        //                 created: created,
-        //             })
-        //         } catch (err) {
-        //             console.error('ERROR updating last added deck', err)
-        //         }
-        //     })
     }
 
     componentWillUnmount = () => {
@@ -88,9 +61,9 @@ class Home extends Component {
             this.unsubscribe = null;
         }
 
-        this.props.firebase.realdb
-            .ref('/decks_meta/all/ids/0')
-            .off();
+        // this.props.firebase.realdb
+        //     .ref('/decks_meta/all/ids/0')
+        //     .off();
     }
 
     render() {
@@ -155,7 +128,7 @@ class Home extends Component {
                     </div>
                 </div>
 
-                <div className={classes.columnTwo}>
+                {/* <div className={classes.columnTwo}>
                     <div
                         style={{
                             margin: '1rem auto 1rem 1rem',
@@ -207,7 +180,7 @@ class Home extends Component {
                             }
                         />
                     )}
-                </div>
+                </div> */}
 
                 <FloatingActionButton
                     isEnabled

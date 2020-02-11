@@ -1,4 +1,8 @@
 const changelog = {
+    "0.37.0": {
+        "Private decks": "All decks which are created under some logged in user should be private by default. Making you private decks as public will be added later.",
+        "Bug fixes": "Synchronisation between different clients should be fixed.",
+    },
     "0.36.0": {
         "The Wurmspat": "Added The Wurmspat Expansion",
     },

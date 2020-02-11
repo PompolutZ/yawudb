@@ -1,4 +1,5 @@
 import keys from 'lodash/keys';
+import __isEqual from 'lodash/isEqual';
 
 const ADD_OR_UPDATE_DECK = 'ADD_OR_UPDATE_DECK';
 const REMOVE_MY_DECKS = 'REMOVE_MY_DECKS';
@@ -35,11 +36,29 @@ const mydecks = (state = initialState, action) => {
     switch(action.type) {
          
         case ADD_OR_UPDATE_DECK: 
+            // console.log('REDUCER', action.payload, state[action.payload.id]);
+            console.log("COMPARE", action.payload.id, __isEqual(cached, merged));
             if(!state[action.payload.id]) {
                 return { ...state, [action.payload.id]: {...action.payload.data, timestamp: action.payload.timestamp} };    
             }
 
-            if(state.hasOwnProperty(action.payload.id) && (new Date(action.payload.timestamp) - new Date(state[action.payload.id].timestamp)) <= 0) {
+            const merged = {
+                id: action.payload.id,
+                author: action.payload.data.author,
+                cards: action.payload.data.cards.join(','),
+                name: action.payload.data.name,
+                sets: action.payload.data.sets.sort().join(','),
+            };
+
+            const cached = {
+                id: action.payload.id,
+                author: state[action.payload.id].author,
+                cards: state[action.payload.id].cards.join(','),
+                name: state[action.payload.id].name,
+                sets: state[action.payload.id].sets.sort().join(','),
+            }
+
+            if(state.hasOwnProperty(action.payload.id) && __isEqual(cached, merged)) {
                 return state;
             }
 

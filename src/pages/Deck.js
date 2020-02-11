@@ -65,7 +65,7 @@ function Deck(props) {
 
     React.useEffect(() => {
         try {
-            console.log(location.state)
+            // console.log(location.state)
             if (props.mydecks[match.params.id]) {
                 setDeck(props.mydecks[match.params.id])
                 setIsEditAllowed(true)
@@ -77,28 +77,28 @@ function Deck(props) {
                     })
                     setIsEditAllowed(location.state.canUpdateOrDelete)
                 }
-
-                firebase.deck(match.params.id).on('value', snapshot => {
-                    const data = snapshot.val()
-                    let author = data.author
-                    if (author !== 'Anonymous') {
-                        setIsEditAllowed(props.uid === data.author)
-                    }
-
-                    let created = new Date(0)
-                    if (data.created && data.created.seconds) {
-                        created.setSeconds(data.created.seconds)
-                    } else {
-                        created = new Date(data.created)
-                    }
-
-                    setDeck({
-                        ...data,
-                        id: match.params.id,
-                        created: created,
-                    })
-                })
             }
+
+            firebase.deck(match.params.id).on('value', snapshot => {
+                const data = snapshot.val()
+                let author = data.author
+                if (author !== 'Anonymous') {
+                    setIsEditAllowed(props.uid === data.author)
+                }
+
+                let created = new Date(0)
+                if (data.created && data.created.seconds) {
+                    created.setSeconds(data.created.seconds)
+                } else {
+                    created = new Date(data.created)
+                }
+
+                setDeck({
+                    ...data,
+                    id: match.params.id,
+                    created: created,
+                })
+            })
         } catch (error) {
             console.log(error)
         }

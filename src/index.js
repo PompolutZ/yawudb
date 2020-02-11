@@ -1,4 +1,4 @@
-import React, { Component, Suspense, lazy } from 'react'
+import React, { Component, Suspense, lazy, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
@@ -94,18 +94,7 @@ const PrivateRoute = connect(state => ({
 }))(PrivateRouteContainer)
 
 function MetaReset(props) {
-    // const [data, setData] = React.useState(null);
-
-    // React.useEffect(() => {
-    //     const cards = Object.entries(cardsDb).reduce((acc, [k, v]) => {
-    //         if(v.faction > 0) {
-    //             acc[k] = v.faction;
-    //         }
-
-    //         return acc;
-    //     }, {});
-    //     setData(cards);
-    // }, [])
+    const [allDecks, setAllDecks] = useState(null);
     const firebase = React.useContext(FirebaseContext)
 
     React.useEffect(() => {
@@ -114,8 +103,10 @@ function MetaReset(props) {
             .once('value')
             .then(s => {
                 const data = s.val()
-                console.log(Object.entries(data))
+                setAllDecks(data);
+                // console.log(Object.entries(data))
                 const init = Object.entries(data)
+                    .filter(([id, value]) => !value.private)
                     .map(([id, value]) => {
                         let created = new Date(0)
                         if (value.created && value.created.seconds) {
@@ -128,14 +119,14 @@ function MetaReset(props) {
                     })
                     .sort((a, b) => b.date - a.date)
                 // const afterSort = init
-                console.log(init)
+                // console.log("All decks:", init);
                 const allIds = init.map(x => x.id).slice(1)
-                console.log(allIds)
+                console.log(allIds.length)
 
-                firebase.realdb
-                    .ref('/decks_meta/all')
+                firebase.decksMetaDb()
+                    .doc('all')
                     .set({
-                        count: allIds.length,
+                        // count: allIds.length,
                         ids: allIds,
                     })
                     .then(() => console.log('UPDATED META ALL'))
@@ -143,22 +134,35 @@ function MetaReset(props) {
                 const prefixes = Object.keys(idPrefixToFaction)
                 for (let prefix of prefixes) {
                     const ids = allIds.filter(id => id.startsWith(prefix))
-                    firebase.realdb
-                        .ref(`/decks_meta/${prefix}`)
+                    // console.log(prefix, ids);
+                    firebase.decksMetaDb()
+                        .doc(`${prefix}`)
                         .set({
-                            count: ids.length,
+                            // count: ids.length,
                             ids: ids,
                         })
                         .then(() => console.log(`UPDATED META FOR ${prefix}`))
                 }
-
-                // const result = Object.entries(data).map(([id, value]) => ({...value, id: id, created: new Date(value.created)}));
-                // const sorted = result.sort((a, b) => a.created - b.created);
-                // console.log(sorted.slice(0, 10));
             })
     }, [])
 
-    return <div>{/* <pre>{JSON.stringify(data, null, 4)}</pre> */}</div>
+    React.useEffect(() => {
+        console.log('ALL DECKS', allDecks ? Object.entries(allDecks).length : 0);
+    }, [allDecks]);
+
+    const handleMakeAuthorDecksPrivate = () => {
+        const privateDecks = Object.entries(allDecks).filter(([id, value]) => value.author !== 'Anonymous');
+        console.log(privateDecks);
+        for(let [id, deck] of privateDecks) {
+            firebase.deck(id).update({
+                private: true
+            });
+        }
+    }
+
+    return (<div>
+        <button onClick={handleMakeAuthorDecksPrivate}>Make Private</button>
+    </div>);
 }
 
 class Template extends Component {

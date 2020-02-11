@@ -89,7 +89,7 @@ class MyDecksAuth extends Component {
                 console.log('PUSH UPDATED')
                 ids.push(id);
             } else {
-                console.log('JUST PUSH')
+                console.log('JUST PUSH', data.name);
                 this.props.addOrUpdate(id, created, { ...data, id: id, created: created });
                 ids.push(id);
             }
@@ -159,7 +159,7 @@ class MyDecksAuth extends Component {
                             <div>
                                 {
                                     decks.map(([id, deck]) => {
-                                        console.log(id)
+                                        console.log(id, deck.name)
                                         const cards = deck.cards ? deck.cards.map(c => ({ id: c, ...cardsDb[c]})) : [];
                                         const counts = cards.reduce((acc, el) => {
                                             switch(el.type) {

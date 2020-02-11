@@ -109,8 +109,6 @@ function CardsRating(props) {
                 return {...acc, [card]: Math.round(Math.round(rating / maxGenericRank * 100) / 10) }
             }, {})
 
-            
-
             // console.log(cardRankingsPerFaction);
             setData({...cardRankingsPerFaction, 'universal': normalizedGenericRanks});
         });
