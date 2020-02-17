@@ -35,7 +35,7 @@ const StyledMenuItem = withStyles(theme => ({
     },
 }))(MenuItem)
 
-function ExportMenu({ exportToUDB, exportToUDS }) {
+function ExportMenu({ exportToUDB, exportToUDS, exportToClub }) {
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     function handleClick(event) {
@@ -87,6 +87,17 @@ function ExportMenu({ exportToUDB, exportToUDS }) {
                             height="16"
                         />
                         to Underworld-Deckers
+                    </div>
+                </StyledMenuItem>
+                <StyledMenuItem onClick={handleExportClick(exportToClub)}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img
+                            style={{ marginRight: '.3rem' }}
+                            src="/assets/icons/wuc-pwa-192.png"
+                            width="16"
+                            height="16"
+                        />
+                        to WUnderworlds Club
                     </div>
                 </StyledMenuItem>
             </StyledMenu>
@@ -159,6 +170,7 @@ class DeckActionMenuLarge extends PureComponent {
             onSaveAsPdf,
             exportToUDB,
             exportToUDS,
+            exportToClub,
         } = this.props
         return (
             <React.Fragment>
@@ -198,7 +210,7 @@ class DeckActionMenuLarge extends PureComponent {
                     onDownloadAsVassal={this.props.onSaveVassalFiles}
                     onDownloadAsPDF={onSaveAsPdf}
                 />
-                <ExportMenu exportToUDB={exportToUDB} exportToUDS={exportToUDS} />
+                <ExportMenu exportToUDB={exportToUDB} exportToUDS={exportToUDS} exportToClub={exportToClub} />
                 {canUpdateOrDelete && (
                     <Button onClick={onDelete} style={{ color: 'darkred' }}>
                         Delete

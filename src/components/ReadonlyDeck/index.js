@@ -33,9 +33,53 @@ import NotInterestedIcon from '@material-ui/icons/NotInterested'
 import * as ROUTES from '../../constants/routes';
 import PlayFormatsValidity from '../../atoms/PlayFormatsValidity'
 import DetailedPlayStyleValidity from '../../atoms/DetailedPlayStyleValidity'
+import * as clipboard from "clipboard-polyfill"
 
 const DeckActionsMenu = lazy(() => import('./atoms/DeckActionsMenu'))
 const DeckActionMenuLarge = lazy(() => import('./atoms/DeckActionsMenuLarge'))
+
+// function fallbackCopyTextToClipboard(text) {
+//     var textArea = document.createElement("textarea");
+//     textArea.value = text;
+//     textArea.style.position="fixed";  //avoid scrolling to bottom
+//     textArea.contentEditable = true;
+//     textArea.readOnly = false;
+
+//     document.body.appendChild(textArea);
+//     textArea.focus();
+//     textArea.select();
+
+//     let range = document.createRange();
+//     range.selectNodeContents(textArea);
+
+//     let selection = window.getSelection();
+//     selection.removeAllRanges();
+//     selection.addRange(range);
+//     textArea.setSelectionRange(0, 999999);
+
+  
+//     try {
+//       var successful = document.execCommand('copy');
+//       var msg = successful ? 'successful' : 'unsuccessful';
+//       alert('Fallback: Copying text command was ' + msg);
+//     } catch (err) {
+//         alert('Fallback: Oops, unable to copy', err);
+//     }
+  
+//     document.body.removeChild(textArea);
+// }
+
+// function copyTextToClipboard(text) {
+//     if (!navigator.clipboard) {
+//       fallbackCopyTextToClipboard(text);
+//       return;
+//     }
+//     navigator.clipboard.writeText(text).then(function() {
+//         alert('Async: Copying to clipboard was successful!');
+//     }, function(err) {
+//         alert('Async: Could not copy text: ', err);
+//     });
+//   }
 
 const MiniSectionHeader = ({ type, amount, children }) => (
     <div
@@ -405,6 +449,7 @@ class ReadonlyDeck extends PureComponent {
                                 onCopy={this.props.onCopy}
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
+                                exportToClub={this._handleExportToClub}
                                 onDelete={this.props.onDelete}
                                 exportToGamesAssistant={this._handleExportToGamesAssistant}
                             />
@@ -427,6 +472,7 @@ class ReadonlyDeck extends PureComponent {
                                     onCopy={this.props.onCopy}
                                     exportToUDB={this._handleExportToUDB}
                                     exportToUDS={this._handleExportToUDS}
+                                    exportToClub={this._handleExportToClub}
                                     onDelete={this.props.onDelete}
                                     exportToGamesAssistant={this._handleExportToGamesAssistant}
                                 />
@@ -450,6 +496,7 @@ class ReadonlyDeck extends PureComponent {
                                     onCopy={this.props.onCopy}
                                     exportToUDB={this._handleExportToUDB}
                                     exportToUDS={this._handleExportToUDS}
+                                    exportToClub={this._handleExportToClub}
                                     onDelete={this.props.onDelete}
                                 />
                             </div>
@@ -1195,6 +1242,13 @@ class ReadonlyDeck extends PureComponent {
         window.open(
             `https://www.underworldsdb.com/shared.php?deck=0,${udbEncodedCards}`
         )
+    }
+
+    _handleExportToClub = () => {
+        const objectives = this.props.cards.toJS().filter(c => c.type === 0).map(c => c.id);
+        const powers = this.props.cards.toJS().filter(c => c.type !== 0).map(c => c.id);
+        const deck = JSON.stringify([objectives, powers]);
+        clipboard.writeText(deck);
     }
 
     _handleExportToUDS = () => {

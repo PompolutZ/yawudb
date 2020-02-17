@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.4.3",
     "autosuggest-highlight": "^3.1.1",
     "b64-to-blob": "^1.2.19",
+    "clipboard-polyfill": "^2.8.6",
     "connected-react-router": "^4.4.1",
     "firebase": "^5.9.4",
     "firebase-functions": "^3.2.0",

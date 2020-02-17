@@ -57,11 +57,17 @@ class DeckActionsMenu extends PureComponent {
                             Open on Underworld-Deckers
                         </div>
                     </MenuItem>
-                    <MenuItem onClick={this.handleOpenInGamesAssitant} style={{ position: 'relative'}}>
+                    <MenuItem onClick={this.handleExportToOtherWebsite(this.props.exportToClub)} style={{ position: 'relative'}}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <img style={{ marginRight: '.3rem'}} alt={"wunderworlds_club"} src="/assets/icons/wuc-pwa-192.png" width="16" height="16" />
+                            Copy for WUnderworlds Club
+                        </div>
+                    </MenuItem>
+                    {/* <MenuItem onClick={this.handleOpenInGamesAssitant} style={{ position: 'relative'}}>
                         <div style={{ display: 'flex', alignItems: 'center'}}>
                             Open in Games Assistant
                         </div>
-                    </MenuItem>
+                    </MenuItem> */}
                     {
                         this.props.canUpdateOrDelete && (
                             <div>
