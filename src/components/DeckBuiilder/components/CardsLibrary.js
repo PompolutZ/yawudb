@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getCardsByFactionAndSets, cardsDb, factionIndexes, bannedCards, restrictedCards } from '../../../data';
+import { getCardsByFactionAndSets, cardsDb, factionIndexes, bannedCards, restrictedCards, factionIdPrefix } from '../../../data';
 import { List, AutoSizer } from 'react-virtualized';
 import { ADD_CARD, REMOVE_CARD } from '../../../reducers/deckUnderBuild';
 import { connect } from 'react-redux';
@@ -65,19 +65,19 @@ class VirtualizedCardsList extends Component {
     _calcRowHeight = params => {
         const item = this.state.cards[params.index];
         if(item) {
-            return item.expanded ? 550 : 75;
+            return item.expanded ? 550 : 70;
         }    
 
-        return 75;
+        return 70;
     }
 
     _calcListWidth = () => {
         const screenWidth = window.screen.width;
         if(screenWidth < 800) {
-            return screenWidth - 16;
+            return screenWidth;
         }
             
-        return screenWidth / 2 - 16;
+        return screenWidth / 2;
     }
 
     _calcListHeight = () => {
@@ -86,17 +86,17 @@ class VirtualizedCardsList extends Component {
 
     render() {
         return (
-            <div style={{ margin: '0 .5rem'}}>
-                <AutoSizer disableHeight>
+            <div style={{ margin: '0 0', height: '100%'}}>
+                <AutoSizer>
                     {
-                        () => (
+                        ({width, height}) => (
                             <List
-                            ref={this._setRef}
-                            width={this.listWidth}
-                            height={this.listHeight}
-                            rowCount={this.props.cards.length}
-                            rowHeight={this._calcRowHeight}
-                            rowRenderer={this._rowRenderer} />
+                                ref={this._setRef}
+                                width={width}
+                                height={height}
+                                rowCount={this.props.cards.length}
+                                rowHeight={this._calcRowHeight}
+                                rowRenderer={this._rowRenderer} />                            
                         )
                     }
                 </AutoSizer>
@@ -105,65 +105,13 @@ class VirtualizedCardsList extends Component {
     }
 }
 
-class FilterableCardLibrary extends Component {
-
-    render() {
-        const { searchText, visibleCardTypes, editMode } = this.props;
-        const currentDeck = editMode ? this.props.editModeCurrentDeck : this.props.createModeCurrentDeck;
-        const cards = this._reloadCards().map(cid => ({id: cid, ranking: this.props.cardsRanking[parseInt(cid.slice(0,2), 10)][parseInt(cid.slice(-3), 10)], ...cardsDb[cid]}));
-        
-        const bannedIds = Object.keys(bannedCards);
-        let filteredCards = cards.filter(({ type }) => visibleCardTypes.includes(type)).filter(({ id }) => this.props.eligibleForOP && !bannedIds.includes(id)); 
-        if(isNaN(searchText)) {
-            filteredCards = filteredCards 
-                .filter(c => {
-                    if(!searchText) return true;
-
-                    return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
-                });
-        } else {
-            filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
-        }
-
-        const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
-
-        filteredCards = filteredCards.filter(c => {
-            if (c.type === 3) {
-                return factionIndexes.indexOf(selectedFaction) > 8;
-            }
-                
-            return true;
-        });
-        const sorted = filteredCards.toJS().sort((c1, c2) => this._sort(c1, c2));
-        const drawableCards = sorted.map(c => ({ card: c, expanded: false }))
-        return (
-            <div>
-                <VirtualizedCardsList 
-                    key={drawableCards.length * 31} 
-                    isEligibleForOp={this.props.eligibleForOP} 
-                    cards={drawableCards} 
-                    currentDeck={currentDeck} 
-                    toggleCardInDeck={this._toggleCardInDeck}
-                    editMode={this.props.editMode} 
-                    restrictedCardsCount={this.props.restrictedCardsCount}
-                    editRestrictedCardsCount={this.props.editRestrictedCardsCount} />
-            </div>
-        );
-    }
-
-    _sort = (card1, card2) => {
-
-        const t1 = (card1.type === 1 || card1.type === 3) ? 1 : card1.type;
-        const t2 = (card2.type === 1 || card2.type === 3) ? 1 : card2.type;
-
-        return t1 - t2 || card2.faction - card1.faction || card2.ranking - card1.ranking;
-    }
-
-    _reloadCards = () => {
-        const selectedFaction = this.props.editMode ? this.props.editModeSelectedFaction : this.props.createModeSelectedFaction;
-        const selectedFactionDefaultSet = this.props.editMode ? this.props.editModeFactionDefaultSet : this.props.createModeFactionDefaultSet;
-        const selectedSets = this.props.editMode ? this.props.editModeSelectedSets : this.props.createModeSelectedSets;
+function FilterableCardLibrary(props) {
+    const _reloadCards = () => {
+        const selectedFaction = props.editMode ? props.editModeSelectedFaction : props.createModeSelectedFaction;
+        const selectedFactionDefaultSet = props.editMode ? props.editModeFactionDefaultSet : props.createModeFactionDefaultSet;
+        const selectedSets = props.editMode ? props.editModeSelectedSets : props.createModeSelectedSets;
         const factionCards = getCardsByFactionAndSets(selectedFaction, selectedSets, selectedFactionDefaultSet);
+        console.log(factionCards);
         if(selectedSets && selectedSets.length > 0) {
             const universalCards = getCardsByFactionAndSets('universal', selectedSets);
             return new Set(factionCards).union(new Set(universalCards));     
@@ -171,6 +119,76 @@ class FilterableCardLibrary extends Component {
             return new Set(factionCards);
         }
     }
+
+    const _sort = (card1, card2) => {
+
+        const t1 = (card1.type === 1 || card1.type === 3) ? 1 : card1.type;
+        const t2 = (card2.type === 1 || card2.type === 3) ? 1 : card2.type;
+
+        return t1 - t2 || card2.ranking - card1.ranking || card2.faction - card1.faction;
+    }
+
+    const { searchText, visibleCardTypes, editMode, deckPlayFormat } = props;
+    const currentDeck = editMode ? props.editModeCurrentDeck : props.createModeCurrentDeck;
+    const selectedFaction = props.editMode ? props.editModeSelectedFaction : props.createModeSelectedFaction;
+    const selectedFactionPrefix = factionIdPrefix[selectedFaction];
+    const cards = _reloadCards().map(cid => {
+        const universalRank = props.cardsRanking && props.cardsRanking['universal'][cid] ? props.cardsRanking['universal'][cid] : 0;
+        const rank = props.cardsRanking && props.cardsRanking[selectedFactionPrefix] && props.cardsRanking[selectedFactionPrefix][cid] ? props.cardsRanking[selectedFactionPrefix][cid] * 10000 : universalRank;
+        
+        const card = {id: cid, ranking: rank, ...cardsDb[cid]};
+        return card;
+    });
+    
+    let filteredCards = cards
+        .filter(({ type }) => visibleCardTypes.includes(type))
+        .filter(({ id, faction }) => {
+            switch(deckPlayFormat) {
+                case 'championship':
+                    return Number(faction) === 0 ? !Boolean(bannedCards[id]) && Number(id) >= 3000 : true;
+                case 'relic':
+                    return !Boolean(bannedCards[id]);
+                default: 
+                    return true;
+            }
+        });
+    
+    console.log(filteredCards);    
+    if(isNaN(searchText)) {
+        filteredCards = filteredCards 
+            .filter(c => {
+                if(!searchText) return true;
+
+                return c.name.toUpperCase().includes(searchText) || c.rule.toUpperCase().includes(searchText);
+            });
+    } else {
+        filteredCards = filteredCards.filter(({ id }) => id.slice(-3).includes(searchText));
+    }
+
+    filteredCards = filteredCards.filter(c => {
+        if (c.type === 3) {
+            return factionIndexes.indexOf(selectedFaction) > 8;
+        }
+            
+        return true;
+    });
+
+    const sorted = filteredCards.toJS().sort((c1, c2) => _sort(c1, c2));
+    const drawableCards = sorted.map(c => ({ card: c, expanded: false }))    
+    
+    return (
+        <div style={{ height: '100vh'}}>
+            <VirtualizedCardsList 
+                key={drawableCards.length * 31} 
+                isEligibleForOp={props.eligibleForOP} 
+                cards={drawableCards} 
+                currentDeck={currentDeck} 
+                // toggleCardInDeck={_toggleCardInDeck}
+                editMode={props.editMode} 
+                restrictedCardsCount={props.restrictedCardsCount}
+                editRestrictedCardsCount={props.editRestrictedCardsCount} />
+        </div>
+    );
 }
 
 const mapStateToProps = state => {
@@ -179,6 +197,7 @@ const mapStateToProps = state => {
         visibleCardTypes: state.cardLibraryFilters.visibleCardTypes,
         eligibleForOP: state.cardLibraryFilters.eligibleForOP,
         cardsRanking: state.cardLibraryFilters.cardsRanking,
+        deckPlayFormat: state.cardLibraryFilters.deckPlayFormat,
 
         createModeSelectedSets: state.cardLibraryFilters.createModeSets,
         createModeSelectedFaction: state.deckUnderBuild.faction,
@@ -191,10 +210,6 @@ const mapStateToProps = state => {
         editModeFactionDefaultSet: state.deckUnderEdit.factionDefaultSet,
         editModeCurrentDeck: state.deckUnderBuild.deck,
         editRestrictedCardsCount: state.deckUnderEdit.restrictedCardsCount,
-        
-        // currentDeck: state.deckUnderBuild.deck,
-        // selectedFaction: state.deckUnderBuild.faction,
-        // selectedFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
     }
 }
 

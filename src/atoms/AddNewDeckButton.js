@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
@@ -9,7 +9,7 @@ class AddNewDeckButton extends PureComponent {
 
         return(
             <div className={classes.root}>
-                <img src={`/assets/icons/${this.props.faction}-deck.png`} className={classes.img} />
+                <img src={`/assets/icons/${this.props.faction}-deck.png`} alt={this.props.faction} className={classes.img} />
                 <IconButton onClick={this._handleClick} className={classes.addBtn}>
                     <AddIcon />
                 </IconButton>

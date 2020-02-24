@@ -27,7 +27,6 @@ class WUSwitch extends PureComponent {
                     <Switch classes={{
                         switchBase: classes.colorSwitchBase,
                         checked: classes.colorChecked,
-                        bar: classes.colorBar,
                     }}
                     checked={isChecked} 
                     onChange={onChange} />

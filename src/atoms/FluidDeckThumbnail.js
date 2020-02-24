@@ -14,6 +14,8 @@ import { withRouter } from 'react-router-dom'
 import { VIEW_DECK } from '../constants/routes'
 import { FirebaseContext } from '../firebase'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { checkDeckValidFormats } from '../utils/functions'
+import PlayFormatsValidity from './PlayFormatsValidity'
 
 const styles = theme => ({
     root: {
@@ -76,10 +78,10 @@ function FluidDeckThumbnail({
     }, [deck])
 
     const banned = data &&
-        data.cards && data.cards.filter(c => Boolean(bannedCards[c])).length
+        data.cards && data.cards.filter(c => Boolean(bannedCards[c])).length;
+
     const restricted = data &&
-        data.cards && data.cards.filter(c => Boolean(restrictedCards[c])).length
-    const orginizedPlayValid = banned === 0 && restricted <= 5
+        data.cards && data.cards.filter(c => Boolean(restrictedCards[c])).length;
 
     const handleClick = () =>
         history.push(`${VIEW_DECK}/${deckId}`, {
@@ -117,31 +119,14 @@ function FluidDeckThumbnail({
             )}
             {!loading && Boolean(data) && (
                 <React.Fragment>
-                    <div style={{ margin: 'auto 0', position: 'relative' }}>
+                    <div style={{ margin: 'auto 0', position: 'relative', display: 'flex', flexFlow: 'column nowrap', alignItems: 'center' }}>
                         <DeckIcon
                             width="3rem"
                             height="3rem"
                             faction={idPrefixToFaction[deckId.split('-')[0]]}
                             style={{ cursor: 'pointer' }}
                         />
-                        {!orginizedPlayValid && (
-                            <div
-                                style={{
-                                    position: 'absolute',
-                                    bottom: -20,
-                                    left: 0,
-                                    color: 'crimson',
-                                    display: 'flex',
-                                    alignItems: 'flex-end',
-                                }}
-                            >
-                                <NoValidIcon style={{ width: '1.2rem' }} />
-                                <RestrictedBannedCardsCount
-                                    banned={banned}
-                                    restricted={restricted}
-                                />
-                            </div>
-                        )}
+                        <PlayFormatsValidity validFormats={checkDeckValidFormats(data ? data.cards : [])} />
                     </div>
                     <DeckThumbnailHeader
                         title={data.name}

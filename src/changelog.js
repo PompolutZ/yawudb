@@ -1,4 +1,57 @@
 const changelog = {
+    "0.37.0": {
+        "Private decks": "All decks which are created under some logged in user should be private by default. Making you private decks as public will be added later.",
+        "Bug fixes": "Synchronisation between different clients should be fixed.",
+    },
+    "0.36.0": {
+        "The Wurmspat": "Added The Wurmspat Expansion",
+    },
+    "0.35.0": {
+        "Hrothgorn's Mantrappers": "Added Hrothgorn's Mantrappers Expansion",
+    },
+    "0.34.0": {
+        "New FAR Update": "Keep Them Guessing and Aggresive Defence are now forsaken. Scrum, Temporary Victory, Transfixing Stare, Tome of Vitality and Rebound are restricted for Championship format.",
+    },
+    "0.33.0": {
+        "Rippas And Gift Pack": "Quick and dirty fix for Rippas and Gift Pack",
+    },
+    "0.32.0": {
+        "BAR 5": "Quick and dirty fix for new Championship format",
+    },
+    "0.31.3": {
+        "The Grymwatch": "All Hail The King! Grymwatch is here!.. Now with card images (I hope). Thanks to Pietro Nucci from Underworld-Deckers for the images.",
+        "Scroll bug fix": "Fixed bug on iOS when scrolling wasn't smooth or even impossible at times."
+    },
+    "0.30.0": {
+        "Play Formats": "Organized play switch has been changed to play type switch. Deck's thumbnails show information which formats of play this deck is eligible for.",
+        "Known bugs": "PDF export needs to be updated.",
+    },
+    "0.29.3": {
+        "Bug fixes": "Either some bugs has been fixed or I have made things even worse."
+    },
+    "0.29.0": {
+        "Beastgrave": "Added all the cards and factions from the Beastgrave Core Set",
+        "Rotated Out Cards": "Added new icon depicting rotated out cards, which should be visible on all deck headers.",
+        "Organized Play": "Add information to the deck headers whether this deck is valid for the Organized Play.",
+        "Filter Rotate Out cards": "Switch Organized Play on the Deck Builder's Filters will remove sets and all the universals from the Season 1",
+    },
+    "0.28.0": {
+        "Improved PDF export": "Decks exported as PDF should have now stamp whether they are valid or not valid for organized play. Also there is an icon next to restricted cards.",
+        "Bug fixes": "The bug when decks exported to Vassal didn't have Delete trait should be fixed."
+    },
+    "0.27.0": {
+        "Cards Ranks": "Now cards have faction specific ranking and general ranking for universal cards. In the deck builder you should see then ordered by faction specific rank first and then by their universal rank. The rank is from 0 to 10 reflected with stars."
+    },
+    "0.26.0" : {
+        "Dreadfane": "Added Dreadfane expansion with Ironsoul's Condemners and Lady Harrow's Mournflight warbands",
+    },
+    "0.25.0" : {
+        "Export to other builders": "It should be possible to export your decks to my fellas at https://www.underworldsdb.com and https://www.underworlds-deckers.com. It should also be possible to open from their builders here."
+    },
+    "0.24.1" : {
+        "Updated BAR" : "'Longstrider' and 'Tome of Offerings' has been added to the BAR list.",
+        "Power's Unbound": "Thanks to John (https://canyourollacrit.com) and Aman (https://www.hexesandwarbands.com/) expansion has been added. Images will be added when they are officially released."
+    },
     "0.24.0" : {
         "Decks Page": "Decks page has been redesigned to be faster, pagination has been replaced with virtualization.",
         "Anonimous Deck Creation": "User should be able to not only create, but also update or delete decks created anonymously. When user logging in, all anonymously created decks should be merged with his own decks."

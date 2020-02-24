@@ -1,49 +1,18 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import FloatingActionButton from '../../components/FloatingActionButton'
-import AddIcon from '@material-ui/icons/Add'
-import { withRouter } from 'react-router-dom'
-import Typography from '@material-ui/core/Typography'
-import ButtonBase from '@material-ui/core/ButtonBase'
-import { bannedCards, restrictedCards, cardsDb, idPrefixToFaction, factions } from '../../data'
-import { connect } from 'react-redux'
-import { SET_FACTIONS_FILTER } from '../../reducers/decksFilters'
+import React, { useState, useContext, useEffect } from 'react'
+import { idPrefixToFaction, factions } from '../../data'
 import { withStyles } from '@material-ui/core/styles'
-import classnames from 'classnames'
-import DeckThumbnail from '../../atoms/DeckThumbnail'
-import { withFirebase, FirebaseContext } from '../../firebase'
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage'
+import { FirebaseContext } from '../../firebase'
 import VirtualizedDecksList from './VirtualizedDecksList'
 import FactionFilter from './FactionFilter'
 import { Helmet } from 'react-helmet'
 
-class DecksListContainer extends React.PureComponent {
-    constructor(props) {
-        super(props)
-
-        this.containerRef = React.createRef()
-    }
-
-    render() {
-        return (
-            <div
-                style={{ width: '100%', height: '100%' }}
-                ref={this.containerRef}
-            >
-                <VirtualizedDecksList
-                    containerRef={this.containerRef.current}
-                    source={this.props.source}
-                />
-            </div>
-        )
-    }
-}
-
 const filterDeckIds = (deckIds, faction) => () =>
     deckIds.filter(id => {
+        if(!id) return false;
+        
         switch (faction) {
             case 'all':
-                return true
+                return true    
             default:
                 return id.startsWith(faction)
         }
@@ -81,20 +50,16 @@ function Decks({ classes, history, match }) {
     }
 
     useEffect(() => {
-        console.log('Subscribe on all decks')
-        firebase.decksMetaIds('all').on('value', snapshot => {
-            setDeckIds(snapshot.val())
-            console.log('New Deck Incoming')
-            localStorage.setItem(
-                'yawudb_deck_ids',
-                JSON.stringify(snapshot.val())
-            )
+        firebase.decksMetaDb().doc('all').get().then(doc => {
+            if(doc.exists) {
+                const ids = doc.data().ids.reverse();
+                setDeckIds(ids);
+                localStorage.setItem(
+                    'yawudb_deck_ids',
+                    JSON.stringify(ids)
+                )
+            }
         })
-
-        return () => {
-            console.log('Ubsubscribe from all decks')
-            firebase.decksMetaIds(match.params.faction).off()
-        }
     }, [])
 
     useEffect(() => {

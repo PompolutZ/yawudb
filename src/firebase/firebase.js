@@ -25,7 +25,6 @@ const config = {
 
 class Firebase {
     constructor() {
-        console.log('HERE!', process.env);
         app.initializeApp(config)
 
         this.auth = app.auth()
@@ -37,6 +36,9 @@ class Firebase {
         this.db = app.firestore()
         this.firestoreArrayUnion = value =>
             app.firestore.FieldValue.arrayUnion(value)
+
+        this.firestoreArrayRemove = value =>
+            app.firestore.FieldValue.arrayRemove(value)
         // this.db.settings({ timestampsInSnapshots: true });
 
         this.realdb = app.database()
@@ -62,7 +64,6 @@ class Firebase {
                 const anonDeckIds =
                     JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) ||
                     []
-                console.log(anonDeckIds)
                 userDocRef.get().then(userSnapshot => {
                     if (!userSnapshot.exists) {
                         const displayName = `Soul${Math.floor(
@@ -115,9 +116,15 @@ class Firebase {
 
     decks = () => this.realdb.ref(`decks`)
 
+    decksMeta = () => this.realdb.ref(`decks_meta`)
+
     decksMetaCount = faction => this.realdb.ref(`/decks_meta/${faction}/count`)
 
     decksMetaIds = faction => this.realdb.ref(`/decks_meta/${faction}/ids`)
+
+    user = uid => this.db.collection('users').doc(uid);
+
+    decksMetaDb = () => this.db.collection('decks_meta');
 }
 
 export default Firebase

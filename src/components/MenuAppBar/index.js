@@ -26,7 +26,7 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
         position: 'fixed',
-        zIndex: '42',
+        zIndex: 1000,
         width: '100%',
     },
     grow: {
@@ -100,7 +100,7 @@ class MenuAppBar extends React.Component {
         this.props.currentLocation.startsWith(ROUTES.VIEW_DECK)
 
     render() {
-        const { classes, history } = this.props
+        const { classes } = this.props
 
         const sideList = (
             <div className={classes.list}>
@@ -108,7 +108,7 @@ class MenuAppBar extends React.Component {
                     <ListItem
                         button
                         onClick={this.handleNavigateToRoute(
-                            ROUTES.CREATE_NEW_DECK
+                            '/deck/create'
                         )}
                     >
                         <ListItemText primary="Deck Builder" />

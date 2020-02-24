@@ -1,12 +1,9 @@
-import React, { PureComponent, lazy } from 'react';
-import classnames from 'classnames';
+import React, { PureComponent } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVerticalIcon from '@material-ui/icons/MoreVert';
-import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import { Button } from '@material-ui/core';
 
 class DeckActionsMenu extends PureComponent {
     state = {
@@ -37,16 +34,40 @@ class DeckActionsMenu extends PureComponent {
                     <MenuItem onClick={this.props.onCopy}>Copy</MenuItem>
                     <Divider />
                     <MenuItem onClick={this.handleExportToTextFile}>
-                        <a id="deckTextLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Text</a>
+                        <a href="" id="deckTextLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Text</a>
                     </MenuItem>
                     <MenuItem onClick={this.handleExportToImage}>
-                        <a id="deckImageLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Image</a>
+                        <a href="" id="deckImageLink" style={{ color: 'inherit', textDecoration: 'none'}}>Download as Image</a>
                     </MenuItem>
                     <MenuItem onClick={this.handleExportToPdf}>Download as PDF</MenuItem>
                     <Divider />
                     <MenuItem onClick={this.handleExportVassalFiles} style={{ position: 'relative'}}>
                         Download Vassal Decks
                     </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={this.handleExportToOtherWebsite(this.props.exportToUDB)} style={{ position: 'relative'}}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <img style={{ marginRight: '.3rem'}} alt={"favicon.ico"} src="https://www.underworldsdb.com/favicon.ico" width="16" height="16" />
+                            Open on UnderworldsDB
+                        </div>
+                    </MenuItem>
+                    <MenuItem onClick={this.handleExportToOtherWebsite(this.props.exportToUDS)} style={{ position: 'relative'}}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <img style={{ marginRight: '.3rem'}} alt={"faviconNew.png"} src="https://www.underworlds-deckers.com/images/faviconNew.png" width="16" height="16" />
+                            Open on Underworld-Deckers
+                        </div>
+                    </MenuItem>
+                    <MenuItem onClick={this.handleExportToOtherWebsite(this.props.exportToClub)} style={{ position: 'relative'}}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <img style={{ marginRight: '.3rem'}} alt={"wunderworlds_club"} src="/assets/icons/wuc-pwa-192.png" width="16" height="16" />
+                            Copy for WUnderworlds Club
+                        </div>
+                    </MenuItem>
+                    {/* <MenuItem onClick={this.handleOpenInGamesAssitant} style={{ position: 'relative'}}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            Open in Games Assistant
+                        </div>
+                    </MenuItem> */}
                     {
                         this.props.canUpdateOrDelete && (
                             <div>
@@ -76,6 +97,11 @@ class DeckActionsMenu extends PureComponent {
         this.handleClose();
     }
 
+    handleExportToOtherWebsite = invokeExport => () => {
+        invokeExport();
+        this.handleClose();
+    }
+
     handleExportToTextFile = () => {
         this.props.onSaveText(document.getElementById('deckTextLink'));
         this.handleClose();
@@ -88,6 +114,11 @@ class DeckActionsMenu extends PureComponent {
 
     handleExportToImage = () => {
         this.props.onSaveImage(document.getElementById('deckImageLink'));
+        this.handleClose();
+    }
+
+    handleOpenInGamesAssitant = () => {
+        this.props.exportToGamesAssistant();
         this.handleClose();
     }
 

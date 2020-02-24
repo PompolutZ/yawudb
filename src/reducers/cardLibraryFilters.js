@@ -1,4 +1,4 @@
-import { cardType, objectiveScoreType, setsIndex } from '../data/index';
+import { cardType, objectiveScoreType, setsIndex, deckPlayFormats } from '../data/index';
 import keys from 'lodash/keys';
 
 export const CHANGE_SEARCH_TEXT = 'CHANGE_SEARCH_TEXT';
@@ -8,6 +8,7 @@ export const SET_VISIBLE_CARD_TYPES = 'SET_VISIBLE_CARD_TYPES';
 export const SET_VISIBLE_OBJECTIVE_SCORE_TYPES = 'SET_VISIBLE_OBJECTIVE_SCORE_TYPES';
 export const SET_ELIGIBLE_FOR_ORGANIZED_PLAY = "SET_ELIGIBLE_FOR_ORGANIZED_PLAY";
 export const SET_CARDS_RANKING = 'SET_CARDS_RANKING';
+export const SET_DECK_PLAY_FORMAT = 'SET_DECK_PLAY_FORMAT';
 
 export const initialState = {
     searchText: '',
@@ -16,7 +17,8 @@ export const initialState = {
     createModeSets: Object.keys(setsIndex),
     editModeSets: [],
     eligibleForOP: true,
-    cardsRanking: [-1, [], [], []]
+    cardsRanking: [-1, [], [], []],
+    deckPlayFormat: deckPlayFormats[0],
 }
 
 const cardLibraryFilters = (state = initialState, action) => {
@@ -41,6 +43,9 @@ const cardLibraryFilters = (state = initialState, action) => {
             
         case SET_CARDS_RANKING:
             return { ...state, cardsRanking: action.payload }    
+
+        case SET_DECK_PLAY_FORMAT:
+            return { ...state, deckPlayFormat: action.payload }
 
         default:
             return state;

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ReadonlyDeck from '../components/ReadonlyDeck/index'
 import { OrderedSet } from 'immutable'
-import { cardsDb, warbandsWithDefaultSet, factionIdPrefix } from '../data'
+import { cardsDb, warbandsWithDefaultSet, factionIdPrefix, factionIndexes } from '../data'
 import FloatingActionButton from '../components/FloatingActionButton'
 import AddIcon from '@material-ui/icons/Add'
 import { withRouter } from 'react-router-dom'
@@ -27,41 +27,47 @@ const getChangeLogItemsByKey = key => {
 
 class Home extends Component {
     componentDidMount = () => {
-        this.props.firebase.realdb
-            .ref('/decks_meta/all/ids/0')
-            .on('value', async lastDeckIdSnapshot => {
-                try {
-                    const lastDeckId = lastDeckIdSnapshot.val()
-                    const lastDeckSnapshot = await this.props.firebase.realdb
-                        .ref(`/decks/${lastDeckId}`)
-                        .once('value')
-                    const data = lastDeckSnapshot.val()
-                    let created = new Date(0)
-                    if (data.created && data.created.seconds) {
-                        created.setSeconds(data.created.seconds)
-                    } else {
-                        created = new Date(data.created)
-                    }
+        this.unsubscribe = this.props.firebase.decksMetaDb().doc('all').onSnapshot(async doc => {
+            // const lastItem = doc.data().ids.slice(-1).reduce((_, deckId) => deckId);
+            // if(lastItem) {
+            //     try {
+            //         const lastDeckSnapshot = await this.props.firebase.realdb
+            //             .ref(`/decks/${lastItem}`)
+            //             .once('value')
+            //         const data = lastDeckSnapshot.val()
+            //         let created = new Date(0)
 
-                    this.props.addOrUpdate(lastDeckId, created, {
-                        ...data,
-                        id: lastDeckId,
-                        created: created,
-                    })
-                } catch (err) {
-                    console.error('ERROR updating last added deck', err)
-                }
-            })
+            //         if (data.created && data.created.seconds) {
+            //             created.setSeconds(data.created.seconds)
+            //         } else {
+            //             created = new Date(data.created)
+            //         }
+
+            //         this.props.addOrUpdate(lastItem, created, {
+            //             ...data,
+            //             id: lastItem,
+            //             created: created,
+            //         })
+            //     } catch (err) {
+            //         console.error('ERROR updating last added deck', err)
+            //     }
+            // }
+        });
     }
 
     componentWillUnmount = () => {
-        this.props.firebase.realdb
-            .ref('/decks_meta/all/ids/0')
-            .off();
+        if(this.unsubscribe) {
+            this.unsubscribe();
+            this.unsubscribe = null;
+        }
+
+        // this.props.firebase.realdb
+        //     .ref('/decks_meta/all/ids/0')
+        //     .off();
     }
 
     render() {
-        const { classes, history } = this.props
+        const { classes } = this.props
         const lastUpdateKey = Object.keys(changelog)[0]
         const lastUpdate = getChangeLogItemsByKey(lastUpdateKey)
 
@@ -102,21 +108,27 @@ class Home extends Component {
                     </div>
 
                     <div className={classes.metaSummary}>
-                        {Object.values(factionIdPrefix).map(factionPrefix => (
-                            <DeckMetaSummary
-                                key={factionPrefix}
-                                prefix={factionPrefix}
+                        {
+                            [
+                                ...factionIndexes.slice(19),
+                                ...factionIndexes.slice(9, 17),
+                                ...factionIndexes.slice(1, 9),
+                                ...factionIndexes.slice(17, 19),    
+                            ].map(faction => (
+                                <DeckMetaSummary
+                                key={factionIdPrefix[faction]}
+                                prefix={factionIdPrefix[faction]}
                                 onAddNewDeckClick={this.handleAddDeckClicked}
                                 onDecksCountClick={
                                     this.handleNavigateToDecksByPrefix
                                 }
                             />
-                            // <DeckCount key={factionPrefix} prefix={factionPrefix} />
-                        ))}
+                            ))
+                        }
                     </div>
                 </div>
 
-                <div className={classes.columnTwo}>
+                {/* <div className={classes.columnTwo}>
                     <div
                         style={{
                             margin: '1rem auto 1rem 1rem',
@@ -144,7 +156,7 @@ class Home extends Component {
                     )}
                     {this.props.lastDeck.id && (
                         <ReadonlyDeck
-                            isNarrow={window.screen.width > 1280}
+                            isNarrow={window.screen.width >= 1280}
                             id={this.props.lastDeck.id}
                             name={this.props.lastDeck.data.name}
                             desc={this.props.lastDeck.data.desc}
@@ -168,7 +180,7 @@ class Home extends Component {
                             }
                         />
                     )}
-                </div>
+                </div> */}
 
                 <FloatingActionButton
                     isEnabled

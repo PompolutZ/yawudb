@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import Typography from '@material-ui/core/Typography';
-import { cardsDb, restrictedCards } from '../data/index';
+import { cardsDb, restrictedCards, factionIdPrefix, bannedCards } from '../data/index';
 import { Set } from 'immutable';
 // import { toggleCardInDeck } from './DeckBuiilder/components/CardsLibrary';
 import DeckIcon from '../atoms/DeckIcon';
@@ -14,7 +14,7 @@ class SectionHeader extends PureComponent {
     render() {
         return (
             <div style={{borderBottom: '1px solid gray', margin: '0 .5rem 1rem .5rem'}}>
-                <Typography variant="headline">
+                <Typography variant="h6">
                     { this.props.children }
                 </Typography>
             </div>
@@ -29,14 +29,15 @@ class CardsList extends Component {
     }
     render() {
         return (
-            <div style={{ margin: '.5rem'}}>
+            <div style={{ }}>
                 {
                     this.props.list.map((props, i) => 
                         <ExpandableWUCard {...props} 
                             withAnimation inDeck
                             key={i}
                             restrictedCardsCount={this.props.restrictedCardsCount}
-                            isRestricted={this.props.isEligibleForOP && Boolean(restrictedCards[props.id])} 
+                            isRestricted={this.props.isEligibleForOP && Boolean(restrictedCards[props.id])}
+                            isBanned={this.props.isEligibleForOP && Boolean(bannedCards[props.id])} 
                             isAlter={i % 2 === 0} 
                             toggleCardInDeck={this.props.toggle} 
                             editMode={this.props.editMode}
@@ -80,16 +81,27 @@ class Deck extends PureComponent {
     }
 
     render() {
-        const { faction, onSave, onRemoveAll, onCancel, onUpdate, editMode } = this.props;
+        const { faction, onSave, onRemoveAll, onCancel, onUpdate, editMode, deckPlayFormat } = this.props;
         const objectivesCount = editMode ? this.props.editObjectivesCount : this.props.objectivesCount;
         const gambitsCount = editMode ? this.props.editGambitsCount : this.props.gambitsCount;
         const upgradesCount = editMode ? this.props.editUpgradesCount : this.props.upgradesCount;
-        const cards = new Set(this.props.selectedCards.map(id => ({id: id, ...cardsDb[id] })));
+        
+        const strippedFaction = faction.startsWith('n_') ? faction.substr(2) : faction;
+        const factionPrefix = factionIdPrefix[strippedFaction];
+        console.log(factionPrefix);
+        const cards = new Set(this.props.selectedCards.map(id => {
+            const universalRank = this.props.cardsRanking && this.props.cardsRanking['universal'][id] ? this.props.cardsRanking['universal'][id] : 0;
+            const rank = this.props.cardsRanking && this.props.cardsRanking[factionPrefix] && this.props.cardsRanking[factionPrefix][id] ? this.props.cardsRanking[factionPrefix][id] * 10000 : universalRank;
+
+            return {id: id, ...cardsDb[id], ranking: rank };
+        }));
+        
         const objectives = cards.filter(v => v.type === 0).sort((c1, c2) => c1.id - c2.id).toJS(); //c1.name.localeCompare(c2.name)
         const gambits = cards.filter(v => v.type === 1 || v.type === 3).sort((c1, c2) => c1.id - c2.id).toJS();
         const upgrades = cards.filter(v => v.type === 2).sort((c1, c2) => c1.id - c2.id).toJS();
-        const isValidForSave = objectivesCount === 12 && ((gambitsCount + upgradesCount) >= 20);
-        const isObjectiveCardsSectionValid = objectivesCount === 12;
+        const surgesCount = objectives.filter(x => x.scoreType === 0).length;
+        const isValidForSave = deckPlayFormat === 'open' ? objectivesCount === 12 && (gambitsCount + upgradesCount) >= 20 : objectivesCount === 12 && (gambitsCount + upgradesCount) >= 20 && surgesCount < 7;
+        const isObjectiveCardsSectionValid = deckPlayFormat === 'open' ? objectivesCount === 12 : objectivesCount === 12 && surgesCount < 7;
         const isPowerCardsSectionValid = gambitsCount + upgradesCount >= 20 && (gambitsCount <= upgradesCount);
 
         const objectiveSummary = objectives.reduce((acc, c) => {
@@ -120,7 +132,10 @@ class Deck extends PureComponent {
                         </div>
                         {
                             !isObjectiveCardsSectionValid && (
-                                <Typography style={{ color: 'darkred'}}>- You must have exactly 12 objective cards.</Typography>
+                                <div>
+                                    <Typography style={{ color: 'darkred'}}>- You must have exactly 12 objective cards.</Typography>
+                                    <Typography style={{ color: 'darkred'}}>{deckPlayFormat !== 'open' && surgesCount > 6 ? '- You cannot have more than 6 Surge (score immediately) cards' : ''}</Typography>
+                                </div>
                             )
                         }
                     </SectionHeader>
@@ -202,7 +217,10 @@ class Deck extends PureComponent {
 
 const mapStateToProps = state => {
     return {
+        cardsRanking: state.cardLibraryFilters.cardsRanking,
+
         isEligibleForOP: state.cardLibraryFilters.eligibleForOP,
+        deckPlayFormat: state.cardLibraryFilters.deckPlayFormat,
         restrictedCardsCount: state.deckUnderBuild.restrictedCardsCount,
         objectivesCount: state.deckUnderBuild.objectivesCount,
         gambitsCount: state.deckUnderBuild.gambitsCount,

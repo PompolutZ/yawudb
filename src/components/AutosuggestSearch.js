@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 import { withStyles } from '@material-ui/core/styles'
-import { cardsdb } from '../data/cardsdb'
+import { cardsDb } from '../data'
 import { cardTypeIcons, setsIndex } from '../data'
 import toPairs from 'lodash/toPairs'
 import IconButton from '@material-ui/core/IconButton';
@@ -73,7 +73,7 @@ function getSuggestions(value) {
     const inputValue = deburr(value.trim()).toLowerCase()
     const inputLength = inputValue.length
     let count = 0
-    const suggestions = toPairs(cardsdb).map(([id, card]) => ({
+    const suggestions = toPairs(cardsDb).map(([id, card]) => ({
         id: id,
         label: card.name,
         type: card.type,
@@ -101,16 +101,17 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         flexGrow: 1,
+        color: theme.palette.primary.main,
     },
     container: {
-        // backgroundColor: 'magenta',
+        fontSize: '1.5rem',
         flexGrow: 1,
         position: 'relative',
     },
     suggestionsContainerOpen: {
         position: 'absolute',
         zIndex: 1,
-        marginTop: theme.spacing.unit,
+        marginTop: theme.spacing(1),
         left: 0,
         right: 0,
     },
@@ -123,7 +124,7 @@ const styles = theme => ({
         listStyleType: 'none',
     },
     divider: {
-        height: theme.spacing.unit * 2,
+        height: theme.spacing(2),
     },
 })
 
@@ -177,6 +178,8 @@ function AutosuggestSearch({ classes, onClick }) {
                     value: text,
                     onChange: handleChange,
                     onKeyPress: handleKeyPress,
+                    variant: 'outlined',
+                    color: 'primary',
                 }}
                 theme={{
                     container: classes.container,

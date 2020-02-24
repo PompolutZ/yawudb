@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { cardsDb } from '../data/index';
 import VirtualizedCardsList from '../components/VirtualizedCardsList';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { Helmet } from 'react-helmet';
 // import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
         flexFlow: 'column nowrap',
@@ -31,9 +31,9 @@ const styles = theme => ({
     },
     
     selectEmpty: {
-        marginTop: theme.spacing.unit * 2,
+        marginTop: theme.spacing(2),
     },    
-});
+}));
 
 const VIEW_AS_SIMPLE_LIST = 'VIEW_AS_SIMPLE_LIST';
 const VIEW_AS_CARD_IMAGES = 'VIEW_AS_CARD_IMAGES';  
@@ -78,62 +78,90 @@ class LibraryViewVariantMenu extends PureComponent {
     }
 }
 
-class Library extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cards: [],
-            viewVariant: VIEW_AS_SIMPLE_LIST
-        }
+function Library(props) {
+    const classes = useStyles();
+    const [cards, setCards] = React.useState([]);
+    const [viewVariant, setViewVariant] = React.useState(VIEW_AS_SIMPLE_LIST);
+    const cardsContainerRef = React.createRef();
 
-        this.cardsContainerRef = React.createRef();
-    }
-
-    componentDidMount = () => {
+    React.useEffect(() => {
         let cards = []
         for(let c in cardsDb) {
             cards.push({ id: c, ...cardsDb[c] });
         }
 
-        this.setState({ cards: cards });
-    }
+        setCards(cards);
+    }, []);
 
-    handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
+    // const handleChange = event => {
+    //     this.setState({ [event.target.name]: event.target.value });
+    // };
 
-    handleViewVariantChanged = variant => {
-        this.setState({ viewVariant: variant });
-    }
+    // const handleViewVariantChanged = variant => {
+    //     this.setState({ viewVariant: variant });
+    // }
 
-    render() {
-        const { classes } = this.props;
 
-        return (
-            <React.Fragment>
-                <Helmet>
-                    <title>Warhammer Underworlds: Nightvault (Shadespire) Cards Library</title>
-                    <link rel="canonical" href="https://yawudb.com/library" />
-                </Helmet>
-                
-                <div className={classes.root}>
-                    <div className={classes.cardsContainer} ref={this.cardsContainerRef}>
-                    {
-                        this.state.cards.length > 0 && (
-                            <VirtualizedCardsList cards={this.state.cards}
-                                key={this.state.viewVariant} 
-                                containerRef={this.cardsContainerRef.current}
-                                scrollIndex={this.props.scrollIndex}
-                                setLastScrollIndex={this.props.setLastScrollIndex}
-                                variant={this.state.viewVariant} />
-                        )
-                    }
-                    </div>
-                </div>
-            </React.Fragment>
-        );
-    }
+    return (
+        <React.Fragment>
+        <Helmet>
+            <title>Warhammer Underworlds: Nightvault (Shadespire) Cards Library</title>
+            <link rel="canonical" href="https://yawudb.com/library" />
+        </Helmet>
+        
+        <div className={classes.root}>
+            <div className={classes.cardsContainer} ref={cardsContainerRef}>
+            {
+                cards.length > 0 && (
+                    <VirtualizedCardsList cards={cards}
+                        key={viewVariant} 
+                        containerRef={cardsContainerRef.current}
+                        scrollIndex={props.scrollIndex}
+                        setLastScrollIndex={props.setLastScrollIndex}
+                        variant={viewVariant} />
+                )
+            }
+            </div>
+        </div>
+    </React.Fragment>
+    );
 }
+
+// class Library extends PureComponent {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             cards: [],
+//             viewVariant: VIEW_AS_SIMPLE_LIST
+//         }
+
+//         this.cardsContainerRef = React.createRef();
+//     }
+
+//     componentDidMount = () => {
+//         let cards = []
+//         for(let c in cardsDb) {
+//             cards.push({ id: c, ...cardsDb[c] });
+//         }
+
+//         this.setState({ cards: cards });
+//     }
+
+//     handleChange = event => {
+//         this.setState({ [event.target.name]: event.target.value });
+//     };
+
+//     handleViewVariantChanged = variant => {
+//         this.setState({ viewVariant: variant });
+//     }
+
+//     render() {
+//         const { classes } = this.props;
+
+//         return (
+//         );
+//     }
+// }
 
 const mapStateToProps = state => {
     return {
@@ -147,4 +175,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Library));
+export default connect(mapStateToProps, mapDispatchToProps)(Library);

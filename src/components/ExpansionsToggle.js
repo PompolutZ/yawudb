@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { setInfos } from '../data/index';
+import { setInfos, rotatedOutSetsIndexes } from '../data/index';
 import * as _ from 'lodash';
 import ToggableExpansionIcon from '../atoms/ToggableExpansionIcon';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
     root: {
@@ -54,10 +55,15 @@ class ExpansionsToggle extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                { _.keys(setInfos).map(v => this.renderIndex(v)) }
+                { _.keys(setInfos).slice(this.props.deckPlayFormat === 'championship' ? rotatedOutSetsIndexes.length : 0).map(v => this.renderIndex(v)) }
             </div>
         );
     }
 }
 
-export default withStyles(styles)(ExpansionsToggle);
+const mapStateToProps = state => ({
+    eligibleForOP: state.cardLibraryFilters.eligibleForOP,
+    deckPlayFormat: state.cardLibraryFilters.deckPlayFormat
+});
+
+export default withStyles(styles)(connect(mapStateToProps)(ExpansionsToggle));

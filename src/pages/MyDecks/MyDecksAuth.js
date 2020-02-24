@@ -7,13 +7,11 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addOrUpdateMyDeck, removeMyDecks } from '../../reducers/mydecks';
 import isEqual from 'lodash/isEqual';
-import DeckThumbnail from '../../atoms/DeckThumbnail';
-import { cardsDb, bannedCards, restrictedCards, setInfos, getDbIndexByWaveAndCard } from '../../data/index';
+import { cardsDb, setInfos, getDbIndexByWaveAndCard } from '../../data/index';
 import { withStyles } from '@material-ui/core/styles';
 import Switch from '../../atoms/Switch';
 import toPairs from 'lodash/toPairs';
 import { withFirebase } from '../../firebase';
-import useAuthUser from '../../hooks/useAuthUser';
 import FluidDeckThumbnail from '../../atoms/FluidDeckThumbnail';
 
 const DeckConflictsAndWarnings = lazy(() => import('./atoms/DeckConflictsAndWarnings'));
@@ -58,11 +56,12 @@ class MyDecksAuth extends Component {
 
         for(let id of userData.mydecks) {
             let data = cache[id];
-            
-            if(!data) {
-                const refetched = await this.props.firebase.deck(id).once('value');
-                data = refetched.val();
+            const refetched = await this.props.firebase.deck(id).once('value');
+            data = refetched.val();
+            if(data) {
                 localStorage.setItem('yawudb_decks', JSON.stringify({...cache, [id]: data }))
+            } else {
+                continue;
             }
 
             let created = new Date(0);
@@ -90,7 +89,7 @@ class MyDecksAuth extends Component {
                 console.log('PUSH UPDATED')
                 ids.push(id);
             } else {
-                console.log('JUST PUSH')
+                console.log('JUST PUSH', data.name);
                 this.props.addOrUpdate(id, created, { ...data, id: id, created: created });
                 ids.push(id);
             }
@@ -140,7 +139,7 @@ class MyDecksAuth extends Component {
                         <div>
                             <div className={classes.header}>
                                 <Switch isChecked={this.state.showConflicts} onChange={this.handleChangeShowConflicts} label="Show conflicts and warnings" />
-                                <Typography variant="subheading" className={classes.headerItem} style={{ marginBottom: '.5rem'}}>
+                                <Typography variant="subtitle2" className={classes.headerItem} style={{ marginBottom: '.5rem'}}>
                                     <i>To use this feature mark sets you own in the <span style={{color: '#3B9979', cursor: 'pointer'}} onClick={this.handleProfileLinkClicked}><u>Profile</u></span> page.</i>
                                 </Typography>
 
@@ -160,6 +159,7 @@ class MyDecksAuth extends Component {
                             <div>
                                 {
                                     decks.map(([id, deck]) => {
+                                        console.log(id, deck.name)
                                         const cards = deck.cards ? deck.cards.map(c => ({ id: c, ...cardsDb[c]})) : [];
                                         const counts = cards.reduce((acc, el) => {
                                             switch(el.type) {
