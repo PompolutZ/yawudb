@@ -6,7 +6,6 @@ import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 function FactionToggleDesktopBase({ classes, faction, setFaction, edit }) {
-    console.log(faction, setFaction, edit)
     const [selectedFaction, setSelectedFaction] = useState(warbandsWithDefaultSet.filter(([f, defaultSet]) => f === faction)[0])
     const strippedFaction = selectedFaction[0].startsWith('n_') ? selectedFaction[0].slice(2) : selectedFaction[0];
 

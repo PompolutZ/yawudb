@@ -29,13 +29,9 @@ function DetailedPlayStyleValidity({ validFormats, cards }) {
     const classes = useStyles();
     const allCards = cards.map(cid => ({ ...cardsDb[cid], id: cid }))
     const onlyUniversals = allCards.filter(c => c.faction === 0);
-    console.log(onlyUniversals);
     const cFC = onlyUniversals.filter(c => checkCardForsakenFor(c.id, 'championship')).length;
-    console.log(cFC);
     const outOfSeason = onlyUniversals.filter(c => Number(c.id) < 3000 && !ignoreAsDublicate(c.name)).length;
-    console.log(outOfSeason);
     const surges = allCards.filter(c => c.type === 0 && c.scoreType === 0).length;
-    console.log(surges);
 
     return (
         <Grid className={classes.container} container spacing={3}>

@@ -79,7 +79,6 @@ class Firebase {
                         }
 
                         userDocRef.set(newUserBase).then(() => {
-                            console.log('User has been created')
                             next({
                                 ...newUserBase,
                                 uid: user.uid,
@@ -88,7 +87,6 @@ class Firebase {
                         })
                     } else {
                         const profile = userSnapshot.data()
-                        console.log('User exist, so just extracting data.')
 
                         const userData = {
                             displayName: profile.displayName,

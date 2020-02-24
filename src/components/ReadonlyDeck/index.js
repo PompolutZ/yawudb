@@ -843,7 +843,6 @@ class ReadonlyDeck extends PureComponent {
                 gs.length + us.length >= 20 &&
                 barCount <= 5
 
-            console.log(coords.x, coords.y)
             const measuredWidth = document.getElementById(
                 `textMeasureContainer`
             ).clientWidth
@@ -986,7 +985,6 @@ class ReadonlyDeck extends PureComponent {
 
     _handleSaveText = link => {
         const { id, name, cards } = this.props
-        console.log(this.props)
         let newLineChar
         if (navigator.platform.startsWith('Win')) {
             newLineChar = '\r\n'
@@ -998,7 +996,6 @@ class ReadonlyDeck extends PureComponent {
             factions[idPrefixToFaction[id.split('-')[0]]]
         }`
         const cardsjs = cards.toJS()
-        console.log(cardsjs)
         const objectives = cardsjs.filter(c => c.type === 0)
         const totalGlory = objectives.reduce(
             (acc, c) => (acc += Number(c.glory)),
@@ -1275,7 +1272,6 @@ class ReadonlyDeck extends PureComponent {
     }
 
     _handleExportToGamesAssistant = () => {
-        console.log(this.props);
         this.props.history.push(ROUTES.GAME_ASSISTANT, {
             cards: this.props.cards.toJS(),
             factionId: this.props.factionId,

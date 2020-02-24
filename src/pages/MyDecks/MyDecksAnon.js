@@ -8,10 +8,8 @@ function MyDecksAnon({ classes }) {
     const firebase = useContext(FirebaseContext);
     const [deckIds, setDeckIds] = useState(JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || []);
     const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
-    console.log(deckIds);
     useEffect(() => {
         firebase.decks().on('value', snapshot => {
-            console.log('DECKS on value: ');
             setDeckIds(JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || []);
         });
 

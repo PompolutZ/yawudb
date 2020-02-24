@@ -45,7 +45,6 @@ class MyDecksAuth extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.props.userInfo);
         const userDataRef = await this.props.firebase.db.collection('users').doc(this.props.userInfo.uid).get();
         const userData = userDataRef.data();
 
@@ -86,10 +85,8 @@ class MyDecksAuth extends Component {
                 localStorage.setItem('yawudb_decks', JSON.stringify({...cache, [id]: updatedData }));
 
                 this.props.addOrUpdate(id, created, { ...updatedData, id: id, created: created });
-                console.log('PUSH UPDATED')
                 ids.push(id);
             } else {
-                console.log('JUST PUSH', data.name);
                 this.props.addOrUpdate(id, created, { ...data, id: id, created: created });
                 ids.push(id);
             }
@@ -159,7 +156,6 @@ class MyDecksAuth extends Component {
                             <div>
                                 {
                                     decks.map(([id, deck]) => {
-                                        console.log(id, deck.name)
                                         const cards = deck.cards ? deck.cards.map(c => ({ id: c, ...cardsDb[c]})) : [];
                                         const counts = cards.reduce((acc, el) => {
                                             switch(el.type) {

@@ -65,7 +65,6 @@ function DeckBuilder(props) {
     const _updateCurrentDeck = async args => {
         try {
             if(!props.match.params.id) {
-                console.log('ping', props.match.params.id);
                 _resetAndGoBack();
                 return;
             }

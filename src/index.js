@@ -308,7 +308,6 @@ function App(props) {
     const classes = useStyles();
 
     React.useEffect(() => {
-        console.log(history);
         const unsubscribe = props.firebase.onAuthUserListener(
             async user => {
                 if (user.isNew) {
