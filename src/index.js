@@ -377,6 +377,7 @@ function App(props) {
                     property="og:image"
                     content="https://yawudb.com/yawudb.png"
                 />
+                <meta property="fb:app_id" content="2002247120067292"/>
             </Helmet>
             <ConnectedRouter history={history}>
                 <div className={classes.router}>

@@ -1,6 +1,6 @@
 {
   "name": "wudb",
-  "version": "0.37.0",
+  "version": "0.38.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.3.2",
@@ -63,6 +63,6 @@
     "react-app-env": "^1.2.3"
   },
   "engines": {
-    "node": "10.15.3"
+    "node": "^14.0.0"
   }
 }

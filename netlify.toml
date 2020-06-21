@@ -1,20 +1,24 @@
-[build]
-  base    = ""
-  command = "yarn netlify_build_stage"
-  publish = "/build"
-
-[context.production]
-  command = "yarn netlify_build_stage"
-
-[context.staging]
-  command = "yarn netlify_build_stage"
-
 [[redirects]]
-  from = "*"
+  from = "/*"
   to = "/index.html"
+  status = 200
 
-  # The default HTTP status code is 301, but you can define a different one.
-  status = 200  
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = "/assets/*"
 
+  [headers.values]
+    # Multi-value headers are expressed with multi-line strings.
+	cache-control = '''public, max-age=604800''' 
 
-  
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = "/static/*"
+
+  [headers.values]
+    # Multi-value headers are expressed with multi-line strings.
+	cache-control = '''
+	max-age=0,
+	no-cache,
+	no-store,
+	must-revalidate'''
