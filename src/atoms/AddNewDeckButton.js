@@ -3,13 +3,22 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 
+function DeckIconPicture({ faction, imageClassName }) {
+    return (
+        <picture>
+            <source type="image/webp" srcSet={`/assets/icons/${faction}-deck.webp`} />
+            <img src={`/assets/icons/${faction}-deck.sm.png`} className={imageClassName} />
+        </picture>
+    )
+}
 class AddNewDeckButton extends PureComponent {
     render() {
         const { classes } = this.props;
 
         return(
             <div className={classes.root}>
-                <img src={`/assets/icons/${this.props.faction}-deck.png`} alt={this.props.faction} className={classes.img} />
+                {/* <img src={`/assets/icons/${this.props.faction}-deck.png`} alt={this.props.faction} className={classes.img} /> */}
+                <DeckIconPicture faction={this.props.faction} imageClassName={classes.img} />
                 <IconButton onClick={this._handleClick} className={classes.addBtn}>
                     <AddIcon />
                 </IconButton>
