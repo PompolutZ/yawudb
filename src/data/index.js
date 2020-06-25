@@ -173,7 +173,6 @@ export const restrictedCards = {
 '03357': 1, // Opening Gambit (Nightvault #357)
 '04025': 1, // Burst of Speed (Power Unbound #25)
 '03302': 1, // Calculated Risk (Nightvault #302)
-'03342': 1, // Loner (Nightvault #342)
 '03343': 1, // Longstrider (Nightvault #343)
 '03371': 1, // Sorcerous Scouring (Nightvault #371)
 '04036': 1, // Warning Shot (Power Unbound #36)
