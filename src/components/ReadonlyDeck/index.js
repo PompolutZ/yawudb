@@ -38,49 +38,6 @@ import * as clipboard from "clipboard-polyfill"
 const DeckActionsMenu = lazy(() => import('./atoms/DeckActionsMenu'))
 const DeckActionMenuLarge = lazy(() => import('./atoms/DeckActionsMenuLarge'))
 
-// function fallbackCopyTextToClipboard(text) {
-//     var textArea = document.createElement("textarea");
-//     textArea.value = text;
-//     textArea.style.position="fixed";  //avoid scrolling to bottom
-//     textArea.contentEditable = true;
-//     textArea.readOnly = false;
-
-//     document.body.appendChild(textArea);
-//     textArea.focus();
-//     textArea.select();
-
-//     let range = document.createRange();
-//     range.selectNodeContents(textArea);
-
-//     let selection = window.getSelection();
-//     selection.removeAllRanges();
-//     selection.addRange(range);
-//     textArea.setSelectionRange(0, 999999);
-
-  
-//     try {
-//       var successful = document.execCommand('copy');
-//       var msg = successful ? 'successful' : 'unsuccessful';
-//       alert('Fallback: Copying text command was ' + msg);
-//     } catch (err) {
-//         alert('Fallback: Oops, unable to copy', err);
-//     }
-  
-//     document.body.removeChild(textArea);
-// }
-
-// function copyTextToClipboard(text) {
-//     if (!navigator.clipboard) {
-//       fallbackCopyTextToClipboard(text);
-//       return;
-//     }
-//     navigator.clipboard.writeText(text).then(function() {
-//         alert('Async: Copying to clipboard was successful!');
-//     }, function(err) {
-//         alert('Async: Could not copy text: ', err);
-//     });
-//   }
-
 const MiniSectionHeader = ({ type, amount, children }) => (
     <div
         style={{
@@ -288,33 +245,6 @@ function DeckSummary({
                         />
                         <Typography>{amount && amount.upgrades}</Typography>
                     </div>
-                    {/* {
-                        amount && amount.restricted > 0 && (
-                            <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem' }}>
-                                <Typography variant="subtitle2">|</Typography>
-                                <LockIcon style={{ width: '.9rem', color: 'Goldenrod', marginLeft: '.3rem' }} />
-                                <Typography variant="subtitle2">{amount && amount.restricted}</Typography>
-                            </div>
-                        )
-                    }
-                    {
-                        amount && amount.banned > 0 && (
-                            <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem' }}>
-                                <Typography variant="subtitle2">|</Typography>
-                                <NotInterestedIcon style={{ width: '.9rem', color: 'darkred', marginLeft: '.3rem' }} />
-                                <Typography variant="subtitle2">{amount && amount.banned}</Typography>
-                            </div>
-                        )
-                    }
-                    {
-                        amount && amount.rotatedOut > 0 && (
-                            <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem' }}>
-                                <Typography variant="subtitle2">|</Typography>
-                                <img src={`/assets/icons/rotatedOut.png`} style={{ width: '.9rem', height: '.9rem' }} />
-                                <Typography variant="subtitle2">{amount && amount.rotatedOut}</Typography>
-                            </div>
-                        )
-                    } */}
                 </div>
             </div>
         </React.Fragment>

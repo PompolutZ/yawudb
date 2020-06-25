@@ -5,10 +5,12 @@ class DeckIcon extends PureComponent {
         const { width, height, faction, style} = this.props;
         const strippedFaction = faction.startsWith('n_') ? faction.substr(2) : faction;
         return (
-            <img id="factionDeckIcon" 
-                style={{...{width: width, height: height, margin: '0 .3rem 0 0', flex: '0 0 auto'}, ...style }} 
-                alt={`${faction}`} 
-                src={`/assets/icons/${strippedFaction}-deck.png`} />
+            <picture>
+                <source type="image/webp" srcSet={`/assets/icons/${strippedFaction}-deck.webp`} />
+                <img src={`/assets/icons/${strippedFaction}-deck.sm.png`} 
+                    alt={`${strippedFaction}`} 
+                    style={{...{width: width, height: height, margin: '0 .3rem 0 0', flex: '0 0 auto'}, ...style }} />
+            </picture>
         );
     }
 }
