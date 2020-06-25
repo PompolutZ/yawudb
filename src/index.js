@@ -16,13 +16,10 @@ import LazyLoading from './components/LazyLoading'
 import ErrorBoundary from './components/ErrorBoundary'
 import { UPDATE_EXPANSIONS } from './reducers/userExpansions'
 import { SET_CARDS_RANKING } from './reducers/cardLibraryFilters'
-import { Button } from '@material-ui/core'
 import Firebase, { FirebaseContext, withFirebase } from './firebase'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import * as ROUTES from './constants/routes'
 import { Helmet } from 'react-helmet'
-import { idPrefixToFaction, cardsDb } from './data'
-import Query from './pages/Query'
 import CardsRating from './pages/CardsRating';
 import Admin from './pages/Admin'
 import { makeStyles } from '@material-ui/core/styles';
@@ -44,6 +41,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const PasswordResetRequest = lazy(() => import('./pages/PasswordResetRequest'))
 const GameAssistant = lazy(() => import('./pages/GameAssistant'));
 const WarbandsInfoPage = lazy(() => import('./pages/WarbandsInfo'));
+const MetaReset = lazy(() => import('./pages/MetaResetPage'));
 
 const history = createBrowserHistory()
 const store = configureStore(history)
@@ -93,197 +91,6 @@ const PrivateRoute = connect(state => ({
     isAuthenticated: state.auth !== null,
 }))(PrivateRouteContainer)
 
-function MetaReset(props) {
-    const [allDecks, setAllDecks] = useState(null);
-    const firebase = React.useContext(FirebaseContext)
-
-    React.useEffect(() => {
-        firebase
-            .decks()
-            .once('value')
-            .then(s => {
-                const data = s.val()
-                setAllDecks(data);
-                // console.log(Object.entries(data))
-                const init = Object.entries(data)
-                    .filter(([id, value]) => !value.private)
-                    .map(([id, value]) => {
-                        let created = new Date(0)
-                        if (value.created && value.created.seconds) {
-                            created.setSeconds(value.created.seconds)
-                        } else {
-                            created = new Date(value.created)
-                        }
-
-                        return { id: id, date: created }
-                    })
-                    .sort((a, b) => b.date - a.date)
-                // const afterSort = init
-                // console.log("All decks:", init);
-                const allIds = init.map(x => x.id).slice(1)
-                console.log(allIds.length)
-
-                firebase.decksMetaDb()
-                    .doc('all')
-                    .set({
-                        // count: allIds.length,
-                        ids: allIds,
-                    })
-                    .then(() => console.log('UPDATED META ALL'))
-
-                const prefixes = Object.keys(idPrefixToFaction)
-                for (let prefix of prefixes) {
-                    const ids = allIds.filter(id => id.startsWith(prefix))
-                    // console.log(prefix, ids);
-                    firebase.decksMetaDb()
-                        .doc(`${prefix}`)
-                        .set({
-                            // count: ids.length,
-                            ids: ids,
-                        })
-                        .then(() => console.log(`UPDATED META FOR ${prefix}`))
-                }
-            })
-    }, [])
-
-    React.useEffect(() => {
-        console.log('ALL DECKS', allDecks ? Object.entries(allDecks).length : 0);
-    }, [allDecks]);
-
-    const handleMakeAuthorDecksPrivate = () => {
-        const privateDecks = Object.entries(allDecks).filter(([id, value]) => value.author !== 'Anonymous');
-        console.log(privateDecks);
-        for(let [id, deck] of privateDecks) {
-            firebase.deck(id).update({
-                private: true
-            });
-        }
-    }
-
-    return (<div>
-        <button onClick={handleMakeAuthorDecksPrivate}>Make Private</button>
-    </div>);
-}
-
-class Template extends Component {
-    state = {
-        cards: [],
-    }
-
-    componentDidMount = () => {
-        //'1_02024', '1_02049', '2_02049', '1_03550', '1_03551', '1_03323', '1_03322', '1_01257', '1_01348',
-        this.setState({
-            cards: [
-                '1_01190',
-                '1_01180',
-                '1_01291',
-                '1_01192',
-                '1_01391',
-                '1_01183',
-                '1_03493',
-                '1_01194',
-                '1_03373',
-                '1_01361',
-                '1_03550',
-                '1_01273',
-                '1_03385',
-                '1_03551',
-                '1_03420',
-                '1_01331',
-                '1_01343',
-                '1_01178',
-                '1_01201',
-                '1_01234',
-                '1_03302',
-                '1_01334',
-                '1_01257',
-                '1_01378',
-                '1_01389',
-                '1_03503',
-                '1_03305',
-                '1_01348',
-                '1_01327',
-                '1_01339',
-                '1_01306',
-                '1_03529',
-            ],
-        }) //
-    }
-
-    render() {
-        return (
-            <div>
-                <Button onClick={this.handlePrint}>Print</Button>
-                {this.state.cards.map(c => {
-                    return (
-                        <img
-                            id={c}
-                            key={c}
-                            src={`/assets/cards/${c.slice(-5)}.png`}
-                        />
-                    )
-                })}
-            </div>
-        )
-    }
-
-    handlePrint = () => {
-        import('jspdf').then(({ default: jsPDF }) => {
-            let doc = new jsPDF({
-                unit: 'mm',
-            })
-
-            const w = 64.5
-            const h = 89.9
-
-            const pages = this.state.cards.reduce((acc, el, index, array) => {
-                if (index % 9 === 0) {
-                    acc.push(array.slice(index, index + 9))
-                }
-                return acc
-            }, [])
-
-            console.log(pages)
-            for (let page of pages) {
-                {
-                    const index = pages.indexOf(page)
-                    if (index > 0) {
-                        doc.addPage()
-                    }
-                }
-
-                let rowIdx = 0
-                let x = 3
-                let y = 3
-                let idx = 0
-
-                for (let c of page) {
-                    doc.addImage(
-                        document.getElementById(c),
-                        'png',
-                        x,
-                        y,
-                        w,
-                        h,
-                        '',
-                        'SLOW'
-                    )
-                    x += w + 3
-                    idx += 1
-
-                    if (idx % 3 === 0) {
-                        rowIdx += 1
-                        x = 3
-                        y = rowIdx * h + rowIdx * 5
-                        console.log(x, y)
-                    }
-                }
-            }
-
-            doc.save('cards.pdf')
-        })
-    }
-}
 
 function isEmpty(obj) {
     for (var key in obj) {
@@ -483,21 +290,9 @@ function App(props) {
                                         )}
                                     />
                                     <Route
-                                        path="/template"
-                                        render={props => (
-                                            <Template {...props} />
-                                        )}
-                                    />
-                                    <Route
                                         path={ROUTES.MY_DECKS}
                                         render={props => (
                                             <MyDecks {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={'/query/:type?/:arg?'}
-                                        render={props => (
-                                            <Query {...props} />
                                         )}
                                     />
                                     <Route
