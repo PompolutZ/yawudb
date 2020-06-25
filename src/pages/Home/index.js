@@ -3,21 +3,21 @@ import {
     warbandsWithDefaultSet,
     factionIdPrefix,
     factionIndexes,
-} from '../data'
-import FloatingActionButton from '../components/FloatingActionButton'
+} from '../../data'
+import FloatingActionButton from '../../components/FloatingActionButton'
 import AddIcon from '@material-ui/icons/Add'
 import { withRouter } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
-import changelog from '../changelog'
+import changelog from '../../changelog'
 import uuid4 from 'uuid/v4'
 import { connect } from 'react-redux'
-import { addOrUpdateLastDeck } from '../reducers/lastDeck'
-import { SET_DECKS_META } from '../reducers/decksMeta'
-import { SET_FACTION } from '../reducers/deckUnderBuild'
-import DeckMetaSummary from '../molecules/DecksMetaSummary'
-import { withFirebase } from '../firebase'
-import AutosuggestSearch from '../components/AutosuggestSearch'
+import { addOrUpdateLastDeck } from '../../reducers/lastDeck'
+import { SET_DECKS_META } from '../../reducers/decksMeta'
+import { SET_FACTION } from '../../reducers/deckUnderBuild'
+import DeckMetaSummary from '../../molecules/DecksMetaSummary'
+import { withFirebase } from '../../firebase'
+import AutosuggestSearch from '../../components/AutosuggestSearch'
 
 const getChangeLogItemsByKey = key => {
     return Object.keys(changelog[key]).reduce(
@@ -27,46 +27,6 @@ const getChangeLogItemsByKey = key => {
 }
 
 class Home extends Component {
-    componentDidMount = () => {
-        this.unsubscribe = this.props.firebase
-            .decksMetaDb()
-            .doc('all')
-            .onSnapshot(async doc => {
-                // const lastItem = doc.data().ids.slice(-1).reduce((_, deckId) => deckId);
-                // if(lastItem) {
-                //     try {
-                //         const lastDeckSnapshot = await this.props.firebase.realdb
-                //             .ref(`/decks/${lastItem}`)
-                //             .once('value')
-                //         const data = lastDeckSnapshot.val()
-                //         let created = new Date(0)
-                //         if (data.created && data.created.seconds) {
-                //             created.setSeconds(data.created.seconds)
-                //         } else {
-                //             created = new Date(data.created)
-                //         }
-                //         this.props.addOrUpdate(lastItem, created, {
-                //             ...data,
-                //             id: lastItem,
-                //             created: created,
-                //         })
-                //     } catch (err) {
-                //         console.error('ERROR updating last added deck', err)
-                //     }
-                // }
-            })
-    }
-
-    componentWillUnmount = () => {
-        if (this.unsubscribe) {
-            this.unsubscribe()
-            this.unsubscribe = null
-        }
-
-        // this.props.firebase.realdb
-        //     .ref('/decks_meta/all/ids/0')
-        //     .off();
-    }
 
     render() {
         const { classes } = this.props
@@ -127,60 +87,6 @@ class Home extends Component {
                         ))}
                     </div>
                 </div>
-
-                {/* <div className={classes.columnTwo}>
-                    <div
-                        style={{
-                            margin: '1rem auto 1rem 1rem',
-                            fontSize: '2rem',
-                        }}
-                    >
-                        Last added deck:
-                    </div>
-                    {!this.props.lastDeck.id && (
-                        <div style={{ display: 'flex', height: '100vh' }}>
-                            <div
-                                style={{
-                                    margin: 'auto',
-                                    display: 'flex',
-                                    flexFlow: 'column nowrap',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <CircularProgress
-                                    style={{ color: '#3B9979' }}
-                                />
-                                <div>Fetching last added deck...</div>
-                            </div>
-                        </div>
-                    )}
-                    {this.props.lastDeck.id && (
-                        <ReadonlyDeck
-                            isNarrow={window.screen.width >= 1280}
-                            id={this.props.lastDeck.id}
-                            name={this.props.lastDeck.data.name}
-                            desc={this.props.lastDeck.data.desc}
-                            author={this.props.lastDeck.data.authorDisplayName}
-                            created={this.props.lastDeck.data.created}
-                            sets={this.props.lastDeck.data.sets}
-                            scoringSummary={
-                                this.props.lastDeck.data.scoringSummary
-                            }
-                            factionId={this.props.lastDeck.id.substr(
-                                0,
-                                this.props.lastDeck.id.length - 13
-                            )}
-                            cards={
-                                new OrderedSet(
-                                    this.props.lastDeck.data.cards.map(c => ({
-                                        id: c,
-                                        ...cardsDb[c],
-                                    }))
-                                )
-                            }
-                        />
-                    )}
-                </div> */}
 
                 <FloatingActionButton
                     isEnabled

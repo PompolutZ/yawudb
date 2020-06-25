@@ -1,4 +1,4 @@
-import React, { Component, Suspense, lazy, useState } from 'react'
+import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
@@ -91,15 +91,7 @@ const PrivateRoute = connect(state => ({
     isAuthenticated: state.auth !== null,
 }))(PrivateRouteContainer)
 
-
-function isEmpty(obj) {
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key)) return false
-    }
-    return true
-}
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     router: {
         width: '100%',
         height: '100%',
