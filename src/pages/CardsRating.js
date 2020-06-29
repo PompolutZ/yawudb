@@ -102,13 +102,13 @@ function CardsRating(props) {
                 return acc;
             }, {});
 
-            console.log(genericRatings);
             const maxGenericRank = Math.max(...Object.values(genericRatings));
 
             const normalizedGenericRanks = Object.entries(genericRatings).reduce((acc, [card, rating]) => {
                 return {...acc, [card]: Math.round(Math.round(rating / maxGenericRank * 100) / 10) }
             }, {})
 
+            console.log('DONE', cardRankingsPerFaction, { 'universal': normalizedGenericRanks });
             // console.log(cardRankingsPerFaction);
             setData({...cardRankingsPerFaction, 'universal': normalizedGenericRanks});
         });

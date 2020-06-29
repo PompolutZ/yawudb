@@ -15,7 +15,13 @@ const idToPrintId = id => {
 }
 
 const SetIcon = ({ id, set }) => (
-    <img id={id} style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} src={`/assets/icons/${setsIndex[set]}-icon.png`} alt="icon" />
+    <picture>
+        <source type="image/webp" srcSet={`/assets/icons/${setsIndex[set]}-icon.webp`} />
+        <img id={id} 
+            style={{margin: 'auto .1rem', width: '1.2rem', height: '1.2rem'}} 
+            src={`/assets/icons/${setsIndex[set]}-icon-24.png`} 
+            alt="icon" />
+    </picture>
 )
 
 class Card extends PureComponent {
@@ -73,8 +79,14 @@ class Card extends PureComponent {
                                 <div style={{ display: 'flex', alignItems: 'center', marginLeft: '.3rem', color: 'gray', fontSize: '.7rem'}}>
                                     <div>(</div>
                                     { idToPrintId(card.id) }
-                                    <img id={idToPrintId(card.id)} alt={`wave-${card.id.substr(0,2)}`} src={`/assets/icons/wave-${card.id.substr(0,2)}-icon.png`} 
-                                        style={{ width: '.7rem', height: '.7rem'}} />
+                                    <picture>
+                                        <source type="image/webp" srcSet={`/assets/icons/wave-${card.id.substr(0,2)}-icon-48.webp`} />
+                                        <img 
+                                            id={idToPrintId(card.id)} 
+                                            alt={`wave-${card.id.substr(0,2)}`} 
+                                            src={`/assets/icons/wave-${card.id.substr(0,2)}-icon-24.png`} 
+                                            style={{ width: '.7rem', height: '.7rem'}} />
+                                    </picture>
                                     <div>)</div>
                                 </div>
                             </div>

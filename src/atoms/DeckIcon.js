@@ -7,7 +7,7 @@ class DeckIcon extends PureComponent {
         return (
             <picture>
                 <source type="image/webp" srcSet={`/assets/icons/${strippedFaction}-deck.webp`} />
-                <img src={`/assets/icons/${strippedFaction}-deck.sm.png`} 
+                <img src={`/assets/icons/${strippedFaction}-deck.64.png`} 
                     alt={`${strippedFaction}`} 
                     style={{...{width: width, height: height, margin: '0 .3rem 0 0', flex: '0 0 auto'}, ...style }} />
             </picture>

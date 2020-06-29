@@ -29,9 +29,16 @@ class ExpansionIcon extends PureComponent {
         const { classes, set, variant } = this.props;
         return (
             <div className={classes.root}>
+                <picture>
+                    <source type="image/webp" srcSet={`/assets/icons/${setsIndex[set]}-icon.webp`} />
+                    <img src={`/assets/icons/${setsIndex[set]}-icon-24.png`} 
+                        alt={`${setsNames[set]}`} 
+                        className={variant === 'large' ? classes.large : variant === 'medium' ? classes.medium : classes.small} />
+                </picture>
+{/* 
                 <img className={variant === 'large' ? classes.large : variant === 'medium' ? classes.medium : classes.small} 
                     src={`/assets/icons/${setsIndex[set]}-icon.png`} 
-                    alt={`${setsNames[set]}`} />
+                    alt={`${setsNames[set]}`} /> */}
             </div>
         );
     }
