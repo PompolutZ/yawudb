@@ -7,7 +7,7 @@ function DeckIconPicture({ faction, imageClassName }) {
     return (
         <picture>
             <source type="image/webp" srcSet={`/assets/icons/${faction}-deck.webp`} />
-            <img src={`/assets/icons/${faction}-deck.64.png`} className={imageClassName} />
+            <img src={`/assets/icons/${faction}-deck-64.png`} className={imageClassName} />
         </picture>
     )
 }
