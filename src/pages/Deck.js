@@ -33,7 +33,6 @@ import {
 } from '../reducers/deckUnderBuild'
 import { removeMyDeck } from '../reducers/mydecks'
 import DeleteConfirmationDialog from '../atoms/DeleteConfirmationDialog'
-import { makeStyles } from '@material-ui/core/styles'
 import { withFirebase } from '../firebase'
 import { Helmet } from 'react-helmet'
 

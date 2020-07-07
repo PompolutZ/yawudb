@@ -20,9 +20,11 @@ import Firebase, { FirebaseContext, withFirebase } from './firebase'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import * as ROUTES from './constants/routes'
 import { Helmet } from 'react-helmet'
-import CardsRating from './pages/CardsRating';
+import CardsRating from './pages/CardsRating'
 import Admin from './pages/Admin'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Container from '@material-ui/core/Container'
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'))
 const Decks = lazy(() => import('./pages/Decks'))
@@ -39,9 +41,9 @@ const MyDecks = lazy(() => import('./pages/MyDecks/index'))
 const Login = lazy(() => import('./pages/Login'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const PasswordResetRequest = lazy(() => import('./pages/PasswordResetRequest'))
-const GameAssistant = lazy(() => import('./pages/GameAssistant'));
-const WarbandsInfoPage = lazy(() => import('./pages/WarbandsInfo'));
-const MetaReset = lazy(() => import('./pages/MetaResetPage'));
+const GameAssistant = lazy(() => import('./pages/GameAssistant'))
+const WarbandsInfoPage = lazy(() => import('./pages/WarbandsInfo'))
+const MetaReset = lazy(() => import('./pages/MetaResetPage'))
 
 const history = createBrowserHistory()
 const store = configureStore(history)
@@ -92,19 +94,19 @@ const PrivateRoute = connect(state => ({
 }))(PrivateRouteContainer)
 
 const useStyles = makeStyles(() => ({
-    router: {
+    root: {
         width: '100%',
-        height: '100%',
+        height: '100vh',
         display: 'flex',
         flexFlow: 'column nowrap',
         overflowX: 'hidden',
-        overflowY: 'scroll',
+        overflowY: 'auto',
         WebkitOverflowScrolling: 'touch',
     },
-}));
+}))
 
 function App(props) {
-    const classes = useStyles();
+    const classes = useStyles()
 
     React.useEffect(() => {
         const unsubscribe = props.firebase.onAuthUserListener(
@@ -146,8 +148,8 @@ function App(props) {
             })
 
         return () => {
-            props.firebase.decks().off();
-            unsubscribe();
+            props.firebase.decks().off()
+            unsubscribe()
         }
     }, [])
 
@@ -155,8 +157,8 @@ function App(props) {
         <React.Fragment>
             <Helmet>
                 <title>
-                    Warhammer Underworlds (Shadespire and Nightvault)
-                    Database and Deck Builder.
+                    Warhammer Underworlds (Shadespire and Nightvault) Database
+                    and Deck Builder.
                 </title>
                 <meta
                     name="description"
@@ -176,10 +178,13 @@ function App(props) {
                     property="og:image"
                     content="https://yawudb.com/yawudb.png"
                 />
-                <meta property="fb:app_id" content="2002247120067292"/>
+                <meta property="fb:app_id" content="2002247120067292" />
             </Helmet>
+            <CssBaseline />
             <ConnectedRouter history={history}>
-                <div className={classes.router}>
+                {/* <div className={classes.router}>
+                </div> */}
+                <Container maxWidth="lg" className={classes.root}>
                     <MenuAppBar />
 
                     <ErrorBoundary>
@@ -188,7 +193,7 @@ function App(props) {
                             style={{
                                 margin: '4.5rem 0 0 0',
                                 width: '100%',
-                                flex: '1 0 100%',
+                                flex: '1 0',
                                 boxSizing: 'border-box',
                             }}
                         >
@@ -200,18 +205,12 @@ function App(props) {
                                         component={Home}
                                     />
                                     <Route
-                                        path={`${
-                                            ROUTES.BROWSE_DECKS_FOR
-                                        }/:faction`}
-                                        render={props => (
-                                            <Decks {...props} />
-                                        )}
+                                        path={`${ROUTES.BROWSE_DECKS_FOR}/:faction`}
+                                        render={props => <Decks {...props} />}
                                     />
                                     <Route
                                         path={ROUTES.CARDS_LIBRARY}
-                                        render={props => (
-                                            <Library {...props} />
-                                        )}
+                                        render={props => <Library {...props} />}
                                     />
                                     <Route
                                         path={ROUTES.CREATOR_ROOT}
@@ -220,40 +219,30 @@ function App(props) {
                                         )}
                                     />
                                     {/* <Route
-                                        path={ROUTES.EDIT_DECK}
-                                        render={props => (
-                                            <DeckCreator {...props} />
-                                        )}
-                                    /> */}
+                    path={ROUTES.EDIT_DECK}
+                    render={props => (
+                        <DeckCreator {...props} />
+                    )}
+                /> */}
                                     <Route
                                         path={ROUTES.SIGN_IN}
-                                        render={props => (
-                                            <Login {...props} />
-                                        )}
+                                        render={props => <Login {...props} />}
                                     />
                                     <Route
                                         path={ROUTES.SIGN_UP}
-                                        render={props => (
-                                            <SignUp {...props} />
-                                        )}
+                                        render={props => <SignUp {...props} />}
                                     />
                                     <Route
                                         path={ROUTES.VIEW_DECK_ID}
-                                        render={props => (
-                                            <Deck {...props} />
-                                        )}
+                                        render={props => <Deck {...props} />}
                                     />
                                     <Route
                                         path={ROUTES.VIEW_CARD_ID}
-                                        render={props => (
-                                            <Card {...props} />
-                                        )}
+                                        render={props => <Card {...props} />}
                                     />
                                     <Route
                                         path={ROUTES.ABOUT}
-                                        render={props => (
-                                            <About {...props} />
-                                        )}
+                                        render={props => <About {...props} />}
                                     />
                                     <Route
                                         path={ROUTES.STATISTICS}
@@ -276,27 +265,24 @@ function App(props) {
                                     <Route
                                         path={ROUTES.PASSWORD_RESET}
                                         render={props => (
-                                            <PasswordResetRequest
-                                                {...props}
-                                            />
+                                            <PasswordResetRequest {...props} />
                                         )}
                                     />
                                     <Route
                                         path={ROUTES.MY_DECKS}
-                                        render={props => (
-                                            <MyDecks {...props} />
-                                        )}
+                                        render={props => <MyDecks {...props} />}
                                     />
                                     <Route
                                         path={ROUTES.VIEW_WARBAND_ID}
                                         render={props => (
                                             <WarbandsInfoPage {...props} />
-                                        )} />
+                                        )}
+                                    />
 
                                     {/* <PrivateRoute
-                                    path={ROUTES.MY_DECKS}
-                                    component={MyDecks}
-                                /> */}
+                path={ROUTES.MY_DECKS}
+                component={MyDecks}
+            /> */}
                                     <PrivateRoute
                                         path={ROUTES.PROFILE}
                                         component={UserProfile}
@@ -311,21 +297,23 @@ function App(props) {
                                     />
                                     <PrivateRoute
                                         path="/secret/cards-rating/:faction?"
-                                        component={CardsRating} />
+                                        component={CardsRating}
+                                    />
                                     <PrivateRoute
                                         path="/secret/admin"
-                                        component={Admin} />
-                                    <PrivateRoute 
+                                        component={Admin}
+                                    />
+                                    <PrivateRoute
                                         path={ROUTES.GAME_ASSISTANT}
-                                        component={GameAssistant} />
+                                        component={GameAssistant}
+                                    />
                                 </Switch>
                             </Suspense>
                         </div>
                     </ErrorBoundary>
-                    <div>
-                        <Footer />
-                    </div>
-                </div>
+                    
+                    <Footer />
+                </Container>
             </ConnectedRouter>
         </React.Fragment>
     )
@@ -342,10 +330,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const ConnectedApp = connect(
-    null,
-    mapDispatchToProps
-)(withFirebase(App))
+const ConnectedApp = connect(null, mapDispatchToProps)(withFirebase(App))
 
 const theme = createMuiTheme({
     palette: {

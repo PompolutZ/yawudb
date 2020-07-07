@@ -25,7 +25,7 @@ import AccountMenuButton from './AccountMenuButton'
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        position: 'fixed',
+        //position: 'fixed',
         zIndex: 1000,
         width: '100%',
     },
@@ -186,7 +186,7 @@ class MenuAppBar extends React.Component {
         )
 
         return (
-            <div className={classes.root}>
+            <>
                 <AppBar position="fixed">
                     <Toolbar>
                         {!this.isEndRoute() && (
@@ -252,7 +252,7 @@ class MenuAppBar extends React.Component {
                         </div>
                     </Drawer>
                 </div>
-            </div>
+            </>
         )
     }
 }
