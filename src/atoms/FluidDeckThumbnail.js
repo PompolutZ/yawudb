@@ -8,8 +8,6 @@ import {
     restrictedCards,
 } from '../data'
 import { withStyles } from '@material-ui/core/styles'
-import NoValidIcon from '@material-ui/icons/ReportProblem'
-import RestrictedBannedCardsCount from './RestrictedBannedCardsCount'
 import { withRouter } from 'react-router-dom'
 import { VIEW_DECK } from '../constants/routes'
 import { FirebaseContext } from '../firebase'
@@ -20,7 +18,8 @@ import PlayFormatsValidity from './PlayFormatsValidity'
 const styles = theme => ({
     root: {
         display: 'flex',
-        borderBottom: `1px solid ${theme.palette.primary.main}`,
+        flexGrow: 1,
+        // borderBottom: `1px solid ${theme.palette.primary.main}`,
         margin: '0 0 .5rem 0',
         padding: '.3rem',
         pointer: 'cursor',
@@ -37,6 +36,7 @@ function FluidDeckThumbnail({
     deck,
     isDraft,
     canUpdateOrDelete,
+    style
 }) {
     const firebase = React.useContext(FirebaseContext)
     const [data, setData] = React.useState(deck)
@@ -93,6 +93,7 @@ function FluidDeckThumbnail({
         <div
             className={classes.root}
             onClick={handleClick}
+            style={{...style}}
         >
             {loading && (
                 <div

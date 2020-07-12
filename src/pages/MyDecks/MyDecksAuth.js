@@ -13,6 +13,8 @@ import Switch from '../../atoms/Switch';
 import toPairs from 'lodash/toPairs';
 import { withFirebase } from '../../firebase';
 import FluidDeckThumbnail from '../../atoms/FluidDeckThumbnail';
+import { motion } from 'framer-motion';
+import MotionDeckThumbnail from './atoms/MotionDeckThumbnail';
 
 const DeckConflictsAndWarnings = lazy(() => import('./atoms/DeckConflictsAndWarnings'));
 
@@ -179,9 +181,14 @@ class MyDecksAuth extends Component {
 
                                         const isDraft = counts.objectives < 12 || (counts.upgrades + counts.gambits < 20) || (counts.gambits > counts.upgrades);
 
+
+                                        const variants = {
+                                            default: { opacity: 1, x: 0 }
+                                        }
+
                                         return (
-                                            <div key={id} className={classes.item}>
-                                                            <FluidDeckThumbnail
+                                            <MotionDeckThumbnail key={id}>
+                                                <FluidDeckThumbnail
                                                                 deckId={id}
                                                                 deck={cache[id]}
                                                                 canUpdateOrDelete
@@ -196,8 +203,8 @@ class MyDecksAuth extends Component {
                                                                 decks={decks} />
                                                         </Suspense>
                                                     )
-                                                }
-                                            </div>
+                                                }                                                
+                                            </MotionDeckThumbnail>
                                         );
                                     })
                                 }
