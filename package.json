@@ -9,13 +9,12 @@
     "b64-to-blob": "^1.2.19",
     "clipboard-polyfill": "^2.8.6",
     "connected-react-router": "^4.4.1",
-    "firebase": "^7.15.5",
-    "firebase-functions": "^3.2.0",
+    "firebase": "^7.16.0",
     "framer-motion": "^1.11.1",
     "immutable": "^3.8.2",
-    "jspdf": "^1.4.1",
+    "jspdf": "^1.5.3",
     "lodash": "^4.17.10",
-    "npm": "^6.3.0",
+    "npm": "^6.14.5",
     "react": "^16.8.6",
     "react-animate-height": "^2.0.3",
     "react-autosuggest": "^9.4.3",
@@ -40,19 +39,10 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "react-app-env --env-file=staging.env start",
-    "start_fix": "react-app-env --env-file=production.env start",
-    "build": "react-app-env build",
-    "netlify_build_stage": "react-scripts build",
-    "build_stage": "react-app-env --env-file=staging.env build",
-    "build_prod": "react-app-env --env-file=production.env build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "flist": "firebase list",
-    "stage": "yarn run build_stage && yarn run stage_deploy",
-    "stage_deploy": "firebase deploy --project staging",
-    "production": "yarn run build_prod && yarn run production_deploy",
-    "production_deploy": "firebase deploy --project prod"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "browserslist": [
     ">0.2%",
@@ -61,9 +51,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "react-app-env": "^1.2.3"
+    "@craco/craco": "^5.6.4",
+    "react-app-env": "^1.2.3",
+    "worker-plugin": "^4.0.3"
   },
   "engines": {
-    "node": "^12.8.0"
+    "node": "^14.5.0"
   }
 }

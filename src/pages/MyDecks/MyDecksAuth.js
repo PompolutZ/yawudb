@@ -13,7 +13,6 @@ import Switch from '../../atoms/Switch';
 import toPairs from 'lodash/toPairs';
 import { withFirebase } from '../../firebase';
 import FluidDeckThumbnail from '../../atoms/FluidDeckThumbnail';
-import { motion } from 'framer-motion';
 import MotionDeckThumbnail from './atoms/MotionDeckThumbnail';
 
 const DeckConflictsAndWarnings = lazy(() => import('./atoms/DeckConflictsAndWarnings'));
