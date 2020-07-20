@@ -16,7 +16,7 @@ const initialState = {
     desc: '',
     faction: 'garreks-reavers',
     factionDefaultSet: 0,
-    deck: new Set(),
+    deck: new Set().toJS(),
     objectivesCount: 0,
     gambitsCount: 0,
     upgradesCount: 0,
@@ -135,7 +135,7 @@ export const mergeLoadedStateWithInitial = loadedState => {
     return {
         ...initialState,
         ...loadedState.deckUnderBuild,
-        deck: new Set(loadedState.deckUnderBuild.deck),
+        deck: new Set(loadedState.deckUnderBuild.deck).toJS(),
     }
 }
 

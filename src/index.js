@@ -8,9 +8,9 @@ import Home from './pages/Home'
 import registerServiceWorker from './registerServiceWorker'
 import Footer from './components/Footer'
 import MenuAppBar from './components/MenuAppBar'
-
-import { connect, Provider } from 'react-redux'
 import { createBrowserHistory } from 'history'
+
+import { connect, Provider, ReactReduxContext } from 'react-redux'
 import configureStore from './configureStore'
 import LazyLoading from './components/LazyLoading'
 import ErrorBoundary from './components/ErrorBoundary'
@@ -45,22 +45,25 @@ const GameAssistant = lazy(() => import('./pages/GameAssistant'))
 const WarbandsInfoPage = lazy(() => import('./pages/WarbandsInfo'))
 const MetaReset = lazy(() => import('./pages/MetaResetPage'))
 
-const history = createBrowserHistory()
-const store = configureStore(history)
+const history = createBrowserHistory();
+const store = configureStore(history);
+
+console.log(history);
+console.log(store.getState());
 
 const setToLastLocation = (state, history) => {
-    if (state.router.location.pathname !== history.location.pathname) {
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            history.push(state.router.location.pathname)
-            return
-        }
+    // if (state.router.location.pathname !== history.location.pathname) {
+    //     if (window.matchMedia('(display-mode: standalone)').matches) {
+    //         history.push(state.router.location.pathname)
+    //         return
+    //     }
 
-        // Safari
-        if (window.navigator.standalone === true) {
-            history.push(state.router.location.pathname)
-            return
-        }
-    }
+    //     // Safari
+    //     if (window.navigator.standalone === true) {
+    //         history.push(state.router.location.pathname)
+    //         return
+    //     }
+    // }
 }
 
 setToLastLocation(store.getState(), history)
@@ -93,7 +96,7 @@ const PrivateRoute = connect(state => ({
     isAuthenticated: state.auth !== null,
 }))(PrivateRouteContainer)
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
         height: '100vh',
@@ -102,6 +105,9 @@ const useStyles = makeStyles(() => ({
         overflowX: 'hidden',
         overflowY: 'auto',
         WebkitOverflowScrolling: 'touch',
+        [theme.breakpoints.down('md')]: {
+            padding: 0,
+        }
     },
 }))
 
@@ -123,7 +129,6 @@ function App(props) {
                     props.updateUserExpansions(user.expansions)
                     history.push('/profile')
                 } else {
-                    //const profile = userProfileRef.data()
                     props.onLogin({
                         displayName: user.displayName,
                         role: user.role,

@@ -16,7 +16,7 @@ const initialState = {
     desc: '',
     faction: 'garreks-reavers',
     factionDefaultSet: 0,
-    deck: new Set(),
+    deck: new Set().toJS(),
     objectivesCount: 0,
     gambitsCount: 0,
     upgradesCount: 0,
@@ -96,7 +96,7 @@ const isRestrictedCard = id => {
 }
 
 export const mergeLoadedStateWithInitial = loadedState => {
-    return { ...initialState, ...loadedState.deckUnderEdit };
+    return { ...initialState, ...loadedState.deckUnderEdit, deck: new Set(loadedState.deckUnderEdit.deck).toJS() };
 }
 
 export default deckUnderEdit;
