@@ -19,6 +19,11 @@ const routerReducer = history => {
     const reducer = connectRouter(history);
     return reducer;
 }
+
+const configureDefaultMiddleware = () => getDefaultMiddleware({
+    serializableCheck: false,
+    immutableCheck: false,
+})
     
 const createRootReducer = history => combineReducers({
     auth,
@@ -39,7 +44,7 @@ const initStore = (history) => {
     const store = configureStore({
         reducer: createRootReducer(history),
         preloadedState: loadState(),
-        middleware: [...getDefaultMiddleware(), routerMiddleware(history)],
+        middleware: [...configureDefaultMiddleware(), routerMiddleware(history)],
     });
     
     store.subscribe(throttle(() => {
