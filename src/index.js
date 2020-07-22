@@ -197,9 +197,9 @@ function App(props) {
                             id="yawudb_main"
                             style={{
                                 margin: '4.5rem 0 0 0',
-                                width: '100%',
-                                flex: '1 0',
+                                flex: '1 0 100%',
                                 boxSizing: 'border-box',
+                                display: 'flex',
                             }}
                         >
                             <Suspense fallback={<LazyLoading />}>

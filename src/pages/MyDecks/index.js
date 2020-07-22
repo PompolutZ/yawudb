@@ -6,11 +6,11 @@ import MyDecksAnon from './MyDecksAnon';
 function MyDecksPage() {
     const authUser = useAuthUser();
     return (
-        <div>{
+        <>{
             authUser 
             ? <MyDecksAuth />
             : <MyDecksAnon />
-        }</div>
+        }</>
     )
 }
 

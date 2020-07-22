@@ -23,4 +23,20 @@ const privateDecksSlice = createSlice({
 
 export const { addDeck, addDecks, deleteDeck, togglePublicVisibility } = privateDecksSlice.actions;
 
+export const fetchDecksFromDatabase = firebase => async (dispatch, getState) => {
+    try {
+        const { auth } = getState();
+        const snapshot = await firebase.realdb.ref('decks').orderByChild('author').equalTo(auth.uid).once('value');
+        const decks = snapshot.val();
+        if(decks) {
+            dispatch({
+                type: addDecks.type,
+                payload: decks,
+            });
+        }
+    } catch (error) {   
+        console.error('Something went wrong', error);
+    }
+}
+
 export default privateDecksSlice.reducer;

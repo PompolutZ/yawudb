@@ -26,7 +26,7 @@ function DeckCreatorBase(props) {
                 <link rel="canonical" href="https://yawudb.com/deck/create" />
             </Helmet>
 
-            <div style={{ display: 'flex', flexFlow: 'column nowrap', height: '100%'}}>
+            <div style={{ flexGrow: 1, display: 'flex', flexFlow: 'column nowrap', height: '100%'}}>
                 <div>
                     <FactionToggle
                         key={faction}

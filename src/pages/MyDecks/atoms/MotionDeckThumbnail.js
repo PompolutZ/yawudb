@@ -40,7 +40,6 @@ function MotionDeckThumbnail({ className, children }) {
     const classes = useStyles();
     const [currentAction, setCurrentAction] = useState(null)
     const isMd = useMediaQuery('(min-width: 700px)');
-    console.log(isMd)
     const dragStartOffsetXRef = useRef(0)
     const x = useMotionValue(0)
     const opacityShare = useTransform(x, [0, 50], [0, 1])
