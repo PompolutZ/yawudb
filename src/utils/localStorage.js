@@ -31,6 +31,7 @@ export const loadState = () => {
             userOwnSets: mergeLoadedUserOwnSetsWithInitial(loadedState),
             deckUnderEdit: mergeDeckUnderEditWithInitial(loadedState),
             decksMeta: mergeDecksMetaWithInitial(loadedState),
+            privateDecks: loadedState.privateDecks,
         }
     } catch (error) {
         console.log(error);

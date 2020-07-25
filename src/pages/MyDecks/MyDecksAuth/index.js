@@ -6,6 +6,7 @@ import toPairs from "lodash/toPairs";
 import { cardsDb } from "data";
 import MotionDeckThumbnail from "../atoms/MotionDeckThumbnail";
 import FluidDeckThumbnail from "../../../atoms/FluidDeckThumbnail";
+import useAuthUser from "hooks/useAuthUser";
 
 const cardsToCountsReducer = (acc, el) => {
     switch (el.type) {
@@ -25,36 +26,13 @@ const cardsToCountsReducer = (acc, el) => {
 
 function MyDecksAuth() {
     const [loading, setLoading] = useState(true);
+    const auth = useAuthUser();
     const dispatch = useDispatch();
     const privateDecks = useSelector((state) => state.privateDecks);
     const decks = useMemo(
         () =>
             toPairs(privateDecks)
-                .map(([id, value]) => {
-                    let created = new Date(0);
-                    if(value.created && value.created.seconds) {
-                        created.setSeconds(value.created.seconds);
-                    } else {
-                        created = new Date(value.created);
-                    }
-        
-                    // const cards = value.cards.map((id) => ({
-                    //     ...cardsDb[id],
-                    //     id,
-                    // }));
-                    // const counts = cards.reduce(cardsToCountsReducer, {
-                    //     objectives: 0,
-                    //     gambits: 0,
-                    //     upgrades: 0,
-                    // });
-                    // const isDraft =
-                    //     counts.objectives < 12 ||
-                    //     counts.upgrades + counts.gambits < 20 ||
-                    //     counts.gambits > counts.upgrades;
-
-                    // cards, counts, isDraft, 
-                    return { ...value, created, id };
-                })
+                .map(([id, value]) => ({ ...value, id }))
                 .sort((l, r) => new Date(l.created) - new Date(r.created)),
         [privateDecks]
     );
@@ -62,7 +40,7 @@ function MyDecksAuth() {
 
     useEffect(() => {
         dispatch(fetchDecksFromDatabase(firebase));
-    }, []);
+    }, [auth]);
 
     useEffect(() => {
         setLoading(false);
@@ -70,10 +48,10 @@ function MyDecksAuth() {
     }, [decks]);
 
     return (
-        <div style={{ flexGrow: 1 }}>
+        <div style={{ width: "100%", display: 'flex', flexDirection: 'column' }}>
             {decks &&
                 decks.map((deck) => (
-                    <MotionDeckThumbnail key={deck.id}>
+                    <MotionDeckThumbnail key={deck.id} deckId={deck.id}>
                         <FluidDeckThumbnail
                             deckId={deck.id}
                             deck={deck}

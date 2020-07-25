@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import toPairs from 'lodash/toPairs';
 
 const privateDecksSlice = createSlice({
     name: 'privateDecks',
@@ -26,12 +27,24 @@ export const { addDeck, addDecks, deleteDeck, togglePublicVisibility } = private
 export const fetchDecksFromDatabase = firebase => async (dispatch, getState) => {
     try {
         const { auth } = getState();
+        if(!auth) return;
         const snapshot = await firebase.realdb.ref('decks').orderByChild('author').equalTo(auth.uid).once('value');
         const decks = snapshot.val();
         if(decks) {
+            const withFixedDate = toPairs(decks).reduce((res, [id, value]) => {
+                let created = new Date(0);
+                if(value.created && value.created.seconds) {
+                    created.setSeconds(value.created.seconds);
+                } else {
+                    created = new Date(value.created);
+                }
+
+                return { ...res, [id]: { ...value, created }}
+            }, {})
+
             dispatch({
                 type: addDecks.type,
-                payload: decks,
+                payload: withFixedDate,
             });
         }
     } catch (error) {   
