@@ -42,12 +42,34 @@ export const fetchDecksFromDatabase = firebase => async (dispatch, getState) => 
                 return { ...res, [id]: { ...value, created }}
             }, {})
 
-            dispatch({
-                type: addDecks.type,
-                payload: withFixedDate,
-            });
+            dispatch(addDecks(withFixedDate));
         }
     } catch (error) {   
+        console.error('Something went wrong', error);
+    }
+}
+
+export const deletePrivateDeck = (firebase, id) => async (dispatch, getState) => {
+    try {
+        await firebase.realdb.ref(`/decks/${id}`).remove()
+
+        await firebase.decksMetaDb().doc('all').update({
+            ids: firebase.firestoreArrayRemove(id)
+        });
+
+        await firebase.decksMetaDb().doc(id.split('-')[0]).update({
+            ids: firebase.firestoreArrayRemove(id)
+        });
+
+        const { auth } = getState();
+        if(auth) {
+            await firebase.db.collection('users').doc(auth.uid).update({
+                mydecks: firebase.firestoreArrayRemove(id)
+            });
+
+            dispatch(deleteDeck(id))
+        }
+    } catch (error) {
         console.error('Something went wrong', error);
     }
 }

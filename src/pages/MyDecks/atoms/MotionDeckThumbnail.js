@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function MotionDeckThumbnail({ className, children }) {
+function MotionDeckThumbnail({ className, children, deckId, onDelete }) {
     const classes = useStyles();
     const [currentAction, setCurrentAction] = useState(null);
     const isMd = useMediaQuery("(min-width: 700px)");
@@ -78,6 +78,11 @@ function MotionDeckThumbnail({ className, children }) {
         const directionToRight = +(info.offset.x > 0);
         console.log("End", directionToRight, deltaPercentage);
         if (deltaPercentage > 0.5) {
+            if(directionToRight) {
+                // change share
+            } else {
+                onDelete(deckId);
+            }
             //setCurrentAction(actions[directionToRight]);
         }
         dragStartOffsetXRef.current = 0;

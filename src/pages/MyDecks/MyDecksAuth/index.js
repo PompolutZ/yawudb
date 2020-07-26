@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { FirebaseContext } from "../../../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDecksFromDatabase } from "features/privateDecksSlice";
+import { fetchDecksFromDatabase, deletePrivateDeck } from "features/privateDecksSlice";
 import toPairs from "lodash/toPairs";
 import { cardsDb } from "data";
 import MotionDeckThumbnail from "../atoms/MotionDeckThumbnail";
@@ -47,11 +47,15 @@ function MyDecksAuth() {
         console.log(decks);
     }, [decks]);
 
+    const handleDeleteDeck = async id => {
+        await dispatch(deletePrivateDeck(firebase, id));
+    }
+
     return (
         <div style={{ width: "100%", display: 'flex', flexDirection: 'column' }}>
             {decks &&
                 decks.map((deck) => (
-                    <MotionDeckThumbnail key={deck.id} deckId={deck.id}>
+                    <MotionDeckThumbnail key={deck.id} deckId={deck.id} onDelete={handleDeleteDeck}>
                         <FluidDeckThumbnail
                             deckId={deck.id}
                             deck={deck}
