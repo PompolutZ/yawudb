@@ -1,6 +1,6 @@
 import React from 'react';
 import useAuthUser from '../../hooks/useAuthUser';
-import MyDecksAuth from './MyDecksAuth/index';
+import MyDecksAuth from './MyDecksAuth';
 import MyDecksAnon from './MyDecksAnon';
 
 function MyDecksPage() {

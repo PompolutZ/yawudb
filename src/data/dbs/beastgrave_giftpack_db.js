@@ -96,7 +96,8 @@ export const beastgraveGiftPackDb = {
         "type": 0,
         "set": 23,
         "rule": "Score this is an end phase if your warband holds objectives 1 and 2.",
-        "glory": 2
+        "glory": 2,
+        "scoreType": 1
     },
     "07011": {
         "name": "Tactical Supremacy 3-4",
@@ -105,7 +106,8 @@ export const beastgraveGiftPackDb = {
         "type": 0,
         "set": 23,
         "rule": "Score this is an end phase if your warband holds objectives 3 and 4.",
-        "glory": 2
+        "glory": 2,
+        "scoreType": 1
     },
     "07012": {
         "name": "Victorious Duel",

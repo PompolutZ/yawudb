@@ -37,7 +37,6 @@ const mydecks = (state = initialState, action) => {
          
         case ADD_OR_UPDATE_DECK: 
             // console.log('REDUCER', action.payload, state[action.payload.id]);
-            console.log("COMPARE", action.payload.id, __isEqual(cached, merged));
             if(!state[action.payload.id]) {
                 return { ...state, [action.payload.id]: {...action.payload.data, timestamp: action.payload.timestamp} };    
             }

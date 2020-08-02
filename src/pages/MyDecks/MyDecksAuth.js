@@ -186,7 +186,7 @@ class MyDecksAuth extends Component {
                                         }
 
                                         return (
-                                            <MotionDeckThumbnail key={id}>
+                                            <div key={id} style={{ borderBottom: '1px solid lightgray'}}>
                                                 <FluidDeckThumbnail
                                                                 deckId={id}
                                                                 deck={cache[id]}
@@ -203,7 +203,7 @@ class MyDecksAuth extends Component {
                                                         </Suspense>
                                                     )
                                                 }                                                
-                                            </MotionDeckThumbnail>
+                                            </div>
                                         );
                                     })
                                 }

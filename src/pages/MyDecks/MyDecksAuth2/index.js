@@ -78,4 +78,4 @@ function MyDecksAuth() {
     );
 }
 
-export default MyDecksAuth;
+export default MyDecksAuth2;
