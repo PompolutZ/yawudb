@@ -25,6 +25,7 @@ import Admin from './pages/Admin'
 import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
+import { ToastProvider } from 'react-toast-notifications'
 
 const DeckCreator = lazy(() => import('./pages/DeckCreator'))
 const Decks = lazy(() => import('./pages/Decks'))
@@ -360,7 +361,9 @@ const Root = () => (
         <Provider store={store}>
             <FirebaseContext.Provider value={new Firebase()}>
                 <MuiThemeProvider theme={theme}>
-                    <ConnectedApp />
+                    <ToastProvider>
+                        <ConnectedApp />
+                    </ToastProvider>
                 </MuiThemeProvider>
             </FirebaseContext.Provider>
         </Provider>

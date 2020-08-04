@@ -1,9 +1,11 @@
-import React, { useState, useRef } from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import React, { useState, useRef, useCallback } from "react";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PublicIcon from "@material-ui/icons/Public";
+import { animated, useSpring } from 'react-spring';
+import { useDrag } from 'react-use-gesture';
+import __debounce from 'lodash/debounce';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,16 +63,49 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const debouncedLog = __debounce(() => console.log('DEBOUNCED'), 500);
+
 function MotionDeckThumbnail({ className, children, deckId, onDelete }) {
     const classes = useStyles();
-    const [currentAction, setCurrentAction] = useState(null);
     const isMd = useMediaQuery("(min-width: 700px)");
     const dragOffset = 0; //isMd ? 0 : -15;
     const dragStartOffsetXRef = useRef(0);
-    const x = useMotionValue(dragOffset);
-    const opacityShare = useTransform(x, [0, 50], [0, 1]);
-    const opacityDelete = useTransform(x, [-50, 0], [1, 0]);
-    const colors = useTransform(x, [-50, 0, 50], ["rgba(240, 52, 52, 1)", "rgba(255,255,255,1)", "rgba(38, 166, 91, 1)"]);
+    const [{ x }, set] = useSpring(() => ({ x: 0, y: 0 }));
+    const bind = useDrag(
+        ({ down, movement: [mx] }) => {
+          set({ x: down ? mx : 0, immediate: down });
+        
+            if(down && mx > 100) {
+                handleToggleShare();
+                // __debounce(toggleShareCallback, 150);
+                //__debounce(handleToggleShare, 150);
+                // __debounce(toggleShareCallback, 150);
+                // handleToggleShare();
+            } 
+
+            if(down && mx < -100) {
+                handleDelete();
+                // handleDelete();
+            }
+        },
+        {
+          bounds: { left: 0, right: 0 },
+          rubberband: 0.2,
+          axis: "x"
+        }
+      );
+    
+        // const toggleShareCallback = useCallback(__debounce(() => handleToggleShare()));
+
+      const handleToggleShare = useCallback(__debounce(() => {
+            console.log('DEBOUNCED CALLBACK');
+      }, 500));
+
+      const handleDelete = useCallback(__debounce(() => onDelete(deckId), 500));
+    // const x = useMotionValue(dragOffset);
+    // const opacityShare = useTransform(x, [0, 50], [0, 1]);
+    // const opacityDelete = useTransform(x, [-50, 0], [1, 0]);
+    // const colors = useTransform(x, [-50, 0, 50], ["rgba(240, 52, 52, 1)", "rgba(255,255,255,1)", "rgba(38, 166, 91, 1)"]);
 
     const handleDragEnd = (event, info) => {
         const deltaPercentage =
@@ -81,7 +116,7 @@ function MotionDeckThumbnail({ className, children, deckId, onDelete }) {
             if(directionToRight) {
                 // change share
             } else {
-                onDelete(deckId);
+                //onDelete(deckId);
             }
             //setCurrentAction(actions[directionToRight]);
         }
@@ -94,39 +129,41 @@ function MotionDeckThumbnail({ className, children, deckId, onDelete }) {
     };
     return (
         <div className={classes.root}>
-            <motion.div
+            <animated.div
                 className={classes.innerRoot}
-                drag={isMd ? false : "x"}
-                onDragOver={() => console.log(x)}
-                onDragStart={handleDragStart}
-                onDragEnd={handleDragEnd}
+                {...bind()}
                 style={{ x }}
-                dragConstraints={{ left: dragOffset, right: dragOffset }}
-                dragElastic={0.7}
-                dragTransition={{
-                    bounceStiffness: 600,
-                }}
+                // drag={isMd ? false : "x"}
+                // onDragOver={() => console.log(x)}
+                // onDragStart={handleDragStart}
+                // onDragEnd={handleDragEnd}
+                // style={{ x }}
+                // dragConstraints={{ left: dragOffset, right: dragOffset }}
+                // dragElastic={0.7}
+                // dragTransition={{
+                //     bounceStiffness: 600,
+                // }}
             >
-                <motion.div
+                <div
                     className={classes.shareDeckContainer}
-                    style={{ opacity: opacityShare }}
+                    // style={{ opacity: opacityShare }}
                 >
                     <PublicIcon className={classes.icon} />
-                </motion.div>
-                <motion.div className={classes.childrenContainer}>
+                </div>
+                <div className={classes.childrenContainer}>
                     {children}
-                </motion.div>
-                <motion.div
+                </div>
+                <div
                     className={classes.deleteDeckContainer}
-                    style={{ opacity: opacityDelete }}
+                    // style={{ opacity: opacityDelete }}
                 >
                     <DeleteIcon className={classes.icon} />
-                </motion.div>
-            </motion.div>
+                </div>
+            </animated.div>
 
-            <motion.div
+            <animated.div
                 className={classes.background}
-                style={{ backgroundColor: colors }}
+                style={{ backgroundColor: x.to({ range: [-400, -50, 0, 50, 300], output: ["rgba(240, 52, 52, 1)", "rgba(240, 52, 52, 1)", "rgba(255,255,255,1)", "rgba(38, 166, 91, 1)", "rgba(38, 166, 91, 1)"]}) }}
             />
         </div>
     );
