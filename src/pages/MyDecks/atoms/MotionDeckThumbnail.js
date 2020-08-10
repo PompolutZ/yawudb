@@ -102,10 +102,6 @@ function MotionDeckThumbnail({ className, children, deckId, onDelete }) {
       }, 500));
 
       const handleDelete = useCallback(__debounce(() => onDelete(deckId), 500));
-    // const x = useMotionValue(dragOffset);
-    // const opacityShare = useTransform(x, [0, 50], [0, 1]);
-    // const opacityDelete = useTransform(x, [-50, 0], [1, 0]);
-    // const colors = useTransform(x, [-50, 0, 50], ["rgba(240, 52, 52, 1)", "rgba(255,255,255,1)", "rgba(38, 166, 91, 1)"]);
 
     const handleDragEnd = (event, info) => {
         const deltaPercentage =
@@ -127,6 +123,7 @@ function MotionDeckThumbnail({ className, children, deckId, onDelete }) {
         console.log(info.offset);
         dragStartOffsetXRef.current = info.offset.x;
     };
+
     return (
         <div className={classes.root}>
             <animated.div
