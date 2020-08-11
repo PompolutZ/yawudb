@@ -357,8 +357,7 @@ const theme = createMuiTheme({
 })
 
 const Root = () => (
-    <div style={{ width: '100%', height: '100%' }}>
-        <Provider store={store}>
+    <Provider store={store}>
             <FirebaseContext.Provider value={new Firebase()}>
                 <MuiThemeProvider theme={theme}>
                     <ToastProvider>
@@ -367,7 +366,6 @@ const Root = () => (
                 </MuiThemeProvider>
             </FirebaseContext.Provider>
         </Provider>
-    </div>
 )
 
 ReactDOM.render(<Root />, document.getElementById('root'))

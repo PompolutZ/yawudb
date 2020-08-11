@@ -293,8 +293,8 @@ export const setsIndex = [
     "beastgrave-gift-pack", // 23
     "hrothgorns-mantrappers", // 24
     "the-wurmspat", // 25
-    // "morgwaeths-blade-coven": "Morgwaeth's Blade Coven", // 26
-    // "morgoks-krushas": "Morgok's Krushas", // 27
+    "morgwaeths-blade-coven", // 26
+    "morgoks-krushas", // 27
 ]
 
 export const setsNames = [
@@ -332,8 +332,8 @@ export const setsNames = [
     "Beastgrave Gift Pack", // 23
     "Hrothgorn's Mantrappers Expansion", // 24
     "The Wurmspat Expansion", // 25
-    // "morgwaeths-blade-coven": "Morgwaeth's Blade Coven", // 26
-    // "morgoks-krushas": "Morgok's Krushas", // 27
+    "Morgwaeth's Blade Coven", // 26
+    "Morgok's Krushas", // 27
 ]
 
 export const rotatedOutSetsIndexes = [0, 1, 2, 3, 4, 5, 6];

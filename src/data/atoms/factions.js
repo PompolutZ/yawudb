@@ -33,8 +33,8 @@ export const factions = {
     "rippas-snarlfangs": "Rippa's Snarlfangs",
     "hrothgorns-mantrappers": "Hrothgorn's Mantrappers",
     "the-wurmspat": "The Wurmspat",
-    // "morgwaeths-blade-coven": "Morgwaeth's Blade Coven",
-    // "morgoks-krushas": "Morgok's Krushas",
+    "morgwaeths-blade-coven": "Morgwaeth's Blade Coven",
+    "morgoks-krushas": "Morgok's Krushas",
 }
 
 export const PREFIX_LENGTH = "toftbq".length + 1;
@@ -73,8 +73,8 @@ export const factionIdPrefix = {
     "rippas-snarlfangs" : 'rs',
     "hrothgorns-mantrappers": "hm",
     "the-wurmspat": "tw",
-    // "morgwaeths-blade-coven": "mbc",
-    // "morgoks-krushas": "mk",
+    "morgwaeths-blade-coven": "mbc",
+    "morgoks-krushas": "mk",
 }
 
 export const factionMembers = {
@@ -111,8 +111,8 @@ export const factionMembers = {
     "rippas-snarlfangs": ['Rippa', 'Stabbit', 'Mean-Eye'],
     "hrothgorns-mantrappers": ["Hrothgorn", "Thrafnir", "Bushwakka", "Quiv", "Luggit and Thwak"],
     "the-wurmspat": ["Fecula", "Ghulgogh", "Sepsimus"],
-    // "morgwaeths-blade-coven": ["Morgwaeth", "Kyrae", "Khamyss", "Kyrssa", "Lethyr"],
-    // "morgoks-krushas": ["Morgok", "’Ardskull", "Thugg"],
+    "morgwaeths-blade-coven": ["Morgwaeth", "Kyrae", "Khamyss", "Kyrssa", "Lethyr"],
+    "morgoks-krushas": ["Morgok", "’Ardskull", "Thugg"],
 }
 
 export const idPrefixToFaction = {
@@ -149,8 +149,8 @@ export const idPrefixToFaction = {
     "rs": "rippas-snarlfangs",
     "hm": "hrothgorns-mantrappers",
     "tw": "the-wurmspat",
-    // "mbc": "morgwaeths-blade-coven",
-    // "mk": "morgoks-krushas",
+    "mbc": "morgwaeths-blade-coven",
+    "mk": "morgoks-krushas",
 }
 
 export const factionIndexes = [
@@ -188,8 +188,8 @@ export const factionIndexes = [
     "rippas-snarlfangs", // 22
     "hrothgorns-mantrappers", // 23
     "the-wurmspat", // 24
-    // "morgwaeths-blade-coven", // 25
-    // "morgoks-krushas", // 26
+    "morgwaeths-blade-coven", // 25
+    "morgoks-krushas", // 26
 ]
 
 export const factionIndexesWithDefaultSet = [
@@ -227,8 +227,8 @@ export const factionIndexesWithDefaultSet = [
     ["rippas-snarlfangs", 22],
     ["hrothgorns-mantrappers", 24], // 23
     ["the-wurmspat", 25], // 24
-    // ["morgwaeths-blade-coven", 26], // 25
-    // ["morgoks-krushas", 27], // 26
+    ["morgwaeths-blade-coven", 26], // 25
+    ["morgoks-krushas", 27], // 26
 ]
 
 export const warbandsWithDefaultSet = [
@@ -267,8 +267,8 @@ export const warbandsWithDefaultSet = [
     ["rippas-snarlfangs", 22],
     ["hrothgorns-mantrappers", 24],
     ["the-wurmspat", 25], // 23
-    // ["morgwaeths-blade-coven", 26], // 25
-    // ["morgoks-krushas", 27], // 26
+    ["morgwaeths-blade-coven", 26], // 25
+    ["morgoks-krushas", 27], // 26
 ]
 
 export const cardsIdToFactionIndex = {
