@@ -1,4 +1,8 @@
 const changelog = {
+    "0.39.0": {
+        "Morgok's Crushas": "Added Morgok's Crushas expansion",
+        "Morgwaeth's Blade Coven": "Added Morgwaeth's Blade Coven expansion",
+    },
     "0.38.0": {
         "FAR (June 2020)": "Updated restricted and forsaken cards according to the latest FAR list",
     },
