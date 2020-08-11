@@ -111,7 +111,7 @@ export const factionMembers = {
     "rippas-snarlfangs": ['Rippa', 'Stabbit', 'Mean-Eye'],
     "hrothgorns-mantrappers": ["Hrothgorn", "Thrafnir", "Bushwakka", "Quiv", "Luggit and Thwak"],
     "the-wurmspat": ["Fecula", "Ghulgogh", "Sepsimus"],
-    // "morgwaeths-blade-coven": [],
+    // "morgwaeths-blade-coven": ["Morgwaeth", "Kyrae", "Khamyss", "Kyrssa", "Lethyr"],
     // "morgoks-krushas": ["Morgok", "’Ardskull", "Thugg"],
 }
 
