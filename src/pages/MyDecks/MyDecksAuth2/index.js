@@ -1,29 +1,12 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { FirebaseContext } from "../../../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDecksFromDatabase, deletePrivateDeck } from "features/privateDecksSlice";
+import { fetchDecksFromDatabase, deletePrivateDeck } from "../../../features/privateDecksSlice";
 import toPairs from "lodash/toPairs";
-import { cardsDb } from "data";
 import MotionDeckThumbnail from "../atoms/MotionDeckThumbnail";
 import FluidDeckThumbnail from "../../../atoms/FluidDeckThumbnail";
-import useAuthUser from "hooks/useAuthUser";
+import useAuthUser from "../../../hooks/useAuthUser";
 import { useToasts } from 'react-toast-notifications'
-
-const cardsToCountsReducer = (acc, el) => {
-    switch (el.type) {
-        case 0:
-            acc.objectives += 1;
-            return acc;
-
-        case 2:
-            acc.upgrades += 1;
-            return acc;
-
-        default:
-            acc.gambits += 1;
-            return acc;
-    }
-};
 
 function MyDecksAuth() {
     const [loading, setLoading] = useState(true);
