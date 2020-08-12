@@ -35,8 +35,7 @@ class Home extends Component {
 
         return (
             <div className={classes.root}>
-                <div className={classes.columnOne}>
-                    <div
+                <div
                         style={{
                             margin: '1rem',
                             backgroundColor: '#3B9979',
@@ -86,7 +85,6 @@ class Home extends Component {
                             />
                         ))}
                     </div>
-                </div>
 
                 <FloatingActionButton
                     isEnabled
@@ -154,8 +152,9 @@ const mapDispatchToProps = dispatch => {
 
 const styles = theme => ({
     root: {
-        display: 'flex',
-        flexFlow: 'row wrap',
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
     },
 
     columnOne: {
@@ -197,12 +196,12 @@ const styles = theme => ({
     },
 
     metaSummary: {
+        flexGrow: 1,
         display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-around',
-        [theme.breakpoints.up('md')]: {
-            justifyContent: 'flex-start',
-        },
+        flexWrap: 'wrap',
+        alignContent: "space-around",
+        justifyContent: "flex-start",
+        minWidth: "375px",
     },
 })
 

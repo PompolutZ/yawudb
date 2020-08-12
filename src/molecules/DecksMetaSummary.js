@@ -62,9 +62,12 @@ const mapDispatchToProps = dispatch => {
 
 const styles = theme => ({
     root: {
+        flex: "1 0 25%",
         display: 'flex', 
         alignItems: 'center', 
-        margin: '.5rem',
+        minWidth: "160px",
+        padding: "1rem",
+        // margin: '.5rem',
     }
 });
 
