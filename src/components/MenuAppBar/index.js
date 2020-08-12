@@ -1,37 +1,37 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import {
     Drawer,
     List,
     ListItem,
     ListItemText,
     Divider,
-} from '@material-ui/core'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { SET_SCROLL_INDEX } from '../../reducers/library'
-import { AddCardSVG, DeckSVG } from '../../atoms/SVGs'
-import { withFirebase } from '../../firebase'
-import * as ROUTES from '../../constants/routes'
-import AccountMenuButton from './AccountMenuButton'
+} from "@material-ui/core";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { SET_SCROLL_INDEX } from "../../reducers/library";
+import { AddCardSVG, DeckSVG } from "../../atoms/SVGs";
+import { withFirebase } from "../../firebase";
+import * as ROUTES from "../../constants/routes";
+import AccountMenuButton from "./AccountMenuButton";
 
-const styles = theme => ({
+const styles = (theme) => ({
     root: {
         flexGrow: 1,
         //position: 'fixed',
         zIndex: 1000,
-        width: '100%',
+        width: "100%",
     },
     grow: {
         flexGrow: 1,
-        cursor: 'pointer',
+        cursor: "pointer",
     },
     menuButton: {
         marginLeft: -12,
@@ -39,77 +39,75 @@ const styles = theme => ({
     },
 
     desktopOnly: {
-        display: 'none',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
+        display: "none",
+        [theme.breakpoints.up("md")]: {
+            display: "flex",
         },
     },
-})
+});
 
 class MenuAppBar extends React.Component {
     state = {
         left: false,
         anchorEl: null,
-    }
+    };
 
-    toggleDrawer = open => () => {
+    toggleDrawer = (open) => () => {
         this.setState({
             left: open,
-        })
-    }
+        });
+    };
 
-    handleChange = event => {
-        this.setState({ auth: event.target.checked })
-    }
+    handleChange = (event) => {
+        this.setState({ auth: event.target.checked });
+    };
 
-    handleMenu = event => {
-        this.setState({ anchorEl: event.currentTarget })
-    }
+    handleMenu = (event) => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
 
     handleClose = () => {
-        this.setState({ anchorEl: null })
-    }
+        this.setState({ anchorEl: null });
+    };
 
-    handleCloseMenuAndNavigateToRoute = route => () => {
-        this.handleClose()
-        this.props.history.push(route)
-    }
+    handleCloseMenuAndNavigateToRoute = (route) => () => {
+        this.handleClose();
+        this.props.history.push(route);
+    };
 
-    handleNavigateToRoute = route => () => {
-        this.props.history.push(route)
-    }
+    handleNavigateToRoute = (route) => () => {
+        this.props.history.push(route);
+    };
 
     handleSignOut = () => {
-        this.handleClose()
+        this.handleClose();
         this.props.firebase
             .signOut()
             .then(this.navigateHome)
-            .catch(err => console.log(err))
-    }
+            .catch((err) => console.log(err));
+    };
 
     navigateHome = () => {
-        this.props.history.push(ROUTES.HOME)
-    }
+        this.props.history.push(ROUTES.HOME);
+    };
 
     navigateBack = () => {
-        this.props.history.goBack()
-    }
+        this.props.history.goBack();
+    };
 
     isEndRoute = () =>
         this.props.currentLocation.startsWith(ROUTES.VIEW_CARD) ||
-        this.props.currentLocation.startsWith(ROUTES.VIEW_DECK)
+        this.props.currentLocation.startsWith(ROUTES.VIEW_DECK);
 
     render() {
-        const { classes } = this.props
+        const { classes } = this.props;
 
         const sideList = (
             <div className={classes.list}>
                 <List component="nav">
                     <ListItem
                         button
-                        onClick={this.handleNavigateToRoute(
-                            '/deck/create'
-                        )}
+                        onClick={this.handleNavigateToRoute("/deck/create")}
                     >
                         <ListItemText primary="Deck Builder" />
                     </ListItem>
@@ -123,7 +121,7 @@ class MenuAppBar extends React.Component {
                             primary={
                                 <div>
                                     Card Library
-                                    <sup style={{ color: 'gray' }}>&alpha;</sup>
+                                    <sup style={{ color: "gray" }}>&alpha;</sup>
                                 </div>
                             }
                         />
@@ -138,15 +136,13 @@ class MenuAppBar extends React.Component {
                     </ListItem>
                     <ListItem
                         button
-                        onClick={this.handleNavigateToRoute(
-                            ROUTES.STATISTICS
-                        )}
+                        onClick={this.handleNavigateToRoute(ROUTES.STATISTICS)}
                     >
                         <ListItemText
                             primary={
                                 <div>
                                     Statistics
-                                    <sup style={{ color: 'gray' }}>&alpha;</sup>
+                                    <sup style={{ color: "gray" }}>&alpha;</sup>
                                 </div>
                             }
                         />
@@ -183,7 +179,7 @@ class MenuAppBar extends React.Component {
                     </List>
                 </List>
             </div>
-        )
+        );
 
         return (
             <>
@@ -222,7 +218,7 @@ class MenuAppBar extends React.Component {
                             onClick={this.navigateToDeckBuilder}
                         >
                             <AddCardSVG
-                                style={{ width: '1.5rem', height: '1.5rem' }}
+                                style={{ width: "1.5rem", height: "1.5rem" }}
                             />
                         </IconButton>
                         <IconButton
@@ -230,54 +226,55 @@ class MenuAppBar extends React.Component {
                             onClick={this.navigateToAllDecks}
                         >
                             <DeckSVG
-                                style={{ width: '1.5rem', height: '1.5rem' }}
+                                style={{ width: "1.5rem", height: "1.5rem" }}
                             />
                         </IconButton>
 
                         <AccountMenuButton />
                     </Toolbar>
                 </AppBar>
-                <div>
-                    <Drawer
-                        open={this.state.left}
-                        onClose={this.toggleDrawer(false)}
+                <Drawer
+                    open={this.state.left}
+                    onClose={this.toggleDrawer(false)}
+                >
+                    <div
+                        tabIndex={0}
+                        role="button"
+                        onClick={this.toggleDrawer(false)}
+                        onKeyDown={this.toggleDrawer(false)}
                     >
-                        <div
-                            tabIndex={0}
-                            role="button"
-                            onClick={this.toggleDrawer(false)}
-                            onKeyDown={this.toggleDrawer(false)}
-                        >
-                            {sideList}
-                        </div>
-                    </Drawer>
-                </div>
+                        {sideList}
+                    </div>
+                </Drawer>
+
+                {/* <div>
+                </div> */}
             </>
-        )
+        );
     }
 }
 
 MenuAppBar.propTypes = {
     classes: PropTypes.object.isRequired,
-}
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         isAuth: state.auth !== null,
         avatar: state.auth !== null ? state.auth.avatar : null,
         currentLocation: state.router.location.pathname,
-    }
-}
+    };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        onSignOut: () => dispatch({ type: 'CLEAR_USER' }),
+        onSignOut: () => dispatch({ type: "CLEAR_USER" }),
         resetScrollIndex: () =>
             dispatch({ type: SET_SCROLL_INDEX, payload: 0 }),
-    }
-}
+    };
+};
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withFirebase(withRouter(withStyles(styles)(MenuAppBar))))
+)(withFirebase(withRouter(withStyles(styles)(MenuAppBar))));

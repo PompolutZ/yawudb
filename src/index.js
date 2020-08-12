@@ -98,16 +98,22 @@ const PrivateRoute = connect((state) => ({
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: "100%",
-        height: "100vh",
+        flex: "1 0 100%",
+        height: "100%",
         display: "flex",
-        flexFlow: "column nowrap",
+        flexFlow: "column",
+        justifyContent: "stretch",
         overflowX: "hidden",
         overflowY: "auto",
         WebkitOverflowScrolling: "touch",
         [theme.breakpoints.down("md")]: {
             padding: 0,
         },
+    },
+
+    mainContent: {
+        flex: "1 0",
+        paddingTop: "5rem",
     },
 }));
 
@@ -159,23 +165,15 @@ function App(props) {
     }, []);
 
     return (
-        <React.Fragment>
+        <>
             <RootHelmet />
             <CssBaseline />
-            <ConnectedRouter history={history}>
-                <Container maxWidth="lg" className={classes.root}>
+            <Container maxWidth="lg" className={classes.root}>
+                <ConnectedRouter history={history}>
                     <MenuAppBar />
 
-                    <ErrorBoundary>
-                        <div
-                            id="yawudb_main"
-                            style={{
-                                margin: "4.5rem 0 0 0",
-                                flex: "1 0 100%",
-                                boxSizing: "border-box",
-                                display: "flex",
-                            }}
-                        >
+                    <main id="yawudb_main" className={classes.mainContent}>
+                        <ErrorBoundary>
                             <Suspense fallback={<LazyLoading />}>
                                 <Switch>
                                     <Route
@@ -283,13 +281,22 @@ function App(props) {
                                     />
                                 </Switch>
                             </Suspense>
-                        </div>
-                    </ErrorBoundary>
-
+                            {/* <div
+                            id="yawudb_main"
+                            style={{
+                                margin: "4.5rem 0 0 0",
+                                flex: "1 0 100%",
+                                boxSizing: "border-box",
+                                display: "flex",
+                            }}
+                        >
+                        </div> */}
+                        </ErrorBoundary>
+                    </main>
                     <Footer />
-                </Container>
-            </ConnectedRouter>
-        </React.Fragment>
+                </ConnectedRouter>
+            </Container>
+        </>
     );
 }
 
