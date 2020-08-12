@@ -188,8 +188,6 @@ function App(props) {
             </Helmet>
             <CssBaseline />
             <ConnectedRouter history={history}>
-                {/* <div className={classes.router}>
-                </div> */}
                 <Container maxWidth="lg" className={classes.root}>
                     <MenuAppBar />
 
@@ -224,12 +222,6 @@ function App(props) {
                                             <DeckCreator {...props} />
                                         )}
                                     />
-                                    {/* <Route
-                    path={ROUTES.EDIT_DECK}
-                    render={props => (
-                        <DeckCreator {...props} />
-                    )}
-                /> */}
                                     <Route
                                         path={ROUTES.SIGN_IN}
                                         render={props => <Login {...props} />}
@@ -284,11 +276,6 @@ function App(props) {
                                             <WarbandsInfoPage {...props} />
                                         )}
                                     />
-
-                                    {/* <PrivateRoute
-                path={ROUTES.MY_DECKS}
-                component={MyDecks}
-            /> */}
                                     <PrivateRoute
                                         path={ROUTES.PROFILE}
                                         component={UserProfile}
