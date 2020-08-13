@@ -6,11 +6,9 @@ import toPairs from "lodash/toPairs";
 import MotionDeckThumbnail from "../atoms/MotionDeckThumbnail";
 import FluidDeckThumbnail from "../../../atoms/FluidDeckThumbnail";
 import useAuthUser from "../../../hooks/useAuthUser";
-import { useToasts } from 'react-toast-notifications'
 
 function MyDecksAuth() {
     const [loading, setLoading] = useState(true);
-    const { addToast } = useToasts();
     const auth = useAuthUser();
     const dispatch = useDispatch();
     const privateDecks = useSelector((state) => state.privateDecks);
@@ -34,7 +32,6 @@ function MyDecksAuth() {
 
     const handleDeleteDeck = async id => {
         await dispatch(deletePrivateDeck(firebase, id));
-        addToast('Deck has been deleted', { appearance: 'success', autoDismiss: true });
     }
 
     return (

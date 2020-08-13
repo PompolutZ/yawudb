@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@reduxjs/toolkit": "^1.4.0",
     "autosuggest-highlight": "^3.1.1",
     "b64-to-blob": "^1.2.19",
@@ -30,7 +31,6 @@
     "react-scripts": "^3.4.1",
     "react-social-login-buttons": "^2.1.2",
     "react-spring": "^9.0.0-rc.3",
-    "react-toast-notifications": "^2.4.0",
     "react-use-gesture": "^7.0.15",
     "react-virtualized": "^9.21.0",
     "redux-devtools-extension": "^2.13.7",
