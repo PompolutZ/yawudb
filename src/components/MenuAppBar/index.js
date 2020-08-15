@@ -7,13 +7,6 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {
-    Drawer,
-    List,
-    ListItem,
-    ListItemText,
-    Divider,
-} from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { SET_SCROLL_INDEX } from "../../reducers/library";
@@ -21,6 +14,7 @@ import { AddCardSVG, DeckSVG } from "../../atoms/SVGs";
 import { withFirebase } from "../../firebase";
 import * as ROUTES from "../../constants/routes";
 import AccountMenuButton from "./AccountMenuButton";
+import ResponsiveDrawer, { drawerWidth } from "./ResponsiveDrawer";
 
 const styles = (theme) => ({
     root: {
@@ -34,14 +28,22 @@ const styles = (theme) => ({
         cursor: "pointer",
     },
     menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up("sm")]: {
+            display: "none",
+        },
     },
 
     desktopOnly: {
         display: "none",
         [theme.breakpoints.up("md")]: {
             display: "flex",
+        },
+    },
+    appBar: {
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginLeft: drawerWidth,
         },
     },
 });
@@ -58,26 +60,26 @@ class MenuAppBar extends React.Component {
         });
     };
 
-    handleChange = (event) => {
-        this.setState({ auth: event.target.checked });
-    };
+    // handleChange = (event) => {
+    //     this.setState({ auth: event.target.checked });
+    // };
 
-    handleMenu = (event) => {
-        this.setState({ anchorEl: event.currentTarget });
-    };
+    // handleMenu = (event) => {
+    //     this.setState({ anchorEl: event.currentTarget });
+    // };
 
     handleClose = () => {
         this.setState({ anchorEl: null });
     };
 
-    handleCloseMenuAndNavigateToRoute = (route) => () => {
-        this.handleClose();
-        this.props.history.push(route);
-    };
+    // handleCloseMenuAndNavigateToRoute = (route) => () => {
+    //     this.handleClose();
+    //     this.props.history.push(route);
+    // };
 
-    handleNavigateToRoute = (route) => () => {
-        this.props.history.push(route);
-    };
+    // handleNavigateToRoute = (route) => () => {
+    //     this.props.history.push(route);
+    // };
 
     handleSignOut = () => {
         this.handleClose();
@@ -102,88 +104,9 @@ class MenuAppBar extends React.Component {
     render() {
         const { classes } = this.props;
 
-        const sideList = (
-            <div className={classes.list}>
-                <List component="nav">
-                    <ListItem
-                        button
-                        onClick={this.handleNavigateToRoute("/deck/create")}
-                    >
-                        <ListItemText primary="Deck Builder" />
-                    </ListItem>
-                    <ListItem
-                        button
-                        onClick={this.handleNavigateToRoute(
-                            ROUTES.CARDS_LIBRARY
-                        )}
-                    >
-                        <ListItemText
-                            primary={
-                                <div>
-                                    Card Library
-                                    <sup style={{ color: "gray" }}>&alpha;</sup>
-                                </div>
-                            }
-                        />
-                    </ListItem>
-                    <ListItem
-                        button
-                        onClick={this.handleNavigateToRoute(
-                            ROUTES.BROWSE_ALL_DECKS
-                        )}
-                    >
-                        <ListItemText primary="Decks" />
-                    </ListItem>
-                    <ListItem
-                        button
-                        onClick={this.handleNavigateToRoute(ROUTES.STATISTICS)}
-                    >
-                        <ListItemText
-                            primary={
-                                <div>
-                                    Statistics
-                                    <sup style={{ color: "gray" }}>&alpha;</sup>
-                                </div>
-                            }
-                        />
-                    </ListItem>
-
-                    <Divider />
-                    <List component="nav">
-                        <ListItem
-                            button
-                            onClick={this.handleNavigateToRoute(
-                                ROUTES.MY_DECKS
-                            )}
-                        >
-                            <ListItemText primary="My Decks" />
-                        </ListItem>
-                    </List>
-
-                    <Divider />
-                    <List component="nav">
-                        <ListItem
-                            button
-                            onClick={this.handleNavigateToRoute(
-                                ROUTES.FEEDBACK
-                            )}
-                        >
-                            <ListItemText primary="Feedback" />
-                        </ListItem>
-                        <ListItem
-                            button
-                            onClick={this.handleNavigateToRoute(ROUTES.ABOUT)}
-                        >
-                            <ListItemText primary="About" />
-                        </ListItem>
-                    </List>
-                </List>
-            </div>
-        );
-
         return (
             <>
-                <AppBar position="fixed">
+                <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
                         {!this.isEndRoute() && (
                             <IconButton
@@ -213,42 +136,12 @@ class MenuAppBar extends React.Component {
                         >
                             YAWUDB
                         </Typography>
-                        <IconButton
-                            className={classes.desktopOnly}
-                            onClick={this.navigateToDeckBuilder}
-                        >
-                            <AddCardSVG
-                                style={{ width: "1.5rem", height: "1.5rem" }}
-                            />
-                        </IconButton>
-                        <IconButton
-                            className={classes.desktopOnly}
-                            onClick={this.navigateToAllDecks}
-                        >
-                            <DeckSVG
-                                style={{ width: "1.5rem", height: "1.5rem" }}
-                            />
-                        </IconButton>
 
                         <AccountMenuButton />
                     </Toolbar>
                 </AppBar>
-                <Drawer
-                    open={this.state.left}
-                    onClose={this.toggleDrawer(false)}
-                >
-                    <div
-                        tabIndex={0}
-                        role="button"
-                        onClick={this.toggleDrawer(false)}
-                        onKeyDown={this.toggleDrawer(false)}
-                    >
-                        {sideList}
-                    </div>
-                </Drawer>
-
-                {/* <div>
-                </div> */}
+                            
+                <ResponsiveDrawer mobileOpen={this.state.left} handleDrawerToggle={this.toggleDrawer(false)} />
             </>
         );
     }
@@ -273,6 +166,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({ type: SET_SCROLL_INDEX, payload: 0 }),
     };
 };
+
+export { drawerWidth } from './ResponsiveDrawer';
 
 export default connect(
     mapStateToProps,

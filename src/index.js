@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 
 import registerServiceWorker from "./registerServiceWorker";
 import Footer from "./components/Footer";
-import MenuAppBar from "./components/MenuAppBar";
+import MenuAppBar, { drawerWidth } from "./components/MenuAppBar";
 import { createBrowserHistory } from "history";
 
 import { connect, Provider } from "react-redux";
@@ -113,6 +113,9 @@ const useStyles = makeStyles((theme) => ({
     mainContent: {
         flex: "1 0",
         paddingTop: "5rem",
+        [theme.breakpoints.up("sm")]: {
+            marginLeft: `calc(${drawerWidth}px + 1rem)`,
+        },
     },
 }));
 
@@ -280,16 +283,6 @@ function App(props) {
                                     />
                                 </Switch>
                             </Suspense>
-                            {/* <div
-                            id="yawudb_main"
-                            style={{
-                                margin: "4.5rem 0 0 0",
-                                flex: "1 0 100%",
-                                boxSizing: "border-box",
-                                display: "flex",
-                            }}
-                        >
-                        </div> */}
                         </ErrorBoundary>
                     </main>
                     <Footer />
