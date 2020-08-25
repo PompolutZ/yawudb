@@ -69,11 +69,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function MotionDeckThumbnail({ className, children, deckId, onDelete }) {
+function MotionDeckThumbnail({ children, deckId, deckName, onDelete }) {
     const classes = useStyles();
-    const isMd = useMediaQuery("(min-width: 700px)");
     const [{ x }, set] = useSpring(() => ({ x: 0, y: 0 }));
-    let bind = useDrag(
+    let gestures = useDrag(
         ({ down, movement: [mx] }) => {
             set({ x: down ? mx : 0, immediate: down });
 
@@ -92,21 +91,19 @@ function MotionDeckThumbnail({ className, children, deckId, onDelete }) {
         }
     );
 
-    let gestures = isMd ? {} : {...bind()};
-
     const handleToggleShare = useCallback(
         __debounce(() => {
             console.log("DEBOUNCED CALLBACK");
         }, 500)
     );
 
-    const handleDelete = useCallback(__debounce(() => onDelete(deckId), 500));
+    const handleDelete = useCallback(__debounce(() => onDelete(deckId, deckName), 500));
 
     return (
         <div className={classes.root}>
             <animated.div
                 className={classes.innerRoot}
-                {...gestures}
+                {...gestures()}
                 style={{ x }}
             >
                 <div className={classes.shareDeckContainer}>

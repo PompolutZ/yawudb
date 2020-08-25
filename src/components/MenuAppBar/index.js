@@ -10,7 +10,6 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { SET_SCROLL_INDEX } from "../../reducers/library";
-import { AddCardSVG, DeckSVG } from "../../atoms/SVGs";
 import { withFirebase } from "../../firebase";
 import * as ROUTES from "../../constants/routes";
 import AccountMenuButton from "./AccountMenuButton";
@@ -19,7 +18,6 @@ import ResponsiveDrawer, { drawerWidth } from "./ResponsiveDrawer";
 const styles = (theme) => ({
     root: {
         flexGrow: 1,
-        //position: 'fixed',
         zIndex: 1000,
         width: "100%",
     },
@@ -60,26 +58,9 @@ class MenuAppBar extends React.Component {
         });
     };
 
-    // handleChange = (event) => {
-    //     this.setState({ auth: event.target.checked });
-    // };
-
-    // handleMenu = (event) => {
-    //     this.setState({ anchorEl: event.currentTarget });
-    // };
-
     handleClose = () => {
         this.setState({ anchorEl: null });
     };
-
-    // handleCloseMenuAndNavigateToRoute = (route) => () => {
-    //     this.handleClose();
-    //     this.props.history.push(route);
-    // };
-
-    // handleNavigateToRoute = (route) => () => {
-    //     this.props.history.push(route);
-    // };
 
     handleSignOut = () => {
         this.handleClose();
