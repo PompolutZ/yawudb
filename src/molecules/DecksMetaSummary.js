@@ -67,6 +67,10 @@ const styles = theme => ({
         alignItems: 'center', 
         minWidth: "160px",
         padding: "1rem",
+        "&:hover picture, &:hover button": {
+            filter: 'drop-shadow(0 2px 4px #696969)',
+            transition: "filter .175s"
+        }
         // margin: '.5rem',
     }
 });
