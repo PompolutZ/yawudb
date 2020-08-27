@@ -45,7 +45,7 @@ function MyDecksAnon({ classes }) {
 const styles = theme => ({
     root: {
         display: 'flex',
-        flexFlow: 'column nowrap'
+        flexFlow: 'column nowrap',
     },
 
     info: {
