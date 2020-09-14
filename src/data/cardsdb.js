@@ -11390,7 +11390,7 @@ export const cardsdb = {
     "restricted" : false,
     "restrictions" : "-",
     "rule" : "Gambit Spell (1 Channel): If this spell is cast, do the following. Scatter 1 from the caster's hex: any fighter in the end hex suffers 1 damage. Do this two more times, scattering from the caster's hex each time\r",
-    "set" : 17,
+    "set" : 14,
     "type" : 3
   },
   "03470" : {
