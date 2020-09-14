@@ -48,9 +48,6 @@ const MetaReset = lazy(() => import("./pages/MetaResetPage"));
 const history = createBrowserHistory();
 const store = configureStore(history);
 
-console.log(history);
-console.log(store.getState());
-
 const setToLastLocation = (state, history) => {
     // if (state.router.location.pathname !== history.location.pathname) {
     //     if (window.matchMedia('(display-mode: standalone)').matches) {
