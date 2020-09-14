@@ -71,7 +71,7 @@ function FluidDeckThumbnail({
         })
 
         return () => firebase.deck(deckId).off()
-    }, [])
+    }, [data, firebase, deckId])
 
     React.useEffect(() => {
         setData(deck);

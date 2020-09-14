@@ -39,11 +39,9 @@ function Decks({ classes, history, match }) {
         ? `Browse ${filteredDeckIds.length} decks and get inspired to build your next Grand Clash winning deck!`
         : `Browse ${filteredDeckIds.length} decks and get inspired to build your next Grand Clash winning ${factions[idPrefixToFaction[match.params.faction]]} deck!`
 
-    console.log(deckIds)
     //const list = JSON.parse(deckIds);
 
     const handleSelect = prefix => () => {
-        console.log('Main', prefix)
         history.replace(
             `/decks/${prefix === match.params.faction ? 'all' : prefix}`
         )
@@ -63,7 +61,6 @@ function Decks({ classes, history, match }) {
     }, [])
 
     useEffect(() => {
-        console.log('New Faction: ', match.params.faction)
         setFilteredDeckIds(filterDeckIds(deckIds, match.params.faction))
     }, [match.params.faction, deckIds])
 
