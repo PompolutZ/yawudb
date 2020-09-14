@@ -1,6 +1,8 @@
 const changelog = {
     "0.40.0": {
         "Arena Mortis": "Added Arena Mortis cards",
+    "0.39.3": {
+        "Bug fixes": "Fixed **Unforcused Blast** set. Indicator for decks validity for championship format should also be fixed."
     },
     "0.39.0": {
         "Morgok's Crushas": "Added Morgok's Crushas expansion",
