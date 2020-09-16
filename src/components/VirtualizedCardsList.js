@@ -227,7 +227,7 @@ class VirtualizedCardsList extends Component {
                 {
                     this.state.cardRows[index] && this.state.cardRows[index].map(card => (
                         <div key={card.id} style={{ width: this.state.cardRenderWidth, height: this.state.cardRenderHeight, display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <img style={{ width: '90%' }} alt={card.name} src={`/assets/cards/${card.id}.png`} />
+                            <img style={{ width: 'calc(100% - 1rem)' }} alt={card.name} src={`/assets/cards/${card.id}.png`} />
                         </div>
                     ))
                 }

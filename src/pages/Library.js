@@ -93,15 +93,6 @@ function Library(props) {
         setCards(cards);
     }, []);
 
-    // const handleChange = event => {
-    //     this.setState({ [event.target.name]: event.target.value });
-    // };
-
-    // const handleViewVariantChanged = variant => {
-    //     this.setState({ viewVariant: variant });
-    // }
-
-
     return (
         <React.Fragment>
         <Helmet>
@@ -126,42 +117,6 @@ function Library(props) {
     </React.Fragment>
     );
 }
-
-// class Library extends PureComponent {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             cards: [],
-//             viewVariant: VIEW_AS_SIMPLE_LIST
-//         }
-
-//         this.cardsContainerRef = React.createRef();
-//     }
-
-//     componentDidMount = () => {
-//         let cards = []
-//         for(let c in cardsDb) {
-//             cards.push({ id: c, ...cardsDb[c] });
-//         }
-
-//         this.setState({ cards: cards });
-//     }
-
-//     handleChange = event => {
-//         this.setState({ [event.target.name]: event.target.value });
-//     };
-
-//     handleViewVariantChanged = variant => {
-//         this.setState({ viewVariant: variant });
-//     }
-
-//     render() {
-//         const { classes } = this.props;
-
-//         return (
-//         );
-//     }
-// }
 
 const mapStateToProps = state => {
     return {
