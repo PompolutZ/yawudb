@@ -2,7 +2,8 @@ import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import "./index.css";
+// import "./index.css";
+import "./styles/main.css";
 import Home from "./pages/Home";
 
 import registerServiceWorker from "./registerServiceWorker";

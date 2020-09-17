@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply w-full h-full !important;
+    } 
+
+    body {
+        @apply w-full h-full !important;
+    } 
+    
+    #root {
+        @apply w-full h-full bg-swirl !important;
+    } 
+}
