@@ -26,6 +26,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import RootHelmet from "./components/Root/rootMetas";
+import NavigationPanel from "./v2/components/NavigationPanel";
 
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
@@ -170,7 +171,8 @@ function App(props) {
             <CssBaseline />
             <Container maxWidth="lg" className={classes.root}>
                 <ConnectedRouter history={history}>
-                    <MenuAppBar />
+                    {/* <MenuAppBar /> */}
+                    <NavigationPanel />
 
                     <main id="yawudb_main" className={classes.mainContent}>
                         <ErrorBoundary>
