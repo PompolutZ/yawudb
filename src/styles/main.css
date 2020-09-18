@@ -585,6 +585,9 @@ html {
 body {
   width: 100% !important;
   height: 100% !important;
+  --bg-opacity: 1 !important;
+  background-color: #d0cec2 !important;
+  background-color: rgba(208, 206, 194, var(--bg-opacity)) !important;
 }
 
 #root {

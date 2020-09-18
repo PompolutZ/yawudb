@@ -109,13 +109,14 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 
-    mainContent: {
-        flex: "1 0",
-        paddingTop: "5rem",
-        [theme.breakpoints.up("sm")]: {
-            marginLeft: `calc(${drawerWidth}px + 1rem)`,
-        },
-    },
+    // mainContent: {
+    //     flex: "1 0",
+    //     paddingTop: "5rem",
+    //     background: 'magenta',
+    //     // [theme.breakpoints.up("sm")]: {
+    //     //     marginLeft: `calc(${drawerWidth}px + 1rem)`,
+    //     // },
+    // },
 }));
 
 function App(props) {
@@ -168,13 +169,14 @@ function App(props) {
     return (
         <>
             <RootHelmet />
-            <CssBaseline />
+            {/* <CssBaseline />
             <Container maxWidth="lg" className={classes.root}>
+            </Container> */}
                 <ConnectedRouter history={history}>
                     {/* <MenuAppBar /> */}
                     <NavigationPanel />
 
-                    <main id="yawudb_main" className={classes.mainContent}>
+                    <main id="yawudb_main" className="">
                         <ErrorBoundary>
                             <Suspense fallback={<LazyLoading />}>
                                 <Switch>
@@ -287,7 +289,6 @@ function App(props) {
                     </main>
                     <Footer />
                 </ConnectedRouter>
-            </Container>
         </>
     );
 }

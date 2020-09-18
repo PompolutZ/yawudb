@@ -8,7 +8,7 @@
     } 
 
     body {
-        @apply w-full h-full !important;
+        @apply w-full h-full bg-swirl !important;
     } 
     
     #root {
