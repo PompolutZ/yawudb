@@ -54,9 +54,7 @@ function NavigationPanel() {
                     Library
                 </Link>
             </nav>
-            <div className="p-2 border border-accent rounded ml-auto md:hidden">
-                <MenuIcon className="text-accent stroke-current" />
-            </div>
+            <MenuIcon className="text-accent stroke-current stroke-2 ml-auto md:hidden" />
         </header>
     );
 }

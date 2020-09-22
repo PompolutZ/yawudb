@@ -34,7 +34,7 @@ class Home extends Component {
         const lastUpdate = getChangeLogItemsByKey(lastUpdateKey)
 
         return (
-            <div className={classes.root}>
+            <div className="flex flex-col mx-2 sm:mx-4">
                 <div
                         style={{
                             margin: '1rem',
@@ -152,6 +152,8 @@ const mapDispatchToProps = dispatch => {
 
 const styles = theme => ({
     root: {
+        margin: '0 auto',
+        flex: '0 1 75%',
         height: "100%",
         display: "flex",
         flexDirection: "column",

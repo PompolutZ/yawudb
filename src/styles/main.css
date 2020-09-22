@@ -11902,12 +11902,8 @@ body {
   min-height: 100vh;
 }
 
-.min-w-0 {
-  min-width: 0;
-}
-
-.min-w-full {
-  min-width: 100%;
+.min-w-3\/4 {
+  min-width: 75%;
 }
 
 .object-contain {
@@ -30162,12 +30158,8 @@ body {
     min-height: 100vh;
   }
 
-  .sm\:min-w-0 {
-    min-width: 0;
-  }
-
-  .sm\:min-w-full {
-    min-width: 100%;
+  .sm\:min-w-3\/4 {
+    min-width: 75%;
   }
 
   .sm\:object-contain {
@@ -48388,12 +48380,8 @@ body {
     min-height: 100vh;
   }
 
-  .md\:min-w-0 {
-    min-width: 0;
-  }
-
-  .md\:min-w-full {
-    min-width: 100%;
+  .md\:min-w-3\/4 {
+    min-width: 75%;
   }
 
   .md\:object-contain {
@@ -66614,12 +66602,8 @@ body {
     min-height: 100vh;
   }
 
-  .lg\:min-w-0 {
-    min-width: 0;
-  }
-
-  .lg\:min-w-full {
-    min-width: 100%;
+  .lg\:min-w-3\/4 {
+    min-width: 75%;
   }
 
   .lg\:object-contain {
@@ -84840,12 +84824,8 @@ body {
     min-height: 100vh;
   }
 
-  .xl\:min-w-0 {
-    min-width: 0;
-  }
-
-  .xl\:min-w-full {
-    min-width: 100%;
+  .xl\:min-w-3\/4 {
+    min-width: 75%;
   }
 
   .xl\:object-contain {
