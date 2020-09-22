@@ -246,72 +246,7 @@ function DeckBuilder(props) {
                 }
             </FloatingActionButton>
         </div>
-            // <div style={{display: 'flex', flexFlow: 'row wrap'}}>
-            //     <div className="filters">
-                    // <CardLibraryFilters editMode={editMode} />
-                    // <Tabs variant="fullWidth" value={tabIndex} onChange={handleTabChange}>
-                    //     <Tab label={<CardsTab editMode={editMode} isSelected={tabIndex === 0} />} />
-                    //     <Tab label='Fighters' />
-                    // </Tabs>
-
-                    // {
-                    //     tabIndex === 0 && (
-                    //         <CardsLibrary editMode={editMode} />
-                    //     )
-                    // }
-                    // {
-                    //     tabIndex === 1 && (
-                    //         <FightersInfoList faction={selectedFaction} />
-                    //     )
-                    // }
-            //     </div>
-                // <div className="sideDeck" style={{ display: window.screen.width < 800 ? 'none' : ''}}>
-                //     <Deck faction={selectedFaction}
-                //         editMode={editMode} 
-                //         currentName={currentDeckName}
-                //         currentSource={currentDeckSource}
-                //         currentDescription={currentDeckDescription}
-                //         changeName={changeName}
-                //         changeSource={changeSource}
-                //         changeDescription={changeDescription}
-                //         selectedCards={currentDeck}
-                //         onSave={_saveCurrentDeck}
-                //         onUpdate={_updateCurrentDeck}
-                //         onCancel={_cancelUpdate}
-                //         onRemoveAll={clearDeck}
-                //         isAuth={isAuth} />
-                // </div>
-                // <div className="fullscreenDeck" style={{visibility: (isMobileDeckVisible && window.matchMedia('(max-width: 800px)').matches) ? 'visible' : 'hidden', opacity: 1, transition: 'opacity 0.5s ease'}}>
-                //     <Deck faction={selectedFaction}
-                //         editMode={editMode} 
-                //         currentName={currentDeckName}
-                //         currentSource={currentDeckSource}
-                //         currentDescription={currentDeckDescription}
-                //         changeName={changeName}
-                //         changeSource={changeSource}
-                //         changeDescription={changeDescription}
-                //         selectedCards={currentDeck}
-                //         onSave={_saveCurrentDeck}
-                //         onUpdate={_updateCurrentDeck}
-                //         onCancel={_cancelUpdate}
-                //         onRemoveAll={clearDeck}
-                //         isAuth={isAuth} />
-                // </div>
-                // { showNotification && <SimpleSnackbar position="center" message="Save was successful!" /> }
-                // <FloatingActionButton isEnabled onClick={_handleShowDeckMobile}>
-                //     {
-                //         !isMobileDeckVisible && (
-                //             <DeckSVG />
-                //         )
-                //     }
-                //     {
-                //         isMobileDeckVisible && (
-                //             <AddCardSVG />
-                //         )
-                //     }
-                // </FloatingActionButton>
-            // </div>
-            );
+    );
 }
 
 const mapStateToProps = state => {

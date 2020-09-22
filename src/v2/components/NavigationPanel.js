@@ -4,7 +4,7 @@ import * as ROUTES from "../../constants/routes";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 
-const MenuIcon = ({ className }) => {
+const MenuIcon = ({ className }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -12,9 +12,6 @@ const MenuIcon = ({ className }) => {
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
             className={className}
         >
             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -28,11 +25,16 @@ function NavigationPanel() {
     const auth = useAuthUser();
 
     return (
-        <header className="w-full flex p-4 items-center border-b-2 border-accent border-opacity-25">
+        <header className="mx-2 sm:mx-4 flex p-4 items-center border-b-2 border-accent border-opacity-25">
             <div className="mr-8">
-                <Logo />
+                <Link
+                    className="c-accent text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    to="/"
+                >
+                    <Logo />
+                </Link>
             </div>
-            <nav className="hidden sm:flex">
+            <nav className="hidden md:flex">
                 <Link
                     className="c-accent text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
                     to="/deck/create"
@@ -52,7 +54,7 @@ function NavigationPanel() {
                     Library
                 </Link>
             </nav>
-            <div className="p-2 border border-accent rounded ml-auto sm:hidden">
+            <div className="p-2 border border-accent rounded ml-auto md:hidden">
                 <MenuIcon className="text-accent stroke-current" />
             </div>
         </header>

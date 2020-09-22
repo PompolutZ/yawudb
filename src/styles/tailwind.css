@@ -8,10 +8,18 @@
     } 
 
     body {
-        @apply w-full h-full bg-swirl !important;
+        @apply w-full h-full !important;
     } 
     
     #root {
-        @apply w-full h-full bg-swirl !important;
+        @apply w-full h-full;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
     } 
+}
+
+@layer utilities {
+    .w100 {
+        width: calc(100% - theme('spacing.12'));
+    }
 }

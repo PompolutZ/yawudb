@@ -6,10 +6,7 @@ import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: "1rem .5rem",
-        [theme.breakpoints.up("sm")]: {
-            margin: `1rem .5rem 1rem calc(${drawerWidth}px + .5rem)`
-        },
+        margin: "1rem 2rem",
     },
 
     disclaimer: {

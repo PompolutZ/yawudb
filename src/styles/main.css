@@ -585,17 +585,13 @@ html {
 body {
   width: 100% !important;
   height: 100% !important;
-  --bg-opacity: 1 !important;
-  background-color: #d0cec2 !important;
-  background-color: rgba(208, 206, 194, var(--bg-opacity)) !important;
 }
 
 #root {
-  width: 100% !important;
-  height: 100% !important;
-  --bg-opacity: 1 !important;
-  background-color: #d0cec2 !important;
-  background-color: rgba(208, 206, 194, var(--bg-opacity)) !important;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 .container {
@@ -18851,6 +18847,10 @@ body {
 
 .animate-bounce {
   animation: bounce 1s infinite;
+}
+
+.w100 {
+  width: calc(100% - 3rem);
 }
 
 @media (min-width: 640px) {

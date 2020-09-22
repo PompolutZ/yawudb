@@ -102,7 +102,7 @@ function Decks({ classes, history, match }) {
 const styles = theme => ({
     root: {
         height: '100%',
-        width: '100%',
+        flex: '1 0 100%',
         display: 'flex',
         flexFlow: 'column nowrap',
         [theme.breakpoints.up('md')]: {
