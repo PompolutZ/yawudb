@@ -3,6 +3,7 @@ import powersUnboundCards from "./dbs/powers_unbound_db";
 import { dreadfaneDb } from "./dbs/dreadfane_db";
 import { beastgraveDB } from "./dbs/beastgrave_db";
 import { beastgraveGiftPackDb } from "./dbs/beastgrave_giftpack_db";
+import { arenaMortisDb } from "./dbs/arena-mortis-db";
 
 export {
     factions,
@@ -55,6 +56,7 @@ export const totalCardsPerWave = {
     5: 124,
     6: 438,
     7: 32,
+    8: 40,
 };
 
 export const deckPlayFormats = ["championship", "open", "relic"];
@@ -69,6 +71,7 @@ export const cardsDb = {
     ...dreadfaneDb,
     ...beastgraveDB,
     ...beastgraveGiftPackDb,
+    ...arenaMortisDb,
 };
 
 // export const championshipForsakenCards = {

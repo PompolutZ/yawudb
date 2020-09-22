@@ -1,4 +1,7 @@
 const changelog = {
+    "0.40.0": {
+        "Arena Mortis": "Added Arena Mortis cards",
+    },
     "0.39.0": {
         "Morgok's Crushas": "Added Morgok's Crushas expansion",
         "Morgwaeth's Blade Coven": "Added Morgwaeth's Blade Coven expansion",

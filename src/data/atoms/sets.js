@@ -227,6 +227,10 @@ export const setInfos = {
         '0': [271,288,291,292,294,301,310,315,279,321,323,327,335,343,344,361,365,372,379,385,392,394,405,418,424,429,438,],
         '26': [225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256],
     },
+    '28': {
+        wave: 8,
+        '0': [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40],
+    },
 }
 
 // function printArray(lastNumber) {
@@ -295,6 +299,7 @@ export const setsIndex = [
     "the-wurmspat", // 25
     "morgwaeths-blade-coven", // 26
     "morgoks-krushas", // 27
+    "arena-mortis", // 28
 ]
 
 export const setsNames = [
@@ -334,6 +339,7 @@ export const setsNames = [
     "The Wurmspat Expansion", // 25
     "Morgwaeth's Blade Coven", // 26
     "Morgok's Krushas", // 27
+    "Arena Mortis", // 28
 ]
 
 export const rotatedOutSetsIndexes = [0, 1, 2, 3, 4, 5, 6];
