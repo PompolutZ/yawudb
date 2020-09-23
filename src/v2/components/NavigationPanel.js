@@ -28,7 +28,7 @@ function NavigationPanel() {
         <header className="mx-2 sm:mx-4 flex p-4 items-center border-b-2 border-accent border-opacity-25">
             <div className="mr-8">
                 <Link
-                    className="c-accent text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    className="text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
                     to="/"
                 >
                     <Logo />
@@ -36,25 +36,25 @@ function NavigationPanel() {
             </div>
             <nav className="hidden md:flex">
                 <Link
-                    className="c-accent text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    className="text-gray-900 text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
                     to="/deck/create"
                 >
                     Create New Deck
                 </Link>
                 <Link
-                    className="c-accent text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    className="text-gray-900 text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
                     to={ROUTES.BROWSE_ALL_DECKS}
                 >
                     Public decks
                 </Link>
                 <Link
-                    className="c-accent text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    className="text-gray-900 text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
                     to={ROUTES.CARDS_LIBRARY}
                 >
                     Library
                 </Link>
             </nav>
-            <MenuIcon className="text-accent stroke-current stroke-2 ml-auto md:hidden" />
+            <MenuIcon className="text-gray-900 stroke-current stroke-2 ml-auto md:hidden" />
         </header>
     );
 }

@@ -9,6 +9,7 @@
 
     body {
         @apply w-full h-full !important;
+        background-color: #F0F0F0;
     } 
     
     #root {
