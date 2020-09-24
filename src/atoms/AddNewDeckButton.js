@@ -7,7 +7,7 @@ function DeckIconPicture({ faction, imageClassName }) {
     return (
         <picture>
             <source type="image/webp" srcSet={`/assets/icons/${faction}-deck.webp`} />
-            <img src={`/assets/icons/${faction}-deck-64.png`} className={imageClassName} />
+            <img src={`/assets/icons/${faction}-deck-64.png`} className="w-24 h-24 wudeck" />
         </picture>
     )
 }
@@ -19,9 +19,9 @@ class AddNewDeckButton extends PureComponent {
             <div className={classes.root}>
                 {/* <img src={`/assets/icons/${this.props.faction}-deck.png`} alt={this.props.faction} className={classes.img} /> */}
                 <DeckIconPicture faction={this.props.faction} imageClassName={classes.img} />
-                <IconButton onClick={this._handleClick} className={classes.addBtn}>
+                {/* <IconButton onClick={this._handleClick} className={classes.addBtn}>
                     <AddIcon />
-                </IconButton>
+                </IconButton> */}
             </div>
         );
     }
@@ -37,8 +37,8 @@ const styles = theme => ({
     },
 
     img: {
-        width: '4rem', 
-        height: '4rem', 
+        width: '8rem', 
+        height: '8rem', 
         marginRight: '.5rem',
     },
 

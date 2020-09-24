@@ -10,11 +10,15 @@ module.exports = {
         accent: "#501408", // bulgarian-rose
         accent2: "#920104",
         swirl: '#d0cec2',
-      }
+      },
+      minWidth: {
+        '3/4': '75%',
+      },
+      flex: {
+        '1/2': '0 1 50%',
+        '1/3': '0 1 33%',   
+      }  
     },
-    minWidth: {
-      '3/4': '75%',
-    }
   },
   variants: {},
   plugins: [],

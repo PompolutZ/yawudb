@@ -1,138 +1,103 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import {
     warbandsWithDefaultSet,
     factionIdPrefix,
     factionIndexes,
-} from '../../data'
-import FloatingActionButton from '../../components/FloatingActionButton'
-import AddIcon from '@material-ui/icons/Add'
-import { withRouter } from 'react-router-dom'
-import Typography from '@material-ui/core/Typography'
-import { withStyles } from '@material-ui/core/styles'
-import changelog from '../../changelog'
-import uuid4 from 'uuid/v4'
-import { connect } from 'react-redux'
-import { addOrUpdateLastDeck } from '../../reducers/lastDeck'
-import { SET_DECKS_META } from '../../reducers/decksMeta'
-import { SET_FACTION } from '../../reducers/deckUnderBuild'
-import DeckMetaSummary from '../../molecules/DecksMetaSummary'
-import { withFirebase } from '../../firebase'
-import AutosuggestSearch from '../../components/AutosuggestSearch'
+} from "../../data";
+import FloatingActionButton from "../../components/FloatingActionButton";
+import AddIcon from "@material-ui/icons/Add";
+import { withRouter } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
+import changelog from "../../changelog";
+import uuid4 from "uuid/v4";
+import { connect } from "react-redux";
+import { addOrUpdateLastDeck } from "../../reducers/lastDeck";
+import { SET_DECKS_META } from "../../reducers/decksMeta";
+import { SET_FACTION } from "../../reducers/deckUnderBuild";
+import DeckMetaSummary from "../../molecules/DecksMetaSummary";
+import { withFirebase } from "../../firebase";
+import AutosuggestSearch from "../../components/AutosuggestSearch";
 
-const getChangeLogItemsByKey = key => {
+const getChangeLogItemsByKey = (key) => {
     return Object.keys(changelog[key]).reduce(
         (acc, v) => [...acc, { name: v, description: changelog[key][v] }],
         []
-    )
-}
+    );
+};
 
-class Home extends Component {
+const Home = (props) => {
+    const { classes } = props;
+    const lastUpdateKey = Object.keys(changelog)[0];
+    const lastUpdate = getChangeLogItemsByKey(lastUpdateKey);
 
-    render() {
-        const { classes } = this.props
-        const lastUpdateKey = Object.keys(changelog)[0]
-        const lastUpdate = getChangeLogItemsByKey(lastUpdateKey)
+    const handleGlobalSearchClick = (payload) => {
+        props.history.push(`/view/card/${payload.id}`);
+    };
 
-        return (
-            <div className="flex flex-col mx-2 sm:mx-4">
-                <div
-                        style={{
-                            margin: '1rem',
-                            backgroundColor: '#3B9979',
-                            padding: '.3rem',
-                            borderRadius: '1rem',
-                        }}
-                    >
-                        <Typography className={classes.item}>
-                            {`What's new?`}
-                        </Typography>
-
-                        <div>
-                            {lastUpdate.map(entry => (
-                                <div
-                                    key={uuid4()}
-                                    className={classes.changeLogItem}
-                                >
-                                    <b>{`${entry.name}:`}</b>
-                                    {entry.description
-                                        .split('/n')
-                                        .map(line => `${line}`)}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div style={{ margin: '1rem', display: 'flex' }}>
-                        <AutosuggestSearch
-                            onClick={this.handleGlobalSearchClick}
-                        />
-                    </div>
-
-                    <div className={classes.metaSummary}>
-                        {[
-                            ...factionIndexes.slice(19),
-                            ...factionIndexes.slice(9, 17),
-                            ...factionIndexes.slice(1, 9),
-                            ...factionIndexes.slice(17, 19),
-                        ].map(faction => (
-                            <DeckMetaSummary
-                                key={factionIdPrefix[faction]}
-                                prefix={factionIdPrefix[faction]}
-                                onAddNewDeckClick={this.handleAddDeckClicked}
-                                onDecksCountClick={
-                                    this.handleNavigateToDecksByPrefix
-                                }
-                            />
-                        ))}
-                    </div>
-
-                <FloatingActionButton
-                    isEnabled
-                    onClick={this.handleNavigateToDeckCreate}
-                >
-                    <AddIcon />
-                </FloatingActionButton>
-            </div>
-        )
-    }
-
-    handleGlobalSearchClick = payload => {
-        this.props.history.push(`/view/card/${payload.id}`)
-    }
-
-    handleAddDeckClicked = faction => {
+    const handleAddDeckClicked = (faction) => {
         const defaultSet = warbandsWithDefaultSet.reduce(
             (acc, [f, defaultSet]) => {
                 if (f === faction) {
-                    return defaultSet
+                    return defaultSet;
                 }
-                return acc
+                return acc;
             },
             -1
-        )
+        );
 
-        this.props.setFactionForNewDeck(faction, defaultSet)
-        this.handleNavigateToDeckCreate()
-    }
+        props.setFactionForNewDeck(faction, defaultSet);
+        handleNavigateToDeckCreate();
+    };
 
-    handleNavigateToDeckCreate = () => {
-        this.props.history.push('/deck/create')
-    }
+    const handleNavigateToDeckCreate = () => {
+        props.history.push("/deck/create");
+    };
 
-    handleNavigateToDecksByPrefix = prefix => {
-        this.props.history.push(`/decks/${prefix}`)
-    }
-}
+    const handleNavigateToDecksByPrefix = (prefix) => {
+        props.history.push(`/decks/${prefix}`);
+    };
 
-const mapStateToProps = state => {
+    return (
+        <div className="flex flex-col mx-2 sm:mx-4">
+            <h1 className="block text-2xl my-12 text-center text-gray-800 font-semibold">
+                Deck building website for Warhammer Underworlds.
+            </h1>
+
+            <div className="mb-12 flex justify-center">
+                <div className="flex-1 sm:flex-1/2 lg:flex-1/3">
+                    <AutosuggestSearch onClick={handleGlobalSearchClick} />
+                </div>
+            </div>
+
+            <div className={classes.metaSummary}>
+                {[
+                    ...factionIndexes.slice(19),
+                    ...factionIndexes.slice(9, 17),
+                    ...factionIndexes.slice(1, 9),
+                    ...factionIndexes.slice(17, 19),
+                ].map((faction) => (
+                    <DeckMetaSummary
+                        key={factionIdPrefix[faction]}
+                        prefix={factionIdPrefix[faction]}
+                        onAddNewDeckClick={handleAddDeckClicked}
+                        onDecksCountClick={handleNavigateToDecksByPrefix}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+const mapStateToProps = (state) => {
     return {
         lastDeck: state.lastDeck,
         userInfo: state.auth,
         decksMeta: state.decksMeta,
-    }
-}
+    };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         addOrUpdate: (id, timestamp, data) =>
             dispatch(addOrUpdateLastDeck(id, timestamp, data)),
@@ -147,67 +112,67 @@ const mapDispatchToProps = dispatch => {
                 faction: faction,
                 defaultSet: defaultSet,
             }),
-    }
-}
+    };
+};
 
-const styles = theme => ({
+const styles = (theme) => ({
     root: {
-        margin: '0 auto',
-        flex: '0 1 75%',
+        margin: "0 auto",
+        flex: "0 1 75%",
         height: "100%",
         display: "flex",
         flexDirection: "column",
     },
 
     columnOne: {
-        flex: '1 100%',
-        [theme.breakpoints.up('md')]: {
-            flex: '1 50%',
+        flex: "1 100%",
+        [theme.breakpoints.up("md")]: {
+            flex: "1 50%",
             order: 1,
         },
     },
 
     columnTwo: {
-        flex: '1 100%',
-        [theme.breakpoints.up('md')]: {
-            flex: '1 30%',
+        flex: "1 100%",
+        [theme.breakpoints.up("md")]: {
+            flex: "1 30%",
             order: 0,
         },
     },
 
     item: {
-        fontFamily: 'roboto',
-        fontSize: '1rem',
-        color: 'white',
-        marginLeft: '1rem',
+        fontFamily: "roboto",
+        fontSize: "1rem",
+        color: "white",
+        marginLeft: "1rem",
     },
 
     changeLogItem: {
-        fontFamily: 'roboto',
-        fontSize: '.7rem',
-        color: 'white',
-        display: 'flex',
-        flexFlow: 'column wrap',
-        marginLeft: '1rem',
-        alignItems: 'flex-start',
-        marginBottom: '.5rem',
+        fontFamily: "roboto",
+        fontSize: ".7rem",
+        color: "white",
+        display: "flex",
+        flexFlow: "column wrap",
+        marginLeft: "1rem",
+        alignItems: "flex-start",
+        marginBottom: ".5rem",
     },
 
     entry: {
-        fontFamily: 'roboto',
+        fontFamily: "roboto",
     },
 
     metaSummary: {
         flexGrow: 1,
-        display: 'flex',
-        flexWrap: 'wrap',
+        display: "flex",
+        flexWrap: "wrap",
         alignContent: "space-around",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         minWidth: "375px",
     },
-})
+});
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withFirebase(withRouter(withStyles(styles)(Home))))
+)(withFirebase(withRouter(withStyles(styles)(Home))));

@@ -10,9 +10,108 @@ import { withStyles } from '@material-ui/core/styles'
 import { cardsDb } from '../data'
 import { cardTypeIcons, setsIndex } from '../data'
 import toPairs from 'lodash/toPairs'
-import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import { InputAdornment } from '@material-ui/core';
 
+const styles = theme => ({
+    container: {
+        fontSize: '1.5rem',
+        flexGrow: 1,
+        position: 'relative',
+    },
+    suggestionsContainerOpen: {
+        position: 'absolute',
+        zIndex: 1,
+        marginTop: theme.spacing(1),
+        left: 0,
+        right: 0,
+    },
+    suggestion: {
+        display: 'block',
+    },
+    suggestionsList: {
+        margin: 0,
+        padding: 0,
+        listStyleType: 'none',
+    },
+    divider: {
+        height: theme.spacing(2),
+    },
+
+    textFieldRoot: {
+        backgroundColor: 'white',
+        borderRadius: '8px'
+    }
+})
+
+function AutosuggestSearch({ classes, onClick }) {
+    const [text, setText] = useState('')
+    const [suggestions, setSuggestions] = useState([])
+    const [lastPickedSuggestion, setLastPickedSuggestion] = useState(null);
+
+    const handleSuggestionsFetchRequested = ({ value }) => {
+        setSuggestions(getSuggestions(value))
+    }
+
+    const handleSuggestionsClearRequested = () => {
+        setSuggestions([])
+    }
+
+    const handleChange = (event, { newValue }) => {
+        setText(newValue)
+    }
+
+    const getCurrentSuggestion = suggestion => {
+        setLastPickedSuggestion(suggestion);
+        return suggestion.label;
+    }
+
+    const handleClick = () => {
+        onClick(lastPickedSuggestion)
+    }
+
+    const handleKeyPress = event => {
+        if(event.key !== 'Enter') return;
+        onClick(lastPickedSuggestion);
+    }
+
+    const autosuggestProps = {
+        renderInputComponent,
+        suggestions: suggestions,
+        onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
+        onSuggestionsClearRequested: handleSuggestionsClearRequested,
+        getSuggestionValue: getCurrentSuggestion,
+        renderSuggestion: renderSuggestion(onClick),
+    }
+
+    return (
+        <>
+            <Autosuggest
+                {...autosuggestProps}
+                inputProps={{
+                    classes,
+                    placeholder: 'Search for a card name',
+                    value: text,
+                    onChange: handleChange,
+                    onKeyPress: handleKeyPress,
+                    variant: 'outlined',
+                    color: 'primary',
+                }}
+                theme={{
+                    container: classes.container,
+                    suggestionsContainerOpen: classes.suggestionsContainerOpen,
+                    suggestionsList: classes.suggestionsList,
+                    suggestion: classes.suggestion,
+                }}
+                renderSuggestionsContainer={options => (
+                    <Paper {...options.containerProps} square>
+                        {options.children}
+                    </Paper>
+                )}
+            />
+        </>
+    )
+}
 
 function renderInputComponent(inputProps) {
     const { classes, inputRef = () => {}, ref, ...other } = inputProps
@@ -26,10 +125,16 @@ function renderInputComponent(inputProps) {
                     inputRef(node)
                 },
                 classes: {
-                    input: classes.input,
+                    root: classes.textFieldRoot,
                 },
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <SearchIcon className="text-gray-500 fill-current" />
+                    </InputAdornment>
+                )
             }}
             {...other}
+            style={{ borderRadius: '1rem' }}
         />
     )
 }
@@ -94,111 +199,6 @@ function getSuggestions(value) {
 
               return keep
           })
-}
-
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        alignItems: 'center',
-        flexGrow: 1,
-        color: theme.palette.primary.main,
-    },
-    container: {
-        fontSize: '1.5rem',
-        flexGrow: 1,
-        position: 'relative',
-    },
-    suggestionsContainerOpen: {
-        position: 'absolute',
-        zIndex: 1,
-        marginTop: theme.spacing(1),
-        left: 0,
-        right: 0,
-    },
-    suggestion: {
-        display: 'block',
-    },
-    suggestionsList: {
-        margin: 0,
-        padding: 0,
-        listStyleType: 'none',
-    },
-    divider: {
-        height: theme.spacing(2),
-    },
-})
-
-function AutosuggestSearch({ classes, onClick }) {
-    const [text, setText] = useState('')
-    const [suggestions, setSuggestions] = useState([])
-    const [lastPickedSuggestion, setLastPickedSuggestion] = useState(null);
-
-    const handleSuggestionsFetchRequested = ({ value }) => {
-        setSuggestions(getSuggestions(value))
-    }
-
-    const handleSuggestionsClearRequested = () => {
-        setSuggestions([])
-    }
-
-    const handleChange = (event, { newValue }) => {
-        setText(newValue)
-    }
-
-    const getCurrentSuggestion = suggestion => {
-        setLastPickedSuggestion(suggestion);
-        return suggestion.label;
-    }
-
-    const handleClick = () => {
-        onClick(lastPickedSuggestion)
-    }
-
-    const handleKeyPress = event => {
-        if(event.key !== 'Enter') return;
-        onClick(lastPickedSuggestion);
-    }
-
-    const autosuggestProps = {
-        renderInputComponent,
-        suggestions: suggestions,
-        onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
-        onSuggestionsClearRequested: handleSuggestionsClearRequested,
-        getSuggestionValue: getCurrentSuggestion,
-        renderSuggestion: renderSuggestion(onClick),
-    }
-
-    return (
-        <div className={classes.root}>
-            <Autosuggest
-                {...autosuggestProps}
-                inputProps={{
-                    classes,
-                    placeholder: 'Search for a card name',
-                    value: text,
-                    onChange: handleChange,
-                    onKeyPress: handleKeyPress,
-                    variant: 'outlined',
-                    color: 'primary',
-                }}
-                theme={{
-                    container: classes.container,
-                    suggestionsContainerOpen: classes.suggestionsContainerOpen,
-                    suggestionsList: classes.suggestionsList,
-                    suggestion: classes.suggestion,
-                }}
-                renderSuggestionsContainer={options => (
-                    <Paper {...options.containerProps} square>
-                        {options.children}
-                    </Paper>
-                )}
-            />
-            <IconButton color="primary" onClick={handleClick}>
-                <SearchIcon />
-            </IconButton>
-            {/* <div className={classes.divider} /> */}
-        </div>
-    )
 }
 
 export default withStyles(styles)(AutosuggestSearch)

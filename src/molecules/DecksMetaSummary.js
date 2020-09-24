@@ -6,12 +6,13 @@ import AddNewDeckButton from '../atoms/AddNewDeckButton';
 import { idPrefixToFaction } from '../data/index';
 import { withFirebase } from '../firebase';
 import { SET_DECKS_META } from '../reducers/decksMeta';
+import { Link } from 'react-router-dom';
 
 class DecksCount extends PureComponent {
     render() {
         return(
-            <Typography style={{fontSize: '1rem', textDecoration: 'underline', cursor: 'pointer'}} onClick={this.handleClick}>
-                {`${this.props.count} decks`}
+            <Typography className="text-gray-700" style={{ fontSize: '2rem', }} onClick={this.handleClick}>
+                {this.props.count}
             </Typography>
        );
     }
@@ -42,8 +43,10 @@ function DeckMetaSummary({ classes, prefix, firebase, decksMeta, addDecksMeta, o
 
     return (
         <div className={classes.root}>
-            <AddNewDeckButton faction={idPrefixToFaction[prefix]} onClickAdd={onAddNewDeckClick} />
-            <DecksCount count={count} prefix={prefix} onClick={onDecksCountClick} />
+            <Link className="text-center" to={`/decks/${prefix}`}>
+                <AddNewDeckButton faction={idPrefixToFaction[prefix]} onClickAdd={onAddNewDeckClick} />
+                <DecksCount count={count} prefix={prefix} onClick={onDecksCountClick} />
+            </Link>
         </div>
     );
 }
@@ -62,14 +65,18 @@ const mapDispatchToProps = dispatch => {
 
 const styles = theme => ({
     root: {
-        flex: "1 0 25%",
+        flex: "1 0 33%",
         display: 'flex', 
-        alignItems: 'center', 
+        alignItems: 'center',
+        justifyContent: 'center', 
         minWidth: "160px",
         padding: "1rem",
-        "&:hover picture, &:hover button": {
-            filter: 'drop-shadow(0 2px 4px #696969)',
-            transition: "filter .175s"
+        cursor: 'pointer',
+        flexDirection: 'column',
+        "&:hover .wudeck": {
+            transform: 'scale(1.1)',
+            filter: 'drop-shadow(0 3px 3px rgba(0,0,0, .5))',
+            transition: 'all .175s ease-out'
         }
         // margin: '.5rem',
     }
