@@ -8,9 +8,9 @@ import { animated, useTransition } from "react-spring";
 const MenuIcon = ({ className }) => {
     const [open, setOpen] = useState(false);
     const transition = useTransition(open, {
-        from: { opacity: 0, transform: 'translate3d(0,-100%,0)'},
-        enter: { opacity: 1, transform: 'translate3d(0,0,0)' },
-        leave: { opacity: 0, transform: 'translate3d(0,-100%,0)' },
+        from: { opacity: 0, transform: "translate3d(0,-100%,0)" },
+        enter: { opacity: 1, transform: "translate3d(0,0,0)" },
+        leave: { opacity: 0, transform: "translate3d(0,-100%,0)" },
     });
 
     return (
@@ -28,23 +28,45 @@ const MenuIcon = ({ className }) => {
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
-            {
-                transition((style, item) => {
-                    return (
-                        item && 
+            {transition((style, item) => {
+                return (
+                    item && (
                         <animated.div
-                            className="fixed inset-0 w-screen h-48 bg-red-900"
+                            className="fixed inset-0 w-screen h-screen bg-gray-100 z-10"
                             style={style}
-                            onClick={() => setOpen(prev => !prev)}
-                        ></animated.div>
-                    );
-                })
-            }
+                            onClick={() => setOpen((prev) => !prev)}
+                        >
+                            <Menu classes="flex h-64 p-8 flex-col items-end justify-evenly text-xl" />
+                        </animated.div>
+                    )
+                );
+            })}
         </>
     );
 };
 
-const Menu = ({ open }) => {};
+const Menu = ({ classes, }) => (
+    <nav className={`${classes}`}>
+        <Link
+            className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+            to="/deck/create"
+        >
+            Create New Deck
+        </Link>
+        <Link
+            className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+            to={ROUTES.BROWSE_ALL_DECKS}
+        >
+            Public decks
+        </Link>
+        <Link
+            className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+            to={ROUTES.CARDS_LIBRARY}
+        >
+            Library
+        </Link>
+    </nav>
+);
 
 function NavigationPanel() {
     const auth = useAuthUser();
@@ -58,26 +80,7 @@ function NavigationPanel() {
                     <Logo />
                 </Link>
             </div>
-            <nav className="hidden md:flex">
-                <Link
-                    className="text-gray-900 text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
-                    to="/deck/create"
-                >
-                    Create New Deck
-                </Link>
-                <Link
-                    className="text-gray-900 text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
-                    to={ROUTES.BROWSE_ALL_DECKS}
-                >
-                    Public decks
-                </Link>
-                <Link
-                    className="text-gray-900 text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
-                    to={ROUTES.CARDS_LIBRARY}
-                >
-                    Library
-                </Link>
-            </nav>
+            <Menu classes="hidden md:flex text-sm" />
             <MenuIcon className="text-gray-900 stroke-current stroke-2 ml-auto md:hidden" />
         </header>
     );
