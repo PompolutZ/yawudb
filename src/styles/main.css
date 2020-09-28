@@ -16856,6 +16856,10 @@ body {
   grid-template-columns: none;
 }
 
+.grid-cols-1fr\/auto\/1fr {
+  grid-template-columns: 1fr auto 1fr;
+}
+
 .col-auto {
   grid-column: auto;
 }
@@ -35242,6 +35246,10 @@ body {
     grid-template-columns: none;
   }
 
+  .sm\:grid-cols-1fr\/auto\/1fr {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
   .sm\:col-auto {
     grid-column: auto;
   }
@@ -53592,6 +53600,10 @@ body {
 
   .md\:grid-cols-none {
     grid-template-columns: none;
+  }
+
+  .md\:grid-cols-1fr\/auto\/1fr {
+    grid-template-columns: 1fr auto 1fr;
   }
 
   .md\:col-auto {
@@ -71946,6 +71958,10 @@ body {
     grid-template-columns: none;
   }
 
+  .lg\:grid-cols-1fr\/auto\/1fr {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
   .lg\:col-auto {
     grid-column: auto;
   }
@@ -90296,6 +90312,10 @@ body {
 
   .xl\:grid-cols-none {
     grid-template-columns: none;
+  }
+
+  .xl\:grid-cols-1fr\/auto\/1fr {
+    grid-template-columns: 1fr auto 1fr;
   }
 
   .xl\:col-auto {

@@ -60,7 +60,6 @@ const Home = (props) => {
                 Deck building website for Warhammer Underworlds.
             </h1>
 
-            <Divider />
             <div className="mb-12 flex justify-center">
                 <div className="flex-1 sm:flex-1/2 lg:flex-1/3">
                     <AutosuggestSearch onClick={handleGlobalSearchClick} />

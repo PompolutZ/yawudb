@@ -17,7 +17,10 @@ module.exports = {
       flex: {
         '1/2': '0 1 50%',
         '1/3': '0 1 33%',   
-      }  
+      },
+      gridTemplateColumns: {
+        '1fr/auto/1fr': '1fr auto 1fr'
+      },  
     },
   },
   variants: {},

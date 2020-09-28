@@ -176,7 +176,7 @@ function App(props) {
                     {/* <MenuAppBar /> */}
                     <NavigationPanel />
 
-                    <main id="yawudb_main" className="flex-grow mx-auto md:min-w-3/4 flex">
+                    <main id="yawudb_main" className="flex-grow md:mx-auto md:min-w-3/4 flex">
                         <ErrorBoundary>
                             <Suspense fallback={<LazyLoading />}>
                                 <Switch>
