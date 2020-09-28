@@ -1,16 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import {
     warbandsWithDefaultSet,
     factionIdPrefix,
     factionIndexes,
 } from "../../data";
-import FloatingActionButton from "../../components/FloatingActionButton";
-import AddIcon from "@material-ui/icons/Add";
 import { withRouter } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import changelog from "../../changelog";
-import uuid4 from "uuid/v4";
 import { connect } from "react-redux";
 import { addOrUpdateLastDeck } from "../../reducers/lastDeck";
 import { SET_DECKS_META } from "../../reducers/decksMeta";
@@ -18,6 +14,7 @@ import { SET_FACTION } from "../../reducers/deckUnderBuild";
 import DeckMetaSummary from "../../molecules/DecksMetaSummary";
 import { withFirebase } from "../../firebase";
 import AutosuggestSearch from "../../components/AutosuggestSearch";
+import Divider from "../../v2/components/Divider";
 
 const getChangeLogItemsByKey = (key) => {
     return Object.keys(changelog[key]).reduce(
@@ -29,7 +26,6 @@ const getChangeLogItemsByKey = (key) => {
 const Home = (props) => {
     const { classes } = props;
     const lastUpdateKey = Object.keys(changelog)[0];
-    const lastUpdate = getChangeLogItemsByKey(lastUpdateKey);
 
     const handleGlobalSearchClick = (payload) => {
         props.history.push(`/view/card/${payload.id}`);
@@ -64,6 +60,7 @@ const Home = (props) => {
                 Deck building website for Warhammer Underworlds.
             </h1>
 
+            <Divider />
             <div className="mb-12 flex justify-center">
                 <div className="flex-1 sm:flex-1/2 lg:flex-1/3">
                     <AutosuggestSearch onClick={handleGlobalSearchClick} />
