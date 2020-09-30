@@ -75,9 +75,9 @@ function UserMenu() {
 const MobileMenu = ({ className }) => {
     const [open, setOpen] = useState(false);
     const transition = useTransition(open, {
-        from: { opacity: 0, transform: "translate3d(0,-100%,0)" },
-        enter: { opacity: 1, transform: "translate3d(0,0,0)" },
-        leave: { opacity: 0, transform: "translate3d(0,-100%,0)" },
+        from: { opacity: .5, transform: "translateY(-10%)" },
+        enter: { opacity: 1, transform: "translateY(0)" },
+        // leave: { opacity: .5, transform: "translateY(-10%)" },
     });
 
     return (
@@ -86,7 +86,7 @@ const MobileMenu = ({ className }) => {
                 className={className}
                 onClick={() => setOpen((prev) => !prev)}
             />
-            {transition((style, item) => {
+            {transition((style, item, t) => {
                 return (
                     item && (
                         <animated.div
