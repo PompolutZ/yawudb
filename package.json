@@ -12,6 +12,7 @@
     "clipboard-polyfill": "^2.8.6",
     "connected-react-router": "^6.8.0",
     "firebase": "^7.16.0",
+    "idb": "^5.0.6",
     "immutable": "^3.8.2",
     "jspdf": "^1.5.3",
     "lodash": "^4.17.10",

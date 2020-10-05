@@ -27,6 +27,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import RootHelmet from "./components/Root/rootMetas";
 import NavigationPanel from "./v2/components/NavigationPanel";
+import IndexDbProvider from "./hooks/useIndexDb";
 
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
@@ -172,123 +173,115 @@ function App(props) {
             {/* <CssBaseline />
             <Container maxWidth="lg" className={classes.root}>
             </Container> */}
-                <ConnectedRouter history={history}>
-                    {/* <MenuAppBar /> */}
-                    <NavigationPanel />
+            <ConnectedRouter history={history}>
+                {/* <MenuAppBar /> */}
+                <NavigationPanel />
 
-                    <main id="yawudb_main" className="flex-grow flex">
-                        <ErrorBoundary>
-                            <Suspense fallback={<LazyLoading />}>
-                                <Switch>
-                                    <Route
-                                        exact
-                                        path={ROUTES.HOME}
-                                        component={Home}
-                                    />
-                                    <Route
-                                        path={`${ROUTES.BROWSE_DECKS_FOR}/:faction`}
-                                        render={(props) => <Decks {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.CARDS_LIBRARY}
-                                        render={(props) => (
-                                            <Library {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.CREATOR_ROOT}
-                                        render={(props) => (
-                                            <DeckCreator {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.SIGN_IN}
-                                        render={(props) => <Login {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.SIGN_UP}
-                                        render={(props) => (
-                                            <SignUp {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.VIEW_DECK_ID}
-                                        render={(props) => <Deck {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.VIEW_CARD_ID}
-                                        render={(props) => <Card {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.ABOUT}
-                                        render={(props) => <About {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.STATISTICS}
-                                        render={(props) => (
-                                            <Statistics {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.FEEDBACK}
-                                        render={(props) => (
-                                            <Feedback {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.PRIVACY_POLICY}
-                                        render={(props) => (
-                                            <PrivacyPolicy {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.PASSWORD_RESET}
-                                        render={(props) => (
-                                            <PasswordResetRequest {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.MY_DECKS}
-                                        render={(props) => (
-                                            <MyDecks {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path={ROUTES.VIEW_WARBAND_ID}
-                                        render={(props) => (
-                                            <WarbandsInfoPage {...props} />
-                                        )}
-                                    />
-                                    <PrivateRoute
-                                        path={ROUTES.PROFILE}
-                                        component={UserProfile}
-                                    />
-                                    <PrivateRoute
-                                        path="/secret/deck-uploader"
-                                        component={SecretDeckUploader}
-                                    />
-                                    <PrivateRoute
-                                        path="/secret/meta-reset"
-                                        component={MetaReset}
-                                    />
-                                    <PrivateRoute
-                                        path="/secret/cards-rating/:faction?"
-                                        component={CardsRating}
-                                    />
-                                    <PrivateRoute
-                                        path="/secret/admin"
-                                        component={Admin}
-                                    />
-                                    <PrivateRoute
-                                        path={ROUTES.GAME_ASSISTANT}
-                                        component={GameAssistant}
-                                    />
-                                </Switch>
-                            </Suspense>
-                        </ErrorBoundary>
-                    </main>
-                    <Footer />
-                </ConnectedRouter>
+                <main id="yawudb_main" className="flex-grow flex">
+                    <ErrorBoundary>
+                        <Suspense fallback={<LazyLoading />}>
+                            <Switch>
+                                <Route
+                                    exact
+                                    path={ROUTES.HOME}
+                                    component={Home}
+                                />
+                                <Route
+                                    path={`${ROUTES.BROWSE_DECKS_FOR}/:faction`}
+                                    render={(props) => <Decks {...props} />}
+                                />
+                                <Route
+                                    path={ROUTES.CARDS_LIBRARY}
+                                    render={(props) => <Library {...props} />}
+                                />
+                                <Route
+                                    path={ROUTES.CREATOR_ROOT}
+                                    render={(props) => (
+                                        <DeckCreator {...props} />
+                                    )}
+                                />
+                                <Route
+                                    path={ROUTES.SIGN_IN}
+                                    render={(props) => <Login {...props} />}
+                                />
+                                <Route
+                                    path={ROUTES.SIGN_UP}
+                                    render={(props) => <SignUp {...props} />}
+                                />
+                                <Route
+                                    path={ROUTES.VIEW_DECK_ID}
+                                    render={(props) => <Deck {...props} />}
+                                />
+                                <Route
+                                    path={ROUTES.VIEW_CARD_ID}
+                                    render={(props) => <Card {...props} />}
+                                />
+                                <Route
+                                    path={ROUTES.ABOUT}
+                                    render={(props) => <About {...props} />}
+                                />
+                                <Route
+                                    path={ROUTES.STATISTICS}
+                                    render={(props) => (
+                                        <Statistics {...props} />
+                                    )}
+                                />
+                                <Route
+                                    path={ROUTES.FEEDBACK}
+                                    render={(props) => <Feedback {...props} />}
+                                />
+                                <Route
+                                    path={ROUTES.PRIVACY_POLICY}
+                                    render={(props) => (
+                                        <PrivacyPolicy {...props} />
+                                    )}
+                                />
+                                <Route
+                                    path={ROUTES.PASSWORD_RESET}
+                                    render={(props) => (
+                                        <PasswordResetRequest {...props} />
+                                    )}
+                                />
+                                <Route
+                                    path={ROUTES.MY_DECKS}
+                                    render={(props) => <MyDecks {...props} />}
+                                />
+                                <Route
+                                    path={ROUTES.VIEW_WARBAND_ID}
+                                    render={(props) => (
+                                        <WarbandsInfoPage {...props} />
+                                    )}
+                                />
+                                <PrivateRoute
+                                    path={ROUTES.PROFILE}
+                                    component={UserProfile}
+                                />
+                                <PrivateRoute
+                                    path="/secret/deck-uploader"
+                                    component={SecretDeckUploader}
+                                />
+                                <PrivateRoute
+                                    path="/secret/meta-reset"
+                                    component={MetaReset}
+                                />
+                                <PrivateRoute
+                                    path="/secret/cards-rating/:faction?"
+                                    component={CardsRating}
+                                />
+                                <PrivateRoute
+                                    path="/secret/admin"
+                                    component={Admin}
+                                />
+                                <PrivateRoute
+                                    path={ROUTES.GAME_ASSISTANT}
+                                    component={GameAssistant}
+                                />
+                            </Switch>
+                        </Suspense>
+                    </ErrorBoundary>
+                </main>
+                <Footer />
+            </ConnectedRouter>
         </>
     );
 }
@@ -326,11 +319,13 @@ const theme = createMuiTheme({
 
 const Root = () => (
     <Provider store={store}>
-        <FirebaseContext.Provider value={new Firebase()}>
-            <MuiThemeProvider theme={theme}>
+        <IndexDbProvider>
+            <FirebaseContext.Provider value={new Firebase()}>
+                <MuiThemeProvider theme={theme}>
                     <ConnectedApp />
-            </MuiThemeProvider>
-        </FirebaseContext.Provider>
+                </MuiThemeProvider>
+            </FirebaseContext.Provider>
+        </IndexDbProvider>
     </Provider>
 );
 

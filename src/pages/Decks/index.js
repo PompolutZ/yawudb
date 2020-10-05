@@ -92,7 +92,7 @@ function Decks({ classes, history, match }) {
                     /> */}
             {/* </Helmet> */}
 
-            <div className="flex-grow m-4 flex bg-purple-300 h-full">
+            {/* <div className="flex-grow m-4 flex bg-purple-300 h-full">
                 <div ref={fixContainerRef} className="bg-orange-300 w-1/3">
                     <div className="fixed bg-red-500" style={fixedStyle}>
 
