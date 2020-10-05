@@ -34,7 +34,6 @@ export const loadState = () => {
             privateDecks: loadedState.privateDecks,
         }
     } catch (error) {
-        console.log(error);
         return undefined;
     }
 };

@@ -39,7 +39,7 @@ function AccountMenuButton({ history }) {
         firebase
             .signOut()
             .then(navigateHome)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     }
 
     return (

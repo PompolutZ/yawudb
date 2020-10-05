@@ -75,7 +75,6 @@ function shuffle(a) {
 }
 
 function CurrentGame(props) {
-    console.log(props)
     const classes = useStyles()
     const theme = useTheme()
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -100,11 +99,9 @@ function CurrentGame(props) {
     }, [])
 
     useEffect(() => {
-        console.log('OBJECTIVES: ', objectivesDrawPile)
     }, [objectivesDrawPile])
 
     useEffect(() => {
-        console.log('POWERS: ', powersDrawPile)
     }, [powersDrawPile])
 
     const handleDrawStartingHand = () => {

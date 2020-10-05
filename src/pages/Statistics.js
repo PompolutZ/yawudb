@@ -75,8 +75,6 @@ class Statistics extends Component {
 
             return acc;
         }, {})
-        console.log(cardsWithNamesAndWeight);
-        console.log(values(cards).sort((a, b) => b.weight - a.weight));
         
         let setsWithWeight = cardsWithWeight.map(c => {
             const card = cardsDb[c.id];

@@ -53,7 +53,6 @@ const getDecodingFunction = encoding => {
 }
 
 function DeckCreatorTransfer(props) {
-    console.log(props);
     const selectedFaction = props.selectedFaction;
     const setFaction = props.setFaction;
 
