@@ -67,7 +67,7 @@ class MenuAppBar extends React.Component {
         this.props.firebase
             .signOut()
             .then(this.navigateHome)
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
 
     navigateHome = () => {

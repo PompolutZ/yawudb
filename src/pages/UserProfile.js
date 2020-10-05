@@ -171,7 +171,6 @@ class UserProfile extends Component {
 
     handleCounterChange = (set, count) => {
         this.setState(state => ({expansions: {...state.expansions, ...{[set]: count}}}), () => {
-            console.log(this.state.expansions);
         })
     }
 
@@ -196,7 +195,7 @@ class UserProfile extends Component {
             this.props.setUser({ ...this.props.userInfo, displayName: this.state.userName, avatar: this.state.avatar });
             this.props.updateUserExpansions(this.state.expansions);
         } catch(err) {
-            console.log('ERROR_UPDATE_PROFILE', err);
+            console.error('ERROR_UPDATE_PROFILE', err);
         }
     }
 }

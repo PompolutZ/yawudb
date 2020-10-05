@@ -117,7 +117,6 @@ function Deck(props) {
 
     const handleDeleteDeck = async () => {
         try {
-            console.log(props.uid)
             const { id } = deck
             firebase.deck(id).off()
 

@@ -13,7 +13,6 @@ const privateDecksSlice = createSlice({
             state[id] = data;
         },
         deleteDeck(state,action) {
-            console.log('delete in reducer');
             delete state[action.payload];
         },
         togglePublicVisibility(state, action) {
@@ -52,23 +51,8 @@ export const fetchDecksFromDatabase = firebase => async (dispatch, getState) => 
 
 export const deletePrivateDeck = (firebase, id) => async (dispatch, getState) => {
     try {
-        // await firebase.realdb.ref(`/decks/${id}`).remove()
-        // console.log('ping', id)
-
-        // await firebase.decksMetaDb().doc('all').update({
-        //     ids: firebase.firestoreArrayRemove(id)
-        // });
-
-        // await firebase.decksMetaDb().doc(id.split('-')[0]).update({
-        //     ids: firebase.firestoreArrayRemove(id)
-        // });
-
         const { auth } = getState();
         if(auth) {
-            // await firebase.db.collection('users').doc(auth.uid).update({
-            //     mydecks: firebase.firestoreArrayRemove(id)
-            // });
-
             dispatch(deleteDeck(id))
         }
     } catch (error) {

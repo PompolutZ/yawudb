@@ -10,7 +10,6 @@ function MyDecksAnon({ classes }) {
     // const decks = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
     // useEffect(() => {
     //     firebase.decks().on('value', snapshot => {
-    //         console.log('Hello');
     //         setDeckIds(JSON.parse(localStorage.getItem('yawudb_anon_deck_ids')) || []);
     //     });
 

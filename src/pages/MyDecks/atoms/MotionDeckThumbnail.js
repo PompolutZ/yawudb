@@ -93,7 +93,6 @@ function MotionDeckThumbnail({ children, deckId, deckName, onDelete }) {
 
     const handleToggleShare = useCallback(
         __debounce(() => {
-            console.log("DEBOUNCED CALLBACK");
         }, 500)
     );
 

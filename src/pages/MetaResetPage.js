@@ -30,7 +30,6 @@ export default function MetaReset(props) {
                 // const afterSort = init
                 // console.log("All decks:", init);
                 const allIds = init.map(x => x.id).slice(1)
-                console.log(allIds.length)
 
                 firebase.decksMetaDb()
                     .doc('all')
@@ -38,12 +37,10 @@ export default function MetaReset(props) {
                         // count: allIds.length,
                         ids: allIds,
                     })
-                    .then(() => console.log('UPDATED META ALL'))
 
                 const prefixes = Object.keys(idPrefixToFaction)
                 for (let prefix of prefixes) {
                     const ids = allIds.filter(id => id.startsWith(prefix))
-                    // console.log(prefix, ids);
                     firebase.decksMetaDb()
                         .doc(`${prefix}`)
                         .set({
@@ -61,7 +58,6 @@ export default function MetaReset(props) {
 
     const handleMakeAuthorDecksPrivate = () => {
         const privateDecks = Object.entries(allDecks).filter(([id, value]) => value.author !== 'Anonymous');
-        console.log(privateDecks);
         for(let [id, deck] of privateDecks) {
             firebase.deck(id).update({
                 private: true

@@ -63,7 +63,6 @@ const clamp = (value, clampAt = 30) => {
 
 function Startup(props) {
     const { state } = useLocation();
-    console.log(state.cards);
     const classes = useStyles();
     const objectives = state.cards.filter(c => c.type === 0).map(c => c.id).join();
     const powers = state.cards.filter(c => c.type !== 0).map(c => c.id).join();
