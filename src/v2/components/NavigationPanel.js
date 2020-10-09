@@ -90,7 +90,7 @@ const MobileMenu = ({ className }) => {
                 return (
                     item && (
                         <animated.div
-                            className="fixed inset-0 bg-gray-100 z-10"
+                            className="fixed inset-0 bg-gray-100 z-50"
                             style={style}
                             onClick={() => setOpen((prev) => !prev)}
                         >
