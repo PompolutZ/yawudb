@@ -56,7 +56,7 @@ const Home = (props) => {
 
     return (
         <div className="flex flex-col mx-2 sm:mx-4">
-            <h1 className="block text-2xl my-12 text-center text-gray-800 font-semibold">
+            <h1 className="block text-2xl my-12 text-center text-white font-semibold">
                 Deck building website for Warhammer Underworlds.
             </h1>
 

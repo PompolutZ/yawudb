@@ -105,6 +105,7 @@ const styles = theme => ({
         width: '100%',
         display: 'flex',
         flexFlow: 'column nowrap',
+        backgroundColor: 'white',
         [theme.breakpoints.up('md')]: {
             flexFlow: 'row nowrap',
         },

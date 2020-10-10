@@ -11,20 +11,29 @@ import { useHistory } from "react-router-dom";
 
 export default function NavigationPanel() {
     return (
-        <header className="mx-2 sm:mx-4 flex p-2 items-center border-b-2 border-accent border-opacity-25">
-            <div className="mr-8">
-                <Link
-                    className="text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
-                    to="/"
-                >
-                    <Logo />
-                </Link>
+        <>
+            <div
+                className="absolute inset-0 w-screen bg-red-500"
+                style={{ backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,.1) 75%, rgba(255,255,255,.5)), url(/assets/background_sm_2.png)', backgroundRepeat: 'no-repeat', zIndex: -1, backgroundSize: 'cover' }}
+            >
+                {/* <img srcSet="/assets/background_sm.png " src="/assets/background_sm.png" /> */}
             </div>
-            <Menu classes="hidden lg:flex text-sm flex-1">
-                <UserMenu />
-            </Menu>
-            <MobileMenu className="text-gray-900 text-2xl stroke-current stroke-2 ml-auto lg:hidden" />
-        </header>
+
+            <header className="mx-2 sm:mx-4 flex p-2 items-center relative">
+                <div className="mr-8">
+                    <Link
+                        className="text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
+                        to="/"
+                    >
+                        <Logo />
+                    </Link>
+                </div>
+                <Menu classes="hidden text-white lg:flex text-sm flex-1">
+                    <UserMenu />
+                </Menu>
+                <MobileMenu className="text-white text-2xl stroke-current stroke-2 ml-auto lg:hidden" />
+            </header>
+        </>
     );
 }
 
@@ -36,7 +45,7 @@ function UserMenu() {
     return (
         <>
             <Link
-                className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+                className="block mr-8 cursor-pointer hover:font-semibold pt-px"
                 to={ROUTES.MY_DECKS}
             >
                 My Decks
@@ -45,13 +54,13 @@ function UserMenu() {
             {auth && (
                 <>
                     <Link
-                        className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+                        className="block mr-8 cursor-pointer hover:font-semibold pt-px"
                         to={ROUTES.PROFILE}
                     >
                         Profile
                     </Link>
                     <a
-                        className="text-accent block mt-4 lg:mt-0 lg:ml-auto mr-8 cursor-pointer hover:font-semibold pt-px"
+                        className="block mt-4 lg:mt-0 lg:ml-auto mr-8 cursor-pointer hover:font-semibold pt-px"
                         onClick={() =>
                             firebase.signOut().then(history.push("/"))
                         }
@@ -62,7 +71,7 @@ function UserMenu() {
             )}
             {!auth && (
                 <Link
-                    className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    className="block mr-8 cursor-pointer hover:font-semibold pt-px"
                     to={ROUTES.SIGN_IN}
                 >
                     Sign In
@@ -75,7 +84,7 @@ function UserMenu() {
 const MobileMenu = ({ className }) => {
     const [open, setOpen] = useState(false);
     const transition = useTransition(open, {
-        from: { opacity: .5, transform: "translateY(-10%)" },
+        from: { opacity: 0.5, transform: "translateY(-10%)" },
         enter: { opacity: 1, transform: "translateY(0)" },
         // leave: { opacity: .5, transform: "translateY(-10%)" },
     });
@@ -114,26 +123,26 @@ const Menu = ({ classes, showHome, children }) => (
     <nav className={`${classes}`}>
         {showHome && (
             <Link
-                className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+                className="block mr-8 cursor-pointer hover:font-semibold pt-px"
                 to="/"
             >
                 Home
             </Link>
         )}
         <Link
-            className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+            className="block mr-8 cursor-pointer hover:font-semibold pt-px"
             to="/deck/create"
         >
             Create New Deck
         </Link>
         <Link
-            className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+            className="block mr-8 cursor-pointer hover:font-semibold pt-px"
             to={ROUTES.BROWSE_ALL_DECKS}
         >
             Public decks
         </Link>
         <Link
-            className="text-gray-900 block mr-8 cursor-pointer hover:font-semibold pt-px"
+            className="block mr-8 cursor-pointer hover:font-semibold pt-px"
             to={ROUTES.CARDS_LIBRARY}
         >
             Library

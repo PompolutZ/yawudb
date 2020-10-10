@@ -114,7 +114,7 @@ class MyDecksAuth extends Component {
         const cache = JSON.parse(localStorage.getItem('yawudb_decks')) || {};
 
         return (
-            <div>
+            <div style={{ background: 'white', flex: 1}}>
                 {
                     this.state.loading && (
                         <div style={{display: 'flex', height: '100vh'}}>

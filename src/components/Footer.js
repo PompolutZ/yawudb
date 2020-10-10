@@ -6,11 +6,12 @@ import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: "1rem 2rem",
+        padding: "1rem 2rem",
+        background: 'white'
     },
 
     disclaimer: {
-        fontSize: "8px",
+        fontSize: "12px",
     }
 }));
 

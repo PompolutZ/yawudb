@@ -59,7 +59,7 @@ class Login extends Component {
         const { firebase } = this.props;
 
         return(
-            <div style={{display: 'flex', alignItems: 'center', flexFlow: 'column nowrap'}}>
+            <div style={{display: 'flex', alignItems: 'center', flexFlow: 'column nowrap', background: 'white', flex: 1}}>
                 <FacebookLoginButton onClick={firebase.signInWithFacebookProvider} style={{margin: '1rem', width: '19rem'}} />
                 <GoogleButton onClick={firebase.signInWithGoogleProvider} style={{margin: '0 1rem 1rem 1rem', width: '20rem'}} />
 
