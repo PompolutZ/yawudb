@@ -27,6 +27,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import RootHelmet from "./components/Root/rootMetas";
 import NavigationPanel from "./v2/components/NavigationPanel";
+import PublicDecksProvider from "./contexts/publicDecksContext";
 
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
@@ -328,7 +329,9 @@ const Root = () => (
     <Provider store={store}>
         <FirebaseContext.Provider value={new Firebase()}>
             <MuiThemeProvider theme={theme}>
+                <PublicDecksProvider>
                     <ConnectedApp />
+                </PublicDecksProvider>
             </MuiThemeProvider>
         </FirebaseContext.Provider>
     </Provider>
