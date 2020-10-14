@@ -8,19 +8,20 @@ import { withFirebase } from '../firebase';
 import { SET_DECKS_META } from '../reducers/decksMeta';
 import { Link } from 'react-router-dom';
 
-class DecksCount extends PureComponent {
-    render() {
-        return(
-            <Typography className="text-gray-700" style={{ fontSize: '2rem', }} onClick={this.handleClick}>
-                {this.props.count}
-            </Typography>
-       );
-    }
-
-    handleClick = () => {
-        this.props.onClick(this.props.prefix);
-    }
+function DeckIconPicture({ faction, ...props }) {
+    return (
+        <picture>
+            <source type="image/webp" srcSet={`/assets/icons/${faction}-deck.webp`} />
+            <img src={`/assets/icons/${faction}-deck-64.png`} className={props.className} style={{ top: '-10%', left: '-10%', filter: 'drop-shadow(0px 0px 4px black)'}} />
+        </picture>
+    )
 }
+
+const DecksCount = ({ count, ...props }) => (
+    <span className={props.className}>
+        {count}
+    </span>
+)
 
 function DeckMetaSummary({ classes, prefix, firebase, decksMeta, addDecksMeta, onAddNewDeckClick, onDecksCountClick }) {
     const initCount = () => decksMeta[prefix] ? decksMeta[prefix].count : 0;
@@ -43,9 +44,9 @@ function DeckMetaSummary({ classes, prefix, firebase, decksMeta, addDecksMeta, o
 
     return (
         <div className={classes.root}>
-            <Link className="text-center" to={`/decks/${prefix}`}>
-                <AddNewDeckButton faction={idPrefixToFaction[prefix]} onClickAdd={onAddNewDeckClick} />
-                <DecksCount count={count} prefix={prefix} onClick={onDecksCountClick} />
+            <Link className="relative text-center bg-accent3-500 rounded w-full h-32 lg:w-32 text-6xl flex justify-end items-end p-2" to={`/decks/${prefix}`}>
+                <DeckIconPicture className="w-24 h-24 absolute inset-0" faction={idPrefixToFaction[prefix]} />
+                <DecksCount className="text-white text-2xl font-bold" count={count} />
             </Link>
         </div>
     );
@@ -73,7 +74,7 @@ const styles = theme => ({
         padding: "1rem",
         cursor: 'pointer',
         flexDirection: 'column',
-        "&:hover .wudeck": {
+        "&:hover": {
             transform: 'scale(1.1)',
             filter: 'drop-shadow(0 3px 3px rgba(0,0,0, .5))',
             transition: 'all .175s ease-out'

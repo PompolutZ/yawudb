@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FirebaseContext } from "../firebase";
-import { idPrefixToFaction, rotatedOutSetsIndexes } from "../data";
+import { deckPlayFormats, idPrefixToFaction, rotatedOutSetsIndexes } from "../data";
 
 export default function MetaReset(props) {
     const [allDecks, setAllDecks] = useState([]);
@@ -144,11 +144,18 @@ export default function MetaReset(props) {
         const olderThan150 = cleaned.original.filter(deck => (new Date().getTime() - deck.modified) / 1000 / 60 / 60 / 24 >= 150);
         const payload = back150.reduce((p, deck) => ({...p, [deck.id]: deck}), {});
         console.log(payload);
-        firebase.realdb.ref('/public_decks/all/').set(payload);
+        const sharedDecks = cleaned.original.reduce((log, deck) => ({
+            ...log,
+            [deck.modified]: ({ id: deck.id, action: 'SHARED' })
+        }), {});
 
-        const archive = olderThan150.reduce((p, deck) => ({...p, [deck.id]: deck}), {});
-        console.log(archive);
-        firebase.realdb.ref('/public_decks/archive/').set(archive);
+        firebase.realdb.ref('/public_decks/').set(sharedDecks);
+
+        // firebase.realdb.ref('/public_decks/all/').set(payload);
+
+        // const archive = olderThan150.reduce((p, deck) => ({...p, [deck.id]: deck}), {});
+        // console.log(archive);
+        // firebase.realdb.ref('/public_decks/archive/').set(null);
     }
 
     return (

@@ -125,7 +125,7 @@ class UserProfile extends Component {
 
     render() {
         return (
-            <div style={{ display: 'flex', flexFlow: 'column wrap', alignItems: 'center', maxWidth: '800px'}}>
+            <div style={{ display: 'flex', flexFlow: 'column wrap', alignItems: 'center', maxWidth: '800px', background: 'white'}}>
                 <div style={{ margin: '0 0 0 1rem'}}>
                     <div style={{ margin: '0 0 0 .7rem', fontSize: '.7rem', color: 'gray'}}>Pick your avatar image: </div>
                     <AvatarPicker onSelectionChange={this.handleAvatarChange} defaultAvatar={this.state.avatar} />

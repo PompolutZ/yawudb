@@ -1715,6 +1715,12 @@ body {
   border-color: rgba(146, 1, 4, var(--divide-opacity));
 }
 
+.divide-accent3-500 > :not(template) ~ :not(template) {
+  --divide-opacity: 1;
+  border-color: #c02d28;
+  border-color: rgba(192, 45, 40, var(--divide-opacity));
+}
+
 .divide-swirl > :not(template) ~ :not(template) {
   --divide-opacity: 1;
   border-color: #d0cec2;
@@ -2411,6 +2417,12 @@ body {
   background-color: rgba(146, 1, 4, var(--bg-opacity));
 }
 
+.bg-accent3-500 {
+  --bg-opacity: 1;
+  background-color: #c02d28;
+  background-color: rgba(192, 45, 40, var(--bg-opacity));
+}
+
 .bg-swirl {
   --bg-opacity: 1;
   background-color: #d0cec2;
@@ -2987,6 +2999,12 @@ body {
   --bg-opacity: 1;
   background-color: #920104;
   background-color: rgba(146, 1, 4, var(--bg-opacity));
+}
+
+.hover\:bg-accent3-500:hover {
+  --bg-opacity: 1;
+  background-color: #c02d28;
+  background-color: rgba(192, 45, 40, var(--bg-opacity));
 }
 
 .hover\:bg-swirl:hover {
@@ -3567,6 +3585,12 @@ body {
   background-color: rgba(146, 1, 4, var(--bg-opacity));
 }
 
+.focus\:bg-accent3-500:focus {
+  --bg-opacity: 1;
+  background-color: #c02d28;
+  background-color: rgba(192, 45, 40, var(--bg-opacity));
+}
+
 .focus\:bg-swirl:focus {
   --bg-opacity: 1;
   background-color: #d0cec2;
@@ -4089,6 +4113,11 @@ body {
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
 }
 
+.from-accent3-500 {
+  --gradient-from-color: #c02d28;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+}
+
 .from-swirl {
   --gradient-from-color: #d0cec2;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -4574,6 +4603,11 @@ body {
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
 }
 
+.via-accent3-500 {
+  --gradient-via-color: #c02d28;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+}
+
 .via-swirl {
   --gradient-via-color: #d0cec2;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -4961,6 +4995,10 @@ body {
 
 .to-accent2 {
   --gradient-to-color: #920104;
+}
+
+.to-accent3-500 {
+  --gradient-to-color: #c02d28;
 }
 
 .to-swirl {
@@ -5445,6 +5483,11 @@ body {
 .hover\:from-accent2:hover {
   --gradient-from-color: #920104;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+}
+
+.hover\:from-accent3-500:hover {
+  --gradient-from-color: #c02d28;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
 }
 
 .hover\:from-swirl:hover {
@@ -5932,6 +5975,11 @@ body {
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
 }
 
+.hover\:via-accent3-500:hover {
+  --gradient-via-color: #c02d28;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+}
+
 .hover\:via-swirl:hover {
   --gradient-via-color: #d0cec2;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -6319,6 +6367,10 @@ body {
 
 .hover\:to-accent2:hover {
   --gradient-to-color: #920104;
+}
+
+.hover\:to-accent3-500:hover {
+  --gradient-to-color: #c02d28;
 }
 
 .hover\:to-swirl:hover {
@@ -6803,6 +6855,11 @@ body {
 .focus\:from-accent2:focus {
   --gradient-from-color: #920104;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+}
+
+.focus\:from-accent3-500:focus {
+  --gradient-from-color: #c02d28;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
 }
 
 .focus\:from-swirl:focus {
@@ -7290,6 +7347,11 @@ body {
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
 }
 
+.focus\:via-accent3-500:focus {
+  --gradient-via-color: #c02d28;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+}
+
 .focus\:via-swirl:focus {
   --gradient-via-color: #d0cec2;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -7677,6 +7739,10 @@ body {
 
 .focus\:to-accent2:focus {
   --gradient-to-color: #920104;
+}
+
+.focus\:to-accent3-500:focus {
+  --gradient-to-color: #c02d28;
 }
 
 .focus\:to-swirl:focus {
@@ -8395,6 +8461,12 @@ body {
   border-color: rgba(146, 1, 4, var(--border-opacity));
 }
 
+.border-accent3-500 {
+  --border-opacity: 1;
+  border-color: #c02d28;
+  border-color: rgba(192, 45, 40, var(--border-opacity));
+}
+
 .border-swirl {
   --border-opacity: 1;
   border-color: #d0cec2;
@@ -8973,6 +9045,12 @@ body {
   border-color: rgba(146, 1, 4, var(--border-opacity));
 }
 
+.hover\:border-accent3-500:hover {
+  --border-opacity: 1;
+  border-color: #c02d28;
+  border-color: rgba(192, 45, 40, var(--border-opacity));
+}
+
 .hover\:border-swirl:hover {
   --border-opacity: 1;
   border-color: #d0cec2;
@@ -9549,6 +9627,12 @@ body {
   --border-opacity: 1;
   border-color: #920104;
   border-color: rgba(146, 1, 4, var(--border-opacity));
+}
+
+.focus\:border-accent3-500:focus {
+  --border-opacity: 1;
+  border-color: #c02d28;
+  border-color: rgba(192, 45, 40, var(--border-opacity));
 }
 
 .focus\:border-swirl:focus {
@@ -10653,6 +10737,10 @@ body {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-em {
+  height: 1em;
 }
 
 .text-xs {
@@ -13365,6 +13453,12 @@ body {
   color: rgba(146, 1, 4, var(--placeholder-opacity));
 }
 
+.placeholder-accent3-500::placeholder {
+  --placeholder-opacity: 1;
+  color: #c02d28;
+  color: rgba(192, 45, 40, var(--placeholder-opacity));
+}
+
 .placeholder-swirl::placeholder {
   --placeholder-opacity: 1;
   color: #d0cec2;
@@ -13941,6 +14035,12 @@ body {
   --placeholder-opacity: 1;
   color: #920104;
   color: rgba(146, 1, 4, var(--placeholder-opacity));
+}
+
+.focus\:placeholder-accent3-500:focus::placeholder {
+  --placeholder-opacity: 1;
+  color: #c02d28;
+  color: rgba(192, 45, 40, var(--placeholder-opacity));
 }
 
 .focus\:placeholder-swirl:focus::placeholder {
@@ -14835,6 +14935,12 @@ body {
   color: rgba(146, 1, 4, var(--text-opacity));
 }
 
+.text-accent3-500 {
+  --text-opacity: 1;
+  color: #c02d28;
+  color: rgba(192, 45, 40, var(--text-opacity));
+}
+
 .text-swirl {
   --text-opacity: 1;
   color: #d0cec2;
@@ -15411,6 +15517,12 @@ body {
   --text-opacity: 1;
   color: #920104;
   color: rgba(146, 1, 4, var(--text-opacity));
+}
+
+.hover\:text-accent3-500:hover {
+  --text-opacity: 1;
+  color: #c02d28;
+  color: rgba(192, 45, 40, var(--text-opacity));
 }
 
 .hover\:text-swirl:hover {
@@ -15991,6 +16103,12 @@ body {
   color: rgba(146, 1, 4, var(--text-opacity));
 }
 
+.focus\:text-accent3-500:focus {
+  --text-opacity: 1;
+  color: #c02d28;
+  color: rgba(192, 45, 40, var(--text-opacity));
+}
+
 .focus\:text-swirl:focus {
   --text-opacity: 1;
   color: #d0cec2;
@@ -16473,6 +16591,10 @@ body {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-em {
+  width: 1em;
 }
 
 .z-0 {
@@ -20105,6 +20227,12 @@ body {
     border-color: rgba(146, 1, 4, var(--divide-opacity));
   }
 
+  .sm\:divide-accent3-500 > :not(template) ~ :not(template) {
+    --divide-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--divide-opacity));
+  }
+
   .sm\:divide-swirl > :not(template) ~ :not(template) {
     --divide-opacity: 1;
     border-color: #d0cec2;
@@ -20801,6 +20929,12 @@ body {
     background-color: rgba(146, 1, 4, var(--bg-opacity));
   }
 
+  .sm\:bg-accent3-500 {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
   .sm\:bg-swirl {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -21377,6 +21511,12 @@ body {
     --bg-opacity: 1;
     background-color: #920104;
     background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .sm\:hover\:bg-accent3-500:hover {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
   }
 
   .sm\:hover\:bg-swirl:hover {
@@ -21957,6 +22097,12 @@ body {
     background-color: rgba(146, 1, 4, var(--bg-opacity));
   }
 
+  .sm\:focus\:bg-accent3-500:focus {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
   .sm\:focus\:bg-swirl:focus {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -22479,6 +22625,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .sm\:from-accent3-500 {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .sm\:from-swirl {
     --gradient-from-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -22964,6 +23115,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .sm\:via-accent3-500 {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .sm\:via-swirl {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -23351,6 +23507,10 @@ body {
 
   .sm\:to-accent2 {
     --gradient-to-color: #920104;
+  }
+
+  .sm\:to-accent3-500 {
+    --gradient-to-color: #c02d28;
   }
 
   .sm\:to-swirl {
@@ -23835,6 +23995,11 @@ body {
   .sm\:hover\:from-accent2:hover {
     --gradient-from-color: #920104;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+  }
+
+  .sm\:hover\:from-accent3-500:hover {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
   }
 
   .sm\:hover\:from-swirl:hover {
@@ -24322,6 +24487,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .sm\:hover\:via-accent3-500:hover {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .sm\:hover\:via-swirl:hover {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -24709,6 +24879,10 @@ body {
 
   .sm\:hover\:to-accent2:hover {
     --gradient-to-color: #920104;
+  }
+
+  .sm\:hover\:to-accent3-500:hover {
+    --gradient-to-color: #c02d28;
   }
 
   .sm\:hover\:to-swirl:hover {
@@ -25193,6 +25367,11 @@ body {
   .sm\:focus\:from-accent2:focus {
     --gradient-from-color: #920104;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+  }
+
+  .sm\:focus\:from-accent3-500:focus {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
   }
 
   .sm\:focus\:from-swirl:focus {
@@ -25680,6 +25859,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .sm\:focus\:via-accent3-500:focus {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .sm\:focus\:via-swirl:focus {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -26067,6 +26251,10 @@ body {
 
   .sm\:focus\:to-accent2:focus {
     --gradient-to-color: #920104;
+  }
+
+  .sm\:focus\:to-accent3-500:focus {
+    --gradient-to-color: #c02d28;
   }
 
   .sm\:focus\:to-swirl:focus {
@@ -26785,6 +26973,12 @@ body {
     border-color: rgba(146, 1, 4, var(--border-opacity));
   }
 
+  .sm\:border-accent3-500 {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
+  }
+
   .sm\:border-swirl {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -27363,6 +27557,12 @@ body {
     border-color: rgba(146, 1, 4, var(--border-opacity));
   }
 
+  .sm\:hover\:border-accent3-500:hover {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
+  }
+
   .sm\:hover\:border-swirl:hover {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -27939,6 +28139,12 @@ body {
     --border-opacity: 1;
     border-color: #920104;
     border-color: rgba(146, 1, 4, var(--border-opacity));
+  }
+
+  .sm\:focus\:border-accent3-500:focus {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
   }
 
   .sm\:focus\:border-swirl:focus {
@@ -29043,6 +29249,10 @@ body {
 
   .sm\:h-screen {
     height: 100vh;
+  }
+
+  .sm\:h-em {
+    height: 1em;
   }
 
   .sm\:text-xs {
@@ -31755,6 +31965,12 @@ body {
     color: rgba(146, 1, 4, var(--placeholder-opacity));
   }
 
+  .sm\:placeholder-accent3-500::placeholder {
+    --placeholder-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--placeholder-opacity));
+  }
+
   .sm\:placeholder-swirl::placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -32331,6 +32547,12 @@ body {
     --placeholder-opacity: 1;
     color: #920104;
     color: rgba(146, 1, 4, var(--placeholder-opacity));
+  }
+
+  .sm\:focus\:placeholder-accent3-500:focus::placeholder {
+    --placeholder-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--placeholder-opacity));
   }
 
   .sm\:focus\:placeholder-swirl:focus::placeholder {
@@ -33225,6 +33447,12 @@ body {
     color: rgba(146, 1, 4, var(--text-opacity));
   }
 
+  .sm\:text-accent3-500 {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
+  }
+
   .sm\:text-swirl {
     --text-opacity: 1;
     color: #d0cec2;
@@ -33801,6 +34029,12 @@ body {
     --text-opacity: 1;
     color: #920104;
     color: rgba(146, 1, 4, var(--text-opacity));
+  }
+
+  .sm\:hover\:text-accent3-500:hover {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
   }
 
   .sm\:hover\:text-swirl:hover {
@@ -34381,6 +34615,12 @@ body {
     color: rgba(146, 1, 4, var(--text-opacity));
   }
 
+  .sm\:focus\:text-accent3-500:focus {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
+  }
+
   .sm\:focus\:text-swirl:focus {
     --text-opacity: 1;
     color: #d0cec2;
@@ -34863,6 +35103,10 @@ body {
 
   .sm\:w-screen {
     width: 100vw;
+  }
+
+  .sm\:w-em {
+    width: 1em;
   }
 
   .sm\:z-0 {
@@ -38461,6 +38705,12 @@ body {
     border-color: rgba(146, 1, 4, var(--divide-opacity));
   }
 
+  .md\:divide-accent3-500 > :not(template) ~ :not(template) {
+    --divide-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--divide-opacity));
+  }
+
   .md\:divide-swirl > :not(template) ~ :not(template) {
     --divide-opacity: 1;
     border-color: #d0cec2;
@@ -39157,6 +39407,12 @@ body {
     background-color: rgba(146, 1, 4, var(--bg-opacity));
   }
 
+  .md\:bg-accent3-500 {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
   .md\:bg-swirl {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -39733,6 +39989,12 @@ body {
     --bg-opacity: 1;
     background-color: #920104;
     background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .md\:hover\:bg-accent3-500:hover {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
   }
 
   .md\:hover\:bg-swirl:hover {
@@ -40313,6 +40575,12 @@ body {
     background-color: rgba(146, 1, 4, var(--bg-opacity));
   }
 
+  .md\:focus\:bg-accent3-500:focus {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
   .md\:focus\:bg-swirl:focus {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -40835,6 +41103,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .md\:from-accent3-500 {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .md\:from-swirl {
     --gradient-from-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -41320,6 +41593,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .md\:via-accent3-500 {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .md\:via-swirl {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -41707,6 +41985,10 @@ body {
 
   .md\:to-accent2 {
     --gradient-to-color: #920104;
+  }
+
+  .md\:to-accent3-500 {
+    --gradient-to-color: #c02d28;
   }
 
   .md\:to-swirl {
@@ -42191,6 +42473,11 @@ body {
   .md\:hover\:from-accent2:hover {
     --gradient-from-color: #920104;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+  }
+
+  .md\:hover\:from-accent3-500:hover {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
   }
 
   .md\:hover\:from-swirl:hover {
@@ -42678,6 +42965,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .md\:hover\:via-accent3-500:hover {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .md\:hover\:via-swirl:hover {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -43065,6 +43357,10 @@ body {
 
   .md\:hover\:to-accent2:hover {
     --gradient-to-color: #920104;
+  }
+
+  .md\:hover\:to-accent3-500:hover {
+    --gradient-to-color: #c02d28;
   }
 
   .md\:hover\:to-swirl:hover {
@@ -43549,6 +43845,11 @@ body {
   .md\:focus\:from-accent2:focus {
     --gradient-from-color: #920104;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+  }
+
+  .md\:focus\:from-accent3-500:focus {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
   }
 
   .md\:focus\:from-swirl:focus {
@@ -44036,6 +44337,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .md\:focus\:via-accent3-500:focus {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .md\:focus\:via-swirl:focus {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -44423,6 +44729,10 @@ body {
 
   .md\:focus\:to-accent2:focus {
     --gradient-to-color: #920104;
+  }
+
+  .md\:focus\:to-accent3-500:focus {
+    --gradient-to-color: #c02d28;
   }
 
   .md\:focus\:to-swirl:focus {
@@ -45141,6 +45451,12 @@ body {
     border-color: rgba(146, 1, 4, var(--border-opacity));
   }
 
+  .md\:border-accent3-500 {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
+  }
+
   .md\:border-swirl {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -45719,6 +46035,12 @@ body {
     border-color: rgba(146, 1, 4, var(--border-opacity));
   }
 
+  .md\:hover\:border-accent3-500:hover {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
+  }
+
   .md\:hover\:border-swirl:hover {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -46295,6 +46617,12 @@ body {
     --border-opacity: 1;
     border-color: #920104;
     border-color: rgba(146, 1, 4, var(--border-opacity));
+  }
+
+  .md\:focus\:border-accent3-500:focus {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
   }
 
   .md\:focus\:border-swirl:focus {
@@ -47399,6 +47727,10 @@ body {
 
   .md\:h-screen {
     height: 100vh;
+  }
+
+  .md\:h-em {
+    height: 1em;
   }
 
   .md\:text-xs {
@@ -50111,6 +50443,12 @@ body {
     color: rgba(146, 1, 4, var(--placeholder-opacity));
   }
 
+  .md\:placeholder-accent3-500::placeholder {
+    --placeholder-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--placeholder-opacity));
+  }
+
   .md\:placeholder-swirl::placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -50687,6 +51025,12 @@ body {
     --placeholder-opacity: 1;
     color: #920104;
     color: rgba(146, 1, 4, var(--placeholder-opacity));
+  }
+
+  .md\:focus\:placeholder-accent3-500:focus::placeholder {
+    --placeholder-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--placeholder-opacity));
   }
 
   .md\:focus\:placeholder-swirl:focus::placeholder {
@@ -51581,6 +51925,12 @@ body {
     color: rgba(146, 1, 4, var(--text-opacity));
   }
 
+  .md\:text-accent3-500 {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
+  }
+
   .md\:text-swirl {
     --text-opacity: 1;
     color: #d0cec2;
@@ -52157,6 +52507,12 @@ body {
     --text-opacity: 1;
     color: #920104;
     color: rgba(146, 1, 4, var(--text-opacity));
+  }
+
+  .md\:hover\:text-accent3-500:hover {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
   }
 
   .md\:hover\:text-swirl:hover {
@@ -52737,6 +53093,12 @@ body {
     color: rgba(146, 1, 4, var(--text-opacity));
   }
 
+  .md\:focus\:text-accent3-500:focus {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
+  }
+
   .md\:focus\:text-swirl:focus {
     --text-opacity: 1;
     color: #d0cec2;
@@ -53219,6 +53581,10 @@ body {
 
   .md\:w-screen {
     width: 100vw;
+  }
+
+  .md\:w-em {
+    width: 1em;
   }
 
   .md\:z-0 {
@@ -56817,6 +57183,12 @@ body {
     border-color: rgba(146, 1, 4, var(--divide-opacity));
   }
 
+  .lg\:divide-accent3-500 > :not(template) ~ :not(template) {
+    --divide-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--divide-opacity));
+  }
+
   .lg\:divide-swirl > :not(template) ~ :not(template) {
     --divide-opacity: 1;
     border-color: #d0cec2;
@@ -57513,6 +57885,12 @@ body {
     background-color: rgba(146, 1, 4, var(--bg-opacity));
   }
 
+  .lg\:bg-accent3-500 {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
   .lg\:bg-swirl {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -58089,6 +58467,12 @@ body {
     --bg-opacity: 1;
     background-color: #920104;
     background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .lg\:hover\:bg-accent3-500:hover {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
   }
 
   .lg\:hover\:bg-swirl:hover {
@@ -58669,6 +59053,12 @@ body {
     background-color: rgba(146, 1, 4, var(--bg-opacity));
   }
 
+  .lg\:focus\:bg-accent3-500:focus {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
   .lg\:focus\:bg-swirl:focus {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -59191,6 +59581,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .lg\:from-accent3-500 {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .lg\:from-swirl {
     --gradient-from-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -59676,6 +60071,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .lg\:via-accent3-500 {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .lg\:via-swirl {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -60063,6 +60463,10 @@ body {
 
   .lg\:to-accent2 {
     --gradient-to-color: #920104;
+  }
+
+  .lg\:to-accent3-500 {
+    --gradient-to-color: #c02d28;
   }
 
   .lg\:to-swirl {
@@ -60547,6 +60951,11 @@ body {
   .lg\:hover\:from-accent2:hover {
     --gradient-from-color: #920104;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+  }
+
+  .lg\:hover\:from-accent3-500:hover {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
   }
 
   .lg\:hover\:from-swirl:hover {
@@ -61034,6 +61443,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .lg\:hover\:via-accent3-500:hover {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .lg\:hover\:via-swirl:hover {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -61421,6 +61835,10 @@ body {
 
   .lg\:hover\:to-accent2:hover {
     --gradient-to-color: #920104;
+  }
+
+  .lg\:hover\:to-accent3-500:hover {
+    --gradient-to-color: #c02d28;
   }
 
   .lg\:hover\:to-swirl:hover {
@@ -61905,6 +62323,11 @@ body {
   .lg\:focus\:from-accent2:focus {
     --gradient-from-color: #920104;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+  }
+
+  .lg\:focus\:from-accent3-500:focus {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
   }
 
   .lg\:focus\:from-swirl:focus {
@@ -62392,6 +62815,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .lg\:focus\:via-accent3-500:focus {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .lg\:focus\:via-swirl:focus {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -62779,6 +63207,10 @@ body {
 
   .lg\:focus\:to-accent2:focus {
     --gradient-to-color: #920104;
+  }
+
+  .lg\:focus\:to-accent3-500:focus {
+    --gradient-to-color: #c02d28;
   }
 
   .lg\:focus\:to-swirl:focus {
@@ -63497,6 +63929,12 @@ body {
     border-color: rgba(146, 1, 4, var(--border-opacity));
   }
 
+  .lg\:border-accent3-500 {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
+  }
+
   .lg\:border-swirl {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -64075,6 +64513,12 @@ body {
     border-color: rgba(146, 1, 4, var(--border-opacity));
   }
 
+  .lg\:hover\:border-accent3-500:hover {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
+  }
+
   .lg\:hover\:border-swirl:hover {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -64651,6 +65095,12 @@ body {
     --border-opacity: 1;
     border-color: #920104;
     border-color: rgba(146, 1, 4, var(--border-opacity));
+  }
+
+  .lg\:focus\:border-accent3-500:focus {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
   }
 
   .lg\:focus\:border-swirl:focus {
@@ -65755,6 +66205,10 @@ body {
 
   .lg\:h-screen {
     height: 100vh;
+  }
+
+  .lg\:h-em {
+    height: 1em;
   }
 
   .lg\:text-xs {
@@ -68467,6 +68921,12 @@ body {
     color: rgba(146, 1, 4, var(--placeholder-opacity));
   }
 
+  .lg\:placeholder-accent3-500::placeholder {
+    --placeholder-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--placeholder-opacity));
+  }
+
   .lg\:placeholder-swirl::placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -69043,6 +69503,12 @@ body {
     --placeholder-opacity: 1;
     color: #920104;
     color: rgba(146, 1, 4, var(--placeholder-opacity));
+  }
+
+  .lg\:focus\:placeholder-accent3-500:focus::placeholder {
+    --placeholder-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--placeholder-opacity));
   }
 
   .lg\:focus\:placeholder-swirl:focus::placeholder {
@@ -69937,6 +70403,12 @@ body {
     color: rgba(146, 1, 4, var(--text-opacity));
   }
 
+  .lg\:text-accent3-500 {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
+  }
+
   .lg\:text-swirl {
     --text-opacity: 1;
     color: #d0cec2;
@@ -70513,6 +70985,12 @@ body {
     --text-opacity: 1;
     color: #920104;
     color: rgba(146, 1, 4, var(--text-opacity));
+  }
+
+  .lg\:hover\:text-accent3-500:hover {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
   }
 
   .lg\:hover\:text-swirl:hover {
@@ -71093,6 +71571,12 @@ body {
     color: rgba(146, 1, 4, var(--text-opacity));
   }
 
+  .lg\:focus\:text-accent3-500:focus {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
+  }
+
   .lg\:focus\:text-swirl:focus {
     --text-opacity: 1;
     color: #d0cec2;
@@ -71575,6 +72059,10 @@ body {
 
   .lg\:w-screen {
     width: 100vw;
+  }
+
+  .lg\:w-em {
+    width: 1em;
   }
 
   .lg\:z-0 {
@@ -75173,6 +75661,12 @@ body {
     border-color: rgba(146, 1, 4, var(--divide-opacity));
   }
 
+  .xl\:divide-accent3-500 > :not(template) ~ :not(template) {
+    --divide-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--divide-opacity));
+  }
+
   .xl\:divide-swirl > :not(template) ~ :not(template) {
     --divide-opacity: 1;
     border-color: #d0cec2;
@@ -75869,6 +76363,12 @@ body {
     background-color: rgba(146, 1, 4, var(--bg-opacity));
   }
 
+  .xl\:bg-accent3-500 {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
   .xl\:bg-swirl {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -76445,6 +76945,12 @@ body {
     --bg-opacity: 1;
     background-color: #920104;
     background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .xl\:hover\:bg-accent3-500:hover {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
   }
 
   .xl\:hover\:bg-swirl:hover {
@@ -77025,6 +77531,12 @@ body {
     background-color: rgba(146, 1, 4, var(--bg-opacity));
   }
 
+  .xl\:focus\:bg-accent3-500:focus {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
   .xl\:focus\:bg-swirl:focus {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -77547,6 +78059,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .xl\:from-accent3-500 {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .xl\:from-swirl {
     --gradient-from-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -78032,6 +78549,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .xl\:via-accent3-500 {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .xl\:via-swirl {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -78419,6 +78941,10 @@ body {
 
   .xl\:to-accent2 {
     --gradient-to-color: #920104;
+  }
+
+  .xl\:to-accent3-500 {
+    --gradient-to-color: #c02d28;
   }
 
   .xl\:to-swirl {
@@ -78903,6 +79429,11 @@ body {
   .xl\:hover\:from-accent2:hover {
     --gradient-from-color: #920104;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+  }
+
+  .xl\:hover\:from-accent3-500:hover {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
   }
 
   .xl\:hover\:from-swirl:hover {
@@ -79390,6 +79921,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .xl\:hover\:via-accent3-500:hover {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .xl\:hover\:via-swirl:hover {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -79777,6 +80313,10 @@ body {
 
   .xl\:hover\:to-accent2:hover {
     --gradient-to-color: #920104;
+  }
+
+  .xl\:hover\:to-accent3-500:hover {
+    --gradient-to-color: #c02d28;
   }
 
   .xl\:hover\:to-swirl:hover {
@@ -80261,6 +80801,11 @@ body {
   .xl\:focus\:from-accent2:focus {
     --gradient-from-color: #920104;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
+  }
+
+  .xl\:focus\:from-accent3-500:focus {
+    --gradient-from-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
   }
 
   .xl\:focus\:from-swirl:focus {
@@ -80748,6 +81293,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(146, 1, 4, 0));
   }
 
+  .xl\:focus\:via-accent3-500:focus {
+    --gradient-via-color: #c02d28;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(192, 45, 40, 0));
+  }
+
   .xl\:focus\:via-swirl:focus {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -81135,6 +81685,10 @@ body {
 
   .xl\:focus\:to-accent2:focus {
     --gradient-to-color: #920104;
+  }
+
+  .xl\:focus\:to-accent3-500:focus {
+    --gradient-to-color: #c02d28;
   }
 
   .xl\:focus\:to-swirl:focus {
@@ -81853,6 +82407,12 @@ body {
     border-color: rgba(146, 1, 4, var(--border-opacity));
   }
 
+  .xl\:border-accent3-500 {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
+  }
+
   .xl\:border-swirl {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -82431,6 +82991,12 @@ body {
     border-color: rgba(146, 1, 4, var(--border-opacity));
   }
 
+  .xl\:hover\:border-accent3-500:hover {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
+  }
+
   .xl\:hover\:border-swirl:hover {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -83007,6 +83573,12 @@ body {
     --border-opacity: 1;
     border-color: #920104;
     border-color: rgba(146, 1, 4, var(--border-opacity));
+  }
+
+  .xl\:focus\:border-accent3-500:focus {
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
   }
 
   .xl\:focus\:border-swirl:focus {
@@ -84111,6 +84683,10 @@ body {
 
   .xl\:h-screen {
     height: 100vh;
+  }
+
+  .xl\:h-em {
+    height: 1em;
   }
 
   .xl\:text-xs {
@@ -86823,6 +87399,12 @@ body {
     color: rgba(146, 1, 4, var(--placeholder-opacity));
   }
 
+  .xl\:placeholder-accent3-500::placeholder {
+    --placeholder-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--placeholder-opacity));
+  }
+
   .xl\:placeholder-swirl::placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -87399,6 +87981,12 @@ body {
     --placeholder-opacity: 1;
     color: #920104;
     color: rgba(146, 1, 4, var(--placeholder-opacity));
+  }
+
+  .xl\:focus\:placeholder-accent3-500:focus::placeholder {
+    --placeholder-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--placeholder-opacity));
   }
 
   .xl\:focus\:placeholder-swirl:focus::placeholder {
@@ -88293,6 +88881,12 @@ body {
     color: rgba(146, 1, 4, var(--text-opacity));
   }
 
+  .xl\:text-accent3-500 {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
+  }
+
   .xl\:text-swirl {
     --text-opacity: 1;
     color: #d0cec2;
@@ -88869,6 +89463,12 @@ body {
     --text-opacity: 1;
     color: #920104;
     color: rgba(146, 1, 4, var(--text-opacity));
+  }
+
+  .xl\:hover\:text-accent3-500:hover {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
   }
 
   .xl\:hover\:text-swirl:hover {
@@ -89449,6 +90049,12 @@ body {
     color: rgba(146, 1, 4, var(--text-opacity));
   }
 
+  .xl\:focus\:text-accent3-500:focus {
+    --text-opacity: 1;
+    color: #c02d28;
+    color: rgba(192, 45, 40, var(--text-opacity));
+  }
+
   .xl\:focus\:text-swirl:focus {
     --text-opacity: 1;
     color: #d0cec2;
@@ -89931,6 +90537,10 @@ body {
 
   .xl\:w-screen {
     width: 100vw;
+  }
+
+  .xl\:w-em {
+    width: 1em;
   }
 
   .xl\:z-0 {

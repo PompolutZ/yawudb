@@ -7,12 +7,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: "#501408", // bulgarian-rose
+        // bulgarian-rose
+        accent: "#501408",
+        // warhammer underworlds logo red 
         accent2: "#920104",
+        // frontend-masters red
+        accent3: { 
+          500: "#c02d28",
+        }, 
         swirl: '#d0cec2',
       },
       minWidth: {
         '3/4': '75%',
+      },
+      width: {
+        em: '1em',
+      },
+      height: {
+        em: '1em',
       },
       flex: {
         '1/2': '0 1 50%',
