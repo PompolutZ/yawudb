@@ -1,18 +1,23 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { openDB } from 'idb';
 
-const IndexDbContext = createContext();
+function useIndexDB(name, version, upgrade) {
+    const [db, setDB] = useState(null);
 
-class IndexDb {
-    indexdb = null;
-    
-    constructor() {
-        this.indexdb = openDB('wunderworldsdb', 1);
-    }
+    useEffect(() => {
+        if(upgrade) {
+            openDB(name, version, { upgrade })
+            .then(db => setDB(db))
+            .catch(err => console.error(err));
+        } else {
+            openDB(name, version)
+            .then(db => setDB(db))
+            .catch(err => console.error(err));
+        }
+
+    }, []);
+
+    return db;
 }
 
-const IndexDbProvider = ({ children }) => {
-    return <IndexDbContext.Provider value={new IndexDb()}>{children}</IndexDbContext.Provider>;
-};
-
-export default IndexDbProvider;
+export default useIndexDB;

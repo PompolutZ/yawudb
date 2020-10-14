@@ -5,6 +5,7 @@ import { FirebaseContext } from '../../firebase'
 import VirtualizedDecksList from './VirtualizedDecksList'
 import FactionFilter from './FactionFilter'
 import { Helmet } from 'react-helmet'
+import useIndexDB from '../../hooks/useIndexDb'
 
 const filterDeckIds = (deckIds, faction) => () =>
     deckIds.filter(id => {
@@ -19,6 +20,7 @@ const filterDeckIds = (deckIds, faction) => () =>
     })
 
 function Decks({ classes, history, match }) {
+    const db = useIndexDB('public_decks', 1);
     const firebase = useContext(FirebaseContext)
     const [deckIds, setDeckIds] = useState(
         JSON.parse(localStorage.getItem('yawudb_deck_ids')) || []
@@ -61,6 +63,12 @@ function Decks({ classes, history, match }) {
     }, [])
 
     useEffect(() => {
+        if(!db) return;
+
+        db.get('all', 1).then(value => console.log('Fetched!', value));
+    }, [db]);
+
+    useEffect(() => {
         setFilteredDeckIds(filterDeckIds(deckIds, match.params.faction))
     }, [match.params.faction, deckIds])
 
@@ -78,17 +86,8 @@ function Decks({ classes, history, match }) {
                 <meta
                         name="description"
                         content={description}
-<<<<<<< HEAD
-                    /> */}
-            {/* </Helmet> */}
-
-            {/* <div className="flex-grow m-4 flex bg-purple-300 h-full">
-                <div ref={fixContainerRef} className="bg-orange-300 w-1/3">
-                    <div className="fixed bg-red-500" style={fixedStyle}>
-=======
                     />
             </Helmet>
->>>>>>> master
 
             <div className={classes.root}>
                 <div className={classes.filterContainer}>

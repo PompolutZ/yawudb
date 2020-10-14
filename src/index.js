@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import ReactDOM from "react-dom";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
@@ -29,6 +29,7 @@ import RootHelmet from "./components/Root/rootMetas";
 import NavigationPanel from "./v2/components/NavigationPanel";
 import IndexDbProvider from "./hooks/useIndexDb";
 import PublicDecksProvider from "./contexts/publicDecksContext";
+import useIndexDB from "./hooks/useIndexDb";
 
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
@@ -110,19 +111,49 @@ const useStyles = makeStyles((theme) => ({
             padding: 0,
         },
     },
-
-    // mainContent: {
-    //     flex: "1 0",
-    //     paddingTop: "5rem",
-    //     background: 'magenta',
-    //     // [theme.breakpoints.up("sm")]: {
-    //     //     marginLeft: `calc(${drawerWidth}px + 1rem)`,
-    //     // },
-    // },
 }));
+const LAST_KNOWN_TIMESTAMP = 'wu_lastPublicDeck';
 
 function App(props) {
-    const classes = useStyles();
+    const [lastUsedTimestamp, setLastUsedTimestamp] = useState(localStorage.getItem(LAST_KNOWN_TIMESTAMP) || undefined);
+
+    const db = useIndexDB('public_decks', 1, db => {
+        db.createObjectStore('all', { keyPath: 'timestamp' })
+    });
+
+    React.useEffect(() => {
+        if(!db) return;
+
+        if(!lastUsedTimestamp) {
+            props.firebase.realdb.ref('/public_decks').on('value', snapshot => {
+                const actions = snapshot.val();
+                Object.entries(actions).forEach(async ([timestamp, {action, id}]) => {
+                    switch(action) {
+                        case 'SHARED': {
+                            const s = await props.firebase.realdb.ref(`/decks/${id}`).once('value');
+                            const deck = s.val();
+                            if(!(await db.getKey('all', timestamp))) {
+                                await db.add('all', {...deck, id, timestamp });
+                            }
+                        }
+    
+                        case 'DELETED': {
+    
+                        }
+                    }
+                })
+                const [lastKnownTimestamp ] = Object.keys(actions).slice(-1)
+                if(!!lastKnownTimestamp) {
+                    localStorage.setItem(LAST_KNOWN_TIMESTAMP, lastKnownTimestamp);
+                    setLastUsedTimestamp(lastKnownTimestamp);
+                }
+            })
+        } else {
+            props.firebase.realdb.ref('/public_decks').orderByKey().startAt(lastUsedTimestamp).on('value', snapshot => {
+                console.log('PublicDecks from', lastUsedTimestamp, snapshot.val());
+            })
+        }
+}, [db, props.firebase]);
 
     React.useEffect(() => {
         const unsubscribe = props.firebase.onAuthUserListener(
@@ -171,7 +202,8 @@ function App(props) {
     return (
         <>
             <RootHelmet />
-            {/* <CssBaseline />
+            {/* <CssBase
+            line />
             <Container maxWidth="lg" className={classes.root}>
             </Container> */}
             <ConnectedRouter history={history}>
