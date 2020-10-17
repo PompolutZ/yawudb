@@ -31,7 +31,8 @@ module.exports = {
         '1/3': '0 1 33%',   
       },
       gridTemplateColumns: {
-        '1fr/auto/1fr': '1fr auto 1fr'
+        '1fr/auto/1fr': '1fr auto 1fr',
+        'a/fr/a': 'auto 1fr auto',
       },  
     },
   },

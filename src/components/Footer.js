@@ -7,7 +7,7 @@ import Link from "@material-ui/core/Link";
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: "1rem 2rem",
-        background: 'white'
+        background: '#f0f0f0'
     },
 
     disclaimer: {

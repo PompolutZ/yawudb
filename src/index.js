@@ -32,6 +32,7 @@ import PublicDecksProvider from "./contexts/publicDecksContext";
 import useIndexDB from "./hooks/useIndexDb";
 
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
+const DeckEditor = lazy(() => import('./v2/pages/DeckEditor'));
 const Decks = lazy(() => import("./pages/Decks"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Library = lazy(() => import("./pages/Library"));
@@ -201,13 +202,7 @@ function App(props) {
 
     return (
         <>
-            <RootHelmet />
-            {/* <CssBase
-            line />
-            <Container maxWidth="lg" className={classes.root}>
-            </Container> */}
             <ConnectedRouter history={history}>
-                {/* <MenuAppBar /> */}
                 <NavigationPanel />
 
                 <main id="yawudb_main" className="flex-grow flex">
@@ -230,7 +225,8 @@ function App(props) {
                                 <Route
                                     path={ROUTES.CREATOR_ROOT}
                                     render={(props) => (
-                                        <DeckCreator {...props} />
+                                        // <DeckCreator {...props} />
+                                        <DeckEditor {...props} />
                                     )}
                                 />
                                 <Route
