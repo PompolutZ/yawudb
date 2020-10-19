@@ -20,6 +20,11 @@
 }
 
 @layer utilities {
+    @variants hover, focus {
+        .filter-shadow-sm {
+            filter: drop-shadow(0px 4px 6px black);
+        }
+    }
     .w100 {
         width: calc(100% - theme('spacing.12'));
     }
