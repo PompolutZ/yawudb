@@ -69,11 +69,7 @@ const Home = (props) => {
             }}>
 
             </div>
-            {/* <picture>
-                <source type="image/webp" srcSet={`/assets/direchasm_bg.webp`} />
-                <img src={`/assets/direchasm_bg.jpg`} className="absolute w-screen" style={{ zIndex: -1, margin: '-100px 0 0 0'}} />
-            </picture> */}
-
+            
             <h1 className="block text-2xl my-12 text-center text-white font-semibold z-10">
                 Deck building website for Warhammer Underworlds.
             </h1>

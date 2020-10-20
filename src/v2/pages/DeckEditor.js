@@ -105,21 +105,22 @@ function Filters({ ...rest }) {
     );
 }
 
-function Card({ id, ...rest }) {
+function Card({ image, id, name, set, ...rest }) {
     return (
-        <div className="w-1/4 p-2">
-            <img className="rounded-md hover:filter-shadow-sm" src={`/assets/cards/${id}.png`}/>
-        </div>
-    )
-}
-
-function CardsList({ cards, ...rest }) {
-    return (
-        <div className={`${rest.className}`}>
+        <>
             {
-                cards.map(card => <Card key={card.id} {...card} />)
+                image ? (
+                    <div className="w-1/4 p-2">
+                        <img className="rounded-md hover:filter-shadow-sm" src={`/assets/cards/${id}.png`}/>
+                    </div>
+                ) : (
+                    <div className="w-full mb-2 flex">
+                        <img className="w-12 h-12" src={`/assets/icons/${setsIndex[set]}-icon.png`} />
+                        <div>{name}</div>
+                    </div>
+                )
             }
-        </div>
+        </>
     )
 }
 
@@ -151,9 +152,9 @@ function FilterableCardsList({ ...rest }) {
       }, [inView, cards]);
     
     return (
-        <div className={`${rest.className} h-screen overflow-y-auto`}>
+        <div className={`sm:max-h-screen sm:overflow-y-auto ${rest.className}`}>
             {
-                visibleCards.map(card => <Card key={card.id} {...card} />)
+                visibleCards.map(card => <Card key={card.id} image={window.innerWidth > 640} {...card} />)
             }
             <div ref={ref}>Loading...</div>
         </div>
@@ -164,12 +165,12 @@ function DeckEditor() {
 
 
     return (
-        <div className="w-full bg-white grid grid-cols-8 gap-2">
-            <Filters className="col-span-2" />
+        <div className="w-full bg-white sm:grid grid-cols-8 gap-2">
+            <Filters className="fixed opacity-0 sm:opacity-100 sm:static sm:col-span-2" />
             {/* <div className="bg-gray-500 col-span-4 h-48"></div> */}
             <FilterableCardsList className="bg-orange-600 col-span-4 flex flex-wrap content-start" />
             {/* <div className="bg-yellow-500 h-48"></div> */}
-            <section className="w-full h-full bg-orange-500 col-span-2">
+            <section className="w-full h-full bg-orange-500 opacity-0 sm:opacity-100 sm:static sm:col-span-2">
                 Current Deck
             </section>            
         </div>
