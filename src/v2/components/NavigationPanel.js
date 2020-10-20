@@ -7,33 +7,27 @@ import { animated, useTransition } from "react-spring";
 import { ReactComponent as MenuIcon } from "../../svgs/menu.svg";
 import Divider from "./Divider";
 import { FirebaseContext } from "../../firebase";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 export default function NavigationPanel() {
-    return (
-        <>
-            <div
-                className="absolute inset-0 w-screen bg-red-500"
-                style={{ backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,.1) 75%, rgba(255,255,255,.5)), url(/assets/background_sm_2.png)', backgroundRepeat: 'no-repeat', zIndex: -1, backgroundSize: 'cover' }}
-            >
-                {/* <img srcSet="/assets/background_sm.png " src="/assets/background_sm.png" /> */}
-            </div>
+    const { pathname } = useLocation();
 
-            <header className="mx-2 sm:mx-4 flex p-2 items-center relative">
-                <div className="mr-8">
-                    <Link
-                        className="text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
-                        to="/"
-                    >
-                        <Logo />
-                    </Link>
-                </div>
-                <Menu classes="hidden text-white lg:flex text-sm flex-1">
-                    <UserMenu />
-                </Menu>
-                <MobileMenu className="text-white text-2xl stroke-current stroke-2 ml-auto lg:hidden" />
-            </header>
-        </>
+    console.log(new RegExp(/^\/$/).test(pathname));
+    return (
+        <header className="mx-2 sm:mx-4 flex p-2 items-center relative">
+            <div className="mr-8">
+                <Link
+                    className="text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    to="/"
+                >
+                    <Logo />
+                </Link>
+            </div>
+            <Menu classes={`hidden lg:flex text-sm flex-1 ${new RegExp(/^\/$/).test(pathname) ? 'text-white' : 'text-gray-900'}`}>
+                <UserMenu />
+            </Menu>
+            <MobileMenu className={`text-2xl stroke-current stroke-2 ml-auto lg:hidden ${new RegExp(/^\/$/).test(pathname) ? 'text-white' : 'text-gray-900'}`} />
+        </header>
     );
 }
 
