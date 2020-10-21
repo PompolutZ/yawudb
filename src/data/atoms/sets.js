@@ -342,5 +342,5 @@ export const setsNames = [
     "Arena Mortis", // 28
 ]
 
-export const rotatedOutSetsIndexes = [0, 1, 2, 3, 4, 5, 6];
+export const rotatedOutSetsIndexes = [0, 1, 2, 3, 4, 5, 6, 7];
 

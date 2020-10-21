@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { cardsDb, factions, setsIndex } from "../../data";
+import { cardsDb, factions, getValidSets, setsIndex, CHAMPIONSHIP_FORMAT } from "../../data";
 import { ReactComponent as Logo } from "../../svgs/underworlds_logo.svg";
 import { ReactComponent as Hex } from "../../svgs/hexagon-shape.svg";
 import { useInView } from "react-intersection-observer";
-
-function SectionTitle({ title, ...rest }) {
-    return (
-        <div className={`flex items-center ${rest.className}`}>
-            <hr className="flex-grow" />
-            <Logo className="mx-2 text-gray-500 fill-current" />
-            <h3>{title}</h3>
-            <Logo className="mx-2 text-gray-500 fill-current" />
-            <hr className="flex-grow" />
-        </div>
-    );
-}
+import { animated, useTransition } from 'react-spring';
+import { ReactComponent as SlidersIcon } from "../../svgs/sliders.svg";
+import SectionTitle from '../components/SectionTitle';
+import FullScreenOverlay from "../components/FullScreenOverlay";
 
 function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     return (
@@ -27,22 +19,24 @@ function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
                     />
                 </picture>
             </div>
-            <div className="flex-grow grid place-content-center text-gray-900 text-xl">
+            <div className="flex-grow grid place-content-center text-gray-900 text-2xl">
                 {factions[faction]}
             </div>
         </div>
     );
 }
 
-function FactionsPicker({ ...rest }) {
+function FactionsPicker({ selected, onPicked,...rest }) {
     return (
         <div className={`flex flex-wrap align-middle ${rest.className}`}>
-            {Object.keys(factions)
+            {Object.keys(factions)            
                 .slice(1)
+                .filter(f => f != selected )
                 .map((faction) => (
                     <img
                         key={faction}
                         className="w-10 h-10 m-1"
+                        onClick={() => onPicked(faction)}
                         src={`/assets/icons/${faction}-icon.png`}
                     />
                 ))}
@@ -85,14 +79,15 @@ function SetsPicker({ ...rest }) {
     );
 }
 
-function Filters({ ...rest }) {
+function Filters({ selectedFaction, factionPicker, selectedFormat, selectedSets,...rest }) {
     return (
         <section className={`${rest.className}`}>
             <SectionTitle title="Warband" />
-            <SelectedFaction className="my-4" />
-            <FactionsPicker className="my-4" />
+            { selectedFaction }
+            { factionPicker }
 
             <SectionTitle title="Format" className="mt-8" />
+            { selectedFormat }
             <SectionTitle title="Sets" className="mt-8" />
             <div className="flex">
                 <Toggle checked />
@@ -100,7 +95,7 @@ function Filters({ ...rest }) {
                     For dublicate cards show only newest one.
                 </p>
             </div>
-            <SetsPicker />
+            <SetsPicker selectedSets={selectedSets} />
         </section>
     );
 }
@@ -162,14 +157,35 @@ function FilterableCardsList({ ...rest }) {
 }
 
 function DeckEditor() {
+    const [selectedFaction, setSelectedFaction] = useState("thorns-of-the-briar-queen");
+    const [selectedFormat, setSelectedFormat] = useState(CHAMPIONSHIP_FORMAT);
+    const [selectedSets, setSelectedSets] = useState(getValidSets(CHAMPIONSHIP_FORMAT));
 
+    useEffect(() => {
+        console.log(selectedFaction, selectedFormat, selectedSets);
+    }, [])
 
     return (
         <div className="w-full bg-white lg:grid grid-cols-8 gap-2">
-            <Filters className="fixed opacity-0 lg:opacity-100 lg:static sm:col-span-2" />
-            {/* <div className="bg-gray-500 col-span-4 h-48"></div> */}
+            <FullScreenOverlay 
+                hasCloseButton
+                icon={() => <SlidersIcon className="" />}
+            >
+                <Filters 
+                    className="p-4 lg:opacity-100 lg:static sm:col-span-2"
+                    selectedFaction={
+                        <SelectedFaction className="my-4" faction={selectedFaction} />
+                    }
+                    factionPicker={
+                        <FactionsPicker className="my-4" selected={selectedFaction}
+                            onPicked={setSelectedFaction} />
+                    }
+                    selectedFormat={selectedFormat}
+                    selectedSets={selectedSets} />
+            </FullScreenOverlay>
+
             <FilterableCardsList className="bg-orange-600 col-span-4 flex flex-wrap content-start" />
-            {/* <div className="bg-yellow-500 h-48"></div> */}
+            
             <section className="w-full h-full bg-orange-500 opacity-0 lg:opacity-100 sm:static lg:col-span-2">
                 Current Deck
             </section>            
