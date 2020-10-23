@@ -3,7 +3,7 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
-  purge: [],
+  purge: ['src/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {
@@ -12,8 +12,12 @@ module.exports = {
         // warhammer underworlds logo red 
         accent2: "#920104",
         // frontend-masters red
-        accent3: { 
+        accent3: {
+          100: "#F27263",
+          300: "#D94D43", 
           500: "#c02d28",
+          700: "#A61712",
+          900: "#8C0601",
         }, 
         swirl: '#d0cec2',
       },

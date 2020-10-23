@@ -41,13 +41,16 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "yarn watch:css && react-scripts start",
-    "build": "yarn build:css && react-scripts build",
+    "prestart": "yarn build:tw",
+    "start": "npm-run-all --parallel watch:tw start:react",
+    "start:react": "react-scripts start",
+    "build": "yarn build:prodtw && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*\"",
-    "watch:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
-    "build:css": "postcss src/styles/tailwind.css -o src/styles/main.css"
+    "watch:tw": "chokidar 'src/styles/tailwind.css' './tailwind.config.js' -c 'yarn build:tw'",
+    "build:tw": "tailwind build src/styles/tailwind.css -o src/styles/main.css",
+    "build:prodtw": "NODE_ENV=production yarn build:tw"
   },
   "browserslist": [
     ">0.2%",
@@ -58,10 +61,12 @@
   "devDependencies": {
     "@craco/craco": "^5.6.4",
     "autoprefixer": "^10.0.0",
+    "chokidar-cli": "^2.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
     "firebase-tools": "^8.12.1",
+    "npm-run-all": "^4.1.5",
     "postcss-cli": "^7.1.2",
     "postcss-import": "^12.0.1",
     "prettier": "^2.0.5",

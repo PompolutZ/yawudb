@@ -44,7 +44,7 @@ function DeckMetaSummary({ classes, prefix, firebase, decksMeta, addDecksMeta, o
 
     return (
         <div className={classes.root}>
-            <Link className="relative text-center bg-accent3-500 rounded w-full h-32 lg:w-32 text-6xl flex justify-end items-end p-2" to={`/decks/${prefix}`}>
+            <Link className="relative text-center bg-accent3-700 rounded w-full h-32 lg:w-32 text-6xl flex justify-end items-end p-2" to={`/decks/${prefix}`}>
                 <DeckIconPicture className="w-24 h-24 absolute inset-0" faction={idPrefixToFaction[prefix]} />
                 <DecksCount className="text-white text-2xl font-bold" count={count} />
             </Link>
