@@ -7,6 +7,7 @@ import { animated, useTransition } from 'react-spring';
 import { ReactComponent as SlidersIcon } from "../../svgs/sliders.svg";
 import SectionTitle from '../components/SectionTitle';
 import FullScreenOverlay from "../components/FullScreenOverlay";
+import useDexie from "../../hooks/useDexie";
 
 function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     return (
@@ -160,10 +161,30 @@ function DeckEditor() {
     const [selectedFaction, setSelectedFaction] = useState("thorns-of-the-briar-queen");
     const [selectedFormat, setSelectedFormat] = useState(CHAMPIONSHIP_FORMAT);
     const [selectedSets, setSelectedSets] = useState(getValidSets(CHAMPIONSHIP_FORMAT));
+    const { cards } = useDexie('wudb');
 
     useEffect(() => {
         console.log(selectedFaction, selectedFormat, selectedSets);
     }, [])
+
+    useEffect(() => {
+        cards
+        .where('name').startsWith('J') // can be replaced with your custom query
+        .with({ set: 'setId', faction: 'factionId' }) // makes referred items included
+        .then(items => {
+            // Let's print the result:
+            items.forEach(item => {
+                console.log(item);
+                console.log(item.set.name)
+                console.log(item.faction.displayName);
+            })
+            // cards.forEach (card => {
+            //     console.log (`Card: ${card}`)
+            //     console.log (`Set: ${card.set.name}`)
+            //     console.log (`Faction: ${JSON.stringify(card.faction, null, 4)}`)
+            // });
+        }).catch(e => console.error(e));
+    }, [cards])
 
     return (
         <div className="w-full bg-white lg:grid grid-cols-8 gap-2">

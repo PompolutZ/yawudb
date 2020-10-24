@@ -30,6 +30,7 @@ import NavigationPanel from "./v2/components/NavigationPanel";
 import IndexDbProvider from "./hooks/useIndexDb";
 import PublicDecksProvider from "./contexts/publicDecksContext";
 import useIndexDB from "./hooks/useIndexDb";
+import useDexie from "./hooks/useDexie";
 
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const DeckEditor = lazy(() => import('./v2/pages/DeckEditor'));
@@ -117,44 +118,102 @@ const LAST_KNOWN_TIMESTAMP = 'wu_lastPublicDeck';
 
 function App(props) {
     const [lastUsedTimestamp, setLastUsedTimestamp] = useState(localStorage.getItem(LAST_KNOWN_TIMESTAMP) || undefined);
-
-    const db = useIndexDB('public_decks', 1, db => {
-        db.createObjectStore('all', { keyPath: 'timestamp' })
-    });
+    const db = useDexie('wudb');
+    // const db = useIndexDB('public_decks', 1, db => {
+    //     db.createObjectStore('all', { keyPath: 'timestamp' })
+    // });
 
     React.useEffect(() => {
-        if(!db) return;
+        // db.version(1).stores({
+        //     // maybe to consider making restriction as a keyword, 
+        //     // maybe use more keywords?..
+        //     factions: 'id,abbr,name,displayName',
+        //     sets: 'id,name,displayName,released',
+        //     cards: 'id, name, factionId -> factions.id, type, setId -> sets.id, rule, glory, scoreType',
+        // });
+        
+        // db.transaction('rw', db.factions, db.cards, db.sets, () => {
+        //     // Factions
+        //     db.factions.bulkPut([{
+        //         id: 1,
+        //         abbr: 'u',
+        //         name: 'universal',
+        //         displayName: 'Universal'
+        //     }, {
+        //         id: 2,
+        //         abbr: 'gr',
+        //         name: 'garreks-reavers',
+        //         displayName: 'Garreks Reavers'
+        //     }])
+        
+        //     // Sets
+        //     db.sets.bulkPut([{
+        //         id: 23,
+        //         name: 'beastgrave-gift-pack',
+        //         displayName: 'Beastgrave Gift Pack',
+        //         released: new Date(2019, 10, 10)
+        //     }])
+            
+        //     // Cards
+        //     db.cards.bulkPut([{
+        //         id: 7001,
+        //         name: "Bold Conquest",
+        //         factionId: 1,
+        //         type: 'Objective',
+        //         setId: 23,
+        //         rule: "**Surge, Dual:** Score this immediately after an activation \\n *If:* Your **leader** made a **Charge action** in that activation \\n *And:* your **leader** is holding an objective.",
+        //         glory: 1,
+        //         scoreType: 'Surge'
+        //     }, {
+        //         id: 7017,
+        //         name: "Jealous Defence",
+        //         factionId: 1,
+        //         type: 'Ploy',
+        //         setId: 23,
+        //         rule: "**Choose** one friendly fighter with no Charge tokens holding an objective. The chosen fighter makes one **Attack action**."
+        //     }, {
+        //         id: 7023,
+        //         name: "Grim Tenacity",
+        //         factionId: 1,
+        //         type: 'Upgrade',
+        //         setId: 23,
+        //         rule: "This fighter cannot be **driven back**."
+        //     }])
+        // });
+    }, [db]);
+//     React.useEffect(() => {
+//         if(!db) return;
 
-        if(!lastUsedTimestamp) {
-            props.firebase.realdb.ref('/public_decks').on('value', snapshot => {
-                const actions = snapshot.val();
-                Object.entries(actions).forEach(async ([timestamp, {action, id}]) => {
-                    switch(action) {
-                        case 'SHARED': {
-                            const s = await props.firebase.realdb.ref(`/decks/${id}`).once('value');
-                            const deck = s.val();
-                            if(!(await db.getKey('all', timestamp))) {
-                                await db.add('all', {...deck, id, timestamp });
-                            }
-                        }
+//         if(!lastUsedTimestamp) {
+//             props.firebase.realdb.ref('/public_decks').on('value', snapshot => {
+//                 const actions = snapshot.val();
+//                 Object.entries(actions).forEach(async ([timestamp, {action, id}]) => {
+//                     switch(action) {
+//                         case 'SHARED': {
+//                             const s = await props.firebase.realdb.ref(`/decks/${id}`).once('value');
+//                             const deck = s.val();
+//                             if(!(await db.getKey('all', timestamp))) {
+//                                 await db.add('all', {...deck, id, timestamp });
+//                             }
+//                         }
     
-                        case 'DELETED': {
+//                         case 'DELETED': {
     
-                        }
-                    }
-                })
-                const [lastKnownTimestamp ] = Object.keys(actions).slice(-1)
-                if(!!lastKnownTimestamp) {
-                    localStorage.setItem(LAST_KNOWN_TIMESTAMP, lastKnownTimestamp);
-                    setLastUsedTimestamp(lastKnownTimestamp);
-                }
-            })
-        } else {
-            props.firebase.realdb.ref('/public_decks').orderByKey().startAt(lastUsedTimestamp).on('value', snapshot => {
-                console.log('PublicDecks from', lastUsedTimestamp, snapshot.val());
-            })
-        }
-}, [db, props.firebase]);
+//                         }
+//                     }
+//                 })
+//                 const [lastKnownTimestamp ] = Object.keys(actions).slice(-1)
+//                 if(!!lastKnownTimestamp) {
+//                     localStorage.setItem(LAST_KNOWN_TIMESTAMP, lastKnownTimestamp);
+//                     setLastUsedTimestamp(lastKnownTimestamp);
+//                 }
+//             })
+//         } else {
+//             props.firebase.realdb.ref('/public_decks').orderByKey().startAt(lastUsedTimestamp).on('value', snapshot => {
+//                 console.log('PublicDecks from', lastUsedTimestamp, snapshot.val());
+//             })
+//         }
+// }, [db, props.firebase]);
 
     React.useEffect(() => {
         const unsubscribe = props.firebase.onAuthUserListener(
