@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from "react";
+import React, { Suspense, lazy, useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 
 import registerServiceWorker from "./registerServiceWorker";
 import Footer from "./components/Footer";
-import MenuAppBar, { drawerWidth } from "./components/MenuAppBar";
 import { createBrowserHistory } from "history";
 
 import { connect, Provider } from "react-redux";
@@ -23,16 +22,11 @@ import * as ROUTES from "./constants/routes";
 import CardsRating from "./pages/CardsRating";
 import Admin from "./pages/Admin";
 import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-import RootHelmet from "./components/Root/rootMetas";
 import NavigationPanel from "./v2/components/NavigationPanel";
-import IndexDbProvider from "./hooks/useIndexDb";
 import PublicDecksProvider from "./contexts/publicDecksContext";
-import useIndexDB from "./hooks/useIndexDb";
 import useDexie from "./hooks/useDexie";
+import shadows from "@material-ui/core/styles/shadows";
 
-const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const DeckEditor = lazy(() => import('./v2/pages/DeckEditor'));
 const Decks = lazy(() => import("./pages/Decks"));
 const SignUp = lazy(() => import("./pages/SignUp"));
@@ -55,7 +49,7 @@ const MetaReset = lazy(() => import("./pages/MetaResetPage"));
 const history = createBrowserHistory();
 const store = configureStore(history);
 
-const setToLastLocation = (state, history) => {
+const setToLastLocation = () => {
     // if (state.router.location.pathname !== history.location.pathname) {
     //     if (window.matchMedia('(display-mode: standalone)').matches) {
     //         history.push(state.router.location.pathname)
@@ -99,121 +93,42 @@ const PrivateRoute = connect((state) => ({
     isAuthenticated: state.auth !== null,
 }))(PrivateRouteContainer);
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flex: "1 0 100%",
-        height: "100%",
-        display: "flex",
-        flexFlow: "column",
-        justifyContent: "stretch",
-        overflowX: "hidden",
-        overflowY: "auto",
-        WebkitOverflowScrolling: "touch",
-        [theme.breakpoints.down("md")]: {
-            padding: 0,
-        },
-    },
-}));
 const LAST_KNOWN_TIMESTAMP = 'wu_lastPublicDeck';
 
 function App(props) {
-    const [lastUsedTimestamp, setLastUsedTimestamp] = useState(localStorage.getItem(LAST_KNOWN_TIMESTAMP) || undefined);
+    const [] = useState(localStorage.getItem(LAST_KNOWN_TIMESTAMP) || undefined);
     const db = useDexie('wudb');
-    // const db = useIndexDB('public_decks', 1, db => {
-    //     db.createObjectStore('all', { keyPath: 'timestamp' })
-    // });
+    const firebase = useContext(FirebaseContext);
 
     React.useEffect(() => {
-        // db.version(1).stores({
-        //     // maybe to consider making restriction as a keyword, 
-        //     // maybe use more keywords?..
-        //     factions: 'id,abbr,name,displayName',
-        //     sets: 'id,name,displayName,released',
-        //     cards: 'id, name, factionId -> factions.id, type, setId -> sets.id, rule, glory, scoreType',
-        // });
-        
-        // db.transaction('rw', db.factions, db.cards, db.sets, () => {
-        //     // Factions
-        //     db.factions.bulkPut([{
-        //         id: 1,
-        //         abbr: 'u',
-        //         name: 'universal',
-        //         displayName: 'Universal'
-        //     }, {
-        //         id: 2,
-        //         abbr: 'gr',
-        //         name: 'garreks-reavers',
-        //         displayName: 'Garreks Reavers'
-        //     }])
-        
-        //     // Sets
-        //     db.sets.bulkPut([{
-        //         id: 23,
-        //         name: 'beastgrave-gift-pack',
-        //         displayName: 'Beastgrave Gift Pack',
-        //         released: new Date(2019, 10, 10)
-        //     }])
-            
-        //     // Cards
-        //     db.cards.bulkPut([{
-        //         id: 7001,
-        //         name: "Bold Conquest",
-        //         factionId: 1,
-        //         type: 'Objective',
-        //         setId: 23,
-        //         rule: "**Surge, Dual:** Score this immediately after an activation \\n *If:* Your **leader** made a **Charge action** in that activation \\n *And:* your **leader** is holding an objective.",
-        //         glory: 1,
-        //         scoreType: 'Surge'
-        //     }, {
-        //         id: 7017,
-        //         name: "Jealous Defence",
-        //         factionId: 1,
-        //         type: 'Ploy',
-        //         setId: 23,
-        //         rule: "**Choose** one friendly fighter with no Charge tokens holding an objective. The chosen fighter makes one **Attack action**."
-        //     }, {
-        //         id: 7023,
-        //         name: "Grim Tenacity",
-        //         factionId: 1,
-        //         type: 'Upgrade',
-        //         setId: 23,
-        //         rule: "This fighter cannot be **driven back**."
-        //     }])
-        // });
-    }, [db]);
-//     React.useEffect(() => {
-//         if(!db) return;
+        Promise
+            .all([
+                firebase.realdb.ref('/wudb/version').once('value'),
+                db.revision.toCollection().last()
+            ])
+            .then(([snapshot, localRevision]) => {
+                if(localRevision && snapshot.val() <= localRevision.revision) return;
 
-//         if(!lastUsedTimestamp) {
-//             props.firebase.realdb.ref('/public_decks').on('value', snapshot => {
-//                 const actions = snapshot.val();
-//                 Object.entries(actions).forEach(async ([timestamp, {action, id}]) => {
-//                     switch(action) {
-//                         case 'SHARED': {
-//                             const s = await props.firebase.realdb.ref(`/decks/${id}`).once('value');
-//                             const deck = s.val();
-//                             if(!(await db.getKey('all', timestamp))) {
-//                                 await db.add('all', {...deck, id, timestamp });
-//                             }
-//                         }
-    
-//                         case 'DELETED': {
-    
-//                         }
-//                     }
-//                 })
-//                 const [lastKnownTimestamp ] = Object.keys(actions).slice(-1)
-//                 if(!!lastKnownTimestamp) {
-//                     localStorage.setItem(LAST_KNOWN_TIMESTAMP, lastKnownTimestamp);
-//                     setLastUsedTimestamp(lastKnownTimestamp);
-//                 }
-//             })
-//         } else {
-//             props.firebase.realdb.ref('/public_decks').orderByKey().startAt(lastUsedTimestamp).on('value', snapshot => {
-//                 console.log('PublicDecks from', lastUsedTimestamp, snapshot.val());
-//             })
-//         }
-// }, [db, props.firebase]);
+                return firebase.realdb.ref('/wudb').once('value');
+            })
+            .then(snapshot => {
+                if(!snapshot) return;
+                
+                const { data, version } = snapshot.val();
+                const sets = Object.values(data.sets);
+                const factions = Object.values(data.factions);
+                const cards = Object.values(data.cards);
+
+                return Promise.all([
+                    db.sets.bulkPut(sets),
+                    db.factions.bulkPut(factions),
+                    db.cards.bulkPut(cards),
+                    db.revision.add({ revision: version })
+                ])
+            })
+            .then(r => console.log('Updated!', r))
+            .catch(e => console.error(e));
+    }, [db, firebase]);
 
     React.useEffect(() => {
         const unsubscribe = props.firebase.onAuthUserListener(

@@ -68,11 +68,11 @@ function SetsPicker({ ...rest }) {
                 </p>
             </div>
             <div className={`flex flex-wrap align-middle ${rest.className}`}>
-                {setsIndex.map((set) => (
+                {rest.selectedSets.map((set) => (
                     <img
-                        key={set}
+                        key={set.id}
                         className="w-10 h-10 m-1"
-                        src={`/assets/icons/${set}-icon.png`}
+                        src={`/assets/icons/${set.name}-icon.png`}
                     />
                 ))}
             </div>
@@ -101,17 +101,17 @@ function Filters({ selectedFaction, factionPicker, selectedFormat, selectedSets,
     );
 }
 
-function Card({ image, id, name, set, ...rest }) {
+function Card({ image, id, name, setName, ...rest }) {
     return (
         <>
             {
                 image ? (
                     <div className="w-1/4 p-2">
-                        <img className="rounded-md hover:filter-shadow-sm" src={`/assets/cards/${id}.png`}/>
+                        <img className="rounded-md hover:filter-shadow-sm" src={`/assets/cards/0${id}.png`}/>
                     </div>
                 ) : (
                     <div className="w-full mb-2 flex">
-                        <img className="w-12 h-12" src={`/assets/icons/${setsIndex[set]}-icon.png`} />
+                        <img className="w-12 h-12" src={`/assets/icons/${setName}-icon.png`} />
                         <div>{name}</div>
                     </div>
                 )
@@ -120,25 +120,19 @@ function Card({ image, id, name, set, ...rest }) {
     )
 }
 
-function FilterableCardsList({ ...rest }) {
+function FilterableCardsList({ cards,...rest }) {
     const { ref, inView, entry } = useInView();
-    const [cards, setCards] = useState([]);
     const [visibleCards, setVisibleCards] = useState([])
 
     useEffect(() => {
-        const cards = Object.entries(cardsDb).map(([id, data]) => ({ ...data, id}));
-        setCards(cards);
-    }, []);
-
-    useEffect(() => {
-        setVisibleCards((current) => cards.slice(current.length, 20));
+        setVisibleCards((current) => cards?.slice(current.length, 20));
       }, [cards]);
 
       useEffect(() => {
-        console.log(inView);
+        if(!cards) return;
+        
         if (inView) {
             setVisibleCards((current) => {
-            console.log("I Will Try to Add more");
             return [
               ...current,
               ...cards.slice(current.length, current.length + 20)
@@ -150,7 +144,7 @@ function FilterableCardsList({ ...rest }) {
     return (
         <div className={`lg:max-h-screen lg:overflow-y-auto ${rest.className}`}>
             {
-                visibleCards.map(card => <Card key={card.id} image={window.innerWidth > 640} {...card} />)
+                visibleCards?.map(card => <Card key={card.id} image={window.innerWidth > 640} {...card} />)
             }
             <div ref={ref}>Loading...</div>
         </div>
@@ -160,31 +154,22 @@ function FilterableCardsList({ ...rest }) {
 function DeckEditor() {
     const [selectedFaction, setSelectedFaction] = useState("thorns-of-the-briar-queen");
     const [selectedFormat, setSelectedFormat] = useState(CHAMPIONSHIP_FORMAT);
-    const [selectedSets, setSelectedSets] = useState(getValidSets(CHAMPIONSHIP_FORMAT));
-    const { cards } = useDexie('wudb');
+    const [selectedSets, setSelectedSets] = useState([]);
+    const { cards, sets } = useDexie('wudb');
+    const [filteredCards, setFilteredCards] = useState([])
 
     useEffect(() => {
-        console.log(selectedFaction, selectedFormat, selectedSets);
+        sets.where('id').above(8).toArray().then(sets => setSelectedSets(sets));
     }, [])
 
     useEffect(() => {
         cards
-        .where('name').startsWith('J') // can be replaced with your custom query
+        .where('setId').anyOf(selectedSets.map(set => set.id)) // can be replaced with your custom query
         .with({ set: 'setId', faction: 'factionId' }) // makes referred items included
         .then(items => {
-            // Let's print the result:
-            items.forEach(item => {
-                console.log(item);
-                console.log(item.set.name)
-                console.log(item.faction.displayName);
-            })
-            // cards.forEach (card => {
-            //     console.log (`Card: ${card}`)
-            //     console.log (`Set: ${card.set.name}`)
-            //     console.log (`Faction: ${JSON.stringify(card.faction, null, 4)}`)
-            // });
+            setFilteredCards(items.map(i => ({...i, setName: i.set.name})));
         }).catch(e => console.error(e));
-    }, [cards])
+    }, [selectedFaction, selectedFormat, selectedSets.length])
 
     return (
         <div className="w-full bg-white lg:grid grid-cols-8 gap-2">
@@ -205,7 +190,7 @@ function DeckEditor() {
                     selectedSets={selectedSets} />
             </FullScreenOverlay>
 
-            <FilterableCardsList className="bg-orange-600 col-span-4 flex flex-wrap content-start" />
+            <FilterableCardsList className="bg-orange-600 col-span-4 flex flex-wrap content-start" cards={filteredCards} />
             
             <section className="w-full h-full bg-orange-500 opacity-0 lg:opacity-100 sm:static lg:col-span-2">
                 Current Deck
