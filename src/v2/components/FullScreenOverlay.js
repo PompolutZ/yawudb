@@ -4,14 +4,15 @@ import { ReactComponent as CloseIcon } from "../../svgs/x.svg";
 
 const FullScreenOverlay = ({
     icon: Icon,
+    direction = 'to-bottom',
     children,
     hasCloseButton,
     ...rest
 }) => {
     const [open, setOpen] = useState(false);
     const transition = useTransition(open, {
-        from: { opacity: 0.5, transform: "translateY(-10%)" },
-        enter: { opacity: 1, transform: "translateY(0)" },
+        from: { opacity: 0.5, transform: direction == 'to-bottom' ? "translateY(-10%)" : "translateX(-10%)" },
+        enter: { opacity: 1, transform: direction == 'to-bottom' ? "translateY(0)" : 'translateX(0)' },
     });
 
     useEffect(() => {

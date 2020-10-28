@@ -175,6 +175,7 @@ function DeckEditor() {
         <div className="w-full bg-white lg:grid grid-cols-8 gap-2">
             <FullScreenOverlay 
                 hasCloseButton
+                direction="to-right"
                 icon={() => <SlidersIcon className="" />}
             >
                 <Filters 
