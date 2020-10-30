@@ -30,11 +30,11 @@ const FullScreenOverlay = ({
                 <Icon />
             </div>
 
-            {transition((style, item, t) => {
+            {transition((style, item) => {
                 return (
                     item && (
                         <animated.div
-                            className="fixed inset-0 bg-gray-100 z-50 flex flex-col"
+                            className={`fixed inset-0 bg-gray-100 z-50 flex flex-col lg:w-1/3 lg:shadow`}                            
                             style={style}
                         >
                             {hasCloseButton && (
