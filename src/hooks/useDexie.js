@@ -3,7 +3,7 @@ import relationships from 'dexie-relationships';
 
 export default function useDexie(name) {
     const db = new Dexie(name, {addons: [relationships]})
-    db.version(3).stores({
+    db.version(5).stores({
         // maybe to consider making restriction as a keyword, 
         // maybe use more keywords?..
         revision: '++id,revision',

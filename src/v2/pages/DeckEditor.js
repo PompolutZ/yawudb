@@ -109,20 +109,24 @@ function Filters({
     );
 }
 
-function Card({ image, id, name, setName }) {
+function Card({ image, id, name, setName, ...rest }) {
     return (
         <>
             {image ? (
-                <div className="w-1/4 p-2">
+                <div className="w-1/4 p-2 mb-2">
                     <img
                         className="rounded-md hover:filter-shadow-sm"
                         src={`/assets/cards/0${id}.png`}
                     />
+                    <img
+                        className="w-4 h-4 mr-2 mt-2"
+                        src={`/assets/icons/${setName}-icon.png`}
+                    />
                 </div>
             ) : (
-                <div className="w-full mb-2 flex">
+                <div className="w-full mb-2 flex px-2">
                     <img
-                        className="w-12 h-12"
+                        className="w-10 h-10 mr-2"
                         src={`/assets/icons/${setName}-icon.png`}
                     />
                     <div>{name}</div>
@@ -170,7 +174,7 @@ function DeckEditor() {
     );
     const [selectedFormat] = useState(CHAMPIONSHIP_FORMAT);
     const [selectedSets, setSelectedSets] = useState([]);
-    const { cards, sets } = useDexie("wudb");
+    const { cards, sets, factions } = useDexie("wudb");
     const [filteredCards, setFilteredCards] = useState([]);
     const [filterText, setFilterText] = useState("");
     const [layout, setLayout] = useState('grid'); 
@@ -184,27 +188,48 @@ function DeckEditor() {
 
     useEffect(() => {
         console.log(filterText);
-        cards
-            .where("setId")
-            .anyOf(selectedSets.map((set) => set.id))
-            .and((card) => {
-                return card.name
-                    .toUpperCase()
-                    .includes(filterText.trim().toUpperCase());
+        factions
+            .where("name")
+            .equals(selectedFaction)
+            .first()
+            .then(faction => {
+                console.log(faction);
+                return Promise.all([
+                    cards
+                    .where("setId")
+                    .anyOf(selectedSets.map(s => s.id))
+                    .and((card) => {
+                        return card.factionId === 1 && 
+                            card.name
+                            .toUpperCase()
+                            .includes(filterText.trim().toUpperCase());
+                    })
+                    .with({ set: "setId", faction: "factionId" }),
+                    cards
+                    .where("factionId")
+                    .equals(faction.id)
+                    .and((card) => {
+                        return card.name
+                            .toUpperCase()
+                            .includes(filterText.trim().toUpperCase());
+                    })
+                    .with({ set: "setId", faction: "factionId" }),
+                ])
             })
-            .with({ set: "setId", faction: "factionId" }) // makes referred items included
-            .then((items) => {
-                console.log(items);
+            .then(([universal, factionSpecific]) => {
+                console.log(universal, factionSpecific);
                 setFilteredCards(
-                    items.map((i) => ({ ...i, setName: i.set.name }))
-                );
+                    [...universal, ...factionSpecific]
+                        .sort((card, next) => next.factionId - card.factionId || card.type.localeCompare(next.type))
+                        .map((i) => ({ ...i, setName: i.set.name }))
+                )
             })
             .catch((e) => console.error(e));
     }, [selectedFaction, selectedFormat, selectedSets.length, filterText]);
 
     return (
         <div className="w-full bg-white lg:grid lg:grid-cols-8 lg:gap-2">
-            <div className={`${layout == 'list' ? 'lg:col-span-3' : 'lg:col-span-5'}`}>
+            <div className={`${layout == 'list' ? 'lg:col-span-3 xl:col-span-2' : 'lg:col-span-5 xl:col-span-6'}`}>
                 <section className="flex p-2 items-center">
                     <DebouncedInput
                         placeholder="search for a card name..."
@@ -249,7 +274,7 @@ function DeckEditor() {
                 />
             </div>
 
-            <section className={`${layout == 'list' ? 'lg:col-span-5' : 'lg:col-span-3'} bg-orange-500 opacity-0 lg:opacity-100 sm:static`}>
+            <section className={`${layout == 'list' ? 'lg:col-span-5 xl:col-span-6' : 'lg:col-span-3 xl:col-span-2'} bg-orange-500 opacity-0 lg:opacity-100 sm:static`}>
                 Current Deck
             </section>
         </div>
