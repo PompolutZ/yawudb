@@ -124,7 +124,7 @@ function Card({ image, id, name, setName, ...rest }) {
                     />
                 </div>
             ) : (
-                <div className="w-full mb-2 flex px-2">
+                <div className={`w-full flex p-2 ${rest.even ? 'bg-gray-200' : 'bg-white'}`}>
                     <img
                         className="w-10 h-10 mr-2"
                         src={`/assets/icons/${setName}-icon.png`}
@@ -160,8 +160,8 @@ function FilterableCardsList({ cards, layout = 'grid', ...rest }) {
 
     return (
         <div className={`lg:max-h-screen lg:overflow-y-auto ${rest.className}`}>
-            {visibleCards?.map((card) => (
-                <Card key={card.id} image={layout == 'grid'} {...card} />
+            {visibleCards?.map((card, i) => (
+                <Card key={card.id} image={layout == 'grid'} {...card} even={i % 2 == 0} />
             ))}
             <div ref={ref}>Loading...</div>
         </div>
@@ -177,7 +177,7 @@ function DeckEditor() {
     const { cards, sets, factions } = useDexie("wudb");
     const [filteredCards, setFilteredCards] = useState([]);
     const [filterText, setFilterText] = useState("");
-    const [layout, setLayout] = useState('grid'); 
+    const [layout, setLayout] = useState('list'); 
 
     useEffect(() => {
         sets.where("id")
