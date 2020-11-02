@@ -126,7 +126,27 @@ function App(props) {
                     db.revision.add({ revision: version })
                 ])
             })
-            .then(r => console.log('Updated!', r))
+            .then(r => Promise.all(
+                [
+                    firebase.realdb.ref("/cards_ranks").once("value"),
+                    db.factions.toArray()
+                ]
+            ))
+            .then(([cardRanksSnapshot, factions]) => {
+                var allRanks = Object.entries(cardRanksSnapshot.val())
+                    .flatMap(([factionAbbr, value]) => {
+                        var faction = factions.find(f => f.abbr == factionAbbr);
+                        return Object.entries(value).map(([cardId, rank]) => ({
+                            id: `${factionAbbr}_${cardId}`,
+                            factionId: faction.id,
+                            cardId: Number(cardId),
+                            rank
+                        }))
+                    });
+                
+                console.log(db);
+                return db.cardsRanks.bulkPut(allRanks)
+            })
             .catch(e => console.error(e));
     }, [db, firebase]);
 
@@ -160,13 +180,6 @@ function App(props) {
             },
             () => props.onSignOut()
         );
-
-        props.firebase.realdb
-            .ref("/cards_ranks")
-            .once("value")
-            .then((snapshot) => {
-                props.updateCardRanks(snapshot.val());
-            });
 
         return () => {
             props.firebase.decks().off();

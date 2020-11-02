@@ -4,6 +4,7 @@ import { ReactComponent as Logo } from "../../svgs/underworlds_logo.svg";
 import { ReactComponent as Hex } from "../../svgs/hexagon-shape.svg";
 import { ReactComponent as GridIcon } from "../../svgs/grid.svg";
 import { ReactComponent as ListIcon } from "../../svgs/list.svg";
+import { ReactComponent as StarIcon } from "../../svgs/star.svg";
 import { useInView } from "react-intersection-observer";
 import { ReactComponent as SlidersIcon } from "../../svgs/sliders.svg";
 import SectionTitle from "../components/SectionTitle";
@@ -110,6 +111,7 @@ function Filters({
 }
 
 function Card({ image, id, name, setName, ...rest }) {
+    console.log(rest);
     return (
         <>
             {image ? (
@@ -130,6 +132,13 @@ function Card({ image, id, name, setName, ...rest }) {
                         src={`/assets/icons/${setName}-icon.png`}
                     />
                     <div>{name}</div>
+                    <div className="flex">
+                        {
+                            new Array(rest.rank?.rank || 0).fill(0).map((x, i) => (
+                                <StarIcon className="w-4 h-4" key={i} />
+                            ))
+                        }
+                    </div>
                 </div>
             )}
         </>
@@ -174,7 +183,7 @@ function DeckEditor() {
     );
     const [selectedFormat] = useState(CHAMPIONSHIP_FORMAT);
     const [selectedSets, setSelectedSets] = useState([]);
-    const { cards, sets, factions } = useDexie("wudb");
+    const { cards, sets, factions, cardsRanks } = useDexie("wudb");
     const [filteredCards, setFilteredCards] = useState([]);
     const [filterText, setFilterText] = useState("");
     const [layout, setLayout] = useState('list'); 
@@ -187,42 +196,41 @@ function DeckEditor() {
     }, []);
 
     useEffect(() => {
-        console.log(filterText);
         factions
             .where("name")
             .equals(selectedFaction)
             .first()
             .then(faction => {
-                console.log(faction);
-                return Promise.all([
-                    cards
-                    .where("setId")
-                    .anyOf(selectedSets.map(s => s.id))
-                    .and((card) => {
-                        return card.factionId === 1 && 
-                            card.name
-                            .toUpperCase()
-                            .includes(filterText.trim().toUpperCase());
-                    })
-                    .with({ set: "setId", faction: "factionId" }),
-                    cards
-                    .where("factionId")
-                    .equals(faction.id)
+                return cards
+                    .where("[factionId+setId]")
+                    .anyOf(selectedSets.flatMap(s => [faction.id, 1].map(fid => [fid, s.id])))
                     .and((card) => {
                         return card.name
                             .toUpperCase()
                             .includes(filterText.trim().toUpperCase());
                     })
-                    .with({ set: "setId", faction: "factionId" }),
-                ])
+                    .with({ set: "setId", faction: "factionId" })
             })
-            .then(([universal, factionSpecific]) => {
-                console.log(universal, factionSpecific);
+            .then(cards => {
+                return Promise.all(cards.map(async card => {
+                    let rank = await cardsRanks.where("[factionId+cardId]").equals([card.factionId, card.id]).first();
+                    return {
+                        ...card,
+                        set: card.set,
+                        faction: card.faction,
+                        rank
+                    }
+                }))
+            })
+            .then(cards => {
+                console.log(cards);
+
                 setFilteredCards(
-                    [...universal, ...factionSpecific]
+                    cards
                         .sort((card, next) => next.factionId - card.factionId || card.type.localeCompare(next.type))
-                        .map((i) => ({ ...i, setName: i.set.name }))
+                        .map((i) => ({ ...i, setName: i.set?.name }))
                 )
+
             })
             .catch((e) => console.error(e));
     }, [selectedFaction, selectedFormat, selectedSets.length, filterText]);
