@@ -600,6 +600,9 @@ body {
 #root {
   width: 100%;
   height: 100%;
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
   display: grid;
   grid-template-rows: auto 1fr auto;
 }

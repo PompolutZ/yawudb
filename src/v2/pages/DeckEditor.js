@@ -5,6 +5,9 @@ import { ReactComponent as Hex } from "../../svgs/hexagon-shape.svg";
 import { ReactComponent as GridIcon } from "../../svgs/grid.svg";
 import { ReactComponent as ListIcon } from "../../svgs/list.svg";
 import { ReactComponent as StarIcon } from "../../svgs/star.svg";
+import { ReactComponent as ClockIcon } from "../../svgs/clock.svg";
+import { ReactComponent as HourglassIcon } from "../../svgs/hourglass.svg";
+import { ReactComponent as ZapIcon } from "../../svgs/zap.svg";
 import { useInView } from "react-intersection-observer";
 import { ReactComponent as SlidersIcon } from "../../svgs/sliders.svg";
 import SectionTitle from "../components/SectionTitle";
@@ -110,36 +113,67 @@ function Filters({
     );
 }
 
+function Rank({ rank, classes,...rest }) {
+    const fullStars = new Array(5).fill(1);
+    const emptyStars = new Array(5).fill(0);
+
+    return (
+        <div className="flex">
+          {
+            [...fullStars, ...emptyStars].slice(5 - rank / 2, 10 - rank / 2).map((star, i) => {
+                return star 
+                    ? <StarIcon key={i} className={`fill-current ${classes}`} /> 
+                    : <StarIcon key={i} className={`opacity-25 ${classes}`} />;
+            })
+          }  
+        </div>
+    )
+}
+
+function ScoreIcon({ scoreType, classes, ...rest }) {
+    switch(scoreType) {
+        case 'Surge': return <ZapIcon className={`${classes}`} />
+        case 'End': return <ClockIcon className={`${classes}`} />
+        case 'Third': return <HourglassIcon className={`fill-current ${classes}`} />
+        default: return null;
+    }
+}
+
 function Card({ image, id, name, setName, ...rest }) {
     console.log(rest);
     return (
         <>
             {image ? (
-                <div className="w-1/4 p-2 mb-2">
+                <article className="w-1/4 p-2 mb-2">
                     <img
                         className="rounded-md hover:filter-shadow-sm"
                         src={`/assets/cards/0${id}.png`}
                     />
-                    <img
-                        className="w-4 h-4 mr-2 mt-2"
-                        src={`/assets/icons/${setName}-icon.png`}
-                    />
-                </div>
+                    <div class="flex items-center my-2">
+                        <img
+                            className="w-4 h-4 mr-2"
+                            src={`/assets/icons/${setName}-icon.png`}
+                        />
+                        <Rank rank={rest.rank?.rank} classes="text-gray-700 w-2 h-2" />
+                    </div>
+                </article>
             ) : (
-                <div className={`w-full flex p-2 ${rest.even ? 'bg-gray-200' : 'bg-white'}`}>
+                <article className={`w-full flex p-2 ${rest.even ? 'bg-gray-200' : 'bg-white'}`}>
                     <img
                         className="w-10 h-10 mr-2"
                         src={`/assets/icons/${setName}-icon.png`}
                     />
-                    <div>{name}</div>
-                    <div className="flex">
-                        {
-                            new Array(rest.rank?.rank || 0).fill(0).map((x, i) => (
-                                <StarIcon className="w-4 h-4" key={i} />
-                            ))
-                        }
-                    </div>
-                </div>
+
+                    <div>
+                        <div className="flex items-center">
+                            <h6 className="text-gray-900">{name}</h6>
+                            <ScoreIcon classes="mx-2 w-4 h-4" scoreType={rest.scoreType} />
+                        </div>
+                        <div className="flex items-center">
+                            <Rank rank={rest.rank?.rank} classes="text-gray-700 w-2 h-2" />
+                        </div>
+                    </div>                    
+                </article>
             )}
         </>
     );
@@ -168,12 +202,12 @@ function FilterableCardsList({ cards, layout = 'grid', ...rest }) {
     }, [inView, cards]);
 
     return (
-        <div className={`lg:max-h-screen lg:overflow-y-auto ${rest.className}`}>
+        <section className={`lg:max-h-screen lg:overflow-y-auto ${rest.className}`}>
             {visibleCards?.map((card, i) => (
                 <Card key={card.id} image={layout == 'grid'} {...card} even={i % 2 == 0} />
             ))}
             <div ref={ref}>Loading...</div>
-        </div>
+        </section>
     );
 }
 
@@ -227,7 +261,7 @@ function DeckEditor() {
 
                 setFilteredCards(
                     cards
-                        .sort((card, next) => next.factionId - card.factionId || card.type.localeCompare(next.type))
+                        .sort((card, next) => next.factionId - card.factionId || next.rank?.rank - card.rank?.rank || card.type.localeCompare(next.type))
                         .map((i) => ({ ...i, setName: i.set?.name }))
                 )
 

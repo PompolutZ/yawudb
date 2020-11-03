@@ -13,7 +13,7 @@
     } 
     
     #root {
-        @apply w-full h-full;
+        @apply w-full h-full text-gray-800;
         display: grid;
         grid-template-rows: auto 1fr auto;
     } 
