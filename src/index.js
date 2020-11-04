@@ -103,7 +103,7 @@ function App(props) {
     React.useEffect(() => {
         Promise
             .all([
-                firebase.realdb.ref('/wudb/version').once('value'),
+                firebase.realdb.ref('/wudb/_rev').once('value'),
                 db.revision.toCollection().last()
             ])
             .then(([snapshot, localRevision]) => {
@@ -114,16 +114,16 @@ function App(props) {
             .then(snapshot => {
                 if(!snapshot) return;
                 
-                const { data, version } = snapshot.val();
-                const sets = Object.values(data.sets);
-                const factions = Object.values(data.factions);
-                const cards = Object.values(data.cards);
+                const {_rev, ...rest} = snapshot.val();
+                const sets = Object.values(rest.sets);
+                const factions = Object.values(rest.factions);
+                const cards = Object.values(rest.cards);
 
                 return Promise.all([
                     db.sets.bulkPut(sets),
                     db.factions.bulkPut(factions),
                     db.cards.bulkPut(cards),
-                    db.revision.add({ revision: version })
+                    db.revision.add({ revision: _rev})
                 ])
             })
             .then(r => Promise.all(

@@ -139,7 +139,7 @@ function ScoreIcon({ scoreType, classes, ...rest }) {
     }
 }
 
-function Card({ image, id, name, setName, ...rest }) {
+function Card({ image, id, name, setName, type, ...rest }) {
     console.log(rest);
     return (
         <>
@@ -161,7 +161,7 @@ function Card({ image, id, name, setName, ...rest }) {
                 <article className={`w-full flex p-2 ${rest.even ? 'bg-gray-200' : 'bg-white'}`}>
                     <img
                         className="w-10 h-10 mr-2"
-                        src={`/assets/icons/${setName}-icon.png`}
+                        src={`/assets/icons/${type.toLowerCase()}-icon.png`}
                     />
 
                     <div>
@@ -261,7 +261,8 @@ function DeckEditor() {
 
                 setFilteredCards(
                     cards
-                        .sort((card, next) => next.factionId - card.factionId || next.rank?.rank - card.rank?.rank || card.type.localeCompare(next.type))
+                        .sort((card, next) => 
+                        card.type.localeCompare(next.type) || next.factionId - card.factionId || next.rank?.rank - card.rank?.rank)
                         .map((i) => ({ ...i, setName: i.set?.name }))
                 )
 
