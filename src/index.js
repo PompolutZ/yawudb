@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 // import "./index.css";
-import "./styles/main.css";
+import "./styles/main.scss";
 import Home from "./pages/Home";
 
 import registerServiceWorker from "./registerServiceWorker";

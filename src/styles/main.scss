@@ -617,13 +617,21 @@ body {
   left: -9999em;
   top: -9999em;
   & + label {
+    --bg-opacity: 1;
+    background-color: #F27263;
+    background-color: rgba(242, 114, 99, var(--bg-opacity));
+    text-transform: uppercase;
+    --text-opacity: 1;
+    color: #fff;
+    color: rgba(255, 255, 255, var(--text-opacity));
+    margin-right: -0.25rem;
+    --border-opacity: 1;
+    border-color: #c02d28;
+    border-color: rgba(192, 45, 40, var(--border-opacity));
+    border-width: 2px;
     float: left;
     padding: 0.5em 1em;
     cursor: pointer;
-    border: 1px solid #28608f;
-    margin-right: -1px;
-    color: #fff;
-    background-color: #428bca;
     &:first-of-type {
       border-radius: 0.7em 0 0 0.7em;
     }
@@ -632,7 +640,9 @@ body {
     }
   }
   &:checked + label {
-    background-color: #3277b3;
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
   }
 }
 

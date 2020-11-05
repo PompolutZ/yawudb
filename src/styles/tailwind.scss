@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply w-full h-full !important;
+    }
+
+    body {
+        @apply w-full h-full !important;
+        background-color: #f0f0f0;
+    }
+
+    #root {
+        @apply w-full h-full text-gray-800;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+    }
+
+    .stv-radio-buttons-wrapper {
+        clear: both;
+        display: inline-block;
+    }
+
+    .stv-radio-button {
+        position: absolute;
+        left: -9999em;
+        top: -9999em;
+
+        & + label {
+            @apply bg-accent3-100 uppercase text-white -mr-1 border-accent3-500 border-2;
+            float: left;
+            padding: 0.5em 1em;
+            cursor: pointer;
+
+            &:first-of-type {
+                border-radius: 0.7em 0 0 0.7em;
+            }
+
+            &:last-of-type {
+                border-radius: 0 0.7em 0.7em 0;
+            }
+        }
+
+        &:checked + label {
+            @apply bg-accent3-500;
+        }
+    }
+}
+
+@layer utilities {
+    @variants hover, focus {
+        .filter-shadow-sm {
+            filter: drop-shadow(0px 4px 6px black);
+        }
+    }
+    .w100 {
+        width: calc(100% - theme("spacing.12"));
+    }
+}

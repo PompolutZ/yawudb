@@ -18,6 +18,7 @@
     "immutable": "^3.8.2",
     "jspdf": "^1.5.3",
     "lodash": "^4.17.10",
+    "node-sass": "^4.0.0",
     "npm": "^6.14.5",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -50,8 +51,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*\"",
-    "watch:tw": "chokidar 'src/styles/tailwind.css' './tailwind.config.js' -c 'yarn build:tw'",
-    "build:tw": "tailwind build src/styles/tailwind.css -o src/styles/main.css",
+    "watch:tw": "chokidar 'src/styles/tailwind.scss' './tailwind.config.js' -c 'yarn build:tw'",
+    "build:tw": "tailwind build src/styles/tailwind.scss -o src/styles/main.scss",
     "build:prodtw": "NODE_ENV=production yarn build:tw"
   },
   "browserslist": [

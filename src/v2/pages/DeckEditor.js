@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { factions, CHAMPIONSHIP_FORMAT } from "../../data";
+import { factions, CHAMPIONSHIP_FORMAT, RELIC_FORMAT, OPEN_FORMAT } from "../../data";
 import { ReactComponent as Logo } from "../../svgs/underworlds_logo.svg";
-import { ReactComponent as Hex } from "../../svgs/hexagon-shape.svg";
+import { ReactComponent as Hex } from "../../svgs/hexagon.svg";
 import { ReactComponent as GridIcon } from "../../svgs/grid.svg";
 import { ReactComponent as ListIcon } from "../../svgs/list.svg";
 import { ReactComponent as StarIcon } from "../../svgs/star.svg";
 import { ReactComponent as ClockIcon } from "../../svgs/clock.svg";
-import { ReactComponent as HourglassIcon } from "../../svgs/hourglass.svg";
+import { ReactComponent as HourglassIcon } from "../../svgs/hourglass-2.svg";
 import { ReactComponent as ZapIcon } from "../../svgs/zap.svg";
 import { useInView } from "react-intersection-observer";
 import { ReactComponent as SlidersIcon } from "../../svgs/sliders.svg";
@@ -86,6 +86,22 @@ function SetsPicker({ ...rest }) {
     );
 }
 
+function SelectFormatButton({ ...rest }) {
+    const [currentFormat, setCurrentFormat] = useState(rest.selectedFormat)
+    return (
+        <div className={`clearfix flex place-content-center`}>
+            <input className="stv-radio-button" id={RELIC_FORMAT} type="radio" name="format" value={RELIC_FORMAT}/>
+            <label htmlFor={RELIC_FORMAT}>{RELIC_FORMAT}</label>
+
+            <input id={CHAMPIONSHIP_FORMAT} type="radio" name="format" className="stv-radio-button" value={CHAMPIONSHIP_FORMAT} />
+            <label htmlFor={CHAMPIONSHIP_FORMAT}>{CHAMPIONSHIP_FORMAT}</label>
+            
+            <input className="stv-radio-button" id={OPEN_FORMAT} type="radio" name="format" value={OPEN_FORMAT} />
+            <label htmlFor={OPEN_FORMAT}>{OPEN_FORMAT}</label>
+        </div>
+    )
+}
+
 function Filters({
     selectedFaction,
     factionPicker,
@@ -100,7 +116,8 @@ function Filters({
             {factionPicker}
 
             <SectionTitle title="Format" className="mt-8" />
-            {selectedFormat}
+            
+            <SelectFormatButton selectedFormat={selectedFormat} />
             <SectionTitle title="Sets" className="mt-8" />
             <div className="flex">
                 <Toggle checked />
@@ -113,29 +130,38 @@ function Filters({
     );
 }
 
-function Rank({ rank, classes,...rest }) {
+function Rank({ rank, classes, ...rest }) {
     const fullStars = new Array(5).fill(1);
     const emptyStars = new Array(5).fill(0);
 
     return (
         <div className="flex">
-          {
-            [...fullStars, ...emptyStars].slice(5 - rank / 2, 10 - rank / 2).map((star, i) => {
-                return star 
-                    ? <StarIcon key={i} className={`fill-current ${classes}`} /> 
-                    : <StarIcon key={i} className={`opacity-25 ${classes}`} />;
-            })
-          }  
+            {[...fullStars, ...emptyStars]
+                .slice(5 - rank / 2, 10 - rank / 2)
+                .map((star, i) => {
+                    return star ? (
+                        <StarIcon
+                            key={i}
+                            className={`fill-current ${classes}`}
+                        />
+                    ) : (
+                        <StarIcon key={i} className={`opacity-25 ${classes}`} />
+                    );
+                })}
         </div>
-    )
+    );
 }
 
 function ScoreIcon({ scoreType, classes, ...rest }) {
-    switch(scoreType) {
-        case 'Surge': return <ZapIcon className={`${classes}`} />
-        case 'End': return <ClockIcon className={`${classes}`} />
-        case 'Third': return <HourglassIcon className={`fill-current ${classes}`} />
-        default: return null;
+    switch (scoreType) {
+        case "Surge":
+            return <ZapIcon className={`${classes}`} />;
+        case "End":
+            return <ClockIcon className={`${classes}`} />;
+        case "Third":
+            return <HourglassIcon className={`fill-current ${classes}`} />;
+        default:
+            return null;
     }
 }
 
@@ -154,32 +180,53 @@ function Card({ image, id, name, setName, type, ...rest }) {
                             className="w-4 h-4 mr-2"
                             src={`/assets/icons/${setName}-icon.png`}
                         />
-                        <Rank rank={rest.rank?.rank} classes="text-gray-700 w-2 h-2" />
+                        <Rank
+                            rank={rest.rank?.rank}
+                            classes="text-gray-700 w-2 h-2"
+                        />
                     </div>
                 </article>
             ) : (
-                <article className={`w-full flex p-2 ${rest.even ? 'bg-gray-200' : 'bg-white'}`}>
-                    <img
-                        className="w-10 h-10 mr-2"
-                        src={`/assets/icons/${type.toLowerCase()}-icon.png`}
-                    />
+                <article
+                    className={`w-full flex p-2 ${
+                        rest.even ? "bg-gray-200" : "bg-white"
+                    }`}
+                >
+                    <div className="w-10 h-10 mr-2 relative">
+                        <img
+                            className="w-8 h-8 absolute left-0"
+                            src={`/assets/icons/${type.toLowerCase()}-icon.png`}
+                        />
+                        <img
+                            className={`w-6 h-6 absolute right-0 bottom-0 border-2 rounded-full ${
+                                rest.even ? "border-gray-200" : "border-white"
+                            }`}
+                            src={`/assets/icons/${setName}-icon.png`}
+                        />
+                    </div>
 
                     <div>
                         <div className="flex items-center">
                             <h6 className="text-gray-900">{name}</h6>
-                            <ScoreIcon classes="mx-2 w-4 h-4" scoreType={rest.scoreType} />
+                            <ScoreIcon
+                                classes="mx-2 w-4 h-4"
+                                scoreType={rest.scoreType}
+                            />
                         </div>
                         <div className="flex items-center">
-                            <Rank rank={rest.rank?.rank} classes="text-gray-700 w-2 h-2" />
+                            <Rank
+                                rank={rest.rank?.rank}
+                                classes="text-gray-700 w-2 h-2"
+                            />
                         </div>
-                    </div>                    
+                    </div>
                 </article>
             )}
         </>
     );
 }
 
-function FilterableCardsList({ cards, layout = 'grid', ...rest }) {
+function FilterableCardsList({ cards, layout = "grid", ...rest }) {
     const { ref, inView } = useInView({ threshold: 0.5 });
     const [visibleCards, setVisibleCards] = useState([]);
 
@@ -202,9 +249,16 @@ function FilterableCardsList({ cards, layout = 'grid', ...rest }) {
     }, [inView, cards]);
 
     return (
-        <section className={`lg:max-h-screen lg:overflow-y-auto ${rest.className}`}>
+        <section
+            className={`lg:max-h-screen lg:overflow-y-auto ${rest.className}`}
+        >
             {visibleCards?.map((card, i) => (
-                <Card key={card.id} image={layout == 'grid'} {...card} even={i % 2 == 0} />
+                <Card
+                    key={card.id}
+                    image={layout == "grid"}
+                    {...card}
+                    even={i % 2 == 0}
+                />
             ))}
             <div ref={ref}>Loading...</div>
         </section>
@@ -220,7 +274,7 @@ function DeckEditor() {
     const { cards, sets, factions, cardsRanks } = useDexie("wudb");
     const [filteredCards, setFilteredCards] = useState([]);
     const [filterText, setFilterText] = useState("");
-    const [layout, setLayout] = useState('list'); 
+    const [layout, setLayout] = useState("list");
 
     useEffect(() => {
         sets.where("id")
@@ -234,45 +288,63 @@ function DeckEditor() {
             .where("name")
             .equals(selectedFaction)
             .first()
-            .then(faction => {
+            .then((faction) => {
                 return cards
                     .where("[factionId+setId]")
-                    .anyOf(selectedSets.flatMap(s => [faction.id, 1].map(fid => [fid, s.id])))
+                    .anyOf(
+                        selectedSets.flatMap((s) =>
+                            [faction.id, 1].map((fid) => [fid, s.id])
+                        )
+                    )
                     .and((card) => {
                         return card.name
                             .toUpperCase()
                             .includes(filterText.trim().toUpperCase());
                     })
-                    .with({ set: "setId", faction: "factionId" })
+                    .with({ set: "setId", faction: "factionId" });
             })
-            .then(cards => {
-                return Promise.all(cards.map(async card => {
-                    let rank = await cardsRanks.where("[factionId+cardId]").equals([card.factionId, card.id]).first();
-                    return {
-                        ...card,
-                        set: card.set,
-                        faction: card.faction,
-                        rank
-                    }
-                }))
+            .then((cards) => {
+                return Promise.all(
+                    cards.map(async (card) => {
+                        let rank = await cardsRanks
+                            .where("[factionId+cardId]")
+                            .equals([card.factionId, card.id])
+                            .first();
+                        return {
+                            ...card,
+                            set: card.set,
+                            faction: card.faction,
+                            rank,
+                        };
+                    })
+                );
             })
-            .then(cards => {
+            .then((cards) => {
                 console.log(cards);
 
                 setFilteredCards(
                     cards
-                        .sort((card, next) => 
-                        card.type.localeCompare(next.type) || next.factionId - card.factionId || next.rank?.rank - card.rank?.rank)
+                        .sort(
+                            (card, next) =>
+                                card.type.localeCompare(next.type) ||
+                                next.factionId - card.factionId ||
+                                next.rank?.rank - card.rank?.rank
+                        )
                         .map((i) => ({ ...i, setName: i.set?.name }))
-                )
-
+                );
             })
             .catch((e) => console.error(e));
     }, [selectedFaction, selectedFormat, selectedSets.length, filterText]);
 
     return (
         <div className="w-full bg-white lg:grid lg:grid-cols-8 lg:gap-2">
-            <div className={`${layout == 'list' ? 'lg:col-span-3 xl:col-span-2' : 'lg:col-span-5 xl:col-span-6'}`}>
+            <div
+                className={`${
+                    layout == "list"
+                        ? "lg:col-span-3 xl:col-span-2"
+                        : "lg:col-span-5 xl:col-span-6"
+                }`}
+            >
                 <section className="flex p-2 items-center">
                     <DebouncedInput
                         placeholder="search for a card name..."
@@ -303,11 +375,13 @@ function DeckEditor() {
                             selectedSets={selectedSets}
                         />
                     </FullScreenOverlay>
-                    
+
                     <div>
-                    {
-                        layout == 'list' ? <GridIcon onClick={() => setLayout('grid')} /> : <ListIcon onClick={() => setLayout('list')} />
-                    }
+                        {layout == "list" ? (
+                            <GridIcon onClick={() => setLayout("grid")} />
+                        ) : (
+                            <ListIcon onClick={() => setLayout("list")} />
+                        )}
                     </div>
                 </section>
                 <FilterableCardsList
@@ -317,7 +391,13 @@ function DeckEditor() {
                 />
             </div>
 
-            <section className={`${layout == 'list' ? 'lg:col-span-5 xl:col-span-6' : 'lg:col-span-3 xl:col-span-2'} bg-orange-500 opacity-0 lg:opacity-100 sm:static`}>
+            <section
+                className={`${
+                    layout == "list"
+                        ? "lg:col-span-5 xl:col-span-6"
+                        : "lg:col-span-3 xl:col-span-2"
+                } bg-orange-500 opacity-0 lg:opacity-100 sm:static`}
+            >
                 Current Deck
             </section>
         </div>
