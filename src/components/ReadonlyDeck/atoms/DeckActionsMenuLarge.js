@@ -1,58 +1,58 @@
-import React, { PureComponent } from 'react'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import { withStyles } from '@material-ui/core/styles'
-import { Button } from '@material-ui/core'
+import React, { PureComponent } from "react";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { withStyles } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
 
 const StyledMenu = withStyles({
     paper: {
-        border: '1px solid #d3d4d5',
+        border: "1px solid #d3d4d5",
     },
-})(props => (
+})((props) => (
     <Menu
         elevation={0}
         getContentAnchorEl={null}
         anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
+            vertical: "bottom",
+            horizontal: "center",
         }}
         transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
+            vertical: "top",
+            horizontal: "center",
         }}
         {...props}
     />
-))
+));
 
-const StyledMenuItem = withStyles(theme => ({
+const StyledMenuItem = withStyles((theme) => ({
     root: {
-        '&:focus': {
+        "&:focus": {
             backgroundColor: theme.palette.primary.main,
-            '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+            "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
                 color: theme.palette.common.white,
             },
         },
     },
-}))(MenuItem)
+}))(MenuItem);
 
 function ExportMenu({ exportToUDB, exportToUDS, exportToClub }) {
-    const [anchorEl, setAnchorEl] = React.useState(null)
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
     function handleClick(event) {
-        setAnchorEl(event.currentTarget)
+        setAnchorEl(event.currentTarget);
     }
 
     function handleClose() {
-        setAnchorEl(null)
+        setAnchorEl(null);
     }
 
-    const handleExportClick = invokeExport => () => {
+    const handleExportClick = (invokeExport) => () => {
         invokeExport();
         handleClose();
-    }
+    };
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: "flex" }}>
             <Button
                 aria-controls="customized-menu"
                 aria-haspopup="true"
@@ -68,9 +68,9 @@ function ExportMenu({ exportToUDB, exportToUDS, exportToClub }) {
                 onClose={handleClose}
             >
                 <StyledMenuItem onClick={handleExportClick(exportToUDB)}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
                         <img
-                            style={{ marginRight: '.3rem' }}
+                            style={{ marginRight: ".3rem" }}
                             src="https://www.underworldsdb.com/favicon.ico"
                             width="16"
                             height="16"
@@ -79,9 +79,9 @@ function ExportMenu({ exportToUDB, exportToUDS, exportToClub }) {
                     </div>
                 </StyledMenuItem>
                 <StyledMenuItem onClick={handleExportClick(exportToUDS)}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
                         <img
-                            style={{ marginRight: '.3rem' }}
+                            style={{ marginRight: ".3rem" }}
                             src="https://www.underworlds-deckers.com/images/faviconNew.png"
                             width="16"
                             height="16"
@@ -90,9 +90,9 @@ function ExportMenu({ exportToUDB, exportToUDS, exportToClub }) {
                     </div>
                 </StyledMenuItem>
                 <StyledMenuItem onClick={handleExportClick(exportToClub)}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
                         <img
-                            style={{ marginRight: '.3rem' }}
+                            style={{ marginRight: ".3rem" }}
                             src="/assets/icons/wuc-pwa-192.png"
                             width="16"
                             height="16"
@@ -102,27 +102,32 @@ function ExportMenu({ exportToUDB, exportToUDS, exportToClub }) {
                 </StyledMenuItem>
             </StyledMenu>
         </div>
-    )
+    );
 }
 
-function DownloadMenu({onDownloadAsText, onDownloadAsImage, onDownloadAsVassal, onDownloadAsPDF}) {
-    const [anchorEl, setAnchorEl] = React.useState(null)
+function DownloadMenu({
+    onDownloadAsText,
+    onDownloadAsImage,
+    onDownloadAsVassal,
+    onDownloadAsPDF,
+}) {
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
     function handleClick(event) {
-        setAnchorEl(event.currentTarget)
+        setAnchorEl(event.currentTarget);
     }
 
     function handleClose() {
-        setAnchorEl(null)
+        setAnchorEl(null);
     }
 
-    const handleDownloadClick = invokeDownload => () => {
+    const handleDownloadClick = (invokeDownload) => () => {
         invokeDownload();
         handleClose();
-    }
+    };
 
     return (
-        <div  style={{ display: 'flex' }}>
+        <div style={{ display: "flex" }}>
             <Button
                 aria-controls="customized-menu"
                 aria-haspopup="true"
@@ -140,24 +145,32 @@ function DownloadMenu({onDownloadAsText, onDownloadAsImage, onDownloadAsVassal, 
                 <StyledMenuItem onClick={handleDownloadClick(onDownloadAsText)}>
                     <a
                         id="deckTextLinkLarge"
-                        style={{ color: 'inherit', textDecoration: 'none' }}
+                        style={{ color: "inherit", textDecoration: "none" }}
                     >
                         as Text
                     </a>
                 </StyledMenuItem>
-                <StyledMenuItem onClick={handleDownloadClick(onDownloadAsImage)}>
+                <StyledMenuItem
+                    onClick={handleDownloadClick(onDownloadAsImage)}
+                >
                     <a
                         id="deckImageLinkLarge"
-                        style={{ color: 'inherit', textDecoration: 'none' }}
+                        style={{ color: "inherit", textDecoration: "none" }}
                     >
                         as Image
                     </a>
                 </StyledMenuItem>
-                <StyledMenuItem onClick={handleDownloadClick(onDownloadAsVassal)}>as Vassal Decks</StyledMenuItem>
-                <StyledMenuItem onClick={handleDownloadClick(onDownloadAsPDF)}>as PDF</StyledMenuItem>
+                <StyledMenuItem
+                    onClick={handleDownloadClick(onDownloadAsVassal)}
+                >
+                    as Vassal Decks
+                </StyledMenuItem>
+                <StyledMenuItem onClick={handleDownloadClick(onDownloadAsPDF)}>
+                    as PDF
+                </StyledMenuItem>
             </StyledMenu>
         </div>
-    )
+    );
 }
 
 class DeckActionMenuLarge extends PureComponent {
@@ -171,17 +184,17 @@ class DeckActionMenuLarge extends PureComponent {
             exportToUDB,
             exportToUDS,
             exportToClub,
-        } = this.props
+        } = this.props;
         return (
             <React.Fragment>
                 {canUpdateOrDelete && (
-                    <Button onClick={onEdit} style={{ color: '#3B9979' }}>
+                    <Button onClick={onEdit} style={{ color: "#3B9979" }}>
                         Edit
                     </Button>
                 )}
                 <Button onClick={onCopy}>Copy</Button>
                 <Button onClick={this.props.onCardsViewChange}>
-                    {this.props.cardsView ? 'View as List' : 'View as Cards'}
+                    {this.props.cardsView ? "View as List" : "View as Cards"}
                 </Button>
 
                 {/* <Button onClick={this.handleExportToTextFile}>
@@ -210,23 +223,27 @@ class DeckActionMenuLarge extends PureComponent {
                     onDownloadAsVassal={this.props.onSaveVassalFiles}
                     onDownloadAsPDF={onSaveAsPdf}
                 />
-                <ExportMenu exportToUDB={exportToUDB} exportToUDS={exportToUDS} exportToClub={exportToClub} />
+                <ExportMenu
+                    exportToUDB={exportToUDB}
+                    exportToUDS={exportToUDS}
+                    exportToClub={exportToClub}
+                />
                 {canUpdateOrDelete && (
-                    <Button onClick={onDelete} style={{ color: 'darkred' }}>
+                    <Button onClick={onDelete} style={{ color: "darkred" }}>
                         Delete
                     </Button>
                 )}
             </React.Fragment>
-        )
+        );
     }
 
     handleExportToTextFile = () => {
-        this.props.onSaveText(document.getElementById('deckTextLinkLarge'))
-    }
+        this.props.onSaveText(document.getElementById("deckTextLinkLarge"));
+    };
 
     handleExportToImage = () => {
-        this.props.onSaveImage(document.getElementById('deckImageLinkLarge'))
-    }
+        this.props.onSaveImage(document.getElementById("deckImageLinkLarge"));
+    };
 }
 
-export default DeckActionMenuLarge
+export default DeckActionMenuLarge;

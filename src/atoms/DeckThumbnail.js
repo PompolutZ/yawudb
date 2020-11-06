@@ -44,36 +44,44 @@ function DeckThumbnail({
     const [cards, setCards] = useState([]);
     const [banned, setBannedCount] = useState(0);
     const [restricted, setRestrictedCount] = useState(0);
-    const [scoringOverview, setScoringOverview] = useState(initialScoringOverview);
+    const [scoringOverview, setScoringOverview] = useState(
+        initialScoringOverview
+    );
     const [data, setData] = React.useState(deck);
 
     useEffect(() => {
-        setCards(deck && deck.cards && deck.cards.map(cardId => cardsDb[cardId]));
+        setCards(
+            deck && deck.cards && deck.cards.map((cardId) => cardsDb[cardId])
+        );
         setBannedCount(
-        deck &&
-        deck.cards &&
-        deck.cards.filter((c) => Boolean(bannedCards[c])).length);
+            deck &&
+                deck.cards &&
+                deck.cards.filter((c) => Boolean(bannedCards[c])).length
+        );
 
-    setRestrictedCount(deck &&
-        deck.cards &&
-        deck.cards.filter((c) => Boolean(restrictedCards[c])).length);
-
+        setRestrictedCount(
+            deck &&
+                deck.cards &&
+                deck.cards.filter((c) => Boolean(restrictedCards[c])).length
+        );
     }, [deck]);
 
     useEffect(() => {
-        setScoringOverview(cards
-            .filter((c) => c.type === 0)
-            .reduce(
-                (acc, o) => {
-                    acc.summary[o.scoreType] += 1;
-                    acc.glory += Number(o.glory);
-                    return acc;
-                },
-                {
-                    glory: 0,
-                    summary: [0, 0, 0, 0],
-                }
-            ));
+        setScoringOverview(
+            cards
+                .filter((c) => c.type === 0)
+                .reduce(
+                    (acc, o) => {
+                        acc.summary[o.scoreType] += 1;
+                        acc.glory += Number(o.glory);
+                        return acc;
+                    },
+                    {
+                        glory: 0,
+                        summary: [0, 0, 0, 0],
+                    }
+                )
+        );
     }, [cards]);
 
     const handleClick = () =>

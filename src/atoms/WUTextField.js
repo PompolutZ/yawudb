@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
-import isEqual from 'lodash/isEqual';
+import React, { Component } from "react";
+import TextField from "@material-ui/core/TextField";
+import isEqual from "lodash/isEqual";
 
 class WUTextField extends Component {
     shouldComponentUpdate(nextProps) {
@@ -12,11 +12,11 @@ class WUTextField extends Component {
             <TextField
                 id="with-placeholder"
                 label={this.props.label}
-                value={this.props.value}  
+                value={this.props.value}
                 margin="none"
-                style={{flex: '1 1 auto'}}
+                style={{ flex: "1 1 auto" }}
                 onChange={this.props.onValueChange}
-                />
+            />
         );
     }
 }

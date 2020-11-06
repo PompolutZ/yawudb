@@ -2,7 +2,7 @@ import React from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import NavigationMap from './SideList';
+import NavigationMap from "./SideList";
 
 export const drawerWidth = 240;
 

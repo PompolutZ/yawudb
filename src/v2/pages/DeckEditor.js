@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { factions, CHAMPIONSHIP_FORMAT, RELIC_FORMAT, OPEN_FORMAT } from "../../data";
+import {
+    factions,
+    CHAMPIONSHIP_FORMAT,
+    RELIC_FORMAT,
+    OPEN_FORMAT,
+} from "../../data";
 import { ReactComponent as Logo } from "../../svgs/underworlds_logo.svg";
 import { ReactComponent as Hex } from "../../svgs/hexagon.svg";
 import { ReactComponent as GridIcon } from "../../svgs/grid.svg";
@@ -87,19 +92,48 @@ function SetsPicker({ ...rest }) {
 }
 
 function SelectFormatButton({ ...rest }) {
-    const [currentFormat, setCurrentFormat] = useState(rest.selectedFormat)
+    const [currentFormat, setCurrentFormat] = useState(rest.selectedFormat);
+
+    const handleChange = e => {
+        setCurrentFormat(e.target.value);
+    }
+
     return (
-        <div className={`clearfix flex place-content-center`}>
-            <input className="stv-radio-button" id={RELIC_FORMAT} type="radio" name="format" value={RELIC_FORMAT}/>
+        <div className={`clearfix flex place-content-center ${rest.className}`}>
+            <input
+                className="stv-radio-button"
+                id={RELIC_FORMAT}
+                type="radio"
+                name="format"
+                value={RELIC_FORMAT}
+                checked={currentFormat == RELIC_FORMAT}
+                onChange={handleChange}
+            />
             <label htmlFor={RELIC_FORMAT}>{RELIC_FORMAT}</label>
 
-            <input id={CHAMPIONSHIP_FORMAT} type="radio" name="format" className="stv-radio-button" value={CHAMPIONSHIP_FORMAT} />
+            <input
+                id={CHAMPIONSHIP_FORMAT}
+                type="radio"
+                name="format"
+                className="stv-radio-button"
+                value={CHAMPIONSHIP_FORMAT}
+                checked={currentFormat == CHAMPIONSHIP_FORMAT}
+                onChange={handleChange}
+            />
             <label htmlFor={CHAMPIONSHIP_FORMAT}>{CHAMPIONSHIP_FORMAT}</label>
-            
-            <input className="stv-radio-button" id={OPEN_FORMAT} type="radio" name="format" value={OPEN_FORMAT} />
+
+            <input
+                className="stv-radio-button"
+                id={OPEN_FORMAT}
+                type="radio"
+                name="format"
+                value={OPEN_FORMAT}
+                checked={currentFormat == OPEN_FORMAT}
+                onChange={handleChange}
+            />
             <label htmlFor={OPEN_FORMAT}>{OPEN_FORMAT}</label>
         </div>
-    )
+    );
 }
 
 function Filters({
@@ -112,13 +146,17 @@ function Filters({
     return (
         <section className={`${rest.className}`}>
             <SectionTitle title="Warband" />
+            
             {selectedFaction}
+            
             {factionPicker}
 
-            <SectionTitle title="Format" className="mt-8" />
-            
+            <SectionTitle title="Format" className="my-8" />
+
             <SelectFormatButton selectedFormat={selectedFormat} />
-            <SectionTitle title="Sets" className="mt-8" />
+            
+            <SectionTitle title="Sets" className="my-8" />
+            
             <div className="flex">
                 <Toggle checked />
                 <p className="ml-2">
@@ -324,6 +362,14 @@ function DeckEditor() {
 
                 setFilteredCards(
                     cards
+                        .filter(card => {
+                            if(!!card.duplicates) {
+                                const [lastDuplicate] = card.duplicates.slice(-1);
+                                return card.id == lastDuplicate;
+                            }
+                            
+                            return true;
+                        })
                         .sort(
                             (card, next) =>
                                 card.type.localeCompare(next.type) ||

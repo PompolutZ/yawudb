@@ -14,7 +14,8 @@ module.exports = {
         // frontend-masters red
         accent3: {
           100: "#F27263",
-          300: "#D94D43", 
+          300: "#D94D43",
+          400: '#CC423B', 
           500: "#c02d28",
           700: "#A61712",
           900: "#8C0601",

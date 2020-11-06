@@ -121,8 +121,11 @@ class MenuAppBar extends React.Component {
                         <AccountMenuButton />
                     </Toolbar>
                 </AppBar>
-                            
-                <ResponsiveDrawer mobileOpen={this.state.left} handleDrawerToggle={this.toggleDrawer(false)} />
+
+                <ResponsiveDrawer
+                    mobileOpen={this.state.left}
+                    handleDrawerToggle={this.toggleDrawer(false)}
+                />
             </>
         );
     }
@@ -148,7 +151,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export { drawerWidth } from './ResponsiveDrawer';
+export { drawerWidth } from "./ResponsiveDrawer";
 
 export default connect(
     mapStateToProps,

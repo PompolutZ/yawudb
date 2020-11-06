@@ -56,20 +56,24 @@ const Home = (props) => {
 
     return (
         <div className="flex flex-col mx-2 sm:mx-4 relative">
-            <div style={{
-                backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("/assets/direchasm_bg.jpg")',
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                position: 'absolute',
-                height: '50%',
-                width: '100vw',
-                margin: window.innerWidth > 640 ? '-75px 0 0 -1rem' : '-75px 0 0 -.5rem',
-                zIndex: -1,
-            }}>
+            <div
+                style={{
+                    backgroundImage:
+                        'linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("/assets/direchasm_bg.jpg")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    position: "absolute",
+                    height: "50%",
+                    width: "100vw",
+                    margin:
+                        window.innerWidth > 640
+                            ? "-75px 0 0 -1rem"
+                            : "-75px 0 0 -.5rem",
+                    zIndex: -1,
+                }}
+            ></div>
 
-            </div>
-            
             <h1 className="block text-2xl my-12 text-center text-white font-semibold z-10">
                 Deck building website for Warhammer Underworlds.
             </h1>

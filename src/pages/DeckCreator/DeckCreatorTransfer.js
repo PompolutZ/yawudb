@@ -1,6 +1,6 @@
-import React from 'react'
-import FactionToggle from '../../components/FactionToggle'
-import DeckBuilder from '../../components/DeckBuilder'
+import React from "react";
+import FactionToggle from "../../components/FactionToggle";
+import DeckBuilder from "../../components/DeckBuilder";
 import {
     SET_FACTION,
     CHANGE_NAME,
@@ -10,62 +10,75 @@ import {
     CLEAR_DECK,
     RESET_DECK,
     CHANGE_DESCRIPTION,
-} from '../../reducers/deckUnderBuild'
-import { CHANGE_SEARCH_TEXT } from '../../reducers/cardLibraryFilters'
-import { connect } from 'react-redux'
-import { Helmet } from 'react-helmet';
-import { cardsIdToFactionIndex, factionIndexesWithDefaultSet } from '../../data/atoms/factions';
+} from "../../reducers/deckUnderBuild";
+import { CHANGE_SEARCH_TEXT } from "../../reducers/cardLibraryFilters";
+import { connect } from "react-redux";
+import { Helmet } from "react-helmet";
+import {
+    cardsIdToFactionIndex,
+    factionIndexesWithDefaultSet,
+} from "../../data/atoms/factions";
 
-const decodeFaction = cards => {
+const decodeFaction = (cards) => {
     for (let card of cards) {
-        if(!cardsIdToFactionIndex[card]) continue;
+        if (!cardsIdToFactionIndex[card]) continue;
 
         return cardsIdToFactionIndex[card];
     }
-}
+};
 
-const decodeUDS = card => {
-    if(card.length < 4) return '01' + `000${card}`.slice(-3);
-    if(card.startsWith('1')) return '02' + `000${card.slice(1)}`.slice(-3);
-    if(card.startsWith('2')) return '03' + `000${card.slice(1)}`.slice(-3);
-    if(card.startsWith('3')) return '04' + `000${card.slice(1)}`.slice(-3);
-    if(card.startsWith('4')) return '05' + `000${card.slice(1)}`.slice(-3);
-    if(card.startsWith('5')) return '06' + `000${card.slice(1)}`.slice(-3);
-    if(card.startsWith('6')) return '07' + `000${card.slice(1)}`.slice(-3);
-    if(card.startsWith('7')) return '08' + `000${card.slice(1)}`.slice(-3);
-}
+const decodeUDS = (card) => {
+    if (card.length < 4) return "01" + `000${card}`.slice(-3);
+    if (card.startsWith("1")) return "02" + `000${card.slice(1)}`.slice(-3);
+    if (card.startsWith("2")) return "03" + `000${card.slice(1)}`.slice(-3);
+    if (card.startsWith("3")) return "04" + `000${card.slice(1)}`.slice(-3);
+    if (card.startsWith("4")) return "05" + `000${card.slice(1)}`.slice(-3);
+    if (card.startsWith("5")) return "06" + `000${card.slice(1)}`.slice(-3);
+    if (card.startsWith("6")) return "07" + `000${card.slice(1)}`.slice(-3);
+    if (card.startsWith("7")) return "08" + `000${card.slice(1)}`.slice(-3);
+};
 
-const decodeUDB = card => {
-    if(card.toUpperCase().startsWith('L')) return '02' + `000${card.slice(1)}`.slice(-3);
-    if(card.toUpperCase().startsWith('N')) return '03' + `000${card.slice(1)}`.slice(-3);
-    if(card.toUpperCase().startsWith('P')) return '04' + `000${card.slice(1)}`.slice(-3);
-    if(card.toUpperCase().startsWith('D')) return '05' + `000${card.slice(1)}`.slice(-3);
-    if(card.toUpperCase().startsWith('B')) return '06' + `000${card.slice(1)}`.slice(-3);
-    if(card.toUpperCase().startsWith('G')) return '07' + `000${card.slice(1)}`.slice(-3);
-    if(card.toUpperCase().startsWith('A')) return '08' + `000${card.slice(1)}`.slice(-3);
-    return '01' + `000${card}`.slice(-3);
-}
+const decodeUDB = (card) => {
+    if (card.toUpperCase().startsWith("L"))
+        return "02" + `000${card.slice(1)}`.slice(-3);
+    if (card.toUpperCase().startsWith("N"))
+        return "03" + `000${card.slice(1)}`.slice(-3);
+    if (card.toUpperCase().startsWith("P"))
+        return "04" + `000${card.slice(1)}`.slice(-3);
+    if (card.toUpperCase().startsWith("D"))
+        return "05" + `000${card.slice(1)}`.slice(-3);
+    if (card.toUpperCase().startsWith("B"))
+        return "06" + `000${card.slice(1)}`.slice(-3);
+    if (card.toUpperCase().startsWith("G"))
+        return "07" + `000${card.slice(1)}`.slice(-3);
+    if (card.toUpperCase().startsWith("A"))
+        return "08" + `000${card.slice(1)}`.slice(-3);
+    return "01" + `000${card}`.slice(-3);
+};
 
-const getDecodingFunction = encoding => {
-    if(encoding === 'udb') return decodeUDB;
+const getDecodingFunction = (encoding) => {
+    if (encoding === "udb") return decodeUDB;
 
     return decodeUDS;
-}
+};
 
 function DeckCreatorTransfer(props) {
     const selectedFaction = props.selectedFaction;
     const setFaction = props.setFaction;
 
     React.useEffect(() => {
-        const transferData = props.match.params.data.split(',');
+        const transferData = props.match.params.data.split(",");
         props.clearDeck();
 
         const decode = getDecodingFunction(transferData[0]);
         const decodedCardsIds = transferData.slice(1).map(decode);
-        const [decodedFaction, decodedFactionDefaultSet] = factionIndexesWithDefaultSet[decodeFaction(decodedCardsIds)];
+        const [
+            decodedFaction,
+            decodedFactionDefaultSet,
+        ] = factionIndexesWithDefaultSet[decodeFaction(decodedCardsIds)];
         props.setFaction(decodedFaction, decodedFactionDefaultSet);
-        decodedCardsIds.forEach(cardId => props.addCard(cardId));
-    }, [])
+        decodedCardsIds.forEach((cardId) => props.addCard(cardId));
+    }, []);
 
     return (
         <React.Fragment>
@@ -76,7 +89,7 @@ function DeckCreatorTransfer(props) {
                 <link rel="canonical" href="https://yawudb.com/deck/create" />
             </Helmet>
 
-            <div style={{ display: 'flex', flexFlow: 'column nowrap' }}>
+            <div style={{ display: "flex", flexFlow: "column nowrap" }}>
                 <div>
                     <FactionToggle
                         key={selectedFaction}
@@ -105,10 +118,10 @@ function DeckCreatorTransfer(props) {
                 />
             </div>
         </React.Fragment>
-    )
+    );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         selectedFaction: state.deckUnderBuild.faction,
         selectedFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
@@ -116,10 +129,10 @@ const mapStateToProps = state => {
         currentDeckName: state.deckUnderBuild.name,
         currentDeckSource: state.deckUnderBuild.source,
         currentDeckDescription: state.deckUnderBuild.desc,
-    }
-}
+    };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         setFaction: (faction, defaultSet) =>
             dispatch({
@@ -127,21 +140,22 @@ const mapDispatchToProps = dispatch => {
                 faction: faction,
                 defaultSet: defaultSet,
             }),
-        changeName: value => dispatch({ type: CHANGE_NAME, name: value }),
-        changeSource: value => dispatch({ type: CHANGE_SOURCE, source: value }),
-        changeDescription: value =>
+        changeName: (value) => dispatch({ type: CHANGE_NAME, name: value }),
+        changeSource: (value) =>
+            dispatch({ type: CHANGE_SOURCE, source: value }),
+        changeDescription: (value) =>
             dispatch({ type: CHANGE_DESCRIPTION, desc: value }),
-        addCard: card => dispatch({ type: ADD_CARD, card: card }),
-        removeCard: card => dispatch({ type: REMOVE_CARD, card: card }),
+        addCard: (card) => dispatch({ type: ADD_CARD, card: card }),
+        removeCard: (card) => dispatch({ type: REMOVE_CARD, card: card }),
         clearDeck: () => dispatch({ type: CLEAR_DECK }),
         resetDeck: () => dispatch({ type: RESET_DECK }),
 
         resetSearchText: () =>
-            dispatch({ type: CHANGE_SEARCH_TEXT, payload: '' }),
-    }
-}
+            dispatch({ type: CHANGE_SEARCH_TEXT, payload: "" }),
+    };
+};
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(DeckCreatorTransfer)
+)(DeckCreatorTransfer);

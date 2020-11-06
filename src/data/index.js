@@ -4,7 +4,7 @@ import { dreadfaneDb } from "./dbs/dreadfane_db";
 import { beastgraveDB } from "./dbs/beastgrave_db";
 import { beastgraveGiftPackDb } from "./dbs/beastgrave_giftpack_db";
 import { arenaMortisDb } from "./dbs/arena-mortis-db";
-import { setsIndex, rotatedOutSetsIndexes } from './atoms/sets';
+import { setsIndex, rotatedOutSetsIndexes } from "./atoms/sets";
 
 export {
     factions,
@@ -204,10 +204,10 @@ export const restrictedCards = {
 };
 
 export function getValidSets(format) {
-    switch(format) {
-        case CHAMPIONSHIP_FORMAT: 
+    switch (format) {
+        case CHAMPIONSHIP_FORMAT:
             return setsIndex.slice(rotatedOutSetsIndexes.length);
-        default: 
-            return setsIndex;    
+        default:
+            return setsIndex;
     }
 }

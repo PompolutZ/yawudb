@@ -1,6 +1,6 @@
-import React from 'react'
-import FactionToggle from '../../components/FactionToggle'
-import DeckBuilder from '../../components/DeckBuilder'
+import React from "react";
+import FactionToggle from "../../components/FactionToggle";
+import DeckBuilder from "../../components/DeckBuilder";
 import {
     SET_FACTION,
     CHANGE_NAME,
@@ -8,10 +8,10 @@ import {
     CLEAR_DECK,
     RESET_DECK,
     CHANGE_DESCRIPTION,
-} from '../../reducers/deckUnderBuild'
-import { CHANGE_SEARCH_TEXT } from '../../reducers/cardLibraryFilters'
-import { connect } from 'react-redux'
-import { Helmet } from 'react-helmet';
+} from "../../reducers/deckUnderBuild";
+import { CHANGE_SEARCH_TEXT } from "../../reducers/cardLibraryFilters";
+import { connect } from "react-redux";
+import { Helmet } from "react-helmet";
 
 function DeckCreatorBase(props) {
     const { faction, editMode, transferMode } = props;
@@ -26,7 +26,15 @@ function DeckCreatorBase(props) {
                 <link rel="canonical" href="https://yawudb.com/deck/create" />
             </Helmet>
 
-            <div style={{ flexGrow: 1, display: 'flex', flexFlow: 'column nowrap', height: '100%', background: "#f8f8f8"}}>
+            <div
+                style={{
+                    flexGrow: 1,
+                    display: "flex",
+                    flexFlow: "column nowrap",
+                    height: "100%",
+                    background: "#f8f8f8",
+                }}
+            >
                 <div>
                     <FactionToggle
                         key={faction}
@@ -55,7 +63,7 @@ function DeckCreatorBase(props) {
                 />
             </div>
         </React.Fragment>
-    )
+    );
 }
 
 export default DeckCreatorBase;

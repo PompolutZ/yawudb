@@ -23,10 +23,22 @@ export default function NavigationPanel() {
                     <Logo />
                 </Link>
             </div>
-            <Menu classes={`hidden lg:flex text-sm flex-1 ${new RegExp(/^\/$/).test(pathname) ? 'text-white' : 'text-gray-900'}`}>
+            <Menu
+                classes={`hidden lg:flex text-sm flex-1 ${
+                    new RegExp(/^\/$/).test(pathname)
+                        ? "text-white"
+                        : "text-gray-900"
+                }`}
+            >
                 <UserMenu />
             </Menu>
-            <MobileMenu className={`text-2xl stroke-current stroke-2 ml-auto lg:hidden ${new RegExp(/^\/$/).test(pathname) ? 'text-white' : 'text-gray-900'}`} />
+            <MobileMenu
+                className={`text-2xl stroke-current stroke-2 ml-auto lg:hidden ${
+                    new RegExp(/^\/$/).test(pathname)
+                        ? "text-white"
+                        : "text-gray-900"
+                }`}
+            />
         </header>
     );
 }

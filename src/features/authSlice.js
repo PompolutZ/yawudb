@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
-    name: 'auth',
+    name: "auth",
     initialState: null,
     reducer: {
         setUser(state, action) {
@@ -9,8 +9,8 @@ const authSlice = createSlice({
         },
         clearUser(state, action) {
             return null;
-        }
-    }
+        },
+    },
 });
 
 export const { setUser, clearUser } = authSlice.actions;

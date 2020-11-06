@@ -19481,28 +19481,24 @@ body {
 
 .select-none {
   -webkit-user-select: none;
-     -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
 }
 
 .select-text {
   -webkit-user-select: text;
-     -moz-user-select: text;
       -ms-user-select: text;
           user-select: text;
 }
 
 .select-all {
   -webkit-user-select: all;
-     -moz-user-select: all;
       -ms-user-select: all;
           user-select: all;
 }
 
 .select-auto {
   -webkit-user-select: auto;
-     -moz-user-select: auto;
       -ms-user-select: auto;
           user-select: auto;
 }
@@ -22513,22 +22509,9 @@ body {
   transition-delay: 1000ms;
 }
 
-@-webkit-keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes ping {
-  75%, 100% {
-    transform: scale(2);
-    opacity: 0;
   }
 }
 
@@ -22539,69 +22522,42 @@ body {
   }
 }
 
-@-webkit-keyframes pulse {
-  50% {
-    opacity: .5;
-  }
-}
-
 @keyframes pulse {
   50% {
     opacity: .5;
   }
 }
 
-@-webkit-keyframes bounce {
-  0%, 100% {
-    transform: translateY(-25%);
-    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
-            animation-timing-function: cubic-bezier(0.8,0,1,1);
-  }
-
-  50% {
-    transform: none;
-    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
-            animation-timing-function: cubic-bezier(0,0,0.2,1);
-  }
-}
-
 @keyframes bounce {
   0%, 100% {
     transform: translateY(-25%);
-    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
-            animation-timing-function: cubic-bezier(0.8,0,1,1);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
   }
 
   50% {
     transform: none;
-    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
-            animation-timing-function: cubic-bezier(0,0,0.2,1);
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
   }
 }
 
 .animate-none {
-  -webkit-animation: none;
-          animation: none;
+  animation: none;
 }
 
 .animate-spin {
-  -webkit-animation: spin 1s linear infinite;
-          animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 .animate-ping {
-  -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-          animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .animate-pulse {
-  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .animate-bounce {
-  -webkit-animation: bounce 1s infinite;
-          animation: bounce 1s infinite;
+  animation: bounce 1s infinite;
 }
 
 .filter-shadow-sm {
@@ -41459,28 +41415,24 @@ body {
 
   .sm\:select-none {
     -webkit-user-select: none;
-       -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
   }
 
   .sm\:select-text {
     -webkit-user-select: text;
-       -moz-user-select: text;
         -ms-user-select: text;
             user-select: text;
   }
 
   .sm\:select-all {
     -webkit-user-select: all;
-       -moz-user-select: all;
         -ms-user-select: all;
             user-select: all;
   }
 
   .sm\:select-auto {
     -webkit-user-select: auto;
-       -moz-user-select: auto;
         -ms-user-select: auto;
             user-select: auto;
   }
@@ -44492,28 +44444,23 @@ body {
   }
 
   .sm\:animate-none {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 
   .sm\:animate-spin {
-    -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
   .sm\:animate-ping {
-    -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   .sm\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .sm\:animate-bounce {
-    -webkit-animation: bounce 1s infinite;
-            animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
   }
 }
 
@@ -63353,28 +63300,24 @@ body {
 
   .md\:select-none {
     -webkit-user-select: none;
-       -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
   }
 
   .md\:select-text {
     -webkit-user-select: text;
-       -moz-user-select: text;
         -ms-user-select: text;
             user-select: text;
   }
 
   .md\:select-all {
     -webkit-user-select: all;
-       -moz-user-select: all;
         -ms-user-select: all;
             user-select: all;
   }
 
   .md\:select-auto {
     -webkit-user-select: auto;
-       -moz-user-select: auto;
         -ms-user-select: auto;
             user-select: auto;
   }
@@ -66386,28 +66329,23 @@ body {
   }
 
   .md\:animate-none {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 
   .md\:animate-spin {
-    -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
   .md\:animate-ping {
-    -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   .md\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .md\:animate-bounce {
-    -webkit-animation: bounce 1s infinite;
-            animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
   }
 }
 
@@ -85247,28 +85185,24 @@ body {
 
   .lg\:select-none {
     -webkit-user-select: none;
-       -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
   }
 
   .lg\:select-text {
     -webkit-user-select: text;
-       -moz-user-select: text;
         -ms-user-select: text;
             user-select: text;
   }
 
   .lg\:select-all {
     -webkit-user-select: all;
-       -moz-user-select: all;
         -ms-user-select: all;
             user-select: all;
   }
 
   .lg\:select-auto {
     -webkit-user-select: auto;
-       -moz-user-select: auto;
         -ms-user-select: auto;
             user-select: auto;
   }
@@ -88280,28 +88214,23 @@ body {
   }
 
   .lg\:animate-none {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 
   .lg\:animate-spin {
-    -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
   .lg\:animate-ping {
-    -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   .lg\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .lg\:animate-bounce {
-    -webkit-animation: bounce 1s infinite;
-            animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
   }
 }
 
@@ -107141,28 +107070,24 @@ body {
 
   .xl\:select-none {
     -webkit-user-select: none;
-       -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
   }
 
   .xl\:select-text {
     -webkit-user-select: text;
-       -moz-user-select: text;
         -ms-user-select: text;
             user-select: text;
   }
 
   .xl\:select-all {
     -webkit-user-select: all;
-       -moz-user-select: all;
         -ms-user-select: all;
             user-select: all;
   }
 
   .xl\:select-auto {
     -webkit-user-select: auto;
-       -moz-user-select: auto;
         -ms-user-select: auto;
             user-select: auto;
   }
@@ -110174,27 +110099,22 @@ body {
   }
 
   .xl\:animate-none {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 
   .xl\:animate-spin {
-    -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
   .xl\:animate-ping {
-    -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   .xl\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .xl\:animate-bounce {
-    -webkit-animation: bounce 1s infinite;
-            animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
   }
 }

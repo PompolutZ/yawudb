@@ -1,26 +1,28 @@
-import React, { Component } from 'react';
-import { setInfos, rotatedOutSetsIndexes } from '../data/index';
-import * as _ from 'lodash';
-import ToggableExpansionIcon from '../atoms/ToggableExpansionIcon';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { setInfos, rotatedOutSetsIndexes } from "../data/index";
+import * as _ from "lodash";
+import ToggableExpansionIcon from "../atoms/ToggableExpansionIcon";
+import { withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
 
-const styles = theme => ({
+const styles = (theme) => ({
     root: {
-        display: 'flex', 
-        flexFlow: 'row wrap',
-        [theme.breakpoints.down('sm')] : {
-            maxWidth: '25rem',
-        }
-    }
+        display: "flex",
+        flexFlow: "row wrap",
+        [theme.breakpoints.down("sm")]: {
+            maxWidth: "25rem",
+        },
+    },
 });
 
 class ExpansionsToggle extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedExpansions: this.props.selectedSets ? this.props.selectedSets.map(x => parseInt(x, 10)) : [],
-        }
+            selectedExpansions: this.props.selectedSets
+                ? this.props.selectedSets.map((x) => parseInt(x, 10))
+                : [],
+        };
 
         this.handleToggle = this.handleToggle.bind(this);
     }
@@ -29,25 +31,38 @@ class ExpansionsToggle extends Component {
         const exp = parseInt(expansion, 10);
         let expansions = [];
         const indexOf = this.state.selectedExpansions.indexOf(exp);
-        if(indexOf >= 0) {
-            expansions = [...this.state.selectedExpansions.slice(0, indexOf), ...this.state.selectedExpansions.slice(indexOf + 1)]
+        if (indexOf >= 0) {
+            expansions = [
+                ...this.state.selectedExpansions.slice(0, indexOf),
+                ...this.state.selectedExpansions.slice(indexOf + 1),
+            ];
         } else {
-            expansions = [exp, ...this.state.selectedExpansions]
+            expansions = [exp, ...this.state.selectedExpansions];
         }
 
-        this.setState({selectedExpansions: expansions});
-        
-        if(this.timeoutId) {
+        this.setState({ selectedExpansions: expansions });
+
+        if (this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
 
-        this.timeoutId = setTimeout(() => this.props.onExpansionsChange(expansions), 350);
+        this.timeoutId = setTimeout(
+            () => this.props.onExpansionsChange(expansions),
+            350
+        );
     }
 
-    renderIndex(v){
+    renderIndex(v) {
         return (
-            <ToggableExpansionIcon key={v} set={v} variant="large" isEnabled={this.state.selectedExpansions.includes(parseInt(v, 10))}
-                onClick={this.handleToggle} />
+            <ToggableExpansionIcon
+                key={v}
+                set={v}
+                variant="large"
+                isEnabled={this.state.selectedExpansions.includes(
+                    parseInt(v, 10)
+                )}
+                onClick={this.handleToggle}
+            />
         );
     }
 
@@ -55,15 +70,21 @@ class ExpansionsToggle extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                { _.keys(setInfos).slice(this.props.deckPlayFormat === 'championship' ? rotatedOutSetsIndexes.length : 0).map(v => this.renderIndex(v)) }
+                {_.keys(setInfos)
+                    .slice(
+                        this.props.deckPlayFormat === "championship"
+                            ? rotatedOutSetsIndexes.length
+                            : 0
+                    )
+                    .map((v) => this.renderIndex(v))}
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     eligibleForOP: state.cardLibraryFilters.eligibleForOP,
-    deckPlayFormat: state.cardLibraryFilters.deckPlayFormat
+    deckPlayFormat: state.cardLibraryFilters.deckPlayFormat,
 });
 
 export default withStyles(styles)(connect(mapStateToProps)(ExpansionsToggle));

@@ -27,25 +27,34 @@
         position: absolute;
         left: -9999em;
         top: -9999em;
+    }
 
-        & + label {
-            @apply bg-accent3-100 uppercase text-white -mr-1 border-accent3-500 border-2;
-            float: left;
-            padding: 0.5em 1em;
-            cursor: pointer;
+    .stv-radio-button:checked + label {
+        @apply bg-accent3-700 border-accent3-700 shadow-none;
+    }
 
-            &:first-of-type {
-                border-radius: 0.7em 0 0 0.7em;
-            }
+    .stv-radio-button + label {
+        @apply bg-accent3-500 uppercase text-white -mr-1 border-accent3-500 border-2 shadow-md;
+        float: left;
+        padding: 0.5em 1em;
+        cursor: pointer;
 
-            &:last-of-type {
-                border-radius: 0 0.7em 0.7em 0;
-            }
-        }
+    }
 
-        &:checked + label {
-            @apply bg-accent3-500;
-        }
+    .stv-radio-button + label:hover {
+        @apply bg-accent3-300 border-accent3-300;
+    }
+
+    .stv-radio-button:checked + label:hover {
+        @apply bg-accent3-400 border-accent3-400;
+    }
+
+    .stv-radio-button + label:first-of-type {
+        border-radius: 0.7em 0 0 0.7em;
+    }
+
+    .stv-radio-button + label:last-of-type {
+        border-radius: 0 0.7em 0.7em 0;
     }
 }
 

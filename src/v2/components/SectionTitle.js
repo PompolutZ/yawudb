@@ -1,7 +1,6 @@
 import React from "react";
 import { ReactComponent as Logo } from "../../svgs/underworlds_logo.svg";
 
-
 function SectionTitle({ title, ...rest }) {
     return (
         <div className={`flex items-center ${rest.className}`}>

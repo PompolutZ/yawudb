@@ -1,37 +1,41 @@
-import React, { PureComponent } from 'react';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withStyles } from '@material-ui/core/styles';
+import React, { PureComponent } from "react";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { withStyles } from "@material-ui/core/styles";
 
-const styles = theme => ({
+const styles = (theme) => ({
     colorSwitchBase: {
-        '&$colorChecked': {
-             color: '#3B9979',
-            '& + $colorBar': {
-                backgroundColor: '#8CCCB4',
+        "&$colorChecked": {
+            color: "#3B9979",
+            "& + $colorBar": {
+                backgroundColor: "#8CCCB4",
             },
         },
     },
-    
+
     colorBar: {},
-    
-    colorChecked: {},    
-})
+
+    colorChecked: {},
+});
 
 class WUSwitch extends PureComponent {
     render() {
         const { classes, style, isChecked, onChange, label } = this.props;
         return (
-            <FormControlLabel style={style}
+            <FormControlLabel
+                style={style}
                 control={
-                    <Switch classes={{
-                        switchBase: classes.colorSwitchBase,
-                        checked: classes.colorChecked,
-                    }}
-                    checked={isChecked} 
-                    onChange={onChange} />
+                    <Switch
+                        classes={{
+                            switchBase: classes.colorSwitchBase,
+                            checked: classes.colorChecked,
+                        }}
+                        checked={isChecked}
+                        onChange={onChange}
+                    />
                 }
-                label={label} />
+                label={label}
+            />
         );
     }
 }
