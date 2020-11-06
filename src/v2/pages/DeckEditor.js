@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import {
     factions,
     CHAMPIONSHIP_FORMAT,
@@ -203,12 +203,21 @@ function ScoreIcon({ scoreType, classes, ...rest }) {
     }
 }
 
-function Card({ image, id, name, setName, type, ...rest }) {
-    console.log(rest);
+const Card = memo(({ image, id, name, setName, type, onPicked, ...rest }) => {
+    const handleClicked = () => {
+        onPicked({
+            id,
+            name,
+            setName,
+            type,
+            ...rest
+        })
+    }
+
     return (
         <>
             {image ? (
-                <article className="w-1/4 p-2 mb-2">
+                <article className="w-1/4 p-2 mb-2" onClick={handleClicked}>
                     <img
                         className="rounded-md hover:filter-shadow-sm"
                         src={`/assets/cards/0${id}.png`}
@@ -229,6 +238,7 @@ function Card({ image, id, name, setName, type, ...rest }) {
                     className={`w-full flex p-2 ${
                         rest.even ? "bg-gray-200" : "bg-white"
                     }`}
+                    onClick={handleClicked}
                 >
                     <div className="w-10 h-10 mr-2 relative">
                         <img
@@ -262,14 +272,13 @@ function Card({ image, id, name, setName, type, ...rest }) {
             )}
         </>
     );
-}
+});
 
-function FilterableCardsList({ cards, layout = "grid", ...rest }) {
+function FilterableCardsList({ cards, layout = "grid", onCardPicked, ...rest }) {
     const { ref, inView } = useInView({ threshold: 0.5 });
     const [visibleCards, setVisibleCards] = useState([]);
 
     useEffect(() => {
-        console.log(cards);
         setVisibleCards(() => cards?.slice(0, 20));
     }, [cards]);
 
@@ -296,6 +305,7 @@ function FilterableCardsList({ cards, layout = "grid", ...rest }) {
                     image={layout == "grid"}
                     {...card}
                     even={i % 2 == 0}
+                    onPicked={onCardPicked}
                 />
             ))}
             <div ref={ref}>Loading...</div>
@@ -313,6 +323,40 @@ function DeckEditor() {
     const [filteredCards, setFilteredCards] = useState([]);
     const [filterText, setFilterText] = useState("");
     const [layout, setLayout] = useState("list");
+    
+    const [currentDeck, setCurrentDeck] = useState({
+        objectives: {},
+        gambits: {},
+        upgrades: {}
+    })
+
+    const selectedCards = useMemo(() => {
+        console.log('Changes')
+        return [
+            ...Object.keys(currentDeck.objectives).map(Number),
+            ...Object.keys(currentDeck.gambits).map(Number),
+            ...Object.keys(currentDeck.upgrades).map(Number),
+        ]
+    }, [currentDeck])
+
+    const handleCardPicked = card => {
+        console.log(card);
+        switch(card.type) {
+            case 'Objective': 
+                setCurrentDeck(prev => ({ ...prev, objectives: {...prev.objectives, [card.id]: card }}))
+                return;
+            case 'Ploy': 
+                setCurrentDeck(prev => ({ ...prev, gambits: {...prev.gambits, [card.id]: card }}))
+                return;
+            case 'Spell': 
+                setCurrentDeck(prev => ({ ...prev, gambits: {...prev.gambits, [card.id]: card }}))
+                return;
+            case 'Upgrade': 
+                setCurrentDeck(prev => ({ ...prev, upgrades: {...prev.upgrades, [card.id]: card }}))
+                return;
+            default: return;
+        }
+    }
 
     useEffect(() => {
         sets.where("id")
@@ -322,6 +366,7 @@ function DeckEditor() {
     }, []);
 
     useEffect(() => {
+        console.log('changes', selectedCards)
         factions
             .where("name")
             .equals(selectedFaction)
@@ -358,8 +403,6 @@ function DeckEditor() {
                 );
             })
             .then((cards) => {
-                console.log(cards);
-
                 setFilteredCards(
                     cards
                         .filter(card => {
@@ -368,7 +411,7 @@ function DeckEditor() {
                                 return card.id == lastDuplicate;
                             }
                             
-                            return true;
+                            return !selectedCards.includes(card.id);
                         })
                         .sort(
                             (card, next) =>
@@ -380,7 +423,7 @@ function DeckEditor() {
                 );
             })
             .catch((e) => console.error(e));
-    }, [selectedFaction, selectedFormat, selectedSets.length, filterText]);
+    }, [selectedFaction, selectedFormat, selectedSets.length, filterText, selectedCards.length]);
 
     return (
         <div className="w-full bg-white lg:grid lg:grid-cols-8 lg:gap-2">
@@ -434,6 +477,7 @@ function DeckEditor() {
                     className="flex flex-wrap content-start"
                     cards={filteredCards}
                     layout={layout}
+                    onCardPicked={handleCardPicked}
                 />
             </div>
 
@@ -444,7 +488,33 @@ function DeckEditor() {
                         : "lg:col-span-3 xl:col-span-2"
                 } bg-orange-500 opacity-0 lg:opacity-100 sm:static`}
             >
-                Current Deck
+                <div className="w-full h-full bg-red-600 grid lg:grid-cols-3">
+                    <div>
+                        Objectives:
+                        {
+                            Object.values(currentDeck.objectives).map(card => (
+                                <div key={card.id}>{card.name}</div>
+                            ))
+                        }
+                    </div>
+                    <div>
+                        Gambits:
+                        {
+                            Object.values(currentDeck.gambits).map(card => (
+                                <div key={card.id}>{card.name}</div>
+
+                            ))
+                        }
+                    </div>
+                    <div>
+                        Upgrades:
+                        {
+                            Object.values(currentDeck.upgrades).map(card => (
+                                <div key={card.id}>{card.name}</div>
+                            ))
+                        }
+                    </div>
+                </div>
             </section>
         </div>
     );
