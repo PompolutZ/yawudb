@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
     factions,
     CHAMPIONSHIP_FORMAT,
@@ -313,6 +313,71 @@ function FilterableCardsList({ cards, layout = "grid", onCardPicked, ...rest }) 
     );
 }
 
+function CurrentDeck({ selectedFaction, currentDeck, ...rest}) {
+    const { cards, sets, factions, cardsRanks } = useDexie("wudb");
+    const [factionInfo, setFactionInfo] = useState(undefined)
+
+    useEffect(() => {
+        factions.where('name').equals(selectedFaction).first(setFactionInfo);
+    }, [selectedFaction, factions])
+
+    return (
+        <section
+        className={`${rest.className}`}
+    >
+        <div className="w-full p-4">
+            <div className="lg:col-span-3 flex items-center">
+                {
+                    factionInfo && (
+                        <img className="w-16 h-16 mr-4" src={`/assets/icons/${selectedFaction}-deck.png`} />
+                    )
+                }
+                <DebouncedInput 
+                    placeholder={`${factionInfo?.displayName || selectedFaction} Deck`}
+                    className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-accent3-500"/>
+            </div>
+        </div>
+        <div className="grid grid-cols-3">
+            <div>
+                <h3 className="text-xl">Objectives ({Object.keys(currentDeck?.objectives).length} / 12):</h3>
+                {
+                    Object.values(currentDeck.objectives).map((card, i) => (
+                        <Card key={card.id} {...card} even={i % 2 === 0} />
+                    ))
+                }
+            </div>
+            <div>
+            <h3  className="text-xl">Gambits:</h3>
+            {
+                    Object.values(currentDeck.gambits).map((card, i) => (
+                        <Card key={card.id} {...card} even={i % 2 === 0} />
+                    ))
+                }
+            </div>
+            <div>
+            <h3  className="text-xl">Upgrades:</h3>
+            {
+                    Object.values(currentDeck.upgrades).map((card, i) => (
+                        <Card key={card.id} {...card} even={i % 2 === 0} />
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    )
+}
+
+function usePersistedState(data, key) {
+    const [state, setState] = useState(() => JSON.parse(localStorage.getItem(key)) || data);
+
+    useEffect(() => {
+        localStorage.setItem(key, JSON.stringify(state));
+    }, [state]);
+
+    return [state, setState];
+}
+
 function DeckEditor() {
     const [selectedFaction, setSelectedFaction] = useState(
         "thorns-of-the-briar-queen"
@@ -321,10 +386,11 @@ function DeckEditor() {
     const [selectedSets, setSelectedSets] = useState([]);
     const { cards, sets, factions, cardsRanks } = useDexie("wudb");
     const [filteredCards, setFilteredCards] = useState([]);
+    const [allCards, setAllCards] = useState([]);
     const [filterText, setFilterText] = useState("");
     const [layout, setLayout] = useState("list");
     
-    const [currentDeck, setCurrentDeck] = useState({
+    const [currentDeck, setCurrentDeck] = usePersistedState({
         objectives: {},
         gambits: {},
         upgrades: {}
@@ -379,11 +445,6 @@ function DeckEditor() {
                             [faction.id, 1].map((fid) => [fid, s.id])
                         )
                     )
-                    .and((card) => {
-                        return card.name
-                            .toUpperCase()
-                            .includes(filterText.trim().toUpperCase());
-                    })
                     .with({ set: "setId", faction: "factionId" });
             })
             .then((cards) => {
@@ -403,27 +464,36 @@ function DeckEditor() {
                 );
             })
             .then((cards) => {
-                setFilteredCards(
-                    cards
-                        .filter(card => {
-                            if(!!card.duplicates) {
-                                const [lastDuplicate] = card.duplicates.slice(-1);
-                                return card.id == lastDuplicate;
-                            }
-                            
-                            return !selectedCards.includes(card.id);
-                        })
-                        .sort(
-                            (card, next) =>
-                                card.type.localeCompare(next.type) ||
-                                next.factionId - card.factionId ||
-                                next.rank?.rank - card.rank?.rank
-                        )
-                        .map((i) => ({ ...i, setName: i.set?.name }))
-                );
+                setAllCards(cards);
             })
             .catch((e) => console.error(e));
-    }, [selectedFaction, selectedFormat, selectedSets.length, filterText, selectedCards.length]);
+    }, [selectedFaction, selectedFormat, selectedSets.length]);
+
+    useEffect(() => {
+        setFilteredCards(
+            allCards
+                .filter((card) => {
+                    return card.name
+                        .toUpperCase()
+                        .includes(filterText.trim().toUpperCase());
+                })
+                .filter(card => {
+                    if(!!card.duplicates) {
+                        const [lastDuplicate] = card.duplicates.slice(-1);
+                        return card.id == lastDuplicate;
+                    }
+                    
+                    return !selectedCards.includes(card.id);
+                })
+                .sort(
+                    (card, next) =>
+                        card.type.localeCompare(next.type) ||
+                        next.factionId - card.factionId ||
+                        next.rank?.rank - card.rank?.rank
+                )
+                .map((i) => ({ ...i, setName: i.set?.name }))
+        );
+    }, [allCards.length, filterText, selectedCards.length])
 
     return (
         <div className="w-full bg-white lg:grid lg:grid-cols-8 lg:gap-2">
@@ -432,7 +502,7 @@ function DeckEditor() {
                     layout == "list"
                         ? "lg:col-span-3 xl:col-span-2"
                         : "lg:col-span-5 xl:col-span-6"
-                }`}
+                }  box-border border-gray-300 border-r`}
             >
                 <section className="flex p-2 items-center">
                     <DebouncedInput
@@ -480,42 +550,15 @@ function DeckEditor() {
                     onCardPicked={handleCardPicked}
                 />
             </div>
-
-            <section
+            
+            <CurrentDeck 
                 className={`${
                     layout == "list"
                         ? "lg:col-span-5 xl:col-span-6"
                         : "lg:col-span-3 xl:col-span-2"
-                } bg-orange-500 opacity-0 lg:opacity-100 sm:static`}
-            >
-                <div className="w-full h-full bg-red-600 grid lg:grid-cols-3">
-                    <div>
-                        Objectives:
-                        {
-                            Object.values(currentDeck.objectives).map(card => (
-                                <div key={card.id}>{card.name}</div>
-                            ))
-                        }
-                    </div>
-                    <div>
-                        Gambits:
-                        {
-                            Object.values(currentDeck.gambits).map(card => (
-                                <div key={card.id}>{card.name}</div>
-
-                            ))
-                        }
-                    </div>
-                    <div>
-                        Upgrades:
-                        {
-                            Object.values(currentDeck.upgrades).map(card => (
-                                <div key={card.id}>{card.name}</div>
-                            ))
-                        }
-                    </div>
-                </div>
-            </section>
+                } opacity-0 lg:opacity-100 sm:static`}
+                currentDeck={currentDeck}
+                selectedFaction={selectedFaction} />
         </div>
     );
 }
