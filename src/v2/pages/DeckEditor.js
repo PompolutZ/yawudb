@@ -20,12 +20,14 @@ import { useInView } from "react-intersection-observer";
 import { ReactComponent as SlidersIcon } from "../../svgs/sliders.svg";
 import SectionTitle from "../components/SectionTitle";
 import FullScreenOverlay from "../components/FullScreenOverlay";
-import useDexie from "../../hooks/useDexie";
+import useDexie, { useCards, useSets } from "../../hooks/useDexie";
 import DebouncedInput from "../components/DebouncedInput";
 import CardTypeIcon from "../components/CardTypeIcon";
 import SetIcon from "../components/SetIcon";
 import Rank from "../components/Rank";
 import ScoreIcon from "../components/ScoreIcon";
+import { ReactComponent as CloseIcon } from "../../svgs/x.svg";
+
 
 function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     return (
@@ -274,7 +276,7 @@ function FilterableCardsList({
 
     return (
         <section
-            className={`lg:max-h-screen lg:overflow-y-auto ${rest.className}`}
+            className={`${rest.className}`}
         >
             {visibleCards?.map((card, i) => (
                 <Card
@@ -301,12 +303,20 @@ function CurrentDeck({ selectedFaction, currentDeck, ...rest }) {
         setHoverCard(cardId);
     }
 
+    const deleteCard = card => () => {
+        console.log('Delete', card);
+    }
+
+    const handleDeckNameChange = e => {
+        console.log(e.target.value);
+    }
+
     useEffect(() => {
         factions.where("name").equals(selectedFaction).first(setFactionInfo);
     }, [selectedFaction, factions]);
 
     return (
-        <section className={`${rest.className}`}>
+        <section className={`max-w-full max-h-full flex flex-col ${rest.className}`}>
             <div className="w-full p-4">
                 <div className="lg:col-span-3 flex items-center">
                     {factionInfo && (
@@ -316,6 +326,7 @@ function CurrentDeck({ selectedFaction, currentDeck, ...rest }) {
                         />
                     )}
                     <DebouncedInput
+                        onChange={handleDeckNameChange}
                         placeholder={`${
                             factionInfo?.displayName || selectedFaction
                         } Deck`}
@@ -325,7 +336,7 @@ function CurrentDeck({ selectedFaction, currentDeck, ...rest }) {
             </div>
             <div className="grid grid-cols-3 p-6">
                 <div>
-                    <div className={`flex items-center mb-4`}>
+                    <div className={`flex items-center mb-4 max-w-xl`}>
                         <CardTypeIcon
                             className="w-8 h-8 mr-2"
                             type="objective"
@@ -336,7 +347,7 @@ function CurrentDeck({ selectedFaction, currentDeck, ...rest }) {
                             {Object.keys(currentDeck?.objectives).length} / 12):
                         </h3>
                     </div>
-                    <ul>
+                    <ul className="max-w-lg">
                         {Object.values(currentDeck.objectives)
                             .sort(
                                 (x, y) =>
@@ -363,6 +374,12 @@ function CurrentDeck({ selectedFaction, currentDeck, ...rest }) {
                                         set={card.setName}
                                     />
                                     <div>{card.name}</div>
+                                    {
+                                        hoverCard === card.id && (
+                                            <CloseIcon className="w-6 h-6 cursor-pointer stroke-current ml-auto mr-2"
+                                                onClick={deleteCard(card)} />
+                                        )
+                                    }
                                 </li>
                             ))}
                     </ul>
@@ -417,15 +434,16 @@ function CurrentDeck({ selectedFaction, currentDeck, ...rest }) {
                     </ul>
                 </div>
             </div>
-            {hoverCard && (
-                <div className="w-full grid place-content-center">
-                    <img
-                        className="rounded-md filter-shadow-sm max-w-full h-auto"
-                        width="300"
-                        src={`/assets/cards/${`${hoverCard}`.padStart(5, '0')}.png`}
-                    />
-                </div>
-            )}
+            {/* <div className="flex-1 flex flex-col justify-center bg-red-400">
+                <img
+                    className="rounded-md filter-shadow-sm"
+                    style={{ alignSelf: 'center' }}
+                    // width="300"
+                    src={`/assets/cards/${`${hoverCard}`.padStart(5, '0')}.png`}
+                />
+            </div> */}
+            {/* {hoverCard && (
+                    )} */}
         </section>
     );
 }
@@ -442,15 +460,23 @@ function usePersistedState(data, key) {
     return [state, setState];
 }
 
+function Toolbar({ children }) {
+    return (
+        <section className="flex p-2 items-center">
+            { children }
+        </section>
+    )
+}
+
 function DeckEditor() {
     const [selectedFaction, setSelectedFaction] = useState(
         "thorns-of-the-briar-queen"
     );
     const [selectedFormat] = useState(CHAMPIONSHIP_FORMAT);
-    const [selectedSets, setSelectedSets] = useState([]);
-    const { cards, sets, factions, cardsRanks } = useDexie("wudb");
+    const [selectedSets, setSelectedSets] = useSets(8);
+    // const { cards, factions, cardsRanks } = useDexie("wudb");
     const [filteredCards, setFilteredCards] = useState([]);
-    const [allCards, setAllCards] = useState([]);
+    const allCards = useCards(selectedFaction, selectedFormat, selectedSets);
     const [filterText, setFilterText] = useState("");
     const [layout, setLayout] = useState("list");
 
@@ -502,51 +528,6 @@ function DeckEditor() {
     };
 
     useEffect(() => {
-        sets.where("id")
-            .above(8)
-            .toArray()
-            .then((sets) => setSelectedSets(sets));
-    }, []);
-
-    useEffect(() => {
-        console.log("changes", selectedCards);
-        factions
-            .where("name")
-            .equals(selectedFaction)
-            .first()
-            .then((faction) => {
-                return cards
-                    .where("[factionId+setId]")
-                    .anyOf(
-                        selectedSets.flatMap((s) =>
-                            [faction.id, 1].map((fid) => [fid, s.id])
-                        )
-                    )
-                    .with({ set: "setId", faction: "factionId" });
-            })
-            .then((cards) => {
-                return Promise.all(
-                    cards.map(async (card) => {
-                        let rank = await cardsRanks
-                            .where("[factionId+cardId]")
-                            .equals([card.factionId, card.id])
-                            .first();
-                        return {
-                            ...card,
-                            set: card.set,
-                            faction: card.faction,
-                            rank,
-                        };
-                    })
-                );
-            })
-            .then((cards) => {
-                setAllCards(cards);
-            })
-            .catch((e) => console.error(e));
-    }, [selectedFaction, selectedFormat, selectedSets.length]);
-
-    useEffect(() => {
         setFilteredCards(
             allCards
                 .filter((card) => {
@@ -573,59 +554,67 @@ function DeckEditor() {
     }, [allCards.length, filterText, selectedCards.length]);
 
     return (
-        <div className="w-full bg-white lg:grid lg:grid-cols-8 lg:gap-2">
+        <div className="w-full flex-1 bg-white lg:grid lg:grid-cols-8 lg:gap-2">
             <div
                 className={`${
                     layout == "list"
                         ? "lg:col-span-3 xl:col-span-2"
                         : "lg:col-span-5 xl:col-span-6"
-                }  box-border border-gray-300 border-r`}
+                }  box-border border-gray-300 border-r relative`}
             >
-                <section className="flex p-2 items-center">
-                    <DebouncedInput
-                        placeholder="search for a card name..."
-                        className="rounded bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-accent3-500"
-                        onChange={setFilterText}
-                    />
-                    <FullScreenOverlay
-                        hasCloseButton
-                        direction="to-right"
-                        icon={() => <SlidersIcon className="mr-2" />}
-                    >
-                        <Filters
-                            className="p-4 lg:opacity-100 lg:static sm:col-span-2"
-                            selectedFaction={
-                                <SelectedFaction
-                                    className="my-4"
-                                    faction={selectedFaction}
-                                />
-                            }
-                            factionPicker={
-                                <FactionsPicker
-                                    className="my-4"
-                                    selected={selectedFaction}
-                                    onPicked={setSelectedFaction}
-                                />
-                            }
-                            selectedFormat={selectedFormat}
-                            selectedSets={selectedSets}
+                <div className="absolute inset-0 bg-red-600 flex flex-col">
+                    <Toolbar>
+                        <DebouncedInput
+                            placeholder="search for a card name..."
+                            className="rounded bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-accent3-500"
+                            onChange={setFilterText}
                         />
-                    </FullScreenOverlay>
+                        {/* This way its not clear that only SlidersIcon will be rendered here. */}
+                        <FullScreenOverlay
+                            hasCloseButton
+                            direction="to-right"
+                            icon={() => <SlidersIcon className="mr-2" />}
+                        >
+                            <Filters
+                                className="p-4 lg:opacity-100 lg:static sm:col-span-2"
+                                selectedFaction={
+                                    <SelectedFaction
+                                        className="my-4"
+                                        faction={selectedFaction}
+                                    />
+                                }
+                                factionPicker={
+                                    <FactionsPicker
+                                        className="my-4"
+                                        selected={selectedFaction}
+                                        onPicked={setSelectedFaction}
+                                    />
+                                }
+                                selectedFormat={selectedFormat}
+                                selectedSets={selectedSets}
+                            />
+                        </FullScreenOverlay>
 
-                    <div>
-                        {layout == "list" ? (
-                            <GridIcon onClick={() => setLayout("grid")} />
-                        ) : (
-                            <ListIcon onClick={() => setLayout("list")} />
-                        )}
+                        <div>
+                            {layout == "list" ? (
+                                <GridIcon onClick={() => setLayout("grid")} />
+                            ) : (
+                                <ListIcon onClick={() => setLayout("list")} />
+                            )}
+                        </div>
+
+                    </Toolbar>
+                    <div className="flex-1 relative bg-green-400">
+                        <div className="absolute bg-orange-500 inset-0 overflow-y-scroll">
+                            <FilterableCardsList
+                                className="flex flex-wrap content-start"
+                                cards={filteredCards}
+                                layout={layout}
+                                onCardPicked={handleCardPicked}
+                            />
+                        </div>
                     </div>
-                </section>
-                <FilterableCardsList
-                    className="flex flex-wrap content-start"
-                    cards={filteredCards}
-                    layout={layout}
-                    onCardPicked={handleCardPicked}
-                />
+                </div>
             </div>
 
             <CurrentDeck

@@ -4,11 +4,11 @@
 
 @layer base {
     html {
-        @apply w-full h-full !important;
+        @apply w-full h-full;
     }
 
     body {
-        @apply w-full h-full !important;
+        @apply w-full h-full;
         background-color: #f0f0f0;
     }
 
