@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import DelayedSearch from "../../DelayedSearch";
 import { IconButton, Typography } from "@material-ui/core";
-import MoreHorizontalIcon from "@material-ui/icons/MoreHoriz";
+import { ReactComponent as TogglesIcon } from "../../../svgs/sliders.svg";
+import { ReactComponent as CloseIcon } from "../../../svgs/x.svg";
 import AnimateHeight from "react-animate-height";
 import ExpansionsToggle from "../../ExpansionsToggle";
 import CardTypeToggle from "../../CardTypeToggle";
@@ -22,6 +23,25 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 import OpenFormatIcon from "@material-ui/icons/Mood";
 import ChampionshipFormatIcon from "@material-ui/icons/EmojiEvents";
 import { deckPlayFormats } from "../../../data";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Slide from "@material-ui/core/Slide";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Paper from "@material-ui/core/Paper";
+import SectionTitle from "../../../v2/components/SectionTitle";
+import Toggle from "../../../v2/components/HexToggle";
+
+const useClasses = makeStyles((theme) => ({
+    filtersPanel: {
+        background: 'white',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        zIndex: 9999,
+        position: "fixed",
+        boxShadow: "1px 0px 5px 0 rgba(0, 0, 0, 0.05)",
+    },
+}));
 
 function DeckPlayFormatToggle({ selectedFormat, onFormatChange }) {
     return (
@@ -95,18 +115,22 @@ function DeckPlayFormatInfo({ format }) {
 }
 
 function CardLibraryFilters(props) {
+    const theme = useTheme();
+    const classes = useClasses();
     const onSelectedSetsChange = props.editMode
         ? props.onEditModeSelectedSetsChange
         : props.onCreateModeSelectedSetsChange;
     const sets = props.editMode ? props.editModeSets : props.createModeSets;
 
     const [filtersAreaHeight, setFiltersAreaHeight] = React.useState(0);
+    const [showFilters, setShowFilters] = React.useState(false);
     const [format, setFormat] = React.useState(
         props.deckPlayFormat ? props.deckPlayFormat : deckPlayFormats[0]
     );
 
     const toggleFiltersAreaVisibility = () => {
-        setFiltersAreaHeight((prev) => (prev === 0 ? "auto" : 0));
+        // setFiltersAreaHeight((prev) => (prev === 0 ? "auto" : 0));
+        setShowFilters((prev) => !prev);
     };
 
     const handleFormatChange = (format) => () => {
@@ -129,97 +153,70 @@ function CardLibraryFilters(props) {
                     defaultValue={props.searchText}
                     onSearchInputChange={props.onSearchTextChange}
                 />
-                <IconButton
-                    style={{ color: "white", backgroundColor: "#3B9979" }}
-                    onClick={toggleFiltersAreaVisibility}
-                >
-                    <MoreHorizontalIcon />
+                <IconButton onClick={toggleFiltersAreaVisibility}>
+                    <TogglesIcon />
                 </IconButton>
             </div>
-            <AnimateHeight
-                duration={200}
-                easing="ease-out"
-                height={filtersAreaHeight}
+
+            <Slide
+                className={classes.filtersPanel}
+                mountOnEnter
+                in={showFilters}
+                direction="right"
+                timeout={{
+                    enter: 300,
+                    exit: 175,
+                }}
             >
-                <div
-                    style={{
-                        paddingBottom: "1rem",
-                        margin: "1rem .5rem 0 .5rem",
-                    }}
-                >
-                    <div
-                        style={{
-                            display: "flex",
-                            position: "relative",
-                            marginBottom: ".5rem",
-                        }}
-                    >
-                        <div>Toggle Sets:</div>
-                        <div
-                            style={{
-                                flex: "1 1 auto",
-                                height: "1rem",
-                                borderBottom: "1px solid gray",
-                                margin: "auto 1rem 0 .5rem",
-                            }}
-                        ></div>
+                <Grid item xs={12} md={6}>
+                    <div>
+                        <IconButton onClick={toggleFiltersAreaVisibility}>
+                            <CloseIcon />
+                        </IconButton>
+                    </div>
+                    <section>
+                    <SectionTitle title="Warband" />
+
+                    {/* {selectedFaction}
+
+                    {factionPicker} */}
+
+                    <SectionTitle title="Format" className="my-8" />
+
+                    <Grid container spacing={1} alignItems="center">
+                                <Grid item>
+                                    <Typography>
+                                        Selected build format:
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="subtitle2">
+                                        {format.toUpperCase()}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+
+                            <DeckPlayFormatToggle
+                                selectedFormat={format}
+                                onFormatChange={handleFormatChange}
+                            />
+                            <DeckPlayFormatInfo format={format} />
+
+                    <SectionTitle title="Sets" className="my-8" />
+
+                    <div className="flex">
+                        <Toggle checked />
+                        <p className="ml-2">
+                            For dublicate cards show only newest one.
+                        </p>
                     </div>
                     <ExpansionsToggle
-                        selectedSets={sets}
-                        onExpansionsChange={onSelectedSetsChange}
-                    />
-                </div>
-                <div
-                    style={{
-                        borderBottom: "1px solid gray",
-                        paddingBottom: "1rem",
-                        margin: "1rem .5rem 0 .5rem",
-                    }}
-                >
-                    <div
-                        style={{
-                            display: "flex",
-                            position: "relative",
-                            marginBottom: ".5rem",
-                        }}
-                    >
-                        <div>Toggle Types:</div>
-                        <div
-                            style={{
-                                flex: "1 1 auto",
-                                height: "1rem",
-                                borderBottom: "1px solid gray",
-                                margin: "auto 1rem 0 .5rem",
-                            }}
-                        ></div>
-                    </div>
-                    <CardTypeToggle />
-                </div>
-                <div
-                    style={{
-                        borderBottom: "1px solid gray",
-                        paddingBottom: "1rem",
-                        margin: "1rem .5rem 0 .5rem",
-                    }}
-                >
-                    <Grid container spacing={1} alignItems="center">
-                        <Grid item>
-                            <Typography>Selected build format:</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="subtitle2">
-                                {format.toUpperCase()}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-
-                    <DeckPlayFormatToggle
-                        selectedFormat={format}
-                        onFormatChange={handleFormatChange}
-                    />
-                    <DeckPlayFormatInfo format={format} />
-                </div>
-            </AnimateHeight>
+                                selectedSets={sets}
+                                onExpansionsChange={onSelectedSetsChange}
+                            />
+                    </section>
+                </Grid>
+            </Slide>
         </div>
     );
 }

@@ -308,7 +308,7 @@ function CurrentDeck({ selectedFaction, currentDeck, ...rest }) {
     }
 
     const handleDeckNameChange = e => {
-        console.log(e.target.value);
+        console.log(e);
     }
 
     useEffect(() => {
@@ -327,6 +327,7 @@ function CurrentDeck({ selectedFaction, currentDeck, ...rest }) {
                     )}
                     <DebouncedInput
                         onChange={handleDeckNameChange}
+                        wait={2000}
                         placeholder={`${
                             factionInfo?.displayName || selectedFaction
                         } Deck`}
@@ -434,16 +435,6 @@ function CurrentDeck({ selectedFaction, currentDeck, ...rest }) {
                     </ul>
                 </div>
             </div>
-            {/* <div className="flex-1 flex flex-col justify-center bg-red-400">
-                <img
-                    className="rounded-md filter-shadow-sm"
-                    style={{ alignSelf: 'center' }}
-                    // width="300"
-                    src={`/assets/cards/${`${hoverCard}`.padStart(5, '0')}.png`}
-                />
-            </div> */}
-            {/* {hoverCard && (
-                    )} */}
         </section>
     );
 }
@@ -474,7 +465,6 @@ function DeckEditor() {
     );
     const [selectedFormat] = useState(CHAMPIONSHIP_FORMAT);
     const [selectedSets, setSelectedSets] = useSets(8);
-    // const { cards, factions, cardsRanks } = useDexie("wudb");
     const [filteredCards, setFilteredCards] = useState([]);
     const allCards = useCards(selectedFaction, selectedFormat, selectedSets);
     const [filterText, setFilterText] = useState("");

@@ -1,22 +1,21 @@
 import React from "react";
-import "./DeckBuilder.css";
 import { OrderedSet } from "immutable";
 
-import Deck from "../components/Deck";
-import { cardsDb, factionIdPrefix } from "../data/index";
+import Deck from "../Deck";
+import { cardsDb, factionIdPrefix } from "../../data/index";
 
-import FloatingActionButton from "../components/FloatingActionButton";
+import FloatingActionButton from "../FloatingActionButton";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import SimpleSnackbar from "./SimpleSnackbar";
-import CardLibraryFilters from "./DeckBuiilder/components/CardLibraryFilters";
-import CardsLibrary from "./DeckBuiilder/components/CardsLibrary";
-import { AddCardSVG, DeckSVG } from "../atoms/SVGs";
-import { addOrUpdateMyDeck } from "../reducers/mydecks";
+import SimpleSnackbar from "../SimpleSnackbar";
+import CardLibraryFilters from "./components/CardLibraryFilters";
+import CardsLibrary from "./components/CardsLibrary";
+import { AddCardSVG, DeckSVG } from "../../atoms/SVGs";
+import { addOrUpdateMyDeck } from "../../reducers/mydecks";
 import { Tabs, Tab } from "@material-ui/core";
-import CardsTab from "./DeckBuiilder/atoms/CardsTab";
-import FightersInfoList from "../atoms/FightersInfoList";
-import { withFirebase } from "../firebase";
+import CardsTab from "./atoms/CardsTab";
+import FightersInfoList from "../../atoms/FightersInfoList";
+import { withFirebase } from "../../firebase";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -257,6 +256,7 @@ function DeckBuilder(props) {
                     </Paper>
                 </Grid>
                 <Slide
+                    mountOnEnter
                     in={
                         useMediaQuery(theme.breakpoints.up("md"))
                             ? true

@@ -4,8 +4,11 @@ import PropTypes from "prop-types";
 
 function DebouncedInput({ wait, onChange, ...rest }) {
     const onDebouncedChanged = useCallback(
-        __debounce((value) => onChange(value), wait || 300)
-    );
+        __debounce((value) => {
+            onChange(value);
+        }, wait || 300)
+    , [wait]);
+    
     const handleChange = (e) => {
         const value = e.target.value;
         onDebouncedChanged(value);

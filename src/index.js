@@ -28,6 +28,7 @@ import useDexie from "./hooks/useDexie";
 import shadows from "@material-ui/core/styles/shadows";
 
 const DeckEditor = lazy(() => import("./v2/pages/DeckEditor"));
+const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Library = lazy(() => import("./pages/Library"));
@@ -102,58 +103,58 @@ function App(props) {
     const db = useDexie("wudb");
     const firebase = useContext(FirebaseContext);
 
-    React.useEffect(() => {
-        Promise.all([
-            firebase.realdb.ref("/wudb/_rev").once("value"),
-            db.revision.toCollection().last(),
-        ])
-            .then(([snapshot, localRevision]) => {
-                if (localRevision && snapshot.val() <= localRevision.revision)
-                    return;
+    // React.useEffect(() => {
+    //     Promise.all([
+    //         firebase.realdb.ref("/wudb/_rev").once("value"),
+    //         db.revision.toCollection().last(),
+    //     ])
+    //         .then(([snapshot, localRevision]) => {
+    //             if (localRevision && snapshot.val() <= localRevision.revision)
+    //                 return;
 
-                return firebase.realdb.ref("/wudb").once("value");
-            })
-            .then((snapshot) => {
-                if (!snapshot) return;
+    //             return firebase.realdb.ref("/wudb").once("value");
+    //         })
+    //         .then((snapshot) => {
+    //             if (!snapshot) return;
 
-                const { _rev, ...rest } = snapshot.val();
-                const sets = Object.values(rest.sets);
-                const factions = Object.values(rest.factions);
-                const cards = Object.values(rest.cards);
+    //             const { _rev, ...rest } = snapshot.val();
+    //             const sets = Object.values(rest.sets);
+    //             const factions = Object.values(rest.factions);
+    //             const cards = Object.values(rest.cards);
 
-                return Promise.all([
-                    db.sets.bulkPut(sets),
-                    db.factions.bulkPut(factions),
-                    db.cards.bulkPut(cards),
-                    db.revision.add({ revision: _rev }),
-                ]);
-            })
-            .then((r) =>
-                Promise.all([
-                    firebase.realdb.ref("/cards_ranks").once("value"),
-                    db.factions.toArray(),
-                ])
-            )
-            .then(([cardRanksSnapshot, factions]) => {
-                var allRanks = Object.entries(cardRanksSnapshot.val()).flatMap(
-                    ([factionAbbr, value]) => {
-                        var faction = factions.find(
-                            (f) => f.abbr == factionAbbr
-                        );
-                        return Object.entries(value).map(([cardId, rank]) => ({
-                            id: `${factionAbbr}_${cardId}`,
-                            factionId: faction.id,
-                            cardId: Number(cardId),
-                            rank,
-                        }));
-                    }
-                );
+    //             return Promise.all([
+    //                 db.sets.bulkPut(sets),
+    //                 db.factions.bulkPut(factions),
+    //                 db.cards.bulkPut(cards),
+    //                 db.revision.add({ revision: _rev }),
+    //             ]);
+    //         })
+    //         .then((r) =>
+    //             Promise.all([
+    //                 firebase.realdb.ref("/cards_ranks").once("value"),
+    //                 db.factions.toArray(),
+    //             ])
+    //         )
+    //         .then(([cardRanksSnapshot, factions]) => {
+    //             var allRanks = Object.entries(cardRanksSnapshot.val()).flatMap(
+    //                 ([factionAbbr, value]) => {
+    //                     var faction = factions.find(
+    //                         (f) => f.abbr == factionAbbr
+    //                     );
+    //                     return Object.entries(value).map(([cardId, rank]) => ({
+    //                         id: `${factionAbbr}_${cardId}`,
+    //                         factionId: faction.id,
+    //                         cardId: Number(cardId),
+    //                         rank,
+    //                     }));
+    //                 }
+    //             );
 
-                console.log(db);
-                return db.cardsRanks.bulkPut(allRanks);
-            })
-            .catch((e) => console.error(e));
-    }, [db, firebase]);
+    //             console.log(db);
+    //             return db.cardsRanks.bulkPut(allRanks);
+    //         })
+    //         .catch((e) => console.error(e));
+    // }, [db, firebase]);
 
     React.useEffect(() => {
         const unsubscribe = props.firebase.onAuthUserListener(
@@ -217,8 +218,8 @@ function App(props) {
                                 <Route
                                     path={ROUTES.CREATOR_ROOT}
                                     render={(props) => (
-                                        // <DeckCreator {...props} />
-                                        <DeckEditor {...props} />
+                                        <DeckCreator {...props} />
+                                        // <DeckEditor {...props} />
                                     )}
                                 />
                                 <Route

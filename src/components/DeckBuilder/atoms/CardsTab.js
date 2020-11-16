@@ -130,7 +130,7 @@ function CardsTab(props) {
                             }}
                         >
                             <img
-                                src={`/assets/icons/gambit spell-icon.png`}
+                                src={`/assets/icons/spell-icon.png`}
                                 alt="ploy"
                                 className={classes.icon}
                             />
