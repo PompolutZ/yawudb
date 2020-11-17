@@ -58,6 +58,7 @@ function DeckBuilder(props) {
         clearDeck,
         resetDeck,
         resetSearchText,
+        setFaction,
     } = props;
     const classes = useStyles();
     const theme = useTheme();
@@ -223,7 +224,11 @@ function DeckBuilder(props) {
                     <Paper className={classes.paper}>
                         <div className={classes.leftPaperInner}>
                             <div>
-                                <CardLibraryFilters editMode={editMode} />
+                                <CardLibraryFilters
+                                    selectedFaction={selectedFaction}
+                                    setFaction={setFaction}
+                                    editMode={editMode}
+                                />
                             </div>
                             <div>
                                 <Tabs

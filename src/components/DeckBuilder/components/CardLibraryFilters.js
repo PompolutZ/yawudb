@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import DelayedSearch from "../../DelayedSearch";
 import { IconButton, Typography } from "@material-ui/core";
 import { ReactComponent as TogglesIcon } from "../../../svgs/sliders.svg";
 import { ReactComponent as CloseIcon } from "../../../svgs/x.svg";
-import AnimateHeight from "react-animate-height";
 import ExpansionsToggle from "../../ExpansionsToggle";
-import CardTypeToggle from "../../CardTypeToggle";
 import { connect } from "react-redux";
 import {
     CHANGE_SEARCH_TEXT,
@@ -22,24 +20,32 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import OpenFormatIcon from "@material-ui/icons/Mood";
 import ChampionshipFormatIcon from "@material-ui/icons/EmojiEvents";
-import { deckPlayFormats } from "../../../data";
+import { deckPlayFormats, factions, warbandsWithDefaultSet } from "../../../data";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import Paper from "@material-ui/core/Paper";
 import SectionTitle from "../../../v2/components/SectionTitle";
 import Toggle from "../../../v2/components/HexToggle";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
-        background: 'white',
+        background: "white",
         top: 0,
         left: 0,
         bottom: 0,
         right: 0,
         zIndex: 9999,
         position: "fixed",
+        overflow: 'auto',
         boxShadow: "1px 0px 5px 0 rgba(0, 0, 0, 0.05)",
+    },
+
+    filtersContent: {
+        padding: theme.spacing(2),
+    },
+
+    closeIcon: {
+        display: "block",
+        margin: `0 ${theme.spacing(1)}px 0 auto`,
     },
 }));
 
@@ -114,19 +120,72 @@ function DeckPlayFormatInfo({ format }) {
     }
 }
 
+function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
+    return (
+        <div className={`flex flex-grow ${rest.className}`}>
+            <div className="">
+                <picture>
+                    <img
+                        className="w-20 h-20"
+                        src={`/assets/icons/${faction}-deck.png`}
+                    />
+                </picture>
+            </div>
+            <div className="flex-grow grid place-content-center text-gray-900 text-2xl">
+                {factions[faction]}
+            </div>
+        </div>
+    );
+}
+
+function FactionsPicker({ selected, onChangeWarband, onChangeWarbandSet, ...rest }) {
+    
+    const handleSelectWarband = (faction, defaultSet) => () => {
+        onChangeWarband(faction);
+        onChangeWarbandSet(defaultSet);
+    }
+
+    return (
+        <div className={`flex flex-wrap align-middle ${rest.className}`}>
+            {warbandsWithDefaultSet
+                .filter(([faction]) => faction != selected)
+                .map(([faction, defaultSet]) => (
+                    <img
+                        key={faction}
+                        className="w-10 h-10 m-1"
+                        onClick={handleSelectWarband(faction, defaultSet)}
+                        src={`/assets/icons/${faction}-icon.png`}
+                    />
+                ))}
+        </div>
+    );
+}
+
 function CardLibraryFilters(props) {
-    const theme = useTheme();
+    const { selectedFaction, setFaction } = props;
     const classes = useClasses();
     const onSelectedSetsChange = props.editMode
         ? props.onEditModeSelectedSetsChange
         : props.onCreateModeSelectedSetsChange;
-    const sets = props.editMode ? props.editModeSets : props.createModeSets;
+    // const sets = props.editMode ? props.editModeSets : props.createModeSets;
 
-    const [filtersAreaHeight, setFiltersAreaHeight] = React.useState(0);
+    const [] = React.useState(0);
     const [showFilters, setShowFilters] = React.useState(false);
     const [format, setFormat] = React.useState(
         props.deckPlayFormat ? props.deckPlayFormat : deckPlayFormats[0]
     );
+
+    /// Here will be new approach, keeping the rest for now
+    
+    const [warband, setWarband] = useState(selectedFaction);
+    const [warbandsSet, setWarbandsSet] = useState(() => {
+        const [,set] = warbandsWithDefaultSet.find(([faction]) => faction == selectedFaction);
+        return set;
+    })
+    const [hideDuplicates, setHideDuplicates] = useState(true);
+    const [selectedSets, setSelectedSets] = useState(props.editMode ? props.editModeSets : props.createModeSets)    
+    
+    /// =============
 
     const toggleFiltersAreaVisibility = () => {
         // setFiltersAreaHeight((prev) => (prev === 0 ? "auto" : 0));
@@ -168,52 +227,52 @@ function CardLibraryFilters(props) {
                     exit: 175,
                 }}
             >
-                <Grid item xs={12} md={6}>
-                    <div>
-                        <IconButton onClick={toggleFiltersAreaVisibility}>
-                            <CloseIcon />
-                        </IconButton>
-                    </div>
-                    <section>
-                    <SectionTitle title="Warband" />
+                <Grid className={classes.filtersContainer} item xs={12} md={6}>
+                    <IconButton
+                        onClick={toggleFiltersAreaVisibility}
+                        className={classes.closeIcon}
+                    >
+                        <CloseIcon />
+                    </IconButton>
 
-                    {/* {selectedFaction}
+                    <section className={classes.filtersContent}>
+                        <SectionTitle title="Warband" />
 
-                    {factionPicker} */}
+                        <SelectedFaction faction={warband} />
 
-                    <SectionTitle title="Format" className="my-8" />
+                        <FactionsPicker selected={warband} onChangeWarband={setWarband} onChangeWarbandSet={setWarbandsSet} />
 
-                    <Grid container spacing={1} alignItems="center">
-                                <Grid item>
-                                    <Typography>
-                                        Selected build format:
-                                    </Typography>
-                                </Grid>
-                                <Grid item>
-                                    <Typography variant="subtitle2">
-                                        {format.toUpperCase()}
-                                    </Typography>
-                                </Grid>
+                        <SectionTitle title="Format" className="my-8" />
+
+                        <Grid container spacing={1} alignItems="center">
+                            <Grid item>
+                                <Typography>Selected build format:</Typography>
                             </Grid>
+                            <Grid item>
+                                <Typography variant="subtitle2">
+                                    {format.toUpperCase()}
+                                </Typography>
+                            </Grid>
+                        </Grid>
 
-                            <DeckPlayFormatToggle
-                                selectedFormat={format}
-                                onFormatChange={handleFormatChange}
-                            />
-                            <DeckPlayFormatInfo format={format} />
+                        <DeckPlayFormatToggle
+                            selectedFormat={format}
+                            onFormatChange={handleFormatChange}
+                        />
+                        <DeckPlayFormatInfo format={format} />
 
-                    <SectionTitle title="Sets" className="my-8" />
+                        <SectionTitle title="Sets" className="my-8" />
 
-                    <div className="flex">
-                        <Toggle checked />
-                        <p className="ml-2">
-                            For dublicate cards show only newest one.
-                        </p>
-                    </div>
-                    <ExpansionsToggle
-                                selectedSets={sets}
-                                onExpansionsChange={onSelectedSetsChange}
-                            />
+                        <div className="flex my-4">
+                            <Toggle checked={hideDuplicates} onChange={setHideDuplicates} />
+                            <p className="ml-2">
+                                For dublicate cards show only newest one.
+                            </p>
+                        </div>
+                        <ExpansionsToggle
+                            selectedSets={selectedSets}
+                            onExpansionsChange={onSelectedSetsChange}
+                        />
                     </section>
                 </Grid>
             </Slide>

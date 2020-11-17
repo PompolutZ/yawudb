@@ -35,18 +35,10 @@ function DeckCreatorBase(props) {
                     background: "#f8f8f8",
                 }}
             >
-                <div>
-                    <FactionToggle
-                        key={faction}
-                        editMode={editMode}
-                        selectedFaction={faction}
-                        setFaction={setFaction}
-                    />
-                </div>
-
                 <DeckBuilder
                     key={faction}
                     selectedFaction={faction}
+                    setFaction={setFaction}
                     editMode={editMode}
                     transferMode={transferMode}
                     currentDeck={props.currentDeck}
