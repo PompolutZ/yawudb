@@ -21,29 +21,20 @@ const styles = (theme) => ({
     },
 });
 
-class ToggableExpansionIcon extends PureComponent {
-    state = {
-        isEnabled: this.props.isEnabled,
-    };
+function ToggableExpansionIcon(props){
+    const { classes, set, variant } = props;
 
-    render() {
-        const { classes, set, variant } = this.props;
-        return (
-            <div
-                className={classnames(classes.root, {
-                    [classes.transparentRoot]: !this.state.isEnabled,
-                })}
-                onClick={this.handleClick}
-            >
-                <ExpansionIcon set={set} variant={variant} />
-            </div>
-        );
-    }
+    return (
+        <div
+            className={classnames(classes.root, {
+                [classes.transparentRoot]: !props.isEnabled,
+            })}
+            onClick={() => props.onClick(props.set)}
+        >
+            <ExpansionIcon setName={set} variant={variant} />
+        </div>
+    );
 
-    handleClick = () => {
-        this.setState((state) => ({ isEnabled: !state.isEnabled }));
-        this.props.onClick(this.props.set);
-    };
 }
 
 export default withStyles(styles)(ToggableExpansionIcon);

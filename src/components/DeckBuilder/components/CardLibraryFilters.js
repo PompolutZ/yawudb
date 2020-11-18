@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import DelayedSearch from "../../DelayedSearch";
 import { IconButton, Typography } from "@material-ui/core";
 import { ReactComponent as TogglesIcon } from "../../../svgs/sliders.svg";
@@ -20,7 +20,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import OpenFormatIcon from "@material-ui/icons/Mood";
 import ChampionshipFormatIcon from "@material-ui/icons/EmojiEvents";
-import { deckPlayFormats, factions, warbandsWithDefaultSet } from "../../../data";
+import { deckPlayFormats, factions, getValidSets, setsIndex, warbandsWithDefaultSet } from "../../../data";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../v2/components/SectionTitle";
@@ -47,76 +47,84 @@ const useClasses = makeStyles((theme) => ({
         display: "block",
         margin: `0 ${theme.spacing(1)}px 0 auto`,
     },
+
+    formatInfo: {
+        marginTop: theme.spacing(2),
+    }
 }));
 
+const RelicFormatIcon = ({ ...rest }) => (
+    <SvgIcon {...rest}>
+        <path d="M 15 2 C 13.894531 2 13 2.894531 13 4 C 13 5.105469 13.894531 6 15 6 C 16.105469 6 17 5.105469 17 4 C 17 2.894531 16.105469 2 15 2 Z M 11.4375 5 C 8.855469 7.230469 7.738281 10.058594 7.28125 11.6875 C 7.058594 12.476563 7.273438 13.320313 7.8125 13.9375 L 10.3125 16.8125 L 12 22 L 14 22 L 12.0625 16.03125 L 10.59375 12.875 C 10.59375 12.875 10.753906 10.90625 12.25 9.28125 L 15.71875 13.75 L 17.3125 12.90625 Z M 17.375 14 L 16.34375 14.5625 L 17.8125 22 L 19 22 Z M 8.0625 15.84375 L 6 22 L 8 22 L 9.46875 17.40625 Z" />
+    </SvgIcon>
+)
+
 function DeckPlayFormatToggle({ selectedFormat, onFormatChange }) {
+
     return (
-        <Grid container spacing={3} justify="center">
-            <Grid item sm={12}>
-                <ButtonGroup
-                    color="primary"
-                    aria-label="outlined primary button group"
+            <ButtonGroup
+                color="primary"
+                aria-label="outlined primary button group"
+            >
+                <Button
+                    onClick={onFormatChange("open")}
+                    variant={
+                        selectedFormat === "open" ? "contained" : "outlined"
+                    }
+                    startIcon={<OpenFormatIcon />}
                 >
-                    <Button
-                        onClick={onFormatChange("open")}
-                        variant={
-                            selectedFormat === "open" ? "contained" : "outlined"
-                        }
-                    >
-                        <OpenFormatIcon />
-                    </Button>
-                    <Button
-                        onClick={onFormatChange("championship")}
-                        variant={
-                            selectedFormat === "championship"
-                                ? "contained"
-                                : "outlined"
-                        }
-                    >
-                        <ChampionshipFormatIcon />
-                    </Button>
-                    <Button
-                        onClick={onFormatChange("relic")}
-                        variant={
-                            selectedFormat === "relic"
-                                ? "contained"
-                                : "outlined"
-                        }
-                    >
-                        <SvgIcon>
-                            <path d="M 15 2 C 13.894531 2 13 2.894531 13 4 C 13 5.105469 13.894531 6 15 6 C 16.105469 6 17 5.105469 17 4 C 17 2.894531 16.105469 2 15 2 Z M 11.4375 5 C 8.855469 7.230469 7.738281 10.058594 7.28125 11.6875 C 7.058594 12.476563 7.273438 13.320313 7.8125 13.9375 L 10.3125 16.8125 L 12 22 L 14 22 L 12.0625 16.03125 L 10.59375 12.875 C 10.59375 12.875 10.753906 10.90625 12.25 9.28125 L 15.71875 13.75 L 17.3125 12.90625 Z M 17.375 14 L 16.34375 14.5625 L 17.8125 22 L 19 22 Z M 8.0625 15.84375 L 6 22 L 8 22 L 9.46875 17.40625 Z" />
-                        </SvgIcon>
-                    </Button>
-                </ButtonGroup>
-            </Grid>
-        </Grid>
+                    open
+                </Button>
+                <Button
+                    onClick={onFormatChange("championship")}
+                    variant={
+                        selectedFormat === "championship"
+                            ? "contained"
+                            : "outlined"
+                    }
+                    startIcon={<ChampionshipFormatIcon />}
+                >
+                    championship
+                </Button>
+                <Button
+                    onClick={onFormatChange("relic")}
+                    variant={
+                        selectedFormat === "relic"
+                            ? "contained"
+                            : "outlined"
+                    }
+                    startIcon={<RelicFormatIcon />}
+                >
+                    relic
+                </Button>
+            </ButtonGroup>
     );
 }
 
-function DeckPlayFormatInfo({ format }) {
+function DeckPlayFormatInfo({ format, ...rest }) {
     switch (format) {
         case "open":
             return (
-                <Typography variant="body2">
+                <Typography variant="body2" {...rest}>
                     Card library will be available in full, without any
                     restrictions.
                 </Typography>
             );
         case "championship":
             return (
-                <Typography variant="body2">
+                <Typography variant="body2" {...rest}>
                     Library will be filtered to fullfil competitive play
                     requirements: banned and rotated out cards will be excluded.
                 </Typography>
             );
         case "relic":
             return (
-                <Typography variant="body2">
+                <Typography variant="body2" {...rest}>
                     Library will be filtered to exlude banned cards only.
                 </Typography>
             );
         default:
-            return <Typography></Typography>;
+            return null;
     }
 }
 
@@ -167,35 +175,40 @@ function CardLibraryFilters(props) {
     const onSelectedSetsChange = props.editMode
         ? props.onEditModeSelectedSetsChange
         : props.onCreateModeSelectedSetsChange;
-    // const sets = props.editMode ? props.editModeSets : props.createModeSets;
+    const sets = props.editMode ? props.editModeSets : props.createModeSets;
 
-    const [] = React.useState(0);
     const [showFilters, setShowFilters] = React.useState(false);
     const [format, setFormat] = React.useState(
         props.deckPlayFormat ? props.deckPlayFormat : deckPlayFormats[0]
     );
 
     /// Here will be new approach, keeping the rest for now
-    
+    const validSets = useMemo(() => getValidSets(format), [format]);
     const [warband, setWarband] = useState(selectedFaction);
     const [warbandsSet, setWarbandsSet] = useState(() => {
         const [,set] = warbandsWithDefaultSet.find(([faction]) => faction == selectedFaction);
         return set;
     })
     const [hideDuplicates, setHideDuplicates] = useState(true);
-    const [selectedSets, setSelectedSets] = useState(props.editMode ? props.editModeSets : props.createModeSets)    
+    const [selectedSets, setSelectedSets] = useState(sets.map(set => setsIndex[set]));  
     
     /// =============
 
     const toggleFiltersAreaVisibility = () => {
         // setFiltersAreaHeight((prev) => (prev === 0 ? "auto" : 0));
         setShowFilters((prev) => !prev);
+
+        if(showFilters) {
+            console.log('UPDATE ONLY WHEN HIDING FILTERS');
+            setFaction(warband, warbandsSet);
+            onSelectedSetsChange(selectedSets.map(s => setsIndex.indexOf(s)))
+            props.onChangeDeckPlayFormat(format);
+            props.onChangeEligibleForOrganizedPlay(format !== "open");
+        }
     };
 
     const handleFormatChange = (format) => () => {
         setFormat(format);
-        props.onChangeDeckPlayFormat(format);
-        props.onChangeEligibleForOrganizedPlay(format !== "open");
     };
 
     return (
@@ -244,22 +257,14 @@ function CardLibraryFilters(props) {
 
                         <SectionTitle title="Format" className="my-8" />
 
-                        <Grid container spacing={1} alignItems="center">
-                            <Grid item>
-                                <Typography>Selected build format:</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography variant="subtitle2">
-                                    {format.toUpperCase()}
-                                </Typography>
-                            </Grid>
-                        </Grid>
+                        <div className="flex flex-col items-center">
+                            <DeckPlayFormatToggle
+                                selectedFormat={format}
+                                onFormatChange={handleFormatChange}
+                            />
 
-                        <DeckPlayFormatToggle
-                            selectedFormat={format}
-                            onFormatChange={handleFormatChange}
-                        />
-                        <DeckPlayFormatInfo format={format} />
+                            <DeckPlayFormatInfo className={classes.formatInfo} format={format} />
+                        </div>
 
                         <SectionTitle title="Sets" className="my-8" />
 
@@ -270,8 +275,9 @@ function CardLibraryFilters(props) {
                             </p>
                         </div>
                         <ExpansionsToggle
-                            selectedSets={selectedSets}
-                            onExpansionsChange={onSelectedSetsChange}
+                            expansions={validSets}
+                            selectedExpansions={selectedSets}
+                            onExpansionsChange={setSelectedSets}
                         />
                     </section>
                 </Grid>

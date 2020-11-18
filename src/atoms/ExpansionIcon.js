@@ -26,17 +26,17 @@ const styles = (theme) => ({
 
 class ExpansionIcon extends PureComponent {
     render() {
-        const { classes, set, variant } = this.props;
+        const { classes, set, variant, setName } = this.props;
         return (
             <div className={classes.root}>
                 <picture>
                     <source
                         type="image/webp"
-                        srcSet={`/assets/icons/${setsIndex[set]}-icon.webp`}
+                        srcSet={`/assets/icons/${setName}-icon.webp`}
                     />
                     <img
-                        src={`/assets/icons/${setsIndex[set]}-icon-24.png`}
-                        alt={`${setsNames[set]}`}
+                        src={`/assets/icons/${setName}-icon-24.png`}
+                        alt={`${setName}`}
                         className={
                             variant === "large"
                                 ? classes.large
@@ -46,10 +46,6 @@ class ExpansionIcon extends PureComponent {
                         }
                     />
                 </picture>
-                {/* 
-                <img className={variant === 'large' ? classes.large : variant === 'medium' ? classes.medium : classes.small} 
-                    src={`/assets/icons/${setsIndex[set]}-icon.png`} 
-                    alt={`${setsNames[set]}`} /> */}
             </div>
         );
     }
