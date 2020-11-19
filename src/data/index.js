@@ -5,6 +5,7 @@ import { beastgraveDB } from "./dbs/beastgrave_db";
 import { beastgraveGiftPackDb } from "./dbs/beastgrave_giftpack_db";
 import { arenaMortisDb } from "./dbs/arena-mortis-db";
 import { setsIndex, rotatedOutSetsIndexes } from "./atoms/sets";
+import { sets, factions, cards } from './wudb';
 
 export {
     factions,
@@ -211,3 +212,13 @@ export function getValidSets(format) {
             return setsIndex;
     }
 }
+
+/// ============ new stuff
+
+export { 
+    sets as wusets, 
+    factions as wufactions,
+    cards as wucards
+}
+
+/// ======================

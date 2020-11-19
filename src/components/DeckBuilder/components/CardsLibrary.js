@@ -6,6 +6,8 @@ import {
     bannedCards,
     restrictedCards,
     factionIdPrefix,
+    wucards,
+    wufactions,
 } from "../../../data";
 import { List, AutoSizer } from "react-virtualized";
 import { ADD_CARD, REMOVE_CARD } from "../../../reducers/deckUnderBuild";
@@ -125,7 +127,41 @@ class VirtualizedCardsList extends Component {
     }
 }
 
+function stringTypeToNumber(type) {
+    switch(type) {
+        case 'Objective': 
+            return 0;
+        case 'Ploy':
+            return 1;
+        case 'Spell': 
+            return 1;
+        case 'Upgrade':
+            return 2;    
+    }
+}
+
+const _sort = (card1, card2) => {
+    console.log(card1, card2);
+    const t1 = stringTypeToNumber(card1.type);
+    const t2 = stringTypeToNumber(card2.type);
+    console.log(t1, t2);
+    return (
+        t1 - t2 ||
+        card2.ranking - card1.ranking ||
+        card2.faction - card1.faction
+    );
+};
+
 function FilterableCardLibrary(props) {
+    const { searchText, visibleCardTypes, editMode, deckPlayFormat } = props;
+    const currentDeck = editMode
+        ? props.editModeCurrentDeck
+        : props.createModeCurrentDeck;
+    const selectedFaction = props.editMode
+        ? props.editModeSelectedFaction
+        : props.createModeSelectedFaction;
+    const selectedFactionPrefix = factionIdPrefix[selectedFaction];
+
     const _reloadCards = () => {
         const selectedFaction = props.editMode
             ? props.editModeSelectedFaction
@@ -136,42 +172,33 @@ function FilterableCardLibrary(props) {
         const selectedSets = props.editMode
             ? props.editModeSelectedSets
             : props.createModeSelectedSets;
-        const factionCards = getCardsByFactionAndSets(
-            selectedFaction,
-            selectedSets,
-            selectedFactionDefaultSet
-        );
-        if (selectedSets && selectedSets.length > 0) {
-            const universalCards = getCardsByFactionAndSets(
-                "universal",
-                selectedSets
-            );
-            return new Set(factionCards).union(new Set(universalCards));
-        } else {
-            return new Set(factionCards);
-        }
+
+        const faction = Object.values(wufactions).find(faction => faction.name == selectedFaction);
+        const factionCards = Object.values(wucards)
+            .filter(card => 
+                card.factionId === faction.id 
+                && (!!card.duplicates ? card.id === Math.max(...card.duplicates) : true));
+
+        console.log(factionCards, selectedSets);
+
+        return selectedSets?.length > 0 
+            ? [
+                ...factionCards, 
+                ...Object.values(wucards)
+                    .filter(card => 
+                        !!selectedSets.find(set => +set == card.setId) 
+                        && card.factionId === 1
+                        && (!!card.duplicates ? card.id === Math.max(...card.duplicates) : true))
+            ] : factionCards;
     };
 
-    const _sort = (card1, card2) => {
-        const t1 = card1.type === 1 || card1.type === 3 ? 1 : card1.type;
-        const t2 = card2.type === 1 || card2.type === 3 ? 1 : card2.type;
+    const cards = _reloadCards().map(c => {
+        // previously cards were in format '00000' where first two digits were wave 
+        // (e.g. Shadespire, Beastgrave or Power Unbound) and then card number
+        // =========
+        // new format has cards as numbers, which requires padding 0s for now for backward compatibility.
 
-        return (
-            t1 - t2 ||
-            card2.ranking - card1.ranking ||
-            card2.faction - card1.faction
-        );
-    };
-
-    const { searchText, visibleCardTypes, editMode, deckPlayFormat } = props;
-    const currentDeck = editMode
-        ? props.editModeCurrentDeck
-        : props.createModeCurrentDeck;
-    const selectedFaction = props.editMode
-        ? props.editModeSelectedFaction
-        : props.createModeSelectedFaction;
-    const selectedFactionPrefix = factionIdPrefix[selectedFaction];
-    const cards = _reloadCards().map((cid) => {
+        let cid = `${c.id}`.padStart(5, '0');
         const universalRank =
             props.cardsRanking && props.cardsRanking["universal"][cid]
                 ? props.cardsRanking["universal"][cid]
@@ -183,12 +210,13 @@ function FilterableCardLibrary(props) {
                 ? props.cardsRanking[selectedFactionPrefix][cid] * 10000
                 : universalRank;
 
-        const card = { id: cid, ranking: rank, ...cardsDb[cid] };
+        const card = { id: cid, ranking: rank, ...c };
         return card;
     });
 
+    console.log(cards);
     let filteredCards = cards
-        .filter(({ type }) => visibleCardTypes.includes(type))
+        //.filter(({ type }) => visibleCardTypes.includes(type))
         .filter(({ id, faction }) => {
             switch (deckPlayFormat) {
                 case "championship":
@@ -213,7 +241,7 @@ function FilterableCardLibrary(props) {
         });
     } else {
         filteredCards = filteredCards.filter(({ id }) =>
-            id.slice(-3).includes(searchText)
+            `${id}`.padStart(5, '0').includes(searchText)
         );
     }
 
@@ -225,7 +253,7 @@ function FilterableCardLibrary(props) {
         return true;
     });
 
-    const sorted = filteredCards.toJS().sort((c1, c2) => _sort(c1, c2));
+    const sorted = filteredCards.sort((c1, c2) => _sort(c1, c2));
     const drawableCards = sorted.map((c) => ({ card: c, expanded: false }));
 
     return (

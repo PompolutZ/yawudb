@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import DelayedSearch from "../../DelayedSearch";
 import { IconButton, Typography } from "@material-ui/core";
 import { ReactComponent as TogglesIcon } from "../../../svgs/sliders.svg";
@@ -21,7 +21,7 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 import OpenFormatIcon from "@material-ui/icons/Mood";
 import ChampionshipFormatIcon from "@material-ui/icons/EmojiEvents";
 import { deckPlayFormats, factions, getValidSets, setsIndex, warbandsWithDefaultSet } from "../../../data";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../v2/components/SectionTitle";
 import Toggle from "../../../v2/components/HexToggle";
@@ -210,6 +210,10 @@ function CardLibraryFilters(props) {
     const handleFormatChange = (format) => () => {
         setFormat(format);
     };
+
+    useEffect(() => {
+        setSelectedSets(validSets);        
+    }, [validSets])
 
     return (
         <div style={{ flex: "1 1 auto" }}>

@@ -354,21 +354,18 @@ class WUCardInfo extends PureComponent {
                                 color: "gray",
                             }}
                         >
-                            {`${id.slice(-3)}/${
-                                totalCardsPerWave[parseInt(id.slice(0, 2), 10)]
+                            {`${`${id}`.padStart(5, '0').slice(-3)}/${
+                                totalCardsPerWave[parseInt(`${id}`.padStart(5, '0').slice(0, 2), 10)]
                             }`}
                         </Typography>
                         <img
-                            alt={`wave-${id.slice(0, 2)}`}
+                            alt={`wave-${`${id}`.padStart(5, '0').slice(0, 2)}`}
                             style={{
                                 width: ".8rem",
                                 height: ".8rem",
                                 marginLeft: ".2rem",
                             }}
-                            src={`/assets/icons/wave-${id.slice(
-                                0,
-                                2
-                            )}-icon.png`}
+                            src={`/assets/icons/wave-${`${id}`.padStart(5, '0').slice(0, 2)}-icon.png`}
                         />
                     </div>
                 </div>
@@ -523,8 +520,8 @@ function WUCardAtom(props) {
                         onError={handleImageError}
                         onLoad={handleImageLoaded}
                         className={classes.cardImg}
-                        alt={id.slice(-3)}
-                        src={`/assets/cards/${id}.png`}
+                        alt={id}
+                        src={`/assets/cards/${`${id}`.padStart(5, '0')}.png`}
                     />
                 )}
                 {useTextFallback && <CardRule rule={rule} />}

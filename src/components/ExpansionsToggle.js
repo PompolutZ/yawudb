@@ -18,6 +18,7 @@ const styles = (theme) => ({
 });
 
 function ExpansionsToggle({ expansions = [],  selectedExpansions = [], onExpansionsChange, classes, ...rest }) {
+    console.log(expansions, selectedExpansions);
     const [selectAllValidSets, setSelectAllValidSets] = useState(expansions.length == selectedExpansions.length);
 
     const handleToggle = expansion => () => {
