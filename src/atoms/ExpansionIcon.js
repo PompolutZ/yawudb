@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
-import { setsIndex, setsNames } from "../data/index";
+// import { setsIndex, setsNames } from "../data/index";
 import { withStyles } from "@material-ui/core/styles";
+import { getSetNameById } from "../data/wudb";
 
 const styles = (theme) => ({
     root: {
@@ -27,6 +28,7 @@ const styles = (theme) => ({
 class ExpansionIcon extends PureComponent {
     render() {
         const { classes, set, variant, setName } = this.props;
+        // const setName = getSetNameById(+set);
         return (
             <div className={classes.root}>
                 <picture>

@@ -10,6 +10,7 @@ import {
     totalCardsPerWave,
     setsIndex,
     factionIdPrefix,
+    wusets,
 } from "../data/index";
 import ObjectiveScoreTypeIcon from "../components/ObjectiveScoreTypeIcon";
 import { connect } from "react-redux";
@@ -20,6 +21,7 @@ import LockIcon from "@material-ui/icons/Lock";
 import StarIcon from "@material-ui/icons/Star";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
+import { getCardNumberFromId, getCardWaveFromId, getSetNameById } from "../data/wudb";
 
 const useStyles = makeStyles((theme) => ({
     expand: {
@@ -137,12 +139,6 @@ class WUCardTypeImage extends PureComponent {
     };
 
     render() {
-        const icons = [
-            "objective-icon",
-            "ploy-icon",
-            "upgrade-icon",
-            "gambit spell-icon",
-        ];
         const { type, prefix, rank } = this.props;
         return (
             <div style={{ position: "relative" }}>
@@ -157,8 +153,8 @@ class WUCardTypeImage extends PureComponent {
                         }}
                     >
                         <img
-                            src={`/assets/icons/${icons[type]}.png`}
-                            alt={icons[type]}
+                            src={`/assets/icons/${type.toLowerCase()}-icon.png`}
+                            alt={type}
                             style={{ width: "2.5rem", height: "2.5rem" }}
                         />
                         <Rank
@@ -189,6 +185,8 @@ class WUCardInfo extends PureComponent {
             glory,
             onClick,
         } = this.props;
+
+        const wave = getCardWaveFromId(id);
         return (
             <div style={{ marginLeft: "1rem" }} onClick={onClick}>
                 <div style={{ display: "flex", alignItem: "center" }}>
@@ -272,7 +270,7 @@ class WUCardInfo extends PureComponent {
                                 color: "gray",
                             }}
                         >
-                            {`${cardType[type]}`}
+                            {`${type}`}
                         </Typography>
                         <Typography
                             variant="body2"
@@ -280,7 +278,7 @@ class WUCardInfo extends PureComponent {
                                 color: "gray",
                             }}
                         >
-                            {scoreType >= 0 && (
+                            {!!scoreType && (
                                 <ObjectiveScoreTypeIcon
                                     type={scoreType}
                                     style={{
@@ -321,13 +319,13 @@ class WUCardInfo extends PureComponent {
                             {` Set: `}
                         </Typography>
                         <img
-                            alt={`${setsIndex[set]}`}
+                            alt={`${getSetNameById(set)}`}
                             style={{
                                 width: ".8rem",
                                 height: ".8rem",
                                 marginLeft: ".2rem",
                             }}
-                            src={`/assets/icons/${setsIndex[set]}-icon.png`}
+                            src={`/assets/icons/${getSetNameById(set)}-icon.png`}
                         />
                     </div>
                     <Typography
@@ -354,18 +352,18 @@ class WUCardInfo extends PureComponent {
                                 color: "gray",
                             }}
                         >
-                            {`${`${id}`.padStart(5, '0').slice(-3)}/${
-                                totalCardsPerWave[parseInt(`${id}`.padStart(5, '0').slice(0, 2), 10)]
+                            {`${getCardNumberFromId(id)}/${
+                                totalCardsPerWave[+wave]
                             }`}
                         </Typography>
                         <img
-                            alt={`wave-${`${id}`.padStart(5, '0').slice(0, 2)}`}
+                            alt={`wave-${wave}`}
                             style={{
                                 width: ".8rem",
                                 height: ".8rem",
                                 marginLeft: ".2rem",
                             }}
-                            src={`/assets/icons/wave-${`${id}`.padStart(5, '0').slice(0, 2)}-icon.png`}
+                            src={`/assets/icons/wave-${wave}-icon.png`}
                         />
                     </div>
                 </div>
@@ -383,7 +381,7 @@ function WUCardAtom(props) {
         scoreType,
         glory,
         name,
-        set,
+        setId,
         rule,
         isAlter,
         isRestricted,
@@ -484,7 +482,7 @@ function WUCardAtom(props) {
                     pickColor={pickForegroundColor}
                     isRestricted={isRestricted}
                     isBanned={isBanned}
-                    set={set}
+                    set={setId}
                     name={name}
                     scoreType={scoreType}
                     type={type}
@@ -521,7 +519,7 @@ function WUCardAtom(props) {
                         onLoad={handleImageLoaded}
                         className={classes.cardImg}
                         alt={id}
-                        src={`/assets/cards/${`${id}`.padStart(5, '0')}.png`}
+                        src={`/assets/cards/${`${id}`.padStart(5, "0")}.png`}
                     />
                 )}
                 {useTextFallback && <CardRule rule={rule} />}

@@ -141,10 +141,8 @@ function stringTypeToNumber(type) {
 }
 
 const _sort = (card1, card2) => {
-    console.log(card1, card2);
     const t1 = stringTypeToNumber(card1.type);
     const t2 = stringTypeToNumber(card2.type);
-    console.log(t1, t2);
     return (
         t1 - t2 ||
         card2.ranking - card1.ranking ||

@@ -7,12 +7,15 @@ import HourglassFullIcon from "@material-ui/icons/HourglassFull";
 const ObjectiveScoreTypeIcon = ({ type, style }) => {
     switch (type) {
         case 0:
+        case 'Surge':
             return <FlashOnIcon style={style} />;
         case 1:
+        case 'End':
             return <SheduleIcon style={style} />;
         case 2:
             return <HourglassFullIcon style={style} />;
         case 3:
+        case 'Third':
             return <HourglassEmptyIcon style={style} />;
         default:
             return <FlashOnIcon style={style} />;

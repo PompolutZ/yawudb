@@ -1,3 +1,38 @@
+function getCardNumberFromId(cardId) {
+    if(typeof cardId == 'string') {
+        return +cardId.slice(-3);
+    }
+
+    return cardId % 1000;
+}
+
+function getCardWaveFromId(cardId) {
+    if(typeof cardId == 'string') {
+        return cardId.slice(0, 2);
+    }
+
+    return `${Math.floor(cardId / 1000)}`.padStart(2, '0');
+}
+
+const idToSetKey = {};
+function getSetNameById(setId) {
+    if(!!idToSetKey[setId]) {
+        return sets[idToSetKey[setId]].name;
+    } 
+
+    const [key, value] = Object.entries(sets).find(([key, value]) => value.id == setId);
+    idToSetKey[setId] = key;
+    return value.name;
+}
+
+
+
+export {
+    getCardNumberFromId,
+    getCardWaveFromId,
+    getSetNameById,
+}
+
 export const cards = {
         "1001": {
             "id": 1001,
@@ -21107,7 +21142,6 @@ export const cards = {
         }
     };
 
-
 export const factions = {
     "Garrek's Reavers": {
         "id": 2,
@@ -21272,7 +21306,6 @@ export const factions = {
         "displayName": "Morgok's Krushas"
     }
 };
-
 
 export const sets = {
     "Core set": {
