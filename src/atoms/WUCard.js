@@ -6,11 +6,8 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import AddIcon from "@material-ui/icons/Add";
 import AnimateHeight from "react-animate-height";
 import {
-    cardType,
     totalCardsPerWave,
-    setsIndex,
     factionIdPrefix,
-    wusets,
 } from "../data/index";
 import ObjectiveScoreTypeIcon from "../components/ObjectiveScoreTypeIcon";
 import { connect } from "react-redux";
@@ -513,16 +510,15 @@ function WUCardAtom(props) {
                 height={height} // see props documentation bellow
                 easing="ease-out"
             >
-                {!useTextFallback && (
+                {useTextFallback ? <CardRule rule={rule} /> : (
                     <img
-                        onError={handleImageError}
-                        onLoad={handleImageLoaded}
-                        className={classes.cardImg}
-                        alt={id}
-                        src={`/assets/cards/${`${id}`.padStart(5, "0")}.png`}
-                    />
+                    onError={handleImageError}
+                    onLoad={handleImageLoaded}
+                    className={classes.cardImg}
+                    alt={id}
+                    src={`/assets/cards/${`${id}`.padStart(5, "0")}.png`}
+                />
                 )}
-                {useTextFallback && <CardRule rule={rule} />}
             </AnimateHeight>
         </div>
     );

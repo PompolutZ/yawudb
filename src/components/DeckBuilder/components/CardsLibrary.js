@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import {
-    getCardsByFactionAndSets,
-    cardsDb,
     factionIndexes,
     bannedCards,
     restrictedCards,
@@ -12,16 +10,8 @@ import {
 import { List, AutoSizer } from "react-virtualized";
 import { ADD_CARD, REMOVE_CARD } from "../../../reducers/deckUnderBuild";
 import { connect } from "react-redux";
-import { Set } from "immutable";
 import WUCard from "../../../atoms/WUCard";
-
-// export const toggleCardInDeck = (id, currentDeck, addCard, removeCard) => {
-//     if(currentDeck.includes(id)) {
-//         removeCard(id);
-//     } else {
-//         addCard(id)
-//     }
-// }
+import { cardTypes } from "../../../data/wudb";
 
 class VirtualizedCardsList extends Component {
     constructor(props) {
@@ -164,9 +154,9 @@ function FilterableCardLibrary(props) {
         const selectedFaction = props.editMode
             ? props.editModeSelectedFaction
             : props.createModeSelectedFaction;
-        const selectedFactionDefaultSet = props.editMode
-            ? props.editModeFactionDefaultSet
-            : props.createModeFactionDefaultSet;
+        // const selectedFactionDefaultSet = props.editMode
+        //     ? props.editModeFactionDefaultSet
+        //     : props.createModeFactionDefaultSet;
         const selectedSets = props.editMode
             ? props.editModeSelectedSets
             : props.createModeSelectedSets;
@@ -214,7 +204,9 @@ function FilterableCardLibrary(props) {
 
     console.log(cards);
     let filteredCards = cards
-        //.filter(({ type }) => visibleCardTypes.includes(type))
+        .filter(({ type }) => {
+            return visibleCardTypes.includes(cardTypes.indexOf(type))
+        })
         .filter(({ id, faction }) => {
             switch (deckPlayFormat) {
                 case "championship":
@@ -261,7 +253,6 @@ function FilterableCardLibrary(props) {
                 isEligibleForOp={props.eligibleForOP}
                 cards={drawableCards}
                 currentDeck={currentDeck}
-                // toggleCardInDeck={_toggleCardInDeck}
                 editMode={props.editMode}
                 restrictedCardsCount={props.restrictedCardsCount}
                 editRestrictedCardsCount={props.editRestrictedCardsCount}

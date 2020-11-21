@@ -16,6 +16,7 @@ function getCardWaveFromId(cardId) {
 
 const idToSetKey = {};
 function getSetNameById(setId) {
+
     if(!!idToSetKey[setId]) {
         return sets[idToSetKey[setId]].name;
     } 
@@ -25,12 +26,13 @@ function getSetNameById(setId) {
     return value.name;
 }
 
-
+const cardTypes = ['Objective', 'Ploy', 'Upgrade', 'Spell'];
 
 export {
     getCardNumberFromId,
     getCardWaveFromId,
     getSetNameById,
+    cardTypes
 }
 
 export const cards = {
@@ -21420,12 +21422,12 @@ export const sets = {
     },
     "The Wurmspat expansion": {
         "id": 24,
-        "name": "hrothgorns-mantrappers",
+        "name": "the-wurmspat",
         "displayName": "The Wurmspat expansion"
     },
     "Hrothgorn's Mantrappers expansion": {
         "id": 25,
-        "name": "the-wurmspat",
+        "name": "hrothgorns-mantrappers",
         "displayName": "Hrothgorn's Mantrappers expansion"
     },
     "Morgwaeth's Blade Coven expansion": {
