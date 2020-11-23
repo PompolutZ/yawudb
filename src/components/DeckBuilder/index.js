@@ -1,7 +1,7 @@
 import React from "react";
 import { OrderedSet } from "immutable";
 
-import Deck from "../Deck";
+import Deck from "./components/Deck";
 import { cardsDb, factionIdPrefix } from "../../data/index";
 
 import FloatingActionButton from "../FloatingActionButton";
@@ -220,7 +220,7 @@ function DeckBuilder(props) {
     return (
         <div className={classes.root}>
             <Grid container spacing={1} style={{ height: "98%" }}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} lg={3}>
                     <Paper className={classes.paper}>
                         <div className={classes.leftPaperInner}>
                             <div>
@@ -298,7 +298,7 @@ function DeckBuilder(props) {
                     <Grid
                         item
                         xs={12}
-                        md={6}
+                        lg={9}
                         style={{
                             overflow: useMediaQuery(theme.breakpoints.up("md"))
                                 ? "hidden"
@@ -306,7 +306,6 @@ function DeckBuilder(props) {
                             backgroundColor: "white",
                         }}
                     >
-                        <Paper className={classes.paper}>
                             <Deck
                                 faction={selectedFaction}
                                 editMode={editMode}
@@ -323,7 +322,6 @@ function DeckBuilder(props) {
                                 onRemoveAll={clearDeck}
                                 isAuth={isAuth}
                             />
-                        </Paper>
                     </Grid>
                 </Slide>
             </Grid>

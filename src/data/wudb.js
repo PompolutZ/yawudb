@@ -28,11 +28,33 @@ function getSetNameById(setId) {
 
 const cardTypes = ['Objective', 'Ploy', 'Upgrade', 'Spell'];
 
+function getCardById(cardId) {
+    return cards[`${cardId}`];
+}
+
+function checkCardIsObjective({ type, ...card}) {
+    return typeof type == 'string' ? cardTypes.indexOf(type) == 0 : type === 0;
+}
+
+function checkCardIsPloy({ type, ...card}) {
+    return typeof type == 'string' 
+        ? cardTypes.indexOf(type) == 1 || cardTypes.indexOf(type) == 3
+        : type === 1 ||type === 3;
+}
+
+function checkCardIsUpgrade({ type, ...card}) {
+    return typeof type == 'string' ? cardTypes.indexOf(type) == 2 : type === 2;
+} 
+
 export {
     getCardNumberFromId,
     getCardWaveFromId,
     getSetNameById,
-    cardTypes
+    cardTypes,
+    getCardById,
+    checkCardIsObjective,
+    checkCardIsPloy,
+    checkCardIsUpgrade,
 }
 
 export const cards = {

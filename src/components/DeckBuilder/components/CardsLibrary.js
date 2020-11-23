@@ -188,8 +188,8 @@ function FilterableCardLibrary(props) {
 
         let cid = `${c.id}`.padStart(5, '0');
         const universalRank =
-            props.cardsRanking && props.cardsRanking["universal"][cid]
-                ? props.cardsRanking["universal"][cid]
+            props.cardsRanking && props.cardsRanking["u"][cid]
+                ? props.cardsRanking["u"][cid]
                 : 0;
         const rank =
             props.cardsRanking &&

@@ -157,7 +157,16 @@ function App(props) {
     // }, [db, firebase]);
 
     React.useEffect(() => {
-        const unsubscribe = props.firebase.onAuthUserListener(
+        firebase.realdb
+            .ref("/cards_ranks")
+            .once("value")
+            .then((snapshot) => {
+                props.updateCardRanks(snapshot.val());
+            });
+    }, [firebase])
+
+    React.useEffect(() => {
+        const unsubscribe = firebase.onAuthUserListener(
             async (user) => {
                 if (user.isNew) {
                     // new user

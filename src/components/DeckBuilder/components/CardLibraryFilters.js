@@ -253,7 +253,7 @@ function CardLibraryFilters(props) {
                     </IconButton>
 
                     <section className={classes.filtersContent}>
-                        <SectionTitle title="Warband" />
+                        <SectionTitle className="mb-8" title="Warband" />
 
                         <SelectedFaction faction={warband} />
 

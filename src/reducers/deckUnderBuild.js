@@ -1,5 +1,6 @@
 import { Set } from "immutable";
 import { factions, restrictedCards, cardsDb } from "../data/index";
+import { checkCardIsPloy, checkCardIsObjective, checkCardIsUpgrade, getCardById } from "../data/wudb";
 
 export const SET_FACTION = "SET_FACTION";
 export const ADD_CARD = "ADD_CARD";
@@ -24,7 +25,7 @@ const initialState = {
 };
 
 const deckUnderBuild = (state = initialState, action) => {
-    const c = cardsDb[action.card];
+    const card = cardsDb[action.card] || getCardById(action.card);
     switch (action.type) {
         case SET_FACTION:
             const faction = action.faction.startsWith("n_")
@@ -55,13 +56,13 @@ const deckUnderBuild = (state = initialState, action) => {
             return {
                 ...state,
                 deck: new Set(state.deck).add(action.card),
-                objectivesCount: isObjectiveCard(c.type)
+                objectivesCount: checkCardIsObjective(card)
                     ? state.objectivesCount + 1
                     : state.objectivesCount,
-                gambitsCount: isGambitCard(c.type)
+                gambitsCount: checkCardIsPloy(card)
                     ? state.gambitsCount + 1
                     : state.gambitsCount,
-                upgradesCount: isUpgradeCard(c.type)
+                upgradesCount: checkCardIsUpgrade(card)
                     ? state.upgradesCount + 1
                     : state.upgradesCount,
                 restrictedCardsCount: isRestrictedCard(action.card)
@@ -73,13 +74,13 @@ const deckUnderBuild = (state = initialState, action) => {
             return {
                 ...state,
                 deck: new Set(state.deck).delete(action.card),
-                objectivesCount: isObjectiveCard(c.type)
+                objectivesCount: checkCardIsObjective(card)
                     ? state.objectivesCount - 1
                     : state.objectivesCount,
-                gambitsCount: isGambitCard(c.type)
+                gambitsCount: checkCardIsPloy(card)
                     ? state.gambitsCount - 1
                     : state.gambitsCount,
-                upgradesCount: isUpgradeCard(c.type)
+                upgradesCount: checkCardIsUpgrade(card)
                     ? state.upgradesCount - 1
                     : state.upgradesCount,
                 restrictedCardsCount: isRestrictedCard(action.card)
