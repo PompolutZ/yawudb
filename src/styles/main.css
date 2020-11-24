@@ -1829,6 +1829,12 @@ body {
   border-color: rgba(140, 6, 1, var(--divide-opacity));
 }
 
+.divide-objectiveGold > :not(template) ~ :not(template) {
+  --divide-opacity: 1;
+  border-color: #D38E36;
+  border-color: rgba(211, 142, 54, var(--divide-opacity));
+}
+
 .divide-swirl > :not(template) ~ :not(template) {
   --divide-opacity: 1;
   border-color: #d0cec2;
@@ -2564,6 +2570,12 @@ body {
   background-color: rgba(140, 6, 1, var(--bg-opacity));
 }
 
+.bg-objectiveGold {
+  --bg-opacity: 1;
+  background-color: #D38E36;
+  background-color: rgba(211, 142, 54, var(--bg-opacity));
+}
+
 .bg-swirl {
   --bg-opacity: 1;
   background-color: #d0cec2;
@@ -3176,6 +3188,12 @@ body {
   --bg-opacity: 1;
   background-color: #8C0601;
   background-color: rgba(140, 6, 1, var(--bg-opacity));
+}
+
+.hover\:bg-objectiveGold:hover {
+  --bg-opacity: 1;
+  background-color: #D38E36;
+  background-color: rgba(211, 142, 54, var(--bg-opacity));
 }
 
 .hover\:bg-swirl:hover {
@@ -3792,6 +3810,12 @@ body {
   background-color: rgba(140, 6, 1, var(--bg-opacity));
 }
 
+.focus\:bg-objectiveGold:focus {
+  --bg-opacity: 1;
+  background-color: #D38E36;
+  background-color: rgba(211, 142, 54, var(--bg-opacity));
+}
+
 .focus\:bg-swirl:focus {
   --bg-opacity: 1;
   background-color: #d0cec2;
@@ -4344,6 +4368,11 @@ body {
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
 }
 
+.from-objectiveGold {
+  --gradient-from-color: #D38E36;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+}
+
 .from-swirl {
   --gradient-from-color: #d0cec2;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -4859,6 +4888,11 @@ body {
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
 }
 
+.via-objectiveGold {
+  --gradient-via-color: #D38E36;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+}
+
 .via-swirl {
   --gradient-via-color: #d0cec2;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -5270,6 +5304,10 @@ body {
 
 .to-accent3-900 {
   --gradient-to-color: #8C0601;
+}
+
+.to-objectiveGold {
+  --gradient-to-color: #D38E36;
 }
 
 .to-swirl {
@@ -5784,6 +5822,11 @@ body {
 .hover\:from-accent3-900:hover {
   --gradient-from-color: #8C0601;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+}
+
+.hover\:from-objectiveGold:hover {
+  --gradient-from-color: #D38E36;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
 }
 
 .hover\:from-swirl:hover {
@@ -6301,6 +6344,11 @@ body {
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
 }
 
+.hover\:via-objectiveGold:hover {
+  --gradient-via-color: #D38E36;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+}
+
 .hover\:via-swirl:hover {
   --gradient-via-color: #d0cec2;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -6712,6 +6760,10 @@ body {
 
 .hover\:to-accent3-900:hover {
   --gradient-to-color: #8C0601;
+}
+
+.hover\:to-objectiveGold:hover {
+  --gradient-to-color: #D38E36;
 }
 
 .hover\:to-swirl:hover {
@@ -7226,6 +7278,11 @@ body {
 .focus\:from-accent3-900:focus {
   --gradient-from-color: #8C0601;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+}
+
+.focus\:from-objectiveGold:focus {
+  --gradient-from-color: #D38E36;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
 }
 
 .focus\:from-swirl:focus {
@@ -7743,6 +7800,11 @@ body {
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
 }
 
+.focus\:via-objectiveGold:focus {
+  --gradient-via-color: #D38E36;
+  --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+}
+
 .focus\:via-swirl:focus {
   --gradient-via-color: #d0cec2;
   --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -8154,6 +8216,10 @@ body {
 
 .focus\:to-accent3-900:focus {
   --gradient-to-color: #8C0601;
+}
+
+.focus\:to-objectiveGold:focus {
+  --gradient-to-color: #D38E36;
 }
 
 .focus\:to-swirl:focus {
@@ -8908,6 +8974,12 @@ body {
   border-color: rgba(140, 6, 1, var(--border-opacity));
 }
 
+.border-objectiveGold {
+  --border-opacity: 1;
+  border-color: #D38E36;
+  border-color: rgba(211, 142, 54, var(--border-opacity));
+}
+
 .border-swirl {
   --border-opacity: 1;
   border-color: #d0cec2;
@@ -9522,6 +9594,12 @@ body {
   border-color: rgba(140, 6, 1, var(--border-opacity));
 }
 
+.hover\:border-objectiveGold:hover {
+  --border-opacity: 1;
+  border-color: #D38E36;
+  border-color: rgba(211, 142, 54, var(--border-opacity));
+}
+
 .hover\:border-swirl:hover {
   --border-opacity: 1;
   border-color: #d0cec2;
@@ -10134,6 +10212,12 @@ body {
   --border-opacity: 1;
   border-color: #8C0601;
   border-color: rgba(140, 6, 1, var(--border-opacity));
+}
+
+.focus\:border-objectiveGold:focus {
+  --border-opacity: 1;
+  border-color: #D38E36;
+  border-color: rgba(211, 142, 54, var(--border-opacity));
 }
 
 .focus\:border-swirl:focus {
@@ -15348,6 +15432,24 @@ body {
   color: rgba(140, 6, 1, var(--placeholder-opacity));
 }
 
+.placeholder-objectiveGold::-webkit-input-placeholder {
+  --placeholder-opacity: 1;
+  color: #D38E36;
+  color: rgba(211, 142, 54, var(--placeholder-opacity));
+}
+
+.placeholder-objectiveGold::-ms-input-placeholder {
+  --placeholder-opacity: 1;
+  color: #D38E36;
+  color: rgba(211, 142, 54, var(--placeholder-opacity));
+}
+
+.placeholder-objectiveGold::placeholder {
+  --placeholder-opacity: 1;
+  color: #D38E36;
+  color: rgba(211, 142, 54, var(--placeholder-opacity));
+}
+
 .placeholder-swirl::-webkit-input-placeholder {
   --placeholder-opacity: 1;
   color: #d0cec2;
@@ -17190,6 +17292,24 @@ body {
   color: rgba(140, 6, 1, var(--placeholder-opacity));
 }
 
+.focus\:placeholder-objectiveGold:focus::-webkit-input-placeholder {
+  --placeholder-opacity: 1;
+  color: #D38E36;
+  color: rgba(211, 142, 54, var(--placeholder-opacity));
+}
+
+.focus\:placeholder-objectiveGold:focus::-ms-input-placeholder {
+  --placeholder-opacity: 1;
+  color: #D38E36;
+  color: rgba(211, 142, 54, var(--placeholder-opacity));
+}
+
+.focus\:placeholder-objectiveGold:focus::placeholder {
+  --placeholder-opacity: 1;
+  color: #D38E36;
+  color: rgba(211, 142, 54, var(--placeholder-opacity));
+}
+
 .focus\:placeholder-swirl:focus::-webkit-input-placeholder {
   --placeholder-opacity: 1;
   color: #d0cec2;
@@ -18211,6 +18331,12 @@ body {
   color: rgba(140, 6, 1, var(--text-opacity));
 }
 
+.text-objectiveGold {
+  --text-opacity: 1;
+  color: #D38E36;
+  color: rgba(211, 142, 54, var(--text-opacity));
+}
+
 .text-swirl {
   --text-opacity: 1;
   color: #d0cec2;
@@ -18825,6 +18951,12 @@ body {
   color: rgba(140, 6, 1, var(--text-opacity));
 }
 
+.hover\:text-objectiveGold:hover {
+  --text-opacity: 1;
+  color: #D38E36;
+  color: rgba(211, 142, 54, var(--text-opacity));
+}
+
 .hover\:text-swirl:hover {
   --text-opacity: 1;
   color: #d0cec2;
@@ -19437,6 +19569,12 @@ body {
   --text-opacity: 1;
   color: #8C0601;
   color: rgba(140, 6, 1, var(--text-opacity));
+}
+
+.focus\:text-objectiveGold:focus {
+  --text-opacity: 1;
+  color: #D38E36;
+  color: rgba(211, 142, 54, var(--text-opacity));
 }
 
 .focus\:text-swirl:focus {
@@ -23901,6 +24039,12 @@ body {
     border-color: rgba(140, 6, 1, var(--divide-opacity));
   }
 
+  .sm\:divide-objectiveGold > :not(template) ~ :not(template) {
+    --divide-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--divide-opacity));
+  }
+
   .sm\:divide-swirl > :not(template) ~ :not(template) {
     --divide-opacity: 1;
     border-color: #d0cec2;
@@ -24636,6 +24780,12 @@ body {
     background-color: rgba(140, 6, 1, var(--bg-opacity));
   }
 
+  .sm\:bg-objectiveGold {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
   .sm\:bg-swirl {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -25248,6 +25398,12 @@ body {
     --bg-opacity: 1;
     background-color: #8C0601;
     background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .sm\:hover\:bg-objectiveGold:hover {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
   }
 
   .sm\:hover\:bg-swirl:hover {
@@ -25864,6 +26020,12 @@ body {
     background-color: rgba(140, 6, 1, var(--bg-opacity));
   }
 
+  .sm\:focus\:bg-objectiveGold:focus {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
   .sm\:focus\:bg-swirl:focus {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -26416,6 +26578,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .sm\:from-objectiveGold {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .sm\:from-swirl {
     --gradient-from-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -26931,6 +27098,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .sm\:via-objectiveGold {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .sm\:via-swirl {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -27342,6 +27514,10 @@ body {
 
   .sm\:to-accent3-900 {
     --gradient-to-color: #8C0601;
+  }
+
+  .sm\:to-objectiveGold {
+    --gradient-to-color: #D38E36;
   }
 
   .sm\:to-swirl {
@@ -27856,6 +28032,11 @@ body {
   .sm\:hover\:from-accent3-900:hover {
     --gradient-from-color: #8C0601;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+  }
+
+  .sm\:hover\:from-objectiveGold:hover {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
   }
 
   .sm\:hover\:from-swirl:hover {
@@ -28373,6 +28554,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .sm\:hover\:via-objectiveGold:hover {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .sm\:hover\:via-swirl:hover {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -28784,6 +28970,10 @@ body {
 
   .sm\:hover\:to-accent3-900:hover {
     --gradient-to-color: #8C0601;
+  }
+
+  .sm\:hover\:to-objectiveGold:hover {
+    --gradient-to-color: #D38E36;
   }
 
   .sm\:hover\:to-swirl:hover {
@@ -29298,6 +29488,11 @@ body {
   .sm\:focus\:from-accent3-900:focus {
     --gradient-from-color: #8C0601;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+  }
+
+  .sm\:focus\:from-objectiveGold:focus {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
   }
 
   .sm\:focus\:from-swirl:focus {
@@ -29815,6 +30010,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .sm\:focus\:via-objectiveGold:focus {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .sm\:focus\:via-swirl:focus {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -30226,6 +30426,10 @@ body {
 
   .sm\:focus\:to-accent3-900:focus {
     --gradient-to-color: #8C0601;
+  }
+
+  .sm\:focus\:to-objectiveGold:focus {
+    --gradient-to-color: #D38E36;
   }
 
   .sm\:focus\:to-swirl:focus {
@@ -30980,6 +31184,12 @@ body {
     border-color: rgba(140, 6, 1, var(--border-opacity));
   }
 
+  .sm\:border-objectiveGold {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
+  }
+
   .sm\:border-swirl {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -31594,6 +31804,12 @@ body {
     border-color: rgba(140, 6, 1, var(--border-opacity));
   }
 
+  .sm\:hover\:border-objectiveGold:hover {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
+  }
+
   .sm\:hover\:border-swirl:hover {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -32206,6 +32422,12 @@ body {
     --border-opacity: 1;
     border-color: #8C0601;
     border-color: rgba(140, 6, 1, var(--border-opacity));
+  }
+
+  .sm\:focus\:border-objectiveGold:focus {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
   }
 
   .sm\:focus\:border-swirl:focus {
@@ -37420,6 +37642,24 @@ body {
     color: rgba(140, 6, 1, var(--placeholder-opacity));
   }
 
+  .sm\:placeholder-objectiveGold::-webkit-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .sm\:placeholder-objectiveGold::-ms-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .sm\:placeholder-objectiveGold::placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
   .sm\:placeholder-swirl::-webkit-input-placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -39262,6 +39502,24 @@ body {
     color: rgba(140, 6, 1, var(--placeholder-opacity));
   }
 
+  .sm\:focus\:placeholder-objectiveGold:focus::-webkit-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .sm\:focus\:placeholder-objectiveGold:focus::-ms-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .sm\:focus\:placeholder-objectiveGold:focus::placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
   .sm\:focus\:placeholder-swirl:focus::-webkit-input-placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -40283,6 +40541,12 @@ body {
     color: rgba(140, 6, 1, var(--text-opacity));
   }
 
+  .sm\:text-objectiveGold {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
+  }
+
   .sm\:text-swirl {
     --text-opacity: 1;
     color: #d0cec2;
@@ -40897,6 +41161,12 @@ body {
     color: rgba(140, 6, 1, var(--text-opacity));
   }
 
+  .sm\:hover\:text-objectiveGold:hover {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
+  }
+
   .sm\:hover\:text-swirl:hover {
     --text-opacity: 1;
     color: #d0cec2;
@@ -41509,6 +41779,12 @@ body {
     --text-opacity: 1;
     color: #8C0601;
     color: rgba(140, 6, 1, var(--text-opacity));
+  }
+
+  .sm\:focus\:text-objectiveGold:focus {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
   }
 
   .sm\:focus\:text-swirl:focus {
@@ -45924,6 +46200,12 @@ body {
     border-color: rgba(140, 6, 1, var(--divide-opacity));
   }
 
+  .md\:divide-objectiveGold > :not(template) ~ :not(template) {
+    --divide-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--divide-opacity));
+  }
+
   .md\:divide-swirl > :not(template) ~ :not(template) {
     --divide-opacity: 1;
     border-color: #d0cec2;
@@ -46659,6 +46941,12 @@ body {
     background-color: rgba(140, 6, 1, var(--bg-opacity));
   }
 
+  .md\:bg-objectiveGold {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
   .md\:bg-swirl {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -47271,6 +47559,12 @@ body {
     --bg-opacity: 1;
     background-color: #8C0601;
     background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .md\:hover\:bg-objectiveGold:hover {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
   }
 
   .md\:hover\:bg-swirl:hover {
@@ -47887,6 +48181,12 @@ body {
     background-color: rgba(140, 6, 1, var(--bg-opacity));
   }
 
+  .md\:focus\:bg-objectiveGold:focus {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
   .md\:focus\:bg-swirl:focus {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -48439,6 +48739,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .md\:from-objectiveGold {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .md\:from-swirl {
     --gradient-from-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -48954,6 +49259,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .md\:via-objectiveGold {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .md\:via-swirl {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -49365,6 +49675,10 @@ body {
 
   .md\:to-accent3-900 {
     --gradient-to-color: #8C0601;
+  }
+
+  .md\:to-objectiveGold {
+    --gradient-to-color: #D38E36;
   }
 
   .md\:to-swirl {
@@ -49879,6 +50193,11 @@ body {
   .md\:hover\:from-accent3-900:hover {
     --gradient-from-color: #8C0601;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+  }
+
+  .md\:hover\:from-objectiveGold:hover {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
   }
 
   .md\:hover\:from-swirl:hover {
@@ -50396,6 +50715,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .md\:hover\:via-objectiveGold:hover {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .md\:hover\:via-swirl:hover {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -50807,6 +51131,10 @@ body {
 
   .md\:hover\:to-accent3-900:hover {
     --gradient-to-color: #8C0601;
+  }
+
+  .md\:hover\:to-objectiveGold:hover {
+    --gradient-to-color: #D38E36;
   }
 
   .md\:hover\:to-swirl:hover {
@@ -51321,6 +51649,11 @@ body {
   .md\:focus\:from-accent3-900:focus {
     --gradient-from-color: #8C0601;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+  }
+
+  .md\:focus\:from-objectiveGold:focus {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
   }
 
   .md\:focus\:from-swirl:focus {
@@ -51838,6 +52171,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .md\:focus\:via-objectiveGold:focus {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .md\:focus\:via-swirl:focus {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -52249,6 +52587,10 @@ body {
 
   .md\:focus\:to-accent3-900:focus {
     --gradient-to-color: #8C0601;
+  }
+
+  .md\:focus\:to-objectiveGold:focus {
+    --gradient-to-color: #D38E36;
   }
 
   .md\:focus\:to-swirl:focus {
@@ -53003,6 +53345,12 @@ body {
     border-color: rgba(140, 6, 1, var(--border-opacity));
   }
 
+  .md\:border-objectiveGold {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
+  }
+
   .md\:border-swirl {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -53617,6 +53965,12 @@ body {
     border-color: rgba(140, 6, 1, var(--border-opacity));
   }
 
+  .md\:hover\:border-objectiveGold:hover {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
+  }
+
   .md\:hover\:border-swirl:hover {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -54229,6 +54583,12 @@ body {
     --border-opacity: 1;
     border-color: #8C0601;
     border-color: rgba(140, 6, 1, var(--border-opacity));
+  }
+
+  .md\:focus\:border-objectiveGold:focus {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
   }
 
   .md\:focus\:border-swirl:focus {
@@ -59443,6 +59803,24 @@ body {
     color: rgba(140, 6, 1, var(--placeholder-opacity));
   }
 
+  .md\:placeholder-objectiveGold::-webkit-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .md\:placeholder-objectiveGold::-ms-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .md\:placeholder-objectiveGold::placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
   .md\:placeholder-swirl::-webkit-input-placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -61285,6 +61663,24 @@ body {
     color: rgba(140, 6, 1, var(--placeholder-opacity));
   }
 
+  .md\:focus\:placeholder-objectiveGold:focus::-webkit-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .md\:focus\:placeholder-objectiveGold:focus::-ms-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .md\:focus\:placeholder-objectiveGold:focus::placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
   .md\:focus\:placeholder-swirl:focus::-webkit-input-placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -62306,6 +62702,12 @@ body {
     color: rgba(140, 6, 1, var(--text-opacity));
   }
 
+  .md\:text-objectiveGold {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
+  }
+
   .md\:text-swirl {
     --text-opacity: 1;
     color: #d0cec2;
@@ -62920,6 +63322,12 @@ body {
     color: rgba(140, 6, 1, var(--text-opacity));
   }
 
+  .md\:hover\:text-objectiveGold:hover {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
+  }
+
   .md\:hover\:text-swirl:hover {
     --text-opacity: 1;
     color: #d0cec2;
@@ -63532,6 +63940,12 @@ body {
     --text-opacity: 1;
     color: #8C0601;
     color: rgba(140, 6, 1, var(--text-opacity));
+  }
+
+  .md\:focus\:text-objectiveGold:focus {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
   }
 
   .md\:focus\:text-swirl:focus {
@@ -67947,6 +68361,12 @@ body {
     border-color: rgba(140, 6, 1, var(--divide-opacity));
   }
 
+  .lg\:divide-objectiveGold > :not(template) ~ :not(template) {
+    --divide-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--divide-opacity));
+  }
+
   .lg\:divide-swirl > :not(template) ~ :not(template) {
     --divide-opacity: 1;
     border-color: #d0cec2;
@@ -68682,6 +69102,12 @@ body {
     background-color: rgba(140, 6, 1, var(--bg-opacity));
   }
 
+  .lg\:bg-objectiveGold {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
   .lg\:bg-swirl {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -69294,6 +69720,12 @@ body {
     --bg-opacity: 1;
     background-color: #8C0601;
     background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .lg\:hover\:bg-objectiveGold:hover {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
   }
 
   .lg\:hover\:bg-swirl:hover {
@@ -69910,6 +70342,12 @@ body {
     background-color: rgba(140, 6, 1, var(--bg-opacity));
   }
 
+  .lg\:focus\:bg-objectiveGold:focus {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
   .lg\:focus\:bg-swirl:focus {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -70462,6 +70900,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .lg\:from-objectiveGold {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .lg\:from-swirl {
     --gradient-from-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -70977,6 +71420,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .lg\:via-objectiveGold {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .lg\:via-swirl {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -71388,6 +71836,10 @@ body {
 
   .lg\:to-accent3-900 {
     --gradient-to-color: #8C0601;
+  }
+
+  .lg\:to-objectiveGold {
+    --gradient-to-color: #D38E36;
   }
 
   .lg\:to-swirl {
@@ -71902,6 +72354,11 @@ body {
   .lg\:hover\:from-accent3-900:hover {
     --gradient-from-color: #8C0601;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+  }
+
+  .lg\:hover\:from-objectiveGold:hover {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
   }
 
   .lg\:hover\:from-swirl:hover {
@@ -72419,6 +72876,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .lg\:hover\:via-objectiveGold:hover {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .lg\:hover\:via-swirl:hover {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -72830,6 +73292,10 @@ body {
 
   .lg\:hover\:to-accent3-900:hover {
     --gradient-to-color: #8C0601;
+  }
+
+  .lg\:hover\:to-objectiveGold:hover {
+    --gradient-to-color: #D38E36;
   }
 
   .lg\:hover\:to-swirl:hover {
@@ -73344,6 +73810,11 @@ body {
   .lg\:focus\:from-accent3-900:focus {
     --gradient-from-color: #8C0601;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+  }
+
+  .lg\:focus\:from-objectiveGold:focus {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
   }
 
   .lg\:focus\:from-swirl:focus {
@@ -73861,6 +74332,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .lg\:focus\:via-objectiveGold:focus {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .lg\:focus\:via-swirl:focus {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -74272,6 +74748,10 @@ body {
 
   .lg\:focus\:to-accent3-900:focus {
     --gradient-to-color: #8C0601;
+  }
+
+  .lg\:focus\:to-objectiveGold:focus {
+    --gradient-to-color: #D38E36;
   }
 
   .lg\:focus\:to-swirl:focus {
@@ -75026,6 +75506,12 @@ body {
     border-color: rgba(140, 6, 1, var(--border-opacity));
   }
 
+  .lg\:border-objectiveGold {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
+  }
+
   .lg\:border-swirl {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -75640,6 +76126,12 @@ body {
     border-color: rgba(140, 6, 1, var(--border-opacity));
   }
 
+  .lg\:hover\:border-objectiveGold:hover {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
+  }
+
   .lg\:hover\:border-swirl:hover {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -76252,6 +76744,12 @@ body {
     --border-opacity: 1;
     border-color: #8C0601;
     border-color: rgba(140, 6, 1, var(--border-opacity));
+  }
+
+  .lg\:focus\:border-objectiveGold:focus {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
   }
 
   .lg\:focus\:border-swirl:focus {
@@ -81466,6 +81964,24 @@ body {
     color: rgba(140, 6, 1, var(--placeholder-opacity));
   }
 
+  .lg\:placeholder-objectiveGold::-webkit-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .lg\:placeholder-objectiveGold::-ms-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .lg\:placeholder-objectiveGold::placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
   .lg\:placeholder-swirl::-webkit-input-placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -83308,6 +83824,24 @@ body {
     color: rgba(140, 6, 1, var(--placeholder-opacity));
   }
 
+  .lg\:focus\:placeholder-objectiveGold:focus::-webkit-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .lg\:focus\:placeholder-objectiveGold:focus::-ms-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .lg\:focus\:placeholder-objectiveGold:focus::placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
   .lg\:focus\:placeholder-swirl:focus::-webkit-input-placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -84329,6 +84863,12 @@ body {
     color: rgba(140, 6, 1, var(--text-opacity));
   }
 
+  .lg\:text-objectiveGold {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
+  }
+
   .lg\:text-swirl {
     --text-opacity: 1;
     color: #d0cec2;
@@ -84943,6 +85483,12 @@ body {
     color: rgba(140, 6, 1, var(--text-opacity));
   }
 
+  .lg\:hover\:text-objectiveGold:hover {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
+  }
+
   .lg\:hover\:text-swirl:hover {
     --text-opacity: 1;
     color: #d0cec2;
@@ -85555,6 +86101,12 @@ body {
     --text-opacity: 1;
     color: #8C0601;
     color: rgba(140, 6, 1, var(--text-opacity));
+  }
+
+  .lg\:focus\:text-objectiveGold:focus {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
   }
 
   .lg\:focus\:text-swirl:focus {
@@ -89970,6 +90522,12 @@ body {
     border-color: rgba(140, 6, 1, var(--divide-opacity));
   }
 
+  .xl\:divide-objectiveGold > :not(template) ~ :not(template) {
+    --divide-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--divide-opacity));
+  }
+
   .xl\:divide-swirl > :not(template) ~ :not(template) {
     --divide-opacity: 1;
     border-color: #d0cec2;
@@ -90705,6 +91263,12 @@ body {
     background-color: rgba(140, 6, 1, var(--bg-opacity));
   }
 
+  .xl\:bg-objectiveGold {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
   .xl\:bg-swirl {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -91317,6 +91881,12 @@ body {
     --bg-opacity: 1;
     background-color: #8C0601;
     background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .xl\:hover\:bg-objectiveGold:hover {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
   }
 
   .xl\:hover\:bg-swirl:hover {
@@ -91933,6 +92503,12 @@ body {
     background-color: rgba(140, 6, 1, var(--bg-opacity));
   }
 
+  .xl\:focus\:bg-objectiveGold:focus {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
   .xl\:focus\:bg-swirl:focus {
     --bg-opacity: 1;
     background-color: #d0cec2;
@@ -92485,6 +93061,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .xl\:from-objectiveGold {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .xl\:from-swirl {
     --gradient-from-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -93000,6 +93581,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .xl\:via-objectiveGold {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .xl\:via-swirl {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -93411,6 +93997,10 @@ body {
 
   .xl\:to-accent3-900 {
     --gradient-to-color: #8C0601;
+  }
+
+  .xl\:to-objectiveGold {
+    --gradient-to-color: #D38E36;
   }
 
   .xl\:to-swirl {
@@ -93925,6 +94515,11 @@ body {
   .xl\:hover\:from-accent3-900:hover {
     --gradient-from-color: #8C0601;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+  }
+
+  .xl\:hover\:from-objectiveGold:hover {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
   }
 
   .xl\:hover\:from-swirl:hover {
@@ -94442,6 +95037,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .xl\:hover\:via-objectiveGold:hover {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .xl\:hover\:via-swirl:hover {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -94853,6 +95453,10 @@ body {
 
   .xl\:hover\:to-accent3-900:hover {
     --gradient-to-color: #8C0601;
+  }
+
+  .xl\:hover\:to-objectiveGold:hover {
+    --gradient-to-color: #D38E36;
   }
 
   .xl\:hover\:to-swirl:hover {
@@ -95367,6 +95971,11 @@ body {
   .xl\:focus\:from-accent3-900:focus {
     --gradient-from-color: #8C0601;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
+  }
+
+  .xl\:focus\:from-objectiveGold:focus {
+    --gradient-from-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
   }
 
   .xl\:focus\:from-swirl:focus {
@@ -95884,6 +96493,11 @@ body {
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(140, 6, 1, 0));
   }
 
+  .xl\:focus\:via-objectiveGold:focus {
+    --gradient-via-color: #D38E36;
+    --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(211, 142, 54, 0));
+  }
+
   .xl\:focus\:via-swirl:focus {
     --gradient-via-color: #d0cec2;
     --gradient-color-stops: var(--gradient-from-color), var(--gradient-via-color), var(--gradient-to-color, rgba(208, 206, 194, 0));
@@ -96295,6 +96909,10 @@ body {
 
   .xl\:focus\:to-accent3-900:focus {
     --gradient-to-color: #8C0601;
+  }
+
+  .xl\:focus\:to-objectiveGold:focus {
+    --gradient-to-color: #D38E36;
   }
 
   .xl\:focus\:to-swirl:focus {
@@ -97049,6 +97667,12 @@ body {
     border-color: rgba(140, 6, 1, var(--border-opacity));
   }
 
+  .xl\:border-objectiveGold {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
+  }
+
   .xl\:border-swirl {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -97663,6 +98287,12 @@ body {
     border-color: rgba(140, 6, 1, var(--border-opacity));
   }
 
+  .xl\:hover\:border-objectiveGold:hover {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
+  }
+
   .xl\:hover\:border-swirl:hover {
     --border-opacity: 1;
     border-color: #d0cec2;
@@ -98275,6 +98905,12 @@ body {
     --border-opacity: 1;
     border-color: #8C0601;
     border-color: rgba(140, 6, 1, var(--border-opacity));
+  }
+
+  .xl\:focus\:border-objectiveGold:focus {
+    --border-opacity: 1;
+    border-color: #D38E36;
+    border-color: rgba(211, 142, 54, var(--border-opacity));
   }
 
   .xl\:focus\:border-swirl:focus {
@@ -103489,6 +104125,24 @@ body {
     color: rgba(140, 6, 1, var(--placeholder-opacity));
   }
 
+  .xl\:placeholder-objectiveGold::-webkit-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .xl\:placeholder-objectiveGold::-ms-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .xl\:placeholder-objectiveGold::placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
   .xl\:placeholder-swirl::-webkit-input-placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -105331,6 +105985,24 @@ body {
     color: rgba(140, 6, 1, var(--placeholder-opacity));
   }
 
+  .xl\:focus\:placeholder-objectiveGold:focus::-webkit-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .xl\:focus\:placeholder-objectiveGold:focus::-ms-input-placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
+  .xl\:focus\:placeholder-objectiveGold:focus::placeholder {
+    --placeholder-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--placeholder-opacity));
+  }
+
   .xl\:focus\:placeholder-swirl:focus::-webkit-input-placeholder {
     --placeholder-opacity: 1;
     color: #d0cec2;
@@ -106352,6 +107024,12 @@ body {
     color: rgba(140, 6, 1, var(--text-opacity));
   }
 
+  .xl\:text-objectiveGold {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
+  }
+
   .xl\:text-swirl {
     --text-opacity: 1;
     color: #d0cec2;
@@ -106966,6 +107644,12 @@ body {
     color: rgba(140, 6, 1, var(--text-opacity));
   }
 
+  .xl\:hover\:text-objectiveGold:hover {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
+  }
+
   .xl\:hover\:text-swirl:hover {
     --text-opacity: 1;
     color: #d0cec2;
@@ -107578,6 +108262,12 @@ body {
     --text-opacity: 1;
     color: #8C0601;
     color: rgba(140, 6, 1, var(--text-opacity));
+  }
+
+  .xl\:focus\:text-objectiveGold:focus {
+    --text-opacity: 1;
+    color: #D38E36;
+    color: rgba(211, 142, 54, var(--text-opacity));
   }
 
   .xl\:focus\:text-swirl:focus {

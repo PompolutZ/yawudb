@@ -5,10 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import AddIcon from "@material-ui/icons/Add";
 import AnimateHeight from "react-animate-height";
-import {
-    totalCardsPerWave,
-    factionIdPrefix,
-} from "../data/index";
+import { totalCardsPerWave, factionIdPrefix } from "../data/index";
 import ObjectiveScoreTypeIcon from "../components/ObjectiveScoreTypeIcon";
 import { connect } from "react-redux";
 import { ADD_CARD, REMOVE_CARD } from "../reducers/deckUnderBuild";
@@ -18,7 +15,11 @@ import LockIcon from "@material-ui/icons/Lock";
 import StarIcon from "@material-ui/icons/Star";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
-import { getCardNumberFromId, getCardWaveFromId, getSetNameById } from "../data/wudb";
+import {
+    getCardNumberFromId,
+    getCardWaveFromId,
+    getSetNameById,
+} from "../data/wudb";
 
 const useStyles = makeStyles((theme) => ({
     expand: {
@@ -130,11 +131,15 @@ function Rank({ color, value }) {
     );
 }
 
-class WUCardTypeImage extends PureComponent {
-    handleClick = () => {
-        this.props.toggle(this.props.id);
-    };
+const CardTypeImage = ({ type, className, ...rest }) => (
+    <img
+        className={`w-8 h-8 ${className}`}
+        src={`/assets/icons/${type.toLowerCase()}-icon.png`}
+        alt={type}
+    />
+);
 
+class CardTypeAndRank extends PureComponent {
     render() {
         const { type, prefix, rank } = this.props;
         return (
@@ -149,11 +154,7 @@ class WUCardTypeImage extends PureComponent {
                             alignItems: "center",
                         }}
                     >
-                        <img
-                            src={`/assets/icons/${type.toLowerCase()}-icon.png`}
-                            alt={type}
-                            style={{ width: "2.5rem", height: "2.5rem" }}
-                        />
+                        <CardTypeImage type={type} />
                         <Rank
                             color={
                                 rank >= 10000
@@ -322,7 +323,9 @@ class WUCardInfo extends PureComponent {
                                 height: ".8rem",
                                 marginLeft: ".2rem",
                             }}
-                            src={`/assets/icons/${getSetNameById(set)}-icon.png`}
+                            src={`/assets/icons/${getSetNameById(
+                                set
+                            )}-icon.png`}
                         />
                     </div>
                     <Typography
@@ -463,7 +466,7 @@ function WUCardAtom(props) {
                     padding: ".5rem 0 0 0",
                 }}
             >
-                <WUCardTypeImage
+                <CardTypeAndRank
                     {...classes}
                     id={id}
                     prefix={factionPrefix}
@@ -510,14 +513,16 @@ function WUCardAtom(props) {
                 height={height} // see props documentation bellow
                 easing="ease-out"
             >
-                {useTextFallback ? <CardRule rule={rule} /> : (
+                {useTextFallback ? (
+                    <CardRule rule={rule} />
+                ) : (
                     <img
-                    onError={handleImageError}
-                    onLoad={handleImageLoaded}
-                    className={classes.cardImg}
-                    alt={id}
-                    src={`/assets/cards/${`${id}`.padStart(5, "0")}.png`}
-                />
+                        onError={handleImageError}
+                        onLoad={handleImageLoaded}
+                        className={classes.cardImg}
+                        alt={id}
+                        src={`/assets/cards/${`${id}`.padStart(5, "0")}.png`}
+                    />
                 )}
             </AnimateHeight>
         </div>

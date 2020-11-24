@@ -97,7 +97,7 @@ class Deck extends PureComponent {
         const objectives = cards
             .filter((v) => checkCardIsObjective(v))
             .sort((c1, c2) => c1.id - c2.id)
-            .toJS(); //c1.name.localeCompare(c2.name)
+            .toJS(); 
         const gambits = cards
             .filter((v) => checkCardIsPloy(v))
             .sort((c1, c2) => c1.id - c2.id)
@@ -106,27 +106,27 @@ class Deck extends PureComponent {
             .filter((v) => checkCardIsUpgrade(v))
             .sort((c1, c2) => c1.id - c2.id)
             .toJS();
-        const surgesCount = objectives.filter((x) => x.scoreType === 0 || 'Surge').length;
+        
+        const objectiveSummary = objectives.reduce(
+                (acc, c) => {
+                    acc[c.scoreType] += 1;
+                    return acc;
+                },
+                {'Surge': 0, 'End': 0, 'Third': 0}
+            );
         const isValidForSave =
             deckPlayFormat === "open"
                 ? objectivesCount === 12 && gambitsCount + upgradesCount >= 20
                 : objectivesCount === 12 &&
                   gambitsCount + upgradesCount >= 20 &&
-                  surgesCount < 7;
+                  objectiveSummary.Surge < 7;
         const isObjectiveCardsSectionValid =
             deckPlayFormat === "open"
                 ? objectivesCount === 12
-                : objectivesCount === 12 && surgesCount < 7;
+                : objectivesCount === 12 && objectiveSummary.Surge < 7;
         const isPowerCardsSectionValid =
             gambitsCount + upgradesCount >= 20 && gambitsCount <= upgradesCount;
 
-        const objectiveSummary = objectives.reduce(
-            (acc, c) => {
-                acc[c.scoreType] += 1;
-                return acc;
-            },
-            [0, 0, 0, 0]
-        );
 
         const totalGlory = objectives.reduce(
             (acc, c) => acc + Number(c.glory),
@@ -174,7 +174,7 @@ class Deck extends PureComponent {
                                     </Typography>
                                     <Typography style={{ color: "darkred" }}>
                                         {deckPlayFormat !== "open" &&
-                                        surgesCount > 6
+                                        objectiveSummary.Surge > 6
                                             ? "- You cannot have more than 6 Surge (score immediately) cards"
                                             : ""}
                                     </Typography>

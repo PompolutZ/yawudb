@@ -20,6 +20,7 @@ module.exports = {
           700: "#A61712",
           900: "#8C0601",
         }, 
+        objectiveGold: "#D38E36",
         swirl: '#d0cec2',
       },
       minWidth: {
