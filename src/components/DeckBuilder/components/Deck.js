@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import SectionHeader from "./SectionHeader";
 import { CardsList } from "./CardsList";
 import Grid from "@material-ui/core/Grid";
-import { checkCardIsObjective, checkCardIsPloy, checkCardIsUpgrade, getCardById } from "../../../data/wudb";
+import { checkCardIsObjective, checkCardIsPloy, checkCardIsUpgrade, getCardById, compareObjectivesByScoreType } from "../../../data/wudb";
 
 class Deck extends PureComponent {
     state = {
@@ -96,8 +96,11 @@ class Deck extends PureComponent {
 
         const objectives = cards
             .filter((v) => checkCardIsObjective(v))
-            .sort((c1, c2) => c1.id - c2.id)
+            .sort((c1, c2) => {
+                return compareObjectivesByScoreType(c1.scoreType, c2.scoreType) || c1.id - c2.id;
+            })
             .toJS(); 
+        console.log(objectives);
         const gambits = cards
             .filter((v) => checkCardIsPloy(v))
             .sort((c1, c2) => c1.id - c2.id)

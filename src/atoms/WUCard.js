@@ -6,7 +6,6 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import AddIcon from "@material-ui/icons/Add";
 import AnimateHeight from "react-animate-height";
 import { totalCardsPerWave, factionIdPrefix } from "../data/index";
-import ObjectiveScoreTypeIcon from "../components/ObjectiveScoreTypeIcon";
 import { connect } from "react-redux";
 import { ADD_CARD, REMOVE_CARD } from "../reducers/deckUnderBuild";
 import { EDIT_ADD_CARD, EDIT_REMOVE_CARD } from "../reducers/deckUnderEdit";
@@ -20,6 +19,8 @@ import {
     getCardWaveFromId,
     getSetNameById,
 } from "../data/wudb";
+import ObjectiveScoreTypeIcon from "../components/ObjectiveScoreTypeIcon";
+import { ReactComponent as GloryIcon } from '../svgs/wu-glory.svg';
 
 const useStyles = makeStyles((theme) => ({
     expand: {
@@ -68,18 +69,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const colorsTable = [
-    "#3E5E5F",
-    // '#581F19',
-    // '#181D57',
-    "#321B3F",
-    "#38461A",
-    "#985519",
-    "#61411A",
-    "#8A1C1C",
-    "#1A3965",
-];
-
 const factionColorsTable = {
     gr: "#860700",
     sc: "#3E4862",
@@ -110,84 +99,44 @@ function Rank({ color, value }) {
     const halfStars = normalized % 2 > 0 ? [0] : [];
     const rankInStars = [...wholeStars, ...halfStars];
     return (
-        <div style={{ display: "flex", margin: "auto" }}>
+        <div className="flex fill-current text-gray-700">
             {rankInStars.map((star, i) => {
                 if (star === 1)
-                    return (
-                        <StarIcon
-                            key={i}
-                            style={{ width: ".8rem", fill: color }}
-                        />
-                    );
+                    return <StarIcon key={i} style={{ width: ".8rem" }} />;
                 if (star === 0)
-                    return (
-                        <StarHalfIcon
-                            key={i}
-                            style={{ width: ".8rem", fill: color }}
-                        />
-                    );
+                    return <StarHalfIcon key={i} style={{ width: ".8rem" }} />;
             })}
         </div>
     );
 }
 
-const CardTypeImage = ({ type, className, ...rest }) => (
+const CardTypeImage = ({ type, className }) => (
     <img
-        className={`w-8 h-8 ${className}`}
+        className={`w-6 h-6 ${className}`}
         src={`/assets/icons/${type.toLowerCase()}-icon.png`}
         alt={type}
     />
 );
 
-class CardTypeAndRank extends PureComponent {
-    render() {
-        const { type, prefix, rank } = this.props;
-        return (
-            <div style={{ position: "relative" }}>
-                <div style={{ position: "relative" }}>
-                    <div
-                        style={{
-                            position: "relative",
-                            display: "flex",
-                            flexFlow: "column nowrap",
-                            width: "4rem",
-                            alignItems: "center",
-                        }}
-                    >
-                        <CardTypeImage type={type} />
-                        <Rank
-                            color={
-                                rank >= 10000
-                                    ? factionColorsTable[prefix]
-                                    : "#3B9979"
-                            }
-                            value={rank}
-                        />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
 class WUCardInfo extends PureComponent {
     render() {
         const {
+            scoreType,
             isRestricted,
             isBanned,
             set,
             name,
-            scoreType,
-            type,
             id,
             glory,
             onClick,
+            rank,
+            prefix,
         } = this.props;
-
+        console.log(rank);
         const wave = getCardWaveFromId(id);
         return (
-            <div style={{ marginLeft: "1rem" }} onClick={onClick}>
-                <div style={{ display: "flex", alignItem: "center" }}>
+            <div onClick={onClick}>
+                <div className="flex items-center">
                     {isRestricted && (
                         <LockIcon
                             style={{
@@ -208,52 +157,41 @@ class WUCardInfo extends PureComponent {
                             }}
                         />
                     )}
-                    <Typography
-                        variant="body2"
-                        style={{
-                            color: colorsTable[set],
-                            textDecoration: "underline",
-                        }}
-                    >
-                        {name}
-                    </Typography>
-                    {glory > 0 && (
-                        <div
+                    <h6 className="text-sm">{name}</h6>
+                    {!!scoreType && (
+                        <ObjectiveScoreTypeIcon
+                            type={scoreType}
                             style={{
-                                display: "flex",
-                                alignItems: "center",
-                                marginLeft: ".5rem",
+                                width: ".8rem",
+                                height: ".8rem",
+                                margin: "0 .25rem"
                             }}
-                        >
-                            <svg
-                                style={{
-                                    fill: "#D38E36",
-                                    width: ".8rem",
-                                    height: ".8rem",
-                                }}
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    d="M23 12l-2.44-2.78.34-3.68-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.81.34 3.68L1 12l2.44 2.78-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.68L23 12zm-10 6z"
-                                />
-                            </svg>
-                            <Typography
-                                style={{ color: "black", fontSize: ".8rem" }}
-                            >
-                                {glory}
-                            </Typography>
+                        />
+                    )}
+
+                    {glory && (
+                        <div className="flex items-center ml-2">
+                            <GloryIcon className="bg-objectiveGold rounded-full w-4 h-4 fill-current mr-1" />
+
+                            {glory}
                         </div>
                     )}
                 </div>
-                <div
-                    style={{
-                        display: "flex",
-                        flexFlow: "row nowrap",
-                        alignItems: "flex-start",
-                    }}
-                >
-                    <div
+                <div className="grid grid-flow-col auto-cols-max gap-1 text-gray-500">
+                    {rank > 0 && (
+                        <>
+                            <Rank
+                                color={
+                                    rank >= 10000
+                                        ? factionColorsTable[prefix]
+                                        : "#3B9979"
+                                }
+                                value={rank}
+                            />
+                            |
+                        </>
+                    )}
+                    {/* <div
                         style={{
                             display: "flex",
                             flexFlow: "row nowrap",
@@ -287,18 +225,7 @@ class WUCardInfo extends PureComponent {
                                 />
                             )}
                         </Typography>
-                    </div>
-
-                    <Typography
-                        variant="body2"
-                        style={{
-                            fontSize: ".75rem",
-                            margin: "0 .2rem 0 0",
-                            color: "gray",
-                        }}
-                    >
-                        |
-                    </Typography>
+                    </div> */}
                     <div
                         style={{
                             display: "flex",
@@ -328,16 +255,7 @@ class WUCardInfo extends PureComponent {
                             )}-icon.png`}
                         />
                     </div>
-                    <Typography
-                        variant="body2"
-                        style={{
-                            fontSize: ".75rem",
-                            margin: "0 .2rem 0 0",
-                            color: "gray",
-                        }}
-                    >
-                        |
-                    </Typography>
+                    |
                     <div
                         style={{
                             display: "flex",
@@ -383,7 +301,6 @@ function WUCardAtom(props) {
         name,
         setId,
         rule,
-        isAlter,
         isRestricted,
         isBanned,
         withAnimation,
@@ -397,9 +314,6 @@ function WUCardAtom(props) {
     const inDeck = props.editMode
         ? props.editModeCurrentDeck.includes(id)
         : props.createModeCurrentDeck.includes(id);
-    const restrictedCardsCount = props.editMode
-        ? props.editModeRestrictedCardsCount
-        : props.createModeRestrictedCardsCount;
 
     const handleToggleCardInDeck = (id) => () => {
         if (props.editMode) {
@@ -459,14 +373,9 @@ function WUCardAtom(props) {
                 backgroundColor: pickBackgroundColor(false, false),
             }}
         >
-            <div
-                style={{
-                    display: "flex",
-                    margin: "0 0 .5rem .5rem",
-                    padding: ".5rem 0 0 0",
-                }}
-            >
-                <CardTypeAndRank
+            <div className="flex items-center h-16">
+                <CardTypeImage className="mx-2" type={type} />
+                {/* <CardTypeAndRank
                     {...classes}
                     id={id}
                     prefix={factionPrefix}
@@ -477,8 +386,10 @@ function WUCardAtom(props) {
                     isAlter={isAlter}
                     toggle={handleToggleCardInDeck}
                     rank={props.ranking}
-                />
+                /> */}
                 <WUCardInfo
+                    prefix={factionPrefix}
+                    rank={props.ranking}
                     pickColor={pickForegroundColor}
                     isRestricted={isRestricted}
                     isBanned={isBanned}

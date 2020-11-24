@@ -46,6 +46,11 @@ function checkCardIsUpgrade({ type, ...card}) {
     return typeof type == 'string' ? cardTypes.indexOf(type) == 2 : type === 2;
 } 
 
+const objectiveScoreTypes = ['Surge', 'End', 'Third'];
+function compareObjectivesByScoreType(scoreTypeOne, scoreTypeTwo) {
+    return objectiveScoreTypes.indexOf(scoreTypeOne) - objectiveScoreTypes.indexOf(scoreTypeTwo);
+}
+
 export {
     getCardNumberFromId,
     getCardWaveFromId,
@@ -55,6 +60,7 @@ export {
     checkCardIsObjective,
     checkCardIsPloy,
     checkCardIsUpgrade,
+    compareObjectivesByScoreType,
 }
 
 export const cards = {
