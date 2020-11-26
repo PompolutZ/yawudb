@@ -51,6 +51,10 @@ function compareObjectivesByScoreType(scoreTypeOne, scoreTypeTwo) {
     return objectiveScoreTypes.indexOf(scoreTypeOne) - objectiveScoreTypes.indexOf(scoreTypeTwo);
 }
 
+export const CHAMPIONSHIP_FORMAT = "championship";
+export const OPEN_FORMAT = "open";
+export const RELIC_FORMAT = "relic";
+
 export {
     getCardNumberFromId,
     getCardWaveFromId,

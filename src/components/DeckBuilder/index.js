@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { OrderedSet } from "immutable";
 
 import Deck from "./components/Deck";
@@ -43,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
 const uuid4 = require("uuid/v4");
 
 function DeckBuilder(props) {
+
+    const [searchText, setSearchText] = useState("");
+
+
     const { editMode, transferMode, isAuth, userInfo } = props;
     const {
         selectedFaction,
@@ -228,6 +232,8 @@ function DeckBuilder(props) {
                                     selectedFaction={selectedFaction}
                                     setFaction={setFaction}
                                     editMode={editMode}
+                                    searchText={searchText}
+                                    onSearchTextChange={setSearchText}
                                 />
                             </div>
                             <div>
@@ -249,7 +255,7 @@ function DeckBuilder(props) {
                             </div>
                             <div style={{ flex: "1 100%" }}>
                                 {tabIndex === 0 && (
-                                    <CardsLibrary editMode={editMode} />
+                                    <CardsLibrary searchText={searchText} editMode={editMode} />
                                 )}
                                 {tabIndex === 1 && (
                                     <FightersInfoList

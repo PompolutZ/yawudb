@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useMemo, useState } from "react";
 import {
     factionIndexes,
     bannedCards,
@@ -12,6 +12,7 @@ import { ADD_CARD, REMOVE_CARD } from "../../../reducers/deckUnderBuild";
 import { connect } from "react-redux";
 import WUCard from "../../../atoms/WUCard";
 import { cardTypes } from "../../../data/wudb";
+import { useDeckBuilderState } from "../../../pages/DeckCreator";
 
 class VirtualizedCardsList extends Component {
     constructor(props) {
@@ -34,6 +35,7 @@ class VirtualizedCardsList extends Component {
 
     _renderItem = (index) => {
         const { card, expanded } = this.state.cards[index];
+        console.log(card, expanded);
         return (
             <WUCard
                 key={card.id}
@@ -118,15 +120,15 @@ class VirtualizedCardsList extends Component {
 }
 
 function stringTypeToNumber(type) {
-    switch(type) {
-        case 'Objective': 
+    switch (type) {
+        case "Objective":
             return 0;
-        case 'Ploy':
+        case "Ploy":
             return 1;
-        case 'Spell': 
+        case "Spell":
             return 1;
-        case 'Upgrade':
-            return 2;    
+        case "Upgrade":
+            return 2;
     }
 }
 
@@ -141,6 +143,54 @@ const _sort = (card1, card2) => {
 };
 
 function FilterableCardLibrary(props) {
+    const [cards, setCards] = useState([]);
+    const state = useDeckBuilderState();
+
+    useEffect(() => {
+        console.log("STATE", state);
+
+        const faction = wufactions[state.faction];
+        const factionCards = Object.values(wucards).filter(
+            (card) =>
+                card.factionId === faction.id &&
+                (!!card.duplicates
+                    ? card.id === Math.max(...card.duplicates)
+                    : true)
+        );
+
+        setCards([
+            ...factionCards,
+            ...Object.values(wucards).filter(
+                (card) =>
+                    !!state.sets.find((set) => set.id == card.setId) &&
+                    card.factionId === 1 &&
+                    (!!card.duplicates
+                        ? card.id === Math.max(...card.duplicates)
+                        : true)
+            ),
+        ].map((c) => {
+            // previously cards were in format '00000' where first two digits were wave
+            // (e.g. Shadespire, Beastgrave or Power Unbound) and then card number
+            // =========
+            // new format has cards as numbers, which requires padding 0s for now for backward compatibility.
+    
+            let cid = `${c.id}`.padStart(5, "0");
+            const universalRank =
+                props.cardsRanking && props.cardsRanking["u"][cid]
+                    ? props.cardsRanking["u"][cid]
+                    : 0;
+            const rank =
+                props.cardsRanking &&
+                props.cardsRanking[selectedFactionPrefix] &&
+                props.cardsRanking[selectedFactionPrefix][cid]
+                    ? props.cardsRanking[selectedFactionPrefix][cid] * 10000
+                    : universalRank;
+    
+            const card = { id: cid, ranking: rank, ...c };
+            return card;
+        }));
+    }, [state]);
+
     const { searchText, visibleCardTypes, editMode, deckPlayFormat } = props;
     const currentDeck = editMode
         ? props.editModeCurrentDeck
@@ -150,62 +200,66 @@ function FilterableCardLibrary(props) {
         : props.createModeSelectedFaction;
     const selectedFactionPrefix = factionIdPrefix[selectedFaction];
 
-    const _reloadCards = () => {
-        const selectedFaction = props.editMode
-            ? props.editModeSelectedFaction
-            : props.createModeSelectedFaction;
-        // const selectedFactionDefaultSet = props.editMode
-        //     ? props.editModeFactionDefaultSet
-        //     : props.createModeFactionDefaultSet;
-        const selectedSets = props.editMode
-            ? props.editModeSelectedSets
-            : props.createModeSelectedSets;
+    // const _reloadCards = () => {
+    //     // const selectedFaction = props.editMode
+    //     //     ? props.editModeSelectedFaction
+    //     //     : props.createModeSelectedFaction;
+    //     // const selectedFactionDefaultSet = props.editMode
+    //     //     ? props.editModeFactionDefaultSet
+    //     //     : props.createModeFactionDefaultSet;
+    //     // const selectedSets = props.editMode
+    //     //     ? props.editModeSelectedSets
+    //     //     : props.createModeSelectedSets;
 
-        const faction = Object.values(wufactions).find(faction => faction.name == selectedFaction);
-        const factionCards = Object.values(wucards)
-            .filter(card => 
-                card.factionId === faction.id 
-                && (!!card.duplicates ? card.id === Math.max(...card.duplicates) : true));
+    //     const faction = wufactions[state.faction];
+    //     const factionCards = Object.values(wucards).filter(
+    //         (card) =>
+    //             card.factionId === faction.id &&
+    //             (!!card.duplicates
+    //                 ? card.id === Math.max(...card.duplicates)
+    //                 : true)
+    //     );
 
-        console.log(factionCards, selectedSets);
+    //     return [
+    //         ...factionCards,
+    //         ...Object.values(wucards).filter(
+    //             (card) =>
+    //                 !!state.sets.find((set) => set.id == card.setId) &&
+    //                 card.factionId === 1 &&
+    //                 (!!card.duplicates
+    //                     ? card.id === Math.max(...card.duplicates)
+    //                     : true)
+    //         ),
+    //     ];
+    // };
 
-        return selectedSets?.length > 0 
-            ? [
-                ...factionCards, 
-                ...Object.values(wucards)
-                    .filter(card => 
-                        !!selectedSets.find(set => +set == card.setId) 
-                        && card.factionId === 1
-                        && (!!card.duplicates ? card.id === Math.max(...card.duplicates) : true))
-            ] : factionCards;
-    };
+    // const cards = _reloadCards().map((c) => {
+    //     // previously cards were in format '00000' where first two digits were wave
+    //     // (e.g. Shadespire, Beastgrave or Power Unbound) and then card number
+    //     // =========
+    //     // new format has cards as numbers, which requires padding 0s for now for backward compatibility.
 
-    const cards = _reloadCards().map(c => {
-        // previously cards were in format '00000' where first two digits were wave 
-        // (e.g. Shadespire, Beastgrave or Power Unbound) and then card number
-        // =========
-        // new format has cards as numbers, which requires padding 0s for now for backward compatibility.
+    //     let cid = `${c.id}`.padStart(5, "0");
+    //     const universalRank =
+    //         props.cardsRanking && props.cardsRanking["u"][cid]
+    //             ? props.cardsRanking["u"][cid]
+    //             : 0;
+    //     const rank =
+    //         props.cardsRanking &&
+    //         props.cardsRanking[selectedFactionPrefix] &&
+    //         props.cardsRanking[selectedFactionPrefix][cid]
+    //             ? props.cardsRanking[selectedFactionPrefix][cid] * 10000
+    //             : universalRank;
 
-        let cid = `${c.id}`.padStart(5, '0');
-        const universalRank =
-            props.cardsRanking && props.cardsRanking["u"][cid]
-                ? props.cardsRanking["u"][cid]
-                : 0;
-        const rank =
-            props.cardsRanking &&
-            props.cardsRanking[selectedFactionPrefix] &&
-            props.cardsRanking[selectedFactionPrefix][cid]
-                ? props.cardsRanking[selectedFactionPrefix][cid] * 10000
-                : universalRank;
-
-        const card = { id: cid, ranking: rank, ...c };
-        return card;
-    });
+    //     const card = { id: cid, ranking: rank, ...c };
+    //     return card;
+    // });
 
     console.log(cards);
+    
     let filteredCards = cards
         .filter(({ type }) => {
-            return visibleCardTypes.includes(cardTypes.indexOf(type))
+            return visibleCardTypes.includes(cardTypes.indexOf(type));
         })
         .filter(({ id, faction }) => {
             switch (deckPlayFormat) {
@@ -231,7 +285,7 @@ function FilterableCardLibrary(props) {
         });
     } else {
         filteredCards = filteredCards.filter(({ id }) =>
-            `${id}`.padStart(5, '0').includes(searchText)
+            `${id}`.padStart(5, "0").includes(searchText)
         );
     }
 
@@ -263,7 +317,7 @@ function FilterableCardLibrary(props) {
 
 const mapStateToProps = (state) => {
     return {
-        searchText: state.cardLibraryFilters.searchText,
+        // searchText: state.cardLibraryFilters.searchText,
         visibleCardTypes: state.cardLibraryFilters.visibleCardTypes,
         eligibleForOP: state.cardLibraryFilters.eligibleForOP,
         cardsRanking: state.cardLibraryFilters.cardsRanking,

@@ -20,11 +20,12 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import OpenFormatIcon from "@material-ui/icons/Mood";
 import ChampionshipFormatIcon from "@material-ui/icons/EmojiEvents";
-import { deckPlayFormats, factions, getValidSets, setsIndex, warbandsWithDefaultSet } from "../../../data";
+import { deckPlayFormats, factions, getValidSets, setsIndex, warbandsWithDefaultSet, wufactions } from "../../../data";
 import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../v2/components/SectionTitle";
 import Toggle from "../../../v2/components/HexToggle";
+import { useDeckBuilderState } from "../../../pages/DeckCreator";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
@@ -170,27 +171,35 @@ function FactionsPicker({ selected, onChangeWarband, onChangeWarbandSet, ...rest
 }
 
 function CardLibraryFilters(props) {
-    const { selectedFaction, setFaction } = props;
+    const state = useDeckBuilderState();
+
+    useEffect(() => {
+        console.log('FILTERS', state);
+    }, [state]);
+
+    // const { selectedFaction, setFaction } = props;
     const classes = useClasses();
-    const onSelectedSetsChange = props.editMode
-        ? props.onEditModeSelectedSetsChange
-        : props.onCreateModeSelectedSetsChange;
-    const sets = props.editMode ? props.editModeSets : props.createModeSets;
+    // const onSelectedSetsChange = props.editMode
+    //     ? props.onEditModeSelectedSetsChange
+    //     : props.onCreateModeSelectedSetsChange;
+    // const sets = props.editMode ? props.editModeSets : props.createModeSets;
 
     const [showFilters, setShowFilters] = React.useState(false);
-    const [format, setFormat] = React.useState(
-        props.deckPlayFormat ? props.deckPlayFormat : deckPlayFormats[0]
-    );
+    // const [format, setFormat] = React.useState(
+    //     props.deckPlayFormat ? props.deckPlayFormat : deckPlayFormats[0]
+    // );
 
     /// Here will be new approach, keeping the rest for now
-    const validSets = useMemo(() => getValidSets(format), [format]);
-    const [warband, setWarband] = useState(selectedFaction);
+    const validSets = useMemo(() => getValidSets(state.format), [state.format]);
+    const [warband, setWarband] = useState(wufactions[state.faction]?.name);
     const [warbandsSet, setWarbandsSet] = useState(() => {
-        const [,set] = warbandsWithDefaultSet.find(([faction]) => faction == selectedFaction);
+        const [,set] = warbandsWithDefaultSet.find(([faction]) => faction == wufactions[state.faction]?.name);
         return set;
     })
     const [hideDuplicates, setHideDuplicates] = useState(true);
-    const [selectedSets, setSelectedSets] = useState(sets.map(set => setsIndex[set]));  
+    const [selectedSets, setSelectedSets] = useState(state.sets.map(set => set.name));  
+    console.log('selectedSets', selectedSets, state.sets.map(set => set.name), validSets)
+
     
     /// =============
 
@@ -200,15 +209,15 @@ function CardLibraryFilters(props) {
 
         if(showFilters) {
             console.log('UPDATE ONLY WHEN HIDING FILTERS');
-            setFaction(warband, warbandsSet);
-            onSelectedSetsChange(selectedSets.map(s => setsIndex.indexOf(s)))
-            props.onChangeDeckPlayFormat(format);
-            props.onChangeEligibleForOrganizedPlay(format !== "open");
+            // setFaction(warband, warbandsSet);
+            // onSelectedSetsChange(selectedSets.map(s => setsIndex.indexOf(s)))
+            // props.onChangeDeckPlayFormat(format);
+            // props.onChangeEligibleForOrganizedPlay(format !== "open");
         }
     };
 
     const handleFormatChange = (format) => () => {
-        setFormat(format);
+        // setFormat(format);
     };
 
     useEffect(() => {
@@ -263,11 +272,11 @@ function CardLibraryFilters(props) {
 
                         <div className="flex flex-col items-center">
                             <DeckPlayFormatToggle
-                                selectedFormat={format}
+                                selectedFormat={state.format}
                                 onFormatChange={handleFormatChange}
                             />
 
-                            <DeckPlayFormatInfo className={classes.formatInfo} format={format} />
+                            <DeckPlayFormatInfo className={classes.formatInfo} format={state.format} />
                         </div>
 
                         <SectionTitle title="Sets" className="my-8" />
@@ -296,8 +305,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSearchTextChange: (value) =>
-            dispatch({ type: CHANGE_SEARCH_TEXT, payload: value }),
+        // onSearchTextChange: (value) =>
+        //     dispatch({ type: CHANGE_SEARCH_TEXT, payload: value }),
         onCreateModeSelectedSetsChange: (value) =>
             dispatch({ type: SET_CREATE_MODE_SETS, payload: value }),
         onEditModeSelectedSetsChange: (value) =>
@@ -316,4 +325,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardLibraryFilters);
+export default connect(null, mapDispatchToProps)(CardLibraryFilters);
