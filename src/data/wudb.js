@@ -1,3 +1,5 @@
+import { wufactions, wusets } from ".";
+
 function getCardNumberFromId(cardId) {
     if(typeof cardId == 'string') {
         return +cardId.slice(-3);
@@ -12,6 +14,10 @@ function getCardWaveFromId(cardId) {
     }
 
     return `${Math.floor(cardId / 1000)}`.padStart(2, '0');
+}
+
+function getFactionByName(factionName) {
+    return Object.values(wufactions).find(f => f.name == factionName);
 }
 
 const idToSetKey = {};
@@ -55,7 +61,17 @@ export const CHAMPIONSHIP_FORMAT = "championship";
 export const OPEN_FORMAT = "open";
 export const RELIC_FORMAT = "relic";
 
+function getAllSetsValidForFormat(format) {
+    switch(format) {
+        case CHAMPIONSHIP_FORMAT: 
+            return Object.values(wusets).filter(set => set.id > 8);
+        default:
+            return Object.values(wusets);    
+    }
+}
+
 export {
+    getFactionByName,
     getCardNumberFromId,
     getCardWaveFromId,
     getSetNameById,
@@ -65,6 +81,7 @@ export {
     checkCardIsPloy,
     checkCardIsUpgrade,
     compareObjectivesByScoreType,
+    getAllSetsValidForFormat,
 }
 
 export const cards = {

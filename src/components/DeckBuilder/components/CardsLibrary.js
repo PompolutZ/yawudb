@@ -1,11 +1,8 @@
-import React, { Component, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-    factionIndexes,
     bannedCards,
     restrictedCards,
-    factionIdPrefix,
     wucards,
-    wufactions,
 } from "../../../data";
 import { List, AutoSizer } from "react-virtualized";
 import { ADD_CARD, REMOVE_CARD } from "../../../reducers/deckUnderBuild";
@@ -14,18 +11,20 @@ import WUCard from "../../../atoms/WUCard";
 import { cardTypes } from "../../../data/wudb";
 import { useDeckBuilderState } from "../../../pages/DeckCreator";
 
-class VirtualizedCardsList extends Component {
-    constructor(props) {
-        super(props);
-        this.listWidth = this._calcListWidth();
-        this.listHeight = this._calcListHeight();
-        this.state = {
-            cards: this.props.cards,
-        };
-    }
 
-    _rowRenderer = (params) => {
-        const renderedItem = this._renderItem(params.index);
+// I am not sure if I need to use useEffect here
+// there must be some more simple way to check which cards are expanded
+// without modifying cards state.
+function VirtualizedCardsList(props) {
+    const listRef = useRef();
+    const [cards, setCards] = useState(props.cards);
+
+    useEffect(() => {
+        setCards(props.cards);
+    }, [props.cards])
+
+    const _rowRenderer = (params) => {
+        const renderedItem = _renderItem(params.index);
         return (
             <div key={params.key} style={params.style}>
                 {renderedItem}
@@ -33,52 +32,47 @@ class VirtualizedCardsList extends Component {
         );
     };
 
-    _renderItem = (index) => {
-        const { card, expanded } = this.state.cards[index];
-        console.log(card, expanded);
+    const _renderItem = (index) => {
+        const { card, expanded } = cards[index];
         return (
             <WUCard
                 key={card.id}
                 {...card}
-                editMode={this.props.editMode}
+                editMode={props.editMode}
                 isRestricted={
-                    this.props.isEligibleForOp &&
+                    props.isEligibleForOp &&
                     Boolean(restrictedCards[card.id])
                 }
                 isAlter={index % 2 === 0}
-                toggleCardInDeck={this.handleToggleCardInDeck}
+                toggleCardInDeck={handleToggleCardInDeck}
                 expanded={expanded}
-                onExpandChange={this._handleExpanded.bind(this, index)}
+                onExpandChange={_handleExpanded.bind(this, index)}
                 withAnimation={false}
             />
         );
     };
 
-    handleToggleCardInDeck = (id) => {
-        this.props.toggleCardInDeck(id);
+    const handleToggleCardInDeck = (id) => {
+        props.toggleCardInDeck(id);
     };
 
-    _setRef = (ref) => {
-        this.List = ref;
-    };
-
-    _handleExpanded = (index) => {
-        this.setState((state) => ({
-            cards: [
-                ...state.cards.slice(0, index),
+    const _handleExpanded = (index) => {
+        setCards(prev => 
+            [
+                ...prev.slice(0, index),
                 {
-                    card: state.cards[index].card,
-                    expanded: !state.cards[index].expanded,
+                    card: prev[index].card,
+                    expanded: !prev[index].expanded,
                 },
-                ...state.cards.slice(index + 1),
+                ...prev.slice(index + 1),
             ],
-        }));
-        this.List.recomputeRowHeights();
-        this.List.forceUpdate();
+        );
+        listRef.current.recomputeRowHeights();
+        listRef.current.forceUpdate();
     };
 
-    _calcRowHeight = (params) => {
-        const item = this.state.cards[params.index];
+    const _calcRowHeight = (params) => {
+        const item = cards[params.index];
         if (item) {
             return item.expanded ? 550 : 70;
         }
@@ -86,37 +80,22 @@ class VirtualizedCardsList extends Component {
         return 70;
     };
 
-    _calcListWidth = () => {
-        const screenWidth = window.screen.width;
-        if (screenWidth < 800) {
-            return screenWidth;
-        }
-
-        return screenWidth / 2;
-    };
-
-    _calcListHeight = () => {
-        return window.screen.height * 0.8;
-    };
-
-    render() {
-        return (
-            <div style={{ margin: "0 0", height: "100%" }}>
-                <AutoSizer>
-                    {({ width, height }) => (
-                        <List
-                            ref={this._setRef}
-                            width={width}
-                            height={height}
-                            rowCount={this.props.cards.length}
-                            rowHeight={this._calcRowHeight}
-                            rowRenderer={this._rowRenderer}
-                        />
-                    )}
-                </AutoSizer>
-            </div>
-        );
-    }
+    return (
+        <div style={{ margin: "0 0", height: "100%" }}>
+            <AutoSizer>
+                {({ width, height }) => (
+                    <List
+                        ref={listRef}
+                        width={width}
+                        height={height}
+                        rowCount={cards.length}
+                        rowHeight={_calcRowHeight}
+                        rowRenderer={_rowRenderer}
+                    />
+                )}
+            </AutoSizer>
+        </div>
+    );
 }
 
 function stringTypeToNumber(type) {
@@ -144,21 +123,25 @@ const _sort = (card1, card2) => {
 
 function FilterableCardLibrary(props) {
     const [cards, setCards] = useState([]);
+    const [filteredCards, setFilteredCards] = useState([]);
     const state = useDeckBuilderState();
 
     useEffect(() => {
-        console.log("STATE", state);
+        console.log(
+            `%c FilterableCardLibrary will run useEffect because hook return new STATE`,
+            "color: #3B82F6"
+        );
 
-        const faction = wufactions[state.faction];
         const factionCards = Object.values(wucards).filter(
             (card) =>
-                card.factionId === faction.id &&
+                card.factionId === state.faction?.id &&
                 (!!card.duplicates
                     ? card.id === Math.max(...card.duplicates)
                     : true)
         );
 
-        setCards([
+        console.log(factionCards);
+        const nextCards = [
             ...factionCards,
             ...Object.values(wucards).filter(
                 (card) =>
@@ -173,32 +156,35 @@ function FilterableCardLibrary(props) {
             // (e.g. Shadespire, Beastgrave or Power Unbound) and then card number
             // =========
             // new format has cards as numbers, which requires padding 0s for now for backward compatibility.
-    
-            let cid = `${c.id}`.padStart(5, "0");
+
+            // let cid = `${c.id}`.padStart(5, "0");
             const universalRank =
-                props.cardsRanking && props.cardsRanking["u"][cid]
-                    ? props.cardsRanking["u"][cid]
+                props.cardsRanking && props.cardsRanking["u"][c.id]
+                    ? props.cardsRanking["u"][c.id]
                     : 0;
             const rank =
                 props.cardsRanking &&
-                props.cardsRanking[selectedFactionPrefix] &&
-                props.cardsRanking[selectedFactionPrefix][cid]
-                    ? props.cardsRanking[selectedFactionPrefix][cid] * 10000
+                props.cardsRanking[state.faction.abbr] &&
+                props.cardsRanking[state.faction.abbr][c.id]
+                    ? props.cardsRanking[state.faction.abbr][c.id] * 10000
                     : universalRank;
-    
-            const card = { id: cid, ranking: rank, ...c };
+
+            const card = { oldId: `${c.id}`.padStart(5, "0"), ranking: rank, ...c };
             return card;
-        }));
+        });
+
+        console.log(nextCards);
+        setCards(nextCards);
     }, [state]);
 
     const { searchText, visibleCardTypes, editMode, deckPlayFormat } = props;
     const currentDeck = editMode
         ? props.editModeCurrentDeck
         : props.createModeCurrentDeck;
-    const selectedFaction = props.editMode
-        ? props.editModeSelectedFaction
-        : props.createModeSelectedFaction;
-    const selectedFactionPrefix = factionIdPrefix[selectedFaction];
+    // const selectedFaction = props.editMode
+    //     ? props.editModeSelectedFaction
+    //     : props.createModeSelectedFaction;
+    //const selectedFactionPrefix = factionIdPrefix[selectedFaction];
 
     // const _reloadCards = () => {
     //     // const selectedFaction = props.editMode
@@ -255,57 +241,58 @@ function FilterableCardLibrary(props) {
     //     return card;
     // });
 
-    console.log(cards);
-    
-    let filteredCards = cards
-        .filter(({ type }) => {
-            return visibleCardTypes.includes(cardTypes.indexOf(type));
-        })
-        .filter(({ id, faction }) => {
-            switch (deckPlayFormat) {
-                case "championship":
-                    return Number(faction) === 0
-                        ? !Boolean(bannedCards[id]) && Number(id) >= 3000
-                        : true;
-                case "relic":
-                    return !Boolean(bannedCards[id]);
-                default:
-                    return true;
-            }
-        });
+    useEffect(() => {
+        let filteredCards = cards
+            .filter(({ type }) => {
+                return visibleCardTypes.includes(cardTypes.indexOf(type));
+            })
+            .filter(({ id, faction }) => {
+                switch (deckPlayFormat) {
+                    case "championship":
+                        return Number(faction) === 0
+                            ? !Boolean(bannedCards[id]) && Number(id) >= 3000
+                            : true;
+                    case "relic":
+                        return !Boolean(bannedCards[id]);
+                    default:
+                        return true;
+                }
+            });
 
-    if (isNaN(searchText)) {
-        filteredCards = filteredCards.filter((c) => {
-            if (!searchText) return true;
+        if (isNaN(searchText)) {
+            filteredCards = filteredCards.filter((c) => {
+                if (!searchText) return true;
 
-            return (
-                c.name.toUpperCase().includes(searchText) ||
-                c.rule.toUpperCase().includes(searchText)
+                return (
+                    c.name.toUpperCase().includes(searchText) ||
+                    c.rule.toUpperCase().includes(searchText)
+                );
+            });
+        } else {
+            filteredCards = filteredCards.filter(({ id }) =>
+                `${id}`.padStart(5, "0").includes(searchText)
             );
-        });
-    } else {
-        filteredCards = filteredCards.filter(({ id }) =>
-            `${id}`.padStart(5, "0").includes(searchText)
-        );
-    }
-
-    filteredCards = filteredCards.filter((c) => {
-        if (c.type === 3) {
-            return factionIndexes.indexOf(selectedFaction) > 8;
         }
 
-        return true;
-    });
+        // filteredCards = filteredCards.filter((c) => {
+        //     if (c.type === 3) {
+        //         return factionIndexes.indexOf(selectedFaction) > 8;
+        //     }
 
-    const sorted = filteredCards.sort((c1, c2) => _sort(c1, c2));
-    const drawableCards = sorted.map((c) => ({ card: c, expanded: false }));
+        //     return true;
+        // });
+
+        const sorted = filteredCards.sort((c1, c2) => _sort(c1, c2));
+        const drawableCards = sorted.map((c) => ({ card: c, expanded: false }));
+        setFilteredCards(drawableCards);
+    }, [cards, searchText, visibleCardTypes]);
 
     return (
         <div style={{ height: "100vh" }}>
             <VirtualizedCardsList
-                key={drawableCards.length * 31}
+                // key={drawableCards.length * 31}
                 isEligibleForOp={props.eligibleForOP}
-                cards={drawableCards}
+                cards={filteredCards}
                 currentDeck={currentDeck}
                 editMode={props.editMode}
                 restrictedCardsCount={props.restrictedCardsCount}

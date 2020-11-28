@@ -1,11 +1,7 @@
-import React, { Component, useState } from "react";
-import { setInfos, rotatedOutSetsIndexes } from "../data/index";
-import * as _ from "lodash";
+import React, { useEffect, useState } from "react";
 import ToggableExpansionIcon from "../atoms/ToggableExpansionIcon";
 import { withStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
 import Toggle from '../v2/components/HexToggle';
-import Typography from "@material-ui/core/Typography";
 
 const styles = (theme) => ({
     container: {
@@ -17,9 +13,12 @@ const styles = (theme) => ({
     },
 });
 
-function ExpansionsToggle({ expansions = [],  selectedExpansions = [], onExpansionsChange, classes, ...rest }) {
-    console.log(expansions, selectedExpansions);
-    const [selectAllValidSets, setSelectAllValidSets] = useState(expansions.length == selectedExpansions.length);
+function ExpansionsToggle({ expansions = [],  selectedExpansions = [], onExpansionsChange, classes }) {
+    const [selectAllValidSets, setSelectAllValidSets] = useState(true);
+
+    useEffect(() => {
+        setSelectAllValidSets(expansions.length == selectedExpansions.length)
+    }, [expansions.length, selectedExpansions.length]);
 
     const handleToggle = expansion => () => {
         const next = selectedExpansions.includes(expansion)
@@ -51,8 +50,8 @@ function ExpansionsToggle({ expansions = [],  selectedExpansions = [], onExpansi
             <div className={classes.container}>
                 {   expansions.map(expansion => (
                         <ToggableExpansionIcon
-                            key={expansion}
-                            set={expansion}
+                            key={expansion.id}
+                            set={expansion.name}
                             variant="large"
                             isEnabled={selectedExpansions.includes(expansion)}
                             onClick={handleToggle(expansion)}
@@ -63,68 +62,4 @@ function ExpansionsToggle({ expansions = [],  selectedExpansions = [], onExpansi
     );
 }
 
-// class ExpansionsToggle extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             selectedExpansions: this.props.selectedSets
-//                 ? this.props.selectedSets.map((x) => parseInt(x, 10))
-//                 : [],
-//         };
-
-//         this.handleToggle = this.handleToggle.bind(this);
-//     }
-
-//     handleToggle(expansion) {
-//         const exp = parseInt(expansion, 10);
-//         let expansions = [];
-//         const indexOf = this.state.selectedExpansions.indexOf(exp);
-//         if (indexOf >= 0) {
-//             expansions = [
-//                 ...this.state.selectedExpansions.slice(0, indexOf),
-//                 ...this.state.selectedExpansions.slice(indexOf + 1),
-//             ];
-//         } else {
-//             expansions = [exp, ...this.state.selectedExpansions];
-//         }
-
-//         this.setState({ selectedExpansions: expansions });
-
-//         if (this.timeoutId) {
-//             clearTimeout(this.timeoutId);
-//         }
-
-//         this.timeoutId = setTimeout(
-//             () => this.props.onExpansionsChange(expansions),
-//             350
-//         );
-//     }
-
-//     renderIndex(v) {
-//         return (
-//         );
-//     }
-
-//     render() {
-//         const { classes } = this.props;
-//         return (
-//             <div className={classes.root}>
-//                 {_.keys(setInfos)
-//                     .slice(
-//                         this.props.deckPlayFormat === "championship"
-//                             ? rotatedOutSetsIndexes.length
-//                             : 0
-//                     )
-//                     .map((v) => this.renderIndex(v))}
-//             </div>
-//         );
-//     }
-// }
-
-// const mapStateToProps = (state) => ({
-//     eligibleForOP: state.cardLibraryFilters.eligibleForOP,
-//     deckPlayFormat: state.cardLibraryFilters.deckPlayFormat,
-// });
-
-// export default withStyles(styles)(connect(mapStateToProps)(ExpansionsToggle));
 export default withStyles(styles)(ExpansionsToggle);

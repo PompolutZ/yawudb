@@ -25,7 +25,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../v2/components/SectionTitle";
 import Toggle from "../../../v2/components/HexToggle";
-import { useDeckBuilderState } from "../../../pages/DeckCreator";
+import { useDeckBuilderDispatcher, useDeckBuilderState } from "../../../pages/DeckCreator";
+import { getAllSetsValidForFormat, getFactionByName } from "../../../data/wudb";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
@@ -147,23 +148,22 @@ function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     );
 }
 
-function FactionsPicker({ selected, onChangeWarband, onChangeWarbandSet, ...rest }) {
+function FactionsPicker({ selected, onChangeWarband, ...rest }) {
     
-    const handleSelectWarband = (faction, defaultSet) => () => {
+    const handleSelectWarband = (faction) => () => {
         onChangeWarband(faction);
-        onChangeWarbandSet(defaultSet);
     }
 
     return (
         <div className={`flex flex-wrap align-middle ${rest.className}`}>
-            {warbandsWithDefaultSet
-                .filter(([faction]) => faction != selected)
-                .map(([faction, defaultSet]) => (
+            {Object.values(wufactions)
+                .filter(faction => faction.id != selected.id)
+                .map(faction => (
                     <img
-                        key={faction}
+                        key={faction.id}
                         className="w-10 h-10 m-1"
-                        onClick={handleSelectWarband(faction, defaultSet)}
-                        src={`/assets/icons/${faction}-icon.png`}
+                        onClick={handleSelectWarband(faction)}
+                        src={`/assets/icons/${faction.name}-icon.png`}
                     />
                 ))}
         </div>
@@ -172,53 +172,39 @@ function FactionsPicker({ selected, onChangeWarband, onChangeWarbandSet, ...rest
 
 function CardLibraryFilters(props) {
     const state = useDeckBuilderState();
+    const dispatch = useDeckBuilderDispatcher();
 
     useEffect(() => {
         console.log('FILTERS', state);
     }, [state]);
 
-    // const { selectedFaction, setFaction } = props;
     const classes = useClasses();
-    // const onSelectedSetsChange = props.editMode
-    //     ? props.onEditModeSelectedSetsChange
-    //     : props.onCreateModeSelectedSetsChange;
-    // const sets = props.editMode ? props.editModeSets : props.createModeSets;
-
     const [showFilters, setShowFilters] = React.useState(false);
-    // const [format, setFormat] = React.useState(
-    //     props.deckPlayFormat ? props.deckPlayFormat : deckPlayFormats[0]
-    // );
+    const [selectedFormat, setSelectedFormat] = useState(state.format);
 
     /// Here will be new approach, keeping the rest for now
-    const validSets = useMemo(() => getValidSets(state.format), [state.format]);
-    const [warband, setWarband] = useState(wufactions[state.faction]?.name);
-    const [warbandsSet, setWarbandsSet] = useState(() => {
-        const [,set] = warbandsWithDefaultSet.find(([faction]) => faction == wufactions[state.faction]?.name);
-        return set;
-    })
+    const validSets = useMemo(() => getAllSetsValidForFormat(selectedFormat), [selectedFormat]);
+    const [warband, setWarband] = useState(state.faction);
+    // const [warbandsSet, setWarbandsSet] = useState(() => {
+    //     const [,set] = warbandsWithDefaultSet.find(([faction]) => faction == wufactions[state.faction]?.name);
+    //     return set;
+    // })
     const [hideDuplicates, setHideDuplicates] = useState(true);
-    const [selectedSets, setSelectedSets] = useState(state.sets.map(set => set.name));  
-    console.log('selectedSets', selectedSets, state.sets.map(set => set.name), validSets)
-
-    
-    /// =============
-
-    const toggleFiltersAreaVisibility = () => {
-        // setFiltersAreaHeight((prev) => (prev === 0 ? "auto" : 0));
-        setShowFilters((prev) => !prev);
-
-        if(showFilters) {
-            console.log('UPDATE ONLY WHEN HIDING FILTERS');
-            // setFaction(warband, warbandsSet);
-            // onSelectedSetsChange(selectedSets.map(s => setsIndex.indexOf(s)))
-            // props.onChangeDeckPlayFormat(format);
-            // props.onChangeEligibleForOrganizedPlay(format !== "open");
-        }
-    };
+    const [selectedSets, setSelectedSets] = useState(state.sets);  
 
     const handleFormatChange = (format) => () => {
-        // setFormat(format);
+        setSelectedFormat(format);
     };
+
+    const closeAndUpdateFilters = () => {
+        setShowFilters(false);
+        dispatch({ type: 'UPDATE_FILTERS', payload: {
+            faction: warband,
+            sets: selectedSets,
+            hideDuplicates,
+            format: selectedFormat,
+        }})
+    }
 
     useEffect(() => {
         setSelectedSets(validSets);        
@@ -238,7 +224,7 @@ function CardLibraryFilters(props) {
                     defaultValue={props.searchText}
                     onSearchInputChange={props.onSearchTextChange}
                 />
-                <IconButton onClick={toggleFiltersAreaVisibility}>
+                <IconButton onClick={() => setShowFilters(true)}>
                     <TogglesIcon />
                 </IconButton>
             </div>
@@ -255,7 +241,7 @@ function CardLibraryFilters(props) {
             >
                 <Grid className={classes.filtersContainer} item xs={12} md={6}>
                     <IconButton
-                        onClick={toggleFiltersAreaVisibility}
+                        onClick={closeAndUpdateFilters}
                         className={classes.closeIcon}
                     >
                         <CloseIcon />
@@ -264,15 +250,15 @@ function CardLibraryFilters(props) {
                     <section className={classes.filtersContent}>
                         <SectionTitle className="mb-8" title="Warband" />
 
-                        <SelectedFaction faction={warband} />
+                        <SelectedFaction faction={warband.name} />
 
-                        <FactionsPicker selected={warband} onChangeWarband={setWarband} onChangeWarbandSet={setWarbandsSet} />
+                        <FactionsPicker selected={warband} onChangeWarband={setWarband} />
 
                         <SectionTitle title="Format" className="my-8" />
 
                         <div className="flex flex-col items-center">
                             <DeckPlayFormatToggle
-                                selectedFormat={state.format}
+                                selectedFormat={selectedFormat}
                                 onFormatChange={handleFormatChange}
                             />
 
