@@ -290,7 +290,7 @@ class WUCardInfo extends PureComponent {
     }
 }
 
-function WUCardAtom(props) {
+function WUCardAtom({card, ...props}) {
     const classes = useStyles();
     const [useTextFallback, setUseTextFallback] = React.useState(false);
     const {
@@ -304,7 +304,7 @@ function WUCardAtom(props) {
         isRestricted,
         isBanned,
         withAnimation,
-    } = props;
+    } = card;
 
     const factionPrefix =
         factionIdPrefix[

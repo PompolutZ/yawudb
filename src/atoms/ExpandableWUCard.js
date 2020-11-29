@@ -25,7 +25,7 @@ export default class ExpandableWUCard extends Component {
     render() {
         return (
             <WUCard
-                {...this.props}
+                card={this.props}
                 expanded={this.state.expanded}
                 onExpandChange={this.handleExpandChange}
             />

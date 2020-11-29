@@ -18,9 +18,6 @@ import { useDeckBuilderState } from "../../../pages/DeckCreator";
 function Deck(props) {
     const [name, setName] = useState("");
     const { faction, selectedObjectives, selectedGambits, selectedUpgrades } = useDeckBuilderState();
-    const selectedFaction = useMemo(() => {
-        return wufactions[faction]
-    }, [faction])
 
     useEffect(() => {
         console.log(`%c FilterableCardLibrary will run useEffect because of new STATE`, 'color: #10B981');
@@ -50,9 +47,9 @@ function Deck(props) {
                     : 0;
             const rank =
                 props.cardsRanking &&
-                props.cardsRanking[selectedFaction?.abbr] &&
-                props.cardsRanking[selectedFaction?.abbr][id]
-                    ? props.cardsRanking[selectedFaction?.abbr][id] * 10000
+                props.cardsRanking[faction?.abbr] &&
+                props.cardsRanking[faction?.abbr][id]
+                    ? props.cardsRanking[faction?.abbr][id] * 10000
                     : universalRank;
 
             return { id: id, ...getCardById(id), ranking: rank };
@@ -103,12 +100,12 @@ function Deck(props) {
     return (
         <div>
             <div className="flex items-center m-2">
-                <DeckIcon faction={selectedFaction?.name} width="3rem" height="3rem" />
+                <DeckIcon faction={faction?.name} width="3rem" height="3rem" />
                 <DebouncedInput
                         onChange={setName}
                         wait={2000}
                         placeholder={`${
-                            selectedFaction?.displayName
+                            faction?.displayName
                         } Deck`}
                         className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-accent3-500"
                     />

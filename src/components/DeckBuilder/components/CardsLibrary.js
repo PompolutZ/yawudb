@@ -37,7 +37,7 @@ function VirtualizedCardsList(props) {
         return (
             <WUCard
                 key={card.id}
-                {...card}
+                card={card}
                 editMode={props.editMode}
                 isRestricted={
                     props.isEligibleForOp &&
