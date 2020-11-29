@@ -1,5 +1,3 @@
-import { wufactions, wusets } from ".";
-
 function getCardNumberFromId(cardId) {
     if(typeof cardId == 'string') {
         return +cardId.slice(-3);
@@ -17,17 +15,17 @@ function getCardWaveFromId(cardId) {
 }
 
 function getFactionByName(factionName) {
-    return Object.values(wufactions).find(f => f.name == factionName);
+    return Object.values(factions).find(f => f.name == factionName);
 }
 
 const idToSetKey = {};
 function getSetNameById(setId) {
 
-    if(!!idToSetKey[setId]) {
+    if(idToSetKey[setId]) {
         return sets[idToSetKey[setId]].name;
     } 
 
-    const [key, value] = Object.entries(sets).find(([key, value]) => value.id == setId);
+    const [key, value] = Object.entries(sets).find(([, value]) => value.id == setId);
     idToSetKey[setId] = key;
     return value.name;
 }
@@ -38,17 +36,17 @@ function getCardById(cardId) {
     return cards[`${cardId}`];
 }
 
-function checkCardIsObjective({ type, ...card}) {
+function checkCardIsObjective({ type}) {
     return typeof type == 'string' ? cardTypes.indexOf(type) == 0 : type === 0;
 }
 
-function checkCardIsPloy({ type, ...card}) {
+function checkCardIsPloy({ type}) {
     return typeof type == 'string' 
         ? cardTypes.indexOf(type) == 1 || cardTypes.indexOf(type) == 3
         : type === 1 ||type === 3;
 }
 
-function checkCardIsUpgrade({ type, ...card}) {
+function checkCardIsUpgrade({ type}) {
     return typeof type == 'string' ? cardTypes.indexOf(type) == 2 : type === 2;
 } 
 
@@ -64,9 +62,42 @@ export const RELIC_FORMAT = "relic";
 function getAllSetsValidForFormat(format) {
     switch(format) {
         case CHAMPIONSHIP_FORMAT: 
-            return Object.values(wusets).filter(set => set.id > 8);
+            return Object.values(sets).filter(set => set.id > 8);
         default:
-            return Object.values(wusets);    
+            return Object.values(sets);    
+    }
+}
+
+function validateCardForPlayFormat(cardId, format) {
+    const id = Number(cardId).toString();
+    const card = cards[id];
+    if(!card) {
+        throw Error(`Parsing error, cannot find card: ${cardId}`);
+    }
+
+    const [championship, relic] = card.status.split('_');
+    switch (format) {
+        case CHAMPIONSHIP_FORMAT:
+            return [
+                // V-- means card is valid, is Forsaken, is Restricted
+                championship[0] === 'V',
+                championship[1] !== '-',
+                championship[2] !== '-',
+            ];
+        case RELIC_FORMAT:
+            return [
+                // V-- means card is valid, is Forsaken. Relic has no restricted cards
+                relic[0] === 'V',
+                relic[1] !== '-',
+                undefined
+            ];
+        case OPEN_FORMAT:
+            return [
+                // V-- means card is valid, Open format has no cards restrictions
+                relic[0] === 'V',
+                undefined,
+                undefined
+            ];
     }
 }
 
@@ -80,6 +111,7 @@ export {
     checkCardIsObjective,
     checkCardIsPloy,
     checkCardIsUpgrade,
+    validateCardForPlayFormat,
     compareObjectivesByScoreType,
     getAllSetsValidForFormat,
 }

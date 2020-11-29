@@ -19,11 +19,6 @@ function Deck(props) {
     const [name, setName] = useState("");
     const { faction, selectedObjectives, selectedGambits, selectedUpgrades } = useDeckBuilderState();
 
-    useEffect(() => {
-        console.log(`%c FilterableCardLibrary will run useEffect because of new STATE`, 'color: #10B981');
-
-    }, [faction, selectedObjectives, selectedGambits, selectedUpgrades])
-
     const {
         onSave,
         onRemoveAll,
@@ -62,8 +57,8 @@ function Deck(props) {
             return compareObjectivesByScoreType(c1.scoreType, c2.scoreType) || c1.id - c2.id;
         })
         .toJS(); 
-    console.log(objectives);
-    const gambits = cards
+    
+        const gambits = cards
         .filter((v) => checkCardIsPloy(v))
         .sort((c1, c2) => c1.id - c2.id)
         .toJS();

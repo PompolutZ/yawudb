@@ -132,7 +132,7 @@ class WUCardInfo extends PureComponent {
             rank,
             prefix,
         } = this.props;
-        console.log(rank);
+        
         const wave = getCardWaveFromId(id);
         return (
             <div onClick={onClick}>

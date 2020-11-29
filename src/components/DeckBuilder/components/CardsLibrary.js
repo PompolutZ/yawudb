@@ -1,16 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-    bannedCards,
-    restrictedCards,
-    wucards,
-} from "../../../data";
+import { bannedCards, wucards } from "../../../data";
 import { List, AutoSizer } from "react-virtualized";
 import { ADD_CARD, REMOVE_CARD } from "../../../reducers/deckUnderBuild";
 import { connect } from "react-redux";
 import WUCard from "../../../atoms/WUCard";
-import { cardTypes } from "../../../data/wudb";
+import { cardTypes, validateCardForPlayFormat } from "../../../data/wudb";
 import { useDeckBuilderState } from "../../../pages/DeckCreator";
-
+import PropTypes from 'prop-types';
 
 // I am not sure if I need to use useEffect here
 // there must be some more simple way to check which cards are expanded
@@ -21,7 +17,7 @@ function VirtualizedCardsList(props) {
 
     useEffect(() => {
         setCards(props.cards);
-    }, [props.cards])
+    }, [props.cards]);
 
     const _rowRenderer = (params) => {
         const renderedItem = _renderItem(params.index);
@@ -39,10 +35,6 @@ function VirtualizedCardsList(props) {
                 key={card.id}
                 card={card}
                 editMode={props.editMode}
-                isRestricted={
-                    props.isEligibleForOp &&
-                    Boolean(restrictedCards[card.id])
-                }
                 isAlter={index % 2 === 0}
                 toggleCardInDeck={handleToggleCardInDeck}
                 expanded={expanded}
@@ -57,16 +49,14 @@ function VirtualizedCardsList(props) {
     };
 
     const _handleExpanded = (index) => {
-        setCards(prev => 
-            [
-                ...prev.slice(0, index),
-                {
-                    card: prev[index].card,
-                    expanded: !prev[index].expanded,
-                },
-                ...prev.slice(index + 1),
-            ],
-        );
+        setCards((prev) => [
+            ...prev.slice(0, index),
+            {
+                card: prev[index].card,
+                expanded: !prev[index].expanded,
+            },
+            ...prev.slice(index + 1),
+        ]);
         listRef.current.recomputeRowHeights();
         listRef.current.forceUpdate();
     };
@@ -98,6 +88,12 @@ function VirtualizedCardsList(props) {
     );
 }
 
+VirtualizedCardsList.propTypes = {
+    cards: PropTypes.array,
+    editMode: PropTypes.bool,
+    toggleCardInDeck: PropTypes.func,
+}
+
 function stringTypeToNumber(type) {
     switch (type) {
         case "Objective":
@@ -127,27 +123,21 @@ function FilterableCardLibrary(props) {
     const state = useDeckBuilderState();
 
     useEffect(() => {
-        console.log(
-            `%c FilterableCardLibrary will run useEffect because hook return new STATE`,
-            "color: #3B82F6"
-        );
-
         const factionCards = Object.values(wucards).filter(
             (card) =>
-                card.factionId === state.faction?.id &&
-                (!!card.duplicates
+                card.factionId === state.faction.id &&
+                (card.duplicates
                     ? card.id === Math.max(...card.duplicates)
                     : true)
         );
 
-        console.log(factionCards);
         const nextCards = [
             ...factionCards,
             ...Object.values(wucards).filter(
                 (card) =>
                     !!state.sets.find((set) => set.id == card.setId) &&
                     card.factionId === 1 &&
-                    (!!card.duplicates
+                    (card.duplicates
                         ? card.id === Math.max(...card.duplicates)
                         : true)
             ),
@@ -158,6 +148,8 @@ function FilterableCardLibrary(props) {
             // new format has cards as numbers, which requires padding 0s for now for backward compatibility.
 
             // let cid = `${c.id}`.padStart(5, "0");
+
+            // Cards ids is a mess
             const universalRank =
                 props.cardsRanking && props.cardsRanking["u"][c.id]
                     ? props.cardsRanking["u"][c.id]
@@ -169,11 +161,22 @@ function FilterableCardLibrary(props) {
                     ? props.cardsRanking[state.faction.abbr][c.id] * 10000
                     : universalRank;
 
-            const card = { oldId: `${c.id}`.padStart(5, "0"), ranking: rank, ...c };
+            const [
+                ,
+                isForsaken,
+                isRestricted,
+            ] = validateCardForPlayFormat(c.id, state.format);
+
+            const card = {
+                oldId: `${c.id}`.padStart(5, "0"),
+                ranking: rank,
+                ...c,
+                isBanned: isForsaken,
+                isRestricted,
+            };
             return card;
         });
 
-        console.log(nextCards);
         setCards(nextCards);
     }, [state]);
 
@@ -181,65 +184,6 @@ function FilterableCardLibrary(props) {
     const currentDeck = editMode
         ? props.editModeCurrentDeck
         : props.createModeCurrentDeck;
-    // const selectedFaction = props.editMode
-    //     ? props.editModeSelectedFaction
-    //     : props.createModeSelectedFaction;
-    //const selectedFactionPrefix = factionIdPrefix[selectedFaction];
-
-    // const _reloadCards = () => {
-    //     // const selectedFaction = props.editMode
-    //     //     ? props.editModeSelectedFaction
-    //     //     : props.createModeSelectedFaction;
-    //     // const selectedFactionDefaultSet = props.editMode
-    //     //     ? props.editModeFactionDefaultSet
-    //     //     : props.createModeFactionDefaultSet;
-    //     // const selectedSets = props.editMode
-    //     //     ? props.editModeSelectedSets
-    //     //     : props.createModeSelectedSets;
-
-    //     const faction = wufactions[state.faction];
-    //     const factionCards = Object.values(wucards).filter(
-    //         (card) =>
-    //             card.factionId === faction.id &&
-    //             (!!card.duplicates
-    //                 ? card.id === Math.max(...card.duplicates)
-    //                 : true)
-    //     );
-
-    //     return [
-    //         ...factionCards,
-    //         ...Object.values(wucards).filter(
-    //             (card) =>
-    //                 !!state.sets.find((set) => set.id == card.setId) &&
-    //                 card.factionId === 1 &&
-    //                 (!!card.duplicates
-    //                     ? card.id === Math.max(...card.duplicates)
-    //                     : true)
-    //         ),
-    //     ];
-    // };
-
-    // const cards = _reloadCards().map((c) => {
-    //     // previously cards were in format '00000' where first two digits were wave
-    //     // (e.g. Shadespire, Beastgrave or Power Unbound) and then card number
-    //     // =========
-    //     // new format has cards as numbers, which requires padding 0s for now for backward compatibility.
-
-    //     let cid = `${c.id}`.padStart(5, "0");
-    //     const universalRank =
-    //         props.cardsRanking && props.cardsRanking["u"][cid]
-    //             ? props.cardsRanking["u"][cid]
-    //             : 0;
-    //     const rank =
-    //         props.cardsRanking &&
-    //         props.cardsRanking[selectedFactionPrefix] &&
-    //         props.cardsRanking[selectedFactionPrefix][cid]
-    //             ? props.cardsRanking[selectedFactionPrefix][cid] * 10000
-    //             : universalRank;
-
-    //     const card = { id: cid, ranking: rank, ...c };
-    //     return card;
-    // });
 
     useEffect(() => {
         let filteredCards = cards
@@ -250,10 +194,10 @@ function FilterableCardLibrary(props) {
                 switch (deckPlayFormat) {
                     case "championship":
                         return Number(faction) === 0
-                            ? !Boolean(bannedCards[id]) && Number(id) >= 3000
+                            ? !bannedCards[id] && Number(id) >= 3000
                             : true;
                     case "relic":
-                        return !Boolean(bannedCards[id]);
+                        return !bannedCards[id];
                     default:
                         return true;
                 }
@@ -274,14 +218,6 @@ function FilterableCardLibrary(props) {
             );
         }
 
-        // filteredCards = filteredCards.filter((c) => {
-        //     if (c.type === 3) {
-        //         return factionIndexes.indexOf(selectedFaction) > 8;
-        //     }
-
-        //     return true;
-        // });
-
         const sorted = filteredCards.sort((c1, c2) => _sort(c1, c2));
         const drawableCards = sorted.map((c) => ({ card: c, expanded: false }));
         setFilteredCards(drawableCards);
@@ -290,7 +226,6 @@ function FilterableCardLibrary(props) {
     return (
         <div style={{ height: "100vh" }}>
             <VirtualizedCardsList
-                // key={drawableCards.length * 31}
                 isEligibleForOp={props.eligibleForOP}
                 cards={filteredCards}
                 currentDeck={currentDeck}
@@ -304,7 +239,6 @@ function FilterableCardLibrary(props) {
 
 const mapStateToProps = (state) => {
     return {
-        // searchText: state.cardLibraryFilters.searchText,
         visibleCardTypes: state.cardLibraryFilters.visibleCardTypes,
         eligibleForOP: state.cardLibraryFilters.eligibleForOP,
         cardsRanking: state.cardLibraryFilters.cardsRanking,

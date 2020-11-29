@@ -174,10 +174,6 @@ function CardLibraryFilters(props) {
     const state = useDeckBuilderState();
     const dispatch = useDeckBuilderDispatcher();
 
-    useEffect(() => {
-        console.log('FILTERS', state);
-    }, [state]);
-
     const classes = useClasses();
     const [showFilters, setShowFilters] = React.useState(false);
     const [selectedFormat, setSelectedFormat] = useState(state.format);
@@ -185,10 +181,6 @@ function CardLibraryFilters(props) {
     /// Here will be new approach, keeping the rest for now
     const validSets = useMemo(() => getAllSetsValidForFormat(selectedFormat), [selectedFormat]);
     const [warband, setWarband] = useState(state.faction);
-    // const [warbandsSet, setWarbandsSet] = useState(() => {
-    //     const [,set] = warbandsWithDefaultSet.find(([faction]) => faction == wufactions[state.faction]?.name);
-    //     return set;
-    // })
     const [hideDuplicates, setHideDuplicates] = useState(true);
     const [selectedSets, setSelectedSets] = useState(state.sets);  
 

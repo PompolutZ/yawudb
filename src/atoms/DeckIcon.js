@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 
 function DeckIcon({ width, height, faction, style }) {
     return (
