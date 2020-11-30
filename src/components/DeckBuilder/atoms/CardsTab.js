@@ -84,16 +84,14 @@ function CardsTab(props) {
     return (
         <div className={classes.root}>
             <div className="flex items-center">
-                <Typography variant="subtitle2">
-                    cards
-                </Typography>
-                <LockIcon className="text-yellow-600 stroke-current w-3 h-3 ml-2" />
-                <Typography className={classes.item}>
+                <Typography variant="subtitle2">cards</Typography>
+                <LockIcon className="text-yellow-600 stroke-current w-3 h-3 ml-4" />
+                <h6 className="text-gray-700 ml-1 text-xs">
                     {editMode
                         ? props.editRestrictedCardsCount
                         : props.restrictedCardsCount}
                     /3
-                </Typography>
+                </h6>
             </div>
             <div className={classes.subhead}>
                 <ToggleBox
