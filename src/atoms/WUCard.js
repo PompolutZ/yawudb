@@ -90,7 +90,7 @@ const factionColorsTable = {
     lhm: "#607B6F",
 };
 
-function Rank({ color, value }) {
+function Rank({ value }) {
     const normalized = value >= 10000 ? value / 10000 : value;
     const wholeStarsCount = Math.floor(normalized / 2);
     const wholeStars = isNaN(wholeStarsCount)

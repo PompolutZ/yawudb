@@ -2,12 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { Typography } from "@material-ui/core";
-import classnames from "classnames";
-import LockIcon from "@material-ui/icons/Lock";
 import { SET_VISIBLE_CARD_TYPES } from "../../../reducers/cardLibraryFilters";
+import { ReactComponent as LockIcon } from "../../../svgs/lock.svg";
 import { Set } from "immutable";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: "flex",
         flexFlow: "column nowrap",
@@ -28,10 +27,6 @@ const useStyles = makeStyles((theme) => ({
         width: "1rem",
         height: "1rem",
         color: "goldenrod",
-        [theme.breakpoints.up("md")]: {
-            width: "1.5rem",
-            height: "1.5rem",
-        },
     },
 
     fixedIcon: {
@@ -43,9 +38,6 @@ const useStyles = makeStyles((theme) => ({
 
     item: {
         fontSize: "1rem",
-        [theme.breakpoints.up("md")]: {
-            fontSize: "1.5rem",
-        },
         margin: "0 .5rem 0 .2rem",
     },
 }));
@@ -53,11 +45,9 @@ const useStyles = makeStyles((theme) => ({
 function ToggleBox({ children, isVisible, onToggle }) {
     return (
         <div
-            style={{
-                display: "flex",
-                alignItems: "center",
-                opacity: isVisible ? 1 : ".4",
-            }}
+            className={`flex items-center ${
+                isVisible ? "opacity-100" : "opacity-50"
+            }`}
             onClick={onToggle}
         >
             {children}
@@ -67,6 +57,7 @@ function ToggleBox({ children, isVisible, onToggle }) {
 
 function CardsTab(props) {
     const classes = useStyles();
+
     const { editMode, isSelected } = props;
     const visibleCardTypes = new Set(props.types);
 
@@ -92,9 +83,18 @@ function CardsTab(props) {
 
     return (
         <div className={classes.root}>
-            <Typography variant="subtitle2" className={classes.header}>
-                cards
-            </Typography>
+            <div className="flex items-center">
+                <Typography variant="subtitle2">
+                    cards
+                </Typography>
+                <LockIcon className="text-yellow-600 stroke-current w-3 h-3 ml-2" />
+                <Typography className={classes.item}>
+                    {editMode
+                        ? props.editRestrictedCardsCount
+                        : props.restrictedCardsCount}
+                    /3
+                </Typography>
+            </div>
             <div className={classes.subhead}>
                 <ToggleBox
                     isVisible={visibleCardTypes.includes(0)}
@@ -122,25 +122,16 @@ function CardsTab(props) {
                     onToggle={toggleTypeAtIndexesOneAndThree}
                 >
                     <React.Fragment>
-                        <div
-                            style={{
-                                display: "flex",
-                                position: "relative",
-                                marginRight: ".5rem",
-                            }}
-                        >
+                        <div className="flex">
                             <img
                                 src={`/assets/icons/spell-icon.png`}
                                 alt="ploy"
-                                className={classes.icon}
+                                className="w-4 h-4"
                             />
                             <img
                                 src={`/assets/icons/ploy-icon.png`}
                                 alt="spell"
-                                className={classnames(
-                                    classes.icon,
-                                    classes.fixedIcon
-                                )}
+                                className="w-4 h-4"
                             />
                         </div>
                         <Typography className={classes.item}>
@@ -168,14 +159,6 @@ function CardsTab(props) {
                         </Typography>
                     </React.Fragment>
                 </ToggleBox>
-
-                <LockIcon className={classes.icon} />
-                <Typography className={classes.item}>
-                    {editMode
-                        ? props.editRestrictedCardsCount
-                        : props.restrictedCardsCount}
-                    /3
-                </Typography>
             </div>
         </div>
     );
