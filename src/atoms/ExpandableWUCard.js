@@ -7,6 +7,7 @@ export default class ExpandableWUCard extends Component {
     };
 
     shouldComponentUpdate(nextProps, nextState) {
+        console.log(nextState, nextProps);
         return (
             nextProps.id !== this.props.id ||
             nextProps.type !== this.props.type ||
@@ -25,7 +26,7 @@ export default class ExpandableWUCard extends Component {
     render() {
         return (
             <WUCard
-                card={this.props}
+                {...this.props}
                 expanded={this.state.expanded}
                 onExpandChange={this.handleExpandChange}
             />

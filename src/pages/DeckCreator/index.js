@@ -3,33 +3,10 @@ import { Switch, Route } from "react-router-dom";
 import DeckCreatorNew from "./DeckCreatorNew";
 import DeckCreatorEdit from "./DeckCreatorEdit";
 import DeckCreatorTransfer from "./DeckCreatorTransfer";
-import { CHAMPIONSHIP_FORMAT, getAllSetsValidForFormat, getFactionByName } from "../../data/wudb";
-
-const INITIAL_STATE = {
-    faction: getFactionByName("morgoks-krushas"),
-    sets: getAllSetsValidForFormat(CHAMPIONSHIP_FORMAT),
-    hideDuplicates: true,
-    format: CHAMPIONSHIP_FORMAT,
-    selectedObjectives: [],
-    selectedGambits: [],
-    selectedUpgrades: [],
-    visibleCardTypes: [],
-};
+import { deckBuilderReducer, INITIAL_STATE } from "./reducer";
 
 const DeckBuilderContext = React.createContext();
 const DeckBuilderDispatchContext = React.createContext();
-
-const deckBuilderReducer = (state, action) => {
-    switch(action.type) {
-        case 'UPDATE_FILTERS':
-            return {
-                ...state,
-                ...action.payload
-            };
-        default:
-            return state;
-    }
-};
 
 export function useDeckBuilderState() {
     const context = useContext(DeckBuilderContext);

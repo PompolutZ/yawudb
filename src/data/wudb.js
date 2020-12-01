@@ -50,7 +50,10 @@ function checkCardIsUpgrade({ type}) {
     return typeof type == 'string' ? cardTypes.indexOf(type) == 2 : type === 2;
 } 
 
-const objectiveScoreTypes = ['Surge', 'End', 'Third'];
+const SURGE_SCORE_TYPE = 'Surge';
+const END_SCORE_TYPE = 'End';
+const THIRD_END_SCORE_TYPE = 'Third';
+const objectiveScoreTypes = [SURGE_SCORE_TYPE, END_SCORE_TYPE, THIRD_END_SCORE_TYPE];
 function compareObjectivesByScoreType(scoreTypeOne, scoreTypeTwo) {
     return objectiveScoreTypes.indexOf(scoreTypeOne) - objectiveScoreTypes.indexOf(scoreTypeTwo);
 }
@@ -101,6 +104,25 @@ function validateCardForPlayFormat(cardId, format) {
     }
 }
 
+function validateObjectivesListForPlayFormat(objectives, format) {
+    const issues = [];
+    let isValid = true;
+    
+    if(format !== OPEN_FORMAT) {
+        if (objectives.length != 12) {
+            isValid = false;
+            issues.push("Deck must have 12 objective cards");
+        }
+
+        if (objectives.filter(card => card.scoreType == SURGE_SCORE_TYPE).length > 6) {
+            isValid = false;
+            issues.push("Deck cannot have more than 6 Surge cards");
+        }
+    }
+
+    return [isValid, issues];
+}
+
 export {
     getFactionByName,
     getCardNumberFromId,
@@ -112,6 +134,7 @@ export {
     checkCardIsPloy,
     checkCardIsUpgrade,
     validateCardForPlayFormat,
+    validateObjectivesListForPlayFormat,
     compareObjectivesByScoreType,
     getAllSetsValidForFormat,
 }

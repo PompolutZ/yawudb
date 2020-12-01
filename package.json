@@ -14,7 +14,7 @@
     "dexie": "^3.0.2",
     "dexie-relationships": "^1.2.11",
     "firebase": "^7.16.0",
-    "idb": "^5.0.2",
+    "immer": "^8.0.0",
     "immutable": "^3.8.2",
     "jspdf": "^1.5.3",
     "lodash": "^4.17.10",

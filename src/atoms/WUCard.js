@@ -1,14 +1,9 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import classnames from "classnames";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import AddIcon from "@material-ui/icons/Add";
 import AnimateHeight from "react-animate-height";
-import { totalCardsPerWave, factionIdPrefix } from "../data/index";
-import { connect } from "react-redux";
-import { ADD_CARD, REMOVE_CARD } from "../reducers/deckUnderBuild";
-import { EDIT_ADD_CARD, EDIT_REMOVE_CARD } from "../reducers/deckUnderEdit";
+import { totalCardsPerWave } from "../data/index";
 import CardRule from "./CardRule";
 import LockIcon from "@material-ui/icons/Lock";
 import StarIcon from "@material-ui/icons/Star";
@@ -20,7 +15,10 @@ import {
     getSetNameById,
 } from "../data/wudb";
 import ObjectiveScoreTypeIcon from "../components/ObjectiveScoreTypeIcon";
-import { ReactComponent as GloryIcon } from '../svgs/wu-glory.svg';
+import { ReactComponent as GloryIcon } from "../svgs/wu-glory.svg";
+import { ReactComponent as CloseIcon } from "../svgs/x.svg";
+import { useDeckBuilderDispatcher, useDeckBuilderState } from "../pages/DeckCreator";
+import { ADD_CARD_ACTION, REMOVE_CARD_ACTION } from "../pages/DeckCreator/reducer";
 
 const useStyles = makeStyles((theme) => ({
     expand: {
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create("transform", {
             duration: theme.transitions.duration.shortest,
         }),
-        marginLeft: "auto",
+        margin: "0 .5rem 0 auto",
     },
 
     expandOpen: {
@@ -132,7 +130,7 @@ class WUCardInfo extends PureComponent {
             rank,
             prefix,
         } = this.props;
-        
+
         const wave = getCardWaveFromId(id);
         return (
             <div onClick={onClick}>
@@ -164,7 +162,7 @@ class WUCardInfo extends PureComponent {
                             style={{
                                 width: ".8rem",
                                 height: ".8rem",
-                                margin: "0 .25rem"
+                                margin: "0 .25rem",
                             }}
                         />
                     )}
@@ -191,41 +189,6 @@ class WUCardInfo extends PureComponent {
                             |
                         </>
                     )}
-                    {/* <div
-                        style={{
-                            display: "flex",
-                            flexFlow: "row nowrap",
-                            alignItems: "flex-start",
-                            margin: "0 .2rem 0 0",
-                        }}
-                    >
-                        <Typography
-                            variant="body2"
-                            style={{
-                                fontSize: ".75rem",
-                                color: "gray",
-                            }}
-                        >
-                            {`${type}`}
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            style={{
-                                color: "gray",
-                            }}
-                        >
-                            {!!scoreType && (
-                                <ObjectiveScoreTypeIcon
-                                    type={scoreType}
-                                    style={{
-                                        width: ".8rem",
-                                        height: ".8rem",
-                                        margin: ".3rem 0 0 .2rem",
-                                    }}
-                                />
-                            )}
-                        </Typography>
-                    </div> */}
                     <div
                         style={{
                             display: "flex",
@@ -290,8 +253,15 @@ class WUCardInfo extends PureComponent {
     }
 }
 
-function WUCardAtom({card, ...props}) {
+function WUCardAtom({ card, ...props }) {
     const classes = useStyles();
+    const {
+        selectedObjectives,
+        selectedGambits,
+        selectedUpgrades,
+        faction,
+    } = useDeckBuilderState();
+    const dispatch = useDeckBuilderDispatcher();
     const [useTextFallback, setUseTextFallback] = React.useState(false);
     const {
         type,
@@ -306,38 +276,30 @@ function WUCardAtom({card, ...props}) {
         withAnimation,
     } = card;
 
-    const factionPrefix =
-        factionIdPrefix[
-            props.editMode ? props.editModeFaction : props.createModeFaction
-        ];
     const height = props.expanded ? "auto" : 0;
-    const inDeck = props.editMode
-        ? props.editModeCurrentDeck.includes(id)
-        : props.createModeCurrentDeck.includes(id);
+    const inDeck = useMemo(
+        () =>
+            [
+                ...selectedObjectives,
+                ...selectedGambits,
+                ...selectedUpgrades,
+            ].find((card) => card.id == id),
+        [selectedObjectives, selectedGambits, selectedUpgrades]
+    );
 
-    const handleToggleCardInDeck = (id) => () => {
-        if (props.editMode) {
-            handleToggleCardInEditMode(id);
+    const handleToggleCardInDeck = () => {
+        if(inDeck) {
+            dispatch({
+                type: REMOVE_CARD_ACTION,
+                payload: card
+            })
         } else {
-            handleToggleCardInCreateMode(id);
+            dispatch({
+                type: ADD_CARD_ACTION,
+                payload: card
+            })
         }
-    };
-
-    const handleToggleCardInCreateMode = (id) => {
-        if (props.createModeCurrentDeck.includes(id)) {
-            props.removeCard(id);
-        } else {
-            props.addCard(id);
-        }
-    };
-
-    const handleToggleCardInEditMode = (id) => {
-        if (props.editModeCurrentDeck.includes(id)) {
-            props.editRemoveCard(id);
-        } else {
-            props.editAddCard(id);
-        }
-    };
+    }
 
     const pickBackgroundColor = (isRestricted, isBanned) => {
         if (isRestricted) {
@@ -375,20 +337,8 @@ function WUCardAtom({card, ...props}) {
         >
             <div className="flex items-center h-16">
                 <CardTypeImage className="mx-2" type={type} />
-                {/* <CardTypeAndRank
-                    {...classes}
-                    id={id}
-                    prefix={factionPrefix}
-                    restrictedCardsCount={restrictedCardsCount}
-                    isRestricted={isRestricted}
-                    type={type}
-                    inDeck={inDeck}
-                    isAlter={isAlter}
-                    toggle={handleToggleCardInDeck}
-                    rank={props.ranking}
-                /> */}
                 <WUCardInfo
-                    prefix={factionPrefix}
+                    prefix={faction.abbr}
                     rank={props.ranking}
                     pickColor={pickForegroundColor}
                     isRestricted={isRestricted}
@@ -403,20 +353,15 @@ function WUCardAtom({card, ...props}) {
                 />
                 <ButtonBase
                     className={classes.expand}
-                    style={{
-                        width: "3rem",
-                        height: "3rem",
-                        color: "white",
-                        backgroundColor: !inDeck ? "#3B9979" : "#8A1C1C",
-                        marginRight: ".3rem",
-                    }}
-                    onClick={handleToggleCardInDeck(id)}
+                    onClick={handleToggleCardInDeck}
                 >
-                    <AddIcon
-                        className={classnames(classes.inTheDeck, {
-                            [classes.notInTheDeck]: inDeck,
-                        })}
-                    />
+                    <div className={`w-8 h-8 grid place-content-center ${inDeck ? 'bg-accent3-700' : 'bg-green-700'}`}>
+                        <CloseIcon
+                            className={`text-white stroke-current transform ${
+                                inDeck ? "rotate-0" : "rotate-45"
+                            }`}
+                        />
+                    </div>
                 </ButtonBase>
             </div>
             <AnimateHeight
@@ -440,57 +385,4 @@ function WUCardAtom({card, ...props}) {
     );
 }
 
-// class WUCardAtom extends Component {
-//     state = {
-//         color: 0,
-//         useTextFallback: false,
-//     }
-
-//     shouldComponentUpdate(nextProps, nextState) {
-//         const shouldUpdate =
-//             nextProps.id !== this.props.id ||
-//             nextProps.type !== this.props.type ||
-//             nextProps.scoreType !== this.props.scoreType ||
-//             nextProps.name !== this.props.name ||
-//             nextProps.isAlter !== this.props.isAlter ||
-//             nextProps.inDeck !== this.props.inDeck ||
-//             nextProps.expanded !== this.props.expanded ||
-//             new Set(nextProps.createModeCurrentDeck).count() !==
-//                 new Set(this.props.createModeCurrentDeck).count() ||
-//             new Set(nextProps.editModeCurrentDeck).count() !==
-//                 new Set(this.props.editModeCurrentDeck).count() ||
-//             nextProps.createModeRestrictedCardsCount !==
-//                 this.props.createModeRestrictedCardsCount ||
-//             nextProps.editModeRestrictedCardsCount !==
-//                 this.props.editModeRestrictedCardsCount ||
-//             nextState.useTextFallback !== this.state.useTextFallback
-
-//         return shouldUpdate
-//     }
-// }
-
-const mapStateToProps = (state) => {
-    return {
-        createModeFaction: state.deckUnderBuild.faction,
-        createModeCurrentDeck: state.deckUnderBuild.deck,
-        createModeRestrictedCardsCount:
-            state.deckUnderBuild.restrictedCardsCount,
-
-        editModeCurrentDeck: state.deckUnderEdit.deck,
-        editModeRestrictedCardsCount: state.deckUnderEdit.restrictedCardsCount,
-        editModeFaction: state.deckUnderBuild.faction,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addCard: (card) => dispatch({ type: ADD_CARD, card: card }),
-        removeCard: (card) => dispatch({ type: REMOVE_CARD, card: card }),
-
-        editAddCard: (card) => dispatch({ type: EDIT_ADD_CARD, card: card }),
-        editRemoveCard: (card) =>
-            dispatch({ type: EDIT_REMOVE_CARD, card: card }),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(WUCardAtom);
+export default WUCardAtom;

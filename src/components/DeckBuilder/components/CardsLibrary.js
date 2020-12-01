@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 // there must be some more simple way to check which cards are expanded
 // without modifying cards state.
 function VirtualizedCardsList(props) {
+
     const listRef = useRef();
     const [cards, setCards] = useState(props.cards);
 
@@ -36,16 +37,11 @@ function VirtualizedCardsList(props) {
                 card={card}
                 editMode={props.editMode}
                 isAlter={index % 2 === 0}
-                toggleCardInDeck={handleToggleCardInDeck}
                 expanded={expanded}
                 onExpandChange={_handleExpanded.bind(this, index)}
                 withAnimation={false}
             />
         );
-    };
-
-    const handleToggleCardInDeck = (id) => {
-        props.toggleCardInDeck(id);
     };
 
     const _handleExpanded = (index) => {

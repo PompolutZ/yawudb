@@ -1,22 +1,19 @@
-import React, { PureComponent, useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { cardsDb, factionIdPrefix, wufactions } from "../../../data/index";
 import { Set } from "immutable";
-// import { toggleCardInDeck } from './DeckBuiilder/components/CardsLibrary';
 import DeckIcon from "../../../atoms/DeckIcon";
 import WUButton from "../../../atoms/Button";
-import WUTextField from "../../../atoms/WUTextField";
-import ScoringOverview from "../../../atoms/ScoringOverview";
 import { connect } from "react-redux";
 import SectionHeader from "./SectionHeader";
 import { CardsList } from "./CardsList";
 import Grid from "@material-ui/core/Grid";
 import DebouncedInput from '../../../v2/components/DebouncedInput';
-import { checkCardIsObjective, checkCardIsPloy, checkCardIsUpgrade, getCardById, compareObjectivesByScoreType } from "../../../data/wudb";
+import { checkCardIsPloy, checkCardIsUpgrade, getCardById } from "../../../data/wudb";
 import { useDeckBuilderState } from "../../../pages/DeckCreator";
+import ObjectivesList from "./ObjectivesList";
 
 function Deck(props) {
-    const [name, setName] = useState("");
+    const [, setName] = useState("");
     const { faction, selectedObjectives, selectedGambits, selectedUpgrades } = useDeckBuilderState();
 
     const {
@@ -51,12 +48,12 @@ function Deck(props) {
         })
     );
 
-    const objectives = cards
-        .filter((v) => checkCardIsObjective(v))
-        .sort((c1, c2) => {
-            return compareObjectivesByScoreType(c1.scoreType, c2.scoreType) || c1.id - c2.id;
-        })
-        .toJS(); 
+    // const objectives = cards
+    //     .filter((v) => checkCardIsObjective(v))
+    //     .sort((c1, c2) => {
+    //         return compareObjectivesByScoreType(c1.scoreType, c2.scoreType) || c1.id - c2.id;
+    //     })
+    //     .toJS(); 
     
         const gambits = cards
         .filter((v) => checkCardIsPloy(v))
@@ -67,31 +64,24 @@ function Deck(props) {
         .sort((c1, c2) => c1.id - c2.id)
         .toJS();
     
-    const objectiveSummary = objectives.reduce(
-            (acc, c) => {
-                acc[c.scoreType] += 1;
-                return acc;
-            },
-            {'Surge': 0, 'End': 0, 'Third': 0}
-        );
+    // const objectiveSummary = objectives.reduce(
+    //         (acc, c) => {
+    //             acc[c.scoreType] += 1;
+    //             return acc;
+    //         },
+    //         {'Surge': 0, 'End': 0, 'Third': 0}
+    //     );
     const isValidForSave =
         deckPlayFormat === "open"
             ? objectivesCount === 12 && gambitsCount + upgradesCount >= 20
             : objectivesCount === 12 &&
-              gambitsCount + upgradesCount >= 20 &&
-              objectiveSummary.Surge < 7;
-    const isObjectiveCardsSectionValid =
-        deckPlayFormat === "open"
-            ? objectivesCount === 12
-            : objectivesCount === 12 && objectiveSummary.Surge < 7;
+              gambitsCount + upgradesCount >= 20;
+            //    &&
+            //   objectiveSummary.Surge < 7;
     const isPowerCardsSectionValid =
         gambitsCount + upgradesCount >= 20 && gambitsCount <= upgradesCount;
 
 
-    const totalGlory = objectives.reduce(
-        (acc, c) => acc + Number(c.glory),
-        0
-    );
     return (
         <div>
             <div className="flex items-center m-2">
@@ -106,44 +96,7 @@ function Deck(props) {
                     />
             </div>
             <Grid container spacing={2}>
-                <Grid
-                    item
-                    xs={12}
-                    lg={4}
-                    className={`${isObjectiveCardsSectionValid ? 'bg-green-100' : 'bg-red-100'}`}
-                >
-                    <SectionHeader>
-                        <div className="flex">
-                            <h1 className="mr-4">
-                                {objectivesCount} Objectives
-                            </h1>
-                            <ScoringOverview
-                                summary={objectiveSummary}
-                                glory={totalGlory}
-                            />
-                        </div>
-                        {!isObjectiveCardsSectionValid && (
-                            <div>
-                                <Typography style={{ color: "darkred" }}>
-                                    - You must have exactly 12 objective
-                                    cards.
-                                </Typography>
-                                <Typography style={{ color: "darkred" }}>
-                                    {deckPlayFormat !== "open" &&
-                                    objectiveSummary.Surge > 6
-                                        ? "- You cannot have more than 6 Surge (score immediately) cards"
-                                        : ""}
-                                </Typography>
-                            </div>
-                        )}
-                    </SectionHeader>
-                    <CardsList
-                        editMode={editMode}
-                        isEligibleForOP={props.isEligibleForOP}
-                        list={objectives}
-                        // toggle={this._toggleCardInDeck}
-                    />
-                </Grid>
+                <ObjectivesList />
                 <Grid
                     item
                     xs={12}
