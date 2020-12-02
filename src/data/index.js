@@ -57,6 +57,7 @@ export const totalCardsPerWave = {
     6: 438,
     7: 32,
     8: 40,
+    9: 500,
 };
 
 export const deckPlayFormats = ["championship", "open", "relic"];
