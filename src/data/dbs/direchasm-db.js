@@ -1,4 +1,284 @@
 export const direchasm_db = {
+    "09001": {
+        "name": "Diamond-bright Souls",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "**Dual:** Score this in an end phase if: \\n There are three or more surviving friendly fighters \\n *And:* Each surviving friendly fighter is Inspired.",
+        "glory": 2,
+        "scoreType": 1
+    },
+    "09002": {
+        "name": "Elemental Blessing",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge, Hybrid:** Score this immediately after: \\n You **remove** an aetherquartz counter from a friendly fighter when you resolve an **Elemental* ploy \\n *Or:* Your warband **casts** its second or subsequent spell in the same phase.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "09003": {
+        "name": "Force of the Avalanche",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that **deals** damage equal to or greater than the target's Wounds characteristic.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "09004": {
+        "name": "Haughty Exemplars",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "Score this in an end phase if there are more surviving friendly fighters than surviving enemy fighters.",
+        "glory": 2,
+        "scoreType": 1
+    },
+    "09005": {
+        "name": "Patience of the Mountains",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge:** Score this immediately after an activation if each surviving friendly fighter has one or more Guard tokens.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "09006": {
+        "name": "Perfect Formation",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge:** Score this immediately after an activation if your warband holds three or more objectives.",
+        "glory": 2,
+        "scoreType": 0
+    },
+    "09007": {
+        "name": "Perfectionists",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "Score this in an end phase if no surviving friendly fighters have aetherquartz counters.",
+        "glory": 1,
+        "scoreType": 1
+    },
+    "09008": {
+        "name": "Purifying Light",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "Score this in an end phase if your **leader** holds an objective.",
+        "glory": 1,
+        "scoreType": 1
+    },
+    "09009": {
+        "name": "Pursuit of Excellence",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "Score this in an end phase if one or more surviving friendly fighters each have three or more upgrades.",
+        "glory": 2,
+        "scoreType": 1
+    },
+    "09010": {
+        "name": "Seal the Beastgrave",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "Score this in an end phase if your warband holds three or more objectives.",
+        "glory": 3,
+        "scoreType": 1
+    },
+    "09011": {
+        "name": "Unsullied Hands",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge:** Score this immediately after a friendly fighter's Range 3 **Attack action** that takes an enemy fighter out of action.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "09012": {
+        "name": "Vaunted Speed",
+        "release": 1,
+        "faction": 27,
+        "type": 0,
+        "set": 29,
+        "rule": "Score this in an end phase if a surviving friendly fighter has a higher Move characteristic than any other surviving fighter.",
+        "glory": 1,
+        "scoreType": 1
+    },
+    "09013": {
+        "name": "Channel the Mountain",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "**Elemental** \\n **Choose** one friendly fighter. You can **remove** that fighter's aetherquartz counters. If you do, **give** the chosen fighter and each adjacent friendly fighter one Guard token. \\n Otherwise, **give** the chosen fighter one Guard token."
+    },
+    "09014": {
+        "name": "Channel the River",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "**Elemental** \\n **Choose** one friendly fighter. You can **remove** that fighter's aetherquartz counters. If you do, **push** the chosen fighter up to 3 hexes. \\n Otherwise, **push** the chosen fighter 1 hex."
+    },
+    "09015": {
+        "name": "Channel the Wind",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "**Elemental** \\n **Choose** one friendly fighter. You can **remove** that fighter's aetherquartz counters. If you do, **deal** 1 damage to up to two enemy fighters within 2 hexes. \\n Otherwise, **deal** 1 damage to one enemy fighter within 2 hexes."
+    },
+    "09016": {
+        "name": "Channel the Zenith",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "**Elemental** \\n **Choose** one friendly fighter. That fighter is Inspired. You can **remove** that fighter's aetherquartz counters. If you do not, this effect **persists** until the end of the round. When this effect ends, the fighter is un-Inspired."
+    },
+    "09017": {
+        "name": "Dazzling Light",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "-1 Dice (to a minimum of 1) from enemy fighters' **Attack actions** in the next activation."
+    },
+    "09018": {
+        "name": "Flicker of Light",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "**Reaction:** Play this during an **Attack action**, after the determine success step, if that **Attack action** would **deal** damage that would take a friendly fighter with one or more aetherquartz counters out of action. Roll one magic dice. On a roll of :MagChannel:, **remove** that fighter's aetherquartz counters and the combat sequence ends. If you cannot, this card has no effect."
+    },
+    "09019": {
+        "name": "Lambent Light",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "**Gambit spell (:MagChannel: :MagChannel:):** If **cast**, **choose** one enemy fighter within 4 hexes of the caster. You can **re-roll** one attack dice in a friendly fighter's attack rolls for **Attack actions** that target the chosen fighter. This effect **persists** until the end of the round or until the chosen fighter is taken out of action."
+    },
+    "09020": {
+        "name": "Surety of Purpose",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "+1 Damage to the first **Attack action** made as part of a **Charge action** by a friendly fighter in the next activation."
+    },
+    "09021": {
+        "name": "Tectonic Force",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "Pick one: **push** one enemy fighter 1 hex away from a friendly Bahannar, or **push** one friendly Bahannar 1 hex towards an enemy fighter."
+    },
+    "09022": {
+        "name": "Untouchable Pride",
+        "release": 1,
+        "faction": 27,
+        "type": 1,
+        "set": 29,
+        "rule": "**Choose** one friendly fighter. If that fighter has one or more aetherquartz counters, **give** that fighter one Guard token. Otherwise **Heal** (1) that fighter."
+    },
+    "09023": {
+        "name": "Balanced Soul",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "You can **re-roll** one magic dice in this fighter's casting rolls and **spell Attack action** attack rolls."
+    },
+    "09024": {
+        "name": "Heartstone Amulet",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "When this fighter is **dealt** damage, reduce that damage by 1 (to a minimum of 1)."
+    },
+    "09025": {
+        "name": "Heightened Reflexes",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "+1 Move \\n **Reaction:** Use this after an enemy fighter's **Attack action**. **Remove** this fighter's aetherquartz counters. If you do, this fighter makes an **Attack action** that targets that enemy fighter. Then **discard** this card."
+    },
+    "09026": {
+        "name": "Heightened Senses",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "You can **re-roll** one attack dice in this fighter's **Attack actions**. \\n **Reaction:** Use this during this fighter's **Attack action**, after the attack roll. **Remove** this fighter's aetherquartz counters. If you do, that **Attack action** has **Cleave** and **Ensnare** until it is resolved. Then **discard** this card."
+    },
+    "09027": {
+        "name": "Magical Boost",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter cannot be **dealt** damage by **backlash**. \\n **Reaction:** Use this during this fighter's casting roll, before rolling the dice. **Remove** this fighter's aetherquartz counters. If you do, roll one additional magic dice in that casting roll. Then **discard** this card."
+    },
+    "09028": {
+        "name": "Mountain Stance",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "**Cleave** cannot affect this fighter's defence rolls. \\n +1 Damage to this fighter's Range 1 and Range 2 **Attack actions**  if this fighter has no Move or Charge tokens."
+    },
+    "09029": {
+        "name": "Mountain's Gift",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "If this fighter has one or more aetherquartz counters, this fighter is on Guard. Otherwise, after this fighter's **Attack action** that takes an enemy fighter out of action, **give** this fighter one Guard token."
+    },
+    "09030": {
+        "name": "Scryowl Familiar",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter has line of sight to each other fighter."
+    },
+    "09031": {
+        "name": "Speed of Hysh",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "+1 Move \\n +2 Move instead if this fighter has one or more aetherquartz counters."
+    },
+    "09032": {
+        "name": "Vanari Dagger",
+        "release": 1,
+        "faction": 27,
+        "type": 2,
+        "set": 29,
+        "rule": "[:Hex: 1 - :atSmash: 3 - :boom: 1] \\n On a **critical hit**, this **Attack action** has +2 Damage."
+    },
     "09033": {
         "name": "Beautiful Deaths",
         "release": 1,
@@ -120,7 +400,7 @@ export const direchasm_db = {
         "scoreType": 1
     },
     "09045": {
-        "name": "Boned Bodyguard",
+        "name": "Bonded Bodyguard",
         "release": 1,
         "faction": 28,
         "type": 1,
