@@ -4,6 +4,7 @@ import { dreadfaneDb } from "./dbs/dreadfane_db";
 import { beastgraveDB } from "./dbs/beastgrave_db";
 import { beastgraveGiftPackDb } from "./dbs/beastgrave_giftpack_db";
 import { arenaMortisDb } from "./dbs/arena-mortis-db";
+import { direchasm_db } from "./dbs/direchasm-db";
 
 export {
     factions,
@@ -73,6 +74,7 @@ export const cardsDb = {
     ...beastgraveDB,
     ...beastgraveGiftPackDb,
     ...arenaMortisDb,
+    ...direchasm_db,
 };
 
 // export const championshipForsakenCards = {
