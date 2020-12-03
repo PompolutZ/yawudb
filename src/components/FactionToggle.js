@@ -69,8 +69,11 @@ class FactionToggle extends Component {
                     easing="ease-out"
                     height={height}>
                     <div style={{display: 'flex', flexFlow: 'column wrap', margin: '0 0 0 1rem'}}>
+                        <Typography variant="subtitle1">DIRECHASM</Typography>
+                        { warbandsWithDefaultSet.slice(28).map(([faction, defaultSet]) => this.renderFactionToggleButton(faction, defaultSet)) }                        
+
                         <Typography variant="subtitle1">BEASTGRAVE</Typography>
-                        { warbandsWithDefaultSet.slice(20).map(([faction, defaultSet]) => this.renderFactionToggleButton(faction, defaultSet)) }                        
+                        { warbandsWithDefaultSet.slice(20, 27).map(([faction, defaultSet]) => this.renderFactionToggleButton(faction, defaultSet)) }                        
 
                         <Typography variant="subtitle1">NIGHTVAULT</Typography>
                         { warbandsWithDefaultSet.slice(8, 18).map(([faction, defaultSet]) => this.renderFactionToggleButton(faction, defaultSet)) }                        

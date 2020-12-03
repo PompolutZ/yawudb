@@ -123,7 +123,7 @@ export const factionMembers = {
     "morgoks-krushas": ["Morgok", "’Ardskull", "Thugg"],
 
     // DIRECHASM
-    "myaris-purifiers": ["", "", "", ""],
+    "myaris-purifiers": ["Myari", "Bahannar", "Ailenn", "Senaela"],
     "dread-pageant": ["Vasillac", "Glissete", "Hadzu", "Slakeslash"],
 }
 

@@ -14,7 +14,7 @@ export const initialState = {
     searchText: '',
     visibleCardTypes: keys(cardType).map(Number),
     visibleObjectiveScoreTypes: keys(objectiveScoreType).map(Number),
-    createModeSets: Object.keys(setsIndex),
+    createModeSets: keys(setsIndex).filter(s => s > 18),
     editModeSets: [],
     eligibleForOP: true,
     cardsRanking: [-1, [], [], []],
