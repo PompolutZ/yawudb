@@ -2,7 +2,7 @@ export const direchasm_db = {
     "09001": {
         "name": "Diamond-bright Souls",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "**Dual:** Score this in an end phase if: \\n There are three or more surviving friendly fighters \\n *And:* Each surviving friendly fighter is Inspired.",
@@ -12,17 +12,17 @@ export const direchasm_db = {
     "09002": {
         "name": "Elemental Blessing",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
-        "rule": "**Surge, Hybrid:** Score this immediately after: \\n You **remove** an aetherquartz counter from a friendly fighter when you resolve an **Elemental* ploy \\n *Or:* Your warband **casts** its second or subsequent spell in the same phase.",
+        "rule": "**Surge, Hybrid:** Score this immediately after: \\n You **remove** an aetherquartz counter from a friendly fighter when you resolve an **Elemental** ploy \\n *Or:* Your warband **casts** its second or subsequent spell in the same phase.",
         "glory": 1,
         "scoreType": 0
     },
     "09003": {
         "name": "Force of the Avalanche",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that **deals** damage equal to or greater than the target's Wounds characteristic.",
@@ -32,7 +32,7 @@ export const direchasm_db = {
     "09004": {
         "name": "Haughty Exemplars",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "Score this in an end phase if there are more surviving friendly fighters than surviving enemy fighters.",
@@ -42,7 +42,7 @@ export const direchasm_db = {
     "09005": {
         "name": "Patience of the Mountains",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "**Surge:** Score this immediately after an activation if each surviving friendly fighter has one or more Guard tokens.",
@@ -52,7 +52,7 @@ export const direchasm_db = {
     "09006": {
         "name": "Perfect Formation",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "**Surge:** Score this immediately after an activation if your warband holds three or more objectives.",
@@ -62,7 +62,7 @@ export const direchasm_db = {
     "09007": {
         "name": "Perfectionists",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "Score this in an end phase if no surviving friendly fighters have aetherquartz counters.",
@@ -72,7 +72,7 @@ export const direchasm_db = {
     "09008": {
         "name": "Purifying Light",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "Score this in an end phase if your **leader** holds an objective.",
@@ -82,7 +82,7 @@ export const direchasm_db = {
     "09009": {
         "name": "Pursuit of Excellence",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "Score this in an end phase if one or more surviving friendly fighters each have three or more upgrades.",
@@ -92,7 +92,7 @@ export const direchasm_db = {
     "09010": {
         "name": "Seal the Beastgrave",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "Score this in an end phase if your warband holds three or more objectives.",
@@ -102,7 +102,7 @@ export const direchasm_db = {
     "09011": {
         "name": "Unsullied Hands",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "**Surge:** Score this immediately after a friendly fighter's Range 3 **Attack action** that takes an enemy fighter out of action.",
@@ -112,7 +112,7 @@ export const direchasm_db = {
     "09012": {
         "name": "Vaunted Speed",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 0,
         "set": 29,
         "rule": "Score this in an end phase if a surviving friendly fighter has a higher Move characteristic than any other surviving fighter.",
@@ -122,7 +122,7 @@ export const direchasm_db = {
     "09013": {
         "name": "Channel the Mountain",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 1,
         "set": 29,
         "rule": "**Elemental** \\n **Choose** one friendly fighter. You can **remove** that fighter's aetherquartz counters. If you do, **give** the chosen fighter and each adjacent friendly fighter one Guard token. \\n Otherwise, **give** the chosen fighter one Guard token."
@@ -130,7 +130,7 @@ export const direchasm_db = {
     "09014": {
         "name": "Channel the River",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 1,
         "set": 29,
         "rule": "**Elemental** \\n **Choose** one friendly fighter. You can **remove** that fighter's aetherquartz counters. If you do, **push** the chosen fighter up to 3 hexes. \\n Otherwise, **push** the chosen fighter 1 hex."
@@ -138,7 +138,7 @@ export const direchasm_db = {
     "09015": {
         "name": "Channel the Wind",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 1,
         "set": 29,
         "rule": "**Elemental** \\n **Choose** one friendly fighter. You can **remove** that fighter's aetherquartz counters. If you do, **deal** 1 damage to up to two enemy fighters within 2 hexes. \\n Otherwise, **deal** 1 damage to one enemy fighter within 2 hexes."
@@ -146,7 +146,7 @@ export const direchasm_db = {
     "09016": {
         "name": "Channel the Zenith",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 1,
         "set": 29,
         "rule": "**Elemental** \\n **Choose** one friendly fighter. That fighter is Inspired. You can **remove** that fighter's aetherquartz counters. If you do not, this effect **persists** until the end of the round. When this effect ends, the fighter is un-Inspired."
@@ -154,7 +154,7 @@ export const direchasm_db = {
     "09017": {
         "name": "Dazzling Light",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 1,
         "set": 29,
         "rule": "-1 Dice (to a minimum of 1) from enemy fighters' **Attack actions** in the next activation."
@@ -162,7 +162,7 @@ export const direchasm_db = {
     "09018": {
         "name": "Flicker of Light",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 1,
         "set": 29,
         "rule": "**Reaction:** Play this during an **Attack action**, after the determine success step, if that **Attack action** would **deal** damage that would take a friendly fighter with one or more aetherquartz counters out of action. Roll one magic dice. On a roll of :MagChannel:, **remove** that fighter's aetherquartz counters and the combat sequence ends. If you cannot, this card has no effect."
@@ -170,15 +170,15 @@ export const direchasm_db = {
     "09019": {
         "name": "Lambent Light",
         "release": 1,
-        "faction": 27,
-        "type": 1,
+        "faction": -1,
+        "type": 3,
         "set": 29,
         "rule": "**Gambit spell (:MagChannel: :MagChannel:):** If **cast**, **choose** one enemy fighter within 4 hexes of the caster. You can **re-roll** one attack dice in a friendly fighter's attack rolls for **Attack actions** that target the chosen fighter. This effect **persists** until the end of the round or until the chosen fighter is taken out of action."
     },
     "09020": {
         "name": "Surety of Purpose",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 1,
         "set": 29,
         "rule": "+1 Damage to the first **Attack action** made as part of a **Charge action** by a friendly fighter in the next activation."
@@ -186,7 +186,7 @@ export const direchasm_db = {
     "09021": {
         "name": "Tectonic Force",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 1,
         "set": 29,
         "rule": "Pick one: **push** one enemy fighter 1 hex away from a friendly Bahannar, or **push** one friendly Bahannar 1 hex towards an enemy fighter."
@@ -194,7 +194,7 @@ export const direchasm_db = {
     "09022": {
         "name": "Untouchable Pride",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 1,
         "set": 29,
         "rule": "**Choose** one friendly fighter. If that fighter has one or more aetherquartz counters, **give** that fighter one Guard token. Otherwise **Heal** (1) that fighter."
@@ -202,7 +202,7 @@ export const direchasm_db = {
     "09023": {
         "name": "Balanced Soul",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "You can **re-roll** one magic dice in this fighter's casting rolls and **spell Attack action** attack rolls."
@@ -210,7 +210,7 @@ export const direchasm_db = {
     "09024": {
         "name": "Heartstone Amulet",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "When this fighter is **dealt** damage, reduce that damage by 1 (to a minimum of 1)."
@@ -218,7 +218,7 @@ export const direchasm_db = {
     "09025": {
         "name": "Heightened Reflexes",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "+1 Move \\n **Reaction:** Use this after an enemy fighter's **Attack action**. **Remove** this fighter's aetherquartz counters. If you do, this fighter makes an **Attack action** that targets that enemy fighter. Then **discard** this card."
@@ -226,7 +226,7 @@ export const direchasm_db = {
     "09026": {
         "name": "Heightened Senses",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "You can **re-roll** one attack dice in this fighter's **Attack actions**. \\n **Reaction:** Use this during this fighter's **Attack action**, after the attack roll. **Remove** this fighter's aetherquartz counters. If you do, that **Attack action** has **Cleave** and **Ensnare** until it is resolved. Then **discard** this card."
@@ -234,7 +234,7 @@ export const direchasm_db = {
     "09027": {
         "name": "Magical Boost",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "This fighter cannot be **dealt** damage by **backlash**. \\n **Reaction:** Use this during this fighter's casting roll, before rolling the dice. **Remove** this fighter's aetherquartz counters. If you do, roll one additional magic dice in that casting roll. Then **discard** this card."
@@ -242,7 +242,7 @@ export const direchasm_db = {
     "09028": {
         "name": "Mountain Stance",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "**Cleave** cannot affect this fighter's defence rolls. \\n +1 Damage to this fighter's Range 1 and Range 2 **Attack actions**  if this fighter has no Move or Charge tokens."
@@ -250,7 +250,7 @@ export const direchasm_db = {
     "09029": {
         "name": "Mountain's Gift",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "If this fighter has one or more aetherquartz counters, this fighter is on Guard. Otherwise, after this fighter's **Attack action** that takes an enemy fighter out of action, **give** this fighter one Guard token."
@@ -258,7 +258,7 @@ export const direchasm_db = {
     "09030": {
         "name": "Scryowl Familiar",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "This fighter has line of sight to each other fighter."
@@ -266,7 +266,7 @@ export const direchasm_db = {
     "09031": {
         "name": "Speed of Hysh",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "+1 Move \\n +2 Move instead if this fighter has one or more aetherquartz counters."
@@ -274,7 +274,7 @@ export const direchasm_db = {
     "09032": {
         "name": "Vanari Dagger",
         "release": 1,
-        "faction": 27,
+        "faction": -1,
         "type": 2,
         "set": 29,
         "rule": "[:Hex: 1 - :atSmash: 3 - :boom: 1] \\n On a **critical hit**, this **Attack action** has +2 Damage."
@@ -525,7 +525,7 @@ export const direchasm_db = {
         "faction": 28,
         "type": 2,
         "set": 29,
-        "rule": "When this fighter is **dealt** damage, roll one defence dice. On a roll of :defBlock:, this fighter is only **dealt** 1 damage."
+        "rule": "When this fighter is **dealt** damage, roll one defence dice. On a roll of :dfBlock:, this fighter is only **dealt** 1 damage."
     },
     "09061": {
         "name": "Soporific Musk",
@@ -558,5 +558,285 @@ export const direchasm_db = {
         "type": 2,
         "set": 29,
         "rule": "**Reaction:** After a Range 1 or Range 2 **Attack action** which targets this fighter, roll one attack dice. On a roll of :atSmash:, pick one of the attacker's upgrades. That card is **discarded**."
+    },
+    "09257": {
+        "name": "Absolute Dominance",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "**Dual:** Score this in an end phase if: \\n There are two or more surviving friendly fighters \\n *And:* No more than one surviving enemy fighter.",
+        "glory": 3,
+        "scoreType": 1
+    },
+    "09259": {
+        "name": "Aggressive Display",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n Two or more enemy fighters are out of action \\n *Or:* One or more surviving friendly fighters each have two or more **Attack action** upgrades.",
+        "glory": 1,
+        "scoreType": 1
+    },
+    "09262": {
+        "name": "Awesome Predator",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n You have the Primacy token \\n *Or:* One or more surviving friendly fighters have one or more **Attack actions** with a Damage characteristic of 4+.",
+        "glory": 1,
+        "scoreType": 1
+    },
+    "09272": {
+        "name": "Dominant Position",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "Score this in an end phase if your warband holds more objectives than any other warband.",
+        "glory": 2,
+        "scoreType": 1
+    },
+    "09283": {
+        "name": "Hungry for Victory",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "Score this in an end phase if one or more friendly fighters each have two or more Hunger counters.",
+        "glory": 1,
+        "scoreType": 1
+    },
+    "09287": {
+        "name": "Intimidating Display",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n A surviving friendly fighter has a higher Wounds characteristic than any other surviving fighter \\n *Or:* Three or more friendly fighters are in enemy territory.",
+        "glory": 1,
+        "scoreType": 1
+    },
+    "09304": {
+        "name": "Predatory Spell",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge:** Score this immediately after your warband's **spell Attack action deals** damage that takes an enemy fighter our of action.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "09315": {
+        "name": "Savage Exemplar",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge:** Score this immediately after your **leader's Attack action** that takes an enemy fighter out of action.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "09324": {
+        "name": "Successful Hunt",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge:** Score this immediately after a friendly **Hunter's Attack action** that takes an enemy **Quarry** out of action.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "09326": {
+        "name": "Surge of Aggression",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge, Hybrid:** Score this immediately after: \\n You gain the Primacy token \\n *Or:* A friendly fighter's successful **Attack action** with a Damage characteristic of 4+.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "09331": {
+        "name": "Treasure Hunter",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "Score this in an end phase if your warband holds two or more objectives in enemy territory.",
+        "glory": 3,
+        "scoreType": 1
+    },
+    "09339": {
+        "name": "Winged Death",
+        "release": 1,
+        "faction": 0,
+        "type": 0,
+        "set": 29,
+        "rule": "**Surge, Hybrid:** Score this immediately after: \\n A friendly fighter's Range 3+ **Attack action** takes an enemy fighter out of action \\n *Or:* A friendly fighter ends a **Charge action** 6 or more hexes away from the hex in which they started.",
+        "glory": 1,
+        "scoreType": 0
+    },
+    "09353": {
+        "name": "Dauntless Aspect",
+        "release": 1,
+        "faction": 0,
+        "type": 3,
+        "set": 29,
+        "rule": "**Gambit Spelll (:MagChannel:):** If **cast**, **choose** one friendly fighter within 3 hexes of the caster. **Give** the chosen fighter one Guard token."
+    },
+    "09361": {
+        "name": "Ferocious Blow",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 29,
+        "rule": "+1 Damage to the first Range 1 or Range 2 **Attack action** made by a friendly fighter in the next activation. \\n In addition, that **Attack action** has **Cleave** if that friendly fighter has one or more Hunger counters."
+    },
+    "09362": {
+        "name": "Ferocious Lunge",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 29,
+        "rule": "+1 Move to the first friendly fighter to make a **Move action** in the next activation \\n +2 Move instead if that fighter has one or more Hunger counters."
+    },
+    "09363": {
+        "name": "Ferocious Resistance",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 29,
+        "rule": "**Choose** one friendly fighter. Roll one magic dice for each of the chosen fighter's wound counters, and one additional magic dice if that fighter has one or more Hunger counters. For each roll of :MagChannel:, **Heal** (1) that fighter."
+    },
+    "09371": {
+        "name": "Hungry Advance",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 29,
+        "rule": "**Choose** one friendly fighter. **Push** that fighter 1 hex towards the closest enemy fighter. Then **give** the chosen fighter one Hunger counter."
+    },
+    "09372": {
+        "name": "Hungry Bolt",
+        "release": 1,
+        "faction": 0,
+        "type": 3,
+        "set": 29,
+        "rule": "**Gambit Spell (:MagFocus:):** If **cast**, **Scatter** 3 from the caster's hex. **Deal** 1 damage to each enemy fighter in the **chain**. Then **give** the caster and each fighter in the **chain** one Hunger counter."
+    },
+    "09375": {
+        "name": "Hunting Season",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 29,
+        "rule": "Each fighter is a **Hunter** and each fighter is a **Quarry**. This effect **persists** until the end of the round."
+    },
+    "09376": {
+        "name": "Hypnotic Aspect",
+        "release": 1,
+        "faction": 0,
+        "type": 3,
+        "set": 29,
+        "rule": "**Gambit Spell (:MagChannel:):** If **cast**, **choose** one enemy fighter within 3 hexes of the caster. **Push** the chosen fighter 1 hex."
+    },
+    "09405": {
+        "name": "Slickrock",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 29,
+        "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter's **Move action** that ends in the same hex as an objective token. **Scatter** 1 from that hex and **push** that enemy fighter to the end of the **chain**. If that enemy fighter cannot be pushed into a hex, that fighter is not pushed."
+    },
+    "09417": {
+        "name": "Thrill of the Hunt",
+        "release": 1,
+        "faction": 0,
+        "type": 1,
+        "set": 29,
+        "rule": "**Reaction:** Play this after a friendly fighter's **Attack action** that takes an enemy fighter out of action. You gain the Primacy token. Then pick one. **Heal** (1) that fighter, or **push** that fighter 1 hex."
+    },
+    "09438": {
+        "name": "Earthing Staff",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter is a **Quarry**. If this fighter is a **Quarry**, **backlash** and **gambit spells** cannot **deal** damage to this fighter."
+    },
+    "09444": {
+        "name": "Fearsome Trappings",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter is a **Hunter**. In addition, if you have the Primacy token, you can **re-roll** one attack dice in this fighter's attack rolls."
+    },
+    "09447": {
+        "name": "Formiddable Defence",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter is a **Quarry**. If this fighter is a **Quarry:** \\n +1 Defence. \\n -1 Dice from this fighter's **Attack actions** (to a minimum of 1)."
+    },
+    "09453": {
+        "name": "Hungry Armour",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "**Give** this fighter one Hunger counter at the beginning of each round. If this fighter has one or more Hunger counters, you can **re-roll** one defence dice in this fighter's defence rolls."
+    },
+    "09461": {
+        "name": "Master of Spoils",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "Gain the Primacy token each time this fighter makes an **Attack action** that takes an enemy fighter out of action. After this fighter is taken out of action, discard the Primacy token."
+    },
+    "09467": {
+        "name": "Preyskin Mask",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter is a **Quarry**. -1 Dice to this fighter's **Attack actions** (to a minimum of 1). This card cannot be **discarded**. \\n **Reaction:** During a Range 1 or Range 2 **Attack action** that targets this fighter, after the deal damage step, give the attacker this upgrade."
+    },
+    "09477": {
+        "name": "Savage Speed",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter is a **Hunter**. \\n +2 Move. \\n -1 Defence (to a minimum of 1)."
+    },
+    "09478": {
+        "name": "Savage Strength",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter is a **Hunter**. \\n +1 Damage to this fighter's Range 1 or Range 2 **Attack actions**. \\n -1 Defence (to a minimum of 1)."
+    },
+    "09487": {
+        "name": "Soultooth Bow",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter is a **Hunter**. \\n [:Hex: 4 - :atSmash: 2 - :boom: 1] \\n You can **re-roll** one dice in the attack roll if the target has one or more Move and/or Charge tokens."
+    },
+    "09492": {
+        "name": "Soultooth Spear",
+        "release": 1,
+        "faction": 0,
+        "type": 2,
+        "set": 29,
+        "rule": "This fighter is a **Hunter**. \\n [:Hex: 2 - :atSmash: 2 - :boom: 2] \\n You can **re-roll** one dice in the attack roll if the target has one or more Move and/or Charge tokens."
     }
 }
