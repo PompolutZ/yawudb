@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { Typography } from "@material-ui/core";
 import { SET_VISIBLE_CARD_TYPES } from "../../../reducers/cardLibraryFilters";
 import { ReactComponent as LockIcon } from "../../../svgs/lock.svg";
 import { Set } from "immutable";
+import { useDeckBuilderState } from "../../../pages/DeckCreator";
+import { validateCardForPlayFormat } from "../../../data/wudb";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -57,8 +59,16 @@ function ToggleBox({ children, isVisible, onToggle }) {
 
 function CardsTab(props) {
     const classes = useStyles();
+    const { selectedObjectives, selectedGambits, selectedUpgrades, format } = useDeckBuilderState();
 
-    const { editMode, isSelected } = props;
+    const restrictedCards = useMemo(() => {
+        return [...selectedObjectives, ...selectedUpgrades, ...selectedGambits].filter(card => {
+            const [,,isRestricted] = validateCardForPlayFormat(card.id, format);
+            return isRestricted;
+        })
+    }, [selectedObjectives, selectedUpgrades, selectedGambits, format])
+    
+    const { isSelected } = props;
     const visibleCardTypes = new Set(props.types);
 
     const toggleTypeAtIndex = (index) => () => {
@@ -87,10 +97,7 @@ function CardsTab(props) {
                 <Typography variant="subtitle2">cards</Typography>
                 <LockIcon className="text-yellow-600 stroke-current w-3 h-3 ml-4" />
                 <h6 className="text-gray-700 ml-1 text-xs">
-                    {editMode
-                        ? props.editRestrictedCardsCount
-                        : props.restrictedCardsCount}
-                    /3
+                    {restrictedCards.length}/3
                 </h6>
             </div>
             <div className={classes.subhead}>
@@ -105,9 +112,9 @@ function CardsTab(props) {
                             className={classes.icon}
                         />
                         <Typography className={classes.item}>
-                            {editMode
-                                ? props.editObjectivesCount
-                                : props.objectivesCount}
+                            {
+                                selectedObjectives.length
+                            }
                         </Typography>
                     </React.Fragment>
                 </ToggleBox>
@@ -133,9 +140,9 @@ function CardsTab(props) {
                             />
                         </div>
                         <Typography className={classes.item}>
-                            {editMode
-                                ? props.editGambitsCount
-                                : props.gambitsCount}
+                        {
+                                selectedGambits.length
+                            }
                         </Typography>
                     </React.Fragment>
                 </ToggleBox>
@@ -151,9 +158,10 @@ function CardsTab(props) {
                             className={classes.icon}
                         />
                         <Typography className={classes.item}>
-                            {editMode
-                                ? props.editUpgradesCount
-                                : props.upgradesCount}
+                        {
+                                selectedUpgrades.length
+                            }
+
                         </Typography>
                     </React.Fragment>
                 </ToggleBox>

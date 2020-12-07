@@ -130,7 +130,6 @@ class WUCardInfo extends PureComponent {
             rank,
             prefix,
         } = this.props;
-
         const wave = getCardWaveFromId(id);
         return (
             <div onClick={onClick}>
@@ -156,7 +155,7 @@ class WUCardInfo extends PureComponent {
                         />
                     )}
                     <h6 className="text-sm">{name}</h6>
-                    {!!scoreType && (
+                    {scoreType && scoreType !== "-" && (
                         <ObjectiveScoreTypeIcon
                             type={scoreType}
                             style={{

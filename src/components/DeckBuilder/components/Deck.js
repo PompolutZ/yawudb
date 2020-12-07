@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import Typography from "@material-ui/core/Typography";
-import { Set } from "immutable";
 import DeckIcon from "../../../atoms/DeckIcon";
 import WUButton from "../../../atoms/Button";
 import { connect } from "react-redux";
-import SectionHeader from "./SectionHeader";
-import { CardsList } from "./CardsList";
-import Grid from "@material-ui/core/Grid";
 import DebouncedInput from '../../../v2/components/DebouncedInput';
-import { checkCardIsPloy, checkCardIsUpgrade, getCardById } from "../../../data/wudb";
 import { useDeckBuilderState } from "../../../pages/DeckCreator";
 import ObjectivesList from "./ObjectivesList";
+import GambitsList from "./GambitsList";
+import UpgradesList from "./UpgradesList";
 
 function Deck(props) {
     const [, setName] = useState("");
@@ -21,7 +17,6 @@ function Deck(props) {
         onRemoveAll,
         onCancel,
         onUpdate,
-        editMode,
         deckPlayFormat,
     } = props;
     
@@ -29,131 +24,30 @@ function Deck(props) {
     const gambitsCount = selectedGambits.length || 0;
     const upgradesCount = selectedUpgrades.length || 0;
 
-    const cards = new Set(
-        props.selectedCards.map((id) => {
-            const universalRank =
-                props.cardsRanking &&
-                props.cardsRanking["u"] &&
-                props.cardsRanking["u"][id]
-                    ? props.cardsRanking["u"][id]
-                    : 0;
-            const rank =
-                props.cardsRanking &&
-                props.cardsRanking[faction?.abbr] &&
-                props.cardsRanking[faction?.abbr][id]
-                    ? props.cardsRanking[faction?.abbr][id] * 10000
-                    : universalRank;
-
-            return { id: id, ...getCardById(id), ranking: rank };
-        })
-    );
-
-    // const objectives = cards
-    //     .filter((v) => checkCardIsObjective(v))
-    //     .sort((c1, c2) => {
-    //         return compareObjectivesByScoreType(c1.scoreType, c2.scoreType) || c1.id - c2.id;
-    //     })
-    //     .toJS(); 
-    
-        const gambits = cards
-        .filter((v) => checkCardIsPloy(v))
-        .sort((c1, c2) => c1.id - c2.id)
-        .toJS();
-    const upgrades = cards
-        .filter((v) => checkCardIsUpgrade(v))
-        .sort((c1, c2) => c1.id - c2.id)
-        .toJS();
-    
-    // const objectiveSummary = objectives.reduce(
-    //         (acc, c) => {
-    //             acc[c.scoreType] += 1;
-    //             return acc;
-    //         },
-    //         {'Surge': 0, 'End': 0, 'Third': 0}
-    //     );
     const isValidForSave =
         deckPlayFormat === "open"
             ? objectivesCount === 12 && gambitsCount + upgradesCount >= 20
             : objectivesCount === 12 &&
               gambitsCount + upgradesCount >= 20;
-            //    &&
-            //   objectiveSummary.Surge < 7;
-    const isPowerCardsSectionValid =
-        gambitsCount + upgradesCount >= 20 && gambitsCount <= upgradesCount;
-
 
     return (
         <div>
             <div className="flex items-center m-2">
-                <DeckIcon faction={faction?.name} width="3rem" height="3rem" />
+                <DeckIcon faction={faction.name} width="3rem" height="3rem" />
                 <DebouncedInput
                         onChange={setName}
                         wait={2000}
                         placeholder={`${
-                            faction?.displayName
+                            faction.displayName
                         } Deck`}
                         className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-accent3-500"
                     />
             </div>
-            <Grid container spacing={2}>
+            <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-2">
                 <ObjectivesList />
-                <Grid
-                    item
-                    xs={12}
-                    lg={4}
-                    className={`${isPowerCardsSectionValid ? 'bg-green-100' : 'bg-red-100'}`}
-                >
-                    <SectionHeader>
-                        <div>
-                            <div>{gambitsCount} Gambits</div>
-                            {gambitsCount + upgradesCount < 20 && (
-                                <Typography style={{ color: "darkred" }}>
-                                    - You must have at least 20 power cards.
-                                    Power cards are ploys, gambit spells and
-                                    upgrades.
-                                </Typography>
-                            )}
-                            {gambitsCount > upgradesCount && (
-                                <Typography style={{ color: "darkred" }}>
-                                    - You cannot have more gambit cards than
-                                    upgrade cards.
-                                </Typography>
-                            )}
-                        </div>
-                    </SectionHeader>
-                    <CardsList
-                        editMode={editMode}
-                        isEligibleForOP={props.isEligibleForOP}
-                        list={gambits}
-                        // toggle={this._toggleCardInDeck}
-                    />
-                </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    lg={4}
-                    className={`${isPowerCardsSectionValid ? 'bg-green-100' : 'bg-red-100'}`}
-                >
-                    <SectionHeader>
-                        <div>
-                            <div>{upgradesCount} Upgrades</div>
-                            {gambitsCount + upgradesCount < 20 && (
-                                <Typography style={{ color: "darkred" }}>
-                                    - You must have at least 20 power cards.
-                                    Power cards are ploys, spells and
-                                    upgrades.
-                                </Typography>
-                            )}
-                        </div>
-                    </SectionHeader>
-                    <CardsList
-                        editMode={editMode}
-                        isEligibleForOP={props.isEligibleForOP}
-                        list={upgrades}
-                        // toggle={this._toggleCardInDeck}
-                    />
-                </Grid>
-            </Grid>
+                <GambitsList />
+                <UpgradesList />
+            </div>
 
             {!props.editMode && (
                 <div style={{ display: "flex", paddingBottom: "10rem" }}>

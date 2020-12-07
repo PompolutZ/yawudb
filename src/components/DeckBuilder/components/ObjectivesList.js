@@ -2,8 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import ScoringOverview from "../../../atoms/ScoringOverview";
 import { CardsList } from "./CardsList";
 import SectionHeader from "./SectionHeader";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import {
     useDeckBuilderState,
 } from "../../../pages/DeckCreator";
@@ -46,14 +44,10 @@ function ObjectivesList() {
         setIsValid(isValid);
         setIssues(issues);
 
-        console.log('SELECTED OBJECTIVES', selectedObjectives)
     }, [format, selectedObjectives]);
 
     return (
-        <Grid
-            item
-            xs={12}
-            lg={4}
+        <div
             className={`${isValid ? "bg-green-100" : "bg-red-100"}`}
         >
             <SectionHeader>
@@ -67,22 +61,22 @@ function ObjectivesList() {
                     />
                 </div>
                 {!isValid && (
-                    <div>
-                        {
-                            issues.map(issue => (
-                                <Typography key={uuid4()} style={{ color: "darkred" }}>
-                                    { issue }
-                                </Typography>
-                            ))
-                        }
-                    </div>
-                )}
+                    <ul>
+                    {issues.map((issue) => (
+                        <li className="text-accent3-700 text-sm"
+                            key={uuid4()}
+                        >
+                            {issue}
+                        </li>
+                    ))}
+                </ul>
+            )}
             </SectionHeader>
             <CardsList
                 isEligibleForOP={format == CHAMPIONSHIP_FORMAT}
                 cards={selectedObjectives}
             />
-        </Grid>
+        </div>
     );
 }
 

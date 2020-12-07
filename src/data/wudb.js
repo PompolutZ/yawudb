@@ -123,6 +123,25 @@ function validateObjectivesListForPlayFormat(objectives, format) {
     return [isValid, issues];
 }
 
+function validatePowerDeckForFormat(gambits, upgrades, format) {
+    const issues = [];
+    let isValid = true;
+    
+    if(format !== OPEN_FORMAT) {
+        if ((gambits.length + upgrades.length) < 20) {
+            isValid = false;
+            issues.push("Deck must have at least 20 power cards (gambits and upgrades)");
+        }
+
+        if (gambits.length > upgrades.length) {
+            isValid = false;
+            issues.push("Deck cannot have more gambits than upgrade cards.");
+        }
+    }
+
+    return [isValid, issues];
+}
+
 export {
     getFactionByName,
     getCardNumberFromId,
@@ -135,6 +154,7 @@ export {
     checkCardIsUpgrade,
     validateCardForPlayFormat,
     validateObjectivesListForPlayFormat,
+    validatePowerDeckForFormat,
     compareObjectivesByScoreType,
     getAllSetsValidForFormat,
 }
