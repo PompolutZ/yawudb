@@ -89,7 +89,7 @@ class Deck extends PureComponent {
         const strippedFaction = faction.startsWith('n_') ? faction.substr(2) : faction;
         const factionPrefix = factionIdPrefix[strippedFaction];
         const cards = new Set(this.props.selectedCards.map(id => {
-            const universalRank = this.props.cardsRanking && this.props.cardsRanking['universal'][id] ? this.props.cardsRanking['universal'][id] : 0;
+            const universalRank = this.props.cardsRanking && this.props.cardsRanking['universal'] && this.props.cardsRanking['universal'][id] ? this.props.cardsRanking['universal'][id] : 0;
             const rank = this.props.cardsRanking && this.props.cardsRanking[factionPrefix] && this.props.cardsRanking[factionPrefix][id] ? this.props.cardsRanking[factionPrefix][id] * 10000 : universalRank;
 
             return {id: id, ...cardsDb[id], ranking: rank };

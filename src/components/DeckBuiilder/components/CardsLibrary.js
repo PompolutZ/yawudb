@@ -135,7 +135,7 @@ function FilterableCardLibrary(props) {
     const selectedFaction = props.editMode ? props.editModeSelectedFaction : props.createModeSelectedFaction;
     const selectedFactionPrefix = factionIdPrefix[selectedFaction];
     const cards = _reloadCards().map(cid => {
-        const universalRank = props.cardsRanking && props.cardsRanking['universal'][cid] ? props.cardsRanking['universal'][cid] : 0;
+        const universalRank = props.cardsRanking && props.cardsRanking['universal'] && props.cardsRanking['universal'][cid] ? props.cardsRanking['universal'][cid] : 0;
         const rank = props.cardsRanking && props.cardsRanking[selectedFactionPrefix] && props.cardsRanking[selectedFactionPrefix][cid] ? props.cardsRanking[selectedFactionPrefix][cid] * 10000 : universalRank;
         
         const card = {id: cid, ranking: rank, ...cardsDb[cid]};

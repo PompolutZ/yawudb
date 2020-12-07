@@ -40,11 +40,11 @@ const decodeUDB = card => {
     if(card.toUpperCase().startsWith('L')) return '02' + `000${card.slice(1)}`.slice(-3);
     if(card.toUpperCase().startsWith('N')) return '03' + `000${card.slice(1)}`.slice(-3);
     if(card.toUpperCase().startsWith('P')) return '04' + `000${card.slice(1)}`.slice(-3);
+    if(card.toUpperCase().startsWith('DC')) return '09' + `000${card.slice(2)}`.slice(-3);
     if(card.toUpperCase().startsWith('D')) return '05' + `000${card.slice(1)}`.slice(-3);
     if(card.toUpperCase().startsWith('B')) return '06' + `000${card.slice(1)}`.slice(-3);
     if(card.toUpperCase().startsWith('G')) return '07' + `000${card.slice(1)}`.slice(-3);
     if(card.toUpperCase().startsWith('A')) return '08' + `000${card.slice(1)}`.slice(-3);
-    if(card.toUpperCase().startsWith('DC')) return '09' + `000${card.slice(2)}`.slice(-3);
     return '01' + `000${card}`.slice(-3);
 }
 
