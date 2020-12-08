@@ -701,6 +701,60 @@ body {
   }
 }
 
+.btn {
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.375rem;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+  stroke: currentColor;
+}
+
+.btn:disabled {
+  opacity: 0.75;
+  box-shadow: none;
+}
+
+.btn:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.btn-green {
+  --bg-opacity: 1;
+  background-color: #2f855a;
+  background-color: rgba(47, 133, 90, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+.btn-green:enabled:active {
+  --bg-opacity: 1;
+  background-color: #48bb78;
+  background-color: rgba(72, 187, 120, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+.btn-red {
+  --bg-opacity: 1;
+  background-color: #c53030;
+  background-color: rgba(197, 48, 48, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+.btn-red:enabled:active {
+  --bg-opacity: 1;
+  background-color: #f56565;
+  background-color: rgba(245, 101, 101, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));
@@ -3817,6 +3871,1246 @@ body {
 }
 
 .focus\:bg-swirl:focus {
+  --bg-opacity: 1;
+  background-color: #d0cec2;
+  background-color: rgba(208, 206, 194, var(--bg-opacity));
+}
+
+.active\:bg-transparent:active {
+  background-color: transparent;
+}
+
+.active\:bg-current:active {
+  background-color: currentColor;
+}
+
+.active\:bg-black:active {
+  --bg-opacity: 1;
+  background-color: #000;
+  background-color: rgba(0, 0, 0, var(--bg-opacity));
+}
+
+.active\:bg-white:active {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+}
+
+.active\:bg-gray-100:active {
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
+.active\:bg-gray-200:active {
+  --bg-opacity: 1;
+  background-color: #edf2f7;
+  background-color: rgba(237, 242, 247, var(--bg-opacity));
+}
+
+.active\:bg-gray-300:active {
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+}
+
+.active\:bg-gray-400:active {
+  --bg-opacity: 1;
+  background-color: #cbd5e0;
+  background-color: rgba(203, 213, 224, var(--bg-opacity));
+}
+
+.active\:bg-gray-500:active {
+  --bg-opacity: 1;
+  background-color: #a0aec0;
+  background-color: rgba(160, 174, 192, var(--bg-opacity));
+}
+
+.active\:bg-gray-600:active {
+  --bg-opacity: 1;
+  background-color: #718096;
+  background-color: rgba(113, 128, 150, var(--bg-opacity));
+}
+
+.active\:bg-gray-700:active {
+  --bg-opacity: 1;
+  background-color: #4a5568;
+  background-color: rgba(74, 85, 104, var(--bg-opacity));
+}
+
+.active\:bg-gray-800:active {
+  --bg-opacity: 1;
+  background-color: #2d3748;
+  background-color: rgba(45, 55, 72, var(--bg-opacity));
+}
+
+.active\:bg-gray-900:active {
+  --bg-opacity: 1;
+  background-color: #1a202c;
+  background-color: rgba(26, 32, 44, var(--bg-opacity));
+}
+
+.active\:bg-red-100:active {
+  --bg-opacity: 1;
+  background-color: #fff5f5;
+  background-color: rgba(255, 245, 245, var(--bg-opacity));
+}
+
+.active\:bg-red-200:active {
+  --bg-opacity: 1;
+  background-color: #fed7d7;
+  background-color: rgba(254, 215, 215, var(--bg-opacity));
+}
+
+.active\:bg-red-300:active {
+  --bg-opacity: 1;
+  background-color: #feb2b2;
+  background-color: rgba(254, 178, 178, var(--bg-opacity));
+}
+
+.active\:bg-red-400:active {
+  --bg-opacity: 1;
+  background-color: #fc8181;
+  background-color: rgba(252, 129, 129, var(--bg-opacity));
+}
+
+.active\:bg-red-500:active {
+  --bg-opacity: 1;
+  background-color: #f56565;
+  background-color: rgba(245, 101, 101, var(--bg-opacity));
+}
+
+.active\:bg-red-600:active {
+  --bg-opacity: 1;
+  background-color: #e53e3e;
+  background-color: rgba(229, 62, 62, var(--bg-opacity));
+}
+
+.active\:bg-red-700:active {
+  --bg-opacity: 1;
+  background-color: #c53030;
+  background-color: rgba(197, 48, 48, var(--bg-opacity));
+}
+
+.active\:bg-red-800:active {
+  --bg-opacity: 1;
+  background-color: #9b2c2c;
+  background-color: rgba(155, 44, 44, var(--bg-opacity));
+}
+
+.active\:bg-red-900:active {
+  --bg-opacity: 1;
+  background-color: #742a2a;
+  background-color: rgba(116, 42, 42, var(--bg-opacity));
+}
+
+.active\:bg-orange-100:active {
+  --bg-opacity: 1;
+  background-color: #fffaf0;
+  background-color: rgba(255, 250, 240, var(--bg-opacity));
+}
+
+.active\:bg-orange-200:active {
+  --bg-opacity: 1;
+  background-color: #feebc8;
+  background-color: rgba(254, 235, 200, var(--bg-opacity));
+}
+
+.active\:bg-orange-300:active {
+  --bg-opacity: 1;
+  background-color: #fbd38d;
+  background-color: rgba(251, 211, 141, var(--bg-opacity));
+}
+
+.active\:bg-orange-400:active {
+  --bg-opacity: 1;
+  background-color: #f6ad55;
+  background-color: rgba(246, 173, 85, var(--bg-opacity));
+}
+
+.active\:bg-orange-500:active {
+  --bg-opacity: 1;
+  background-color: #ed8936;
+  background-color: rgba(237, 137, 54, var(--bg-opacity));
+}
+
+.active\:bg-orange-600:active {
+  --bg-opacity: 1;
+  background-color: #dd6b20;
+  background-color: rgba(221, 107, 32, var(--bg-opacity));
+}
+
+.active\:bg-orange-700:active {
+  --bg-opacity: 1;
+  background-color: #c05621;
+  background-color: rgba(192, 86, 33, var(--bg-opacity));
+}
+
+.active\:bg-orange-800:active {
+  --bg-opacity: 1;
+  background-color: #9c4221;
+  background-color: rgba(156, 66, 33, var(--bg-opacity));
+}
+
+.active\:bg-orange-900:active {
+  --bg-opacity: 1;
+  background-color: #7b341e;
+  background-color: rgba(123, 52, 30, var(--bg-opacity));
+}
+
+.active\:bg-yellow-100:active {
+  --bg-opacity: 1;
+  background-color: #fffff0;
+  background-color: rgba(255, 255, 240, var(--bg-opacity));
+}
+
+.active\:bg-yellow-200:active {
+  --bg-opacity: 1;
+  background-color: #fefcbf;
+  background-color: rgba(254, 252, 191, var(--bg-opacity));
+}
+
+.active\:bg-yellow-300:active {
+  --bg-opacity: 1;
+  background-color: #faf089;
+  background-color: rgba(250, 240, 137, var(--bg-opacity));
+}
+
+.active\:bg-yellow-400:active {
+  --bg-opacity: 1;
+  background-color: #f6e05e;
+  background-color: rgba(246, 224, 94, var(--bg-opacity));
+}
+
+.active\:bg-yellow-500:active {
+  --bg-opacity: 1;
+  background-color: #ecc94b;
+  background-color: rgba(236, 201, 75, var(--bg-opacity));
+}
+
+.active\:bg-yellow-600:active {
+  --bg-opacity: 1;
+  background-color: #d69e2e;
+  background-color: rgba(214, 158, 46, var(--bg-opacity));
+}
+
+.active\:bg-yellow-700:active {
+  --bg-opacity: 1;
+  background-color: #b7791f;
+  background-color: rgba(183, 121, 31, var(--bg-opacity));
+}
+
+.active\:bg-yellow-800:active {
+  --bg-opacity: 1;
+  background-color: #975a16;
+  background-color: rgba(151, 90, 22, var(--bg-opacity));
+}
+
+.active\:bg-yellow-900:active {
+  --bg-opacity: 1;
+  background-color: #744210;
+  background-color: rgba(116, 66, 16, var(--bg-opacity));
+}
+
+.active\:bg-green-100:active {
+  --bg-opacity: 1;
+  background-color: #f0fff4;
+  background-color: rgba(240, 255, 244, var(--bg-opacity));
+}
+
+.active\:bg-green-200:active {
+  --bg-opacity: 1;
+  background-color: #c6f6d5;
+  background-color: rgba(198, 246, 213, var(--bg-opacity));
+}
+
+.active\:bg-green-300:active {
+  --bg-opacity: 1;
+  background-color: #9ae6b4;
+  background-color: rgba(154, 230, 180, var(--bg-opacity));
+}
+
+.active\:bg-green-400:active {
+  --bg-opacity: 1;
+  background-color: #68d391;
+  background-color: rgba(104, 211, 145, var(--bg-opacity));
+}
+
+.active\:bg-green-500:active {
+  --bg-opacity: 1;
+  background-color: #48bb78;
+  background-color: rgba(72, 187, 120, var(--bg-opacity));
+}
+
+.active\:bg-green-600:active {
+  --bg-opacity: 1;
+  background-color: #38a169;
+  background-color: rgba(56, 161, 105, var(--bg-opacity));
+}
+
+.active\:bg-green-700:active {
+  --bg-opacity: 1;
+  background-color: #2f855a;
+  background-color: rgba(47, 133, 90, var(--bg-opacity));
+}
+
+.active\:bg-green-800:active {
+  --bg-opacity: 1;
+  background-color: #276749;
+  background-color: rgba(39, 103, 73, var(--bg-opacity));
+}
+
+.active\:bg-green-900:active {
+  --bg-opacity: 1;
+  background-color: #22543d;
+  background-color: rgba(34, 84, 61, var(--bg-opacity));
+}
+
+.active\:bg-teal-100:active {
+  --bg-opacity: 1;
+  background-color: #e6fffa;
+  background-color: rgba(230, 255, 250, var(--bg-opacity));
+}
+
+.active\:bg-teal-200:active {
+  --bg-opacity: 1;
+  background-color: #b2f5ea;
+  background-color: rgba(178, 245, 234, var(--bg-opacity));
+}
+
+.active\:bg-teal-300:active {
+  --bg-opacity: 1;
+  background-color: #81e6d9;
+  background-color: rgba(129, 230, 217, var(--bg-opacity));
+}
+
+.active\:bg-teal-400:active {
+  --bg-opacity: 1;
+  background-color: #4fd1c5;
+  background-color: rgba(79, 209, 197, var(--bg-opacity));
+}
+
+.active\:bg-teal-500:active {
+  --bg-opacity: 1;
+  background-color: #38b2ac;
+  background-color: rgba(56, 178, 172, var(--bg-opacity));
+}
+
+.active\:bg-teal-600:active {
+  --bg-opacity: 1;
+  background-color: #319795;
+  background-color: rgba(49, 151, 149, var(--bg-opacity));
+}
+
+.active\:bg-teal-700:active {
+  --bg-opacity: 1;
+  background-color: #2c7a7b;
+  background-color: rgba(44, 122, 123, var(--bg-opacity));
+}
+
+.active\:bg-teal-800:active {
+  --bg-opacity: 1;
+  background-color: #285e61;
+  background-color: rgba(40, 94, 97, var(--bg-opacity));
+}
+
+.active\:bg-teal-900:active {
+  --bg-opacity: 1;
+  background-color: #234e52;
+  background-color: rgba(35, 78, 82, var(--bg-opacity));
+}
+
+.active\:bg-blue-100:active {
+  --bg-opacity: 1;
+  background-color: #ebf8ff;
+  background-color: rgba(235, 248, 255, var(--bg-opacity));
+}
+
+.active\:bg-blue-200:active {
+  --bg-opacity: 1;
+  background-color: #bee3f8;
+  background-color: rgba(190, 227, 248, var(--bg-opacity));
+}
+
+.active\:bg-blue-300:active {
+  --bg-opacity: 1;
+  background-color: #90cdf4;
+  background-color: rgba(144, 205, 244, var(--bg-opacity));
+}
+
+.active\:bg-blue-400:active {
+  --bg-opacity: 1;
+  background-color: #63b3ed;
+  background-color: rgba(99, 179, 237, var(--bg-opacity));
+}
+
+.active\:bg-blue-500:active {
+  --bg-opacity: 1;
+  background-color: #4299e1;
+  background-color: rgba(66, 153, 225, var(--bg-opacity));
+}
+
+.active\:bg-blue-600:active {
+  --bg-opacity: 1;
+  background-color: #3182ce;
+  background-color: rgba(49, 130, 206, var(--bg-opacity));
+}
+
+.active\:bg-blue-700:active {
+  --bg-opacity: 1;
+  background-color: #2b6cb0;
+  background-color: rgba(43, 108, 176, var(--bg-opacity));
+}
+
+.active\:bg-blue-800:active {
+  --bg-opacity: 1;
+  background-color: #2c5282;
+  background-color: rgba(44, 82, 130, var(--bg-opacity));
+}
+
+.active\:bg-blue-900:active {
+  --bg-opacity: 1;
+  background-color: #2a4365;
+  background-color: rgba(42, 67, 101, var(--bg-opacity));
+}
+
+.active\:bg-indigo-100:active {
+  --bg-opacity: 1;
+  background-color: #ebf4ff;
+  background-color: rgba(235, 244, 255, var(--bg-opacity));
+}
+
+.active\:bg-indigo-200:active {
+  --bg-opacity: 1;
+  background-color: #c3dafe;
+  background-color: rgba(195, 218, 254, var(--bg-opacity));
+}
+
+.active\:bg-indigo-300:active {
+  --bg-opacity: 1;
+  background-color: #a3bffa;
+  background-color: rgba(163, 191, 250, var(--bg-opacity));
+}
+
+.active\:bg-indigo-400:active {
+  --bg-opacity: 1;
+  background-color: #7f9cf5;
+  background-color: rgba(127, 156, 245, var(--bg-opacity));
+}
+
+.active\:bg-indigo-500:active {
+  --bg-opacity: 1;
+  background-color: #667eea;
+  background-color: rgba(102, 126, 234, var(--bg-opacity));
+}
+
+.active\:bg-indigo-600:active {
+  --bg-opacity: 1;
+  background-color: #5a67d8;
+  background-color: rgba(90, 103, 216, var(--bg-opacity));
+}
+
+.active\:bg-indigo-700:active {
+  --bg-opacity: 1;
+  background-color: #4c51bf;
+  background-color: rgba(76, 81, 191, var(--bg-opacity));
+}
+
+.active\:bg-indigo-800:active {
+  --bg-opacity: 1;
+  background-color: #434190;
+  background-color: rgba(67, 65, 144, var(--bg-opacity));
+}
+
+.active\:bg-indigo-900:active {
+  --bg-opacity: 1;
+  background-color: #3c366b;
+  background-color: rgba(60, 54, 107, var(--bg-opacity));
+}
+
+.active\:bg-purple-100:active {
+  --bg-opacity: 1;
+  background-color: #faf5ff;
+  background-color: rgba(250, 245, 255, var(--bg-opacity));
+}
+
+.active\:bg-purple-200:active {
+  --bg-opacity: 1;
+  background-color: #e9d8fd;
+  background-color: rgba(233, 216, 253, var(--bg-opacity));
+}
+
+.active\:bg-purple-300:active {
+  --bg-opacity: 1;
+  background-color: #d6bcfa;
+  background-color: rgba(214, 188, 250, var(--bg-opacity));
+}
+
+.active\:bg-purple-400:active {
+  --bg-opacity: 1;
+  background-color: #b794f4;
+  background-color: rgba(183, 148, 244, var(--bg-opacity));
+}
+
+.active\:bg-purple-500:active {
+  --bg-opacity: 1;
+  background-color: #9f7aea;
+  background-color: rgba(159, 122, 234, var(--bg-opacity));
+}
+
+.active\:bg-purple-600:active {
+  --bg-opacity: 1;
+  background-color: #805ad5;
+  background-color: rgba(128, 90, 213, var(--bg-opacity));
+}
+
+.active\:bg-purple-700:active {
+  --bg-opacity: 1;
+  background-color: #6b46c1;
+  background-color: rgba(107, 70, 193, var(--bg-opacity));
+}
+
+.active\:bg-purple-800:active {
+  --bg-opacity: 1;
+  background-color: #553c9a;
+  background-color: rgba(85, 60, 154, var(--bg-opacity));
+}
+
+.active\:bg-purple-900:active {
+  --bg-opacity: 1;
+  background-color: #44337a;
+  background-color: rgba(68, 51, 122, var(--bg-opacity));
+}
+
+.active\:bg-pink-100:active {
+  --bg-opacity: 1;
+  background-color: #fff5f7;
+  background-color: rgba(255, 245, 247, var(--bg-opacity));
+}
+
+.active\:bg-pink-200:active {
+  --bg-opacity: 1;
+  background-color: #fed7e2;
+  background-color: rgba(254, 215, 226, var(--bg-opacity));
+}
+
+.active\:bg-pink-300:active {
+  --bg-opacity: 1;
+  background-color: #fbb6ce;
+  background-color: rgba(251, 182, 206, var(--bg-opacity));
+}
+
+.active\:bg-pink-400:active {
+  --bg-opacity: 1;
+  background-color: #f687b3;
+  background-color: rgba(246, 135, 179, var(--bg-opacity));
+}
+
+.active\:bg-pink-500:active {
+  --bg-opacity: 1;
+  background-color: #ed64a6;
+  background-color: rgba(237, 100, 166, var(--bg-opacity));
+}
+
+.active\:bg-pink-600:active {
+  --bg-opacity: 1;
+  background-color: #d53f8c;
+  background-color: rgba(213, 63, 140, var(--bg-opacity));
+}
+
+.active\:bg-pink-700:active {
+  --bg-opacity: 1;
+  background-color: #b83280;
+  background-color: rgba(184, 50, 128, var(--bg-opacity));
+}
+
+.active\:bg-pink-800:active {
+  --bg-opacity: 1;
+  background-color: #97266d;
+  background-color: rgba(151, 38, 109, var(--bg-opacity));
+}
+
+.active\:bg-pink-900:active {
+  --bg-opacity: 1;
+  background-color: #702459;
+  background-color: rgba(112, 36, 89, var(--bg-opacity));
+}
+
+.active\:bg-accent:active {
+  --bg-opacity: 1;
+  background-color: #501408;
+  background-color: rgba(80, 20, 8, var(--bg-opacity));
+}
+
+.active\:bg-accent2:active {
+  --bg-opacity: 1;
+  background-color: #920104;
+  background-color: rgba(146, 1, 4, var(--bg-opacity));
+}
+
+.active\:bg-accent3-100:active {
+  --bg-opacity: 1;
+  background-color: #F27263;
+  background-color: rgba(242, 114, 99, var(--bg-opacity));
+}
+
+.active\:bg-accent3-300:active {
+  --bg-opacity: 1;
+  background-color: #D94D43;
+  background-color: rgba(217, 77, 67, var(--bg-opacity));
+}
+
+.active\:bg-accent3-400:active {
+  --bg-opacity: 1;
+  background-color: #CC423B;
+  background-color: rgba(204, 66, 59, var(--bg-opacity));
+}
+
+.active\:bg-accent3-500:active {
+  --bg-opacity: 1;
+  background-color: #c02d28;
+  background-color: rgba(192, 45, 40, var(--bg-opacity));
+}
+
+.active\:bg-accent3-700:active {
+  --bg-opacity: 1;
+  background-color: #A61712;
+  background-color: rgba(166, 23, 18, var(--bg-opacity));
+}
+
+.active\:bg-accent3-900:active {
+  --bg-opacity: 1;
+  background-color: #8C0601;
+  background-color: rgba(140, 6, 1, var(--bg-opacity));
+}
+
+.active\:bg-objectiveGold:active {
+  --bg-opacity: 1;
+  background-color: #D38E36;
+  background-color: rgba(211, 142, 54, var(--bg-opacity));
+}
+
+.active\:bg-swirl:active {
+  --bg-opacity: 1;
+  background-color: #d0cec2;
+  background-color: rgba(208, 206, 194, var(--bg-opacity));
+}
+
+.disabled\:bg-transparent:disabled {
+  background-color: transparent;
+}
+
+.disabled\:bg-current:disabled {
+  background-color: currentColor;
+}
+
+.disabled\:bg-black:disabled {
+  --bg-opacity: 1;
+  background-color: #000;
+  background-color: rgba(0, 0, 0, var(--bg-opacity));
+}
+
+.disabled\:bg-white:disabled {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+}
+
+.disabled\:bg-gray-100:disabled {
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
+.disabled\:bg-gray-200:disabled {
+  --bg-opacity: 1;
+  background-color: #edf2f7;
+  background-color: rgba(237, 242, 247, var(--bg-opacity));
+}
+
+.disabled\:bg-gray-300:disabled {
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+}
+
+.disabled\:bg-gray-400:disabled {
+  --bg-opacity: 1;
+  background-color: #cbd5e0;
+  background-color: rgba(203, 213, 224, var(--bg-opacity));
+}
+
+.disabled\:bg-gray-500:disabled {
+  --bg-opacity: 1;
+  background-color: #a0aec0;
+  background-color: rgba(160, 174, 192, var(--bg-opacity));
+}
+
+.disabled\:bg-gray-600:disabled {
+  --bg-opacity: 1;
+  background-color: #718096;
+  background-color: rgba(113, 128, 150, var(--bg-opacity));
+}
+
+.disabled\:bg-gray-700:disabled {
+  --bg-opacity: 1;
+  background-color: #4a5568;
+  background-color: rgba(74, 85, 104, var(--bg-opacity));
+}
+
+.disabled\:bg-gray-800:disabled {
+  --bg-opacity: 1;
+  background-color: #2d3748;
+  background-color: rgba(45, 55, 72, var(--bg-opacity));
+}
+
+.disabled\:bg-gray-900:disabled {
+  --bg-opacity: 1;
+  background-color: #1a202c;
+  background-color: rgba(26, 32, 44, var(--bg-opacity));
+}
+
+.disabled\:bg-red-100:disabled {
+  --bg-opacity: 1;
+  background-color: #fff5f5;
+  background-color: rgba(255, 245, 245, var(--bg-opacity));
+}
+
+.disabled\:bg-red-200:disabled {
+  --bg-opacity: 1;
+  background-color: #fed7d7;
+  background-color: rgba(254, 215, 215, var(--bg-opacity));
+}
+
+.disabled\:bg-red-300:disabled {
+  --bg-opacity: 1;
+  background-color: #feb2b2;
+  background-color: rgba(254, 178, 178, var(--bg-opacity));
+}
+
+.disabled\:bg-red-400:disabled {
+  --bg-opacity: 1;
+  background-color: #fc8181;
+  background-color: rgba(252, 129, 129, var(--bg-opacity));
+}
+
+.disabled\:bg-red-500:disabled {
+  --bg-opacity: 1;
+  background-color: #f56565;
+  background-color: rgba(245, 101, 101, var(--bg-opacity));
+}
+
+.disabled\:bg-red-600:disabled {
+  --bg-opacity: 1;
+  background-color: #e53e3e;
+  background-color: rgba(229, 62, 62, var(--bg-opacity));
+}
+
+.disabled\:bg-red-700:disabled {
+  --bg-opacity: 1;
+  background-color: #c53030;
+  background-color: rgba(197, 48, 48, var(--bg-opacity));
+}
+
+.disabled\:bg-red-800:disabled {
+  --bg-opacity: 1;
+  background-color: #9b2c2c;
+  background-color: rgba(155, 44, 44, var(--bg-opacity));
+}
+
+.disabled\:bg-red-900:disabled {
+  --bg-opacity: 1;
+  background-color: #742a2a;
+  background-color: rgba(116, 42, 42, var(--bg-opacity));
+}
+
+.disabled\:bg-orange-100:disabled {
+  --bg-opacity: 1;
+  background-color: #fffaf0;
+  background-color: rgba(255, 250, 240, var(--bg-opacity));
+}
+
+.disabled\:bg-orange-200:disabled {
+  --bg-opacity: 1;
+  background-color: #feebc8;
+  background-color: rgba(254, 235, 200, var(--bg-opacity));
+}
+
+.disabled\:bg-orange-300:disabled {
+  --bg-opacity: 1;
+  background-color: #fbd38d;
+  background-color: rgba(251, 211, 141, var(--bg-opacity));
+}
+
+.disabled\:bg-orange-400:disabled {
+  --bg-opacity: 1;
+  background-color: #f6ad55;
+  background-color: rgba(246, 173, 85, var(--bg-opacity));
+}
+
+.disabled\:bg-orange-500:disabled {
+  --bg-opacity: 1;
+  background-color: #ed8936;
+  background-color: rgba(237, 137, 54, var(--bg-opacity));
+}
+
+.disabled\:bg-orange-600:disabled {
+  --bg-opacity: 1;
+  background-color: #dd6b20;
+  background-color: rgba(221, 107, 32, var(--bg-opacity));
+}
+
+.disabled\:bg-orange-700:disabled {
+  --bg-opacity: 1;
+  background-color: #c05621;
+  background-color: rgba(192, 86, 33, var(--bg-opacity));
+}
+
+.disabled\:bg-orange-800:disabled {
+  --bg-opacity: 1;
+  background-color: #9c4221;
+  background-color: rgba(156, 66, 33, var(--bg-opacity));
+}
+
+.disabled\:bg-orange-900:disabled {
+  --bg-opacity: 1;
+  background-color: #7b341e;
+  background-color: rgba(123, 52, 30, var(--bg-opacity));
+}
+
+.disabled\:bg-yellow-100:disabled {
+  --bg-opacity: 1;
+  background-color: #fffff0;
+  background-color: rgba(255, 255, 240, var(--bg-opacity));
+}
+
+.disabled\:bg-yellow-200:disabled {
+  --bg-opacity: 1;
+  background-color: #fefcbf;
+  background-color: rgba(254, 252, 191, var(--bg-opacity));
+}
+
+.disabled\:bg-yellow-300:disabled {
+  --bg-opacity: 1;
+  background-color: #faf089;
+  background-color: rgba(250, 240, 137, var(--bg-opacity));
+}
+
+.disabled\:bg-yellow-400:disabled {
+  --bg-opacity: 1;
+  background-color: #f6e05e;
+  background-color: rgba(246, 224, 94, var(--bg-opacity));
+}
+
+.disabled\:bg-yellow-500:disabled {
+  --bg-opacity: 1;
+  background-color: #ecc94b;
+  background-color: rgba(236, 201, 75, var(--bg-opacity));
+}
+
+.disabled\:bg-yellow-600:disabled {
+  --bg-opacity: 1;
+  background-color: #d69e2e;
+  background-color: rgba(214, 158, 46, var(--bg-opacity));
+}
+
+.disabled\:bg-yellow-700:disabled {
+  --bg-opacity: 1;
+  background-color: #b7791f;
+  background-color: rgba(183, 121, 31, var(--bg-opacity));
+}
+
+.disabled\:bg-yellow-800:disabled {
+  --bg-opacity: 1;
+  background-color: #975a16;
+  background-color: rgba(151, 90, 22, var(--bg-opacity));
+}
+
+.disabled\:bg-yellow-900:disabled {
+  --bg-opacity: 1;
+  background-color: #744210;
+  background-color: rgba(116, 66, 16, var(--bg-opacity));
+}
+
+.disabled\:bg-green-100:disabled {
+  --bg-opacity: 1;
+  background-color: #f0fff4;
+  background-color: rgba(240, 255, 244, var(--bg-opacity));
+}
+
+.disabled\:bg-green-200:disabled {
+  --bg-opacity: 1;
+  background-color: #c6f6d5;
+  background-color: rgba(198, 246, 213, var(--bg-opacity));
+}
+
+.disabled\:bg-green-300:disabled {
+  --bg-opacity: 1;
+  background-color: #9ae6b4;
+  background-color: rgba(154, 230, 180, var(--bg-opacity));
+}
+
+.disabled\:bg-green-400:disabled {
+  --bg-opacity: 1;
+  background-color: #68d391;
+  background-color: rgba(104, 211, 145, var(--bg-opacity));
+}
+
+.disabled\:bg-green-500:disabled {
+  --bg-opacity: 1;
+  background-color: #48bb78;
+  background-color: rgba(72, 187, 120, var(--bg-opacity));
+}
+
+.disabled\:bg-green-600:disabled {
+  --bg-opacity: 1;
+  background-color: #38a169;
+  background-color: rgba(56, 161, 105, var(--bg-opacity));
+}
+
+.disabled\:bg-green-700:disabled {
+  --bg-opacity: 1;
+  background-color: #2f855a;
+  background-color: rgba(47, 133, 90, var(--bg-opacity));
+}
+
+.disabled\:bg-green-800:disabled {
+  --bg-opacity: 1;
+  background-color: #276749;
+  background-color: rgba(39, 103, 73, var(--bg-opacity));
+}
+
+.disabled\:bg-green-900:disabled {
+  --bg-opacity: 1;
+  background-color: #22543d;
+  background-color: rgba(34, 84, 61, var(--bg-opacity));
+}
+
+.disabled\:bg-teal-100:disabled {
+  --bg-opacity: 1;
+  background-color: #e6fffa;
+  background-color: rgba(230, 255, 250, var(--bg-opacity));
+}
+
+.disabled\:bg-teal-200:disabled {
+  --bg-opacity: 1;
+  background-color: #b2f5ea;
+  background-color: rgba(178, 245, 234, var(--bg-opacity));
+}
+
+.disabled\:bg-teal-300:disabled {
+  --bg-opacity: 1;
+  background-color: #81e6d9;
+  background-color: rgba(129, 230, 217, var(--bg-opacity));
+}
+
+.disabled\:bg-teal-400:disabled {
+  --bg-opacity: 1;
+  background-color: #4fd1c5;
+  background-color: rgba(79, 209, 197, var(--bg-opacity));
+}
+
+.disabled\:bg-teal-500:disabled {
+  --bg-opacity: 1;
+  background-color: #38b2ac;
+  background-color: rgba(56, 178, 172, var(--bg-opacity));
+}
+
+.disabled\:bg-teal-600:disabled {
+  --bg-opacity: 1;
+  background-color: #319795;
+  background-color: rgba(49, 151, 149, var(--bg-opacity));
+}
+
+.disabled\:bg-teal-700:disabled {
+  --bg-opacity: 1;
+  background-color: #2c7a7b;
+  background-color: rgba(44, 122, 123, var(--bg-opacity));
+}
+
+.disabled\:bg-teal-800:disabled {
+  --bg-opacity: 1;
+  background-color: #285e61;
+  background-color: rgba(40, 94, 97, var(--bg-opacity));
+}
+
+.disabled\:bg-teal-900:disabled {
+  --bg-opacity: 1;
+  background-color: #234e52;
+  background-color: rgba(35, 78, 82, var(--bg-opacity));
+}
+
+.disabled\:bg-blue-100:disabled {
+  --bg-opacity: 1;
+  background-color: #ebf8ff;
+  background-color: rgba(235, 248, 255, var(--bg-opacity));
+}
+
+.disabled\:bg-blue-200:disabled {
+  --bg-opacity: 1;
+  background-color: #bee3f8;
+  background-color: rgba(190, 227, 248, var(--bg-opacity));
+}
+
+.disabled\:bg-blue-300:disabled {
+  --bg-opacity: 1;
+  background-color: #90cdf4;
+  background-color: rgba(144, 205, 244, var(--bg-opacity));
+}
+
+.disabled\:bg-blue-400:disabled {
+  --bg-opacity: 1;
+  background-color: #63b3ed;
+  background-color: rgba(99, 179, 237, var(--bg-opacity));
+}
+
+.disabled\:bg-blue-500:disabled {
+  --bg-opacity: 1;
+  background-color: #4299e1;
+  background-color: rgba(66, 153, 225, var(--bg-opacity));
+}
+
+.disabled\:bg-blue-600:disabled {
+  --bg-opacity: 1;
+  background-color: #3182ce;
+  background-color: rgba(49, 130, 206, var(--bg-opacity));
+}
+
+.disabled\:bg-blue-700:disabled {
+  --bg-opacity: 1;
+  background-color: #2b6cb0;
+  background-color: rgba(43, 108, 176, var(--bg-opacity));
+}
+
+.disabled\:bg-blue-800:disabled {
+  --bg-opacity: 1;
+  background-color: #2c5282;
+  background-color: rgba(44, 82, 130, var(--bg-opacity));
+}
+
+.disabled\:bg-blue-900:disabled {
+  --bg-opacity: 1;
+  background-color: #2a4365;
+  background-color: rgba(42, 67, 101, var(--bg-opacity));
+}
+
+.disabled\:bg-indigo-100:disabled {
+  --bg-opacity: 1;
+  background-color: #ebf4ff;
+  background-color: rgba(235, 244, 255, var(--bg-opacity));
+}
+
+.disabled\:bg-indigo-200:disabled {
+  --bg-opacity: 1;
+  background-color: #c3dafe;
+  background-color: rgba(195, 218, 254, var(--bg-opacity));
+}
+
+.disabled\:bg-indigo-300:disabled {
+  --bg-opacity: 1;
+  background-color: #a3bffa;
+  background-color: rgba(163, 191, 250, var(--bg-opacity));
+}
+
+.disabled\:bg-indigo-400:disabled {
+  --bg-opacity: 1;
+  background-color: #7f9cf5;
+  background-color: rgba(127, 156, 245, var(--bg-opacity));
+}
+
+.disabled\:bg-indigo-500:disabled {
+  --bg-opacity: 1;
+  background-color: #667eea;
+  background-color: rgba(102, 126, 234, var(--bg-opacity));
+}
+
+.disabled\:bg-indigo-600:disabled {
+  --bg-opacity: 1;
+  background-color: #5a67d8;
+  background-color: rgba(90, 103, 216, var(--bg-opacity));
+}
+
+.disabled\:bg-indigo-700:disabled {
+  --bg-opacity: 1;
+  background-color: #4c51bf;
+  background-color: rgba(76, 81, 191, var(--bg-opacity));
+}
+
+.disabled\:bg-indigo-800:disabled {
+  --bg-opacity: 1;
+  background-color: #434190;
+  background-color: rgba(67, 65, 144, var(--bg-opacity));
+}
+
+.disabled\:bg-indigo-900:disabled {
+  --bg-opacity: 1;
+  background-color: #3c366b;
+  background-color: rgba(60, 54, 107, var(--bg-opacity));
+}
+
+.disabled\:bg-purple-100:disabled {
+  --bg-opacity: 1;
+  background-color: #faf5ff;
+  background-color: rgba(250, 245, 255, var(--bg-opacity));
+}
+
+.disabled\:bg-purple-200:disabled {
+  --bg-opacity: 1;
+  background-color: #e9d8fd;
+  background-color: rgba(233, 216, 253, var(--bg-opacity));
+}
+
+.disabled\:bg-purple-300:disabled {
+  --bg-opacity: 1;
+  background-color: #d6bcfa;
+  background-color: rgba(214, 188, 250, var(--bg-opacity));
+}
+
+.disabled\:bg-purple-400:disabled {
+  --bg-opacity: 1;
+  background-color: #b794f4;
+  background-color: rgba(183, 148, 244, var(--bg-opacity));
+}
+
+.disabled\:bg-purple-500:disabled {
+  --bg-opacity: 1;
+  background-color: #9f7aea;
+  background-color: rgba(159, 122, 234, var(--bg-opacity));
+}
+
+.disabled\:bg-purple-600:disabled {
+  --bg-opacity: 1;
+  background-color: #805ad5;
+  background-color: rgba(128, 90, 213, var(--bg-opacity));
+}
+
+.disabled\:bg-purple-700:disabled {
+  --bg-opacity: 1;
+  background-color: #6b46c1;
+  background-color: rgba(107, 70, 193, var(--bg-opacity));
+}
+
+.disabled\:bg-purple-800:disabled {
+  --bg-opacity: 1;
+  background-color: #553c9a;
+  background-color: rgba(85, 60, 154, var(--bg-opacity));
+}
+
+.disabled\:bg-purple-900:disabled {
+  --bg-opacity: 1;
+  background-color: #44337a;
+  background-color: rgba(68, 51, 122, var(--bg-opacity));
+}
+
+.disabled\:bg-pink-100:disabled {
+  --bg-opacity: 1;
+  background-color: #fff5f7;
+  background-color: rgba(255, 245, 247, var(--bg-opacity));
+}
+
+.disabled\:bg-pink-200:disabled {
+  --bg-opacity: 1;
+  background-color: #fed7e2;
+  background-color: rgba(254, 215, 226, var(--bg-opacity));
+}
+
+.disabled\:bg-pink-300:disabled {
+  --bg-opacity: 1;
+  background-color: #fbb6ce;
+  background-color: rgba(251, 182, 206, var(--bg-opacity));
+}
+
+.disabled\:bg-pink-400:disabled {
+  --bg-opacity: 1;
+  background-color: #f687b3;
+  background-color: rgba(246, 135, 179, var(--bg-opacity));
+}
+
+.disabled\:bg-pink-500:disabled {
+  --bg-opacity: 1;
+  background-color: #ed64a6;
+  background-color: rgba(237, 100, 166, var(--bg-opacity));
+}
+
+.disabled\:bg-pink-600:disabled {
+  --bg-opacity: 1;
+  background-color: #d53f8c;
+  background-color: rgba(213, 63, 140, var(--bg-opacity));
+}
+
+.disabled\:bg-pink-700:disabled {
+  --bg-opacity: 1;
+  background-color: #b83280;
+  background-color: rgba(184, 50, 128, var(--bg-opacity));
+}
+
+.disabled\:bg-pink-800:disabled {
+  --bg-opacity: 1;
+  background-color: #97266d;
+  background-color: rgba(151, 38, 109, var(--bg-opacity));
+}
+
+.disabled\:bg-pink-900:disabled {
+  --bg-opacity: 1;
+  background-color: #702459;
+  background-color: rgba(112, 36, 89, var(--bg-opacity));
+}
+
+.disabled\:bg-accent:disabled {
+  --bg-opacity: 1;
+  background-color: #501408;
+  background-color: rgba(80, 20, 8, var(--bg-opacity));
+}
+
+.disabled\:bg-accent2:disabled {
+  --bg-opacity: 1;
+  background-color: #920104;
+  background-color: rgba(146, 1, 4, var(--bg-opacity));
+}
+
+.disabled\:bg-accent3-100:disabled {
+  --bg-opacity: 1;
+  background-color: #F27263;
+  background-color: rgba(242, 114, 99, var(--bg-opacity));
+}
+
+.disabled\:bg-accent3-300:disabled {
+  --bg-opacity: 1;
+  background-color: #D94D43;
+  background-color: rgba(217, 77, 67, var(--bg-opacity));
+}
+
+.disabled\:bg-accent3-400:disabled {
+  --bg-opacity: 1;
+  background-color: #CC423B;
+  background-color: rgba(204, 66, 59, var(--bg-opacity));
+}
+
+.disabled\:bg-accent3-500:disabled {
+  --bg-opacity: 1;
+  background-color: #c02d28;
+  background-color: rgba(192, 45, 40, var(--bg-opacity));
+}
+
+.disabled\:bg-accent3-700:disabled {
+  --bg-opacity: 1;
+  background-color: #A61712;
+  background-color: rgba(166, 23, 18, var(--bg-opacity));
+}
+
+.disabled\:bg-accent3-900:disabled {
+  --bg-opacity: 1;
+  background-color: #8C0601;
+  background-color: rgba(140, 6, 1, var(--bg-opacity));
+}
+
+.disabled\:bg-objectiveGold:disabled {
+  --bg-opacity: 1;
+  background-color: #D38E36;
+  background-color: rgba(211, 142, 54, var(--bg-opacity));
+}
+
+.disabled\:bg-swirl:disabled {
   --bg-opacity: 1;
   background-color: #d0cec2;
   background-color: rgba(208, 206, 194, var(--bg-opacity));
@@ -12913,6 +14207,26 @@ body {
 }
 
 .focus\:opacity-100:focus {
+  opacity: 1;
+}
+
+.disabled\:opacity-0:disabled {
+  opacity: 0;
+}
+
+.disabled\:opacity-25:disabled {
+  opacity: 0.25;
+}
+
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
+}
+
+.disabled\:opacity-75:disabled {
+  opacity: 0.75;
+}
+
+.disabled\:opacity-100:disabled {
   opacity: 1;
 }
 
@@ -26032,6 +27346,1246 @@ body {
     background-color: rgba(208, 206, 194, var(--bg-opacity));
   }
 
+  .sm\:active\:bg-transparent:active {
+    background-color: transparent;
+  }
+
+  .sm\:active\:bg-current:active {
+    background-color: currentColor;
+  }
+
+  .sm\:active\:bg-black:active {
+    --bg-opacity: 1;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-white:active {
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-gray-100:active {
+    --bg-opacity: 1;
+    background-color: #f7fafc;
+    background-color: rgba(247, 250, 252, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-gray-200:active {
+    --bg-opacity: 1;
+    background-color: #edf2f7;
+    background-color: rgba(237, 242, 247, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-gray-300:active {
+    --bg-opacity: 1;
+    background-color: #e2e8f0;
+    background-color: rgba(226, 232, 240, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-gray-400:active {
+    --bg-opacity: 1;
+    background-color: #cbd5e0;
+    background-color: rgba(203, 213, 224, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-gray-500:active {
+    --bg-opacity: 1;
+    background-color: #a0aec0;
+    background-color: rgba(160, 174, 192, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-gray-600:active {
+    --bg-opacity: 1;
+    background-color: #718096;
+    background-color: rgba(113, 128, 150, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-gray-700:active {
+    --bg-opacity: 1;
+    background-color: #4a5568;
+    background-color: rgba(74, 85, 104, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-gray-800:active {
+    --bg-opacity: 1;
+    background-color: #2d3748;
+    background-color: rgba(45, 55, 72, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-gray-900:active {
+    --bg-opacity: 1;
+    background-color: #1a202c;
+    background-color: rgba(26, 32, 44, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-red-100:active {
+    --bg-opacity: 1;
+    background-color: #fff5f5;
+    background-color: rgba(255, 245, 245, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-red-200:active {
+    --bg-opacity: 1;
+    background-color: #fed7d7;
+    background-color: rgba(254, 215, 215, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-red-300:active {
+    --bg-opacity: 1;
+    background-color: #feb2b2;
+    background-color: rgba(254, 178, 178, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-red-400:active {
+    --bg-opacity: 1;
+    background-color: #fc8181;
+    background-color: rgba(252, 129, 129, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-red-500:active {
+    --bg-opacity: 1;
+    background-color: #f56565;
+    background-color: rgba(245, 101, 101, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-red-600:active {
+    --bg-opacity: 1;
+    background-color: #e53e3e;
+    background-color: rgba(229, 62, 62, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-red-700:active {
+    --bg-opacity: 1;
+    background-color: #c53030;
+    background-color: rgba(197, 48, 48, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-red-800:active {
+    --bg-opacity: 1;
+    background-color: #9b2c2c;
+    background-color: rgba(155, 44, 44, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-red-900:active {
+    --bg-opacity: 1;
+    background-color: #742a2a;
+    background-color: rgba(116, 42, 42, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-orange-100:active {
+    --bg-opacity: 1;
+    background-color: #fffaf0;
+    background-color: rgba(255, 250, 240, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-orange-200:active {
+    --bg-opacity: 1;
+    background-color: #feebc8;
+    background-color: rgba(254, 235, 200, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-orange-300:active {
+    --bg-opacity: 1;
+    background-color: #fbd38d;
+    background-color: rgba(251, 211, 141, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-orange-400:active {
+    --bg-opacity: 1;
+    background-color: #f6ad55;
+    background-color: rgba(246, 173, 85, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-orange-500:active {
+    --bg-opacity: 1;
+    background-color: #ed8936;
+    background-color: rgba(237, 137, 54, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-orange-600:active {
+    --bg-opacity: 1;
+    background-color: #dd6b20;
+    background-color: rgba(221, 107, 32, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-orange-700:active {
+    --bg-opacity: 1;
+    background-color: #c05621;
+    background-color: rgba(192, 86, 33, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-orange-800:active {
+    --bg-opacity: 1;
+    background-color: #9c4221;
+    background-color: rgba(156, 66, 33, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-orange-900:active {
+    --bg-opacity: 1;
+    background-color: #7b341e;
+    background-color: rgba(123, 52, 30, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-yellow-100:active {
+    --bg-opacity: 1;
+    background-color: #fffff0;
+    background-color: rgba(255, 255, 240, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-yellow-200:active {
+    --bg-opacity: 1;
+    background-color: #fefcbf;
+    background-color: rgba(254, 252, 191, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-yellow-300:active {
+    --bg-opacity: 1;
+    background-color: #faf089;
+    background-color: rgba(250, 240, 137, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-yellow-400:active {
+    --bg-opacity: 1;
+    background-color: #f6e05e;
+    background-color: rgba(246, 224, 94, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-yellow-500:active {
+    --bg-opacity: 1;
+    background-color: #ecc94b;
+    background-color: rgba(236, 201, 75, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-yellow-600:active {
+    --bg-opacity: 1;
+    background-color: #d69e2e;
+    background-color: rgba(214, 158, 46, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-yellow-700:active {
+    --bg-opacity: 1;
+    background-color: #b7791f;
+    background-color: rgba(183, 121, 31, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-yellow-800:active {
+    --bg-opacity: 1;
+    background-color: #975a16;
+    background-color: rgba(151, 90, 22, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-yellow-900:active {
+    --bg-opacity: 1;
+    background-color: #744210;
+    background-color: rgba(116, 66, 16, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-green-100:active {
+    --bg-opacity: 1;
+    background-color: #f0fff4;
+    background-color: rgba(240, 255, 244, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-green-200:active {
+    --bg-opacity: 1;
+    background-color: #c6f6d5;
+    background-color: rgba(198, 246, 213, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-green-300:active {
+    --bg-opacity: 1;
+    background-color: #9ae6b4;
+    background-color: rgba(154, 230, 180, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-green-400:active {
+    --bg-opacity: 1;
+    background-color: #68d391;
+    background-color: rgba(104, 211, 145, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-green-500:active {
+    --bg-opacity: 1;
+    background-color: #48bb78;
+    background-color: rgba(72, 187, 120, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-green-600:active {
+    --bg-opacity: 1;
+    background-color: #38a169;
+    background-color: rgba(56, 161, 105, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-green-700:active {
+    --bg-opacity: 1;
+    background-color: #2f855a;
+    background-color: rgba(47, 133, 90, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-green-800:active {
+    --bg-opacity: 1;
+    background-color: #276749;
+    background-color: rgba(39, 103, 73, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-green-900:active {
+    --bg-opacity: 1;
+    background-color: #22543d;
+    background-color: rgba(34, 84, 61, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-teal-100:active {
+    --bg-opacity: 1;
+    background-color: #e6fffa;
+    background-color: rgba(230, 255, 250, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-teal-200:active {
+    --bg-opacity: 1;
+    background-color: #b2f5ea;
+    background-color: rgba(178, 245, 234, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-teal-300:active {
+    --bg-opacity: 1;
+    background-color: #81e6d9;
+    background-color: rgba(129, 230, 217, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-teal-400:active {
+    --bg-opacity: 1;
+    background-color: #4fd1c5;
+    background-color: rgba(79, 209, 197, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-teal-500:active {
+    --bg-opacity: 1;
+    background-color: #38b2ac;
+    background-color: rgba(56, 178, 172, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-teal-600:active {
+    --bg-opacity: 1;
+    background-color: #319795;
+    background-color: rgba(49, 151, 149, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-teal-700:active {
+    --bg-opacity: 1;
+    background-color: #2c7a7b;
+    background-color: rgba(44, 122, 123, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-teal-800:active {
+    --bg-opacity: 1;
+    background-color: #285e61;
+    background-color: rgba(40, 94, 97, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-teal-900:active {
+    --bg-opacity: 1;
+    background-color: #234e52;
+    background-color: rgba(35, 78, 82, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-blue-100:active {
+    --bg-opacity: 1;
+    background-color: #ebf8ff;
+    background-color: rgba(235, 248, 255, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-blue-200:active {
+    --bg-opacity: 1;
+    background-color: #bee3f8;
+    background-color: rgba(190, 227, 248, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-blue-300:active {
+    --bg-opacity: 1;
+    background-color: #90cdf4;
+    background-color: rgba(144, 205, 244, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-blue-400:active {
+    --bg-opacity: 1;
+    background-color: #63b3ed;
+    background-color: rgba(99, 179, 237, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-blue-500:active {
+    --bg-opacity: 1;
+    background-color: #4299e1;
+    background-color: rgba(66, 153, 225, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-blue-600:active {
+    --bg-opacity: 1;
+    background-color: #3182ce;
+    background-color: rgba(49, 130, 206, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-blue-700:active {
+    --bg-opacity: 1;
+    background-color: #2b6cb0;
+    background-color: rgba(43, 108, 176, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-blue-800:active {
+    --bg-opacity: 1;
+    background-color: #2c5282;
+    background-color: rgba(44, 82, 130, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-blue-900:active {
+    --bg-opacity: 1;
+    background-color: #2a4365;
+    background-color: rgba(42, 67, 101, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-indigo-100:active {
+    --bg-opacity: 1;
+    background-color: #ebf4ff;
+    background-color: rgba(235, 244, 255, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-indigo-200:active {
+    --bg-opacity: 1;
+    background-color: #c3dafe;
+    background-color: rgba(195, 218, 254, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-indigo-300:active {
+    --bg-opacity: 1;
+    background-color: #a3bffa;
+    background-color: rgba(163, 191, 250, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-indigo-400:active {
+    --bg-opacity: 1;
+    background-color: #7f9cf5;
+    background-color: rgba(127, 156, 245, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-indigo-500:active {
+    --bg-opacity: 1;
+    background-color: #667eea;
+    background-color: rgba(102, 126, 234, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-indigo-600:active {
+    --bg-opacity: 1;
+    background-color: #5a67d8;
+    background-color: rgba(90, 103, 216, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-indigo-700:active {
+    --bg-opacity: 1;
+    background-color: #4c51bf;
+    background-color: rgba(76, 81, 191, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-indigo-800:active {
+    --bg-opacity: 1;
+    background-color: #434190;
+    background-color: rgba(67, 65, 144, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-indigo-900:active {
+    --bg-opacity: 1;
+    background-color: #3c366b;
+    background-color: rgba(60, 54, 107, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-purple-100:active {
+    --bg-opacity: 1;
+    background-color: #faf5ff;
+    background-color: rgba(250, 245, 255, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-purple-200:active {
+    --bg-opacity: 1;
+    background-color: #e9d8fd;
+    background-color: rgba(233, 216, 253, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-purple-300:active {
+    --bg-opacity: 1;
+    background-color: #d6bcfa;
+    background-color: rgba(214, 188, 250, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-purple-400:active {
+    --bg-opacity: 1;
+    background-color: #b794f4;
+    background-color: rgba(183, 148, 244, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-purple-500:active {
+    --bg-opacity: 1;
+    background-color: #9f7aea;
+    background-color: rgba(159, 122, 234, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-purple-600:active {
+    --bg-opacity: 1;
+    background-color: #805ad5;
+    background-color: rgba(128, 90, 213, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-purple-700:active {
+    --bg-opacity: 1;
+    background-color: #6b46c1;
+    background-color: rgba(107, 70, 193, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-purple-800:active {
+    --bg-opacity: 1;
+    background-color: #553c9a;
+    background-color: rgba(85, 60, 154, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-purple-900:active {
+    --bg-opacity: 1;
+    background-color: #44337a;
+    background-color: rgba(68, 51, 122, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-pink-100:active {
+    --bg-opacity: 1;
+    background-color: #fff5f7;
+    background-color: rgba(255, 245, 247, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-pink-200:active {
+    --bg-opacity: 1;
+    background-color: #fed7e2;
+    background-color: rgba(254, 215, 226, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-pink-300:active {
+    --bg-opacity: 1;
+    background-color: #fbb6ce;
+    background-color: rgba(251, 182, 206, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-pink-400:active {
+    --bg-opacity: 1;
+    background-color: #f687b3;
+    background-color: rgba(246, 135, 179, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-pink-500:active {
+    --bg-opacity: 1;
+    background-color: #ed64a6;
+    background-color: rgba(237, 100, 166, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-pink-600:active {
+    --bg-opacity: 1;
+    background-color: #d53f8c;
+    background-color: rgba(213, 63, 140, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-pink-700:active {
+    --bg-opacity: 1;
+    background-color: #b83280;
+    background-color: rgba(184, 50, 128, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-pink-800:active {
+    --bg-opacity: 1;
+    background-color: #97266d;
+    background-color: rgba(151, 38, 109, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-pink-900:active {
+    --bg-opacity: 1;
+    background-color: #702459;
+    background-color: rgba(112, 36, 89, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-accent:active {
+    --bg-opacity: 1;
+    background-color: #501408;
+    background-color: rgba(80, 20, 8, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-accent2:active {
+    --bg-opacity: 1;
+    background-color: #920104;
+    background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-accent3-100:active {
+    --bg-opacity: 1;
+    background-color: #F27263;
+    background-color: rgba(242, 114, 99, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-accent3-300:active {
+    --bg-opacity: 1;
+    background-color: #D94D43;
+    background-color: rgba(217, 77, 67, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-accent3-400:active {
+    --bg-opacity: 1;
+    background-color: #CC423B;
+    background-color: rgba(204, 66, 59, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-accent3-500:active {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-accent3-700:active {
+    --bg-opacity: 1;
+    background-color: #A61712;
+    background-color: rgba(166, 23, 18, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-accent3-900:active {
+    --bg-opacity: 1;
+    background-color: #8C0601;
+    background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-objectiveGold:active {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
+  .sm\:active\:bg-swirl:active {
+    --bg-opacity: 1;
+    background-color: #d0cec2;
+    background-color: rgba(208, 206, 194, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-transparent:disabled {
+    background-color: transparent;
+  }
+
+  .sm\:disabled\:bg-current:disabled {
+    background-color: currentColor;
+  }
+
+  .sm\:disabled\:bg-black:disabled {
+    --bg-opacity: 1;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-white:disabled {
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-gray-100:disabled {
+    --bg-opacity: 1;
+    background-color: #f7fafc;
+    background-color: rgba(247, 250, 252, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-gray-200:disabled {
+    --bg-opacity: 1;
+    background-color: #edf2f7;
+    background-color: rgba(237, 242, 247, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-gray-300:disabled {
+    --bg-opacity: 1;
+    background-color: #e2e8f0;
+    background-color: rgba(226, 232, 240, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-gray-400:disabled {
+    --bg-opacity: 1;
+    background-color: #cbd5e0;
+    background-color: rgba(203, 213, 224, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-gray-500:disabled {
+    --bg-opacity: 1;
+    background-color: #a0aec0;
+    background-color: rgba(160, 174, 192, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-gray-600:disabled {
+    --bg-opacity: 1;
+    background-color: #718096;
+    background-color: rgba(113, 128, 150, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-gray-700:disabled {
+    --bg-opacity: 1;
+    background-color: #4a5568;
+    background-color: rgba(74, 85, 104, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-gray-800:disabled {
+    --bg-opacity: 1;
+    background-color: #2d3748;
+    background-color: rgba(45, 55, 72, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-gray-900:disabled {
+    --bg-opacity: 1;
+    background-color: #1a202c;
+    background-color: rgba(26, 32, 44, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-red-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fff5f5;
+    background-color: rgba(255, 245, 245, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-red-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fed7d7;
+    background-color: rgba(254, 215, 215, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-red-300:disabled {
+    --bg-opacity: 1;
+    background-color: #feb2b2;
+    background-color: rgba(254, 178, 178, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-red-400:disabled {
+    --bg-opacity: 1;
+    background-color: #fc8181;
+    background-color: rgba(252, 129, 129, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-red-500:disabled {
+    --bg-opacity: 1;
+    background-color: #f56565;
+    background-color: rgba(245, 101, 101, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-red-600:disabled {
+    --bg-opacity: 1;
+    background-color: #e53e3e;
+    background-color: rgba(229, 62, 62, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-red-700:disabled {
+    --bg-opacity: 1;
+    background-color: #c53030;
+    background-color: rgba(197, 48, 48, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-red-800:disabled {
+    --bg-opacity: 1;
+    background-color: #9b2c2c;
+    background-color: rgba(155, 44, 44, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-red-900:disabled {
+    --bg-opacity: 1;
+    background-color: #742a2a;
+    background-color: rgba(116, 42, 42, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-orange-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fffaf0;
+    background-color: rgba(255, 250, 240, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-orange-200:disabled {
+    --bg-opacity: 1;
+    background-color: #feebc8;
+    background-color: rgba(254, 235, 200, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-orange-300:disabled {
+    --bg-opacity: 1;
+    background-color: #fbd38d;
+    background-color: rgba(251, 211, 141, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-orange-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f6ad55;
+    background-color: rgba(246, 173, 85, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-orange-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ed8936;
+    background-color: rgba(237, 137, 54, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-orange-600:disabled {
+    --bg-opacity: 1;
+    background-color: #dd6b20;
+    background-color: rgba(221, 107, 32, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-orange-700:disabled {
+    --bg-opacity: 1;
+    background-color: #c05621;
+    background-color: rgba(192, 86, 33, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-orange-800:disabled {
+    --bg-opacity: 1;
+    background-color: #9c4221;
+    background-color: rgba(156, 66, 33, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-orange-900:disabled {
+    --bg-opacity: 1;
+    background-color: #7b341e;
+    background-color: rgba(123, 52, 30, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-yellow-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fffff0;
+    background-color: rgba(255, 255, 240, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-yellow-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fefcbf;
+    background-color: rgba(254, 252, 191, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-yellow-300:disabled {
+    --bg-opacity: 1;
+    background-color: #faf089;
+    background-color: rgba(250, 240, 137, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-yellow-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f6e05e;
+    background-color: rgba(246, 224, 94, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-yellow-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ecc94b;
+    background-color: rgba(236, 201, 75, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-yellow-600:disabled {
+    --bg-opacity: 1;
+    background-color: #d69e2e;
+    background-color: rgba(214, 158, 46, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-yellow-700:disabled {
+    --bg-opacity: 1;
+    background-color: #b7791f;
+    background-color: rgba(183, 121, 31, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-yellow-800:disabled {
+    --bg-opacity: 1;
+    background-color: #975a16;
+    background-color: rgba(151, 90, 22, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-yellow-900:disabled {
+    --bg-opacity: 1;
+    background-color: #744210;
+    background-color: rgba(116, 66, 16, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-green-100:disabled {
+    --bg-opacity: 1;
+    background-color: #f0fff4;
+    background-color: rgba(240, 255, 244, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-green-200:disabled {
+    --bg-opacity: 1;
+    background-color: #c6f6d5;
+    background-color: rgba(198, 246, 213, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-green-300:disabled {
+    --bg-opacity: 1;
+    background-color: #9ae6b4;
+    background-color: rgba(154, 230, 180, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-green-400:disabled {
+    --bg-opacity: 1;
+    background-color: #68d391;
+    background-color: rgba(104, 211, 145, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-green-500:disabled {
+    --bg-opacity: 1;
+    background-color: #48bb78;
+    background-color: rgba(72, 187, 120, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-green-600:disabled {
+    --bg-opacity: 1;
+    background-color: #38a169;
+    background-color: rgba(56, 161, 105, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-green-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2f855a;
+    background-color: rgba(47, 133, 90, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-green-800:disabled {
+    --bg-opacity: 1;
+    background-color: #276749;
+    background-color: rgba(39, 103, 73, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-green-900:disabled {
+    --bg-opacity: 1;
+    background-color: #22543d;
+    background-color: rgba(34, 84, 61, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-teal-100:disabled {
+    --bg-opacity: 1;
+    background-color: #e6fffa;
+    background-color: rgba(230, 255, 250, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-teal-200:disabled {
+    --bg-opacity: 1;
+    background-color: #b2f5ea;
+    background-color: rgba(178, 245, 234, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-teal-300:disabled {
+    --bg-opacity: 1;
+    background-color: #81e6d9;
+    background-color: rgba(129, 230, 217, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-teal-400:disabled {
+    --bg-opacity: 1;
+    background-color: #4fd1c5;
+    background-color: rgba(79, 209, 197, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-teal-500:disabled {
+    --bg-opacity: 1;
+    background-color: #38b2ac;
+    background-color: rgba(56, 178, 172, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-teal-600:disabled {
+    --bg-opacity: 1;
+    background-color: #319795;
+    background-color: rgba(49, 151, 149, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-teal-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2c7a7b;
+    background-color: rgba(44, 122, 123, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-teal-800:disabled {
+    --bg-opacity: 1;
+    background-color: #285e61;
+    background-color: rgba(40, 94, 97, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-teal-900:disabled {
+    --bg-opacity: 1;
+    background-color: #234e52;
+    background-color: rgba(35, 78, 82, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-blue-100:disabled {
+    --bg-opacity: 1;
+    background-color: #ebf8ff;
+    background-color: rgba(235, 248, 255, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-blue-200:disabled {
+    --bg-opacity: 1;
+    background-color: #bee3f8;
+    background-color: rgba(190, 227, 248, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-blue-300:disabled {
+    --bg-opacity: 1;
+    background-color: #90cdf4;
+    background-color: rgba(144, 205, 244, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-blue-400:disabled {
+    --bg-opacity: 1;
+    background-color: #63b3ed;
+    background-color: rgba(99, 179, 237, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-blue-500:disabled {
+    --bg-opacity: 1;
+    background-color: #4299e1;
+    background-color: rgba(66, 153, 225, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-blue-600:disabled {
+    --bg-opacity: 1;
+    background-color: #3182ce;
+    background-color: rgba(49, 130, 206, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-blue-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2b6cb0;
+    background-color: rgba(43, 108, 176, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-blue-800:disabled {
+    --bg-opacity: 1;
+    background-color: #2c5282;
+    background-color: rgba(44, 82, 130, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-blue-900:disabled {
+    --bg-opacity: 1;
+    background-color: #2a4365;
+    background-color: rgba(42, 67, 101, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-indigo-100:disabled {
+    --bg-opacity: 1;
+    background-color: #ebf4ff;
+    background-color: rgba(235, 244, 255, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-indigo-200:disabled {
+    --bg-opacity: 1;
+    background-color: #c3dafe;
+    background-color: rgba(195, 218, 254, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-indigo-300:disabled {
+    --bg-opacity: 1;
+    background-color: #a3bffa;
+    background-color: rgba(163, 191, 250, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-indigo-400:disabled {
+    --bg-opacity: 1;
+    background-color: #7f9cf5;
+    background-color: rgba(127, 156, 245, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-indigo-500:disabled {
+    --bg-opacity: 1;
+    background-color: #667eea;
+    background-color: rgba(102, 126, 234, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-indigo-600:disabled {
+    --bg-opacity: 1;
+    background-color: #5a67d8;
+    background-color: rgba(90, 103, 216, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-indigo-700:disabled {
+    --bg-opacity: 1;
+    background-color: #4c51bf;
+    background-color: rgba(76, 81, 191, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-indigo-800:disabled {
+    --bg-opacity: 1;
+    background-color: #434190;
+    background-color: rgba(67, 65, 144, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-indigo-900:disabled {
+    --bg-opacity: 1;
+    background-color: #3c366b;
+    background-color: rgba(60, 54, 107, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-purple-100:disabled {
+    --bg-opacity: 1;
+    background-color: #faf5ff;
+    background-color: rgba(250, 245, 255, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-purple-200:disabled {
+    --bg-opacity: 1;
+    background-color: #e9d8fd;
+    background-color: rgba(233, 216, 253, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-purple-300:disabled {
+    --bg-opacity: 1;
+    background-color: #d6bcfa;
+    background-color: rgba(214, 188, 250, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-purple-400:disabled {
+    --bg-opacity: 1;
+    background-color: #b794f4;
+    background-color: rgba(183, 148, 244, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-purple-500:disabled {
+    --bg-opacity: 1;
+    background-color: #9f7aea;
+    background-color: rgba(159, 122, 234, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-purple-600:disabled {
+    --bg-opacity: 1;
+    background-color: #805ad5;
+    background-color: rgba(128, 90, 213, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-purple-700:disabled {
+    --bg-opacity: 1;
+    background-color: #6b46c1;
+    background-color: rgba(107, 70, 193, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-purple-800:disabled {
+    --bg-opacity: 1;
+    background-color: #553c9a;
+    background-color: rgba(85, 60, 154, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-purple-900:disabled {
+    --bg-opacity: 1;
+    background-color: #44337a;
+    background-color: rgba(68, 51, 122, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-pink-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fff5f7;
+    background-color: rgba(255, 245, 247, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-pink-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fed7e2;
+    background-color: rgba(254, 215, 226, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-pink-300:disabled {
+    --bg-opacity: 1;
+    background-color: #fbb6ce;
+    background-color: rgba(251, 182, 206, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-pink-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f687b3;
+    background-color: rgba(246, 135, 179, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-pink-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ed64a6;
+    background-color: rgba(237, 100, 166, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-pink-600:disabled {
+    --bg-opacity: 1;
+    background-color: #d53f8c;
+    background-color: rgba(213, 63, 140, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-pink-700:disabled {
+    --bg-opacity: 1;
+    background-color: #b83280;
+    background-color: rgba(184, 50, 128, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-pink-800:disabled {
+    --bg-opacity: 1;
+    background-color: #97266d;
+    background-color: rgba(151, 38, 109, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-pink-900:disabled {
+    --bg-opacity: 1;
+    background-color: #702459;
+    background-color: rgba(112, 36, 89, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-accent:disabled {
+    --bg-opacity: 1;
+    background-color: #501408;
+    background-color: rgba(80, 20, 8, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-accent2:disabled {
+    --bg-opacity: 1;
+    background-color: #920104;
+    background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-accent3-100:disabled {
+    --bg-opacity: 1;
+    background-color: #F27263;
+    background-color: rgba(242, 114, 99, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-accent3-300:disabled {
+    --bg-opacity: 1;
+    background-color: #D94D43;
+    background-color: rgba(217, 77, 67, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-accent3-400:disabled {
+    --bg-opacity: 1;
+    background-color: #CC423B;
+    background-color: rgba(204, 66, 59, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-accent3-500:disabled {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-accent3-700:disabled {
+    --bg-opacity: 1;
+    background-color: #A61712;
+    background-color: rgba(166, 23, 18, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-accent3-900:disabled {
+    --bg-opacity: 1;
+    background-color: #8C0601;
+    background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-objectiveGold:disabled {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
+  .sm\:disabled\:bg-swirl:disabled {
+    --bg-opacity: 1;
+    background-color: #d0cec2;
+    background-color: rgba(208, 206, 194, var(--bg-opacity));
+  }
+
   .sm\:bg-none {
     background-image: none;
   }
@@ -35123,6 +37677,26 @@ body {
   }
 
   .sm\:focus\:opacity-100:focus {
+    opacity: 1;
+  }
+
+  .sm\:disabled\:opacity-0:disabled {
+    opacity: 0;
+  }
+
+  .sm\:disabled\:opacity-25:disabled {
+    opacity: 0.25;
+  }
+
+  .sm\:disabled\:opacity-50:disabled {
+    opacity: 0.5;
+  }
+
+  .sm\:disabled\:opacity-75:disabled {
+    opacity: 0.75;
+  }
+
+  .sm\:disabled\:opacity-100:disabled {
     opacity: 1;
   }
 
@@ -48193,6 +50767,1246 @@ body {
     background-color: rgba(208, 206, 194, var(--bg-opacity));
   }
 
+  .md\:active\:bg-transparent:active {
+    background-color: transparent;
+  }
+
+  .md\:active\:bg-current:active {
+    background-color: currentColor;
+  }
+
+  .md\:active\:bg-black:active {
+    --bg-opacity: 1;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-white:active {
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-gray-100:active {
+    --bg-opacity: 1;
+    background-color: #f7fafc;
+    background-color: rgba(247, 250, 252, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-gray-200:active {
+    --bg-opacity: 1;
+    background-color: #edf2f7;
+    background-color: rgba(237, 242, 247, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-gray-300:active {
+    --bg-opacity: 1;
+    background-color: #e2e8f0;
+    background-color: rgba(226, 232, 240, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-gray-400:active {
+    --bg-opacity: 1;
+    background-color: #cbd5e0;
+    background-color: rgba(203, 213, 224, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-gray-500:active {
+    --bg-opacity: 1;
+    background-color: #a0aec0;
+    background-color: rgba(160, 174, 192, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-gray-600:active {
+    --bg-opacity: 1;
+    background-color: #718096;
+    background-color: rgba(113, 128, 150, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-gray-700:active {
+    --bg-opacity: 1;
+    background-color: #4a5568;
+    background-color: rgba(74, 85, 104, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-gray-800:active {
+    --bg-opacity: 1;
+    background-color: #2d3748;
+    background-color: rgba(45, 55, 72, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-gray-900:active {
+    --bg-opacity: 1;
+    background-color: #1a202c;
+    background-color: rgba(26, 32, 44, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-red-100:active {
+    --bg-opacity: 1;
+    background-color: #fff5f5;
+    background-color: rgba(255, 245, 245, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-red-200:active {
+    --bg-opacity: 1;
+    background-color: #fed7d7;
+    background-color: rgba(254, 215, 215, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-red-300:active {
+    --bg-opacity: 1;
+    background-color: #feb2b2;
+    background-color: rgba(254, 178, 178, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-red-400:active {
+    --bg-opacity: 1;
+    background-color: #fc8181;
+    background-color: rgba(252, 129, 129, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-red-500:active {
+    --bg-opacity: 1;
+    background-color: #f56565;
+    background-color: rgba(245, 101, 101, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-red-600:active {
+    --bg-opacity: 1;
+    background-color: #e53e3e;
+    background-color: rgba(229, 62, 62, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-red-700:active {
+    --bg-opacity: 1;
+    background-color: #c53030;
+    background-color: rgba(197, 48, 48, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-red-800:active {
+    --bg-opacity: 1;
+    background-color: #9b2c2c;
+    background-color: rgba(155, 44, 44, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-red-900:active {
+    --bg-opacity: 1;
+    background-color: #742a2a;
+    background-color: rgba(116, 42, 42, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-orange-100:active {
+    --bg-opacity: 1;
+    background-color: #fffaf0;
+    background-color: rgba(255, 250, 240, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-orange-200:active {
+    --bg-opacity: 1;
+    background-color: #feebc8;
+    background-color: rgba(254, 235, 200, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-orange-300:active {
+    --bg-opacity: 1;
+    background-color: #fbd38d;
+    background-color: rgba(251, 211, 141, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-orange-400:active {
+    --bg-opacity: 1;
+    background-color: #f6ad55;
+    background-color: rgba(246, 173, 85, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-orange-500:active {
+    --bg-opacity: 1;
+    background-color: #ed8936;
+    background-color: rgba(237, 137, 54, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-orange-600:active {
+    --bg-opacity: 1;
+    background-color: #dd6b20;
+    background-color: rgba(221, 107, 32, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-orange-700:active {
+    --bg-opacity: 1;
+    background-color: #c05621;
+    background-color: rgba(192, 86, 33, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-orange-800:active {
+    --bg-opacity: 1;
+    background-color: #9c4221;
+    background-color: rgba(156, 66, 33, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-orange-900:active {
+    --bg-opacity: 1;
+    background-color: #7b341e;
+    background-color: rgba(123, 52, 30, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-yellow-100:active {
+    --bg-opacity: 1;
+    background-color: #fffff0;
+    background-color: rgba(255, 255, 240, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-yellow-200:active {
+    --bg-opacity: 1;
+    background-color: #fefcbf;
+    background-color: rgba(254, 252, 191, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-yellow-300:active {
+    --bg-opacity: 1;
+    background-color: #faf089;
+    background-color: rgba(250, 240, 137, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-yellow-400:active {
+    --bg-opacity: 1;
+    background-color: #f6e05e;
+    background-color: rgba(246, 224, 94, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-yellow-500:active {
+    --bg-opacity: 1;
+    background-color: #ecc94b;
+    background-color: rgba(236, 201, 75, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-yellow-600:active {
+    --bg-opacity: 1;
+    background-color: #d69e2e;
+    background-color: rgba(214, 158, 46, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-yellow-700:active {
+    --bg-opacity: 1;
+    background-color: #b7791f;
+    background-color: rgba(183, 121, 31, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-yellow-800:active {
+    --bg-opacity: 1;
+    background-color: #975a16;
+    background-color: rgba(151, 90, 22, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-yellow-900:active {
+    --bg-opacity: 1;
+    background-color: #744210;
+    background-color: rgba(116, 66, 16, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-green-100:active {
+    --bg-opacity: 1;
+    background-color: #f0fff4;
+    background-color: rgba(240, 255, 244, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-green-200:active {
+    --bg-opacity: 1;
+    background-color: #c6f6d5;
+    background-color: rgba(198, 246, 213, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-green-300:active {
+    --bg-opacity: 1;
+    background-color: #9ae6b4;
+    background-color: rgba(154, 230, 180, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-green-400:active {
+    --bg-opacity: 1;
+    background-color: #68d391;
+    background-color: rgba(104, 211, 145, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-green-500:active {
+    --bg-opacity: 1;
+    background-color: #48bb78;
+    background-color: rgba(72, 187, 120, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-green-600:active {
+    --bg-opacity: 1;
+    background-color: #38a169;
+    background-color: rgba(56, 161, 105, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-green-700:active {
+    --bg-opacity: 1;
+    background-color: #2f855a;
+    background-color: rgba(47, 133, 90, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-green-800:active {
+    --bg-opacity: 1;
+    background-color: #276749;
+    background-color: rgba(39, 103, 73, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-green-900:active {
+    --bg-opacity: 1;
+    background-color: #22543d;
+    background-color: rgba(34, 84, 61, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-teal-100:active {
+    --bg-opacity: 1;
+    background-color: #e6fffa;
+    background-color: rgba(230, 255, 250, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-teal-200:active {
+    --bg-opacity: 1;
+    background-color: #b2f5ea;
+    background-color: rgba(178, 245, 234, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-teal-300:active {
+    --bg-opacity: 1;
+    background-color: #81e6d9;
+    background-color: rgba(129, 230, 217, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-teal-400:active {
+    --bg-opacity: 1;
+    background-color: #4fd1c5;
+    background-color: rgba(79, 209, 197, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-teal-500:active {
+    --bg-opacity: 1;
+    background-color: #38b2ac;
+    background-color: rgba(56, 178, 172, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-teal-600:active {
+    --bg-opacity: 1;
+    background-color: #319795;
+    background-color: rgba(49, 151, 149, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-teal-700:active {
+    --bg-opacity: 1;
+    background-color: #2c7a7b;
+    background-color: rgba(44, 122, 123, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-teal-800:active {
+    --bg-opacity: 1;
+    background-color: #285e61;
+    background-color: rgba(40, 94, 97, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-teal-900:active {
+    --bg-opacity: 1;
+    background-color: #234e52;
+    background-color: rgba(35, 78, 82, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-blue-100:active {
+    --bg-opacity: 1;
+    background-color: #ebf8ff;
+    background-color: rgba(235, 248, 255, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-blue-200:active {
+    --bg-opacity: 1;
+    background-color: #bee3f8;
+    background-color: rgba(190, 227, 248, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-blue-300:active {
+    --bg-opacity: 1;
+    background-color: #90cdf4;
+    background-color: rgba(144, 205, 244, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-blue-400:active {
+    --bg-opacity: 1;
+    background-color: #63b3ed;
+    background-color: rgba(99, 179, 237, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-blue-500:active {
+    --bg-opacity: 1;
+    background-color: #4299e1;
+    background-color: rgba(66, 153, 225, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-blue-600:active {
+    --bg-opacity: 1;
+    background-color: #3182ce;
+    background-color: rgba(49, 130, 206, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-blue-700:active {
+    --bg-opacity: 1;
+    background-color: #2b6cb0;
+    background-color: rgba(43, 108, 176, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-blue-800:active {
+    --bg-opacity: 1;
+    background-color: #2c5282;
+    background-color: rgba(44, 82, 130, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-blue-900:active {
+    --bg-opacity: 1;
+    background-color: #2a4365;
+    background-color: rgba(42, 67, 101, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-indigo-100:active {
+    --bg-opacity: 1;
+    background-color: #ebf4ff;
+    background-color: rgba(235, 244, 255, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-indigo-200:active {
+    --bg-opacity: 1;
+    background-color: #c3dafe;
+    background-color: rgba(195, 218, 254, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-indigo-300:active {
+    --bg-opacity: 1;
+    background-color: #a3bffa;
+    background-color: rgba(163, 191, 250, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-indigo-400:active {
+    --bg-opacity: 1;
+    background-color: #7f9cf5;
+    background-color: rgba(127, 156, 245, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-indigo-500:active {
+    --bg-opacity: 1;
+    background-color: #667eea;
+    background-color: rgba(102, 126, 234, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-indigo-600:active {
+    --bg-opacity: 1;
+    background-color: #5a67d8;
+    background-color: rgba(90, 103, 216, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-indigo-700:active {
+    --bg-opacity: 1;
+    background-color: #4c51bf;
+    background-color: rgba(76, 81, 191, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-indigo-800:active {
+    --bg-opacity: 1;
+    background-color: #434190;
+    background-color: rgba(67, 65, 144, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-indigo-900:active {
+    --bg-opacity: 1;
+    background-color: #3c366b;
+    background-color: rgba(60, 54, 107, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-purple-100:active {
+    --bg-opacity: 1;
+    background-color: #faf5ff;
+    background-color: rgba(250, 245, 255, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-purple-200:active {
+    --bg-opacity: 1;
+    background-color: #e9d8fd;
+    background-color: rgba(233, 216, 253, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-purple-300:active {
+    --bg-opacity: 1;
+    background-color: #d6bcfa;
+    background-color: rgba(214, 188, 250, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-purple-400:active {
+    --bg-opacity: 1;
+    background-color: #b794f4;
+    background-color: rgba(183, 148, 244, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-purple-500:active {
+    --bg-opacity: 1;
+    background-color: #9f7aea;
+    background-color: rgba(159, 122, 234, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-purple-600:active {
+    --bg-opacity: 1;
+    background-color: #805ad5;
+    background-color: rgba(128, 90, 213, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-purple-700:active {
+    --bg-opacity: 1;
+    background-color: #6b46c1;
+    background-color: rgba(107, 70, 193, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-purple-800:active {
+    --bg-opacity: 1;
+    background-color: #553c9a;
+    background-color: rgba(85, 60, 154, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-purple-900:active {
+    --bg-opacity: 1;
+    background-color: #44337a;
+    background-color: rgba(68, 51, 122, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-pink-100:active {
+    --bg-opacity: 1;
+    background-color: #fff5f7;
+    background-color: rgba(255, 245, 247, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-pink-200:active {
+    --bg-opacity: 1;
+    background-color: #fed7e2;
+    background-color: rgba(254, 215, 226, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-pink-300:active {
+    --bg-opacity: 1;
+    background-color: #fbb6ce;
+    background-color: rgba(251, 182, 206, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-pink-400:active {
+    --bg-opacity: 1;
+    background-color: #f687b3;
+    background-color: rgba(246, 135, 179, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-pink-500:active {
+    --bg-opacity: 1;
+    background-color: #ed64a6;
+    background-color: rgba(237, 100, 166, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-pink-600:active {
+    --bg-opacity: 1;
+    background-color: #d53f8c;
+    background-color: rgba(213, 63, 140, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-pink-700:active {
+    --bg-opacity: 1;
+    background-color: #b83280;
+    background-color: rgba(184, 50, 128, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-pink-800:active {
+    --bg-opacity: 1;
+    background-color: #97266d;
+    background-color: rgba(151, 38, 109, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-pink-900:active {
+    --bg-opacity: 1;
+    background-color: #702459;
+    background-color: rgba(112, 36, 89, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-accent:active {
+    --bg-opacity: 1;
+    background-color: #501408;
+    background-color: rgba(80, 20, 8, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-accent2:active {
+    --bg-opacity: 1;
+    background-color: #920104;
+    background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-accent3-100:active {
+    --bg-opacity: 1;
+    background-color: #F27263;
+    background-color: rgba(242, 114, 99, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-accent3-300:active {
+    --bg-opacity: 1;
+    background-color: #D94D43;
+    background-color: rgba(217, 77, 67, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-accent3-400:active {
+    --bg-opacity: 1;
+    background-color: #CC423B;
+    background-color: rgba(204, 66, 59, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-accent3-500:active {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-accent3-700:active {
+    --bg-opacity: 1;
+    background-color: #A61712;
+    background-color: rgba(166, 23, 18, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-accent3-900:active {
+    --bg-opacity: 1;
+    background-color: #8C0601;
+    background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-objectiveGold:active {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
+  .md\:active\:bg-swirl:active {
+    --bg-opacity: 1;
+    background-color: #d0cec2;
+    background-color: rgba(208, 206, 194, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-transparent:disabled {
+    background-color: transparent;
+  }
+
+  .md\:disabled\:bg-current:disabled {
+    background-color: currentColor;
+  }
+
+  .md\:disabled\:bg-black:disabled {
+    --bg-opacity: 1;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-white:disabled {
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-gray-100:disabled {
+    --bg-opacity: 1;
+    background-color: #f7fafc;
+    background-color: rgba(247, 250, 252, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-gray-200:disabled {
+    --bg-opacity: 1;
+    background-color: #edf2f7;
+    background-color: rgba(237, 242, 247, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-gray-300:disabled {
+    --bg-opacity: 1;
+    background-color: #e2e8f0;
+    background-color: rgba(226, 232, 240, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-gray-400:disabled {
+    --bg-opacity: 1;
+    background-color: #cbd5e0;
+    background-color: rgba(203, 213, 224, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-gray-500:disabled {
+    --bg-opacity: 1;
+    background-color: #a0aec0;
+    background-color: rgba(160, 174, 192, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-gray-600:disabled {
+    --bg-opacity: 1;
+    background-color: #718096;
+    background-color: rgba(113, 128, 150, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-gray-700:disabled {
+    --bg-opacity: 1;
+    background-color: #4a5568;
+    background-color: rgba(74, 85, 104, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-gray-800:disabled {
+    --bg-opacity: 1;
+    background-color: #2d3748;
+    background-color: rgba(45, 55, 72, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-gray-900:disabled {
+    --bg-opacity: 1;
+    background-color: #1a202c;
+    background-color: rgba(26, 32, 44, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-red-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fff5f5;
+    background-color: rgba(255, 245, 245, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-red-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fed7d7;
+    background-color: rgba(254, 215, 215, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-red-300:disabled {
+    --bg-opacity: 1;
+    background-color: #feb2b2;
+    background-color: rgba(254, 178, 178, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-red-400:disabled {
+    --bg-opacity: 1;
+    background-color: #fc8181;
+    background-color: rgba(252, 129, 129, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-red-500:disabled {
+    --bg-opacity: 1;
+    background-color: #f56565;
+    background-color: rgba(245, 101, 101, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-red-600:disabled {
+    --bg-opacity: 1;
+    background-color: #e53e3e;
+    background-color: rgba(229, 62, 62, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-red-700:disabled {
+    --bg-opacity: 1;
+    background-color: #c53030;
+    background-color: rgba(197, 48, 48, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-red-800:disabled {
+    --bg-opacity: 1;
+    background-color: #9b2c2c;
+    background-color: rgba(155, 44, 44, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-red-900:disabled {
+    --bg-opacity: 1;
+    background-color: #742a2a;
+    background-color: rgba(116, 42, 42, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-orange-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fffaf0;
+    background-color: rgba(255, 250, 240, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-orange-200:disabled {
+    --bg-opacity: 1;
+    background-color: #feebc8;
+    background-color: rgba(254, 235, 200, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-orange-300:disabled {
+    --bg-opacity: 1;
+    background-color: #fbd38d;
+    background-color: rgba(251, 211, 141, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-orange-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f6ad55;
+    background-color: rgba(246, 173, 85, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-orange-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ed8936;
+    background-color: rgba(237, 137, 54, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-orange-600:disabled {
+    --bg-opacity: 1;
+    background-color: #dd6b20;
+    background-color: rgba(221, 107, 32, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-orange-700:disabled {
+    --bg-opacity: 1;
+    background-color: #c05621;
+    background-color: rgba(192, 86, 33, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-orange-800:disabled {
+    --bg-opacity: 1;
+    background-color: #9c4221;
+    background-color: rgba(156, 66, 33, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-orange-900:disabled {
+    --bg-opacity: 1;
+    background-color: #7b341e;
+    background-color: rgba(123, 52, 30, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-yellow-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fffff0;
+    background-color: rgba(255, 255, 240, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-yellow-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fefcbf;
+    background-color: rgba(254, 252, 191, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-yellow-300:disabled {
+    --bg-opacity: 1;
+    background-color: #faf089;
+    background-color: rgba(250, 240, 137, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-yellow-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f6e05e;
+    background-color: rgba(246, 224, 94, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-yellow-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ecc94b;
+    background-color: rgba(236, 201, 75, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-yellow-600:disabled {
+    --bg-opacity: 1;
+    background-color: #d69e2e;
+    background-color: rgba(214, 158, 46, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-yellow-700:disabled {
+    --bg-opacity: 1;
+    background-color: #b7791f;
+    background-color: rgba(183, 121, 31, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-yellow-800:disabled {
+    --bg-opacity: 1;
+    background-color: #975a16;
+    background-color: rgba(151, 90, 22, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-yellow-900:disabled {
+    --bg-opacity: 1;
+    background-color: #744210;
+    background-color: rgba(116, 66, 16, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-green-100:disabled {
+    --bg-opacity: 1;
+    background-color: #f0fff4;
+    background-color: rgba(240, 255, 244, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-green-200:disabled {
+    --bg-opacity: 1;
+    background-color: #c6f6d5;
+    background-color: rgba(198, 246, 213, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-green-300:disabled {
+    --bg-opacity: 1;
+    background-color: #9ae6b4;
+    background-color: rgba(154, 230, 180, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-green-400:disabled {
+    --bg-opacity: 1;
+    background-color: #68d391;
+    background-color: rgba(104, 211, 145, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-green-500:disabled {
+    --bg-opacity: 1;
+    background-color: #48bb78;
+    background-color: rgba(72, 187, 120, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-green-600:disabled {
+    --bg-opacity: 1;
+    background-color: #38a169;
+    background-color: rgba(56, 161, 105, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-green-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2f855a;
+    background-color: rgba(47, 133, 90, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-green-800:disabled {
+    --bg-opacity: 1;
+    background-color: #276749;
+    background-color: rgba(39, 103, 73, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-green-900:disabled {
+    --bg-opacity: 1;
+    background-color: #22543d;
+    background-color: rgba(34, 84, 61, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-teal-100:disabled {
+    --bg-opacity: 1;
+    background-color: #e6fffa;
+    background-color: rgba(230, 255, 250, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-teal-200:disabled {
+    --bg-opacity: 1;
+    background-color: #b2f5ea;
+    background-color: rgba(178, 245, 234, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-teal-300:disabled {
+    --bg-opacity: 1;
+    background-color: #81e6d9;
+    background-color: rgba(129, 230, 217, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-teal-400:disabled {
+    --bg-opacity: 1;
+    background-color: #4fd1c5;
+    background-color: rgba(79, 209, 197, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-teal-500:disabled {
+    --bg-opacity: 1;
+    background-color: #38b2ac;
+    background-color: rgba(56, 178, 172, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-teal-600:disabled {
+    --bg-opacity: 1;
+    background-color: #319795;
+    background-color: rgba(49, 151, 149, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-teal-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2c7a7b;
+    background-color: rgba(44, 122, 123, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-teal-800:disabled {
+    --bg-opacity: 1;
+    background-color: #285e61;
+    background-color: rgba(40, 94, 97, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-teal-900:disabled {
+    --bg-opacity: 1;
+    background-color: #234e52;
+    background-color: rgba(35, 78, 82, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-blue-100:disabled {
+    --bg-opacity: 1;
+    background-color: #ebf8ff;
+    background-color: rgba(235, 248, 255, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-blue-200:disabled {
+    --bg-opacity: 1;
+    background-color: #bee3f8;
+    background-color: rgba(190, 227, 248, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-blue-300:disabled {
+    --bg-opacity: 1;
+    background-color: #90cdf4;
+    background-color: rgba(144, 205, 244, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-blue-400:disabled {
+    --bg-opacity: 1;
+    background-color: #63b3ed;
+    background-color: rgba(99, 179, 237, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-blue-500:disabled {
+    --bg-opacity: 1;
+    background-color: #4299e1;
+    background-color: rgba(66, 153, 225, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-blue-600:disabled {
+    --bg-opacity: 1;
+    background-color: #3182ce;
+    background-color: rgba(49, 130, 206, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-blue-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2b6cb0;
+    background-color: rgba(43, 108, 176, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-blue-800:disabled {
+    --bg-opacity: 1;
+    background-color: #2c5282;
+    background-color: rgba(44, 82, 130, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-blue-900:disabled {
+    --bg-opacity: 1;
+    background-color: #2a4365;
+    background-color: rgba(42, 67, 101, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-indigo-100:disabled {
+    --bg-opacity: 1;
+    background-color: #ebf4ff;
+    background-color: rgba(235, 244, 255, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-indigo-200:disabled {
+    --bg-opacity: 1;
+    background-color: #c3dafe;
+    background-color: rgba(195, 218, 254, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-indigo-300:disabled {
+    --bg-opacity: 1;
+    background-color: #a3bffa;
+    background-color: rgba(163, 191, 250, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-indigo-400:disabled {
+    --bg-opacity: 1;
+    background-color: #7f9cf5;
+    background-color: rgba(127, 156, 245, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-indigo-500:disabled {
+    --bg-opacity: 1;
+    background-color: #667eea;
+    background-color: rgba(102, 126, 234, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-indigo-600:disabled {
+    --bg-opacity: 1;
+    background-color: #5a67d8;
+    background-color: rgba(90, 103, 216, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-indigo-700:disabled {
+    --bg-opacity: 1;
+    background-color: #4c51bf;
+    background-color: rgba(76, 81, 191, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-indigo-800:disabled {
+    --bg-opacity: 1;
+    background-color: #434190;
+    background-color: rgba(67, 65, 144, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-indigo-900:disabled {
+    --bg-opacity: 1;
+    background-color: #3c366b;
+    background-color: rgba(60, 54, 107, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-purple-100:disabled {
+    --bg-opacity: 1;
+    background-color: #faf5ff;
+    background-color: rgba(250, 245, 255, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-purple-200:disabled {
+    --bg-opacity: 1;
+    background-color: #e9d8fd;
+    background-color: rgba(233, 216, 253, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-purple-300:disabled {
+    --bg-opacity: 1;
+    background-color: #d6bcfa;
+    background-color: rgba(214, 188, 250, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-purple-400:disabled {
+    --bg-opacity: 1;
+    background-color: #b794f4;
+    background-color: rgba(183, 148, 244, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-purple-500:disabled {
+    --bg-opacity: 1;
+    background-color: #9f7aea;
+    background-color: rgba(159, 122, 234, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-purple-600:disabled {
+    --bg-opacity: 1;
+    background-color: #805ad5;
+    background-color: rgba(128, 90, 213, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-purple-700:disabled {
+    --bg-opacity: 1;
+    background-color: #6b46c1;
+    background-color: rgba(107, 70, 193, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-purple-800:disabled {
+    --bg-opacity: 1;
+    background-color: #553c9a;
+    background-color: rgba(85, 60, 154, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-purple-900:disabled {
+    --bg-opacity: 1;
+    background-color: #44337a;
+    background-color: rgba(68, 51, 122, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-pink-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fff5f7;
+    background-color: rgba(255, 245, 247, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-pink-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fed7e2;
+    background-color: rgba(254, 215, 226, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-pink-300:disabled {
+    --bg-opacity: 1;
+    background-color: #fbb6ce;
+    background-color: rgba(251, 182, 206, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-pink-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f687b3;
+    background-color: rgba(246, 135, 179, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-pink-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ed64a6;
+    background-color: rgba(237, 100, 166, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-pink-600:disabled {
+    --bg-opacity: 1;
+    background-color: #d53f8c;
+    background-color: rgba(213, 63, 140, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-pink-700:disabled {
+    --bg-opacity: 1;
+    background-color: #b83280;
+    background-color: rgba(184, 50, 128, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-pink-800:disabled {
+    --bg-opacity: 1;
+    background-color: #97266d;
+    background-color: rgba(151, 38, 109, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-pink-900:disabled {
+    --bg-opacity: 1;
+    background-color: #702459;
+    background-color: rgba(112, 36, 89, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-accent:disabled {
+    --bg-opacity: 1;
+    background-color: #501408;
+    background-color: rgba(80, 20, 8, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-accent2:disabled {
+    --bg-opacity: 1;
+    background-color: #920104;
+    background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-accent3-100:disabled {
+    --bg-opacity: 1;
+    background-color: #F27263;
+    background-color: rgba(242, 114, 99, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-accent3-300:disabled {
+    --bg-opacity: 1;
+    background-color: #D94D43;
+    background-color: rgba(217, 77, 67, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-accent3-400:disabled {
+    --bg-opacity: 1;
+    background-color: #CC423B;
+    background-color: rgba(204, 66, 59, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-accent3-500:disabled {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-accent3-700:disabled {
+    --bg-opacity: 1;
+    background-color: #A61712;
+    background-color: rgba(166, 23, 18, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-accent3-900:disabled {
+    --bg-opacity: 1;
+    background-color: #8C0601;
+    background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-objectiveGold:disabled {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
+  .md\:disabled\:bg-swirl:disabled {
+    --bg-opacity: 1;
+    background-color: #d0cec2;
+    background-color: rgba(208, 206, 194, var(--bg-opacity));
+  }
+
   .md\:bg-none {
     background-image: none;
   }
@@ -57284,6 +61098,26 @@ body {
   }
 
   .md\:focus\:opacity-100:focus {
+    opacity: 1;
+  }
+
+  .md\:disabled\:opacity-0:disabled {
+    opacity: 0;
+  }
+
+  .md\:disabled\:opacity-25:disabled {
+    opacity: 0.25;
+  }
+
+  .md\:disabled\:opacity-50:disabled {
+    opacity: 0.5;
+  }
+
+  .md\:disabled\:opacity-75:disabled {
+    opacity: 0.75;
+  }
+
+  .md\:disabled\:opacity-100:disabled {
     opacity: 1;
   }
 
@@ -70354,6 +74188,1246 @@ body {
     background-color: rgba(208, 206, 194, var(--bg-opacity));
   }
 
+  .lg\:active\:bg-transparent:active {
+    background-color: transparent;
+  }
+
+  .lg\:active\:bg-current:active {
+    background-color: currentColor;
+  }
+
+  .lg\:active\:bg-black:active {
+    --bg-opacity: 1;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-white:active {
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-gray-100:active {
+    --bg-opacity: 1;
+    background-color: #f7fafc;
+    background-color: rgba(247, 250, 252, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-gray-200:active {
+    --bg-opacity: 1;
+    background-color: #edf2f7;
+    background-color: rgba(237, 242, 247, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-gray-300:active {
+    --bg-opacity: 1;
+    background-color: #e2e8f0;
+    background-color: rgba(226, 232, 240, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-gray-400:active {
+    --bg-opacity: 1;
+    background-color: #cbd5e0;
+    background-color: rgba(203, 213, 224, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-gray-500:active {
+    --bg-opacity: 1;
+    background-color: #a0aec0;
+    background-color: rgba(160, 174, 192, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-gray-600:active {
+    --bg-opacity: 1;
+    background-color: #718096;
+    background-color: rgba(113, 128, 150, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-gray-700:active {
+    --bg-opacity: 1;
+    background-color: #4a5568;
+    background-color: rgba(74, 85, 104, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-gray-800:active {
+    --bg-opacity: 1;
+    background-color: #2d3748;
+    background-color: rgba(45, 55, 72, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-gray-900:active {
+    --bg-opacity: 1;
+    background-color: #1a202c;
+    background-color: rgba(26, 32, 44, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-red-100:active {
+    --bg-opacity: 1;
+    background-color: #fff5f5;
+    background-color: rgba(255, 245, 245, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-red-200:active {
+    --bg-opacity: 1;
+    background-color: #fed7d7;
+    background-color: rgba(254, 215, 215, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-red-300:active {
+    --bg-opacity: 1;
+    background-color: #feb2b2;
+    background-color: rgba(254, 178, 178, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-red-400:active {
+    --bg-opacity: 1;
+    background-color: #fc8181;
+    background-color: rgba(252, 129, 129, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-red-500:active {
+    --bg-opacity: 1;
+    background-color: #f56565;
+    background-color: rgba(245, 101, 101, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-red-600:active {
+    --bg-opacity: 1;
+    background-color: #e53e3e;
+    background-color: rgba(229, 62, 62, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-red-700:active {
+    --bg-opacity: 1;
+    background-color: #c53030;
+    background-color: rgba(197, 48, 48, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-red-800:active {
+    --bg-opacity: 1;
+    background-color: #9b2c2c;
+    background-color: rgba(155, 44, 44, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-red-900:active {
+    --bg-opacity: 1;
+    background-color: #742a2a;
+    background-color: rgba(116, 42, 42, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-orange-100:active {
+    --bg-opacity: 1;
+    background-color: #fffaf0;
+    background-color: rgba(255, 250, 240, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-orange-200:active {
+    --bg-opacity: 1;
+    background-color: #feebc8;
+    background-color: rgba(254, 235, 200, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-orange-300:active {
+    --bg-opacity: 1;
+    background-color: #fbd38d;
+    background-color: rgba(251, 211, 141, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-orange-400:active {
+    --bg-opacity: 1;
+    background-color: #f6ad55;
+    background-color: rgba(246, 173, 85, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-orange-500:active {
+    --bg-opacity: 1;
+    background-color: #ed8936;
+    background-color: rgba(237, 137, 54, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-orange-600:active {
+    --bg-opacity: 1;
+    background-color: #dd6b20;
+    background-color: rgba(221, 107, 32, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-orange-700:active {
+    --bg-opacity: 1;
+    background-color: #c05621;
+    background-color: rgba(192, 86, 33, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-orange-800:active {
+    --bg-opacity: 1;
+    background-color: #9c4221;
+    background-color: rgba(156, 66, 33, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-orange-900:active {
+    --bg-opacity: 1;
+    background-color: #7b341e;
+    background-color: rgba(123, 52, 30, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-yellow-100:active {
+    --bg-opacity: 1;
+    background-color: #fffff0;
+    background-color: rgba(255, 255, 240, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-yellow-200:active {
+    --bg-opacity: 1;
+    background-color: #fefcbf;
+    background-color: rgba(254, 252, 191, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-yellow-300:active {
+    --bg-opacity: 1;
+    background-color: #faf089;
+    background-color: rgba(250, 240, 137, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-yellow-400:active {
+    --bg-opacity: 1;
+    background-color: #f6e05e;
+    background-color: rgba(246, 224, 94, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-yellow-500:active {
+    --bg-opacity: 1;
+    background-color: #ecc94b;
+    background-color: rgba(236, 201, 75, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-yellow-600:active {
+    --bg-opacity: 1;
+    background-color: #d69e2e;
+    background-color: rgba(214, 158, 46, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-yellow-700:active {
+    --bg-opacity: 1;
+    background-color: #b7791f;
+    background-color: rgba(183, 121, 31, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-yellow-800:active {
+    --bg-opacity: 1;
+    background-color: #975a16;
+    background-color: rgba(151, 90, 22, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-yellow-900:active {
+    --bg-opacity: 1;
+    background-color: #744210;
+    background-color: rgba(116, 66, 16, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-green-100:active {
+    --bg-opacity: 1;
+    background-color: #f0fff4;
+    background-color: rgba(240, 255, 244, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-green-200:active {
+    --bg-opacity: 1;
+    background-color: #c6f6d5;
+    background-color: rgba(198, 246, 213, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-green-300:active {
+    --bg-opacity: 1;
+    background-color: #9ae6b4;
+    background-color: rgba(154, 230, 180, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-green-400:active {
+    --bg-opacity: 1;
+    background-color: #68d391;
+    background-color: rgba(104, 211, 145, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-green-500:active {
+    --bg-opacity: 1;
+    background-color: #48bb78;
+    background-color: rgba(72, 187, 120, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-green-600:active {
+    --bg-opacity: 1;
+    background-color: #38a169;
+    background-color: rgba(56, 161, 105, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-green-700:active {
+    --bg-opacity: 1;
+    background-color: #2f855a;
+    background-color: rgba(47, 133, 90, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-green-800:active {
+    --bg-opacity: 1;
+    background-color: #276749;
+    background-color: rgba(39, 103, 73, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-green-900:active {
+    --bg-opacity: 1;
+    background-color: #22543d;
+    background-color: rgba(34, 84, 61, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-teal-100:active {
+    --bg-opacity: 1;
+    background-color: #e6fffa;
+    background-color: rgba(230, 255, 250, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-teal-200:active {
+    --bg-opacity: 1;
+    background-color: #b2f5ea;
+    background-color: rgba(178, 245, 234, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-teal-300:active {
+    --bg-opacity: 1;
+    background-color: #81e6d9;
+    background-color: rgba(129, 230, 217, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-teal-400:active {
+    --bg-opacity: 1;
+    background-color: #4fd1c5;
+    background-color: rgba(79, 209, 197, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-teal-500:active {
+    --bg-opacity: 1;
+    background-color: #38b2ac;
+    background-color: rgba(56, 178, 172, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-teal-600:active {
+    --bg-opacity: 1;
+    background-color: #319795;
+    background-color: rgba(49, 151, 149, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-teal-700:active {
+    --bg-opacity: 1;
+    background-color: #2c7a7b;
+    background-color: rgba(44, 122, 123, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-teal-800:active {
+    --bg-opacity: 1;
+    background-color: #285e61;
+    background-color: rgba(40, 94, 97, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-teal-900:active {
+    --bg-opacity: 1;
+    background-color: #234e52;
+    background-color: rgba(35, 78, 82, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-blue-100:active {
+    --bg-opacity: 1;
+    background-color: #ebf8ff;
+    background-color: rgba(235, 248, 255, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-blue-200:active {
+    --bg-opacity: 1;
+    background-color: #bee3f8;
+    background-color: rgba(190, 227, 248, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-blue-300:active {
+    --bg-opacity: 1;
+    background-color: #90cdf4;
+    background-color: rgba(144, 205, 244, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-blue-400:active {
+    --bg-opacity: 1;
+    background-color: #63b3ed;
+    background-color: rgba(99, 179, 237, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-blue-500:active {
+    --bg-opacity: 1;
+    background-color: #4299e1;
+    background-color: rgba(66, 153, 225, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-blue-600:active {
+    --bg-opacity: 1;
+    background-color: #3182ce;
+    background-color: rgba(49, 130, 206, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-blue-700:active {
+    --bg-opacity: 1;
+    background-color: #2b6cb0;
+    background-color: rgba(43, 108, 176, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-blue-800:active {
+    --bg-opacity: 1;
+    background-color: #2c5282;
+    background-color: rgba(44, 82, 130, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-blue-900:active {
+    --bg-opacity: 1;
+    background-color: #2a4365;
+    background-color: rgba(42, 67, 101, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-indigo-100:active {
+    --bg-opacity: 1;
+    background-color: #ebf4ff;
+    background-color: rgba(235, 244, 255, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-indigo-200:active {
+    --bg-opacity: 1;
+    background-color: #c3dafe;
+    background-color: rgba(195, 218, 254, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-indigo-300:active {
+    --bg-opacity: 1;
+    background-color: #a3bffa;
+    background-color: rgba(163, 191, 250, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-indigo-400:active {
+    --bg-opacity: 1;
+    background-color: #7f9cf5;
+    background-color: rgba(127, 156, 245, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-indigo-500:active {
+    --bg-opacity: 1;
+    background-color: #667eea;
+    background-color: rgba(102, 126, 234, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-indigo-600:active {
+    --bg-opacity: 1;
+    background-color: #5a67d8;
+    background-color: rgba(90, 103, 216, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-indigo-700:active {
+    --bg-opacity: 1;
+    background-color: #4c51bf;
+    background-color: rgba(76, 81, 191, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-indigo-800:active {
+    --bg-opacity: 1;
+    background-color: #434190;
+    background-color: rgba(67, 65, 144, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-indigo-900:active {
+    --bg-opacity: 1;
+    background-color: #3c366b;
+    background-color: rgba(60, 54, 107, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-purple-100:active {
+    --bg-opacity: 1;
+    background-color: #faf5ff;
+    background-color: rgba(250, 245, 255, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-purple-200:active {
+    --bg-opacity: 1;
+    background-color: #e9d8fd;
+    background-color: rgba(233, 216, 253, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-purple-300:active {
+    --bg-opacity: 1;
+    background-color: #d6bcfa;
+    background-color: rgba(214, 188, 250, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-purple-400:active {
+    --bg-opacity: 1;
+    background-color: #b794f4;
+    background-color: rgba(183, 148, 244, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-purple-500:active {
+    --bg-opacity: 1;
+    background-color: #9f7aea;
+    background-color: rgba(159, 122, 234, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-purple-600:active {
+    --bg-opacity: 1;
+    background-color: #805ad5;
+    background-color: rgba(128, 90, 213, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-purple-700:active {
+    --bg-opacity: 1;
+    background-color: #6b46c1;
+    background-color: rgba(107, 70, 193, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-purple-800:active {
+    --bg-opacity: 1;
+    background-color: #553c9a;
+    background-color: rgba(85, 60, 154, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-purple-900:active {
+    --bg-opacity: 1;
+    background-color: #44337a;
+    background-color: rgba(68, 51, 122, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-pink-100:active {
+    --bg-opacity: 1;
+    background-color: #fff5f7;
+    background-color: rgba(255, 245, 247, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-pink-200:active {
+    --bg-opacity: 1;
+    background-color: #fed7e2;
+    background-color: rgba(254, 215, 226, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-pink-300:active {
+    --bg-opacity: 1;
+    background-color: #fbb6ce;
+    background-color: rgba(251, 182, 206, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-pink-400:active {
+    --bg-opacity: 1;
+    background-color: #f687b3;
+    background-color: rgba(246, 135, 179, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-pink-500:active {
+    --bg-opacity: 1;
+    background-color: #ed64a6;
+    background-color: rgba(237, 100, 166, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-pink-600:active {
+    --bg-opacity: 1;
+    background-color: #d53f8c;
+    background-color: rgba(213, 63, 140, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-pink-700:active {
+    --bg-opacity: 1;
+    background-color: #b83280;
+    background-color: rgba(184, 50, 128, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-pink-800:active {
+    --bg-opacity: 1;
+    background-color: #97266d;
+    background-color: rgba(151, 38, 109, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-pink-900:active {
+    --bg-opacity: 1;
+    background-color: #702459;
+    background-color: rgba(112, 36, 89, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-accent:active {
+    --bg-opacity: 1;
+    background-color: #501408;
+    background-color: rgba(80, 20, 8, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-accent2:active {
+    --bg-opacity: 1;
+    background-color: #920104;
+    background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-accent3-100:active {
+    --bg-opacity: 1;
+    background-color: #F27263;
+    background-color: rgba(242, 114, 99, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-accent3-300:active {
+    --bg-opacity: 1;
+    background-color: #D94D43;
+    background-color: rgba(217, 77, 67, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-accent3-400:active {
+    --bg-opacity: 1;
+    background-color: #CC423B;
+    background-color: rgba(204, 66, 59, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-accent3-500:active {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-accent3-700:active {
+    --bg-opacity: 1;
+    background-color: #A61712;
+    background-color: rgba(166, 23, 18, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-accent3-900:active {
+    --bg-opacity: 1;
+    background-color: #8C0601;
+    background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-objectiveGold:active {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
+  .lg\:active\:bg-swirl:active {
+    --bg-opacity: 1;
+    background-color: #d0cec2;
+    background-color: rgba(208, 206, 194, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-transparent:disabled {
+    background-color: transparent;
+  }
+
+  .lg\:disabled\:bg-current:disabled {
+    background-color: currentColor;
+  }
+
+  .lg\:disabled\:bg-black:disabled {
+    --bg-opacity: 1;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-white:disabled {
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-gray-100:disabled {
+    --bg-opacity: 1;
+    background-color: #f7fafc;
+    background-color: rgba(247, 250, 252, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-gray-200:disabled {
+    --bg-opacity: 1;
+    background-color: #edf2f7;
+    background-color: rgba(237, 242, 247, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-gray-300:disabled {
+    --bg-opacity: 1;
+    background-color: #e2e8f0;
+    background-color: rgba(226, 232, 240, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-gray-400:disabled {
+    --bg-opacity: 1;
+    background-color: #cbd5e0;
+    background-color: rgba(203, 213, 224, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-gray-500:disabled {
+    --bg-opacity: 1;
+    background-color: #a0aec0;
+    background-color: rgba(160, 174, 192, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-gray-600:disabled {
+    --bg-opacity: 1;
+    background-color: #718096;
+    background-color: rgba(113, 128, 150, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-gray-700:disabled {
+    --bg-opacity: 1;
+    background-color: #4a5568;
+    background-color: rgba(74, 85, 104, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-gray-800:disabled {
+    --bg-opacity: 1;
+    background-color: #2d3748;
+    background-color: rgba(45, 55, 72, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-gray-900:disabled {
+    --bg-opacity: 1;
+    background-color: #1a202c;
+    background-color: rgba(26, 32, 44, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-red-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fff5f5;
+    background-color: rgba(255, 245, 245, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-red-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fed7d7;
+    background-color: rgba(254, 215, 215, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-red-300:disabled {
+    --bg-opacity: 1;
+    background-color: #feb2b2;
+    background-color: rgba(254, 178, 178, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-red-400:disabled {
+    --bg-opacity: 1;
+    background-color: #fc8181;
+    background-color: rgba(252, 129, 129, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-red-500:disabled {
+    --bg-opacity: 1;
+    background-color: #f56565;
+    background-color: rgba(245, 101, 101, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-red-600:disabled {
+    --bg-opacity: 1;
+    background-color: #e53e3e;
+    background-color: rgba(229, 62, 62, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-red-700:disabled {
+    --bg-opacity: 1;
+    background-color: #c53030;
+    background-color: rgba(197, 48, 48, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-red-800:disabled {
+    --bg-opacity: 1;
+    background-color: #9b2c2c;
+    background-color: rgba(155, 44, 44, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-red-900:disabled {
+    --bg-opacity: 1;
+    background-color: #742a2a;
+    background-color: rgba(116, 42, 42, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-orange-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fffaf0;
+    background-color: rgba(255, 250, 240, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-orange-200:disabled {
+    --bg-opacity: 1;
+    background-color: #feebc8;
+    background-color: rgba(254, 235, 200, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-orange-300:disabled {
+    --bg-opacity: 1;
+    background-color: #fbd38d;
+    background-color: rgba(251, 211, 141, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-orange-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f6ad55;
+    background-color: rgba(246, 173, 85, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-orange-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ed8936;
+    background-color: rgba(237, 137, 54, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-orange-600:disabled {
+    --bg-opacity: 1;
+    background-color: #dd6b20;
+    background-color: rgba(221, 107, 32, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-orange-700:disabled {
+    --bg-opacity: 1;
+    background-color: #c05621;
+    background-color: rgba(192, 86, 33, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-orange-800:disabled {
+    --bg-opacity: 1;
+    background-color: #9c4221;
+    background-color: rgba(156, 66, 33, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-orange-900:disabled {
+    --bg-opacity: 1;
+    background-color: #7b341e;
+    background-color: rgba(123, 52, 30, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-yellow-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fffff0;
+    background-color: rgba(255, 255, 240, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-yellow-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fefcbf;
+    background-color: rgba(254, 252, 191, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-yellow-300:disabled {
+    --bg-opacity: 1;
+    background-color: #faf089;
+    background-color: rgba(250, 240, 137, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-yellow-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f6e05e;
+    background-color: rgba(246, 224, 94, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-yellow-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ecc94b;
+    background-color: rgba(236, 201, 75, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-yellow-600:disabled {
+    --bg-opacity: 1;
+    background-color: #d69e2e;
+    background-color: rgba(214, 158, 46, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-yellow-700:disabled {
+    --bg-opacity: 1;
+    background-color: #b7791f;
+    background-color: rgba(183, 121, 31, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-yellow-800:disabled {
+    --bg-opacity: 1;
+    background-color: #975a16;
+    background-color: rgba(151, 90, 22, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-yellow-900:disabled {
+    --bg-opacity: 1;
+    background-color: #744210;
+    background-color: rgba(116, 66, 16, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-green-100:disabled {
+    --bg-opacity: 1;
+    background-color: #f0fff4;
+    background-color: rgba(240, 255, 244, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-green-200:disabled {
+    --bg-opacity: 1;
+    background-color: #c6f6d5;
+    background-color: rgba(198, 246, 213, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-green-300:disabled {
+    --bg-opacity: 1;
+    background-color: #9ae6b4;
+    background-color: rgba(154, 230, 180, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-green-400:disabled {
+    --bg-opacity: 1;
+    background-color: #68d391;
+    background-color: rgba(104, 211, 145, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-green-500:disabled {
+    --bg-opacity: 1;
+    background-color: #48bb78;
+    background-color: rgba(72, 187, 120, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-green-600:disabled {
+    --bg-opacity: 1;
+    background-color: #38a169;
+    background-color: rgba(56, 161, 105, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-green-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2f855a;
+    background-color: rgba(47, 133, 90, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-green-800:disabled {
+    --bg-opacity: 1;
+    background-color: #276749;
+    background-color: rgba(39, 103, 73, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-green-900:disabled {
+    --bg-opacity: 1;
+    background-color: #22543d;
+    background-color: rgba(34, 84, 61, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-teal-100:disabled {
+    --bg-opacity: 1;
+    background-color: #e6fffa;
+    background-color: rgba(230, 255, 250, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-teal-200:disabled {
+    --bg-opacity: 1;
+    background-color: #b2f5ea;
+    background-color: rgba(178, 245, 234, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-teal-300:disabled {
+    --bg-opacity: 1;
+    background-color: #81e6d9;
+    background-color: rgba(129, 230, 217, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-teal-400:disabled {
+    --bg-opacity: 1;
+    background-color: #4fd1c5;
+    background-color: rgba(79, 209, 197, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-teal-500:disabled {
+    --bg-opacity: 1;
+    background-color: #38b2ac;
+    background-color: rgba(56, 178, 172, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-teal-600:disabled {
+    --bg-opacity: 1;
+    background-color: #319795;
+    background-color: rgba(49, 151, 149, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-teal-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2c7a7b;
+    background-color: rgba(44, 122, 123, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-teal-800:disabled {
+    --bg-opacity: 1;
+    background-color: #285e61;
+    background-color: rgba(40, 94, 97, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-teal-900:disabled {
+    --bg-opacity: 1;
+    background-color: #234e52;
+    background-color: rgba(35, 78, 82, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-blue-100:disabled {
+    --bg-opacity: 1;
+    background-color: #ebf8ff;
+    background-color: rgba(235, 248, 255, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-blue-200:disabled {
+    --bg-opacity: 1;
+    background-color: #bee3f8;
+    background-color: rgba(190, 227, 248, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-blue-300:disabled {
+    --bg-opacity: 1;
+    background-color: #90cdf4;
+    background-color: rgba(144, 205, 244, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-blue-400:disabled {
+    --bg-opacity: 1;
+    background-color: #63b3ed;
+    background-color: rgba(99, 179, 237, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-blue-500:disabled {
+    --bg-opacity: 1;
+    background-color: #4299e1;
+    background-color: rgba(66, 153, 225, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-blue-600:disabled {
+    --bg-opacity: 1;
+    background-color: #3182ce;
+    background-color: rgba(49, 130, 206, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-blue-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2b6cb0;
+    background-color: rgba(43, 108, 176, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-blue-800:disabled {
+    --bg-opacity: 1;
+    background-color: #2c5282;
+    background-color: rgba(44, 82, 130, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-blue-900:disabled {
+    --bg-opacity: 1;
+    background-color: #2a4365;
+    background-color: rgba(42, 67, 101, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-indigo-100:disabled {
+    --bg-opacity: 1;
+    background-color: #ebf4ff;
+    background-color: rgba(235, 244, 255, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-indigo-200:disabled {
+    --bg-opacity: 1;
+    background-color: #c3dafe;
+    background-color: rgba(195, 218, 254, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-indigo-300:disabled {
+    --bg-opacity: 1;
+    background-color: #a3bffa;
+    background-color: rgba(163, 191, 250, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-indigo-400:disabled {
+    --bg-opacity: 1;
+    background-color: #7f9cf5;
+    background-color: rgba(127, 156, 245, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-indigo-500:disabled {
+    --bg-opacity: 1;
+    background-color: #667eea;
+    background-color: rgba(102, 126, 234, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-indigo-600:disabled {
+    --bg-opacity: 1;
+    background-color: #5a67d8;
+    background-color: rgba(90, 103, 216, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-indigo-700:disabled {
+    --bg-opacity: 1;
+    background-color: #4c51bf;
+    background-color: rgba(76, 81, 191, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-indigo-800:disabled {
+    --bg-opacity: 1;
+    background-color: #434190;
+    background-color: rgba(67, 65, 144, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-indigo-900:disabled {
+    --bg-opacity: 1;
+    background-color: #3c366b;
+    background-color: rgba(60, 54, 107, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-purple-100:disabled {
+    --bg-opacity: 1;
+    background-color: #faf5ff;
+    background-color: rgba(250, 245, 255, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-purple-200:disabled {
+    --bg-opacity: 1;
+    background-color: #e9d8fd;
+    background-color: rgba(233, 216, 253, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-purple-300:disabled {
+    --bg-opacity: 1;
+    background-color: #d6bcfa;
+    background-color: rgba(214, 188, 250, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-purple-400:disabled {
+    --bg-opacity: 1;
+    background-color: #b794f4;
+    background-color: rgba(183, 148, 244, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-purple-500:disabled {
+    --bg-opacity: 1;
+    background-color: #9f7aea;
+    background-color: rgba(159, 122, 234, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-purple-600:disabled {
+    --bg-opacity: 1;
+    background-color: #805ad5;
+    background-color: rgba(128, 90, 213, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-purple-700:disabled {
+    --bg-opacity: 1;
+    background-color: #6b46c1;
+    background-color: rgba(107, 70, 193, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-purple-800:disabled {
+    --bg-opacity: 1;
+    background-color: #553c9a;
+    background-color: rgba(85, 60, 154, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-purple-900:disabled {
+    --bg-opacity: 1;
+    background-color: #44337a;
+    background-color: rgba(68, 51, 122, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-pink-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fff5f7;
+    background-color: rgba(255, 245, 247, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-pink-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fed7e2;
+    background-color: rgba(254, 215, 226, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-pink-300:disabled {
+    --bg-opacity: 1;
+    background-color: #fbb6ce;
+    background-color: rgba(251, 182, 206, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-pink-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f687b3;
+    background-color: rgba(246, 135, 179, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-pink-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ed64a6;
+    background-color: rgba(237, 100, 166, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-pink-600:disabled {
+    --bg-opacity: 1;
+    background-color: #d53f8c;
+    background-color: rgba(213, 63, 140, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-pink-700:disabled {
+    --bg-opacity: 1;
+    background-color: #b83280;
+    background-color: rgba(184, 50, 128, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-pink-800:disabled {
+    --bg-opacity: 1;
+    background-color: #97266d;
+    background-color: rgba(151, 38, 109, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-pink-900:disabled {
+    --bg-opacity: 1;
+    background-color: #702459;
+    background-color: rgba(112, 36, 89, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-accent:disabled {
+    --bg-opacity: 1;
+    background-color: #501408;
+    background-color: rgba(80, 20, 8, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-accent2:disabled {
+    --bg-opacity: 1;
+    background-color: #920104;
+    background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-accent3-100:disabled {
+    --bg-opacity: 1;
+    background-color: #F27263;
+    background-color: rgba(242, 114, 99, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-accent3-300:disabled {
+    --bg-opacity: 1;
+    background-color: #D94D43;
+    background-color: rgba(217, 77, 67, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-accent3-400:disabled {
+    --bg-opacity: 1;
+    background-color: #CC423B;
+    background-color: rgba(204, 66, 59, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-accent3-500:disabled {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-accent3-700:disabled {
+    --bg-opacity: 1;
+    background-color: #A61712;
+    background-color: rgba(166, 23, 18, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-accent3-900:disabled {
+    --bg-opacity: 1;
+    background-color: #8C0601;
+    background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-objectiveGold:disabled {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
+  .lg\:disabled\:bg-swirl:disabled {
+    --bg-opacity: 1;
+    background-color: #d0cec2;
+    background-color: rgba(208, 206, 194, var(--bg-opacity));
+  }
+
   .lg\:bg-none {
     background-image: none;
   }
@@ -79445,6 +84519,26 @@ body {
   }
 
   .lg\:focus\:opacity-100:focus {
+    opacity: 1;
+  }
+
+  .lg\:disabled\:opacity-0:disabled {
+    opacity: 0;
+  }
+
+  .lg\:disabled\:opacity-25:disabled {
+    opacity: 0.25;
+  }
+
+  .lg\:disabled\:opacity-50:disabled {
+    opacity: 0.5;
+  }
+
+  .lg\:disabled\:opacity-75:disabled {
+    opacity: 0.75;
+  }
+
+  .lg\:disabled\:opacity-100:disabled {
     opacity: 1;
   }
 
@@ -92515,6 +97609,1246 @@ body {
     background-color: rgba(208, 206, 194, var(--bg-opacity));
   }
 
+  .xl\:active\:bg-transparent:active {
+    background-color: transparent;
+  }
+
+  .xl\:active\:bg-current:active {
+    background-color: currentColor;
+  }
+
+  .xl\:active\:bg-black:active {
+    --bg-opacity: 1;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-white:active {
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-gray-100:active {
+    --bg-opacity: 1;
+    background-color: #f7fafc;
+    background-color: rgba(247, 250, 252, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-gray-200:active {
+    --bg-opacity: 1;
+    background-color: #edf2f7;
+    background-color: rgba(237, 242, 247, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-gray-300:active {
+    --bg-opacity: 1;
+    background-color: #e2e8f0;
+    background-color: rgba(226, 232, 240, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-gray-400:active {
+    --bg-opacity: 1;
+    background-color: #cbd5e0;
+    background-color: rgba(203, 213, 224, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-gray-500:active {
+    --bg-opacity: 1;
+    background-color: #a0aec0;
+    background-color: rgba(160, 174, 192, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-gray-600:active {
+    --bg-opacity: 1;
+    background-color: #718096;
+    background-color: rgba(113, 128, 150, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-gray-700:active {
+    --bg-opacity: 1;
+    background-color: #4a5568;
+    background-color: rgba(74, 85, 104, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-gray-800:active {
+    --bg-opacity: 1;
+    background-color: #2d3748;
+    background-color: rgba(45, 55, 72, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-gray-900:active {
+    --bg-opacity: 1;
+    background-color: #1a202c;
+    background-color: rgba(26, 32, 44, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-red-100:active {
+    --bg-opacity: 1;
+    background-color: #fff5f5;
+    background-color: rgba(255, 245, 245, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-red-200:active {
+    --bg-opacity: 1;
+    background-color: #fed7d7;
+    background-color: rgba(254, 215, 215, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-red-300:active {
+    --bg-opacity: 1;
+    background-color: #feb2b2;
+    background-color: rgba(254, 178, 178, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-red-400:active {
+    --bg-opacity: 1;
+    background-color: #fc8181;
+    background-color: rgba(252, 129, 129, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-red-500:active {
+    --bg-opacity: 1;
+    background-color: #f56565;
+    background-color: rgba(245, 101, 101, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-red-600:active {
+    --bg-opacity: 1;
+    background-color: #e53e3e;
+    background-color: rgba(229, 62, 62, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-red-700:active {
+    --bg-opacity: 1;
+    background-color: #c53030;
+    background-color: rgba(197, 48, 48, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-red-800:active {
+    --bg-opacity: 1;
+    background-color: #9b2c2c;
+    background-color: rgba(155, 44, 44, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-red-900:active {
+    --bg-opacity: 1;
+    background-color: #742a2a;
+    background-color: rgba(116, 42, 42, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-orange-100:active {
+    --bg-opacity: 1;
+    background-color: #fffaf0;
+    background-color: rgba(255, 250, 240, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-orange-200:active {
+    --bg-opacity: 1;
+    background-color: #feebc8;
+    background-color: rgba(254, 235, 200, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-orange-300:active {
+    --bg-opacity: 1;
+    background-color: #fbd38d;
+    background-color: rgba(251, 211, 141, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-orange-400:active {
+    --bg-opacity: 1;
+    background-color: #f6ad55;
+    background-color: rgba(246, 173, 85, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-orange-500:active {
+    --bg-opacity: 1;
+    background-color: #ed8936;
+    background-color: rgba(237, 137, 54, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-orange-600:active {
+    --bg-opacity: 1;
+    background-color: #dd6b20;
+    background-color: rgba(221, 107, 32, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-orange-700:active {
+    --bg-opacity: 1;
+    background-color: #c05621;
+    background-color: rgba(192, 86, 33, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-orange-800:active {
+    --bg-opacity: 1;
+    background-color: #9c4221;
+    background-color: rgba(156, 66, 33, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-orange-900:active {
+    --bg-opacity: 1;
+    background-color: #7b341e;
+    background-color: rgba(123, 52, 30, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-yellow-100:active {
+    --bg-opacity: 1;
+    background-color: #fffff0;
+    background-color: rgba(255, 255, 240, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-yellow-200:active {
+    --bg-opacity: 1;
+    background-color: #fefcbf;
+    background-color: rgba(254, 252, 191, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-yellow-300:active {
+    --bg-opacity: 1;
+    background-color: #faf089;
+    background-color: rgba(250, 240, 137, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-yellow-400:active {
+    --bg-opacity: 1;
+    background-color: #f6e05e;
+    background-color: rgba(246, 224, 94, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-yellow-500:active {
+    --bg-opacity: 1;
+    background-color: #ecc94b;
+    background-color: rgba(236, 201, 75, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-yellow-600:active {
+    --bg-opacity: 1;
+    background-color: #d69e2e;
+    background-color: rgba(214, 158, 46, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-yellow-700:active {
+    --bg-opacity: 1;
+    background-color: #b7791f;
+    background-color: rgba(183, 121, 31, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-yellow-800:active {
+    --bg-opacity: 1;
+    background-color: #975a16;
+    background-color: rgba(151, 90, 22, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-yellow-900:active {
+    --bg-opacity: 1;
+    background-color: #744210;
+    background-color: rgba(116, 66, 16, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-green-100:active {
+    --bg-opacity: 1;
+    background-color: #f0fff4;
+    background-color: rgba(240, 255, 244, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-green-200:active {
+    --bg-opacity: 1;
+    background-color: #c6f6d5;
+    background-color: rgba(198, 246, 213, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-green-300:active {
+    --bg-opacity: 1;
+    background-color: #9ae6b4;
+    background-color: rgba(154, 230, 180, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-green-400:active {
+    --bg-opacity: 1;
+    background-color: #68d391;
+    background-color: rgba(104, 211, 145, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-green-500:active {
+    --bg-opacity: 1;
+    background-color: #48bb78;
+    background-color: rgba(72, 187, 120, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-green-600:active {
+    --bg-opacity: 1;
+    background-color: #38a169;
+    background-color: rgba(56, 161, 105, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-green-700:active {
+    --bg-opacity: 1;
+    background-color: #2f855a;
+    background-color: rgba(47, 133, 90, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-green-800:active {
+    --bg-opacity: 1;
+    background-color: #276749;
+    background-color: rgba(39, 103, 73, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-green-900:active {
+    --bg-opacity: 1;
+    background-color: #22543d;
+    background-color: rgba(34, 84, 61, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-teal-100:active {
+    --bg-opacity: 1;
+    background-color: #e6fffa;
+    background-color: rgba(230, 255, 250, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-teal-200:active {
+    --bg-opacity: 1;
+    background-color: #b2f5ea;
+    background-color: rgba(178, 245, 234, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-teal-300:active {
+    --bg-opacity: 1;
+    background-color: #81e6d9;
+    background-color: rgba(129, 230, 217, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-teal-400:active {
+    --bg-opacity: 1;
+    background-color: #4fd1c5;
+    background-color: rgba(79, 209, 197, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-teal-500:active {
+    --bg-opacity: 1;
+    background-color: #38b2ac;
+    background-color: rgba(56, 178, 172, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-teal-600:active {
+    --bg-opacity: 1;
+    background-color: #319795;
+    background-color: rgba(49, 151, 149, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-teal-700:active {
+    --bg-opacity: 1;
+    background-color: #2c7a7b;
+    background-color: rgba(44, 122, 123, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-teal-800:active {
+    --bg-opacity: 1;
+    background-color: #285e61;
+    background-color: rgba(40, 94, 97, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-teal-900:active {
+    --bg-opacity: 1;
+    background-color: #234e52;
+    background-color: rgba(35, 78, 82, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-blue-100:active {
+    --bg-opacity: 1;
+    background-color: #ebf8ff;
+    background-color: rgba(235, 248, 255, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-blue-200:active {
+    --bg-opacity: 1;
+    background-color: #bee3f8;
+    background-color: rgba(190, 227, 248, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-blue-300:active {
+    --bg-opacity: 1;
+    background-color: #90cdf4;
+    background-color: rgba(144, 205, 244, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-blue-400:active {
+    --bg-opacity: 1;
+    background-color: #63b3ed;
+    background-color: rgba(99, 179, 237, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-blue-500:active {
+    --bg-opacity: 1;
+    background-color: #4299e1;
+    background-color: rgba(66, 153, 225, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-blue-600:active {
+    --bg-opacity: 1;
+    background-color: #3182ce;
+    background-color: rgba(49, 130, 206, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-blue-700:active {
+    --bg-opacity: 1;
+    background-color: #2b6cb0;
+    background-color: rgba(43, 108, 176, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-blue-800:active {
+    --bg-opacity: 1;
+    background-color: #2c5282;
+    background-color: rgba(44, 82, 130, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-blue-900:active {
+    --bg-opacity: 1;
+    background-color: #2a4365;
+    background-color: rgba(42, 67, 101, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-indigo-100:active {
+    --bg-opacity: 1;
+    background-color: #ebf4ff;
+    background-color: rgba(235, 244, 255, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-indigo-200:active {
+    --bg-opacity: 1;
+    background-color: #c3dafe;
+    background-color: rgba(195, 218, 254, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-indigo-300:active {
+    --bg-opacity: 1;
+    background-color: #a3bffa;
+    background-color: rgba(163, 191, 250, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-indigo-400:active {
+    --bg-opacity: 1;
+    background-color: #7f9cf5;
+    background-color: rgba(127, 156, 245, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-indigo-500:active {
+    --bg-opacity: 1;
+    background-color: #667eea;
+    background-color: rgba(102, 126, 234, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-indigo-600:active {
+    --bg-opacity: 1;
+    background-color: #5a67d8;
+    background-color: rgba(90, 103, 216, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-indigo-700:active {
+    --bg-opacity: 1;
+    background-color: #4c51bf;
+    background-color: rgba(76, 81, 191, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-indigo-800:active {
+    --bg-opacity: 1;
+    background-color: #434190;
+    background-color: rgba(67, 65, 144, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-indigo-900:active {
+    --bg-opacity: 1;
+    background-color: #3c366b;
+    background-color: rgba(60, 54, 107, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-purple-100:active {
+    --bg-opacity: 1;
+    background-color: #faf5ff;
+    background-color: rgba(250, 245, 255, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-purple-200:active {
+    --bg-opacity: 1;
+    background-color: #e9d8fd;
+    background-color: rgba(233, 216, 253, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-purple-300:active {
+    --bg-opacity: 1;
+    background-color: #d6bcfa;
+    background-color: rgba(214, 188, 250, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-purple-400:active {
+    --bg-opacity: 1;
+    background-color: #b794f4;
+    background-color: rgba(183, 148, 244, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-purple-500:active {
+    --bg-opacity: 1;
+    background-color: #9f7aea;
+    background-color: rgba(159, 122, 234, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-purple-600:active {
+    --bg-opacity: 1;
+    background-color: #805ad5;
+    background-color: rgba(128, 90, 213, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-purple-700:active {
+    --bg-opacity: 1;
+    background-color: #6b46c1;
+    background-color: rgba(107, 70, 193, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-purple-800:active {
+    --bg-opacity: 1;
+    background-color: #553c9a;
+    background-color: rgba(85, 60, 154, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-purple-900:active {
+    --bg-opacity: 1;
+    background-color: #44337a;
+    background-color: rgba(68, 51, 122, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-pink-100:active {
+    --bg-opacity: 1;
+    background-color: #fff5f7;
+    background-color: rgba(255, 245, 247, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-pink-200:active {
+    --bg-opacity: 1;
+    background-color: #fed7e2;
+    background-color: rgba(254, 215, 226, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-pink-300:active {
+    --bg-opacity: 1;
+    background-color: #fbb6ce;
+    background-color: rgba(251, 182, 206, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-pink-400:active {
+    --bg-opacity: 1;
+    background-color: #f687b3;
+    background-color: rgba(246, 135, 179, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-pink-500:active {
+    --bg-opacity: 1;
+    background-color: #ed64a6;
+    background-color: rgba(237, 100, 166, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-pink-600:active {
+    --bg-opacity: 1;
+    background-color: #d53f8c;
+    background-color: rgba(213, 63, 140, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-pink-700:active {
+    --bg-opacity: 1;
+    background-color: #b83280;
+    background-color: rgba(184, 50, 128, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-pink-800:active {
+    --bg-opacity: 1;
+    background-color: #97266d;
+    background-color: rgba(151, 38, 109, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-pink-900:active {
+    --bg-opacity: 1;
+    background-color: #702459;
+    background-color: rgba(112, 36, 89, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-accent:active {
+    --bg-opacity: 1;
+    background-color: #501408;
+    background-color: rgba(80, 20, 8, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-accent2:active {
+    --bg-opacity: 1;
+    background-color: #920104;
+    background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-accent3-100:active {
+    --bg-opacity: 1;
+    background-color: #F27263;
+    background-color: rgba(242, 114, 99, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-accent3-300:active {
+    --bg-opacity: 1;
+    background-color: #D94D43;
+    background-color: rgba(217, 77, 67, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-accent3-400:active {
+    --bg-opacity: 1;
+    background-color: #CC423B;
+    background-color: rgba(204, 66, 59, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-accent3-500:active {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-accent3-700:active {
+    --bg-opacity: 1;
+    background-color: #A61712;
+    background-color: rgba(166, 23, 18, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-accent3-900:active {
+    --bg-opacity: 1;
+    background-color: #8C0601;
+    background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-objectiveGold:active {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
+  .xl\:active\:bg-swirl:active {
+    --bg-opacity: 1;
+    background-color: #d0cec2;
+    background-color: rgba(208, 206, 194, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-transparent:disabled {
+    background-color: transparent;
+  }
+
+  .xl\:disabled\:bg-current:disabled {
+    background-color: currentColor;
+  }
+
+  .xl\:disabled\:bg-black:disabled {
+    --bg-opacity: 1;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-white:disabled {
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-gray-100:disabled {
+    --bg-opacity: 1;
+    background-color: #f7fafc;
+    background-color: rgba(247, 250, 252, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-gray-200:disabled {
+    --bg-opacity: 1;
+    background-color: #edf2f7;
+    background-color: rgba(237, 242, 247, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-gray-300:disabled {
+    --bg-opacity: 1;
+    background-color: #e2e8f0;
+    background-color: rgba(226, 232, 240, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-gray-400:disabled {
+    --bg-opacity: 1;
+    background-color: #cbd5e0;
+    background-color: rgba(203, 213, 224, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-gray-500:disabled {
+    --bg-opacity: 1;
+    background-color: #a0aec0;
+    background-color: rgba(160, 174, 192, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-gray-600:disabled {
+    --bg-opacity: 1;
+    background-color: #718096;
+    background-color: rgba(113, 128, 150, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-gray-700:disabled {
+    --bg-opacity: 1;
+    background-color: #4a5568;
+    background-color: rgba(74, 85, 104, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-gray-800:disabled {
+    --bg-opacity: 1;
+    background-color: #2d3748;
+    background-color: rgba(45, 55, 72, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-gray-900:disabled {
+    --bg-opacity: 1;
+    background-color: #1a202c;
+    background-color: rgba(26, 32, 44, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-red-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fff5f5;
+    background-color: rgba(255, 245, 245, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-red-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fed7d7;
+    background-color: rgba(254, 215, 215, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-red-300:disabled {
+    --bg-opacity: 1;
+    background-color: #feb2b2;
+    background-color: rgba(254, 178, 178, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-red-400:disabled {
+    --bg-opacity: 1;
+    background-color: #fc8181;
+    background-color: rgba(252, 129, 129, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-red-500:disabled {
+    --bg-opacity: 1;
+    background-color: #f56565;
+    background-color: rgba(245, 101, 101, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-red-600:disabled {
+    --bg-opacity: 1;
+    background-color: #e53e3e;
+    background-color: rgba(229, 62, 62, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-red-700:disabled {
+    --bg-opacity: 1;
+    background-color: #c53030;
+    background-color: rgba(197, 48, 48, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-red-800:disabled {
+    --bg-opacity: 1;
+    background-color: #9b2c2c;
+    background-color: rgba(155, 44, 44, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-red-900:disabled {
+    --bg-opacity: 1;
+    background-color: #742a2a;
+    background-color: rgba(116, 42, 42, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-orange-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fffaf0;
+    background-color: rgba(255, 250, 240, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-orange-200:disabled {
+    --bg-opacity: 1;
+    background-color: #feebc8;
+    background-color: rgba(254, 235, 200, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-orange-300:disabled {
+    --bg-opacity: 1;
+    background-color: #fbd38d;
+    background-color: rgba(251, 211, 141, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-orange-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f6ad55;
+    background-color: rgba(246, 173, 85, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-orange-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ed8936;
+    background-color: rgba(237, 137, 54, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-orange-600:disabled {
+    --bg-opacity: 1;
+    background-color: #dd6b20;
+    background-color: rgba(221, 107, 32, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-orange-700:disabled {
+    --bg-opacity: 1;
+    background-color: #c05621;
+    background-color: rgba(192, 86, 33, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-orange-800:disabled {
+    --bg-opacity: 1;
+    background-color: #9c4221;
+    background-color: rgba(156, 66, 33, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-orange-900:disabled {
+    --bg-opacity: 1;
+    background-color: #7b341e;
+    background-color: rgba(123, 52, 30, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-yellow-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fffff0;
+    background-color: rgba(255, 255, 240, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-yellow-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fefcbf;
+    background-color: rgba(254, 252, 191, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-yellow-300:disabled {
+    --bg-opacity: 1;
+    background-color: #faf089;
+    background-color: rgba(250, 240, 137, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-yellow-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f6e05e;
+    background-color: rgba(246, 224, 94, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-yellow-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ecc94b;
+    background-color: rgba(236, 201, 75, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-yellow-600:disabled {
+    --bg-opacity: 1;
+    background-color: #d69e2e;
+    background-color: rgba(214, 158, 46, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-yellow-700:disabled {
+    --bg-opacity: 1;
+    background-color: #b7791f;
+    background-color: rgba(183, 121, 31, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-yellow-800:disabled {
+    --bg-opacity: 1;
+    background-color: #975a16;
+    background-color: rgba(151, 90, 22, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-yellow-900:disabled {
+    --bg-opacity: 1;
+    background-color: #744210;
+    background-color: rgba(116, 66, 16, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-green-100:disabled {
+    --bg-opacity: 1;
+    background-color: #f0fff4;
+    background-color: rgba(240, 255, 244, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-green-200:disabled {
+    --bg-opacity: 1;
+    background-color: #c6f6d5;
+    background-color: rgba(198, 246, 213, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-green-300:disabled {
+    --bg-opacity: 1;
+    background-color: #9ae6b4;
+    background-color: rgba(154, 230, 180, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-green-400:disabled {
+    --bg-opacity: 1;
+    background-color: #68d391;
+    background-color: rgba(104, 211, 145, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-green-500:disabled {
+    --bg-opacity: 1;
+    background-color: #48bb78;
+    background-color: rgba(72, 187, 120, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-green-600:disabled {
+    --bg-opacity: 1;
+    background-color: #38a169;
+    background-color: rgba(56, 161, 105, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-green-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2f855a;
+    background-color: rgba(47, 133, 90, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-green-800:disabled {
+    --bg-opacity: 1;
+    background-color: #276749;
+    background-color: rgba(39, 103, 73, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-green-900:disabled {
+    --bg-opacity: 1;
+    background-color: #22543d;
+    background-color: rgba(34, 84, 61, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-teal-100:disabled {
+    --bg-opacity: 1;
+    background-color: #e6fffa;
+    background-color: rgba(230, 255, 250, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-teal-200:disabled {
+    --bg-opacity: 1;
+    background-color: #b2f5ea;
+    background-color: rgba(178, 245, 234, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-teal-300:disabled {
+    --bg-opacity: 1;
+    background-color: #81e6d9;
+    background-color: rgba(129, 230, 217, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-teal-400:disabled {
+    --bg-opacity: 1;
+    background-color: #4fd1c5;
+    background-color: rgba(79, 209, 197, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-teal-500:disabled {
+    --bg-opacity: 1;
+    background-color: #38b2ac;
+    background-color: rgba(56, 178, 172, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-teal-600:disabled {
+    --bg-opacity: 1;
+    background-color: #319795;
+    background-color: rgba(49, 151, 149, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-teal-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2c7a7b;
+    background-color: rgba(44, 122, 123, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-teal-800:disabled {
+    --bg-opacity: 1;
+    background-color: #285e61;
+    background-color: rgba(40, 94, 97, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-teal-900:disabled {
+    --bg-opacity: 1;
+    background-color: #234e52;
+    background-color: rgba(35, 78, 82, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-blue-100:disabled {
+    --bg-opacity: 1;
+    background-color: #ebf8ff;
+    background-color: rgba(235, 248, 255, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-blue-200:disabled {
+    --bg-opacity: 1;
+    background-color: #bee3f8;
+    background-color: rgba(190, 227, 248, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-blue-300:disabled {
+    --bg-opacity: 1;
+    background-color: #90cdf4;
+    background-color: rgba(144, 205, 244, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-blue-400:disabled {
+    --bg-opacity: 1;
+    background-color: #63b3ed;
+    background-color: rgba(99, 179, 237, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-blue-500:disabled {
+    --bg-opacity: 1;
+    background-color: #4299e1;
+    background-color: rgba(66, 153, 225, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-blue-600:disabled {
+    --bg-opacity: 1;
+    background-color: #3182ce;
+    background-color: rgba(49, 130, 206, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-blue-700:disabled {
+    --bg-opacity: 1;
+    background-color: #2b6cb0;
+    background-color: rgba(43, 108, 176, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-blue-800:disabled {
+    --bg-opacity: 1;
+    background-color: #2c5282;
+    background-color: rgba(44, 82, 130, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-blue-900:disabled {
+    --bg-opacity: 1;
+    background-color: #2a4365;
+    background-color: rgba(42, 67, 101, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-indigo-100:disabled {
+    --bg-opacity: 1;
+    background-color: #ebf4ff;
+    background-color: rgba(235, 244, 255, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-indigo-200:disabled {
+    --bg-opacity: 1;
+    background-color: #c3dafe;
+    background-color: rgba(195, 218, 254, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-indigo-300:disabled {
+    --bg-opacity: 1;
+    background-color: #a3bffa;
+    background-color: rgba(163, 191, 250, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-indigo-400:disabled {
+    --bg-opacity: 1;
+    background-color: #7f9cf5;
+    background-color: rgba(127, 156, 245, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-indigo-500:disabled {
+    --bg-opacity: 1;
+    background-color: #667eea;
+    background-color: rgba(102, 126, 234, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-indigo-600:disabled {
+    --bg-opacity: 1;
+    background-color: #5a67d8;
+    background-color: rgba(90, 103, 216, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-indigo-700:disabled {
+    --bg-opacity: 1;
+    background-color: #4c51bf;
+    background-color: rgba(76, 81, 191, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-indigo-800:disabled {
+    --bg-opacity: 1;
+    background-color: #434190;
+    background-color: rgba(67, 65, 144, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-indigo-900:disabled {
+    --bg-opacity: 1;
+    background-color: #3c366b;
+    background-color: rgba(60, 54, 107, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-purple-100:disabled {
+    --bg-opacity: 1;
+    background-color: #faf5ff;
+    background-color: rgba(250, 245, 255, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-purple-200:disabled {
+    --bg-opacity: 1;
+    background-color: #e9d8fd;
+    background-color: rgba(233, 216, 253, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-purple-300:disabled {
+    --bg-opacity: 1;
+    background-color: #d6bcfa;
+    background-color: rgba(214, 188, 250, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-purple-400:disabled {
+    --bg-opacity: 1;
+    background-color: #b794f4;
+    background-color: rgba(183, 148, 244, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-purple-500:disabled {
+    --bg-opacity: 1;
+    background-color: #9f7aea;
+    background-color: rgba(159, 122, 234, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-purple-600:disabled {
+    --bg-opacity: 1;
+    background-color: #805ad5;
+    background-color: rgba(128, 90, 213, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-purple-700:disabled {
+    --bg-opacity: 1;
+    background-color: #6b46c1;
+    background-color: rgba(107, 70, 193, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-purple-800:disabled {
+    --bg-opacity: 1;
+    background-color: #553c9a;
+    background-color: rgba(85, 60, 154, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-purple-900:disabled {
+    --bg-opacity: 1;
+    background-color: #44337a;
+    background-color: rgba(68, 51, 122, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-pink-100:disabled {
+    --bg-opacity: 1;
+    background-color: #fff5f7;
+    background-color: rgba(255, 245, 247, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-pink-200:disabled {
+    --bg-opacity: 1;
+    background-color: #fed7e2;
+    background-color: rgba(254, 215, 226, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-pink-300:disabled {
+    --bg-opacity: 1;
+    background-color: #fbb6ce;
+    background-color: rgba(251, 182, 206, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-pink-400:disabled {
+    --bg-opacity: 1;
+    background-color: #f687b3;
+    background-color: rgba(246, 135, 179, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-pink-500:disabled {
+    --bg-opacity: 1;
+    background-color: #ed64a6;
+    background-color: rgba(237, 100, 166, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-pink-600:disabled {
+    --bg-opacity: 1;
+    background-color: #d53f8c;
+    background-color: rgba(213, 63, 140, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-pink-700:disabled {
+    --bg-opacity: 1;
+    background-color: #b83280;
+    background-color: rgba(184, 50, 128, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-pink-800:disabled {
+    --bg-opacity: 1;
+    background-color: #97266d;
+    background-color: rgba(151, 38, 109, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-pink-900:disabled {
+    --bg-opacity: 1;
+    background-color: #702459;
+    background-color: rgba(112, 36, 89, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-accent:disabled {
+    --bg-opacity: 1;
+    background-color: #501408;
+    background-color: rgba(80, 20, 8, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-accent2:disabled {
+    --bg-opacity: 1;
+    background-color: #920104;
+    background-color: rgba(146, 1, 4, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-accent3-100:disabled {
+    --bg-opacity: 1;
+    background-color: #F27263;
+    background-color: rgba(242, 114, 99, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-accent3-300:disabled {
+    --bg-opacity: 1;
+    background-color: #D94D43;
+    background-color: rgba(217, 77, 67, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-accent3-400:disabled {
+    --bg-opacity: 1;
+    background-color: #CC423B;
+    background-color: rgba(204, 66, 59, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-accent3-500:disabled {
+    --bg-opacity: 1;
+    background-color: #c02d28;
+    background-color: rgba(192, 45, 40, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-accent3-700:disabled {
+    --bg-opacity: 1;
+    background-color: #A61712;
+    background-color: rgba(166, 23, 18, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-accent3-900:disabled {
+    --bg-opacity: 1;
+    background-color: #8C0601;
+    background-color: rgba(140, 6, 1, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-objectiveGold:disabled {
+    --bg-opacity: 1;
+    background-color: #D38E36;
+    background-color: rgba(211, 142, 54, var(--bg-opacity));
+  }
+
+  .xl\:disabled\:bg-swirl:disabled {
+    --bg-opacity: 1;
+    background-color: #d0cec2;
+    background-color: rgba(208, 206, 194, var(--bg-opacity));
+  }
+
   .xl\:bg-none {
     background-image: none;
   }
@@ -101606,6 +107940,26 @@ body {
   }
 
   .xl\:focus\:opacity-100:focus {
+    opacity: 1;
+  }
+
+  .xl\:disabled\:opacity-0:disabled {
+    opacity: 0;
+  }
+
+  .xl\:disabled\:opacity-25:disabled {
+    opacity: 0.25;
+  }
+
+  .xl\:disabled\:opacity-50:disabled {
+    opacity: 0.5;
+  }
+
+  .xl\:disabled\:opacity-75:disabled {
+    opacity: 0.75;
+  }
+
+  .xl\:disabled\:opacity-100:disabled {
     opacity: 1;
   }
 

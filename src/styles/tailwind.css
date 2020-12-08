@@ -58,6 +58,36 @@
     }
 }
 
+@layer components {
+    .btn {
+        @apply p-2 cursor-pointer rounded-md shadow-xs stroke-current; 
+    }
+
+    .btn:disabled {
+        @apply opacity-75 shadow-none;
+    }
+
+    .btn:focus {
+        @apply outline-none;
+    }
+
+    .btn-green {
+        @apply bg-green-700 text-white; 
+    }
+
+    .btn-green:enabled:active {
+        @apply bg-green-500 text-white;
+    }
+
+    .btn-red {
+        @apply bg-red-700 text-white; 
+    }
+
+    .btn-red:enabled:active {
+        @apply bg-red-500 text-white;
+    }
+}
+
 @layer utilities {
     @variants hover, focus {
         .filter-shadow-sm {

@@ -3,6 +3,44 @@ const { getFactionByName, getAllSetsValidForFormat, CHAMPIONSHIP_FORMAT } = requ
 export const UPDATE_FILTERS_ACTION = 'UPDATE_FILTERS';
 export const ADD_CARD_ACTION = 'ADD_CARD';
 export const REMOVE_CARD_ACTION = 'REMOVE_CARD';
+export const RESET_DECK_ACTION = 'RESET_DECK_ACTION';
+
+///// CURRENT DECK SCHEMA
+// 'factionPrefix-id': {
+//     author: string (uid),
+//     authorDisplayName: string;
+//     cards: [],
+//     created: string,
+//     desc: string;
+//     name: string;
+//     private: Boolean;
+//     scoringSummary: [],
+//     sets: [],
+//     source: string;
+// }
+
+//// new schema
+// 'abbr-id': {
+//     author: string (uid),
+//     authorDisplayName: string;
+
+//     cards: [],
+//     cardslist: string;
+
+//     created: string,
+//     createdutc: number;
+//     updatedutc: number;
+    
+//     desc: string;
+//     name: string;
+//     private: Boolean;
+//     scoringSummary: [],
+    
+//     sets: [],
+//     setslist: string;
+
+//     source: string;
+// }
 
 export const INITIAL_STATE = {
     faction: getFactionByName("morgoks-krushas"),
@@ -65,6 +103,13 @@ export const deckBuilderReducer = (state, action) => {
                 }
             }
         }
+        case RESET_DECK_ACTION: 
+            return {
+                ...state,
+                selectedObjectives: [],
+                selectedGambits: [],
+                selectedUpgrades: [],
+            }
         default:
             return state;
     }
