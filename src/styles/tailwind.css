@@ -71,12 +71,12 @@
         @apply outline-none;
     }
 
-    .btn-green {
-        @apply bg-green-700 text-white; 
+    .btn-purple {
+        @apply bg-purple-700 text-white; 
     }
 
-    .btn-green:enabled:active {
-        @apply bg-green-500 text-white;
+    .btn-purple:enabled:active {
+        @apply bg-purple-500 text-white;
     }
 
     .btn-red {

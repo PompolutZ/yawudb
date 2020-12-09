@@ -172,16 +172,6 @@ function CardsTab(props) {
 
 const mapStateToProps = (state) => ({
     types: state.cardLibraryFilters.visibleCardTypes,
-
-    restrictedCardsCount: state.deckUnderBuild.restrictedCardsCount,
-    objectivesCount: state.deckUnderBuild.objectivesCount,
-    gambitsCount: state.deckUnderBuild.gambitsCount,
-    upgradesCount: state.deckUnderBuild.upgradesCount,
-
-    editRestrictedCardsCount: state.deckUnderEdit.restrictedCardsCount,
-    editObjectivesCount: state.deckUnderEdit.objectivesCount,
-    editGambitsCount: state.deckUnderEdit.gambitsCount,
-    editUpgradesCount: state.deckUnderEdit.upgradesCount,
 });
 
 const mapDispatchToProps = (dispatch) => {

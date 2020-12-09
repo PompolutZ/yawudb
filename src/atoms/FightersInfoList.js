@@ -37,29 +37,25 @@ class FightersInfoList extends PureComponent {
 
     render() {
         const { classes, faction } = this.props;
-        const strippedFaction = faction.startsWith("n_")
-            ? faction.slice(2)
-            : faction;
 
         return (
             <div className={classes.root}>
-                {factionMembers[strippedFaction].map((item, idx) => {
+                {factionMembers[faction.name].map((item, idx) => {
                     return (
                         <div key={item} className={classes.cardsRow}>
                             <FighterCard
                                 className={classes.card}
-                                faction={strippedFaction}
+                                faction={faction.name}
                                 index={idx + 1}
                                 onCardClick={this.showPopup}
                             />
                             <FighterCard
                                 inspired
                                 className={classes.cardInsp}
-                                faction={strippedFaction}
+                                faction={faction.name}
                                 index={idx + 1}
                                 onCardClick={this.showPopup}
                             />
-                            {/* <img alt={item} className={classes.cardInsp} src={`/assets/cards/fighters/${strippedFaction}-${idx + 1}-inspired.png`}  /> */}
                         </div>
                     );
                 })}

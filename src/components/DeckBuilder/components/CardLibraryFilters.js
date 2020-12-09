@@ -1,32 +1,22 @@
 import React, { useMemo, useState, useEffect } from "react";
-import DelayedSearch from "../../DelayedSearch";
 import { IconButton, Typography } from "@material-ui/core";
 import { ReactComponent as TogglesIcon } from "../../../svgs/sliders.svg";
 import { ReactComponent as CloseIcon } from "../../../svgs/x.svg";
 import ExpansionsToggle from "../../ExpansionsToggle";
-import { connect } from "react-redux";
-import {
-    CHANGE_SEARCH_TEXT,
-    SET_CREATE_MODE_SETS,
-    SET_EDIT_MODE_SETS,
-    SET_VISIBLE_CARD_TYPES,
-    SET_VISIBLE_OBJECTIVE_SCORE_TYPES,
-    SET_ELIGIBLE_FOR_ORGANIZED_PLAY,
-    SET_DECK_PLAY_FORMAT,
-} from "../../../reducers/cardLibraryFilters";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import OpenFormatIcon from "@material-ui/icons/Mood";
 import ChampionshipFormatIcon from "@material-ui/icons/EmojiEvents";
-import { deckPlayFormats, factions, getValidSets, setsIndex, warbandsWithDefaultSet, wufactions } from "../../../data";
+import { factions, wufactions } from "../../../data";
 import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../v2/components/SectionTitle";
 import Toggle from "../../../v2/components/HexToggle";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../../../pages/DeckCreator";
-import { getAllSetsValidForFormat, getFactionByName } from "../../../data/wudb";
+import { getAllSetsValidForFormat } from "../../../data/wudb";
+import DebouncedInput from "../../../v2/components/DebouncedInput";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
@@ -212,9 +202,10 @@ function CardLibraryFilters(props) {
                     alignItems: "center",
                 }}
             >
-                <DelayedSearch
-                    defaultValue={props.searchText}
-                    onSearchInputChange={props.onSearchTextChange}
+                <DebouncedInput
+                className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-purple-700"
+                    placeholder="Search for any text on card"
+                    onChange={props.onSearchTextChange}
                 />
                 <IconButton onClick={() => setShowFilters(true)}>
                     <TogglesIcon />
@@ -277,30 +268,4 @@ function CardLibraryFilters(props) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return state.cardLibraryFilters;
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // onSearchTextChange: (value) =>
-        //     dispatch({ type: CHANGE_SEARCH_TEXT, payload: value }),
-        onCreateModeSelectedSetsChange: (value) =>
-            dispatch({ type: SET_CREATE_MODE_SETS, payload: value }),
-        onEditModeSelectedSetsChange: (value) =>
-            dispatch({ type: SET_EDIT_MODE_SETS, payload: value }),
-        onVisibleCardTypesChange: (value) =>
-            dispatch({ type: SET_VISIBLE_CARD_TYPES, payload: value }),
-        onVisibleObjectiveScoreTypesChange: (value) =>
-            dispatch({
-                type: SET_VISIBLE_OBJECTIVE_SCORE_TYPES,
-                payload: value,
-            }),
-        onChangeEligibleForOrganizedPlay: (value) =>
-            dispatch({ type: SET_ELIGIBLE_FOR_ORGANIZED_PLAY, payload: value }),
-        onChangeDeckPlayFormat: (value) =>
-            dispatch({ type: SET_DECK_PLAY_FORMAT, payload: value }),
-    };
-};
-
-export default connect(null, mapDispatchToProps)(CardLibraryFilters);
+export default CardLibraryFilters;

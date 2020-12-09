@@ -18,7 +18,7 @@ import ObjectiveScoreTypeIcon from "../components/ObjectiveScoreTypeIcon";
 import { ReactComponent as GloryIcon } from "../svgs/wu-glory.svg";
 import { ReactComponent as CloseIcon } from "../svgs/x.svg";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../pages/DeckCreator";
-import { ADD_CARD_ACTION, REMOVE_CARD_ACTION } from "../pages/DeckCreator/reducer";
+import { addCardAction, ADD_CARD_ACTION, removeCardAction, REMOVE_CARD_ACTION } from "../pages/DeckCreator/reducer";
 
 const useStyles = makeStyles((theme) => ({
     expand: {
@@ -288,29 +288,11 @@ function WUCardAtom({ card, ...props }) {
 
     const handleToggleCardInDeck = () => {
         if(inDeck) {
-            dispatch({
-                type: REMOVE_CARD_ACTION,
-                payload: card
-            })
+            dispatch(removeCardAction(card))
         } else {
-            dispatch({
-                type: ADD_CARD_ACTION,
-                payload: card
-            })
+            dispatch(addCardAction(card))
         }
     }
-
-    const pickBackgroundColor = (isRestricted, isBanned) => {
-        if (isRestricted) {
-            return "Goldenrod";
-        }
-
-        if (isBanned) {
-            return "DarkRed";
-        }
-
-        return props.isAlter ? "rgb(224, 243, 236)" : "White";
-    };
 
     const pickForegroundColor = (isRestricted, isBanned, defaultColor) => {
         if (isBanned || isRestricted) {
@@ -329,10 +311,7 @@ function WUCardAtom({ card, ...props }) {
     };
 
     return (
-        <div
-            style={{
-                backgroundColor: pickBackgroundColor(false, false),
-            }}
+        <div className={`${props.isAlter ? 'bg-purple-100' : 'bg-white'}`}
         >
             <div className="flex items-center h-16">
                 <CardTypeImage className="mx-2" type={type} />
@@ -354,7 +333,7 @@ function WUCardAtom({ card, ...props }) {
                     className={classes.expand}
                     onClick={handleToggleCardInDeck}
                 >
-                    <div className={`w-8 h-8 grid place-content-center ${inDeck ? 'bg-accent3-700' : 'bg-green-700'}`}>
+                    <div className={`w-8 h-8 grid place-content-center btn ${inDeck ? 'btn-red' : 'btn-purple'}`}>
                         <CloseIcon
                             className={`text-white stroke-current transform ${
                                 inDeck ? "rotate-0" : "rotate-45"

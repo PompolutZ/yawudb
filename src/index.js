@@ -333,9 +333,9 @@ const ConnectedApp = connect(null, mapDispatchToProps)(withFirebase(App));
 const theme = createMuiTheme({
     palette: {
         primary: {
-            // light: will be calculated from palette.primary.main,
-            main: "#c02d28",
-            // dark: will be calculated from palette.primary.main,
+            light: "#6B46C1",
+            main: "#553C9A",
+            dark: "##44337A",
             // contrastText: will be calculated to contrast with palette.primary.main
         },
         secondary: {

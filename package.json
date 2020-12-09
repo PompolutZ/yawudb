@@ -42,6 +42,7 @@
     "rxjs": "^6.3.3",
     "sass-loader": "^10.0.5",
     "unit-to-px": "^1.0.5",
+    "use-effect-reducer": "^0.7.0",
     "uuid": "^3.3.2"
   },
   "scripts": {

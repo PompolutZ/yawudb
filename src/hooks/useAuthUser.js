@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FirebaseContext } from "../firebase";
 
 function useAuthUser() {
@@ -23,7 +23,7 @@ function useAuthUser() {
         );
 
         return () => releaseAuthListener();
-    }, []);
+    }, [firebase]);
 
     return authUser;
 }

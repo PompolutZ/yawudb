@@ -719,19 +719,19 @@ body {
   outline-offset: 2px;
 }
 
-.btn-green {
+.btn-purple {
   --bg-opacity: 1;
-  background-color: #2f855a;
-  background-color: rgba(47, 133, 90, var(--bg-opacity));
+  background-color: #6b46c1;
+  background-color: rgba(107, 70, 193, var(--bg-opacity));
   --text-opacity: 1;
   color: #fff;
   color: rgba(255, 255, 255, var(--text-opacity));
 }
 
-.btn-green:enabled:active {
+.btn-purple:enabled:active {
   --bg-opacity: 1;
-  background-color: #48bb78;
-  background-color: rgba(72, 187, 120, var(--bg-opacity));
+  background-color: #9f7aea;
+  background-color: rgba(159, 122, 234, var(--bg-opacity));
   --text-opacity: 1;
   color: #fff;
   color: rgba(255, 255, 255, var(--text-opacity));

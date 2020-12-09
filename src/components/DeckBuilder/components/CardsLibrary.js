@@ -198,14 +198,16 @@ function FilterableCardLibrary(props) {
                         return true;
                 }
             });
+        
+            console.log(searchText);
 
         if (isNaN(searchText)) {
             filteredCards = filteredCards.filter((c) => {
                 if (!searchText) return true;
 
                 return (
-                    c.name.toUpperCase().includes(searchText) ||
-                    c.rule.toUpperCase().includes(searchText)
+                    c.name.toUpperCase().includes(searchText.toUpperCase()) ||
+                    c.rule.toUpperCase().includes(searchText.toUpperCase())
                 );
             });
         } else {

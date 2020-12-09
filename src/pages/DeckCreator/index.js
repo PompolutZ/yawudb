@@ -1,9 +1,10 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext } from "react";
+import { useEffectReducer } from 'use-effect-reducer';
 import { Switch, Route } from "react-router-dom";
 import DeckCreatorNew from "./DeckCreatorNew";
 import DeckCreatorEdit from "./DeckCreatorEdit";
 import DeckCreatorTransfer from "./DeckCreatorTransfer";
-import { deckBuilderReducer, INITIAL_STATE } from "./reducer";
+import { deckBuilderReducer, INITIAL_STATE, saveDeckAsync } from "./reducer";
 
 const DeckBuilderContext = React.createContext();
 const DeckBuilderDispatchContext = React.createContext();
@@ -31,7 +32,9 @@ export function useDeckBuilderDispatcher() {
 }
 
 function DeckBuilderContextProvider({ children }) {
-    const [state, dispatch] = useReducer(deckBuilderReducer, INITIAL_STATE);
+    const [state, dispatch] = useEffectReducer(deckBuilderReducer, INITIAL_STATE, {
+        saveDeckAsync: saveDeckAsync((state, effect) => console.log('FROM EFFECT', state, effect))
+    });
     return (
         <DeckBuilderContext.Provider value={state}>
             <DeckBuilderDispatchContext.Provider value={dispatch}>
