@@ -10,7 +10,8 @@ import { withFirebase } from '../firebase';
 const styles = theme => ({
     container: {
         display: 'flex',
-        flexFlow: 'column nowrap'
+        flexFlow: 'column nowrap',
+        background: "white"
     },
 
     innerContainer: {
