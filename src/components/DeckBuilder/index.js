@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Deck from "./components/Deck";
 
 import FloatingActionButton from "../FloatingActionButton";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import SimpleSnackbar from "../SimpleSnackbar";
 import CardLibraryFilters from "./components/CardLibraryFilters";
 import CardsLibrary from "./components/CardsLibrary";
@@ -19,6 +19,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../../pages/DeckCreator";
 import useAuthUser from "../../hooks/useAuthUser";
 import { resetDeckAction, saveDeckAction } from "../../pages/DeckCreator/reducer";
+import uuid4 from 'uuid/v4';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -43,6 +44,7 @@ function DeckBuilder() {
     const [searchText, setSearchText] = useState("");
     const [deckName, setDeckName] = useState("");
     const [isMobileDeckVisible, setIsMobileDeckVisible] = useState(false);
+    const { uid, displayName } = useAuthUser() || { uid: 'Anonymous', displayName: 'Anonymous' };
 
     const {
         faction,
@@ -50,6 +52,7 @@ function DeckBuilder() {
         selectedGambits,
         selectedUpgrades,
         format,
+        status,
     } = useDeckBuilderState();
 
     const dispatch = useDeckBuilderDispatcher();
@@ -213,16 +216,22 @@ function DeckBuilder() {
     }
 
     const handleSaveDeck = () => {
+        const now = new Date();
         dispatch(saveDeckAction({
-            // deckName,
-            // author: user.uid,
-            // authorDisplayName: user.username
-            // deckId: `${faction.abbr}-${uuid4().split('-')}`
+            deckName: deckName || `${faction.displayName} Deck`,
+            author: uid,
+            authorDisplayName: displayName,
+            deckId: `${faction.abbr}-${uuid4().split('-').slice(-1)[0]}`,
+            createdutc: now.getTime(),
+            updatedutc: now.getTime(),
         }));
     }
 
     return (
         <div className={classes.root}>
+            {
+                status === 'Saved' && <Redirect to="/" />
+            }
             <Grid container spacing={1} style={{ height: "98%" }}>
                 <Grid item xs={12} lg={3}>
                     <Paper className={classes.paper}>

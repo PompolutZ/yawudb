@@ -31,7 +31,6 @@ function Deck({
         selectedUpgrades,
         format
     );
-    console.log(isObjectivesValid, isPowerDeckValid);
 
     return (
         <div>
