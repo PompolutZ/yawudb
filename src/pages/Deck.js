@@ -49,7 +49,7 @@ function Deck(props) {
     const { location, match, history } = props;
     const { firebase } = props;
 
-    const [deck, setDeck] = React.useState(null);
+    const [deck, setDeck] = React.useState(location.state.deck);
     const [isEditAllowed, setIsEditAllowed] = React.useState(false);
     const [isDeleteDialogVisible, setIsDeleteDialogVisible] = React.useState(
         false
@@ -62,48 +62,49 @@ function Deck(props) {
         ? new OrderedSet()
         : new OrderedSet(cards.map((c) => ({ id: c, ...cardsDb[c] })));
 
-    React.useEffect(() => {
-        try {
-            // console.log(location.state)
-            if (props.mydecks[match.params.id]) {
-                setDeck(props.mydecks[match.params.id]);
-                setIsEditAllowed(true);
-            } else {
-                if (location.state) {
-                    setDeck({
-                        ...location.state.deck,
-                        id: match.params.id,
-                    });
-                    setIsEditAllowed(location.state.canUpdateOrDelete);
-                }
-            }
+    // React.useEffect(() => {
+    //     try {
+    //         setDeck(location.state.deck);
+    //         // console.log(location.state)
+    //         // if (props.mydecks[match.params.id]) {
+    //         //     setDeck(props.mydecks[match.params.id]);
+    //         //     setIsEditAllowed(true);
+    //         // } else {
+    //         //     if (location.state) {
+    //         //         setDeck({
+    //         //             ...location.state.deck,
+    //         //             id: match.params.id,
+    //         //         });
+    //         //         setIsEditAllowed(location.state.canUpdateOrDelete);
+    //         //     }
+    //         // }
 
-            firebase.deck(match.params.id).on("value", (snapshot) => {
-                const data = snapshot.val();
-                let author = data.author;
-                if (author !== "Anonymous") {
-                    setIsEditAllowed(props.uid === data.author);
-                }
+    //         // firebase.deck(match.params.id).on("value", (snapshot) => {
+    //         //     const data = snapshot.val();
+    //         //     let author = data.author;
+    //         //     if (author !== "Anonymous") {
+    //         //         setIsEditAllowed(props.uid === data.author);
+    //         //     }
 
-                let created = new Date(0);
-                if (data.created && data.created.seconds) {
-                    created.setSeconds(data.created.seconds);
-                } else {
-                    created = new Date(data.created);
-                }
+    //         //     let created = new Date(0);
+    //         //     if (data.created && data.created.seconds) {
+    //         //         created.setSeconds(data.created.seconds);
+    //         //     } else {
+    //         //         created = new Date(data.created);
+    //         //     }
 
-                setDeck({
-                    ...data,
-                    id: match.params.id,
-                    created: created,
-                });
-            });
-        } catch (error) {
-            console.log(error);
-        }
+    //         //     setDeck({
+    //         //         ...data,
+    //         //         id: match.params.id,
+    //         //         created: created,
+    //         //     });
+    //         // });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
 
-        return () => firebase.deck(match.params.id).off();
-    }, []);
+    //     return () => firebase.deck(match.params.id).off();
+    // }, []);
 
     const handleChangeView = () => {
         setCardsView((prev) => !prev);

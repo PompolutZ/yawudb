@@ -18,6 +18,10 @@ function getFactionByName(factionName) {
     return Object.values(factions).find(f => f.name == factionName);
 }
 
+function getFactionByAbbr(factionAbbr) {
+    return Object.values(factions).find(f => f.abbr == factionAbbr);
+}
+
 const idToSetKey = {};
 function getSetNameById(setId) {
 
@@ -144,6 +148,7 @@ function validatePowerDeckForFormat(gambits, upgrades, format) {
 
 export {
     getFactionByName,
+    getFactionByAbbr,
     getCardNumberFromId,
     getCardWaveFromId,
     getSetNameById,
