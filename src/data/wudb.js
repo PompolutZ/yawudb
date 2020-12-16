@@ -36,8 +36,9 @@ function getSetNameById(setId) {
 
 const cardTypes = ['Objective', 'Ploy', 'Upgrade', 'Spell'];
 
+// This is very stupid but best idea at 22:17 for backward compatibility
 function getCardById(cardId) {
-    return cards[`${cardId}`];
+    return cards[`${Number(cardId)}`];
 }
 
 function checkCardIsObjective({ type}) {

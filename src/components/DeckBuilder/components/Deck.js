@@ -48,9 +48,8 @@ function Deck({
                     />
                 </div>
                 <div className="ml-auto mr-4 grid gap-2 grid-cols-2">
-                    <button className="btn btn-purple" onClick={onSave}>
+                    <button disabled={!isObjectivesValid || !isPowerDeckValid } className="btn btn-purple" onClick={onSave}>
                         <SaveIcon />
-                        {/* disabled={!isObjectivesValid || !isPowerDeckValid } */}
                     </button>
                     <button className="btn btn-red" onClick={onReset}>
                         <TrashIcon />
