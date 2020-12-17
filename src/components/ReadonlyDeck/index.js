@@ -32,12 +32,10 @@ import {
 import b64toBlob from "b64-to-blob";
 import Card from "./atoms/Card";
 import { Typography } from "@material-ui/core";
-import LockIcon from "@material-ui/icons/Lock";
-import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import * as ROUTES from "../../constants/routes";
-import PlayFormatsValidity from "../../atoms/PlayFormatsValidity";
 import DetailedPlayStyleValidity from "../../atoms/DetailedPlayStyleValidity";
 import * as clipboard from "clipboard-polyfill";
+import { checkCardIsObjective, checkCardIsPloy, checkCardIsUpgrade, getCardWaveFromId } from "../../data/wudb";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
 const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
@@ -75,17 +73,16 @@ const MiniSectionHeader = ({ type, amount, children }) => (
 );
 
 const idToPrintId = (id) => {
-    const wavePrefix = id.substr(0, 2);
-    return `${id.slice(-3)}/${totalCardsPerWave[parseInt(wavePrefix, 10)]}`;
+    return ;
 };
 
 const cardWidthPx = 532 / 2;
 const cardHeightPx = 744 / 2;
 
 const calcCanvasSize = (cards) => {
-    const objectives = cards.toJS().filter((c) => c.type === 0);
-    const gambits = cards.toJS().filter((c) => c.type === 1 || c.type === 3);
-    const upgrades = cards.toJS().filter((c) => c.type === 2);
+    const objectives = cards.filter(checkCardIsObjective);
+    const gambits = cards.filter(checkCardIsPloy);
+    const upgrades = cards.filter(checkCardIsUpgrade);
 
     const objectivesWidth = 4 * (cardWidthPx + 10);
     const gambitsWidth = 4 * (cardWidthPx + 10);
@@ -172,7 +169,6 @@ function DeckSummary({
     draft,
     sets,
     amount,
-    playFormats,
 }) {
     return (
         <React.Fragment>
@@ -234,7 +230,7 @@ function DeckSummary({
                         />
                         <img
                             alt="gambit spell-icon"
-                            src={`/assets/icons/gambit spell-icon.png`}
+                            src={`/assets/icons/spell-icon.png`}
                             style={{ width: "1rem", height: "1rem" }}
                         />
                         <Typography>{amount && amount.gambits}</Typography>
@@ -266,36 +262,17 @@ class ReadonlyDeck extends PureComponent {
     };
 
     componentDidMount = () => {
-        const cards = this.props.cards.toJS();
-        const counts = cards.reduce(
-            (acc, el) => {
-                switch (el.type) {
-                    case 0:
-                        acc.objectives += 1;
-                        return acc;
-
-                    case 2:
-                        acc.upgrades += 1;
-                        return acc;
-
-                    default:
-                        acc.gambits += 1;
-                        return acc;
-                }
-            },
-            {
-                objectives: 0,
-                gambits: 0,
-                upgrades: 0,
-            }
-        );
+        const cards = this.props.cards;
+        const objectives = cards.filter(checkCardIsObjective);
+        const gambits = cards.filter(checkCardIsPloy);
+        const upgrades = cards.filter(checkCardIsUpgrade);
 
         this.setState({
             deckCanvasSize: calcCanvasSize(this.props.cards),
             isDraft:
-                counts.objectives < 12 ||
-                counts.upgrades + counts.gambits < 20 ||
-                counts.gambits > counts.upgrades,
+                objectives.length < 12 ||
+                upgrades.length + gambits.length < 20 ||
+                gambits.length > upgrades.length,
         });
     };
 
@@ -311,15 +288,15 @@ class ReadonlyDeck extends PureComponent {
             isNarrow,
         } = this.props;
         const objectives = cards
-            .filter((v) => v.type === 0)
+            .filter(checkCardIsObjective)
             .sort((a, b) => a.name.localeCompare(b.name));
         const gambits = cards
-            .filter((v) => v.type === 1 || v.type === 3)
+            .filter(checkCardIsPloy)
             .sort((a, b) => a.name.localeCompare(b.name));
         const upgrades = cards
-            .filter((v) => v.type === 2)
+            .filter(checkCardIsUpgrade)
             .sort((a, b) => a.name.localeCompare(b.name));
-        const spellsCount = gambits.filter((v) => v.type === 3).count();
+        const spellsCount = gambits.filter((v) => v.type === 3 || v.type === 'Spell').length;
 
         const createdDate = created
             ? ` | ${new Date(created).toLocaleDateString()}`
@@ -336,13 +313,12 @@ class ReadonlyDeck extends PureComponent {
             );
 
         const restrictedCount = cards
-            .toJS()
             .map((c) => Boolean(restrictedCards[c.id]))
             .filter((c) => c === true).length;
         const bannedCount = cards
             .map((c) => Boolean(bannedCards[c.id]))
             .filter((c) => c === true)
-            .count();
+            .length;
         const rotatedOutCount = cards
             .filter(
                 (c) =>
@@ -350,12 +326,12 @@ class ReadonlyDeck extends PureComponent {
                     Number(c.id) < 3000 &&
                     !ignoreAsDublicate(c.name)
             )
-            .count();
+            .length;
 
         const amount = {
-            objectives: objectives.toJS().length,
-            gambits: gambits.toJS().length,
-            upgrades: upgrades.toJS().length,
+            objectives: objectives.length,
+            gambits: gambits.length,
+            upgrades: upgrades.length,
             restricted: restrictedCount,
             banned: bannedCount,
             rotatedOut: rotatedOutCount,
@@ -367,7 +343,7 @@ class ReadonlyDeck extends PureComponent {
         );
 
         const playFormats = checkDeckValidFormats(
-            cards.map((c) => c.id).toJS()
+            cards.map((c) => c.id)
         );
 
         return (
@@ -455,7 +431,7 @@ class ReadonlyDeck extends PureComponent {
 
                 <DetailedPlayStyleValidity
                     validFormats={playFormats}
-                    cards={cards.map((c) => c.id).toJS()}
+                    cards={cards.map((c) => c.id)}
                 />
 
                 <div className={classes.deckBody}>
@@ -467,7 +443,7 @@ class ReadonlyDeck extends PureComponent {
                     >
                         <MiniSectionHeader
                             type={0}
-                            amount={objectives.toJS().length}
+                            amount={objectives.length}
                         >
                             <div style={{ display: "flex" }}>
                                 <div style={{ display: "flex" }}>
@@ -484,7 +460,7 @@ class ReadonlyDeck extends PureComponent {
                                     .cardsView,
                             })}
                         >
-                            {objectives.toJS().map((v, i) => (
+                            {objectives.map((v, i) => (
                                 <Card
                                     key={i}
                                     card={v}
@@ -536,7 +512,7 @@ class ReadonlyDeck extends PureComponent {
                                     margin: "0 .3rem 0 .3rem",
                                 }}
                             >
-                                {`${gambits.toJS().length} Gambits`}
+                                {`${gambits.length} Gambits`}
                             </div>
                         </div>
                         <div
@@ -545,7 +521,7 @@ class ReadonlyDeck extends PureComponent {
                                     .cardsView,
                             })}
                         >
-                            {gambits.toJS().map((v, i) => (
+                            {gambits.map((v, i) => (
                                 <Card
                                     key={i}
                                     card={v}
@@ -562,7 +538,7 @@ class ReadonlyDeck extends PureComponent {
                     >
                         <MiniSectionHeader
                             type={2}
-                            amount={upgrades.toJS().length}
+                            amount={upgrades.length}
                         />
                         <div
                             className={classnames(classes.sectionItems, {
@@ -570,7 +546,7 @@ class ReadonlyDeck extends PureComponent {
                                     .cardsView,
                             })}
                         >
-                            {upgrades.toJS().map((v, i) => (
+                            {upgrades.map((v, i) => (
                                 <Card
                                     key={i}
                                     card={v}
@@ -859,7 +835,7 @@ class ReadonlyDeck extends PureComponent {
                 `textMeasureContainer`
             ).clientWidth;
             doc.text(
-                `${idToPrintId(card.id)}`,
+                `${`${card.id.slice(-3)}/${totalCardsPerWave[getCardWaveFromId(card.id)]}`}`,
                 docX + 10 + measuredWidth,
                 docY + 5
             );
@@ -893,13 +869,13 @@ class ReadonlyDeck extends PureComponent {
     };
 
     _handleSaveVassalFiles = () => {
-        const { id, name, cards } = this.props;
+        const { name, cards } = this.props;
         const cardsjs = cards.toJS();
 
         const objectives = cardsjs
             .filter((c) => c.type === 0)
             .map(
-                (c, i) =>
+                (c) =>
                     String.fromCharCode(27) +
                     `+/1574121945748/macro;Make playerside 2;;74,715;PlayerSide = PLAYER 2 && PlayerOwnership = NONE;;40\\,130;false;;;counted;;;;false;;1;1\tmacro;Make playerside 1;;74,715;PlayerSide = PLAYER 1 && PlayerOwnership = NONE;;35\\,130;false;;;counted;;;;false;;1;1\\\tPROP;PlayerOwnership;false,0,100,false;:35\\,130:P\\,PLAYER1,:40\\,130:P\\,PLAYER2\\\\\tmacro;p2 return to deck;;72,130;PlayerOwnership = PLAYER2;;98\\,130;false;;;counted;;;;false;;1;1\\\\\\\tmacro;p1 return to deck;;72,130;PlayerOwnership = PLAYER1;;97\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\treturn;;98,130;OBJECTIVE CARDS RIGHT WIDE;Select destination\\\\\\\\\\\treturn;;97,130;OBJECTIVE CARDS LEFT WIDE;Select destination\\\\\\\\\\\\\tobs;70,130;Objectives background.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\\\\\\\\\\\treport;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\\\\\\\\\\\\\\\\\tmark;MapLayers\\\\\\\\\\\\\\\\\\\tdelete;Delete;68,195\\\\\\\\\\\\\\\\\\\\\tpiece;;;${c.id}.png;${c.id}/\t\\\tNONE\\\\\t\\\\\\\t\\\\\\\\\t\\\\\\\\\\\t\\\\\\\\\\\\\tnull;\\\\\\\\\\\\\\\t-1\\\\\\\\\\\\\\\\\tCardsLayers\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\tnull;2852;244;0`
             );
@@ -912,7 +888,7 @@ class ReadonlyDeck extends PureComponent {
         const powers = cardsjs
             .filter((c) => c.type !== 0)
             .map(
-                (c, i) =>
+                (c) =>
                     String.fromCharCode(27) +
                     `+/1574121930992/macro;Make playerside 2;;74,715;PlayerSide = PLAYER 2 && PlayerOwnership = NONE;;40\\,130;false;;;counted;;;;false;;1;1\tmacro;Make playerside 1;;74,715;PlayerSide = PLAYER 1 && PlayerOwnership = NONE;;35\\,130;false;;;counted;;;;false;;1;1\\\tPROP;PlayerOwnership;false,0,100,false;:35\\,130:P\\,PLAYER1,:40\\,130:P\\,PLAYER2\\\\\treport;74\\,715;$location$: $newPieceName$ *;;;\\\\\\\tmacro;p2 return to deck;;72,130;PlayerOwnership = PLAYER2;;98\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\tmacro;p1 return to deck;;72,130;PlayerOwnership = PLAYER1;;97\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\treturn;;98,130;POWER CARDS RIGHT WIDE;Select destination\\\\\\\\\\\\\treturn;;97,130;POWER CARDS LEFT WIDE;Select destination\\\\\\\\\\\\\\\tobs;70,130;powercardsback.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\\\\\\\\\\\\\treport;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\\\\\\\\\\\\\\\\\\\tmark;MapLayers\\\\\\\\\\\\\\\\\\\\\tdelete;Delete;68,195\\\\\\\\\\\\\\\\\\\\\\\tpiece;;;${c.id}.png;${c.id}/\t\\\tNONE\\\\\t-1\\\\\\\t\\\\\\\\\t\\\\\\\\\\\t\\\\\\\\\\\\\t\\\\\\\\\\\\\\\tnull;\\\\\\\\\\\\\\\\\t-1\\\\\\\\\\\\\\\\\\\tCardsLayers\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\tnull;2543;244;0`
             );

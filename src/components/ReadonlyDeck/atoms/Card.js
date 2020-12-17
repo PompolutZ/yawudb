@@ -13,22 +13,22 @@ import Typography from "@material-ui/core/Typography";
 import BlockIcon from "@material-ui/icons/Block";
 import LockIcon from "@material-ui/icons/Lock";
 import CardRule from "../../../atoms/CardRule";
+import { getCardWaveFromId, getSetNameById } from "../../../data/wudb";
 
 const idToPrintId = (id) => {
-    const wavePrefix = id.substr(0, 2);
-    return `${id.slice(-3)}/${totalCardsPerWave[parseInt(wavePrefix, 10)]}`;
+    return `${id}/${totalCardsPerWave[parseInt(getCardWaveFromId(id))]}`;
 };
 
-const SetIcon = ({ id, set }) => (
+const SetIcon = ({ id, setId }) => (
     <picture>
         <source
             type="image/webp"
-            srcSet={`/assets/icons/${setsIndex[set]}-icon.webp`}
+            srcSet={`/assets/icons/${getSetNameById(setId)}-icon.webp`}
         />
         <img
             id={id}
             style={{ margin: "auto .1rem", width: "1.2rem", height: "1.2rem" }}
-            src={`/assets/icons/${setsIndex[set]}-icon-24.png`}
+            src={`/assets/icons/${getSetNameById(setId)}-icon-24.png`}
             alt="icon"
         />
     </picture>
@@ -42,6 +42,7 @@ class Card extends PureComponent {
 
     render() {
         const { card, classes, asImage } = this.props;
+        const cardId = `${card.id}`.padStart(5, "0");
         const animateHeight = this.state.expanded ? "auto" : 0;
 
         return (
@@ -50,12 +51,12 @@ class Card extends PureComponent {
                     <div style={{ margin: ".5rem", position: "relative" }}>
                         <img
                             alt={card.name}
-                            src={`/assets/cards/${card.id}.png`}
+                            src={`/assets/cards/${cardId}.png`}
                             style={{ width: `14rem` }}
                         />
                         <div style={{ display: "flex", alignItems: "center" }}>
                             <Typography>Location: </Typography>
-                            <SetIcon id={`${card.id}`} set={card.set} />
+                            <SetIcon id={`${cardId}`} setId={card.setId} />
                         </div>
 
                         {bannedCards[card.id] && (
@@ -76,8 +77,8 @@ class Card extends PureComponent {
                             }}
                             onClick={this._toggleExpanded}
                         >
-                            <SetIcon id={`${card.id}`} set={card.set} />
-                            <div style={{ color: pickCardColor(card.id) }}>
+                            <SetIcon id={`${cardId}`} setId={card.setId} />
+                            <div style={{ color: pickCardColor(cardId) }}>
                                 <u>{card.name}</u>
                             </div>
                             {card.glory && (
@@ -101,19 +102,19 @@ class Card extends PureComponent {
                                 }}
                             >
                                 <div>(</div>
-                                {idToPrintId(card.id)}
+                                {idToPrintId(cardId)}
                                 <picture>
                                     <source
                                         type="image/webp"
-                                        srcSet={`/assets/icons/wave-${card.id.substr(
+                                        srcSet={`/assets/icons/wave-${cardId.substr(
                                             0,
                                             2
                                         )}-icon-48.webp`}
                                     />
                                     <img
-                                        id={idToPrintId(card.id)}
-                                        alt={`wave-${card.id.substr(0, 2)}`}
-                                        src={`/assets/icons/wave-${card.id.substr(
+                                        id={idToPrintId(cardId)}
+                                        alt={`wave-${cardId.substr(0, 2)}`}
+                                        src={`/assets/icons/wave-${cardId.substr(
                                             0,
                                             2
                                         )}-icon-24.png`}
@@ -136,7 +137,7 @@ class Card extends PureComponent {
                                     onError={this._handleImageError}
                                     onLoad={this._handleImageLoaded}
                                     className={classes.img}
-                                    src={`/assets/cards/${card.id}.png`}
+                                    src={`/assets/cards/${cardId}.png`}
                                     alt={card.id}
                                 />
                             )}

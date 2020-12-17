@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ReadonlyDeck from "../components/ReadonlyDeck/index";
 import { OrderedSet } from "immutable";
 import {
@@ -35,6 +35,7 @@ import { removeMyDeck } from "../reducers/mydecks";
 import DeleteConfirmationDialog from "../atoms/DeleteConfirmationDialog";
 import { withFirebase } from "../firebase";
 import { Helmet } from "react-helmet";
+import { getCardById } from "../data/wudb";
 
 // const useStyles = makeStyles(theme => ({
 //     viewAsBtn: {
@@ -48,20 +49,16 @@ import { Helmet } from "react-helmet";
 function Deck(props) {
     const { location, match, history } = props;
     const { firebase } = props;
-
     const [deck, setDeck] = React.useState(location.state.deck);
-    const [isEditAllowed, setIsEditAllowed] = React.useState(false);
+    //const [isEditAllowed, setIsEditAllowed] = React.useState(false);
     const [isDeleteDialogVisible, setIsDeleteDialogVisible] = React.useState(
         false
     );
     const [cardsView, setCardsView] = React.useState(false);
-
-    const { id, name, desc, cards, sets, created, authorDisplayName } =
-        deck || {};
-    const cardsSet = !cards
-        ? new OrderedSet()
-        : new OrderedSet(cards.map((c) => ({ id: c, ...cardsDb[c] })));
-
+    const cards = useMemo(() => {
+        const cs = location.state.deck.cards.map(getCardById);
+        return cs;
+    }, [location.state.deck]);
     // React.useEffect(() => {
     //     try {
     //         setDeck(location.state.deck);
@@ -216,63 +213,54 @@ function Deck(props) {
         history.push(`/deck/create`);
     };
 
-    return !deck ? (
-        <div style={{ display: "flex", height: "100vh" }}>
-            <div
-                style={{
-                    margin: "auto",
-                    display: "flex",
-                    flexFlow: "column nowrap",
-                    alignItems: "center",
-                }}
-            >
-                <CircularProgress style={{ color: "#3B9979" }} />
-                <div>Fetching last added deck...</div>
-            </div>
-        </div>
-    ) : (
+    return (
         <React.Fragment>
             <Helmet>
                 <title>
                     {`${
-                        factions[
-                            idPrefixToFaction[id.substr(0, id.length - 13)]
-                        ]
+                        ""
+                        // factions[
+                        //     idPrefixToFaction[deck.id.substr(0, id.length - 13)]
+                        // ]
                     } Deck for Warhammer Underworlds`}
                 </title>
                 <meta
                     name="description"
                     content={`Get inspired with this deck to build your next Grand Clash winning ${
-                        factions[
-                            idPrefixToFaction[id.substr(0, id.length - 13)]
-                        ]
+                        // factions[
+                        //     idPrefixToFaction[deck.id.substr(0, id.length - 13)]
+                        // ]
+                        ""
                     } deck.`}
                 />
                 <meta
                     property="og:title"
                     content={`${
-                        factions[
-                            idPrefixToFaction[id.substr(0, id.length - 13)]
-                        ]
+                        // factions[
+                        //     idPrefixToFaction[deck.id.substr(0, id.length - 13)]
+                        // ]
+                        ""
                     } Deck for Warhammer Underworlds`}
                 />
                 <meta
                     property="og:description"
                     content={`Get inspired with this deck to build your next Grand Clash winning ${
-                        factions[
-                            idPrefixToFaction[id.substr(0, id.length - 13)]
-                        ]
+                        // factions[
+                        //     idPrefixToFaction[deck.id.substr(0, id.length - 13)]
+                        // ]
+                        ""
                     } deck.`}
                 />
                 <meta property="og:type" content="website" />
                 <meta
                     property="og:url"
-                    content={`https://yawudb.com/view/deck/${id}`}
+                    content={`https://yawudb.com/view/deck/${deck.id}`}
                 />
                 <meta
                     property="og:image"
                     content={`https://yawudb.com/assets/icons/${
-                        idPrefixToFaction[id.substr(0, id.length - 13)]
+                        ""
+                        // idPrefixToFaction[id.substr(0, id.length - 13)]
                     }-deck.png`}
                 />
             </Helmet>
@@ -287,15 +275,15 @@ function Deck(props) {
                 <ReadonlyDeck
                     onCardsViewChange={handleChangeView}
                     cardsView={cardsView}
-                    id={id}
-                    author={authorDisplayName}
-                    name={name}
-                    desc={desc}
-                    created={created}
-                    sets={sets}
-                    factionId={id.substr(0, id.length - 13)}
-                    cards={cardsSet}
-                    canUpdateOrDelete={isEditAllowed}
+                    id={deck.id}
+                    author={deck.authorDisplayName}
+                    name={deck.name}
+                    desc=""
+                    created={deck.created}
+                    sets={deck.sets}
+                    factionId={deck.id.split('-')[0]}
+                    cards={cards}
+                    canUpdateOrDelete={location.state.canUpdateOrDelete}
                     onEdit={_editDeck}
                     onCopy={_copyDeck}
                     onDelete={_deleteDeck}
@@ -303,14 +291,14 @@ function Deck(props) {
 
                 <DeleteConfirmationDialog
                     title="Delete deck"
-                    description={`Are you sure you want to delete deck: '${name}'`}
+                    description={`Are you sure you want to delete deck: '${deck.name}'`}
                     open={isDeleteDialogVisible}
                     onCloseDialog={handleCloseDeleteDialog}
                     onDeleteConfirmed={handleDeleteDeck}
                     onDeleteRejected={handleCloseDeleteDialog}
                 />
 
-                {isEditAllowed && (
+                {location.state.canUpdateOrDelete && (
                     <FloatingActionButton isEnabled onClick={_editDeck}>
                         <EditIcon />
                     </FloatingActionButton>
