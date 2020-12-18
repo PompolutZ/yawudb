@@ -5,7 +5,7 @@ import { beastgraveDB } from "./dbs/beastgrave_db";
 import { beastgraveGiftPackDb } from "./dbs/beastgrave_giftpack_db";
 import { arenaMortisDb } from "./dbs/arena-mortis-db";
 import { setsIndex, rotatedOutSetsIndexes } from "./atoms/sets";
-import { sets, factions, cards } from './wudb';
+import { sets, factions, cards } from './wudb/db';
 
 export {
     factions,
@@ -59,6 +59,7 @@ export const totalCardsPerWave = {
     6: 438,
     7: 32,
     8: 40,
+    9: 500,
 };
 
 export const CHAMPIONSHIP_FORMAT = "championship";
