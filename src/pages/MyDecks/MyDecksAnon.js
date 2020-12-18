@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Typography, Divider } from "@material-ui/core";
+import React, {  } from "react";
+import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import FluidDeckThumbnail from "../../atoms/FluidDeckThumbnail";
-import { FirebaseContext } from "../../firebase";
 
 function MyDecksAnon({ classes }) {
     return (
@@ -33,10 +31,10 @@ const styles = (theme) => ({
         display: "grid",
         placeContent: "center",
         flexGrow: 1,
-        width: "100%",
-        height: "100%",
-        flexFlow: "column nowrap",
-        // background: 'magenta',
+        width: '100%',
+        height: '100%',
+        flexFlow: 'column nowrap',
+        background: 'white',
     },
 
     info: {

@@ -1960,7 +1960,13 @@ export const setInfos = {
             40,
         ],
     },
-};
+    '29': {
+        wave: 9,
+        '0': [257, 259, 262, 272, 283, 287, 304, 315, 324, 326, 331, 339, 353, 361, 362, 363, 371, 372, 375, 376, 405, 417, 438, 444, 447, 453, 461, 467, 477, 478, 487, 492],
+        '27': [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 ],
+        '28': [ 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64 ]
+    },
+}
 
 // function printArray(lastNumber) {
 //     const array = [];
@@ -2028,7 +2034,10 @@ export const setsIndex = [
     "morgwaeths-blade-coven", // 26
     "morgoks-krushas", // 27
     "arena-mortis", // 28
-];
+
+    // Direchasm
+    "direchasm-core", // 29
+]
 
 export const setsNames = [
     // SHADESPIRE
@@ -2068,6 +2077,9 @@ export const setsNames = [
     "Morgwaeth's Blade Coven", // 26
     "Morgok's Krushas", // 27
     "Arena Mortis", // 28
-];
+    
+    // Direchasm
+    "Direchasm Core Set", // 29
+]
 
-export const rotatedOutSetsIndexes = [0, 1, 2, 3, 4, 5, 6, 7];
+export const rotatedOutSetsIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];

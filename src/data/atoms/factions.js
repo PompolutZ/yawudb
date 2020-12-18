@@ -35,7 +35,11 @@ export const factions = {
     "the-wurmspat": "The Wurmspat",
     "morgwaeths-blade-coven": "Morgwaeth's Blade Coven",
     "morgoks-krushas": "Morgok's Krushas",
-};
+
+    // DIRECHASM
+    "myaris-purifiers": "Myari’s Purifiers",
+    "dread-pageant": "Dread Pageant",
+}
 
 export const PREFIX_LENGTH = "toftbq".length + 1;
 
@@ -75,7 +79,11 @@ export const factionIdPrefix = {
     "the-wurmspat": "tw",
     "morgwaeths-blade-coven": "mbc",
     "morgoks-krushas": "mk",
-};
+
+    // DIRECHASM
+    "myaris-purifiers": "mp",
+    "dread-pageant": "dp",
+}
 
 export const factionMembers = {
     "garreks-reavers": ["Garrek", "Saek", "Karsus", "Targor", "Arnulf"],
@@ -192,7 +200,11 @@ export const factionMembers = {
         "Lethyr",
     ],
     "morgoks-krushas": ["Morgok", "’Ardskull", "Thugg"],
-};
+
+    // DIRECHASM
+    "myaris-purifiers": ["Myari", "Bahannar", "Ailenn", "Senaela"],
+    "dread-pageant": ["Vasillac", "Glissete", "Hadzu", "Slakeslash"],
+}
 
 export const idPrefixToFaction = {
     gr: "garreks-reavers",
@@ -222,15 +234,19 @@ export const idPrefixToFaction = {
 
     // BEASTGRAVE
 
-    gd: "grashraks-despoilers",
-    swh: "skaeths-wild-hunt",
-    tg: "the-grymwatch",
-    rs: "rippas-snarlfangs",
-    hm: "hrothgorns-mantrappers",
-    tw: "the-wurmspat",
-    mbc: "morgwaeths-blade-coven",
-    mk: "morgoks-krushas",
-};
+    "gd": "grashraks-despoilers",
+    "swh": "skaeths-wild-hunt",
+    "tg": "the-grymwatch",
+    "rs": "rippas-snarlfangs",
+    "hm": "hrothgorns-mantrappers",
+    "tw": "the-wurmspat",
+    "mbc": "morgwaeths-blade-coven",
+    "mk": "morgoks-krushas",
+
+    // DIRECHASM
+    "mp": "myaris-purifiers",
+    "dp": "dread-pageant",
+}
 
 export const factionIndexes = [
     "universal",
@@ -269,7 +285,11 @@ export const factionIndexes = [
     "the-wurmspat", // 24
     "morgwaeths-blade-coven", // 25
     "morgoks-krushas", // 26
-];
+
+    // DIRECHASM
+    "myaris-purifiers", // 27
+    "dread-pageant",// 28
+]
 
 export const factionIndexesWithDefaultSet = [
     ["universal", 0],
@@ -308,7 +328,11 @@ export const factionIndexesWithDefaultSet = [
     ["the-wurmspat", 25], // 24
     ["morgwaeths-blade-coven", 26], // 25
     ["morgoks-krushas", 27], // 26
-];
+
+    // DIRECHASM
+    ["myaris-purifiers", 29],// 27
+    ["dread-pageant", 29] // 28
+]
 
 export const warbandsWithDefaultSet = [
     ["garreks-reavers", 0],
@@ -348,7 +372,11 @@ export const warbandsWithDefaultSet = [
     ["the-wurmspat", 25], // 23
     ["morgwaeths-blade-coven", 26], // 25
     ["morgoks-krushas", 27], // 26
-];
+
+    // DIRECHASM
+    ["myaris-purifiers", 29],// 27
+    ["dread-pageant", 29] // 28
+]
 
 export const cardsIdToFactionIndex = {
     "01001": 1,
@@ -1232,5 +1260,69 @@ export const cardsIdToFactionIndex = {
     "06253": 26,
     "06254": 26,
     "06255": 26,
-    "06256": 26,
+    "06256": 26,      
+    '09001': 27,
+    '09002': 27,
+    '09003': 27,
+    '09004': 27,
+    '09005': 27,
+    '09006': 27,
+    '09007': 27,
+    '09008': 27,
+    '09009': 27,
+    '09010': 27,
+    '09011': 27,
+    '09012': 27,
+    '09013': 27,
+    '09014': 27,
+    '09015': 27,
+    '09016': 27,
+    '09017': 27,
+    '09018': 27,
+    '09019': 27,
+    '09020': 27,
+    '09021': 27,
+    '09022': 27,
+    '09023': 27,
+    '09024': 27,
+    '09025': 27,
+    '09026': 27,
+    '09027': 27,
+    '09028': 27,
+    '09029': 27,
+    '09030': 27,
+    '09031': 27,
+    '09032': 27,  
+    '09033': 28,
+    '09034': 28,
+    '09035': 28,
+    '09036': 28,
+    '09037': 28,
+    '09038': 28,
+    '09039': 28,
+    '09040': 28,
+    '09041': 28,
+    '09042': 28,
+    '09043': 28,
+    '09044': 28,
+    '09045': 28,
+    '09046': 28,
+    '09047': 28,
+    '09048': 28,
+    '09049': 28,
+    '09050': 28,
+    '09051': 28,
+    '09052': 28,
+    '09053': 28,
+    '09054': 28,
+    '09055': 28,
+    '09056': 28,
+    '09057': 28,
+    '09058': 28,
+    '09059': 28,
+    '09060': 28,
+    '09061': 28,
+    '09062': 28,
+    '09063': 28,
+    '09064': 28,
 };

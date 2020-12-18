@@ -28,7 +28,7 @@ const GambitsCounter = ({ count, isAnySpells }) => (
         />
         {isAnySpells && (
             <img
-                src={`/assets/icons/gambit spell-icon.png`}
+                src={`/assets/icons/spell-icon.png`}
                 alt="gambit spell"
                 width="24"
                 height="24"

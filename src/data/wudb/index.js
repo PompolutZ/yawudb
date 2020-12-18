@@ -84,7 +84,7 @@ export const RELIC_FORMAT = "relic";
 function getAllSetsValidForFormat(format) {
     switch(format) {
         case CHAMPIONSHIP_FORMAT: 
-            return Object.values(sets).filter(set => set.id > 8);
+            return Object.values(sets).filter(set => set.id > 20);
         default:
             return Object.values(sets);    
     }
@@ -93,9 +93,6 @@ function getAllSetsValidForFormat(format) {
 function validateCardForPlayFormat(cardId, format) {
     const id = Number(cardId).toString();
     const card = cards[id];
-    if(!card) {
-        throw Error(`Parsing error, cannot find card: ${cardId}`);
-    }
 
     const [championship, relic] = card.status.split('_');
     switch (format) {
@@ -178,7 +175,7 @@ export {
     compareObjectivesByScoreType,
     getAllSetsValidForFormat,
     
-    sets,
-    cards,
-    factions
+    sets as wusets, 
+    factions as wufactions,
+    cards as wucards
 }

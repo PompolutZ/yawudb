@@ -1,4 +1,7 @@
 const changelog = {
+    "0.45.0": {
+        "Direchasm": "Core factions have been added, FAR updated, icons for sets changed",
+    },
     "0.41.0": {
         "Beastgrave Shenanigans":
             "Due to uknown reasons Beastgrave has been swallowing pages. But worries not, your data is intact, we just need to find a safe path.",

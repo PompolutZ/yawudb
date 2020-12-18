@@ -710,6 +710,9 @@ body {
 }
 
 .btn:disabled {
+  --bg-opacity: 1;
+  background-color: #a0aec0;
+  background-color: rgba(160, 174, 192, var(--bg-opacity));
   opacity: 0.75;
   box-shadow: none;
 }

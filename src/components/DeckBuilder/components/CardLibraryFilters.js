@@ -9,13 +9,13 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import OpenFormatIcon from "@material-ui/icons/Mood";
 import ChampionshipFormatIcon from "@material-ui/icons/EmojiEvents";
-import { factions, wufactions } from "../../../data";
+import { factions } from "../../../data";
 import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../v2/components/SectionTitle";
 import Toggle from "../../../v2/components/HexToggle";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../../../pages/DeckCreator";
-import { getAllSetsValidForFormat } from "../../../data/wudb";
+import { getAllSetsValidForFormat, wufactions } from "../../../data/wudb";
 import DebouncedInput from "../../../v2/components/DebouncedInput";
 
 const useClasses = makeStyles((theme) => ({

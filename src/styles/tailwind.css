@@ -64,7 +64,7 @@
     }
 
     .btn:disabled {
-        @apply opacity-75 shadow-none;
+        @apply bg-gray-500 opacity-75 shadow-none;
     }
 
     .btn:focus {

@@ -229,7 +229,7 @@ function DeckSummary({
                             style={{ width: "1rem", height: "1rem" }}
                         />
                         <img
-                            alt="gambit spell-icon"
+                            alt="spell-icon"
                             src={`/assets/icons/spell-icon.png`}
                             style={{ width: "1rem", height: "1rem" }}
                         />
@@ -1147,17 +1147,18 @@ class ReadonlyDeck extends PureComponent {
     };
 
     _handleExportToUDB = () => {
-        const encodeToUDB = (card) => {
-            if (card.startsWith("02")) return `L${Number(card.slice(-3))}`;
-            if (card.startsWith("03")) return `N${Number(card.slice(-3))}`;
-            if (card.startsWith("04")) return `P${Number(card.slice(-3))}`;
-            if (card.startsWith("05")) return `D${Number(card.slice(-3))}`;
-            if (card.startsWith("06")) return `B${Number(card.slice(-3))}`;
-            if (card.startsWith("07")) return `G${Number(card.slice(-3))}`;
-            if (card.startsWith("08")) return `A${Number(card.slice(-3))}`;
+        const encodeToUDB = card => {
+            if (card.startsWith('02')) return `L${Number(card.slice(-3))}`
+            if (card.startsWith('03')) return `N${Number(card.slice(-3))}`
+            if (card.startsWith('04')) return `P${Number(card.slice(-3))}`
+            if (card.startsWith('05')) return `D${Number(card.slice(-3))}`
+            if (card.startsWith('06')) return `B${Number(card.slice(-3))}`
+            if (card.startsWith('07')) return `G${Number(card.slice(-3))}`
+            if (card.startsWith('08')) return `A${Number(card.slice(-3))}`;        
+            if (card.startsWith('09')) return `DC${Number(card.slice(-3))}`;        
 
-            return Number(card.slice(-3));
-        };
+            return Number(card.slice(-3))
+        }
 
         const udbEncodedCards = this.props.cards
             .toJS()
@@ -1184,24 +1185,18 @@ class ReadonlyDeck extends PureComponent {
     };
 
     _handleExportToUDS = () => {
-        const encodeToUDS = (card) => {
-            if (card.startsWith("02"))
-                return `${1000 + Number(card.slice(-3))}`;
-            if (card.startsWith("03"))
-                return `${2000 + Number(card.slice(-3))}`;
-            if (card.startsWith("04"))
-                return `${3000 + Number(card.slice(-3))}`;
-            if (card.startsWith("05"))
-                return `${4000 + Number(card.slice(-3))}`;
-            if (card.startsWith("06"))
-                return `${5000 + Number(card.slice(-3))}`;
-            if (card.startsWith("07"))
-                return `${6000 + Number(card.slice(-3))}`;
-            if (card.startsWith("08"))
-                return `${7000 + Number(card.slice(-3))}`;
+        const encodeToUDS = card => {
+            if (card.startsWith('02')) return `${1000 + Number(card.slice(-3))}`
+            if (card.startsWith('03')) return `${2000 + Number(card.slice(-3))}`
+            if (card.startsWith('04')) return `${3000 + Number(card.slice(-3))}`
+            if (card.startsWith('05')) return `${4000 + Number(card.slice(-3))}`
+            if (card.startsWith('06')) return `${5000 + Number(card.slice(-3))}`
+            if (card.startsWith('07')) return `${6000 + Number(card.slice(-3))}`
+            if (card.startsWith('08')) return `${7000 + Number(card.slice(-3))}`
+            if (card.startsWith('09')) return `${8000 + Number(card.slice(-3))}`
 
-            return `${Number(card.slice(-3))}`;
-        };
+            return `${Number(card.slice(-3))}`
+        }
 
         const udsEncodedCards = this.props.cards
             .toJS()

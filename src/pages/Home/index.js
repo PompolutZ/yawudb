@@ -86,7 +86,8 @@ const Home = (props) => {
 
             <div className={classes.metaSummary}>
                 {[
-                    ...factionIndexes.slice(19),
+                    ...factionIndexes.slice(27),
+                    ...factionIndexes.slice(19, 27),
                     ...factionIndexes.slice(9, 17),
                     ...factionIndexes.slice(1, 9),
                     ...factionIndexes.slice(17, 19),

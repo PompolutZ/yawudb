@@ -4,28 +4,20 @@ import { withFirebase } from "../firebase";
 class ErrorPresenter extends React.Component {
     render() {
         return (
-            <div style={{ display: "flex", height: "75vh" }}>
-                <div
-                    style={{
-                        margin: "auto",
-                        display: "flex",
-                        flexFlow: "column",
-                        alignItems: "center",
-                    }}
-                >
-                    <div style={{ maxWidth: "80%" }}>
+            <div className="w-full h-full grid place-content-center bg-gray-100">
+                <div className="flex flex-col items-center">
+                    <h1 className="text-gray-900 text-2xl">
                         Oops, developer was sloppy and the page you requested is
                         under effect of Shardfall token.
-                    </div>
+                    </h1>
                     <img
                         src="/assets/icons/error-fallback.png"
                         alt="error"
                         width="50%"
                         height="50%"
                     />
-                    <div style={{ maxWidth: "80%" }}>
-                        Worry not though! Help is on its way.
-                    </div>
+                    Worry not though! Help is on its way. Or you can ask on
+                    Discord :)
                 </div>
             </div>
         );

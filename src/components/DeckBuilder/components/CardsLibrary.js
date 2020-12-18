@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { bannedCards, wucards } from "../../../data";
+import { bannedCards } from "../../../data";
 import { List, AutoSizer } from "react-virtualized";
 import { ADD_CARD, REMOVE_CARD } from "../../../reducers/deckUnderBuild";
 import { connect } from "react-redux";
 import WUCard from "../../../atoms/WUCard";
-import { cardTypes, validateCardForPlayFormat } from "../../../data/wudb";
+import { cardTypes, validateCardForPlayFormat, wucards } from "../../../data/wudb";
 import { useDeckBuilderState } from "../../../pages/DeckCreator";
 import PropTypes from 'prop-types';
 
@@ -157,6 +157,7 @@ function FilterableCardLibrary(props) {
                     ? props.cardsRanking[state.faction.abbr][c.id] * 10000
                     : universalRank;
 
+            console.log(c);        
             const [
                 ,
                 isForsaken,
