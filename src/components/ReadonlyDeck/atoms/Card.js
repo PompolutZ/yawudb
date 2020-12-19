@@ -81,7 +81,7 @@ class Card extends PureComponent {
                                     ({card.glory})
                                 </div>
                             )}
-                            {card.scoreType >= 0 && (
+                            {card.scoreType && (
                                 <ObjectiveScoreTypeIcon
                                     type={card.scoreType}
                                     style={{ width: ".8rem", height: ".8rem" }}

@@ -31,10 +31,9 @@ function DeckCreatorBase(props) {
                     editMode={editMode}
                     transferMode={transferMode}
                     currentDeck={props.currentDeck}
-                    currentDeckName={props.currentDeckName}
+                    currentDeckName={props.location.state && props.location.state.deck && props.location.state.deck.name}
                     currentDeckSource={props.currentDeckSource}
                     currentDeckDescription={props.currentDeckDescription}
-                    setFaction={setFaction}
                     changeName={props.changeName}
                     changeSource={props.changeSource}
                     changeDescription={props.changeDescription}

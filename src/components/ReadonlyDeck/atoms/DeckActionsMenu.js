@@ -28,9 +28,7 @@ class DeckActionsMenu extends PureComponent {
                     open={Boolean(anchorEl)}
                     onClose={this.handleClose}
                 >
-                    {this.props.canUpdateOrDelete && (
-                        <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
-                    )}
+                    { this.props.canUpdateOrDelete && this.props.onEdit}
                     <MenuItem onClick={this.props.onCopy}>Copy</MenuItem>
                     <Divider />
                     <MenuItem onClick={this.handleExportToTextFile}>

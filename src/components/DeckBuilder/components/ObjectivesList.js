@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import ScoringOverview from "../../../atoms/ScoringOverview";
 import { CardsList } from "./CardsList";
-import SectionHeader from "./SectionHeader";
+import { useDeckBuilderState } from "../../../pages/DeckCreator";
 import {
-    useDeckBuilderState,
-} from "../../../pages/DeckCreator";
-import { CHAMPIONSHIP_FORMAT, validateObjectivesListForPlayFormat } from "../../../data/wudb";
+    CHAMPIONSHIP_FORMAT,
+    validateObjectivesListForPlayFormat,
+} from "../../../data/wudb";
 import uuid4 from "uuid/v4";
-
+import CardListSectionHeader from "../../../v2/components/CardListSectionHeader";
 
 function ObjectivesList() {
     const { selectedObjectives, format } = useDeckBuilderState();
@@ -43,35 +43,28 @@ function ObjectivesList() {
 
         setIsValid(isValid);
         setIssues(issues);
-
     }, [format, selectedObjectives]);
 
     return (
-        <div
-            className={`${isValid ? "bg-green-100" : "bg-red-100"}`}
-        >
-            <SectionHeader>
-                <div className="flex">
-                    <h1 className="mr-4">
-                        {selectedObjectives.length} Objectives
-                    </h1>
-                    <ScoringOverview
-                        summary={objectiveSummary}
-                        glory={totalGlory}
-                    />
-                </div>
-                {!isValid && (
-                    <ul>
+        <div className={`${isValid ? "bg-green-100" : "bg-red-100"} p-2 mb-4 lg:mb-0`}>
+            <CardListSectionHeader
+                type="Objectives"
+                amount={selectedObjectives.length}
+            >
+                <ScoringOverview
+                    summary={objectiveSummary}
+                    glory={totalGlory}
+                />
+            </CardListSectionHeader>
+            {!isValid && (
+                <ul>
                     {issues.map((issue) => (
-                        <li className="text-accent3-700 text-sm"
-                            key={uuid4()}
-                        >
+                        <li className="text-accent3-700 text-sm" key={uuid4()}>
                             {issue}
                         </li>
                     ))}
                 </ul>
             )}
-            </SectionHeader>
             <CardsList
                 isEligibleForOP={format == CHAMPIONSHIP_FORMAT}
                 cards={selectedObjectives}

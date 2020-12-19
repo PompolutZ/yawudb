@@ -18,7 +18,7 @@ function CardListSectionHeader({ type, amount, children }) {
     }, [type]);
 
     return (
-        <div className="flex items-center border-b border-gray-500 pb-4">
+        <div className="flex items-center border-b border-gray-500 pb-2">
             <div className="mr-2 flex">
                 {listTypes.map((t) => (
                     <img

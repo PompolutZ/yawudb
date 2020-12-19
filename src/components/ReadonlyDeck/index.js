@@ -1,9 +1,7 @@
 import React, { PureComponent, lazy } from "react";
 import classnames from "classnames";
 import {
-    cardTypeIcons,
     idPrefixToFaction,
-    cardType,
     totalCardsPerWave,
     factions,
     restrictedCards,
@@ -18,17 +16,9 @@ import { Set } from "immutable";
 import DeckIcon from "../../atoms/DeckIcon";
 import { withStyles } from "@material-ui/core/styles";
 import SetsList from "../../atoms/SetsList";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { SET_EDIT_MODE_SETS } from "../../reducers/cardLibraryFilters";
 import ScoringOverview from "../../atoms/ScoringOverview";
-import {
-    EDIT_ADD_CARD,
-    EDIT_DECK_NAME,
-    EDIT_DECK_DESCRIPTION,
-    EDIT_FACTION,
-    EDIT_RESET_DECK,
-} from "../../reducers/deckUnderEdit";
 import b64toBlob from "b64-to-blob";
 import Card from "./atoms/Card";
 import { Typography } from "@material-ui/core";
@@ -45,10 +35,6 @@ import CardListSectionHeader from "../../v2/components/CardListSectionHeader";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
 const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
-
-const idToPrintId = (id) => {
-    return;
-};
 
 const cardWidthPx = 532 / 2;
 const cardHeightPx = 744 / 2;
@@ -79,11 +65,6 @@ const calcCanvasSize = (cards) => {
 };
 
 const styles = (theme) => ({
-    root: {
-        display: "flex",
-        flexFlow: "column",
-    },
-
     deckHeader: {
         display: "flex",
         margin: "1rem 0 0 .5rem",
@@ -100,22 +81,6 @@ const styles = (theme) => ({
         [theme.breakpoints.up("lg")]: {
             display: "flex",
             margin: "0 1rem 0 0",
-        },
-    },
-
-    deckBody: {
-        display: "flex",
-        flexFlow: "row wrap",
-        [theme.breakpoints.up("lg")]: {
-            flexFlow: "row wrap",
-            justifyContent: "space-around",
-        },
-    },
-
-    section: {
-        flex: "1 100%",
-        [theme.breakpoints.up("lg")]: {
-            flex: "1 1 calc(100% / 3)",
         },
     },
 
@@ -252,14 +217,17 @@ class ReadonlyDeck extends PureComponent {
 
     render() {
         const {
+            id,
             classes,
             name,
             author,
+            faction,
             factionId,
             cards,
             sets,
             created,
             createdutc,
+            authorDisplayName,
             isNarrow,
         } = this.props;
 
@@ -275,9 +243,19 @@ class ReadonlyDeck extends PureComponent {
             .filter(checkCardIsUpgrade)
             .sort((a, b) => a.name.localeCompare(b.name));
 
-        const spellsCount = gambits.filter(
-            (v) => v.type === 3 || v.type === "Spell"
-        ).length;
+        const deck = {
+            id,
+            name,
+            author,
+            faction,
+            factionId,
+            sets,
+            created,
+            createdutc,
+            objectives,
+            gambits,
+            upgrades
+        }
 
         const createdDate = createdutc
             ? ` | ${new Date(createdutc).toLocaleDateString()}`
@@ -330,21 +308,28 @@ class ReadonlyDeck extends PureComponent {
                     <DeckSummary
                         factionPrefix={factionId}
                         name={name}
-                        author={author}
+                        author={authorDisplayName}
                         date={createdDate}
                         draft={draft}
                         sets={sets}
                         amount={amount}
                     />
-                    {isNarrow && (
-                        <div>
+                    <React.Fragment>
+                        <div className={classes.deckHeaderMenu}>
                             <DeckActionsMenu
                                 onSaveAsPdf={this._handleSaveAsPdf}
                                 onSaveText={this._handleSaveText}
                                 onSaveImage={this._handleSaveImage}
-                                canUpdateOrDelete={this.props.canUpdateOrDelete}
                                 onSaveVassalFiles={this._handleSaveVassalFiles}
-                                onEdit={this.props.onEdit}
+                                canUpdateOrDelete={this.props.canUpdateOrDelete}
+                                onEdit={
+                                    <Link className="px-4" to={{
+                                        pathname: `/deck/edit/${id}`,
+                                        state: {
+                                            deck
+                                        }
+                                    }}>Edit</Link>
+                                }
                                 onCopy={this.props.onCopy}
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
@@ -355,56 +340,24 @@ class ReadonlyDeck extends PureComponent {
                                 }
                             />
                         </div>
-                    )}
-                    {!isNarrow && (
-                        <React.Fragment>
-                            <div className={classes.deckHeaderMenu}>
-                                <DeckActionsMenu
-                                    onSaveAsPdf={this._handleSaveAsPdf}
-                                    onSaveText={this._handleSaveText}
-                                    onSaveImage={this._handleSaveImage}
-                                    onSaveVassalFiles={
-                                        this._handleSaveVassalFiles
-                                    }
-                                    canUpdateOrDelete={
-                                        this.props.canUpdateOrDelete
-                                    }
-                                    onEdit={this.props.onEdit}
-                                    onCopy={this.props.onCopy}
-                                    exportToUDB={this._handleExportToUDB}
-                                    exportToUDS={this._handleExportToUDS}
-                                    exportToClub={this._handleExportToClub}
-                                    onDelete={this.props.onDelete}
-                                    exportToGamesAssistant={
-                                        this._handleExportToGamesAssistant
-                                    }
-                                />
-                            </div>
-                            <div className={classes.deckHeaderButtons}>
-                                <DeckActionMenuLarge
-                                    cardsView={this.props.cardsView}
-                                    onCardsViewChange={
-                                        this.props.onCardsViewChange
-                                    }
-                                    onSaveAsPdf={this._handleSaveAsPdf}
-                                    onSaveText={this._handleSaveText}
-                                    onSaveImage={this._handleSaveImage}
-                                    onSaveVassalFiles={
-                                        this._handleSaveVassalFiles
-                                    }
-                                    canUpdateOrDelete={
-                                        this.props.canUpdateOrDelete
-                                    }
-                                    onEdit={this.props.onEdit}
-                                    onCopy={this.props.onCopy}
-                                    exportToUDB={this._handleExportToUDB}
-                                    exportToUDS={this._handleExportToUDS}
-                                    exportToClub={this._handleExportToClub}
-                                    onDelete={this.props.onDelete}
-                                />
-                            </div>
-                        </React.Fragment>
-                    )}
+                        <div className={classes.deckHeaderButtons}>
+                            <DeckActionMenuLarge
+                                cardsView={this.props.cardsView}
+                                onCardsViewChange={this.props.onCardsViewChange}
+                                onSaveAsPdf={this._handleSaveAsPdf}
+                                onSaveText={this._handleSaveText}
+                                onSaveImage={this._handleSaveImage}
+                                onSaveVassalFiles={this._handleSaveVassalFiles}
+                                canUpdateOrDelete={this.props.canUpdateOrDelete}
+                                onEdit={this.props.onEdit}
+                                onCopy={this.props.onCopy}
+                                exportToUDB={this._handleExportToUDB}
+                                exportToUDS={this._handleExportToUDS}
+                                exportToClub={this._handleExportToClub}
+                                onDelete={this.props.onDelete}
+                            />
+                        </div>
+                    </React.Fragment>
                 </div>
 
                 <DetailedPlayStyleValidity
@@ -1146,25 +1099,4 @@ class ReadonlyDeck extends PureComponent {
     };
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addCard: (card) => dispatch({ type: EDIT_ADD_CARD, card: card }),
-        setName: (name) => dispatch({ type: EDIT_DECK_NAME, name: name }),
-        setDescription: (desc) =>
-            dispatch({ type: EDIT_DECK_DESCRIPTION, desc: desc }),
-        setFaction: (faction, defaultSet) =>
-            dispatch({
-                type: EDIT_FACTION,
-                faction: faction,
-                defaultSet: defaultSet,
-            }),
-        setEditModeSets: (value) =>
-            dispatch({ type: SET_EDIT_MODE_SETS, payload: value }),
-        resetDeck: () => dispatch({ type: EDIT_RESET_DECK }),
-    };
-};
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(withRouter(withStyles(styles)(ReadonlyDeck)));
+export default withRouter(withStyles(styles)(ReadonlyDeck));

@@ -204,7 +204,7 @@ function CardLibraryFilters(props) {
                 }}
             >
                 <DebouncedInput
-                className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-purple-700"
+                    className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-purple-700"
                     placeholder="Search for any text on card"
                     onChange={props.onSearchTextChange}
                 />

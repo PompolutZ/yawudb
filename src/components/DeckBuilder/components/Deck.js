@@ -5,7 +5,7 @@ import ObjectivesList from "./ObjectivesList";
 import GambitsList from "./GambitsList";
 import UpgradesList from "./UpgradesList";
 import { ReactComponent as SaveIcon } from "../../../svgs/save.svg";
-import { ReactComponent as TrashIcon } from "../../../svgs/trash.svg";
+import { ReactComponent as CloseIcon } from "../../../svgs/x.svg";
 import {
     validateObjectivesListForPlayFormat,
     validatePowerDeckForFormat,
@@ -18,6 +18,7 @@ function Deck({
     selectedGambits,
     selectedUpgrades,
     format,
+    deckName,
     onDeckNameChange,
     onSave,
     onReset,
@@ -42,6 +43,7 @@ function Deck({
                         height="3rem"
                     />
                     <DebouncedInput
+                        value={deckName}
                         onChange={onDeckNameChange}
                         placeholder={`${faction.displayName} Deck`}
                         className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-purple-700"
@@ -52,7 +54,7 @@ function Deck({
                         <SaveIcon />
                     </button>
                     <button className="btn btn-red" onClick={onReset}>
-                        <TrashIcon />
+                        <CloseIcon />
                     </button>
                 </div>
             </div>
@@ -71,6 +73,7 @@ Deck.propTypes = {
     selectedGambits: PropTypes.array,
     selectedUpgrades: PropTypes.array,
     format: PropTypes.string,
+    deckName: PropTypes.string,
     onDeckNameChange: PropTypes.func,
     onSave: PropTypes.func,
     onReset: PropTypes.func,

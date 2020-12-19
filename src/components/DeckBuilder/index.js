@@ -40,9 +40,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-function DeckBuilder() {
+function DeckBuilder({ currentDeckName }) {
     const [searchText, setSearchText] = useState("");
-    const [deckName, setDeckName] = useState("");
+    const [deckName, setDeckName] = useState(currentDeckName || "");
     const [isMobileDeckVisible, setIsMobileDeckVisible] = useState(false);
     const { uid, displayName } = useAuthUser() || { uid: 'Anonymous', displayName: 'Anonymous' };
 
