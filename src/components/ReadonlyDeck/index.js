@@ -259,22 +259,29 @@ class ReadonlyDeck extends PureComponent {
             cards,
             sets,
             created,
+            createdutc,
             isNarrow,
         } = this.props;
+
         const objectives = cards
             .filter(checkCardIsObjective)
             .sort((a, b) => a.name.localeCompare(b.name));
+
         const gambits = cards
             .filter(checkCardIsPloy)
             .sort((a, b) => a.name.localeCompare(b.name));
+
         const upgrades = cards
             .filter(checkCardIsUpgrade)
             .sort((a, b) => a.name.localeCompare(b.name));
+
         const spellsCount = gambits.filter(
             (v) => v.type === 3 || v.type === "Spell"
         ).length;
 
-        const createdDate = created
+        const createdDate = createdutc
+            ? ` | ${new Date(createdutc).toLocaleDateString()}`
+            : created
             ? ` | ${new Date(created).toLocaleDateString()}`
             : "";
         const draft = this.state.isDraft ? ` | Draft` : "";
@@ -406,7 +413,7 @@ class ReadonlyDeck extends PureComponent {
                 />
 
                 <div className="lg:grid lg:grid-cols-3 lg:gap-2">
-                    <section  className="px-4">
+                    <section className="px-4">
                         <CardListSectionHeader
                             type={"Objectives"}
                             amount={objectives.length}
@@ -426,7 +433,7 @@ class ReadonlyDeck extends PureComponent {
                             ))}
                         </ul>
                     </section>
-                    <section  className="mt-4 lg:mt-0 px-4">
+                    <section className="mt-4 lg:mt-0 px-4">
                         <CardListSectionHeader
                             type={"Gambits"}
                             amount={gambits.length}
@@ -446,7 +453,7 @@ class ReadonlyDeck extends PureComponent {
                             ))}
                         </div>
                     </section>
-                    <section  className="mt-4 lg:mt-0 px-4">
+                    <section className="mt-4 lg:mt-0 px-4">
                         <CardListSectionHeader
                             type={"Upgrades"}
                             amount={upgrades.length}

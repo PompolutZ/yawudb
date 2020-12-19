@@ -274,6 +274,7 @@ function Deck(props) {
                     name={deck.name}
                     desc=""
                     created={deck.created}
+                    createdutc={deck.createdutc}
                     sets={deck.sets}
                     factionId={deck.id.split('-')[0]}
                     cards={cards}
