@@ -108,8 +108,8 @@ const _sort = (card1, card2) => {
     const t2 = stringTypeToNumber(card2.type);
     return (
         t1 - t2 ||
-        card2.ranking - card1.ranking ||
-        card2.faction - card1.faction
+        card2.faction - card1.faction ||
+        card2.ranking - card1.ranking
     );
 };
 

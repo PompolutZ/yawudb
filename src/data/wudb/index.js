@@ -73,6 +73,7 @@ const SURGE_SCORE_TYPE = 'Surge';
 const END_SCORE_TYPE = 'End';
 const THIRD_END_SCORE_TYPE = 'Third';
 const objectiveScoreTypes = [SURGE_SCORE_TYPE, END_SCORE_TYPE, THIRD_END_SCORE_TYPE];
+
 function compareObjectivesByScoreType(scoreTypeOne, scoreTypeTwo) {
     return objectiveScoreTypes.indexOf(scoreTypeOne) - objectiveScoreTypes.indexOf(scoreTypeTwo);
 }

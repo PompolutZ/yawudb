@@ -264,13 +264,7 @@ function Deck(props) {
                     }-deck.png`}
                 />
             </Helmet>
-            <div
-                style={{
-                    display: "flex",
-                    flexFlow: "column nowrap",
-                    background: "white",
-                    flexGrow: 1,
-                }}
+            <
             >
                 <ReadonlyDeck
                     onCardsViewChange={handleChangeView}
@@ -303,7 +297,7 @@ function Deck(props) {
                         <EditIcon />
                     </FloatingActionButton>
                 )}
-            </div>
+            </>
         </React.Fragment>
     );
 }

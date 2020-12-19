@@ -35,45 +35,19 @@ import { Typography } from "@material-ui/core";
 import * as ROUTES from "../../constants/routes";
 import DetailedPlayStyleValidity from "../../atoms/DetailedPlayStyleValidity";
 import * as clipboard from "clipboard-polyfill";
-import { checkCardIsObjective, checkCardIsPloy, checkCardIsUpgrade, getCardWaveFromId } from "../../data/wudb";
+import {
+    checkCardIsObjective,
+    checkCardIsPloy,
+    checkCardIsUpgrade,
+    getCardWaveFromId,
+} from "../../data/wudb";
+import CardListSectionHeader from "../../v2/components/CardListSectionHeader";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
 const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
 
-const MiniSectionHeader = ({ type, amount, children }) => (
-    <div
-        style={{
-            borderBottom: "1px solid gray",
-            margin: "1rem .5rem 1rem .5rem",
-            padding: "0 0 .3rem 0",
-            display: "flex",
-            alignItems: "center",
-        }}
-    >
-        <img
-            src={`/assets/icons/${cardTypeIcons[type]}.png`}
-            alt={cardTypeIcons[type]}
-            style={{
-                margin: "0 .3rem 0 .5rem",
-                width: "1.5rem",
-                height: "1.5rem",
-            }}
-        />
-        <div
-            style={{
-                fontFamily: "roboto",
-                fontSize: "1.2rem",
-                margin: "0 .3rem 0 0",
-            }}
-        >
-            {`${amount} ${cardType[type]}s`}
-        </div>
-        <div style={{ display: "flex", margin: "0 0 0 0" }}>{children}</div>
-    </div>
-);
-
 const idToPrintId = (id) => {
-    return ;
+    return;
 };
 
 const cardWidthPx = 532 / 2;
@@ -296,7 +270,9 @@ class ReadonlyDeck extends PureComponent {
         const upgrades = cards
             .filter(checkCardIsUpgrade)
             .sort((a, b) => a.name.localeCompare(b.name));
-        const spellsCount = gambits.filter((v) => v.type === 3 || v.type === 'Spell').length;
+        const spellsCount = gambits.filter(
+            (v) => v.type === 3 || v.type === "Spell"
+        ).length;
 
         const createdDate = created
             ? ` | ${new Date(created).toLocaleDateString()}`
@@ -317,16 +293,13 @@ class ReadonlyDeck extends PureComponent {
             .filter((c) => c === true).length;
         const bannedCount = cards
             .map((c) => Boolean(bannedCards[c.id]))
-            .filter((c) => c === true)
-            .length;
-        const rotatedOutCount = cards
-            .filter(
-                (c) =>
-                    c.faction === 0 &&
-                    Number(c.id) < 3000 &&
-                    !ignoreAsDublicate(c.name)
-            )
-            .length;
+            .filter((c) => c === true).length;
+        const rotatedOutCount = cards.filter(
+            (c) =>
+                c.faction === 0 &&
+                Number(c.id) < 3000 &&
+                !ignoreAsDublicate(c.name)
+        ).length;
 
         const amount = {
             objectives: objectives.length,
@@ -342,13 +315,11 @@ class ReadonlyDeck extends PureComponent {
             0
         );
 
-        const playFormats = checkDeckValidFormats(
-            cards.map((c) => c.id)
-        );
+        const playFormats = checkDeckValidFormats(cards.map((c) => c.id));
 
         return (
-            <div className={classes.root}>
-                <div className={classes.deckHeader}>
+            <div className="flex-1">
+                <div className="flex px-4">
                     <DeckSummary
                         factionPrefix={factionId}
                         name={name}
@@ -434,32 +405,18 @@ class ReadonlyDeck extends PureComponent {
                     cards={cards.map((c) => c.id)}
                 />
 
-                <div className={classes.deckBody}>
-                    <div
-                        className={classnames(classes.section, {
-                            [classes.cardsSection]: this.props.cardsView,
-                        })}
-                        style={{ flex: isNarrow ? "1 100%" : "" }}
-                    >
-                        <MiniSectionHeader
-                            type={0}
+                <div className="lg:grid lg:grid-cols-3 lg:gap-2">
+                    <section  className="px-4">
+                        <CardListSectionHeader
+                            type={"Objectives"}
                             amount={objectives.length}
                         >
-                            <div style={{ display: "flex" }}>
-                                <div style={{ display: "flex" }}>
-                                    <ScoringOverview
-                                        summary={objectiveSummary}
-                                        glory={totalGlory}
-                                    />
-                                </div>
-                            </div>
-                        </MiniSectionHeader>
-                        <div
-                            className={classnames(classes.sectionItems, {
-                                [classes.cardsSectionItems]: this.props
-                                    .cardsView,
-                            })}
-                        >
+                            <ScoringOverview
+                                summary={objectiveSummary}
+                                glory={totalGlory}
+                            />
+                        </CardListSectionHeader>
+                        <ul>
                             {objectives.map((v, i) => (
                                 <Card
                                     key={i}
@@ -467,54 +424,13 @@ class ReadonlyDeck extends PureComponent {
                                     asImage={this.props.cardsView}
                                 />
                             ))}
-                        </div>
-                    </div>
-
-                    <div
-                        className={classnames(classes.section, {
-                            [classes.cardsSection]: this.props.cardsView,
-                        })}
-                        style={{ flex: isNarrow ? "1 100%" : "" }}
-                    >
-                        <div
-                            style={{
-                                borderBottom: "1px solid gray",
-                                margin: "1rem .5rem 1rem .5rem",
-                                padding: "0 0 .3rem 0",
-                                display: "flex",
-                                alignItems: "center",
-                            }}
-                        >
-                            <img
-                                src={`/assets/icons/${cardTypeIcons[1]}.png`}
-                                alt={cardTypeIcons[1]}
-                                style={{
-                                    margin: "0 0 0 .5rem",
-                                    width: "1.5rem",
-                                    height: "1.5rem",
-                                }}
-                            />
-                            {spellsCount > 0 && (
-                                <img
-                                    src={`/assets/icons/${cardTypeIcons[3]}.png`}
-                                    alt={cardTypeIcons[3]}
-                                    style={{
-                                        margin: "0 .3rem 0 .3rem",
-                                        width: "1.5rem",
-                                        height: "1.5rem",
-                                    }}
-                                />
-                            )}
-                            <div
-                                style={{
-                                    fontFamily: "roboto",
-                                    fontSize: "1.2rem",
-                                    margin: "0 .3rem 0 .3rem",
-                                }}
-                            >
-                                {`${gambits.length} Gambits`}
-                            </div>
-                        </div>
+                        </ul>
+                    </section>
+                    <section  className="mt-4 lg:mt-0 px-4">
+                        <CardListSectionHeader
+                            type={"Gambits"}
+                            amount={gambits.length}
+                        />
                         <div
                             className={classnames(classes.sectionItems, {
                                 [classes.cardsSectionItems]: this.props
@@ -529,15 +445,10 @@ class ReadonlyDeck extends PureComponent {
                                 />
                             ))}
                         </div>
-                    </div>
-                    <div
-                        className={classnames(classes.section, {
-                            [classes.cardsSection]: this.props.cardsView,
-                        })}
-                        style={{ flex: isNarrow ? "1 100%" : "" }}
-                    >
-                        <MiniSectionHeader
-                            type={2}
+                    </section>
+                    <section  className="mt-4 lg:mt-0 px-4">
+                        <CardListSectionHeader
+                            type={"Upgrades"}
                             amount={upgrades.length}
                         />
                         <div
@@ -554,7 +465,7 @@ class ReadonlyDeck extends PureComponent {
                                 />
                             ))}
                         </div>
-                    </div>
+                    </section>
                 </div>
 
                 {/* for exports */}
@@ -835,7 +746,9 @@ class ReadonlyDeck extends PureComponent {
                 `textMeasureContainer`
             ).clientWidth;
             doc.text(
-                `${`${card.id.slice(-3)}/${totalCardsPerWave[getCardWaveFromId(card.id)]}`}`,
+                `${`${card.id.slice(-3)}/${
+                    totalCardsPerWave[getCardWaveFromId(card.id)]
+                }`}`,
                 docX + 10 + measuredWidth,
                 docY + 5
             );
@@ -1147,18 +1060,18 @@ class ReadonlyDeck extends PureComponent {
     };
 
     _handleExportToUDB = () => {
-        const encodeToUDB = card => {
-            if (card.startsWith('02')) return `L${Number(card.slice(-3))}`
-            if (card.startsWith('03')) return `N${Number(card.slice(-3))}`
-            if (card.startsWith('04')) return `P${Number(card.slice(-3))}`
-            if (card.startsWith('05')) return `D${Number(card.slice(-3))}`
-            if (card.startsWith('06')) return `B${Number(card.slice(-3))}`
-            if (card.startsWith('07')) return `G${Number(card.slice(-3))}`
-            if (card.startsWith('08')) return `A${Number(card.slice(-3))}`;        
-            if (card.startsWith('09')) return `DC${Number(card.slice(-3))}`;        
+        const encodeToUDB = (card) => {
+            if (card.startsWith("02")) return `L${Number(card.slice(-3))}`;
+            if (card.startsWith("03")) return `N${Number(card.slice(-3))}`;
+            if (card.startsWith("04")) return `P${Number(card.slice(-3))}`;
+            if (card.startsWith("05")) return `D${Number(card.slice(-3))}`;
+            if (card.startsWith("06")) return `B${Number(card.slice(-3))}`;
+            if (card.startsWith("07")) return `G${Number(card.slice(-3))}`;
+            if (card.startsWith("08")) return `A${Number(card.slice(-3))}`;
+            if (card.startsWith("09")) return `DC${Number(card.slice(-3))}`;
 
-            return Number(card.slice(-3))
-        }
+            return Number(card.slice(-3));
+        };
 
         const udbEncodedCards = this.props.cards
             .toJS()
@@ -1185,18 +1098,26 @@ class ReadonlyDeck extends PureComponent {
     };
 
     _handleExportToUDS = () => {
-        const encodeToUDS = card => {
-            if (card.startsWith('02')) return `${1000 + Number(card.slice(-3))}`
-            if (card.startsWith('03')) return `${2000 + Number(card.slice(-3))}`
-            if (card.startsWith('04')) return `${3000 + Number(card.slice(-3))}`
-            if (card.startsWith('05')) return `${4000 + Number(card.slice(-3))}`
-            if (card.startsWith('06')) return `${5000 + Number(card.slice(-3))}`
-            if (card.startsWith('07')) return `${6000 + Number(card.slice(-3))}`
-            if (card.startsWith('08')) return `${7000 + Number(card.slice(-3))}`
-            if (card.startsWith('09')) return `${8000 + Number(card.slice(-3))}`
+        const encodeToUDS = (card) => {
+            if (card.startsWith("02"))
+                return `${1000 + Number(card.slice(-3))}`;
+            if (card.startsWith("03"))
+                return `${2000 + Number(card.slice(-3))}`;
+            if (card.startsWith("04"))
+                return `${3000 + Number(card.slice(-3))}`;
+            if (card.startsWith("05"))
+                return `${4000 + Number(card.slice(-3))}`;
+            if (card.startsWith("06"))
+                return `${5000 + Number(card.slice(-3))}`;
+            if (card.startsWith("07"))
+                return `${6000 + Number(card.slice(-3))}`;
+            if (card.startsWith("08"))
+                return `${7000 + Number(card.slice(-3))}`;
+            if (card.startsWith("09"))
+                return `${8000 + Number(card.slice(-3))}`;
 
-            return `${Number(card.slice(-3))}`
-        }
+            return `${Number(card.slice(-3))}`;
+        };
 
         const udsEncodedCards = this.props.cards
             .toJS()

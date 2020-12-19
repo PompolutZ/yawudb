@@ -16,7 +16,7 @@ import CardRule from "../../../atoms/CardRule";
 import { getCardWaveFromId, getSetNameById } from "../../../data/wudb";
 
 const idToPrintId = (id) => {
-    return `${id}/${totalCardsPerWave[parseInt(getCardWaveFromId(id))]}`;
+    return `${`${id}`.slice(-3)}/${totalCardsPerWave[parseInt(getCardWaveFromId(id))]}`;
 };
 
 const SetIcon = ({ id, setId }) => (
@@ -46,7 +46,7 @@ class Card extends PureComponent {
         const animateHeight = this.state.expanded ? "auto" : 0;
 
         return (
-            <div>
+            <>
                 {asImage && (
                     <div style={{ margin: ".5rem", position: "relative" }}>
                         <img
@@ -68,19 +68,14 @@ class Card extends PureComponent {
                     </div>
                 )}
                 {!asImage && (
-                    <React.Fragment>
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                margin: "0 0 .5rem 1rem",
-                            }}
+                    <>
+                        <div className="flex items-center mt-2"
                             onClick={this._toggleExpanded}
                         >
                             <SetIcon id={`${cardId}`} setId={card.setId} />
-                            <div style={{ color: pickCardColor(cardId) }}>
-                                <u>{card.name}</u>
-                            </div>
+                            <h3 className="cursor-pointer underline" style={{ color: pickCardColor(cardId) }}>
+                                {card.name}
+                            </h3>
                             {card.glory && (
                                 <div style={{ marginLeft: ".3rem" }}>
                                     ({card.glory})
@@ -92,14 +87,7 @@ class Card extends PureComponent {
                                     style={{ width: ".8rem", height: ".8rem" }}
                                 />
                             )}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    marginLeft: ".3rem",
-                                    color: "gray",
-                                    fontSize: ".7rem",
-                                }}
+                            <div className="flex items-center text-sm text-gray-500"
                             >
                                 <div>(</div>
                                 {idToPrintId(cardId)}
@@ -145,9 +133,9 @@ class Card extends PureComponent {
                                 <CardRule rule={card.rule} />
                             )}
                         </AnimateHeight>
-                    </React.Fragment>
+                    </>
                 )}
-            </div>
+            </>
         );
     }
 
