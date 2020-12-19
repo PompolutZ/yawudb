@@ -148,6 +148,7 @@ function FactionsPicker({ selected, onChangeWarband, ...rest }) {
         <div className={`flex flex-wrap align-middle ${rest.className}`}>
             {Object.values(wufactions)
                 .filter(faction => faction.id != selected.id)
+                .reverse()
                 .map(faction => (
                     <img
                         key={faction.id}
