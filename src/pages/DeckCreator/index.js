@@ -52,7 +52,7 @@ function DeckBuilderContextProvider({ children }) {
     const location = useLocation();
     const [state, dispatch] = useEffectReducer(
         deckBuilderReducer, 
-        initialiseState(location.state.deck), 
+        initialiseState(location.state && location.state.deck), 
         {
             saveDeckAsync: saveDeckAsync(async (state, effect) => {
                 try {

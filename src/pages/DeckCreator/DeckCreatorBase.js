@@ -6,6 +6,8 @@ function DeckCreatorBase(props) {
     const { faction, editMode, transferMode } = props;
     const setFaction = props.setFaction;
 
+    console.log(props);
+
     return (
         <React.Fragment>
             <Helmet>
@@ -25,13 +27,14 @@ function DeckCreatorBase(props) {
                 }}
             >
                 <DeckBuilder
-                    key={faction}
+                    currentDeckName={props.deckName}
+                    existingDeckId={props.existingDeckId}
+                    createdTimestamp={props.createdTimestamp}
                     selectedFaction={faction}
                     setFaction={setFaction}
                     editMode={editMode}
                     transferMode={transferMode}
                     currentDeck={props.currentDeck}
-                    currentDeckName={props.location.state && props.location.state.deck && props.location.state.deck.name}
                     currentDeckSource={props.currentDeckSource}
                     currentDeckDescription={props.currentDeckDescription}
                     changeName={props.changeName}

@@ -157,7 +157,6 @@ function FilterableCardLibrary(props) {
                     ? props.cardsRanking[state.faction.abbr][c.id] * 10000
                     : universalRank;
 
-            console.log(c);        
             const [
                 ,
                 isForsaken,

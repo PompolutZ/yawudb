@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-function DeckBuilder({ currentDeckName }) {
+function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     const [searchText, setSearchText] = useState("");
     const [deckName, setDeckName] = useState(currentDeckName || "");
     const [isMobileDeckVisible, setIsMobileDeckVisible] = useState(false);
@@ -221,8 +221,8 @@ function DeckBuilder({ currentDeckName }) {
             deckName: deckName || `${faction.displayName} Deck`,
             author: uid,
             authorDisplayName: displayName,
-            deckId: `${faction.abbr}-${uuid4().split('-').slice(-1)[0]}`,
-            createdutc: now.getTime(),
+            deckId: existingDeckId || `${faction.abbr}-${uuid4().split('-').slice(-1)[0]}`,
+            createdutc: createdTimestamp || now.getTime(),
             updatedutc: now.getTime(),
         }));
     }
