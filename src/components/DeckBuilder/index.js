@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Deck from "./components/Deck";
 
@@ -42,6 +42,7 @@ const useStyles = makeStyles(() => ({
 
 function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     const [searchText, setSearchText] = useState("");
+    const [deckId, setDeckId] = useState(existingDeckId || "");
     const [deckName, setDeckName] = useState(currentDeckName || "");
     const [isMobileDeckVisible, setIsMobileDeckVisible] = useState(false);
     const { uid, displayName } = useAuthUser() || { uid: 'Anonymous', displayName: 'Anonymous' };
@@ -71,145 +72,11 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
         setIsMobileDeckVisible((prev) => !prev);
     };
 
-    // const _updateCurrentDeck = async (args) => {
-    //     try {
-    //         if (!props.match.params.id) {
-    //             _resetAndGoBack();
-    //             return;
-    //         }
+    useEffect(() => {
+        if(existingDeckId) return;
 
-    //         const cache =
-    //             JSON.parse(localStorage.getItem("yawudb_decks")) || {};
-
-    //         const updated = Date();
-    //         const deckPayload = {
-    //             name: currentDeckName,
-    //             source: "",
-    //             desc: currentDeckDescription,
-    //             cards: new OrderedSet(currentDeck).toJS(),
-    //             sets: new OrderedSet(
-    //                 currentDeck.map((c) => cardsDb[c].set)
-    //             ).toJS(),
-    //             scoringSummary: [0, 0, 0, 0],
-    //             tags: [],
-    //             lastModified: Date(),
-    //         };
-
-    //         props.addOrUpdateDeck(props.match.params.id, updated, {
-    //             ...deckPayload,
-    //             id: props.match.params.id,
-    //         });
-
-    //         await props.firebase.realdb
-    //             .ref("decks/" + props.match.params.id)
-    //             .update(deckPayload);
-
-    //         localStorage.setItem(
-    //             "yawudb_decks",
-    //             JSON.stringify({
-    //                 ...cache,
-    //                 [props.match.params.id]: deckPayload,
-    //             })
-    //         );
-
-    //         _resetAndGoBack();
-    //     } catch (err) {
-    //         console.error("ERROR updating deck: ", err);
-    //     }
-    // };
-
-    // const _saveCurrentDeck = async (args) => {
-    //     try {
-    //         const cache =
-    //             JSON.parse(localStorage.getItem("yawudb_decks")) || {};
-    //         const faction = selectedFaction.startsWith("n_")
-    //             ? selectedFaction.slice(2)
-    //             : selectedFaction;
-    //         const deckId = `${factionIdPrefix[faction]}-${uuid4().slice(-12)}`;
-
-    //         const deckPayload = {
-    //             name: currentDeckName,
-    //             source: "",
-    //             desc: currentDeckDescription,
-    //             cards: new OrderedSet(currentDeck).toJS(),
-    //             sets: new OrderedSet(
-    //                 currentDeck.map((c) => cardsDb[c].set)
-    //             ).toJS(),
-    //             scoringSummary: [0, 0, 0, 0],
-    //             tags: [],
-    //             created: Date(),
-    //             author: isAuth ? userInfo.uid : "Anonymous",
-    //             authorDisplayName: isAuth ? userInfo.displayName : "Anonymous",
-    //             private: isAuth,
-    //         };
-
-    //         if (isAuth) {
-    //             await props.firebase.db
-    //                 .collection("users")
-    //                 .doc(userInfo.uid)
-    //                 .update({
-    //                     mydecks: props.firebase.firestoreArrayUnion(deckId),
-    //                 });
-    //         }
-
-    //         await props.firebase.realdb.ref("decks/" + deckId).set(deckPayload);
-
-    //         // update meta for non-draft and public decks
-    //         if (!args.isDraft && !isAuth) {
-    //             props.firebase
-    //                 .decksMetaDb()
-    //                 .doc("all")
-    //                 .update({
-    //                     ids: props.firebase.firestoreArrayUnion(deckId),
-    //                 });
-
-    //             props.firebase
-    //                 .decksMetaDb()
-    //                 .doc(factionIdPrefix[faction])
-    //                 .update({
-    //                     ids: props.firebase.firestoreArrayUnion(deckId),
-    //                 });
-    //         }
-
-    //         // User should be able easily access anon decks in the current browser
-    //         if (!isAuth) {
-    //             const anonDeckIds =
-    //                 JSON.parse(localStorage.getItem("yawudb_anon_deck_ids")) ||
-    //                 [];
-    //             localStorage.setItem(
-    //                 "yawudb_anon_deck_ids",
-    //                 JSON.stringify([...anonDeckIds, deckId])
-    //             );
-    //         }
-
-    //         localStorage.setItem(
-    //             "yawudb_decks",
-    //             JSON.stringify({ ...cache, [deckId]: deckPayload })
-    //         );
-
-    //         resetDeck();
-    //         resetSearchText();
-    //         setShowNotification(true);
-    //         props.history.push(`/view/deck/${deckId}`, {
-    //             deck: deckPayload,
-    //             canUpdateOrDelete: true,
-    //         });
-    //     } catch (err) {
-    //         console.error("ERROR saving new deck: ", err);
-    //     }
-    // };
-
-    // const _resetAndGoBack = () => {
-    //     props.history.goBack();
-    //     setTimeout(() => {
-    //         resetDeck();
-    //         resetSearchText();
-    //     }, 300);
-    // };
-
-    // const _cancelUpdate = () => {
-    //     _resetAndGoBack();
-    // };
+        setDeckId(`${faction.abbr}-${uuid4().split('-').slice(-1)[0]}`);
+    }, [faction, existingDeckId]);
 
     const handleResetCurrentDeck = () => {
         dispatch(resetDeckAction())
@@ -221,7 +88,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
             deckName: deckName || `${faction.displayName} Deck`,
             author: uid,
             authorDisplayName: displayName,
-            deckId: existingDeckId || `${faction.abbr}-${uuid4().split('-').slice(-1)[0]}`,
+            deckId,
             createdutc: createdTimestamp || now.getTime(),
             updatedutc: now.getTime(),
         }));
@@ -230,7 +97,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     return (
         <div className={classes.root}>
             {
-                status === 'Saved' && <Redirect to="/" />
+                status === 'Saved' && <Redirect to="/mydecks" />
             }
             <Grid container spacing={1} style={{ height: "98%" }}>
                 <Grid item xs={12} lg={3}>

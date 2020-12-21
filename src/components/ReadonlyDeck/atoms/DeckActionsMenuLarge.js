@@ -177,8 +177,6 @@ class DeckActionMenuLarge extends PureComponent {
     render() {
         const {
             canUpdateOrDelete,
-            onEdit,
-            onCopy,
             onDelete,
             onSaveAsPdf,
             exportToUDB,
@@ -187,36 +185,11 @@ class DeckActionMenuLarge extends PureComponent {
         } = this.props;
         return (
             <React.Fragment>
-                {canUpdateOrDelete && (
-                    <Button onClick={onEdit} style={{ color: "#3B9979" }}>
-                        Edit
-                    </Button>
-                )}
-                <Button onClick={onCopy}>Copy</Button>
+                {this.props.canUpdateOrDelete && this.props.edit}{" "}
+                {/* <Button onClick={onCopy}>Copy</Button> */}
                 <Button onClick={this.props.onCardsViewChange}>
                     {this.props.cardsView ? "View as List" : "View as Cards"}
                 </Button>
-
-                {/* <Button onClick={this.handleExportToTextFile}>
-                    <a
-                        id="deckTextLinkLarge"
-                        style={{ color: 'inherit', textDecoration: 'none' }}
-                    >
-                        Export as Text
-                    </a>
-                </Button>
-                <Button onClick={this.handleExportToImage}>
-                    <a
-                        id="deckImageLinkLarge"
-                        style={{ color: 'inherit', textDecoration: 'none' }}
-                    >
-                        Download as Image
-                    </a>
-                </Button>
-                <Button onClick={this.props.onSaveVassalFiles}>
-                    Download Vassal Decks
-                </Button> */}
-                {/* <Button onClick={onSaveAsPdf}>Export As PDF</Button> */}
                 <DownloadMenu
                     onDownloadAsText={this.handleExportToTextFile}
                     onDownloadAsImage={this.handleExportToImage}

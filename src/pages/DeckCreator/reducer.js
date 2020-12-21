@@ -9,7 +9,7 @@ export const ADD_CARD_ACTION = "ADD_CARD";
 export const REMOVE_CARD_ACTION = "REMOVE_CARD";
 export const RESET_DECK_ACTION = "RESET_DECK_ACTION";
 export const SAVE_DECK = "SAVE_DECK";
-const FINISH_SAVING_DECK = "FINISH_SAVING_DECK";
+export const FINISH_SAVING_DECK = "FINISH_SAVING_DECK";
 
 export function addCardAction(card) {
     return {
@@ -155,7 +155,7 @@ export const deckBuilderReducer = (state, event, exec) => {
             };
         case SAVE_DECK:
             console.log("START SAVING");
-            exec({ type: "saveDeckAsync", deckMeta: event.payload });
+            exec({ type: "saveDeck", deckMeta: event.payload });
 
             return {
                 ...state,
@@ -170,11 +170,3 @@ export const deckBuilderReducer = (state, event, exec) => {
             return state;
     }
 };
-
-export function saveDeckAsync(saveFn) {
-    return function (state, effect, dispatch) {
-        saveFn(state, effect);
-
-        dispatch({ type: FINISH_SAVING_DECK });
-    };
-}

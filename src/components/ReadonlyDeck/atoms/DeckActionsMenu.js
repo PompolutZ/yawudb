@@ -29,7 +29,7 @@ class DeckActionsMenu extends PureComponent {
                     onClose={this.handleClose}
                 >
                     { this.props.canUpdateOrDelete && this.props.onEdit}
-                    <MenuItem onClick={this.props.onCopy}>Copy</MenuItem>
+                    {/* <MenuItem onClick={this.props.onCopy}>Copy</MenuItem> */}
                     <Divider />
                     <MenuItem onClick={this.handleExportToTextFile}>
                         <a

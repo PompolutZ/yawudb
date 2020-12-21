@@ -32,6 +32,7 @@ import {
     getCardWaveFromId,
 } from "../../data/wudb";
 import CardListSectionHeader from "../../v2/components/CardListSectionHeader";
+import { ReactComponent as EditIcon } from '../../svgs/edit-2.svg';
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
 const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
@@ -315,7 +316,7 @@ class ReadonlyDeck extends PureComponent {
                         amount={amount}
                     />
                     <React.Fragment>
-                        <div className={classes.deckHeaderMenu}>
+                        <div className="lg:hidden">
                             <DeckActionsMenu
                                 onSaveAsPdf={this._handleSaveAsPdf}
                                 onSaveText={this._handleSaveText}
@@ -330,7 +331,6 @@ class ReadonlyDeck extends PureComponent {
                                         }
                                     }}>Edit</Link>
                                 }
-                                onCopy={this.props.onCopy}
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
                                 exportToClub={this._handleExportToClub}
@@ -340,7 +340,7 @@ class ReadonlyDeck extends PureComponent {
                                 }
                             />
                         </div>
-                        <div className={classes.deckHeaderButtons}>
+                        <div className="hidden lg:flex items-center">
                             <DeckActionMenuLarge
                                 cardsView={this.props.cardsView}
                                 onCardsViewChange={this.props.onCardsViewChange}
@@ -349,8 +349,14 @@ class ReadonlyDeck extends PureComponent {
                                 onSaveImage={this._handleSaveImage}
                                 onSaveVassalFiles={this._handleSaveVassalFiles}
                                 canUpdateOrDelete={this.props.canUpdateOrDelete}
-                                onEdit={this.props.onEdit}
-                                onCopy={this.props.onCopy}
+                                edit={
+                                    <Link className="px-4 flex hover:text-purple-800" to={{
+                                        pathname: `/deck/edit/${id}`,
+                                        state: {
+                                            deck
+                                        }
+                                    }}><EditIcon className="mr-2" /> Edit</Link>
+                                }
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
                                 exportToClub={this._handleExportToClub}

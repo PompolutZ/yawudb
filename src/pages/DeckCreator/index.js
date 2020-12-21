@@ -7,9 +7,11 @@ import DeckCreatorTransfer from "./DeckCreatorTransfer";
 import { deckBuilderReducer, INITIAL_STATE, saveDeckAsync } from "./reducer";
 import { FirebaseContext } from "../../firebase";
 import { getFactionByName } from "../../data/wudb";
+import { firebaseSaveDeckAsync } from "./effects";
 
 const DeckBuilderContext = React.createContext();
 const DeckBuilderDispatchContext = React.createContext();
+
 
 export function useDeckBuilderState() {
     const context = useContext(DeckBuilderContext);
@@ -54,38 +56,7 @@ function DeckBuilderContextProvider({ children }) {
         deckBuilderReducer, 
         initialiseState(location.state && location.state.deck), 
         {
-            saveDeckAsync: saveDeckAsync(async (state, effect) => {
-                try {
-                    const {
-                        deckName,
-                        author,
-                        authorDisplayName,
-                        deckId,
-                        createdutc,
-                        updatedutc,
-                    } = effect.deckMeta;
-
-                    const deck = [
-                        ...state.selectedObjectives,
-                        ...state.selectedGambits,
-                        ...state.selectedUpgrades,
-                    ];
-                    
-                    console.log(effect);
-                    await firebase.realdb.ref(`/decks/${deckId}`).set({
-                        author,
-                        authorDisplayName,
-                        createdutc,
-                        updatedutc,
-                        name: deckName,
-                        faction: state.faction.name,
-                        deck: deck.map(c => c.id).join(","),
-                        sets: Array.from(new Set(deck.map(c => c.setId))).join(",")
-                    });
-                } catch (e) {
-                    console.error(e);
-                }
-            })
+            saveDeck: firebaseSaveDeckAsync(firebase)
     });
     return (
         <DeckBuilderContext.Provider value={state}>
