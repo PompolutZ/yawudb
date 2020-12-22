@@ -31,7 +31,7 @@ class DeckActionsMenu extends PureComponent {
                     { this.props.canUpdateOrDelete && this.props.onEdit}
                     {/* <MenuItem onClick={this.props.onCopy}>Copy</MenuItem> */}
                     <Divider />
-                    <MenuItem onClick={this.handleExportToTextFile}>
+                    {/* <MenuItem onClick={this.handleExportToTextFile}>
                         <a
                             href=""
                             id="deckTextLink"
@@ -39,8 +39,8 @@ class DeckActionsMenu extends PureComponent {
                         >
                             Download as Text
                         </a>
-                    </MenuItem>
-                    <MenuItem onClick={this.handleExportToImage}>
+                    </MenuItem> */}
+                    {/* <MenuItem onClick={this.handleExportToImage}>
                         <a
                             href=""
                             id="deckImageLink"
@@ -48,10 +48,10 @@ class DeckActionsMenu extends PureComponent {
                         >
                             Download as Image
                         </a>
-                    </MenuItem>
-                    <MenuItem onClick={this.handleExportToPdf}>
+                    </MenuItem> */}
+                    {/* <MenuItem onClick={this.handleExportToPdf}>
                         Download as PDF
-                    </MenuItem>
+                    </MenuItem> */}
                     <Divider />
                     <MenuItem
                         onClick={this.handleExportVassalFiles}

@@ -142,15 +142,15 @@ function DownloadMenu({
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <StyledMenuItem onClick={handleDownloadClick(onDownloadAsText)}>
+                {/* <StyledMenuItem onClick={handleDownloadClick(onDownloadAsText)}>
                     <a
                         id="deckTextLinkLarge"
                         style={{ color: "inherit", textDecoration: "none" }}
                     >
                         as Text
                     </a>
-                </StyledMenuItem>
-                <StyledMenuItem
+                </StyledMenuItem> */}
+                {/* <StyledMenuItem
                     onClick={handleDownloadClick(onDownloadAsImage)}
                 >
                     <a
@@ -159,15 +159,15 @@ function DownloadMenu({
                     >
                         as Image
                     </a>
-                </StyledMenuItem>
+                </StyledMenuItem> */}
                 <StyledMenuItem
                     onClick={handleDownloadClick(onDownloadAsVassal)}
                 >
                     as Vassal Decks
                 </StyledMenuItem>
-                <StyledMenuItem onClick={handleDownloadClick(onDownloadAsPDF)}>
+                {/* <StyledMenuItem onClick={handleDownloadClick(onDownloadAsPDF)}>
                     as PDF
-                </StyledMenuItem>
+                </StyledMenuItem> */}
             </StyledMenu>
         </div>
     );
