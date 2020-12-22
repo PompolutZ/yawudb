@@ -73,7 +73,7 @@ function CardsRating(props) {
                         const ratings = deck.cards.reduce((acc, card) => {
                             return {
                                 ...acc,
-                                [Number(card)]:
+                                [card]:
                                     ((deck.lastModified - baseDate) /
                                         (new Date() - baseDate)) *
                                     (deck.sets.length / maxSets),
@@ -122,7 +122,7 @@ function CardsRating(props) {
                 }, 0);
 
                 const genericRatings = fixedDate.reduce(
-                    (acc, [id, deck], index) => {
+                    (acc, [id, deck]) => {
                         if (id === "undefined" || !deck.cards) return acc;
 
                         const ratings = deck.cards
@@ -137,7 +137,7 @@ function CardsRating(props) {
                             .reduce((acc, card) => {
                                 return {
                                     ...acc,
-                                    [Number(card)]:
+                                    [card]:
                                         ((deck.lastModified - baseDate) /
                                             (new Date() - baseDate)) *
                                         (deck.sets.length / allMaxSetsCount),
@@ -166,7 +166,7 @@ function CardsRating(props) {
                 ).reduce((acc, [card, rating]) => {
                     return {
                         ...acc,
-                        [Number(card)]: Math.round(
+                        [card]: Math.round(
                             Math.round((rating / maxGenericRank) * 100) / 10
                         ),
                     };
@@ -179,6 +179,7 @@ function CardsRating(props) {
                 setData({
                     ...cardRankingsPerFaction,
                     u: normalizedGenericRanks,
+                    'universal': normalizedGenericRanks,
                 });
             });
     }, []);
@@ -203,13 +204,6 @@ function CardsRating(props) {
                 Update Ranking
             </Button>
             <div>
-                {Object.entries(printData)
-                    .sort(([id1, rating1], [id2, rating2]) => rating2 - rating1)
-                    .map(([cardId, rating]) => (
-                        <div key={cardId}>{`${
-                            cardsDb[cardId] && cardsDb[cardId].name
-                        }: ${rating}`}</div>
-                    ))}
             </div>
         </div>
     );
