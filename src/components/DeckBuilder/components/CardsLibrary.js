@@ -145,16 +145,20 @@ function FilterableCardLibrary(props) {
 
             // let cid = `${c.id}`.padStart(5, "0");
 
+            let oldCardId = `${Number(c.id)}`.padStart(5, "0");
             // Cards ids is a mess
             const universalRank =
-                props.cardsRanking && props.cardsRanking["u"][c.id]
-                    ? props.cardsRanking["u"][c.id]
+                props.cardsRanking && 
+                props.cardsRanking["u"] && 
+                props.cardsRanking["u"][oldCardId]
+                    ? props.cardsRanking["u"][oldCardId]
                     : 0;
+                    
             const rank =
                 props.cardsRanking &&
                 props.cardsRanking[state.faction.abbr] &&
-                props.cardsRanking[state.faction.abbr][c.id]
-                    ? props.cardsRanking[state.faction.abbr][c.id] * 10000
+                props.cardsRanking[state.faction.abbr][oldCardId]
+                    ? props.cardsRanking[state.faction.abbr][oldCardId] * 10000
                     : universalRank;
 
             const [
