@@ -17,7 +17,6 @@ export const firebaseSaveDeckAsync = firebase => async (state, effect, dispatch)
             ...state.selectedUpgrades,
         ];
         
-        console.log(effect);
         await firebase.realdb.ref(`/decks/${deckId}`).set({
             author,
             authorDisplayName,

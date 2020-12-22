@@ -10,6 +10,7 @@ import { checkCardIsObjective, getCardById, getFactionByAbbr } from "../../data/
 import { ReactComponent as TrashIcon } from '../../svgs/trash.svg';
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
+import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
 
 function DeckLink(props) {
     const [cards, setCards] = useState([])
@@ -66,7 +67,7 @@ function DeckLink(props) {
             </div>
             </div>
             <div className="pl-2">
-                <button className="btn btn-red">
+                <button className="btn btn-red" onClick={props.onDelete(props.id)}>
                     <TrashIcon />
                 </button>
             </div>
@@ -79,6 +80,7 @@ function MyDecksPage() {
     const [decks, setDecks] = useState([]);
     const authUser = useAuthUser();
     const firebase = useContext(FirebaseContext);
+    const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
 
     useEffect(() => {
         if(!authUser) return;
@@ -116,12 +118,35 @@ function MyDecksPage() {
                 setDecks(updatedDecks);
                 console.log(snapshot.val());
             });
-    }, [firebase, authUser])
+    }, [firebase, authUser]);
+
+    const handleCloseDeleteDialog = () => {
+        setConfirmDeleteDeckId(null);
+    }
+
+    const handleDeleteDeckId = deckId => () => {
+        setConfirmDeleteDeckId(deckId);
+    }
+
+    const handleDeleteDeck = async () => {
+        await firebase.realdb.ref(`/decks/${confirmDeleteDeckId}`).remove();
+        setDecks(prev => prev.filter(deck => deck.id !== confirmDeleteDeckId));
+        setConfirmDeleteDeckId(null);
+    }
 
     return (
         <div className="flex-1 p-4">
             { loading && <span>Loading...</span>}
-            { decks.map(deck => <DeckLink key={deck.id} {...deck} /> )}
+            { decks.map(deck => <DeckLink key={deck.id} onDelete={handleDeleteDeckId} {...deck} /> )}
+
+            <DeleteConfirmationDialog
+                    title="Delete deck"
+                    description={`Are you sure you want to delete deck: '${decks.find(deck => deck.id === confirmDeleteDeckId)?.name}'`}
+                    open={!!confirmDeleteDeckId}
+                    onCloseDialog={handleCloseDeleteDialog}
+                    onDeleteConfirmed={handleDeleteDeck}
+                    onDeleteRejected={handleCloseDeleteDialog}
+                />
         </div>
     )
 }

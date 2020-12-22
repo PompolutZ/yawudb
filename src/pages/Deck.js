@@ -42,19 +42,19 @@ function Deck(props) {
 
             await firebase.realdb.ref(`/decks/${id}`).remove();
 
-            props.firebase
-                .decksMetaDb()
-                .doc("all")
-                .update({
-                    ids: props.firebase.firestoreArrayRemove(id),
-                });
+            // props.firebase
+            //     .decksMetaDb()
+            //     .doc("all")
+            //     .update({
+            //         ids: props.firebase.firestoreArrayRemove(id),
+            //     });
 
-            props.firebase
-                .decksMetaDb()
-                .doc(id.split("-")[0])
-                .update({
-                    ids: props.firebase.firestoreArrayRemove(id),
-                });
+            // props.firebase
+            //     .decksMetaDb()
+            //     .doc(id.split("-")[0])
+            //     .update({
+            //         ids: props.firebase.firestoreArrayRemove(id),
+            //     });
 
             if (props.uid) {
                 props.removeDeck(id);
@@ -65,16 +65,17 @@ function Deck(props) {
                     .update({
                         mydecks: props.firebase.firestoreArrayRemove(id),
                     });
-            } else {
-                const anonDeckIds =
-                    JSON.parse(localStorage.getItem("yawudb_anon_deck_ids")) ||
-                    [];
-                const updated = anonDeckIds.filter((deckId) => deckId !== id);
-                localStorage.setItem(
-                    "yawudb_anon_deck_ids",
-                    JSON.stringify(updated)
-                );
-            }
+            } 
+            // else {
+            //     const anonDeckIds =
+            //         JSON.parse(localStorage.getItem("yawudb_anon_deck_ids")) ||
+            //         [];
+            //     const updated = anonDeckIds.filter((deckId) => deckId !== id);
+            //     localStorage.setItem(
+            //         "yawudb_anon_deck_ids",
+            //         JSON.stringify(updated)
+            //     );
+            // }
 
             handleCloseDeleteDialog();
             history.push("/mydecks");
