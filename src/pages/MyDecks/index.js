@@ -12,7 +12,7 @@ import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
 import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
 
-function DeckLink(props) {
+function DeckLink({ onDelete, ...props}) {
     const [cards, setCards] = useState([])
 
     useEffect(() => {
@@ -67,7 +67,7 @@ function DeckLink(props) {
             </div>
             </div>
             <div className="pl-2">
-                <button className="btn btn-red" onClick={props.onDelete(props.id)}>
+                <button className="btn btn-red" onClick={onDelete(props.id)}>
                     <TrashIcon />
                 </button>
             </div>
