@@ -20,6 +20,7 @@ import { useDeckBuilderDispatcher, useDeckBuilderState } from "../../pages/DeckC
 import useAuthUser from "../../hooks/useAuthUser";
 import { resetDeckAction, saveDeckAction } from "../../pages/DeckCreator/reducer";
 import uuid4 from 'uuid/v4';
+import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -121,7 +122,12 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                                             />
                                         }
                                     />
-                                    <Tab label="Fighters" />
+                                    <Tab label={
+                                        <div className="flex items-center">
+                                            <FactionDeckPicture faction={faction.name} size="w-8 h-8 mr-1" />
+                                            Fighters
+                                        </div>
+                                    } />
                                 </Tabs>
                             </div>
                             <div style={{ flex: "1 100%" }}>
