@@ -1,15 +1,15 @@
 import React from "react";
-import DeckIcon from "../../../atoms/DeckIcon";
-import DebouncedInput from "../../../v2/components/DebouncedInput";
+import DeckIcon from "../../../../atoms/DeckIcon";
+import DebouncedInput from "../../../../v2/components/DebouncedInput";
 import ObjectivesList from "./ObjectivesList";
 import GambitsList from "./GambitsList";
 import UpgradesList from "./UpgradesList";
-import { ReactComponent as SaveIcon } from "../../../svgs/save.svg";
-import { ReactComponent as CloseIcon } from "../../../svgs/x.svg";
+import { ReactComponent as SaveIcon } from "../../../../svgs/save.svg";
+import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
 import {
     validateObjectivesListForPlayFormat,
     validatePowerDeckForFormat,
-} from "../../../data/wudb";
+} from "../../../../data/wudb";
 import PropTypes from "prop-types";
 
 function Deck({
@@ -23,11 +23,12 @@ function Deck({
     onSave,
     onReset,
 }) {
-    const [isObjectivesValid] = validateObjectivesListForPlayFormat(
-        selectedObjectives,
-        format
-    );
-    const [isPowerDeckValid] = validatePowerDeckForFormat(
+    const [
+        isObjectivesValid,
+        objectivesDeckIssues,
+    ] = validateObjectivesListForPlayFormat(selectedObjectives, format);
+    
+    const [isPowerDeckValid, powerDeckIssues] = validatePowerDeckForFormat(
         selectedGambits,
         selectedUpgrades,
         format
@@ -50,7 +51,11 @@ function Deck({
                     />
                 </div>
                 <div className="ml-auto mr-4 grid gap-2 grid-cols-2">
-                    <button disabled={!isObjectivesValid || !isPowerDeckValid } className="btn btn-purple" onClick={onSave}>
+                    <button
+                        disabled={!isObjectivesValid || !isPowerDeckValid}
+                        className="btn btn-purple"
+                        onClick={onSave}
+                    >
                         <SaveIcon />
                     </button>
                     <button className="btn btn-red" onClick={onReset}>
@@ -59,9 +64,26 @@ function Deck({
                 </div>
             </div>
             <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-2">
-                <ObjectivesList />
-                <GambitsList />
-                <UpgradesList />
+                <ObjectivesList
+                    isValid={isObjectivesValid}
+                    issues={objectivesDeckIssues}
+                    format={format}
+                    selectedObjectives={selectedObjectives}
+                />
+                <GambitsList
+                    isValid={isPowerDeckValid}
+                    issues={powerDeckIssues}
+                    format={format}
+                    selectedGambits={selectedGambits}
+                    selectedUpgrades={selectedUpgrades}
+                />
+                <UpgradesList
+                    isValid={isPowerDeckValid}
+                    issues={powerDeckIssues}
+                    format={format}
+                    selectedGambits={selectedGambits}
+                    selectedUpgrades={selectedUpgrades}
+                />
             </div>
         </div>
     );

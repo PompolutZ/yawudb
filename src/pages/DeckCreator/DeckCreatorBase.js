@@ -1,5 +1,5 @@
 import React from "react";
-import DeckBuilder from "../../components/DeckBuilder";
+import DeckBuilder from "./DeckBuilder";
 import { Helmet } from "react-helmet";
 
 function DeckCreatorBase(props) {

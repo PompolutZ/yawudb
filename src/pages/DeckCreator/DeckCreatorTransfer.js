@@ -1,6 +1,6 @@
 import React from "react";
 import FactionToggle from "../../components/FactionToggle";
-import DeckBuilder from "../../components/DeckBuilder";
+import DeckBuilder from "./DeckBuilder";
 import {
     SET_FACTION,
     CHANGE_NAME,

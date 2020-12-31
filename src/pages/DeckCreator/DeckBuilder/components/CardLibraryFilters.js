@@ -1,25 +1,25 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { IconButton, Typography } from "@material-ui/core";
-import { ReactComponent as TogglesIcon } from "../../../svgs/sliders.svg";
-import { ReactComponent as CloseIcon } from "../../../svgs/x.svg";
-import ExpansionsToggle from "../../ExpansionsToggle";
+import { ReactComponent as TogglesIcon } from "../../../../svgs/sliders.svg";
+import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
+import ExpansionsToggle from "../../../../components/ExpansionsToggle";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import OpenFormatIcon from "@material-ui/icons/Mood";
 import ChampionshipFormatIcon from "@material-ui/icons/EmojiEvents";
-import { factions } from "../../../data";
+import { factions } from "../../../../data";
 import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
-import SectionTitle from "../../../v2/components/SectionTitle";
-import Toggle from "../../../v2/components/HexToggle";
+import SectionTitle from "../../../../v2/components/SectionTitle";
+import Toggle from "../../../../v2/components/HexToggle";
 import {
     useDeckBuilderDispatcher,
     useDeckBuilderState,
-} from "../../../pages/DeckCreator";
-import { getAllSetsValidForFormat, wufactions } from "../../../data/wudb";
-import DebouncedInput from "../../../v2/components/DebouncedInput";
+} from "../..";
+import { getAllSetsValidForFormat, wufactions } from "../../../../data/wudb";
+import DebouncedInput from "../../../../v2/components/DebouncedInput";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
@@ -220,7 +220,7 @@ function CardLibraryFilters(props) {
                     exit: 175,
                 }}
             >
-                <Grid container xs={12} md={6}>
+                <Grid item xs={12} md={6}>
                     <div className="w-full h-full flex flex-col">
                         <IconButton onClick={closeAndUpdateFilters} className="self-end">
                             <CloseIcon />

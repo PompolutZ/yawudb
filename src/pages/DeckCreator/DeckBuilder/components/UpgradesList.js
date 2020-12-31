@@ -1,29 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useDeckBuilderState } from "../../../pages/DeckCreator";
+import React, {  } from "react";
 import { CardsList } from "./CardsList";
 import uuid4 from "uuid";
 import {
     CHAMPIONSHIP_FORMAT,
-    validatePowerDeckForFormat,
-} from "../../../data/wudb";
-import CardListSectionHeader from "../../../v2/components/CardListSectionHeader";
+} from "../../../../data/wudb";
+import CardListSectionHeader from "../../../../v2/components/CardListSectionHeader";
 
-function UpgradesList() {
-    const { selectedGambits, selectedUpgrades, format } = useDeckBuilderState();
-    const [isValid, setIsValid] = useState(false);
-    const [issues, setIssues] = useState([]);
-
-    useEffect(() => {
-        const [isValid, issues] = validatePowerDeckForFormat(
-            selectedGambits,
-            selectedUpgrades,
-            format
-        );
-
-        setIsValid(isValid);
-        setIssues(issues);
-    }, [format, selectedGambits, selectedUpgrades]);
-
+function UpgradesList({ selectedUpgrades, format, isValid, issues }) {
     return (
         <div className={`${isValid ? "bg-green-100" : "bg-red-100"} p-2 mb-4 lg:mb-0`}>
             <CardListSectionHeader

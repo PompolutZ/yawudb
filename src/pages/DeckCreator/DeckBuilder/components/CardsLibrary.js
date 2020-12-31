@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { bannedCards } from "../../../data";
+import { bannedCards } from "../../../../data";
 import { List, AutoSizer } from "react-virtualized";
-import { ADD_CARD, REMOVE_CARD } from "../../../reducers/deckUnderBuild";
+import { ADD_CARD, REMOVE_CARD } from "../../../../reducers/deckUnderBuild";
 import { connect } from "react-redux";
-import WUCard from "../../../atoms/WUCard";
-import { cardTypes, validateCardForPlayFormat, wucards } from "../../../data/wudb";
-import { useDeckBuilderState } from "../../../pages/DeckCreator";
+import WUCard from "../../../../atoms/WUCard";
+import { cardTypes, CHAMPIONSHIP_FORMAT, RELIC_FORMAT, validateCardForPlayFormat, wucards } from "../../../../data/wudb";
+import { useDeckBuilderState } from "../..";
 import PropTypes from 'prop-types';
 
 // I am not sure if I need to use useEffect here
@@ -190,21 +190,16 @@ function FilterableCardLibrary(props) {
             .filter(({ type }) => {
                 return visibleCardTypes.includes(cardTypes.indexOf(type));
             })
-            .filter(({ id, faction }) => {
+            .filter(({ isBanned }) => {
                 switch (deckPlayFormat) {
-                    case "championship":
-                        return Number(faction) === 0
-                            ? !bannedCards[id] && Number(id) >= 3000
-                            : true;
-                    case "relic":
-                        return !bannedCards[id];
+                    case CHAMPIONSHIP_FORMAT:
+                    case RELIC_FORMAT:
+                        return !isBanned;
                     default:
                         return true;
                 }
             });
         
-            console.log(searchText);
-
         if (isNaN(searchText)) {
             filteredCards = filteredCards.filter((c) => {
                 if (!searchText) return true;

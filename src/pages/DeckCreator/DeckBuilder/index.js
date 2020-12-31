@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 
 import Deck from "./components/Deck";
 
-import FloatingActionButton from "../FloatingActionButton";
+import FloatingActionButton from "../../../components/FloatingActionButton";
 import { Redirect, withRouter } from "react-router-dom";
-import SimpleSnackbar from "../SimpleSnackbar";
+import SimpleSnackbar from "../../../components/SimpleSnackbar";
 import CardLibraryFilters from "./components/CardLibraryFilters";
 import CardsLibrary from "./components/CardsLibrary";
-import { AddCardSVG, DeckSVG } from "../../atoms/SVGs";
+import { AddCardSVG, DeckSVG } from "../../../atoms/SVGs";
 import { Tabs, Tab } from "@material-ui/core";
 import CardsTab from "./atoms/CardsTab";
-import FightersInfoList from "../../atoms/FightersInfoList";
+import FightersInfoList from "../../../atoms/FightersInfoList";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useDeckBuilderDispatcher, useDeckBuilderState } from "../../pages/DeckCreator";
-import useAuthUser from "../../hooks/useAuthUser";
-import { resetDeckAction, saveDeckAction } from "../../pages/DeckCreator/reducer";
+import { useDeckBuilderDispatcher, useDeckBuilderState } from "..";
+import useAuthUser from "../../../hooks/useAuthUser";
+import { resetDeckAction, saveDeckAction } from "../reducer";
 import uuid4 from 'uuid/v4';
-import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
+import FactionDeckPicture from "../../../v2/components/FactionDeckPicture";
 
 const useStyles = makeStyles(() => ({
     root: {

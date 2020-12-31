@@ -1,19 +1,13 @@
-import React, { useState, useEffect, useMemo } from "react";
-import ScoringOverview from "../../../atoms/ScoringOverview";
+import React, { useMemo } from "react";
+import ScoringOverview from "../../../../atoms/ScoringOverview";
 import { CardsList } from "./CardsList";
-import { useDeckBuilderState } from "../../../pages/DeckCreator";
 import {
     CHAMPIONSHIP_FORMAT,
-    validateObjectivesListForPlayFormat,
-} from "../../../data/wudb";
+} from "../../../../data/wudb";
 import uuid4 from "uuid/v4";
-import CardListSectionHeader from "../../../v2/components/CardListSectionHeader";
+import CardListSectionHeader from "../../../../v2/components/CardListSectionHeader";
 
-function ObjectivesList() {
-    const { selectedObjectives, format } = useDeckBuilderState();
-    const [isValid, setIsValid] = useState(false);
-    const [issues, setIssues] = useState([]);
-
+function ObjectivesList({ selectedObjectives, format, isValid, issues }) {
     const totalGlory = useMemo(
         () =>
             selectedObjectives.reduce(
@@ -34,16 +28,6 @@ function ObjectivesList() {
             ),
         [selectedObjectives]
     );
-
-    useEffect(() => {
-        const [isValid, issues] = validateObjectivesListForPlayFormat(
-            selectedObjectives,
-            format
-        );
-
-        setIsValid(isValid);
-        setIssues(issues);
-    }, [format, selectedObjectives]);
 
     return (
         <div className={`${isValid ? "bg-green-100" : "bg-red-100"} p-2 mb-4 lg:mb-0`}>
