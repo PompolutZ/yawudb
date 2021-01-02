@@ -4,10 +4,10 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import DeckCreatorNew from "./DeckCreatorNew";
 import DeckCreatorEdit from "./DeckCreatorEdit";
 import DeckCreatorTransfer from "./DeckCreatorTransfer";
-import { deckBuilderReducer, INITIAL_STATE, saveDeckAsync } from "./reducer";
+import { deckBuilderReducer, INITIAL_STATE } from "./reducer";
 import { FirebaseContext } from "../../firebase";
 import { getFactionByName } from "../../data/wudb";
-import { firebaseSaveDeckAsync } from "./effects";
+import { firebaseSaveDeckAsync, addKeyToLocalStorage, removeKeyFromLocalStorage, initialiseStateFromLocalStorage } from "./effects";
 
 const DeckBuilderContext = React.createContext();
 const DeckBuilderDispatchContext = React.createContext();
@@ -35,7 +35,7 @@ export function useDeckBuilderDispatcher() {
     return context;
 }
 
-const initialiseState = deck => _ => {
+const initialiseState = deck => exec => {
     if(deck) {
         return {
             ...INITIAL_STATE,
@@ -45,6 +45,8 @@ const initialiseState = deck => _ => {
             selectedUpgrades: deck.upgrades,
         }
     }
+
+    exec({ type: 'initialiseStateFromLocalStorage', key: 'wunderworlds_deck_in_progress' })
 
     return INITIAL_STATE;
 }
@@ -56,7 +58,10 @@ function DeckBuilderContextProvider({ children }) {
         deckBuilderReducer, 
         initialiseState(location.state && location.state.deck), 
         {
-            saveDeck: firebaseSaveDeckAsync(firebase)
+            saveDeck: firebaseSaveDeckAsync(firebase),
+            addKeyToLocalStorage,
+            removeKeyFromLocalStorage,
+            initialiseStateFromLocalStorage,
     });
     return (
         <DeckBuilderContext.Provider value={state}>

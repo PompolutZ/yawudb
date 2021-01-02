@@ -18,7 +18,7 @@ const ObjectiveScoreTypeIcon = ({ type, style }) => {
         case 'Third':
             return <HourglassEmptyIcon style={style} />;
         default:
-            return <FlashOnIcon style={style} />;
+            return null;
     }
 };
 

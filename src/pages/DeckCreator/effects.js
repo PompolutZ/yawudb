@@ -33,3 +33,24 @@ export const firebaseSaveDeckAsync = firebase => async (state, effect, dispatch)
         console.error(e);
     }
 }
+
+export function addKeyToLocalStorage(state, {key, value}) {
+    localStorage.setItem(key, JSON.stringify(value));
+} 
+
+export function removeKeyFromLocalStorage(state, { key }) {
+    localStorage.removeItem(key);
+}
+
+export function initialiseStateFromLocalStorage(state, { key }, dispatch) {
+    const value = localStorage.getItem(key);
+
+    if(!value) return;
+
+    const serializedState = JSON.parse(value);
+
+    dispatch({
+        type: "SET_DESERIALIZED_STATE",
+        payload: serializedState,
+    });
+}

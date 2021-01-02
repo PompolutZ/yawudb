@@ -84,11 +84,16 @@ export const INITIAL_STATE = {
 
 export const deckBuilderReducer = (state, event, exec) => {
     switch (event.type) {
-        case UPDATE_FILTERS_ACTION:
-            return {
+        case UPDATE_FILTERS_ACTION: {
+            const nextState = {
                 ...state,
                 ...event.payload,
             };
+            
+            exec({ type: 'addKeyToLocalStorage', key: 'wunderworlds_deck_in_progress', value: nextState });
+            
+            return nextState;
+        }
         case ADD_CARD_ACTION:
             if (
                 [
@@ -101,58 +106,96 @@ export const deckBuilderReducer = (state, event, exec) => {
             }
 
             if (event.payload.type === "Objective") {
-                return {
+                const selectedObjectives = [
+                    ...state.selectedObjectives,
+                    event.payload,
+                ];
+
+                const nextState = {
                     ...state,
-                    selectedObjectives: [
-                        ...state.selectedObjectives,
-                        event.payload,
-                    ],
-                };
+                    selectedObjectives,
+                }
+
+                exec({ type: 'addKeyToLocalStorage', key: 'wunderworlds_deck_in_progress', value: nextState });
+                
+                return nextState;
+
             } else if (event.payload.type === "Upgrade") {
-                return {
+                const selectedUpgrades = [
+                    ...state.selectedUpgrades,
+                    event.payload,
+                ]
+                
+                const nextState = {
                     ...state,
-                    selectedUpgrades: [
-                        ...state.selectedUpgrades,
-                        event.payload,
-                    ],
-                };
+                    selectedUpgrades,
+                }
+
+                exec({ type: 'addKeyToLocalStorage', key: 'wunderworlds_deck_in_progress', value: nextState });
+                
+                return nextState;
             } else {
-                return {
+                const selectedGambits = [...state.selectedGambits, event.payload]
+                
+                const nextState = {
                     ...state,
-                    selectedGambits: [...state.selectedGambits, event.payload],
-                };
+                    selectedGambits,
+                }
+
+                exec({ type: 'addKeyToLocalStorage', key: 'wunderworlds_deck_in_progress', value: nextState });
+                
+                return nextState;
             }
         case REMOVE_CARD_ACTION: {
+            const notInPayload = (card) => card.id !== event.payload.id;
+            
             if (event.payload.type === "Objective") {
-                return {
+                const selectedObjectives = state.selectedObjectives.filter(notInPayload);
+
+                const nextState = {
                     ...state,
-                    selectedObjectives: state.selectedObjectives.filter(
-                        (card) => card.id !== event.payload.id
-                    ),
-                };
+                    selectedObjectives,
+                }
+
+                exec({ type: 'addKeyToLocalStorage', key: 'wunderworlds_deck_in_progress', value: nextState });
+                
+                return nextState;
             } else if (event.payload.type === "Upgrade") {
-                return {
+                const selectedUpgrades = state.selectedUpgrades.filter(notInPayload);
+
+                const nextState = {
                     ...state,
-                    selectedUpgrades: state.selectedUpgrades.filter(
-                        (card) => card.id !== event.payload.id
-                    ),
-                };
+                    selectedUpgrades,
+                }
+
+                exec({ type: 'addKeyToLocalStorage', key: 'wunderworlds_deck_in_progress', value: nextState });
+                
+                return nextState;
             } else {
-                return {
+                const selectedGambits = state.selectedGambits.filter(notInPayload);
+
+                const nextState = {
                     ...state,
-                    selectedGambits: state.selectedGambits.filter(
-                        (card) => card.id !== event.payload.id
-                    ),
-                };
+                    selectedGambits,
+                }
+
+                exec({ type: 'addKeyToLocalStorage', key: 'wunderworlds_deck_in_progress', value: nextState });
+                
+                return nextState;
             }
         }
-        case RESET_DECK_ACTION:
-            return {
+        case RESET_DECK_ACTION: {
+            const nextState = {
                 ...state,
                 selectedObjectives: [],
                 selectedGambits: [],
                 selectedUpgrades: [],
             };
+
+            exec({ type: 'addKeyToLocalStorage', key: 'wunderworlds_deck_in_progress', value: nextState });
+
+            return nextState;
+        }
         case SAVE_DECK:
             console.log("START SAVING");
             exec({ type: "saveDeck", deckMeta: event.payload });
@@ -162,10 +205,17 @@ export const deckBuilderReducer = (state, event, exec) => {
                 status: "Saving...",
             };
         case FINISH_SAVING_DECK:
+            exec({ type: 'removeKeyFromLocalStorage', key: 'wunderworlds_deck_in_progress' });
+
             return {
                 ...state,
                 status: "Saved",
             };
+        
+        case 'SET_DESERIALIZED_STATE': {
+            return event.payload;
+        }
+
         default:
             return state;
     }
