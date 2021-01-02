@@ -228,6 +228,7 @@ class ReadonlyDeck extends PureComponent {
             sets,
             created,
             createdutc,
+            updatedutc,
             authorDisplayName,
             isNarrow,
         } = this.props;
@@ -253,13 +254,14 @@ class ReadonlyDeck extends PureComponent {
             sets,
             created,
             createdutc,
+            updatedutc,
             objectives,
             gambits,
             upgrades
         }
 
-        const createdDate = createdutc
-            ? ` | ${new Date(createdutc).toLocaleDateString()}`
+        const createdDate = updatedutc
+            ? ` | ${new Date(updatedutc).toLocaleDateString()}`
             : created
             ? ` | ${new Date(created).toLocaleDateString()}`
             : "";
