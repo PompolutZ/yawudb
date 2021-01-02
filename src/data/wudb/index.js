@@ -121,10 +121,67 @@ function validateCardForPlayFormat(cardId, format) {
     }
 }
 
+function validateDeckForPlayFormat({ objectives, gambits, upgrades}, format) {
+    const MAX_RESTRICTED_CARDS = 3;
+    const issues = [];
+    let isValid = true;
+
+
+    if(format === OPEN_FORMAT) return [isValid, issues];
+
+    if (objectives.length != 12) {
+        isValid = false;
+        issues.push("Deck must have 12 objective cards");
+    }
+
+    if (objectives.filter(card => card.scoreType == SURGE_SCORE_TYPE).length > 6) {
+        isValid = false;
+        issues.push("Deck cannot have more than 6 Surge cards");
+    }
+
+    if ((gambits.length + upgrades.length) < 20) {
+        isValid = false;
+        issues.push("Deck must have at least 20 power cards (gambits and upgrades)");
+    }
+
+    if (gambits.length > upgrades.length) {
+        isValid = false;
+        issues.push("Deck cannot have more gambits than upgrade cards.");
+    }
+
+    var totalInvalidCards = [...objectives, ...gambits, ...upgrades]
+        .map(card => validateCardForPlayFormat(card.id, format))
+        .reduce((total, [,isForsaken, isRestricted]) => {
+            return {
+                // we can just sum by using coersion here, but mathematically that doesn't make sense
+                forsaken: isForsaken ? total.forsaken + 1 : total.forsaken,
+                restricted: isRestricted ? total.restricted + 1 : total.restricted,
+            }
+        }, {forsaken: 0, restricted: 0})
+
+    if(totalInvalidCards.forsaken > 0) {
+        isValid = false;
+        issues.push(`Deck built for ${format} cannot include forsaken cards, but has ${totalInvalidCards.forsaken}`);
+    }
+
+    if(totalInvalidCards.restricted > MAX_RESTRICTED_CARDS) {
+        isValid = false;
+        issues.push(`Deck built for ${format} can include at most ${MAX_RESTRICTED_CARDS} forsaken cards, but has ${totalInvalidCards.restricted}`);
+    }
+
+    return [isValid, issues];
+}
+
 function validateObjectivesListForPlayFormat(objectives, format) {
     const issues = [];
     let isValid = true;
     
+    // const [
+    //     ,
+    //     isForsaken,
+    //     isRestricted,
+    // ] = validateCardForPlayFormat(c.id, format);
+
     if(format !== OPEN_FORMAT) {
         if (objectives.length != 12) {
             isValid = false;
@@ -171,6 +228,7 @@ export {
     checkCardIsPloy,
     checkCardIsUpgrade,
     validateCardForPlayFormat,
+    validateDeckForPlayFormat,
     validateObjectivesListForPlayFormat,
     validatePowerDeckForFormat,
     compareObjectivesByScoreType,

@@ -1,27 +1,17 @@
 import React, {  } from "react";
 import { CardsList } from "./CardsList";
-import uuid4 from "uuid";
 import {
     CHAMPIONSHIP_FORMAT,
 } from "../../../../data/wudb";
 import CardListSectionHeader from "../../../../v2/components/CardListSectionHeader";
 
-function GambitsList({ selectedGambits, format, isValid, issues }) {
+function GambitsList({ selectedGambits, format, isValid }) {
     return (
-        <div className={`${isValid ? "bg-green-100" : "bg-red-100"} p-2 mb-4 lg:mb-0`}>
+        <div className={`${isValid ? "bg-green-100" : "bg-red-200"} p-2 mb-4 lg:mb-0`}>
             <CardListSectionHeader
                 type="Gambits"
                 amount={selectedGambits.length}
             ></CardListSectionHeader>
-            {!isValid && (
-                <ul>
-                    {issues.map((issue) => (
-                        <li className="text-accent3-700 text-sm" key={uuid4()}>
-                            {issue}
-                        </li>
-                    ))}
-                </ul>
-            )}
 
             <CardsList
                 isEligibleForOP={format == CHAMPIONSHIP_FORMAT}

@@ -4,10 +4,9 @@ import { CardsList } from "./CardsList";
 import {
     CHAMPIONSHIP_FORMAT,
 } from "../../../../data/wudb";
-import uuid4 from "uuid/v4";
 import CardListSectionHeader from "../../../../v2/components/CardListSectionHeader";
 
-function ObjectivesList({ selectedObjectives, format, isValid, issues }) {
+function ObjectivesList({ selectedObjectives, format, isValid }) {
     const totalGlory = useMemo(
         () =>
             selectedObjectives.reduce(
@@ -30,7 +29,7 @@ function ObjectivesList({ selectedObjectives, format, isValid, issues }) {
     );
 
     return (
-        <div className={`${isValid ? "bg-green-100" : "bg-red-100"} p-2 mb-4 lg:mb-0`}>
+        <div className={`${isValid ? "bg-green-100" : "bg-red-200"} p-2 mb-4 lg:mb-0`}>
             <CardListSectionHeader
                 type="Objectives"
                 amount={selectedObjectives.length}
@@ -40,15 +39,7 @@ function ObjectivesList({ selectedObjectives, format, isValid, issues }) {
                     glory={totalGlory}
                 />
             </CardListSectionHeader>
-            {!isValid && (
-                <ul>
-                    {issues.map((issue) => (
-                        <li className="text-accent3-700 text-sm" key={uuid4()}>
-                            {issue}
-                        </li>
-                    ))}
-                </ul>
-            )}
+
             <CardsList
                 isEligibleForOP={format == CHAMPIONSHIP_FORMAT}
                 cards={selectedObjectives}

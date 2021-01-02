@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DeckIcon from "../../../../atoms/DeckIcon";
 import DebouncedInput from "../../../../v2/components/DebouncedInput";
 import ObjectivesList from "./ObjectivesList";
@@ -7,10 +7,10 @@ import UpgradesList from "./UpgradesList";
 import { ReactComponent as SaveIcon } from "../../../../svgs/save.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
 import {
-    validateObjectivesListForPlayFormat,
-    validatePowerDeckForFormat,
+    validateCardForPlayFormat,
+    validateDeckForPlayFormat,
 } from "../../../../data/wudb";
-import PropTypes from "prop-types";
+import uuid4 from "uuid";
 
 function Deck({
     faction,
@@ -23,16 +23,85 @@ function Deck({
     onSave,
     onReset,
 }) {
-    const [
-        isObjectivesValid,
-        objectivesDeckIssues,
-    ] = validateObjectivesListForPlayFormat(selectedObjectives, format);
+    const [objectives, setObjectives] = useState(selectedObjectives);
+    const [gambits, setGambits] = useState(selectedGambits);
+    const [upgrades, setUpgrades] = useState(selectedUpgrades);
+    const [isValid, setIsValid] = useState(false);
+    const [issues, setIssues] = useState([]);
+
+    useEffect(() => {
+        // Cards ids is a mess
+        setObjectives(selectedObjectives.map(c => {
+            const [
+                ,
+                isForsaken,
+                isRestricted,
+            ] = validateCardForPlayFormat(c.id, format);
     
-    const [isPowerDeckValid, powerDeckIssues] = validatePowerDeckForFormat(
-        selectedGambits,
-        selectedUpgrades,
-        format
-    );
+            const card = {
+                oldId: `${c.id}`.padStart(5, "0"),
+                ...c,
+                isBanned: isForsaken,
+                isRestricted,
+            };
+
+            return card;
+        }))
+
+    }, [selectedObjectives, format])
+    
+    useEffect(() => {
+        // Cards ids is a mess
+        setGambits(selectedGambits.map(c => {
+            const [
+                ,
+                isForsaken,
+                isRestricted,
+            ] = validateCardForPlayFormat(c.id, format);
+    
+            const card = {
+                oldId: `${c.id}`.padStart(5, "0"),
+                ...c,
+                isBanned: isForsaken,
+                isRestricted,
+            };
+
+            return card;
+        }))
+
+    }, [selectedGambits, format])
+    
+    useEffect(() => {
+        // Cards ids is a mess
+        setUpgrades(selectedUpgrades.map(c => {
+            const [
+                ,
+                isForsaken,
+                isRestricted,
+            ] = validateCardForPlayFormat(c.id, format);
+    
+            const card = {
+                oldId: `${c.id}`.padStart(5, "0"),
+                ...c,
+                isBanned: isForsaken,
+                isRestricted,
+            };
+
+            return card;
+        }))
+
+    }, [selectedUpgrades, format])
+
+    useEffect(() => {
+        const [isValid, issues] = validateDeckForPlayFormat({
+            objectives,
+            gambits,
+            upgrades,
+        }, format);
+
+        setIsValid(isValid);
+        setIssues(issues);
+    }, [objectives, gambits, upgrades, format]);
 
     return (
         <div>
@@ -52,7 +121,7 @@ function Deck({
                 </div>
                 <div className="ml-auto mr-4 grid gap-2 grid-cols-2">
                     <button
-                        disabled={!isObjectivesValid || !isPowerDeckValid}
+                        disabled={!isValid}
                         className="btn btn-purple"
                         onClick={onSave}
                     >
@@ -63,42 +132,36 @@ function Deck({
                     </button>
                 </div>
             </div>
+            <section className="my-4 text-accent3-700 text-sm">
+                {!isValid && (
+                    <ul>
+                        {issues.map((issue) => (
+                            <li key={uuid4()}>
+                                {issue}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </section>
             <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-2">
                 <ObjectivesList
-                    isValid={isObjectivesValid}
-                    issues={objectivesDeckIssues}
+                    isValid={isValid}
                     format={format}
-                    selectedObjectives={selectedObjectives}
+                    selectedObjectives={objectives}
                 />
                 <GambitsList
-                    isValid={isPowerDeckValid}
-                    issues={powerDeckIssues}
+                    isValid={isValid}
                     format={format}
-                    selectedGambits={selectedGambits}
-                    selectedUpgrades={selectedUpgrades}
+                    selectedGambits={gambits}
                 />
                 <UpgradesList
-                    isValid={isPowerDeckValid}
-                    issues={powerDeckIssues}
+                    isValid={isValid}
                     format={format}
-                    selectedGambits={selectedGambits}
-                    selectedUpgrades={selectedUpgrades}
+                    selectedUpgrades={upgrades}
                 />
             </div>
         </div>
     );
 }
-
-Deck.propTypes = {
-    faction: PropTypes.object,
-    selectedObjectives: PropTypes.array,
-    selectedGambits: PropTypes.array,
-    selectedUpgrades: PropTypes.array,
-    format: PropTypes.string,
-    deckName: PropTypes.string,
-    onDeckNameChange: PropTypes.func,
-    onSave: PropTypes.func,
-    onReset: PropTypes.func,
-};
 
 export default Deck;
