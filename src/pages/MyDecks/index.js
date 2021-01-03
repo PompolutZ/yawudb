@@ -126,18 +126,17 @@ function MyDecksPage() {
 
                     if(!deck.updatedutc) {
                         if(typeof deck.created === 'string') {
-                            deck.updatedutc = new Date(deck.created).getTime();
+                            updatedDeck.updatedutc = new Date(deck.created).getTime();
                         } else {
                             let date = new Date(0);
-                            date.setSeconds(date.created.seconds);
-                            deck.updatedutc = date.getTime();
+                            date.setSeconds(deck.created.seconds);
+                            updatedDeck.updatedutc = date.getTime();
                         }
                     }
 
                     return updatedDeck;
                 });
                 setDecks(updatedDecks);
-                console.log(snapshot.val());
             });
     }, [firebase, authUser]);
 
