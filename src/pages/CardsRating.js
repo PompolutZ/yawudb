@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { FirebaseContext } from "../firebase";
 import Button from "@material-ui/core/Button";
 import Progress from "@material-ui/core/CircularProgress";
 import { cardsDb, firstUniversalCardPerWave } from "../data";
+
+function useRealtimeDatabaseRefOnce(path) {
+    const firebase = useContext(FirebaseContext);
+    const [value, setValue] = useState(undefined);
+    const [error, setError] = useState(undefined);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        firebase.realdb
+            .ref(path)
+            .once("value")
+            .then((snapshot) => {
+                setValue(snapshot.val());
+                setLoading(false);
+            })
+            .catch((error) => {
+                setError(error);
+                setLoading(false);
+            });
+    }, [firebase, path]);
+
+    return [loading, value, error];
+}
 
 function CardsRating(props) {
     const firebase = React.useContext(FirebaseContext);
     const [data, setData] = React.useState(null);
     const [printData, setPrintData] = React.useState({});
     const [updated, setUpdated] = React.useState(false);
+    const [pubLog, setPubLog] = useState(undefined);
+    const [loadingDecks, decks, decksError] = useRealtimeDatabaseRefOnce(
+        "/decks/"
+    );
 
     React.useEffect(() => {
         if (!props.match.params.faction) return;
@@ -121,41 +149,38 @@ function CardsRating(props) {
                     return Math.max(acc, value.sets.length);
                 }, 0);
 
-                const genericRatings = fixedDate.reduce(
-                    (acc, [id, deck]) => {
-                        if (id === "undefined" || !deck.cards) return acc;
+                const genericRatings = fixedDate.reduce((acc, [id, deck]) => {
+                    if (id === "undefined" || !deck.cards) return acc;
 
-                        const ratings = deck.cards
-                            .filter((card) => {
-                                return (
-                                    Number(card) >=
-                                    firstUniversalCardPerWave[
-                                        Math.round(Number(card) / 1000)
-                                    ]
-                                ); // here we find wave first then filter out non-universal cards
-                            })
-                            .reduce((acc, card) => {
-                                return {
-                                    ...acc,
-                                    [card]:
-                                        ((deck.lastModified - baseDate) /
-                                            (new Date() - baseDate)) *
-                                        (deck.sets.length / allMaxSetsCount),
-                                };
-                            }, {});
+                    const ratings = deck.cards
+                        .filter((card) => {
+                            return (
+                                Number(card) >=
+                                firstUniversalCardPerWave[
+                                    Math.round(Number(card) / 1000)
+                                ]
+                            ); // here we find wave first then filter out non-universal cards
+                        })
+                        .reduce((acc, card) => {
+                            return {
+                                ...acc,
+                                [card]:
+                                    ((deck.lastModified - baseDate) /
+                                        (new Date() - baseDate)) *
+                                    (deck.sets.length / allMaxSetsCount),
+                            };
+                        }, {});
 
-                        for (let [id, rating] of Object.entries(ratings)) {
-                            if (acc[id]) {
-                                acc[id] = acc[id] + rating;
-                            } else {
-                                acc[id] = rating;
-                            }
+                    for (let [id, rating] of Object.entries(ratings)) {
+                        if (acc[id]) {
+                            acc[id] = acc[id] + rating;
+                        } else {
+                            acc[id] = rating;
                         }
+                    }
 
-                        return acc;
-                    },
-                    {}
-                );
+                    return acc;
+                }, {});
 
                 const maxGenericRank = Math.max(
                     ...Object.values(genericRatings)
@@ -179,10 +204,40 @@ function CardsRating(props) {
                 setData({
                     ...cardRankingsPerFaction,
                     u: normalizedGenericRanks,
-                    'universal': normalizedGenericRanks,
+                    universal: normalizedGenericRanks,
                 });
             });
     }, []);
+
+    React.useEffect(() => {
+        if(!decks) return;
+
+        const flattenedDecks = Object.entries(decks)
+            .filter(([id, deck]) => !deck.private)
+            .map(([id, deck]) => ({ ...deck, id}))
+            .map(deck => {
+                let updatedDeck = { ...deck };
+                if(!deck.updatedutc) {
+                    if(typeof deck.created === 'string') {
+                        updatedDeck.updatedutc = new Date(deck.created).getTime();
+                    } else {
+                        let date = new Date(0);
+                        date.setSeconds(deck.created.seconds);
+                        updatedDeck.updatedutc = date.getTime();
+                    }
+                }
+
+                return updatedDeck;
+            })
+        
+        const descending = flattenedDecks.sort((x, y) => y.updatedutc - x.updatedutc);
+        const initPubLog = descending.reduce((log, deck) => {
+            return { ...log, [deck.updatedutc]: { id: deck.id, action: "SHARED" }}
+        }, {})
+        console.log(initPubLog);
+        setPubLog(initPubLog);
+        
+    }, [decks, firebase]);
 
     const handleUpdateClick = () => {
         firebase.realdb
@@ -191,6 +246,14 @@ function CardsRating(props) {
             .then(() => setUpdated(true))
             .catch((e) => console.error(e));
     };
+
+    const handleUpdatePubLog = () => {
+        firebase.realdb
+            .ref("/public_decks_log")
+            .set(pubLog)
+            .then(() => console.log('Updated Pub Log'))
+            .catch((e) => console.error(e));
+    }
 
     return (
         <div>
@@ -204,7 +267,14 @@ function CardsRating(props) {
                 Update Ranking
             </Button>
             <div>
+                {loadingDecks && <div>Loading Decks....</div>}
+                {decksError && <pre>{JSON.stringify(decksError)}</pre>}
             </div>
+            <Button
+                onClick={handleUpdatePubLog}
+            >
+                Update PubLog
+            </Button>
         </div>
     );
 }

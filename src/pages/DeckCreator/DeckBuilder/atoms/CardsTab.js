@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 import { Typography } from "@material-ui/core";
 import { SET_VISIBLE_CARD_TYPES } from "../../../../reducers/cardLibraryFilters";
 import { ReactComponent as LockIcon } from "../../../../svgs/lock.svg";
+import { ReactComponent as SurgeIcon } from "../../../../svgs/zap.svg";
 import { Set } from "immutable";
 import { useDeckBuilderState } from "../..";
-import { validateCardForPlayFormat } from "../../../../data/wudb";
+import { validateCardForPlayFormat, CHAMPIONSHIP_FORMAT } from "../../../../data/wudb";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -67,6 +68,10 @@ function CardsTab(props) {
             return isRestricted;
         })
     }, [selectedObjectives, selectedUpgrades, selectedGambits, format])
+
+    const surgeCount = useMemo(() => {
+        return selectedObjectives.filter(objective => objective.scoreType === 'Surge' || objective.scoreType === 0).length;
+    }, [selectedObjectives])
     
     const { isSelected } = props;
     const visibleCardTypes = new Set(props.types);
@@ -95,10 +100,21 @@ function CardsTab(props) {
         <div className={classes.root}>
             <div className="flex items-center">
                 <Typography variant="subtitle2">cards</Typography>
-                <LockIcon className="text-yellow-600 stroke-current w-3 h-3 ml-4" />
-                <h6 className="text-gray-700 ml-1 text-xs">
-                    {restrictedCards.length}/3
-                </h6>
+                {
+                    format === CHAMPIONSHIP_FORMAT && (
+                        <>
+                            <LockIcon className="text-yellow-600 stroke-current w-3 h-3 ml-4" />
+                            <h6 className="text-gray-700 ml-1 text-xs">
+                                {restrictedCards.length}/3
+                            </h6>
+                            
+                            <SurgeIcon className={`stroke-current w-3 h-3 ml-2 ${surgeCount > 6 ? 'text-red-700' : 'text-gray-700'}`} />
+                            <h6 className={`ml-1 text-xs ${surgeCount > 6 ? 'text-red-700' : 'text-gray-700'}`}>
+                                {surgeCount}/6
+                            </h6>
+                        </>
+                    )
+                }
             </div>
             <div className={classes.subhead}>
                 <ToggleBox

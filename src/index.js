@@ -27,7 +27,6 @@ import PublicDecksProvider from "./contexts/publicDecksContext";
 import useDexie from "./hooks/useDexie";
 import shadows from "@material-ui/core/styles/shadows";
 
-const DeckEditor = lazy(() => import("./v2/pages/DeckEditor"));
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
 const SignUp = lazy(() => import("./pages/SignUp"));
@@ -102,6 +101,10 @@ function App(props) {
     );
     const db = useDexie("wudb");
     const firebase = useContext(FirebaseContext);
+
+    React.useEffect(() => {
+        
+    }, [firebase, db]);
 
     // React.useEffect(() => {
     //     Promise.all([

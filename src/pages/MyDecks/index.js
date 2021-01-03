@@ -21,7 +21,6 @@ function DeckLink({ onDelete, ...props }) {
 
     useEffect(() => {
         const cards = props.cards.map((x) => getCardById(x));
-        console.log(cards);
         setCards(cards);
     }, [props.cards]);
 

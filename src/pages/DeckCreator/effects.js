@@ -22,6 +22,7 @@ export const firebaseSaveDeckAsync = firebase => async (state, effect, dispatch)
             authorDisplayName,
             createdutc,
             updatedutc,
+            private: true,
             name: deckName,
             faction: state.faction.name,
             deck: deck.map(c => c.id).join(","),
