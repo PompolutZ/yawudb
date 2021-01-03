@@ -26,6 +26,8 @@ import NavigationPanel from "./v2/components/NavigationPanel";
 import PublicDecksProvider from "./contexts/publicDecksContext";
 import useDexie from "./hooks/useDexie";
 import shadows from "@material-ui/core/styles/shadows";
+import useRealtimeDatabaseRefOnce from "./hooks/useRealtimeDatabaseValueOnce";
+import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
 
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
@@ -96,15 +98,20 @@ const PrivateRoute = connect((state) => ({
 const LAST_KNOWN_TIMESTAMP = "wu_lastPublicDeck";
 
 function App(props) {
+    usePublicDecksSyncronization();
+
     const [] = useState(
         localStorage.getItem(LAST_KNOWN_TIMESTAMP) || undefined
     );
-    const db = useDexie("wudb");
-    const firebase = useContext(FirebaseContext);
 
-    React.useEffect(() => {
-        
-    }, [firebase, db]);
+    // const db = useDexie("wudb");
+    const firebase = useContext(FirebaseContext);
+    
+    // React.useEffect(() => {
+    //     const log = firebase.realdb.ref("/public_decks_log").orderByKey().startAt("1608677818151").once("value").then(snapshot => {
+    //         console.log(snapshot.val());
+    //     })
+    // }, [db, firebase])
 
     // React.useEffect(() => {
     //     Promise.all([

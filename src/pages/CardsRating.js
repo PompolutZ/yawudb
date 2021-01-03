@@ -3,30 +3,7 @@ import { FirebaseContext } from "../firebase";
 import Button from "@material-ui/core/Button";
 import Progress from "@material-ui/core/CircularProgress";
 import { cardsDb, firstUniversalCardPerWave } from "../data";
-
-function useRealtimeDatabaseRefOnce(path) {
-    const firebase = useContext(FirebaseContext);
-    const [value, setValue] = useState(undefined);
-    const [error, setError] = useState(undefined);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        setLoading(true);
-        firebase.realdb
-            .ref(path)
-            .once("value")
-            .then((snapshot) => {
-                setValue(snapshot.val());
-                setLoading(false);
-            })
-            .catch((error) => {
-                setError(error);
-                setLoading(false);
-            });
-    }, [firebase, path]);
-
-    return [loading, value, error];
-}
+import useRealtimeDatabaseRefOnce from "../hooks/useRealtimeDatabaseValueOnce";
 
 function CardsRating(props) {
     const firebase = React.useContext(FirebaseContext);
