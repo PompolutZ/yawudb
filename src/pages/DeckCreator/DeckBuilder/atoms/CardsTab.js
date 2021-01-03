@@ -63,7 +63,7 @@ function CardsTab(props) {
 
     const restrictedCards = useMemo(() => {
         return [...selectedObjectives, ...selectedUpgrades, ...selectedGambits].filter(card => {
-            const [,,isRestricted] = validateCardForPlayFormat(card.id, format);
+            const [,,isRestricted] = validateCardForPlayFormat(card, format);
             return isRestricted;
         })
     }, [selectedObjectives, selectedUpgrades, selectedGambits, format])

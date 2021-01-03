@@ -2,6 +2,9 @@ import React, { useMemo, useState, useEffect } from "react";
 import { IconButton, Typography } from "@material-ui/core";
 import { ReactComponent as TogglesIcon } from "../../../../svgs/sliders.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
+import { ReactComponent as ChampionshipLogo } from "../../../../svgs/championship_logo.svg";
+import { ReactComponent as VanguardLogo } from "../../../../svgs/vanguard_logo.svg";
+import { ReactComponent as RelicLogo } from "../../../../svgs/relic_logo.svg";
 import ExpansionsToggle from "../../../../components/ExpansionsToggle";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -14,11 +17,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../../v2/components/SectionTitle";
 import Toggle from "../../../../v2/components/HexToggle";
+import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
 import {
-    useDeckBuilderDispatcher,
-    useDeckBuilderState,
-} from "../..";
-import { getAllSetsValidForFormat, wufactions } from "../../../../data/wudb";
+    CHAMPIONSHIP_FORMAT,
+    getAllSetsValidForFormat,
+    RELIC_FORMAT,
+    VANGUARD_FORMAT,
+    wufactions,
+} from "../../../../data/wudb";
 import DebouncedInput from "../../../../v2/components/DebouncedInput";
 
 const useClasses = makeStyles((theme) => ({
@@ -50,35 +56,61 @@ const useClasses = makeStyles((theme) => ({
     },
 }));
 
-const RelicFormatIcon = ({ ...rest }) => (
-    <SvgIcon {...rest}>
-        <path d="M 15 2 C 13.894531 2 13 2.894531 13 4 C 13 5.105469 13.894531 6 15 6 C 16.105469 6 17 5.105469 17 4 C 17 2.894531 16.105469 2 15 2 Z M 11.4375 5 C 8.855469 7.230469 7.738281 10.058594 7.28125 11.6875 C 7.058594 12.476563 7.273438 13.320313 7.8125 13.9375 L 10.3125 16.8125 L 12 22 L 14 22 L 12.0625 16.03125 L 10.59375 12.875 C 10.59375 12.875 10.753906 10.90625 12.25 9.28125 L 15.71875 13.75 L 17.3125 12.90625 Z M 17.375 14 L 16.34375 14.5625 L 17.8125 22 L 19 22 Z M 8.0625 15.84375 L 6 22 L 8 22 L 9.46875 17.40625 Z" />
-    </SvgIcon>
-);
-
 function DeckPlayFormatToggle({ selectedFormat, onFormatChange }) {
     return (
         <ButtonGroup color="primary" aria-label="outlined primary button group">
             <Button
-                onClick={onFormatChange("open")}
-                variant={selectedFormat === "open" ? "contained" : "outlined"}
-                startIcon={<OpenFormatIcon />}
+                onClick={onFormatChange(VANGUARD_FORMAT)}
+                variant={
+                    selectedFormat === VANGUARD_FORMAT
+                        ? "contained"
+                        : "outlined"
+                }
+                startIcon={
+                    <VanguardLogo
+                        className={`${
+                            selectedFormat !== VANGUARD_FORMAT
+                                ? "text-purple-800"
+                                : "text-white"
+                        } text-2xl fill-current`}
+                    />
+                }
             >
-                open
+                vanguard
             </Button>
             <Button
-                onClick={onFormatChange("championship")}
+                onClick={onFormatChange(CHAMPIONSHIP_FORMAT)}
                 variant={
-                    selectedFormat === "championship" ? "contained" : "outlined"
+                    selectedFormat === CHAMPIONSHIP_FORMAT
+                        ? "contained"
+                        : "outlined"
                 }
-                startIcon={<ChampionshipFormatIcon />}
+                startIcon={
+                    <ChampionshipLogo
+                        className={`${
+                            selectedFormat !== CHAMPIONSHIP_FORMAT
+                                ? "text-purple-800"
+                                : "text-white"
+                        } text-2xl fill-current`}
+                    />
+                }
             >
                 championship
             </Button>
             <Button
-                onClick={onFormatChange("relic")}
-                variant={selectedFormat === "relic" ? "contained" : "outlined"}
-                startIcon={<RelicFormatIcon />}
+                onClick={onFormatChange(RELIC_FORMAT)}
+                variant={
+                    selectedFormat === RELIC_FORMAT ? "contained" : "outlined"
+                }
+                startIcon={
+                    <RelicLogo
+                        className={`${
+                            selectedFormat !== RELIC_FORMAT
+                                ? "text-purple-800"
+                                : "text-white"
+                        } text-2xl fill-current`}
+                    />
+                }
             >
                 relic
             </Button>
@@ -91,21 +123,20 @@ function DeckPlayFormatInfo({ format, ...rest }) {
         case "open":
             return (
                 <Typography variant="body2" {...rest}>
-                    Card library will be available in full, without any
-                    restrictions.
+                    Only cards from the latest season (Direchasm) can be used.
                 </Typography>
             );
         case "championship":
             return (
                 <Typography variant="body2" {...rest}>
                     Library will be filtered to fullfil competitive play
-                    requirements: banned and rotated out cards will be excluded.
+                    requirements: forsaken and rotated out cards will be excluded.
                 </Typography>
             );
         case "relic":
             return (
                 <Typography variant="body2" {...rest}>
-                    Library will be filtered to exlude banned cards only.
+                    Library will be filtered to exlude forsaken cards.
                 </Typography>
             );
         default:
@@ -222,7 +253,10 @@ function CardLibraryFilters(props) {
             >
                 <Grid item xs={12} md={6}>
                     <div className="w-full h-full flex flex-col">
-                        <IconButton onClick={closeAndUpdateFilters} className="self-end">
+                        <IconButton
+                            onClick={closeAndUpdateFilters}
+                            className="self-end"
+                        >
                             <CloseIcon />
                         </IconButton>
                         <section className="overflow-scroll px-4 pb-8">

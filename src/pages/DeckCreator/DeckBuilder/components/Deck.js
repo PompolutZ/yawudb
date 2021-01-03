@@ -36,7 +36,7 @@ function Deck({
                 ,
                 isForsaken,
                 isRestricted,
-            ] = validateCardForPlayFormat(c.id, format);
+            ] = validateCardForPlayFormat(c, format);
     
             const card = {
                 oldId: `${c.id}`.padStart(5, "0"),
@@ -57,7 +57,7 @@ function Deck({
                 ,
                 isForsaken,
                 isRestricted,
-            ] = validateCardForPlayFormat(c.id, format);
+            ] = validateCardForPlayFormat(c, format);
     
             const card = {
                 oldId: `${c.id}`.padStart(5, "0"),
@@ -78,7 +78,7 @@ function Deck({
                 ,
                 isForsaken,
                 isRestricted,
-            ] = validateCardForPlayFormat(c.id, format);
+            ] = validateCardForPlayFormat(c, format);
     
             const card = {
                 oldId: `${c.id}`.padStart(5, "0"),
@@ -98,7 +98,7 @@ function Deck({
             gambits,
             upgrades,
         }, format);
-
+        console.log(isValid, issues);
         setIsValid(isValid);
         setIssues(issues);
     }, [objectives, gambits, upgrades, format]);

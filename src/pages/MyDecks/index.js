@@ -160,7 +160,7 @@ function MyDecksPage() {
     return (
         <div className="flex-1 p-4">
             {loading && <span>Loading...</span>}
-            {decks.map((deck) => (
+            {decks.sort((x,y) => y.updatedutc - x.updatedutc).map((deck) => (
                 <DeckLink
                     key={deck.id}
                     onDelete={handleDeleteDeckId}

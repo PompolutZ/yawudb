@@ -165,7 +165,7 @@ function FilterableCardLibrary(props) {
                 ,
                 isForsaken,
                 isRestricted,
-            ] = validateCardForPlayFormat(c.id, state.format);
+            ] = validateCardForPlayFormat(c, state.format);
 
             const card = {
                 oldId: `${c.id}`.padStart(5, "0"),
