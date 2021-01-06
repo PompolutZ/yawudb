@@ -6,7 +6,6 @@ import {
 } from "../../data";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import changelog from "../../changelog";
 import { connect } from "react-redux";
 import { addOrUpdateLastDeck } from "../../reducers/lastDeck";
 import { SET_DECKS_META } from "../../reducers/decksMeta";
@@ -14,18 +13,11 @@ import { SET_FACTION } from "../../reducers/deckUnderBuild";
 import DeckMetaSummary from "../../molecules/DecksMetaSummary";
 import { withFirebase } from "../../firebase";
 import AutosuggestSearch from "../../components/AutosuggestSearch";
-import Divider from "../../v2/components/Divider";
+import Footer from "../../components/Footer";
 
-const getChangeLogItemsByKey = (key) => {
-    return Object.keys(changelog[key]).reduce(
-        (acc, v) => [...acc, { name: v, description: changelog[key][v] }],
-        []
-    );
-};
 
 const Home = (props) => {
     const { classes } = props;
-    const lastUpdateKey = Object.keys(changelog)[0];
 
     const handleGlobalSearchClick = (payload) => {
         props.history.push(`/view/card/${payload.id}`);
@@ -100,6 +92,8 @@ const Home = (props) => {
                     />
                 ))}
             </div>
+
+            <Footer />
         </div>
     );
 };

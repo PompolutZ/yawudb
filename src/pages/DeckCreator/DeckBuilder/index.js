@@ -130,7 +130,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                                     } />
                                 </Tabs>
                             </div>
-                            <div style={{ flex: "1 100%" }}>
+                            <div className="flex flex-1">
                                 {tabIndex === 0 && (
                                     <CardsLibrary searchText={searchText} />
                                 )}

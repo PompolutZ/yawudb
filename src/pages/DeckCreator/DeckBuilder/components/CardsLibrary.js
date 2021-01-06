@@ -67,20 +67,18 @@ function VirtualizedCardsList(props) {
     };
 
     return (
-        <div style={{ margin: "0 0", height: "100%" }}>
-            <AutoSizer>
-                {({ width, height }) => (
-                    <List
-                        ref={listRef}
-                        width={width}
-                        height={height}
-                        rowCount={cards.length}
-                        rowHeight={_calcRowHeight}
-                        rowRenderer={_rowRenderer}
-                    />
-                )}
-            </AutoSizer>
-        </div>
+        <AutoSizer>
+            {({ width, height }) => (
+                <List
+                    ref={listRef}
+                    width={width}
+                    height={height}
+                    rowCount={cards.length}
+                    rowHeight={_calcRowHeight}
+                    rowRenderer={_rowRenderer}
+                />
+            )}
+        </AutoSizer>
     );
 }
 
@@ -117,6 +115,7 @@ function FilterableCardLibrary(props) {
     const [cards, setCards] = useState([]);
     const [filteredCards, setFilteredCards] = useState([]);
     const state = useDeckBuilderState();
+    const { searchText, visibleCardTypes, cardsRanking } = props;
 
     useEffect(() => {
         const factionCards = Object.values(wucards).filter(
@@ -148,17 +147,17 @@ function FilterableCardLibrary(props) {
             let oldCardId = `${Number(c.id)}`.padStart(5, "0");
             // Cards ids is a mess
             const universalRank =
-                props.cardsRanking && 
-                props.cardsRanking["u"] && 
-                props.cardsRanking["u"][oldCardId]
-                    ? props.cardsRanking["u"][oldCardId]
+                cardsRanking && 
+                cardsRanking["u"] && 
+                cardsRanking["u"][oldCardId]
+                    ? cardsRanking["u"][oldCardId]
                     : 0;
                     
             const rank =
-                props.cardsRanking &&
-                props.cardsRanking[state.faction.abbr] &&
-                props.cardsRanking[state.faction.abbr][oldCardId]
-                    ? props.cardsRanking[state.faction.abbr][oldCardId] * 10000
+                cardsRanking &&
+                cardsRanking[state.faction.abbr] &&
+                cardsRanking[state.faction.abbr][oldCardId]
+                    ? cardsRanking[state.faction.abbr][oldCardId] * 10000
                     : universalRank;
 
             const [
@@ -180,25 +179,11 @@ function FilterableCardLibrary(props) {
         setCards(nextCards);
     }, [state]);
 
-    const { searchText, visibleCardTypes, editMode, deckPlayFormat } = props;
-    const currentDeck = editMode
-        ? props.editModeCurrentDeck
-        : props.createModeCurrentDeck;
-
     useEffect(() => {
         let filteredCards = cards
             .filter(({ type }) => {
                 return visibleCardTypes.includes(cardTypes.indexOf(type));
             })
-            .filter(({ isBanned }) => {
-                switch (deckPlayFormat) {
-                    case CHAMPIONSHIP_FORMAT:
-                    case RELIC_FORMAT:
-                        return !isBanned;
-                    default:
-                        return true;
-                }
-            });
         
         if (isNaN(searchText)) {
             filteredCards = filteredCards.filter((c) => {
@@ -221,14 +206,9 @@ function FilterableCardLibrary(props) {
     }, [cards, searchText, visibleCardTypes]);
 
     return (
-        <div style={{ height: "100vh" }}>
+        <div className="flex-1">
             <VirtualizedCardsList
-                isEligibleForOp={props.eligibleForOP}
                 cards={filteredCards}
-                currentDeck={currentDeck}
-                editMode={props.editMode}
-                restrictedCardsCount={props.restrictedCardsCount}
-                editRestrictedCardsCount={props.editRestrictedCardsCount}
             />
         </div>
     );
@@ -239,30 +219,9 @@ const mapStateToProps = (state) => {
         visibleCardTypes: state.cardLibraryFilters.visibleCardTypes,
         eligibleForOP: state.cardLibraryFilters.eligibleForOP,
         cardsRanking: state.cardLibraryFilters.cardsRanking,
-        deckPlayFormat: state.cardLibraryFilters.deckPlayFormat,
-
-        createModeSelectedSets: state.cardLibraryFilters.createModeSets,
-        createModeSelectedFaction: state.deckUnderBuild.faction,
-        createModeFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
-        createModeCurrentDeck: state.deckUnderBuild.deck,
-        restrictedCardsCount: state.deckUnderBuild.restrictedCardsCount,
-
-        editModeSelectedSets: state.cardLibraryFilters.editModeSets,
-        editModeSelectedFaction: state.deckUnderEdit.faction,
-        editModeFactionDefaultSet: state.deckUnderEdit.factionDefaultSet,
-        editModeCurrentDeck: state.deckUnderBuild.deck,
-        editRestrictedCardsCount: state.deckUnderEdit.restrictedCardsCount,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addCard: (card) => dispatch({ type: ADD_CARD, card: card }),
-        removeCard: (card) => dispatch({ type: REMOVE_CARD, card: card }),
     };
 };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(FilterableCardLibrary);

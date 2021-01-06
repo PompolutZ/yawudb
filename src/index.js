@@ -317,7 +317,6 @@ function App(props) {
                         </Suspense>
                     </ErrorBoundary>
                 </main>
-                <Footer />
             </ConnectedRouter>
         </>
     );
