@@ -326,7 +326,7 @@ class ReadonlyDeck extends PureComponent {
                                 onSaveVassalFiles={this._handleSaveVassalFiles}
                                 canUpdateOrDelete={this.props.canUpdateOrDelete}
                                 onEdit={
-                                    <Link className="px-4" to={{
+                                    <Link className="px-2" to={{
                                         pathname: `/deck/edit/${id}`,
                                         state: {
                                             deck

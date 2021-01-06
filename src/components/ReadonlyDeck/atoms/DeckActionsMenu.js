@@ -28,9 +28,12 @@ class DeckActionsMenu extends PureComponent {
                     open={Boolean(anchorEl)}
                     onClose={this.handleClose}
                 >
-                    { this.props.canUpdateOrDelete && this.props.onEdit}
+                    {this.props.canUpdateOrDelete && (
+                        <MenuItem>{this.props.onEdit}</MenuItem>
+                    )}
+                    {this.props.canUpdateOrDelete && <Divider />}
                     {/* <MenuItem onClick={this.props.onCopy}>Copy</MenuItem> */}
-                    <Divider />
+
                     {/* <MenuItem onClick={this.handleExportToTextFile}>
                         <a
                             href=""
@@ -52,7 +55,6 @@ class DeckActionsMenu extends PureComponent {
                     {/* <MenuItem onClick={this.handleExportToPdf}>
                         Download as PDF
                     </MenuItem> */}
-                    <Divider />
                     <MenuItem
                         onClick={this.handleExportVassalFiles}
                         style={{ position: "relative" }}

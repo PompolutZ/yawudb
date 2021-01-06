@@ -57,7 +57,10 @@ export default function PublicDeckLink({ ...props }) {
                     {props.name}
                 </Link>
                 <div>
+                    <div className="flex gap-2 my-1">
+                    <h3 className="text-sm font-bold text-gray-600">{props.authorDisplayName}</h3>
                     <h3 className="text-sm font-bold text-gray-700">{new Date(props.updatedutc).toLocaleDateString()}</h3>
+                    </div>
                     <SetsList sets={props.sets} />
                     <ScoringOverview
                         summary={objectiveSummary}
