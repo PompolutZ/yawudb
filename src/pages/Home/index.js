@@ -47,7 +47,7 @@ const Home = (props) => {
     };
 
     return (
-        <div className="flex flex-col mx-2 sm:mx-4 relative">
+        <div className="flex flex-col px-2 sm:px-4 relative">
             <div
                 style={{
                     backgroundImage:
