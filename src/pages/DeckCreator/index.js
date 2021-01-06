@@ -74,6 +74,7 @@ function DeckBuilderContextProvider({ children }) {
 
 function DeckCreator() {
     return (
+        // THIS INNER ROUTING PART NEEDS TO BE REDESIGNED
         <>
             <DeckBuilderContextProvider>
                 <Switch>

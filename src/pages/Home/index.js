@@ -23,28 +23,28 @@ const Home = (props) => {
         props.history.push(`/view/card/${payload.id}`);
     };
 
-    const handleAddDeckClicked = (faction) => {
-        const defaultSet = warbandsWithDefaultSet.reduce(
-            (acc, [f, defaultSet]) => {
-                if (f === faction) {
-                    return defaultSet;
-                }
-                return acc;
-            },
-            -1
-        );
+    // const handleAddDeckClicked = (faction) => {
+    //     const defaultSet = warbandsWithDefaultSet.reduce(
+    //         (acc, [f, defaultSet]) => {
+    //             if (f === faction) {
+    //                 return defaultSet;
+    //             }
+    //             return acc;
+    //         },
+    //         -1
+    //     );
 
-        props.setFactionForNewDeck(faction, defaultSet);
-        handleNavigateToDeckCreate();
-    };
+    //     props.setFactionForNewDeck(faction, defaultSet);
+    //     handleNavigateToDeckCreate();
+    // };
 
-    const handleNavigateToDeckCreate = () => {
-        props.history.push("/deck/create");
-    };
+    // const handleNavigateToDeckCreate = () => {
+    //     props.history.push("/deck/create");
+    // };
 
-    const handleNavigateToDecksByPrefix = (prefix) => {
-        props.history.push(`/decks/${prefix}`);
-    };
+    // const handleNavigateToDecksByPrefix = (prefix) => {
+    //     props.history.push(`/decks/${prefix}`);
+    // };
 
     return (
         <div className="flex flex-col px-2 sm:px-4 relative">
@@ -87,8 +87,8 @@ const Home = (props) => {
                     <DeckMetaSummary
                         key={factionIdPrefix[faction]}
                         prefix={factionIdPrefix[faction]}
-                        onAddNewDeckClick={handleAddDeckClicked}
-                        onDecksCountClick={handleNavigateToDecksByPrefix}
+                        // onAddNewDeckClick={handleAddDeckClicked}
+                        // onDecksCountClick={handleNavigateToDecksByPrefix}
                     />
                 ))}
             </div>

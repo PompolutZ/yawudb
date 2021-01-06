@@ -1,12 +1,12 @@
-import React, { PureComponent } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import AddNewDeckButton from "../atoms/AddNewDeckButton";
 import { idPrefixToFaction } from "../data/index";
 import { withFirebase } from "../firebase";
 import { SET_DECKS_META } from "../reducers/decksMeta";
 import { Link } from "react-router-dom";
+import useDexie from "../hooks/useDexie";
+import { getFactionByAbbr } from "../data/wudb";
 
 function DeckIconPicture({ faction, ...props }) {
     return (
@@ -35,35 +35,16 @@ const DecksCount = ({ count, ...props }) => (
 function DeckMetaSummary({
     classes,
     prefix,
-    firebase,
-    decksMeta,
-    addDecksMeta,
-    onAddNewDeckClick,
-    onDecksCountClick,
 }) {
-    const initCount = () => (decksMeta[prefix] ? decksMeta[prefix].count : 0);
-    const [count, setCount] = React.useState(initCount());
+    const [count, setCount] = React.useState(0);
+    const db = useDexie("wudb");
 
-    React.useEffect(() => {
-        const unsubscribe = firebase
-            .decksMetaDb()
-            .doc(prefix)
-            .onSnapshot((doc) => {
-                const metadata = doc.data();
-                if (metadata && metadata.ids) {
-                    setCount(metadata.ids.length);
-                    addDecksMeta(prefix, {
-                        count: metadata.ids.length,
-                        ids: metadata.ids,
-                    });
-                } else {
-                    setCount(0);
-                    addDecksMeta(prefix, { count: 0, ids: [] });
-                }
-            });
-
-        return () => unsubscribe();
-    }, []);
+    useEffect(() => {
+        const faction = getFactionByAbbr(prefix);
+        db.publicDecks.where("faction").equalsIgnoreCase(faction.name).toArray().then(r => {
+            setCount(r.length);
+        }).catch(error => console.error(error));
+    }, [db])
 
     return (
         <div className={classes.root}>
@@ -72,13 +53,18 @@ function DeckMetaSummary({
                 to={`/decks/${prefix}`}
             >
                 <DeckIconPicture
-                    className="w-24 h-24 absolute inset-0"
+                    className={`${
+                        count > 0 ? "w-24 h-24 absolute inset-0" : ""
+                    }`}
                     faction={idPrefixToFaction[prefix]}
                 />
-                <DecksCount
-                    className="text-white text-2xl font-bold"
-                    count={count}
-                />
+
+                {count > 0 && (
+                    <DecksCount
+                        className="text-white text-2xl font-bold"
+                        count={count}
+                    />
+                )}
             </Link>
         </div>
     );
@@ -100,7 +86,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const styles = (theme) => ({
+const styles = () => ({
     root: {
         flex: "1 0 33%",
         display: "flex",
