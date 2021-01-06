@@ -1,11 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import ReadonlyDeck from "../components/ReadonlyDeck/index";
-import {
-    warbandsWithDefaultSet,
-    idPrefixToFaction,
-    PREFIX_LENGTH,
-} from "../data/index";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import DeleteConfirmationDialog from "../atoms/DeleteConfirmationDialog";
 import { Helmet } from "react-helmet";
 import { getCardById } from "../data/wudb";
@@ -16,16 +11,68 @@ import { FirebaseContext } from "../firebase";
 function Deck(props) {
     const user = useAuthUser();
     const firebase = useContext(FirebaseContext);
-    const location = useLocation();
+    const { id } = useParams();
+    const { state } = useLocation();
+    const [deck, setDeck] = useState(undefined);
+    const [cards, setCards] = useState([]);
+    const [factionId, setFactionId] = useState("");
+    const [canUpdateOrDelete, setCanUpdateOrDelete] = useState(false);
     const history = useHistory();
     const [isDeleteDialogVisible, setIsDeleteDialogVisible] = React.useState(
         false
     );
     const [cardsView, setCardsView] = React.useState(false);
-    const cards = useMemo(() => {
-        const cs = location.state.deck.cards.map(getCardById);
-        return cs;
-    }, [location.state.deck]);
+
+    useEffect(() => {
+        if (state) {
+            setDeck(state.deck);
+            setCards(state.deck.cards.map(getCardById));
+            setFactionId(state.deck && state.deck.id.split("-")[0]);
+            setCanUpdateOrDelete(state.canUpdateOrDelete);
+        } else {
+            firebase.realdb
+                .ref(`/decks/${id}`)
+                .once("value")
+                .then((s) => {
+                    if (!s.val()) return;
+
+                    let deck = s.val();
+                    let updatedDeck = { ...deck, id };
+                    if (typeof deck.sets !== "string") {
+                        updatedDeck.sets = deck.sets.map((s) => s + 1);
+                    } else {
+                        updatedDeck.sets = deck.sets.split(",");
+                    }
+
+                    if (!deck.deck && deck.cards) {
+                        updatedDeck.deck = deck.cards
+                            .map((card) => Number(card))
+                            .join(",");
+                    }
+
+                    if (!deck.createdutc) {
+                        if (typeof deck.created === "string") {
+                            updatedDeck.createdutc = new Date(
+                                deck.created
+                            ).getTime();
+                            updatedDeck.updatedutc = new Date(
+                                deck.created
+                            ).getTime();
+                        } else {
+                            let timestamp = new Date(0);
+                            timestamp.setSeconds(deck.created.seconds);
+
+                            updatedDeck.createdutc = timestamp.getTime();
+                            updatedDeck.updatedutc = timestamp.getTime();
+                        }
+                    }
+
+                    setDeck(updatedDeck);
+                    setCards(updatedDeck.deck.split(",").map(getCardById));
+                    setFactionId(id.split("-")[0]);
+                });
+        }
+    }, [state]);
 
     const handleChangeView = () => {
         setCardsView((prev) => !prev);
@@ -37,24 +84,10 @@ function Deck(props) {
 
     const handleDeleteDeck = async () => {
         try {
-            const { id } = location.state.deck;
+            const { id } = deck;
             firebase.deck(id).off();
 
             await firebase.realdb.ref(`/decks/${id}`).remove();
-
-            // props.firebase
-            //     .decksMetaDb()
-            //     .doc("all")
-            //     .update({
-            //         ids: props.firebase.firestoreArrayRemove(id),
-            //     });
-
-            // props.firebase
-            //     .decksMetaDb()
-            //     .doc(id.split("-")[0])
-            //     .update({
-            //         ids: props.firebase.firestoreArrayRemove(id),
-            //     });
 
             if (props.uid) {
                 props.removeDeck(id);
@@ -65,17 +98,7 @@ function Deck(props) {
                     .update({
                         mydecks: props.firebase.firestoreArrayRemove(id),
                     });
-            } 
-            // else {
-            //     const anonDeckIds =
-            //         JSON.parse(localStorage.getItem("yawudb_anon_deck_ids")) ||
-            //         [];
-            //     const updated = anonDeckIds.filter((deckId) => deckId !== id);
-            //     localStorage.setItem(
-            //         "yawudb_anon_deck_ids",
-            //         JSON.stringify(updated)
-            //     );
-            // }
+            }
 
             handleCloseDeleteDialog();
             history.push("/mydecks");
@@ -88,104 +111,79 @@ function Deck(props) {
         setIsDeleteDialogVisible(true);
     };
 
-    const _copyDeck = () => {
-        props.copyResetDeck();
-        const { id, name, cards, sets } = location.state.deck;
-        const strippedId = id.substring(0, id.length - 13);
-        const faction =
-            strippedId.length > PREFIX_LENGTH
-                ? strippedId
-                : idPrefixToFaction[strippedId];
-        const defaultSet = warbandsWithDefaultSet.filter((a) =>
-            a.includes(faction)
-        );
-        props.copySetFaction(faction, defaultSet[0][1]);
-        props.copyCreateModeSets(sets);
-        if (cards) {
-            for (let c of cards) {
-                props.copyAddCard(c);
-            }
-        }
+    // const _copyDeck = () => {
+    //     props.copyResetDeck();
+    //     const { id, name, cards, sets } = deck;
+    //     const strippedId = id.substring(0, id.length - 13);
+    //     const faction =
+    //         strippedId.length > PREFIX_LENGTH
+    //             ? strippedId
+    //             : idPrefixToFaction[strippedId];
+    //     const defaultSet = warbandsWithDefaultSet.filter((a) =>
+    //         a.includes(faction)
+    //     );
+    //     props.copySetFaction(faction, defaultSet[0][1]);
+    //     props.copyCreateModeSets(sets);
+    //     if (cards) {
+    //         for (let c of cards) {
+    //             props.copyAddCard(c);
+    //         }
+    //     }
 
-        props.copyChangeName(`${name} - COPY`);
-        props.copyChangeDescription();
-        history.push(`/deck/create`);
-    };
+    //     props.copyChangeName(`${name} - COPY`);
+    //     props.copyChangeDescription();
+    //     history.push(`/deck/create`);
+    // };
 
     return (
         <React.Fragment>
             <Helmet>
                 <title>
-                    {`${
-                        ""
-                        // factions[
-                        //     idPrefixToFaction[deck.id.substr(0, id.length - 13)]
-                        // ]
-                    } Deck for Warhammer Underworlds`}
+                    {`Deck for Warhammer Underworlds`}
                 </title>
                 <meta
                     name="description"
-                    content={`Get inspired with this deck to build your next Grand Clash winning ${
-                        // factions[
-                        //     idPrefixToFaction[deck.id.substr(0, id.length - 13)]
-                        // ]
-                        ""
-                    } deck.`}
+                    content={`Get inspired with this deck to build your next Grand Clash winning deck.`}
                 />
                 <meta
                     property="og:title"
-                    content={`${
-                        // factions[
-                        //     idPrefixToFaction[deck.id.substr(0, id.length - 13)]
-                        // ]
-                        ""
-                    } Deck for Warhammer Underworlds`}
+                    content={`Deck for Warhammer Underworlds`}
                 />
                 <meta
                     property="og:description"
-                    content={`Get inspired with this deck to build your next Grand Clash winning ${
-                        // factions[
-                        //     idPrefixToFaction[deck.id.substr(0, id.length - 13)]
-                        // ]
-                        ""
-                    } deck.`}
+                    content={`Get inspired with this deck to build your next Grand Clash winning deck.`}
                 />
                 <meta property="og:type" content="website" />
                 <meta
                     property="og:url"
-                    content={`https://yawudb.com/view/deck/${location.state.deck.id}`}
-                />
-                <meta
-                    property="og:image"
-                    content={`https://yawudb.com/assets/icons/${
-                        ""
-                        // idPrefixToFaction[id.substr(0, id.length - 13)]
-                    }-deck.png`}
+                    content={`https://yawudb.com/view/deck/${id}`}
                 />
             </Helmet>
-            <
-            >
-                <ReadonlyDeck
-                    {...location.state.deck}
-                    onCardsViewChange={handleChangeView}
-                    cardsView={cardsView}
-                    desc=""
-                    factionId={location.state.deck.id.split('-')[0]}
-                    cards={cards}
-                    canUpdateOrDelete={location.state.canUpdateOrDelete}
-                    onCopy={_copyDeck}
-                    onDelete={_deleteDeck}
-                />
+            {!deck && <div className="flex-1">Loading...</div>}
+            {deck && (
+                <>
+                    <ReadonlyDeck
+                        {...deck}
+                        onCardsViewChange={handleChangeView}
+                        cardsView={cardsView}
+                        desc=""
+                        factionId={factionId}
+                        cards={cards}
+                        canUpdateOrDelete={canUpdateOrDelete}
+                        // onCopy={_copyDeck}
+                        onDelete={_deleteDeck}
+                    />
 
-                <DeleteConfirmationDialog
-                    title="Delete deck"
-                    description={`Are you sure you want to delete deck: '${location.state.deck.name}'`}
-                    open={isDeleteDialogVisible}
-                    onCloseDialog={handleCloseDeleteDialog}
-                    onDeleteConfirmed={handleDeleteDeck}
-                    onDeleteRejected={handleCloseDeleteDialog}
-                />
-            </>
+                    <DeleteConfirmationDialog
+                        title="Delete deck"
+                        description={`Are you sure you want to delete deck: '${deck.name}'`}
+                        open={isDeleteDialogVisible}
+                        onCloseDialog={handleCloseDeleteDialog}
+                        onDeleteConfirmed={handleDeleteDeck}
+                        onDeleteRejected={handleCloseDeleteDialog}
+                    />
+                </>
+            )}
         </React.Fragment>
     );
 }
