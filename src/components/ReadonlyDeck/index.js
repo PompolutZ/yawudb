@@ -1048,11 +1048,11 @@ class ReadonlyDeck extends PureComponent {
 
     _handleExportToClub = () => {
         const objectives = this.props.cards
-            .filter((c) => c.type === 0)
+            .filter(checkCardIsObjective)
             .map((card) => `${card.id}`.padStart(5, "0"));
 
         const powers = this.props.cards
-            .filter((c) => c.type !== 0)
+            .filter(c => !checkCardIsObjective(c))
             .map((card) => `${card.id}`.padStart(5, "0"));
 
         const deck = JSON.stringify([objectives, powers]);

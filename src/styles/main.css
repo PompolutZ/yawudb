@@ -1394,6 +1394,11 @@ body {
     margin-left: 1rem;
     margin-right: 1rem;
   }
+
+  .sm\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 @media (min-width: 768px) {
