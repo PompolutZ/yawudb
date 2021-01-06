@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { FirebaseContext } from "../firebase";
 import Button from "@material-ui/core/Button";
 import Progress from "@material-ui/core/CircularProgress";
-import { cardsDb, firstUniversalCardPerWave } from "../data";
-import useRealtimeDatabaseRefOnce from "../hooks/useRealtimeDatabaseValueOnce";
+import { firstUniversalCardPerWave } from "../data";
+import { checkCardIsObjective, checkCardIsPloy, checkCardIsUpgrade, getCardById, RELIC_FORMAT, validateDeckForPlayFormat } from "../data/wudb";
 
 function CardsRating(props) {
     const firebase = React.useContext(FirebaseContext);
     const [data, setData] = React.useState(null);
-    const [printData, setPrintData] = React.useState({});
+    const [, setPrintData] = React.useState({});
     const [updated, setUpdated] = React.useState(false);
     const [pubLog, setPubLog] = useState(undefined);
-    const [loadingDecks, decks, decksError] = useRealtimeDatabaseRefOnce(
-        "/decks/"
-    );
+    const [decksToDelete, setDecksToDelete] = useState([]);
 
     React.useEffect(() => {
         if (!props.match.params.faction) return;
@@ -187,34 +185,62 @@ function CardsRating(props) {
     }, []);
 
     React.useEffect(() => {
-        if(!decks) return;
+        firebase.realdb
+            .ref("/decks")
+            .once("value")
+            .then((s) => {
+                let allPublicDecks = Object.entries(s.val())
+                    .filter(([, info]) => !info.private)
+                    .map(([id, deck]) => { 
+                        let updatedDeck = {...deck, id}
+                        if (!deck.deck && deck.cards) {
+                            updatedDeck.deck = deck.cards.map(card => Number(card)).join(",")
+                        }
 
-        const flattenedDecks = Object.entries(decks)
-            .filter(([id, deck]) => !deck.private)
-            .map(([id, deck]) => ({ ...deck, id}))
-            .map(deck => {
-                let updatedDeck = { ...deck };
-                if(!deck.updatedutc) {
-                    if(typeof deck.created === 'string') {
-                        updatedDeck.updatedutc = new Date(deck.created).getTime();
-                    } else {
-                        let date = new Date(0);
-                        date.setSeconds(deck.created.seconds);
-                        updatedDeck.updatedutc = date.getTime();
-                    }
-                }
+                        if (!deck.createdutc) {
+                            if(typeof deck.created === "string") {
+                                updatedDeck.createdutc = new Date(deck.created).getTime();
+                                updatedDeck.updatedutc = new Date(deck.created).getTime();
+                            } else {
+                                let timestamp = new Date(0);
+                                timestamp.setSeconds(deck.created.seconds);
 
-                return updatedDeck;
-            })
-        
-        const descending = flattenedDecks.sort((x, y) => y.updatedutc - x.updatedutc);
-        const initPubLog = descending.reduce((log, deck) => {
-            return { ...log, [deck.updatedutc]: { id: deck.id, action: "SHARED" }}
-        }, {})
-        console.log(initPubLog);
-        setPubLog(initPubLog);
-        
-    }, [decks, firebase]);
+                                updatedDeck.createdutc = timestamp.getTime();
+                                updatedDeck.updatedutc = timestamp.getTime();
+                            }
+                        }
+
+                        let cards = updatedDeck.deck.split(",").map(getCardById);
+                        let [isRelicValid, issues] = validateDeckForPlayFormat({ 
+                            objectives: cards.filter(checkCardIsObjective),
+                            gambits: cards.filter(checkCardIsPloy),
+                            upgrades: cards.filter(checkCardIsUpgrade),
+                        }, RELIC_FORMAT)
+
+                        updatedDeck.isRelicValid = isRelicValid;
+                        updatedDeck.issues = issues;
+
+                        return updatedDeck;
+                     });
+                let relicValidOnly = allPublicDecks.filter(deck => deck.isRelicValid);
+                let unique = relicValidOnly.reduce((unique, deck) => ({
+                    ...unique, [deck.deck]: deck
+                }), {})   
+                
+                const uniqueKeys = Object.values(unique).map(x => x.id);
+
+                const decksToDelete = allPublicDecks.filter(deck => !uniqueKeys.includes(deck.id) && deck.author === "Anonymous");
+                
+                setDecksToDelete(decksToDelete.map(({ id }) => id))
+                
+                const descending = Object.values(unique).sort((x, y) => y.updatedutc - x.updatedutc);
+                const initPubLog = descending.reduce((log, deck) => {
+                    return { ...log, [deck.updatedutc]: { id: deck.id, action: "SHARED" }}
+                }, {})
+                
+                setPubLog(initPubLog);
+            });
+    }, [firebase]);
 
     const handleUpdateClick = () => {
         firebase.realdb
@@ -228,8 +254,14 @@ function CardsRating(props) {
         firebase.realdb
             .ref("/public_decks_log")
             .set(pubLog)
-            .then(() => console.log('Updated Pub Log'))
+            .then(() => console.log("Updated Pub Log"))
             .catch((e) => console.error(e));
+    };
+
+    const handleDeleteDeadDecks = () => {
+        for(let id of decksToDelete) {
+            firebase.realdb.ref(`/decks/${id}`).remove();
+        }
     }
 
     return (
@@ -244,14 +276,10 @@ function CardsRating(props) {
                 Update Ranking
             </Button>
             <div>
-                {loadingDecks && <div>Loading Decks....</div>}
-                {decksError && <pre>{JSON.stringify(decksError)}</pre>}
+                {/* {decksError && <pre>{JSON.stringify(decksError)}</pre>} */}
             </div>
-            <Button
-                onClick={handleUpdatePubLog}
-            >
-                Update PubLog
-            </Button>
+            <Button onClick={handleUpdatePubLog}>Update PubLog</Button>
+            <Button onClick={handleDeleteDeadDecks}>Delete {decksToDelete.length} no-valid decks</Button>
         </div>
     );
 }

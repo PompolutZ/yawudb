@@ -99,11 +99,7 @@ const LAST_KNOWN_TIMESTAMP = "wu_lastPublicDeck";
 
 function App(props) {
     usePublicDecksSyncronization();
-
-    const [] = useState(
-        localStorage.getItem(LAST_KNOWN_TIMESTAMP) || undefined
-    );
-
+    
     // const db = useDexie("wudb");
     const firebase = useContext(FirebaseContext);
     

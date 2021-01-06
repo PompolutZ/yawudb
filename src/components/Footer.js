@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../components/MenuAppBar";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
+import { version } from "../../package.json";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,6 +21,7 @@ function Footer() {
     return (
         <footer className={classes.root}>
             <Typography variant="body2" className={classes.disclaimer}>
+                <span className="font-bold">Ver. {version}. </span>
                 The information presented on this site about Warhammer
                 Underworlds, both literal and graphical, is copyrighted by Games
                 Workshop. This website is not produced, endorsed, supported, or

@@ -12,7 +12,6 @@ import { useHistory, useLocation } from "react-router-dom";
 export default function NavigationPanel() {
     const { pathname } = useLocation();
 
-    console.log(new RegExp(/^\/$/).test(pathname));
     return (
         <header className="mx-2 sm:mx-4 flex p-2 items-center relative">
             <div className="mr-8">
