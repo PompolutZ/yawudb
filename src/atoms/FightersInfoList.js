@@ -1,156 +1,49 @@
-import React, { PureComponent } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { factionMembers } from "../data/index";
-import { IconButton } from "@material-ui/core";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import React, { useState } from "react";
+import { factionMembers } from "../data";
+import { useSpring, animated as a } from "react-spring";
 
-class FighterCard extends PureComponent {
-    render() {
-        const { faction, index, inspired } = this.props;
-        return (
-            <img
-                className={this.props.className}
-                alt={`card${index}`}
-                onClick={this.handleCardClick}
-                src={`/assets/cards/fighters/${faction}-${index}${
-                    inspired ? "-inspired" : ""
-                }.png`}
+export default function FightersInfoList({ faction }) {
+    return (
+        <div className="flex-1 bg-red-500">
+            { factionMembers[faction.name].map((fighter, index) => 
+                <div key={fighter} className="mb-2 h-0 overflow-hidden relative"
+                style={{ paddingTop: 'calc(532 / 744 * 100%)' }}>
+                    <div className="absolute inset-0 flex">
+                        <FighterCard faction={faction.name} index={index + 1} />    
+                    </div>
+                </div> 
+            )}
+        </div>
+    )
+}
+
+function FighterCard({ faction, index }) {
+    const [flipped, set] = useState(false);
+    const { transform, opacity } = useSpring({
+        opacity: flipped ? 1 : 0,
+        transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
+        config: { mass: 5, tension: 500, friction: 80 },
+    });
+    return (
+        <div className="h-full relative flex-1"
+            onClick={() => set((state) => !state)}
+        >            
+            <a.div
+                className="absolute w-full h-full cursor-pointer bg-contain bg-no-repeat bg-center"
+                style={{
+                    backgroundImage: `url(/assets/cards/fighters/${faction}-${index}.png)`,
+                    opacity: opacity.to((o) => 1 - o),
+                    transform,
+                }}
+                />
+            <a.div
+                className="absolute w-full h-full cursor-pointer bg-contain bg-no-repeat bg-center"
+                style={{
+                    backgroundImage: `url(/assets/cards/fighters/${faction}-${index}-inspired.png)`,
+                    opacity,
+                    transform: transform.to((t) => `${t} rotateY(180deg)`),
+                }}
             />
-        );
-    }
-
-    handleCardClick = () => {
-        const { faction, index, inspired } = this.props;
-        this.props.onCardClick(
-            `/assets/cards/fighters/${faction}-${index}${
-                inspired ? "-inspired" : ""
-            }.png`
-        );
-    };
+        </div>
+    );
 }
-
-class FightersInfoList extends PureComponent {
-    state = {
-        popupIsVisible: false,
-        popupCardPath: "",
-    };
-
-    render() {
-        const { classes, faction } = this.props;
-
-        return (
-            <div className={classes.root}>
-                {factionMembers[faction.name].map((item, idx) => {
-                    return (
-                        <div key={item} className={classes.cardsRow}>
-                            <FighterCard
-                                className={classes.card}
-                                faction={faction.name}
-                                index={idx + 1}
-                                onCardClick={this.showPopup}
-                            />
-                            <FighterCard
-                                inspired
-                                className={classes.cardInsp}
-                                faction={faction.name}
-                                index={idx + 1}
-                                onCardClick={this.showPopup}
-                            />
-                        </div>
-                    );
-                })}
-                <div
-                    className={classes.popup}
-                    style={{
-                        display: !this.state.popupIsVisible ? "none" : "",
-                    }}
-                >
-                    <img
-                        alt="popup"
-                        className={classes.popupCard}
-                        src={this.state.popupCardPath}
-                    />
-                    <IconButton
-                        className={classes.closePopupButton}
-                        onClick={this.handleClosePopup}
-                    >
-                        <HighlightOffIcon
-                            style={{ width: "2rem", height: "2rem" }}
-                        />
-                    </IconButton>
-                </div>
-            </div>
-        );
-    }
-
-    showPopup = (path) => {
-        if (window.screen.width > 800) {
-            return;
-        }
-
-        this.setState((state) => ({
-            popupIsVisible: !state.popupIsVisible,
-            popupCardPath: path,
-        }));
-    };
-
-    handleClosePopup = () => {
-        this.setState({ popupIsVisible: false, popupCardPath: "" });
-    };
-}
-
-const styles = (theme) => ({
-    root: {
-        margin: "1rem 0 0 0",
-        position: "relative",
-    },
-
-    popup: {
-        position: "fixed",
-        backgroundColor: "rgba(0, 0, 0, .7)",
-        zIndex: "1",
-        height: "120vh",
-        width: "100%",
-        top: 0,
-        left: 0,
-    },
-
-    cardsRow: {
-        [theme.breakpoints.up("lg")]: {
-            display: "flex",
-        },
-    },
-
-    card: {
-        margin: "0 .5rem 1rem 1rem",
-        width: "calc(50% - 1.5rem)",
-        [theme.breakpoints.up("lg")]: {
-            maxWidth: "50%",
-        },
-    },
-
-    popupCard: {
-        width: "calc(100% - 2rem)",
-        margin: "5rem 1rem 1rem 1rem",
-    },
-
-    cardInsp: {
-        margin: "0 1rem 1rem .5rem",
-        width: "calc(50% - 1.5rem)",
-        [theme.breakpoints.up("lg")]: {
-            maxWidth: "50%",
-        },
-    },
-
-    closePopupButton: {
-        position: "absolute",
-        top: "4.5rem",
-        right: ".5rem",
-        zIndex: 2,
-        backgroundColor: "darkred",
-        color: "white",
-        padding: 0,
-    },
-});
-
-export default withStyles(styles)(FightersInfoList);
