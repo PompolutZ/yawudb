@@ -38,6 +38,10 @@ function getFactionByAbbr(factionAbbr) {
     return Object.values(factions).find((f) => f.abbr == factionAbbr);
 }
 
+function getFactionById(factionId) {
+    return Object.values(factions).find(f => f.id === factionId);
+}
+
 const idToSetKey = {};
 function getSetNameById(setId) {
     if (idToSetKey[setId]) {
@@ -226,7 +230,7 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
     if (totalInvalidCards.restricted > MAX_RESTRICTED_CARDS) {
         isValid = false;
         issues.push(
-            `Deck built for ${format} can include at most ${MAX_RESTRICTED_CARDS} forsaken cards, but has ${totalInvalidCards.restricted}`
+            `Deck built for ${format} can include at most ${MAX_RESTRICTED_CARDS} restricted cards, but has ${totalInvalidCards.restricted}`
         );
     }
 
@@ -285,6 +289,7 @@ function validatePowerDeckForFormat(gambits, upgrades, format) {
 export {
     getFactionByName,
     getFactionByAbbr,
+    getFactionById,
     getCardNumberFromId,
     getCardWaveFromId,
     getSetNameById,

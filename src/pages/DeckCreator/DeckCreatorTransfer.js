@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FactionToggle from "../../components/FactionToggle";
 import DeckBuilder from "./DeckBuilder";
 import {
@@ -18,6 +18,11 @@ import {
     cardsIdToFactionIndex,
     factionIndexesWithDefaultSet,
 } from "../../data/atoms/factions";
+import { useParams } from "react-router-dom";
+import { useDeckBuilderDispatcher } from ".";
+import { checkCardIsObjective, checkCardIsPloy, checkCardIsUpgrade, getCardById, getFactionById } from "../../data/wudb";
+import { INITIAL_STATE } from "./reducer";
+import DeckCreatorBase from "./DeckCreatorBase";
 
 const decodeFaction = (cards) => {
     for (let card of cards) {
@@ -58,99 +63,87 @@ const getDecodingFunction = encoding => {
 };
 
 function DeckCreatorTransfer(props) {
-    const selectedFaction = props.selectedFaction;
-    const setFaction = props.setFaction;
+    const dispatch = useDeckBuilderDispatcher();
+    const { data } = useParams();
 
-    React.useEffect(() => {
-        const transferData = props.match.params.data.split(",");
-        props.clearDeck();
+    useEffect(() => {
+        const [transferFormat, ...cardIds] = data.split(",");
+        const decode = getDecodingFunction(transferFormat);
+        const decodedCards = cardIds.map(foreignId => {
+            const wuid = decode(foreignId);
+            let card =  getCardById(wuid);
+            if(card.duplicates) {
+                const newest = Math.max(...card.duplicates);
+                card = getCardById(newest);
+            }
 
-        const decode = getDecodingFunction(transferData[0]);
-        const decodedCardsIds = transferData.slice(1).map(decode);
-        const [
-            decodedFaction,
-            decodedFactionDefaultSet,
-        ] = factionIndexesWithDefaultSet[decodeFaction(decodedCardsIds)];
-        props.setFaction(decodedFaction, decodedFactionDefaultSet);
-        decodedCardsIds.forEach((cardId) => props.addCard(cardId));
-    }, []);
+            return card;
+        });
+
+        const [{ factionId }] = decodedCards.filter(card => card.factionId > 1);
+        const faction = getFactionById(factionId);
+        
+        const deckState = {
+            ...INITIAL_STATE,
+            faction,
+            selectedObjectives: decodedCards.filter(checkCardIsObjective),
+            selectedGambits: decodedCards.filter(checkCardIsPloy),
+            selectedUpgrades: decodedCards.filter(checkCardIsUpgrade),
+        }
+
+        // THIS IS INSANELY SHITTY; BUT I AM TIRED
+        localStorage.removeItem('wunderworlds_deck_in_progress');
+        dispatch({
+            type: "SET_DESERIALIZED_STATE",
+            payload: deckState,
+        });
+        dispatch({
+            type: "UPDATE_FILTERS",
+            payload: {
+                faction,
+            },
+        })
+    
+    }, [data]);
 
     return (
-        <React.Fragment>
-            <Helmet>
-                <title>
-                    Warhammer Underworlds: Nightvault (Shadespire) Deck Builder
-                </title>
-                <link rel="canonical" href="https://yawudb.com/deck/create" />
-            </Helmet>
 
-            <div style={{ display: "flex", flexFlow: "column nowrap" }}>
-                <div>
-                    <FactionToggle
-                        key={selectedFaction}
-                        editMode={false}
-                        selectedFaction={selectedFaction}
-                        setFaction={setFaction}
-                    />
-                </div>
-
-                <DeckBuilder
-                    key={selectedFaction}
-                    selectedFaction={selectedFaction}
-                    editMode={false}
-                    transferMode={true}
-                    currentDeck={props.currentDeck}
-                    currentDeckName={props.currentDeckName}
-                    currentDeckSource={props.currentDeckSource}
-                    currentDeckDescription={props.currentDeckDescription}
-                    setFaction={setFaction}
-                    changeName={props.changeName}
-                    changeSource={props.changeSource}
-                    changeDescription={props.changeDescription}
-                    clearDeck={props.clearDeck}
-                    resetDeck={props.resetDeck}
-                    resetSearchText={props.resetSearchText}
-                />
-            </div>
-        </React.Fragment>
-    );
+        <DeckCreatorBase {...props} />
+        );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        selectedFaction: state.deckUnderBuild.faction,
-        selectedFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
-        currentDeck: state.deckUnderBuild.deck,
-        currentDeckName: state.deckUnderBuild.name,
-        currentDeckSource: state.deckUnderBuild.source,
-        currentDeckDescription: state.deckUnderBuild.desc,
-    };
-};
+// const mapStateToProps = (state) => {
+//     return {
+//         selectedFaction: state.deckUnderBuild.faction,
+//         selectedFactionDefaultSet: state.deckUnderBuild.factionDefaultSet,
+//         currentDeck: state.deckUnderBuild.deck,
+//         currentDeckName: state.deckUnderBuild.name,
+//         currentDeckSource: state.deckUnderBuild.source,
+//         currentDeckDescription: state.deckUnderBuild.desc,
+//     };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setFaction: (faction, defaultSet) =>
-            dispatch({
-                type: SET_FACTION,
-                faction: faction,
-                defaultSet: defaultSet,
-            }),
-        changeName: (value) => dispatch({ type: CHANGE_NAME, name: value }),
-        changeSource: (value) =>
-            dispatch({ type: CHANGE_SOURCE, source: value }),
-        changeDescription: (value) =>
-            dispatch({ type: CHANGE_DESCRIPTION, desc: value }),
-        addCard: (card) => dispatch({ type: ADD_CARD, card: card }),
-        removeCard: (card) => dispatch({ type: REMOVE_CARD, card: card }),
-        clearDeck: () => dispatch({ type: CLEAR_DECK }),
-        resetDeck: () => dispatch({ type: RESET_DECK }),
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         setFaction: (faction, defaultSet) =>
+//             dispatch({
+//                 type: SET_FACTION,
+//                 faction: faction,
+//                 defaultSet: defaultSet,
+//             }),
+//         changeName: (value) => dispatch({ type: CHANGE_NAME, name: value }),
+//         changeSource: (value) =>
+//             dispatch({ type: CHANGE_SOURCE, source: value }),
+//         changeDescription: (value) =>
+//             dispatch({ type: CHANGE_DESCRIPTION, desc: value }),
+//         addCard: (card) => dispatch({ type: ADD_CARD, card: card }),
+//         removeCard: (card) => dispatch({ type: REMOVE_CARD, card: card }),
+//         clearDeck: () => dispatch({ type: CLEAR_DECK }),
+//         resetDeck: () => dispatch({ type: RESET_DECK }),
 
-        resetSearchText: () =>
-            dispatch({ type: CHANGE_SEARCH_TEXT, payload: "" }),
-    };
-};
+//         resetSearchText: () =>
+//             dispatch({ type: CHANGE_SEARCH_TEXT, payload: "" }),
+//     };
+// };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DeckCreatorTransfer);
+export default DeckCreatorTransfer;

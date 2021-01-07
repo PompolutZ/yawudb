@@ -200,6 +200,10 @@ function CardLibraryFilters(props) {
     const [hideDuplicates, setHideDuplicates] = useState(true);
     const [selectedSets, setSelectedSets] = useState(state.sets);
 
+    useEffect(() => {
+        setWarband(state.faction);
+    }, [state.faction.name]);
+    
     const handleFormatChange = (format) => () => {
         setSelectedFormat(format);
     };

@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useEffectReducer } from 'use-effect-reducer';
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import DeckCreatorNew from "./DeckCreatorNew";
 import DeckCreatorEdit from "./DeckCreatorEdit";
 import DeckCreatorTransfer from "./DeckCreatorTransfer";
@@ -36,7 +36,9 @@ export function useDeckBuilderDispatcher() {
 }
 
 const initialiseState = deck => exec => {
+    console.log('HERE');
     if(deck) {
+        console.log('inside')
         return {
             ...INITIAL_STATE,
             faction: getFactionByName(deck.faction),
@@ -63,6 +65,7 @@ function DeckBuilderContextProvider({ children }) {
             removeKeyFromLocalStorage,
             initialiseStateFromLocalStorage,
     });
+
     return (
         <DeckBuilderContext.Provider value={state}>
             <DeckBuilderDispatchContext.Provider value={dispatch}>
@@ -75,27 +78,25 @@ function DeckBuilderContextProvider({ children }) {
 function DeckCreator() {
     return (
         // THIS INNER ROUTING PART NEEDS TO BE REDESIGNED
-        <>
-            <DeckBuilderContextProvider>
-                <Switch>
-                    <Route
-                        exact
-                        path="/deck/create"
-                        component={DeckCreatorNew}
-                    />
-                    <Route
-                        exact
-                        path="/deck/edit/:id"
-                        component={DeckCreatorEdit}
-                    />
-                    <Route
-                        exact
-                        path="/deck/transfer/:data"
-                        component={DeckCreatorTransfer}
-                    />
-                </Switch>
-            </DeckBuilderContextProvider>
-        </>
+        <DeckBuilderContextProvider>
+            <Switch>
+                <Route
+                    exact
+                    path="/deck/create"
+                    component={DeckCreatorNew}
+                />
+                <Route
+                    exact
+                    path="/deck/edit/:id"
+                    component={DeckCreatorEdit}
+                />
+                <Route
+                    exact
+                    path="/deck/transfer/:data"
+                    component={DeckCreatorTransfer}
+                />
+            </Switch>
+        </DeckBuilderContextProvider>
     );
 }
 
