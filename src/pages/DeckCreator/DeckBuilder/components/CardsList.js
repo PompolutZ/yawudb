@@ -1,11 +1,12 @@
 import React from "react";
 import ExpandableWUCard from "../../../../atoms/ExpandableWUCard";
+import CardInDeck from "./Card";
 
 export function CardsList({ cards = [], restrictedCardsCount }) {
     return (
         <>
             {cards.map(({ isForsaken, ...card}, i) => (
-                <ExpandableWUCard
+                <CardInDeck
                     card={card}
                     isBanned={isForsaken}
                     withAnimation

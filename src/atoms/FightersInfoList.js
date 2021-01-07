@@ -4,7 +4,7 @@ import { useSpring, animated as a } from "react-spring";
 
 export default function FightersInfoList({ faction }) {
     return (
-        <div className="flex-1 bg-red-500">
+        <div className="flex-1">
             { factionMembers[faction.name].map((fighter, index) => 
                 <div key={fighter} className="mb-2 h-0 overflow-hidden relative"
                 style={{ paddingTop: 'calc(532 / 744 * 100%)' }}>

@@ -6,6 +6,9 @@ module.exports = {
   purge: ['src/**/*.{js,jsx}'],
   theme: {
     extend: {
+      inset: {
+        '1/2': '50%',
+      },
       colors: {
         // bulgarian-rose
         accent: "#501408",
