@@ -31,3 +31,5 @@ database.rules.json
 production.env
 staging.env
 
+# this file will be regerated with tailwind
+/src/styles/main.css

@@ -604,7 +604,6 @@ body {
   color: #2d3748;
   color: rgba(45, 55, 72, var(--text-opacity));
   display: grid;
-  grid-template-rows: auto 1fr auto;
 }
 
 .stv-radio-buttons-wrapper {
@@ -694,10 +693,6 @@ body {
   background-color: #374151;
   border-radius: 20px;
   border: 3px solid #D1D5DB;
-}
-
-* {
-  border: 1px solid #f00 !important;
 }
 
 .container {
