@@ -54,7 +54,7 @@ function DeckMetaSummary({
             >
                 <DeckIconPicture
                     className={`${
-                        count > 0 ? "w-24 h-24 absolute inset-0" : ""
+                        count > 0 ? "w-24 h-24 absolute inset-0" : "w-24 h-24 top-1/2 left-1/2 absolute"
                     }`}
                     faction={idPrefixToFaction[prefix]}
                 />

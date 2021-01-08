@@ -38,7 +38,6 @@
         float: left;
         padding: 0.5em 1em;
         cursor: pointer;
-
     }
 
     .stv-radio-button + label:hover {
@@ -56,11 +55,36 @@
     .stv-radio-button + label:last-of-type {
         border-radius: 0 0.7em 0.7em 0;
     }
+
+    /* Works on Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #374151 #D1D5DB;
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: #D1D5DB;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: #374151;
+        border-radius: 20px;
+        border: 3px solid #D1D5DB;
+    }
+
+    * {
+        border: 1px solid #f00 !important;
+      }
 }
 
 @layer components {
     .btn {
-        @apply p-2 cursor-pointer rounded-md shadow-xs stroke-current; 
+        @apply p-2 cursor-pointer rounded-md shadow-xs stroke-current;
     }
 
     .btn:disabled {
@@ -72,7 +96,7 @@
     }
 
     .btn-purple {
-        @apply bg-purple-700 text-white; 
+        @apply bg-purple-700 text-white;
     }
 
     .btn-purple:enabled:active {
@@ -80,7 +104,7 @@
     }
 
     .btn-red {
-        @apply bg-red-700 text-white; 
+        @apply bg-red-700 text-white;
     }
 
     .btn-red:enabled:active {
