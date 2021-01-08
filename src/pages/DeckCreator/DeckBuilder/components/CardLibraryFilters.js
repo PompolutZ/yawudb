@@ -256,14 +256,14 @@ function CardLibraryFilters(props) {
                 }}
             >
                 <Grid item xs={12} md={6}>
-                    <div className="w-full h-full flex flex-col">
+                    <div className="w-full h-full flex flex-col overflow-x-hidden">
                         <IconButton
                             onClick={closeAndUpdateFilters}
                             className="self-end"
                         >
                             <CloseIcon />
                         </IconButton>
-                        <section className="overflow-scroll px-4 pb-8">
+                        <section className="overflow-y-auto px-4 pb-8">
                             <SectionTitle className="mb-8" title="Warband" />
 
                             <SelectedFaction faction={warband.name} />

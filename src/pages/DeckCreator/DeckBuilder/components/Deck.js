@@ -143,7 +143,7 @@ function Deck({
                     </ul>
                 )}
             </section>
-            <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-2">
+            <div className="flex flex-col xl:grid xl:grid-cols-3 xl:gap-2">
                 <ObjectivesList
                     isValid={isValid}
                     format={format}

@@ -109,13 +109,20 @@ function MainLayout() {
                     gridTemplateRows: "1fr",
                     gridTemplateColumns: "1fr",
                     background: pathname == "/" ? "black" : "rgba(0,0,0,0)",
-                    overflowX: 'hidden',
+                    overflowX: "hidden",
                 }}
             >
                 {pathname == "/" && (
                     <>
-                        <div style={{ gridArea: "1 / 1 / 2 / 2", }}>
-                            <img src="/assets/direchasm_bg.jpg" />
+                        <div style={{ gridArea: "1 / 1 / 2 / 2" }}>
+                            <img
+                                src="/assets/direchasm_bg.jpg"
+                                style={{
+                                    width: "100%",
+                                    height: "50%",
+                                    objectFit: 'cover',
+                                }}
+                            />
                         </div>
                         <div
                             style={{
@@ -128,7 +135,7 @@ function MainLayout() {
                                     background:
                                         "linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 30%, black 100%)",
                                     width: "100%",
-                                    height: "100vh",
+                                    height: "50%",
                                     position: "absolute",
                                 }}
                             ></div>
@@ -136,7 +143,13 @@ function MainLayout() {
                     </>
                 )}
 
-                <div style={{ gridArea: "1 / 1 / 2 / 2", display: "grid", gridTemplateRows: 'auto 1fr'}}>
+                <div
+                    style={{
+                        gridArea: "1 / 1 / 2 / 2",
+                        display: "grid",
+                        gridTemplateRows: "auto 1fr",
+                    }}
+                >
                     <NavigationPanel />
 
                     <main id="yawudb_main" className="flex-grow flex">

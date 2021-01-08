@@ -47,7 +47,7 @@ const Home = (props) => {
     // };
 
     return (
-        <div className="flex flex-col px-2 sm:px-4 relative">
+        <div className="flex flex-col relative">
             {/* <div
                 style={{
                     backgroundImage:
@@ -71,7 +71,7 @@ const Home = (props) => {
             </h1>
 
             <div className="mb-12 flex justify-center">
-                <div className="flex-1 sm:flex-1/2 lg:flex-1/3">
+                <div className="mx-4 flex-1 sm:flex-1/2 lg:flex-1/3">
                     <AutosuggestSearch onClick={handleGlobalSearchClick} />
                 </div>
             </div>

@@ -13,7 +13,7 @@ export default function NavigationPanel() {
     const { pathname } = useLocation();
 
     return (
-        <header className="mx-2 sm:mx-4 flex p-2 items-center relative">
+        <header className="mx-2 sm:mx-8 flex p-2 items-center relative">
             <div className="mr-8">
                 <Link
                     className="text-base block mr-8 cursor-pointer hover:font-semibold pt-px"

@@ -12,6 +12,7 @@ import { cardTypeIcons, setsIndex } from "../data";
 import toPairs from "lodash/toPairs";
 import SearchIcon from "@material-ui/icons/Search";
 import { InputAdornment } from "@material-ui/core";
+import { getSetNameById, wucards } from "../data/wudb";
 
 const styles = (theme) => ({
     container: {
@@ -179,7 +180,7 @@ const renderSuggestion = (onMenuItemClick) => (
                     />
                     <img
                         src={`/assets/icons/${
-                            setsIndex[suggestion.set]
+                            getSetNameById(suggestion.set)
                         }-icon.png`}
                         style={{
                             width: "1.5rem",
@@ -210,11 +211,11 @@ function getSuggestions(value) {
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
-    const suggestions = toPairs(cardsDb).map(([id, card]) => ({
+    const suggestions = toPairs(wucards).map(([id, card]) => ({
         id: id,
         label: card.name,
         type: card.type,
-        set: card.set,
+        set: card.setId,
     }));
 
     return inputLength === 0

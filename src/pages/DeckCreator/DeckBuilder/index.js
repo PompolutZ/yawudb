@@ -101,7 +101,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                 status === 'Saved' && <Redirect to="/mydecks" />
             }
             <Grid container spacing={1} style={{ height: "98%" }}>
-                <Grid item xs={12} lg={3}>
+                <Grid item xs={12} md={5} lg={3}>
                     <Paper className={classes.paper}>
                         <div className={classes.leftPaperInner}>
                             <div>
@@ -181,6 +181,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                     <Grid
                         item
                         xs={12}
+                        md={7}
                         lg={9}
                         style={{
                             overflow: useMediaQuery(theme.breakpoints.up("md"))

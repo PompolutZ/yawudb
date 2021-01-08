@@ -106,9 +106,13 @@ export default function usePublicDecksSyncronization() {
 
                                 delete updatedDeck.desc;
                                 delete updatedDeck.scoringSummary;
-                                await db.publicDecks.put(updatedDeck);
-                                setLastLogTimestamp(`${log.timestamp}`);
-                                console.log("Caching Deck");
+                                try {
+                                    await db.publicDecks.put(updatedDeck);
+                                    setLastLogTimestamp(`${log.timestamp}`);
+                                    console.log("Caching Deck");
+                                } catch (error) {
+                                    console.error(error);
+                                }
                             }
                         }
                     });
@@ -179,14 +183,25 @@ export default function usePublicDecksSyncronization() {
                             console.log(flattened);
 
                             let bulk = flattened.reduce((bulk, log) => {
-                                if(log.action !== 'SHARED') return bulk;
+                                if (log.action !== "SHARED") return bulk;
 
-                                return { ...bulk, [log.id]: allPublicDecks.find(({ id }) => id === log.id )};
-                            }, {})
+                                return {
+                                    ...bulk,
+                                    [log.id]: allPublicDecks.find(
+                                        ({ id }) => id === log.id
+                                    ),
+                                };
+                            }, {});
 
-                            await db.publicDecks.bulkPut(Object.values(bulk));
-                            let [{ timestamp }] = flattened.slice(-1);
-                            setLastLogTimestamp(timestamp);
+                            try {
+                                await db.publicDecks.bulkPut(
+                                    Object.values(bulk)
+                                );
+                                let [{ timestamp }] = flattened.slice(-1);
+                                setLastLogTimestamp(timestamp);
+                            } catch (error) {
+                                console.error(error);
+                            }
                         });
                 });
         }
