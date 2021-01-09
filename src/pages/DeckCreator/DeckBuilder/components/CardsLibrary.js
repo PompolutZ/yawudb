@@ -7,6 +7,7 @@ import WUCard from "../../../../atoms/WUCard";
 import { cardTypes, CHAMPIONSHIP_FORMAT, RELIC_FORMAT, validateCardForPlayFormat, wucards } from "../../../../data/wudb";
 import { useDeckBuilderState } from "../..";
 import PropTypes from 'prop-types';
+import CardInDeck from "./Card";
 
 // I am not sure if I need to use useEffect here
 // there must be some more simple way to check which cards are expanded
@@ -32,7 +33,7 @@ function VirtualizedCardsList(props) {
     const _renderItem = (index) => {
         const { card, expanded } = cards[index];
         return (
-            <WUCard
+            <CardInDeck
                 key={card.id}
                 card={card}
                 editMode={props.editMode}

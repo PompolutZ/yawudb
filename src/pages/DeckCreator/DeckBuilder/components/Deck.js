@@ -109,8 +109,6 @@ function Deck({
                 <div className="flex flex-1 items-center m-2">
                     <DeckIcon
                         faction={faction.name}
-                        width="3rem"
-                        height="3rem"
                     />
                     <DebouncedInput
                         value={deckName}
@@ -122,12 +120,12 @@ function Deck({
                 <div className="ml-auto mr-4 grid gap-2 grid-cols-2">
                     <button
                         disabled={!isValid}
-                        className="btn btn-purple"
+                        className="btn btn-purple w-8 h-8 py-0 px-1"
                         onClick={onSave}
                     >
                         <SaveIcon />
                     </button>
-                    <button className="btn btn-red" onClick={onReset}>
+                    <button className="btn btn-red w-8 h-8 py-0 px-1" onClick={onReset}>
                         <CloseIcon />
                     </button>
                 </div>

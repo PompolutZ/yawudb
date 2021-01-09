@@ -7,7 +7,10 @@ import { ReactComponent as LockIcon } from "../../../../svgs/lock.svg";
 import { ReactComponent as SurgeIcon } from "../../../../svgs/zap.svg";
 import { Set } from "immutable";
 import { useDeckBuilderState } from "../..";
-import { validateCardForPlayFormat, CHAMPIONSHIP_FORMAT } from "../../../../data/wudb";
+import {
+    validateCardForPlayFormat,
+    CHAMPIONSHIP_FORMAT,
+} from "../../../../data/wudb";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -60,19 +63,31 @@ function ToggleBox({ children, isVisible, onToggle }) {
 
 function CardsTab(props) {
     const classes = useStyles();
-    const { selectedObjectives, selectedGambits, selectedUpgrades, format } = useDeckBuilderState();
+    const {
+        selectedObjectives,
+        selectedGambits,
+        selectedUpgrades,
+        format,
+    } = useDeckBuilderState();
 
     const restrictedCards = useMemo(() => {
-        return [...selectedObjectives, ...selectedUpgrades, ...selectedGambits].filter(card => {
-            const [,,isRestricted] = validateCardForPlayFormat(card, format);
+        return [
+            ...selectedObjectives,
+            ...selectedUpgrades,
+            ...selectedGambits,
+        ].filter((card) => {
+            const [, , isRestricted] = validateCardForPlayFormat(card, format);
             return isRestricted;
-        })
-    }, [selectedObjectives, selectedUpgrades, selectedGambits, format])
+        });
+    }, [selectedObjectives, selectedUpgrades, selectedGambits, format]);
 
     const surgeCount = useMemo(() => {
-        return selectedObjectives.filter(objective => objective.scoreType === 'Surge' || objective.scoreType === 0).length;
-    }, [selectedObjectives])
-    
+        return selectedObjectives.filter(
+            (objective) =>
+                objective.scoreType === "Surge" || objective.scoreType === 0
+        ).length;
+    }, [selectedObjectives]);
+
     const { isSelected } = props;
     const visibleCardTypes = new Set(props.types);
 
@@ -100,21 +115,26 @@ function CardsTab(props) {
         <div className={classes.root}>
             <div className="flex items-center">
                 <Typography variant="subtitle2">cards</Typography>
-                {
-                    format === CHAMPIONSHIP_FORMAT && (
-                        <>
-                            <LockIcon className="text-yellow-600 stroke-current w-3 h-3 ml-4" />
-                            <h6 className="text-gray-700 ml-1 text-xs">
-                                {restrictedCards.length}/3
-                            </h6>
-                            
-                            <SurgeIcon className={`stroke-current w-3 h-3 ml-2 ${surgeCount > 6 ? 'text-red-700' : 'text-gray-700'}`} />
-                            <h6 className={`ml-1 text-xs ${surgeCount > 6 ? 'text-red-700' : 'text-gray-700'}`}>
-                                {surgeCount}/6
-                            </h6>
-                        </>
-                    )
-                }
+                {format === CHAMPIONSHIP_FORMAT && (
+                    <>
+                        <LockIcon className="text-yellow-600 stroke-current w-3 h-3 ml-4" />
+                        <h6 className="text-gray-700 ml-1 text-xs">
+                            {restrictedCards.length}/3
+                        </h6>
+                    </>
+                )}
+                <SurgeIcon
+                    className={`stroke-current w-3 h-3 ml-2 ${
+                        surgeCount > 6 ? "text-red-700" : "text-gray-700"
+                    }`}
+                />
+                <h6
+                    className={`ml-1 text-xs ${
+                        surgeCount > 6 ? "text-red-700" : "text-gray-700"
+                    }`}
+                >
+                    {surgeCount}/6
+                </h6>
             </div>
             <div className={classes.subhead}>
                 <ToggleBox
@@ -128,9 +148,7 @@ function CardsTab(props) {
                             className={classes.icon}
                         />
                         <Typography className={classes.item}>
-                            {
-                                selectedObjectives.length
-                            }
+                            {selectedObjectives.length}
                         </Typography>
                     </React.Fragment>
                 </ToggleBox>
@@ -156,9 +174,7 @@ function CardsTab(props) {
                             />
                         </div>
                         <Typography className={classes.item}>
-                        {
-                                selectedGambits.length
-                            }
+                            {selectedGambits.length}
                         </Typography>
                     </React.Fragment>
                 </ToggleBox>
@@ -174,10 +190,7 @@ function CardsTab(props) {
                             className={classes.icon}
                         />
                         <Typography className={classes.item}>
-                        {
-                                selectedUpgrades.length
-                            }
-
+                            {selectedUpgrades.length}
                         </Typography>
                     </React.Fragment>
                 </ToggleBox>

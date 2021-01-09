@@ -3,10 +3,7 @@ import LockIcon from "@material-ui/icons/Lock";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import { ReactComponent as GloryIcon } from "../../../../svgs/wu-glory.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
-import {
-    addCardAction,
-    removeCardAction,
-} from "../../reducer";
+import { addCardAction, removeCardAction } from "../../reducer";
 import ObjectiveScoreTypeIcon from "../../../../components/ObjectiveScoreTypeIcon";
 import {
     getCardNumberFromId,
@@ -16,16 +13,11 @@ import {
 } from "../../../../data/wudb";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
 import Fade from "@material-ui/core/Fade";
+import { ModalPresenter } from '../../../../index';
 
 class WUCardInfo extends PureComponent {
     render() {
-        const {
-            scoreType,
-            name,
-            id,
-            glory,
-            onClick,
-        } = this.props;
+        const { scoreType, name, id, glory, onClick } = this.props;
 
         const wave = getCardWaveFromId(id);
         return (
@@ -160,33 +152,45 @@ function CardInDeck({ card, ...props }) {
                     onClick={handleShowCardImageOverlay}
                 />
                 <button
-                    className="btn btn-red m-2 w-8 h-8 py-0 px-1"
+                    className={`btn m-2 w-8 h-8 py-0 px-1 ${inDeck ? 'btn-red' : 'btn-purple'}`}
                     onClick={handleToggleCardInDeck}
                 >
-                    <CloseIcon />
+                    <CloseIcon
+                        className={`text-white stroke-current transform ${
+                            inDeck ? "rotate-0" : "rotate-45"
+                        }`}
+                    />
                 </button>
             </div>
-            <Fade in={overlayIsVisible}>
-                <div
-                    className="fixed inset-0 z-10 cursor-pointer"
-                    onClick={() => setOverlayIsVisible(false)}
-                >
-                    <div className="bg-black absolute inset-0 opacity-25"></div>
-                    <div className="absolute inset-0 z-20 flex justify-center items-center">
-                        <div className="w-4/5 lg:w-1/4">
-                            <img
-                                className="rounded-lg"
-                                style={{ filter: 'drop-shadow(0 0 10px black)'}}
-                                alt={id}
-                                src={`/assets/cards/${`${id}`.padStart(
-                                    5,
-                                    "0"
-                                )}.png`}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </Fade>
+            {
+                overlayIsVisible && (
+                    <ModalPresenter>
+                        <Fade in={overlayIsVisible}>
+                            <div
+                                className="fixed inset-0 z-10 cursor-pointer"
+                                onClick={() => setOverlayIsVisible(false)}
+                            >
+                                <div className="bg-black absolute inset-0 opacity-25"></div>
+                                <div className="absolute inset-0 z-20 flex justify-center items-center">
+                                    <div className="w-4/5 lg:w-1/4">
+                                        <img
+                                            className="rounded-lg"
+                                            style={{
+                                                filter: "drop-shadow(0 0 10px black)",
+                                            }}
+                                            alt={id}
+                                            src={`/assets/cards/${`${id}`.padStart(
+                                                5,
+                                                "0"
+                                            )}.png`}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </Fade>
+                    </ModalPresenter>
+                )
+            }
         </div>
     );
 }
