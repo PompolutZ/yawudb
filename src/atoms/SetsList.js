@@ -1,21 +1,11 @@
-import React from 'react';
-import ExpansionIcon from './ExpansionIcon';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import { getSetNameById } from "../data/wudb";
+import ExpansionIcon from "./ExpansionIcon";
 
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexFlow: 'row wrap'
-    }
-});
-
-const SetsList = ({ classes, sets }) => (
-    <div className={classes.root}>
-        {
-            sets && sets.map(s => <ExpansionIcon key={s} set={s} />)
-        }
+const SetsList = ({ sets = [] }) => (
+    <div className="flex flex-wrap">
+        {sets.map(s => <ExpansionIcon key={s} setName={getSetNameById(Number(s))} />)}
     </div>
 );
 
-export default withStyles(styles)(SetsList);
-
+export default SetsList;

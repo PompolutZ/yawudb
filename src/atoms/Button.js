@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import isEqual from 'lodash/isEqual';
+import React, { Component } from "react";
+import Button from "@material-ui/core/Button";
+import isEqual from "lodash/isEqual";
 
 class WUButton extends Component {
     shouldComponentUpdate(nextProps) {
@@ -9,12 +9,16 @@ class WUButton extends Component {
 
     handleClick = () => {
         this.props.onClick(this.props.args);
-    }
+    };
 
     render() {
         return (
-            <Button style={{ ...this.props.style }} disabled={this.props.disabled} onClick={this.handleClick}>
-                { this.props.children }
+            <Button
+                style={{ ...this.props.style }}
+                disabled={this.props.disabled}
+                onClick={this.handleClick}
+            >
+                {this.props.children}
             </Button>
         );
     }

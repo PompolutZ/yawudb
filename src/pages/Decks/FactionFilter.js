@@ -1,23 +1,23 @@
-import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import { factionIndexes, factions, idPrefixToFaction } from '../../data'
-import FactionDeckToggleButton from './FactionDeckToggleButton'
-import Typography from '@material-ui/core/Typography'
-import { withRouter } from 'react-router-dom'
-import FactionDeckSelectMobile from './FactionDeckSelectMobile';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { factionIndexes, factions, idPrefixToFaction } from "../../data";
+import FactionDeckToggleButton from "./FactionDeckToggleButton";
+import Typography from "@material-ui/core/Typography";
+import { withRouter } from "react-router-dom";
+import FactionDeckSelectMobile from "./FactionDeckSelectMobile";
 
 function FactionFilter({ classes, history, selectedFaction, onSelect }) {
     return (
         <div className={classes.root}>
             <div className={classes.desktop}>
-                <Typography style={{ marginLeft: '.5rem' }}>
+                <Typography style={{ marginLeft: ".5rem" }}>
                     Faction:
                 </Typography>
-                {factionIndexes.slice(1).map(faction => (
+                {factionIndexes.slice(1).map((faction) => (
                     <FactionDeckToggleButton
                         key={faction}
                         isSelected={
-                            selectedFaction === 'all' ||
+                            selectedFaction === "all" ||
                             faction === idPrefixToFaction[selectedFaction]
                         }
                         faction={faction}
@@ -33,27 +33,27 @@ function FactionFilter({ classes, history, selectedFaction, onSelect }) {
                 />
             </div>
         </div>
-    )
+    );
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
     root: {},
 
     desktop: {
-        display: 'none',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-            flexFlow: 'column nowrap',
-            width: '5rem',
+        display: "none",
+        [theme.breakpoints.up("md")]: {
+            display: "flex",
+            flexFlow: "column nowrap",
+            width: "5rem",
         },
     },
 
     mobile: {
         // display: 'flex',
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
+        [theme.breakpoints.up("md")]: {
+            display: "none",
         },
     },
-})
+});
 
-export default withRouter(withStyles(styles)(FactionFilter))
+export default withRouter(withStyles(styles)(FactionFilter));

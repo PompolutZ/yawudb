@@ -1,13 +1,13 @@
 export const factions = {
-    "universal" : "Universal",
-    "garreks-reavers" : "Garrek's Reavers",
-    "steelhearts-champions" : "Steelheart's Champions",
-    "sepulchral-guard" : "Sepulchral Guard",
-    "ironskulls-boyz" : "Ironskull's Boyz",
-    "the-chosen-axes" : "The Chosen Axes",
-    "spiteclaws-swarm" : "Spiteclaw's Swarm",
-    "magores-fiends" : "Magore's Fiends",
-    "the-farstriders" : "The Farstriders",
+    universal: "Universal",
+    "garreks-reavers": "Garrek's Reavers",
+    "steelhearts-champions": "Steelheart's Champions",
+    "sepulchral-guard": "Sepulchral Guard",
+    "ironskulls-boyz": "Ironskull's Boyz",
+    "the-chosen-axes": "The Chosen Axes",
+    "spiteclaws-swarm": "Spiteclaw's Swarm",
+    "magores-fiends": "Magore's Fiends",
+    "the-farstriders": "The Farstriders",
 
     // NIGHTVAULT
 
@@ -44,14 +44,14 @@ export const factions = {
 export const PREFIX_LENGTH = "toftbq".length + 1;
 
 export const factionIdPrefix = {
-    "garreks-reavers" : "gr",
-    "steelhearts-champions" : "sc",
-    "sepulchral-guard" : "sg",
-    "ironskulls-boyz" : "ib",
-    "the-chosen-axes" : "tca",
-    "spiteclaws-swarm" : "ss",
-    "magores-fiends" : "mf",
-    "the-farstriders" : "tf",
+    "garreks-reavers": "gr",
+    "steelhearts-champions": "sc",
+    "sepulchral-guard": "sg",
+    "ironskulls-boyz": "ib",
+    "the-chosen-axes": "tca",
+    "spiteclaws-swarm": "ss",
+    "magores-fiends": "mf",
+    "the-farstriders": "tf",
 
     // NIGHTVAULT
 
@@ -74,7 +74,7 @@ export const factionIdPrefix = {
     "grashraks-despoilers": "gd",
     "skaeths-wild-hunt": "swh",
     "the-grymwatch": "tg",
-    "rippas-snarlfangs" : 'rs',
+    "rippas-snarlfangs": "rs",
     "hrothgorns-mantrappers": "hm",
     "the-wurmspat": "tw",
     "morgwaeths-blade-coven": "mbc",
@@ -86,40 +86,119 @@ export const factionIdPrefix = {
 }
 
 export const factionMembers = {
-    "garreks-reavers" : ['Garrek', 'Saek', 'Karsus', 'Targor', 'Arnulf'],
-    "steelhearts-champions" : ['Steelheart', 'Obryn', 'Angharad'],
-    "sepulchral-guard" : ['Warden', 'Champion', 'Prince', 'Harvester', 'Petitioner'],
-    "ironskulls-boyz" : ['Gurzag', 'Bonekutta', 'Hakka', 'Basha'],
-    "the-chosen-axes" : ['Grimnir', 'Tefk', 'Vol', 'Maegrim'],
-    "spiteclaws-swarm" : ['Skritch', 'Krrk', 'Lurking', 'Festering', 'Hungering'],
-    "magores-fiends" : ['Magore', 'Riptooth', 'Zharkus', 'Ghartok'],
-    "the-farstriders" : ['Sanson', 'Almeric', 'Elias'],
+    "garreks-reavers": ["Garrek", "Saek", "Karsus", "Targor", "Arnulf"],
+    "steelhearts-champions": ["Steelheart", "Obryn", "Angharad"],
+    "sepulchral-guard": [
+        "Warden",
+        "Champion",
+        "Prince",
+        "Harvester",
+        "Petitioner",
+    ],
+    "ironskulls-boyz": ["Gurzag", "Bonekutta", "Hakka", "Basha"],
+    "the-chosen-axes": ["Grimnir", "Tefk", "Vol", "Maegrim"],
+    "spiteclaws-swarm": [
+        "Skritch",
+        "Krrk",
+        "Lurking",
+        "Festering",
+        "Hungering",
+    ],
+    "magores-fiends": ["Magore", "Riptooth", "Zharkus", "Ghartok"],
+    "the-farstriders": ["Sanson", "Almeric", "Elias"],
 
     // NIGHTVAULT
 
-    "stormsires-cursebreakers": ['Stormsire', 'Ammis', 'Rastus'],
-    "thorns-of-the-briar-queen": ['Briar Queen', 'Varclav', 'The Ever-hanged', 'Chainrasp', 'Chainrasp', 'Chainrasp', 'Chainrasp'],
-    "the-eyes-of-the-nine": ['Vortemis', `K'charik`, `Narvia`, 'Turosh', 'Blue Horror'],
-    "zarbags-gitz": ['Zarbag', 'Sourtongue', 'Drizgit', 'Bonekrakka', 'Gobbaluk', 'Prog', 'Stikkit', 'Redkap', 'Dibbz'],
-    "godsworn-hunt": ['Theddra', 'Grundann', 'Jagathra', 'Shond', 'Ollo', 'Grawl'],
-    "mollogs-mob": ['Mollog', 'Bat Squig', 'Stalagsquig', 'Spiteshroom'],
-    "thundriks-profiteers": ['Bjorgen', 'Dead-Eye Lund', 'Enrik', 'Khazgan', 'Garodd'],
-    "yltharis-guardians": ['Ylthari', 'Ahnslaine', 'Gallanghann', 'Skhathael'],
+    "stormsires-cursebreakers": ["Stormsire", "Ammis", "Rastus"],
+    "thorns-of-the-briar-queen": [
+        "Briar Queen",
+        "Varclav",
+        "The Ever-hanged",
+        "Chainrasp",
+        "Chainrasp",
+        "Chainrasp",
+        "Chainrasp",
+    ],
+    "the-eyes-of-the-nine": [
+        "Vortemis",
+        `K'charik`,
+        `Narvia`,
+        "Turosh",
+        "Blue Horror",
+    ],
+    "zarbags-gitz": [
+        "Zarbag",
+        "Sourtongue",
+        "Drizgit",
+        "Bonekrakka",
+        "Gobbaluk",
+        "Prog",
+        "Stikkit",
+        "Redkap",
+        "Dibbz",
+    ],
+    "godsworn-hunt": [
+        "Theddra",
+        "Grundann",
+        "Jagathra",
+        "Shond",
+        "Ollo",
+        "Grawl",
+    ],
+    "mollogs-mob": ["Mollog", "Bat Squig", "Stalagsquig", "Spiteshroom"],
+    "thundriks-profiteers": [
+        "Bjorgen",
+        "Dead-Eye Lund",
+        "Enrik",
+        "Khazgan",
+        "Garodd",
+    ],
+    "yltharis-guardians": ["Ylthari", "Ahnslaine", "Gallanghann", "Skhathael"],
 
     // DREADFANE
 
-    "ironsouls-condemners": ['Ironsoul', 'Blightbane', 'Tavian'],
-    "lady-harrows-mournflight": ['Lady Harrow', 'The Anguished One', 'The Maiden', 'Widow Caitha'],
+    "ironsouls-condemners": ["Ironsoul", "Blightbane", "Tavian"],
+    "lady-harrows-mournflight": [
+        "Lady Harrow",
+        "The Anguished One",
+        "The Maiden",
+        "Widow Caitha",
+    ],
 
     // BEASTGRAVE
 
-    "grashraks-despoilers": ['Grashrak', 'Draknar', 'Murgroth', 'Korsh', 'Gnarl', 'Ushkor'],
-    "skaeths-wild-hunt": ['Skaeths','Lighaen','Karthaen','Kurnoth4','Kurnoth5'],
-    "the-grymwatch": ['Duke Crakmarrow', '', '', '', '', ''],
-    "rippas-snarlfangs": ['Rippa', 'Stabbit', 'Mean-Eye'],
-    "hrothgorns-mantrappers": ["Hrothgorn", "Thrafnir", "Bushwakka", "Quiv", "Luggit and Thwak"],
+    "grashraks-despoilers": [
+        "Grashrak",
+        "Draknar",
+        "Murgroth",
+        "Korsh",
+        "Gnarl",
+        "Ushkor",
+    ],
+    "skaeths-wild-hunt": [
+        "Skaeths",
+        "Lighaen",
+        "Karthaen",
+        "Kurnoth4",
+        "Kurnoth5",
+    ],
+    "the-grymwatch": ["Duke Crakmarrow", "", "", "", "", ""],
+    "rippas-snarlfangs": ["Rippa", "Stabbit", "Mean-Eye"],
+    "hrothgorns-mantrappers": [
+        "Hrothgorn",
+        "Thrafnir",
+        "Bushwakka",
+        "Quiv",
+        "Luggit and Thwak",
+    ],
     "the-wurmspat": ["Fecula", "Ghulgogh", "Sepsimus"],
-    "morgwaeths-blade-coven": ["Morgwaeth", "Kyrae", "Khamyss", "Kyrssa", "Lethyr"],
+    "morgwaeths-blade-coven": [
+        "Morgwaeth",
+        "Kyrae",
+        "Khamyss",
+        "Kyrssa",
+        "Lethyr",
+    ],
     "morgoks-krushas": ["Morgok", "’Ardskull", "Thugg"],
 
     // DIRECHASM
@@ -128,30 +207,30 @@ export const factionMembers = {
 }
 
 export const idPrefixToFaction = {
-    "gr": "garreks-reavers",
-    "sc" : "steelhearts-champions",
-    "sg" : "sepulchral-guard",
-    "ib" : "ironskulls-boyz",
-    "tca" : "the-chosen-axes",
-    "ss" : "spiteclaws-swarm",
-    "mf" : "magores-fiends",
-    "tf" : "the-farstriders",
+    gr: "garreks-reavers",
+    sc: "steelhearts-champions",
+    sg: "sepulchral-guard",
+    ib: "ironskulls-boyz",
+    tca: "the-chosen-axes",
+    ss: "spiteclaws-swarm",
+    mf: "magores-fiends",
+    tf: "the-farstriders",
 
     // NIGHTVAULT
 
-    "stc" : "stormsires-cursebreakers",
-    "toftbq" : "thorns-of-the-briar-queen",
-    "teotn" : "the-eyes-of-the-nine",
-    "zg" : "zarbags-gitz",
-    "gh" : "godsworn-hunt",
-    "mm": "mollogs-mob",
-    "tp": "thundriks-profiteers",
-    "yg": "yltharis-guardians",
+    stc: "stormsires-cursebreakers",
+    toftbq: "thorns-of-the-briar-queen",
+    teotn: "the-eyes-of-the-nine",
+    zg: "zarbags-gitz",
+    gh: "godsworn-hunt",
+    mm: "mollogs-mob",
+    tp: "thundriks-profiteers",
+    yg: "yltharis-guardians",
 
     // DREADFANE
 
-    "ic": "ironsouls-condemners",
-    "lhm": "lady-harrows-mournflight",
+    ic: "ironsouls-condemners",
+    lhm: "lady-harrows-mournflight",
 
     // BEASTGRAVE
 
@@ -256,23 +335,23 @@ export const factionIndexesWithDefaultSet = [
 ]
 
 export const warbandsWithDefaultSet = [
-    ["garreks-reavers",0],
-    ["steelhearts-champions",0],
-    ["sepulchral-guard",1],
-    ["ironskulls-boyz",2],
-    ["the-chosen-axes",3],
-    ["spiteclaws-swarm",4],
-    ["magores-fiends",5],
-    ["the-farstriders",6],
+    ["garreks-reavers", 0],
+    ["steelhearts-champions", 0],
+    ["sepulchral-guard", 1],
+    ["ironskulls-boyz", 2],
+    ["the-chosen-axes", 3],
+    ["spiteclaws-swarm", 4],
+    ["magores-fiends", 5],
+    ["the-farstriders", 6],
 
     // NIGHTVAULT
 
-    ["stormsires-cursebreakers",8],
-    ["thorns-of-the-briar-queen",8],
-    ["the-eyes-of-the-nine",9],
-    ["zarbags-gitz",10],
-    ["n_garreks-reavers",11],
-    ["n_steelhearts-champions",12],
+    ["stormsires-cursebreakers", 8],
+    ["thorns-of-the-briar-queen", 8],
+    ["the-eyes-of-the-nine", 9],
+    ["zarbags-gitz", 10],
+    // ["n_garreks-reavers", 11],
+    // ["n_steelhearts-champions", 12],
     ["godsworn-hunt", 14],
     ["mollogs-mob", 15],
     ["thundriks-profiteers", 16],
@@ -957,7 +1036,7 @@ export const cardsIdToFactionIndex = {
     "06029": 19,
     "06030": 19,
     "06031": 19,
-    "06032": 19,    
+    "06032": 19,
     "06033": 20,
     "06034": 20,
     "06035": 20,
@@ -1021,7 +1100,7 @@ export const cardsIdToFactionIndex = {
     "06093": 21,
     "06094": 21,
     "06095": 21,
-    "06096": 21,    
+    "06096": 21,
     "06097": 22,
     "06098": 22,
     "06099": 22,
@@ -1053,7 +1132,7 @@ export const cardsIdToFactionIndex = {
     "06125": 22,
     "06126": 22,
     "06127": 22,
-    "06128": 22,   
+    "06128": 22,
     "06129": 24,
     "06130": 24,
     "06131": 24,
@@ -1117,7 +1196,7 @@ export const cardsIdToFactionIndex = {
     "06189": 23,
     "06190": 23,
     "06191": 23,
-    "06192": 23, 
+    "06192": 23,
     "06193": 25,
     "06194": 25,
     "06195": 25,

@@ -4,23 +4,116 @@
 
 @layer base {
     html {
-        @apply w-full h-full !important;
-    } 
+        @apply w-full h-full;
+    }
 
     body {
-        @apply w-full h-full !important;
-        background-color: #F0F0F0;
-    } 
-    
-    #root {
         @apply w-full h-full;
+        background-color: #f0f0f0;
+    }
+
+    #root {
+        @apply w-full h-full text-gray-800;
         display: grid;
-        grid-template-rows: auto 1fr auto;
-    } 
+    }
+
+    .stv-radio-buttons-wrapper {
+        clear: both;
+        display: inline-block;
+    }
+
+    .stv-radio-button {
+        position: absolute;
+        left: -9999em;
+        top: -9999em;
+    }
+
+    .stv-radio-button:checked + label {
+        @apply bg-accent3-700 border-accent3-700 shadow-none;
+    }
+
+    .stv-radio-button + label {
+        @apply bg-accent3-500 uppercase text-white -mr-1 border-accent3-500 border-2 shadow-md;
+        float: left;
+        padding: 0.5em 1em;
+        cursor: pointer;
+    }
+
+    .stv-radio-button + label:hover {
+        @apply bg-accent3-300 border-accent3-300;
+    }
+
+    .stv-radio-button:checked + label:hover {
+        @apply bg-accent3-400 border-accent3-400;
+    }
+
+    .stv-radio-button + label:first-of-type {
+        border-radius: 0.7em 0 0 0.7em;
+    }
+
+    .stv-radio-button + label:last-of-type {
+        border-radius: 0 0.7em 0.7em 0;
+    }
+
+    /* Works on Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #374151 #D1D5DB;
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: rgba(209, 213, 219, .1);
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: rgba(55, 65, 81, .5);
+        border-radius: 20px;
+        border: 3px solid rgba(209, 213, 219, .1);
+    }
+}
+
+@layer components {
+    .btn {
+        @apply p-2 cursor-pointer rounded-md shadow-xs stroke-current;
+    }
+
+    .btn:disabled {
+        @apply bg-gray-500 opacity-75 shadow-none;
+    }
+
+    .btn:focus {
+        @apply outline-none;
+    }
+
+    .btn-purple {
+        @apply bg-purple-700 text-white;
+    }
+
+    .btn-purple:enabled:active {
+        @apply bg-purple-500 text-white;
+    }
+
+    .btn-red {
+        @apply bg-red-700 text-white;
+    }
+
+    .btn-red:enabled:active {
+        @apply bg-red-500 text-white;
+    }
 }
 
 @layer utilities {
+    @variants hover, focus {
+        .filter-shadow-sm {
+            filter: drop-shadow(0px 4px 6px black);
+        }
+    }
     .w100 {
-        width: calc(100% - theme('spacing.12'));
+        width: calc(100% - theme("spacing.12"));
     }
 }

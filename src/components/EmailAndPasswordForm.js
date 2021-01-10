@@ -1,25 +1,25 @@
-import React, { PureComponent } from 'react'
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
-import { withStyles } from '@material-ui/core/styles';
+import React, { PureComponent } from "react";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+import { withStyles } from "@material-ui/core/styles";
 
-const emailAndPasswordStyles = theme => ({
+const emailAndPasswordStyles = (theme) => ({
     container: {
-        display: 'flex',
-        flexFlow: 'column nowrap'
+        display: "flex",
+        flexFlow: "column nowrap",
     },
 
     textField: {
-        width: '20rem'
-    }
+        width: "20rem",
+    },
 });
 
 class EmailPasswordForm extends PureComponent {
     state = {
-        username: '',
-        password: ''
-    }
+        username: "",
+        password: "",
+    };
 
     render() {
         const { classes } = this.props;
@@ -44,23 +44,33 @@ class EmailPasswordForm extends PureComponent {
                     margin="normal"
                 />
 
-                <Link onClick={this.props.onResetPasswordClick} style={{ color: '#3B9979', cursor: 'pointer'}}>Forgot your password?</Link>
-                <Button style={{ color: '#3B9979', marginTop: '1rem'}} onClick={this.handleClick}>{this.props.purpose}</Button>
+                <Link
+                    onClick={this.props.onResetPasswordClick}
+                    style={{ color: "#3B9979", cursor: "pointer" }}
+                >
+                    Forgot your password?
+                </Link>
+                <Button
+                    style={{ color: "#3B9979", marginTop: "1rem" }}
+                    onClick={this.handleClick}
+                >
+                    {this.props.purpose}
+                </Button>
             </div>
         );
     }
 
     handleClick = () => {
         this.props.onUseCredentials(this.state.username, this.state.password);
-    }
+    };
 
-    handleChangeUsername = e => {
+    handleChangeUsername = (e) => {
         this.setState({ username: e.target.value });
-    }
+    };
 
-    handleChangePassword = e => {
+    handleChangePassword = (e) => {
         this.setState({ password: e.target.value });
-    }
+    };
 }
 
 export default withStyles(emailAndPasswordStyles)(EmailPasswordForm);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export const DeckSVG = ({ style }) => (
     <svg
@@ -13,7 +13,7 @@ export const DeckSVG = ({ style }) => (
             fill="white"
         />
     </svg>
-)
+);
 
 export const AddCardSVG = ({ style }) => (
     <svg
@@ -32,7 +32,7 @@ export const AddCardSVG = ({ style }) => (
             fill="white"
         />
     </svg>
-)
+);
 
 export const RestrictedCardSVG = ({ style }) => (
     <svg
@@ -42,17 +42,17 @@ export const RestrictedCardSVG = ({ style }) => (
         viewBox="0 0 24 24"
         style={{
             ...{
-                width: '2rem',
-                height: '2rem',
-                stroke: 'white',
-                fill: 'Goldenrod',
+                width: "2rem",
+                height: "2rem",
+                stroke: "white",
+                fill: "Goldenrod",
             },
             ...style,
         }}
     >
         <path d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27L15.73 3z" />
     </svg>
-)
+);
 
 export const Ranking = ({ style }) => (
     <svg
@@ -145,4 +145,4 @@ export const Ranking = ({ style }) => (
         <g />
         <g />
     </svg>
-)
+);

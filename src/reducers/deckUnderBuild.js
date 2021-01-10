@@ -1,35 +1,36 @@
-import { Set } from 'immutable'
-import { factions, restrictedCards, cardsDb } from '../data/index'
+import { Set } from "immutable";
+import { factions, restrictedCards, cardsDb } from "../data/index";
+import { checkCardIsPloy, checkCardIsObjective, checkCardIsUpgrade, getCardById } from "../data/wudb";
 
-export const SET_FACTION = 'SET_FACTION'
-export const ADD_CARD = 'ADD_CARD'
-export const REMOVE_CARD = 'REMOVE_CARD'
-export const CLEAR_DECK = 'CLEAR_ALL_CARDS_IN_DECK'
-export const RESET_DECK = 'RESET_DECK'
-export const CHANGE_NAME = 'CHANGE_NAME'
-export const CHANGE_SOURCE = 'CHANGE_SOURCE'
-export const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION'
+export const SET_FACTION = "SET_FACTION";
+export const ADD_CARD = "ADD_CARD";
+export const REMOVE_CARD = "REMOVE_CARD";
+export const CLEAR_DECK = "CLEAR_ALL_CARDS_IN_DECK";
+export const RESET_DECK = "RESET_DECK";
+export const CHANGE_NAME = "CHANGE_NAME";
+export const CHANGE_SOURCE = "CHANGE_SOURCE";
+export const CHANGE_DESCRIPTION = "CHANGE_DESCRIPTION";
 
 const initialState = {
-    name: `${factions['garreks-reavers']} Deck`,
-    source: '',
-    desc: '',
-    faction: 'garreks-reavers',
+    name: `${factions["garreks-reavers"]} Deck`,
+    source: "",
+    desc: "",
+    faction: "garreks-reavers",
     factionDefaultSet: 0,
     deck: new Set().toJS(),
     objectivesCount: 0,
     gambitsCount: 0,
     upgradesCount: 0,
     restrictedCardsCount: 0,
-}
+};
 
 const deckUnderBuild = (state = initialState, action) => {
-    const c = cardsDb[action.card]
+    const card = cardsDb[action.card] || getCardById(action.card);
     switch (action.type) {
         case SET_FACTION:
-            const faction = action.faction.startsWith('n_')
+            const faction = action.faction.startsWith("n_")
                 ? action.faction.slice(2)
-                : action.faction
+                : action.faction;
             return {
                 ...state,
                 name: `${factions[faction]} Deck`,
@@ -40,52 +41,52 @@ const deckUnderBuild = (state = initialState, action) => {
                 gambitsCount: 0,
                 upgradesCount: 0,
                 restrictedCardsCount: 0,
-            }
+            };
 
         case CHANGE_NAME:
-            return { ...state, name: action.name }
+            return { ...state, name: action.name };
 
         case CHANGE_SOURCE:
-            return { ...state, source: action.source }
+            return { ...state, source: action.source };
 
         case CHANGE_DESCRIPTION:
-            return { ...state, desc: action.desc }
+            return { ...state, desc: action.desc };
 
         case ADD_CARD:
             return {
                 ...state,
                 deck: new Set(state.deck).add(action.card),
-                objectivesCount: isObjectiveCard(c.type)
+                objectivesCount: checkCardIsObjective(card)
                     ? state.objectivesCount + 1
                     : state.objectivesCount,
-                gambitsCount: isGambitCard(c.type)
+                gambitsCount: checkCardIsPloy(card)
                     ? state.gambitsCount + 1
                     : state.gambitsCount,
-                upgradesCount: isUpgradeCard(c.type)
+                upgradesCount: checkCardIsUpgrade(card)
                     ? state.upgradesCount + 1
                     : state.upgradesCount,
                 restrictedCardsCount: isRestrictedCard(action.card)
                     ? state.restrictedCardsCount + 1
                     : state.restrictedCardsCount,
-            }
+            };
 
         case REMOVE_CARD:
             return {
                 ...state,
                 deck: new Set(state.deck).delete(action.card),
-                objectivesCount: isObjectiveCard(c.type)
+                objectivesCount: checkCardIsObjective(card)
                     ? state.objectivesCount - 1
                     : state.objectivesCount,
-                gambitsCount: isGambitCard(c.type)
+                gambitsCount: checkCardIsPloy(card)
                     ? state.gambitsCount - 1
                     : state.gambitsCount,
-                upgradesCount: isUpgradeCard(c.type)
+                upgradesCount: checkCardIsUpgrade(card)
                     ? state.upgradesCount - 1
                     : state.upgradesCount,
                 restrictedCardsCount: isRestrictedCard(action.card)
                     ? state.restrictedCardsCount - 1
                     : state.restrictedCardsCount,
-            }
+            };
 
         case CLEAR_DECK:
             return {
@@ -95,48 +96,48 @@ const deckUnderBuild = (state = initialState, action) => {
                 gambitsCount: 0,
                 upgradesCount: 0,
                 restrictedCardsCount: 0,
-            }
+            };
 
         case RESET_DECK:
             return {
                 ...state,
                 name: `${factions[state.faction]} Deck`,
-                source: '',
+                source: "",
                 deck: new Set(),
-                desc: '',
+                desc: "",
                 objectivesCount: 0,
                 gambitsCount: 0,
                 upgradesCount: 0,
                 restrictedCardsCount: 0,
-            }
+            };
 
         default:
-            return state
+            return state;
     }
-}
+};
 
-const isObjectiveCard = type => {
-    return type === 0
-}
+const isObjectiveCard = (type) => {
+    return type === 0;
+};
 
-const isGambitCard = type => {
-    return type === 1 || type === 3
-}
+const isGambitCard = (type) => {
+    return type === 1 || type === 3;
+};
 
-const isUpgradeCard = type => {
-    return type === 2
-}
+const isUpgradeCard = (type) => {
+    return type === 2;
+};
 
-const isRestrictedCard = id => {
-    return Boolean(restrictedCards[id])
-}
+const isRestrictedCard = (id) => {
+    return Boolean(restrictedCards[id]);
+};
 
-export const mergeLoadedStateWithInitial = loadedState => {
+export const mergeLoadedStateWithInitial = (loadedState) => {
     return {
         ...initialState,
         ...loadedState.deckUnderBuild,
         deck: new Set(loadedState.deckUnderBuild.deck).toJS(),
-    }
-}
+    };
+};
 
-export default deckUnderBuild
+export default deckUnderBuild;

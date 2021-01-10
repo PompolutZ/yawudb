@@ -1,6 +1,6 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState, useContext } from "react";
 import ReactDOM from "react-dom";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch, useLocation } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 // import "./index.css";
 import "./styles/main.css";
@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 
 import registerServiceWorker from "./registerServiceWorker";
 import Footer from "./components/Footer";
-import MenuAppBar, { drawerWidth } from "./components/MenuAppBar";
 import { createBrowserHistory } from "history";
 
 import { connect, Provider } from "react-redux";
@@ -23,11 +22,12 @@ import * as ROUTES from "./constants/routes";
 import CardsRating from "./pages/CardsRating";
 import Admin from "./pages/Admin";
 import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-import RootHelmet from "./components/Root/rootMetas";
 import NavigationPanel from "./v2/components/NavigationPanel";
 import PublicDecksProvider from "./contexts/publicDecksContext";
+import useDexie from "./hooks/useDexie";
+import shadows from "@material-ui/core/styles/shadows";
+import useRealtimeDatabaseRefOnce from "./hooks/useRealtimeDatabaseValueOnce";
+import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
 
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
@@ -51,7 +51,7 @@ const MetaReset = lazy(() => import("./pages/MetaResetPage"));
 const history = createBrowserHistory();
 const store = configureStore(history);
 
-const setToLastLocation = (state, history) => {
+const setToLastLocation = () => {
     // if (state.router.location.pathname !== history.location.pathname) {
     //     if (window.matchMedia('(display-mode: standalone)').matches) {
     //         history.push(state.router.location.pathname)
@@ -95,86 +95,61 @@ const PrivateRoute = connect((state) => ({
     isAuthenticated: state.auth !== null,
 }))(PrivateRouteContainer);
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flex: "1 0 100%",
-        height: "100%",
-        display: "flex",
-        flexFlow: "column",
-        justifyContent: "stretch",
-        overflowX: "hidden",
-        overflowY: "auto",
-        WebkitOverflowScrolling: "touch",
-        [theme.breakpoints.down("md")]: {
-            padding: 0,
-        },
-    },
+const LAST_KNOWN_TIMESTAMP = "wu_lastPublicDeck";
 
-    // mainContent: {
-    //     flex: "1 0",
-    //     paddingTop: "5rem",
-    //     background: 'magenta',
-    //     // [theme.breakpoints.up("sm")]: {
-    //     //     marginLeft: `calc(${drawerWidth}px + 1rem)`,
-    //     // },
-    // },
-}));
-
-function App(props) {
-    const classes = useStyles();
-
-    React.useEffect(() => {
-        const unsubscribe = props.firebase.onAuthUserListener(
-            async (user) => {
-                if (user.isNew) {
-                    // new user
-                    props.onLogin({
-                        displayName: user.displayName,
-                        uid: user.uid,
-                        role: "soul",
-                        avatar: `/assets/icons/garreks-reavers-icon.png`,
-                        mydecks: user.mydecks,
-                    });
-                    props.updateUserExpansions(user.expansions);
-                    history.push("/profile");
-                } else {
-                    props.onLogin({
-                        displayName: user.displayName,
-                        role: user.role,
-                        avatar: user.avatar,
-                        uid: user.uid,
-                        mydecks: user.mydecks,
-                    });
-                    props.updateUserExpansions(user.expansions);
-                    if (history.location.pathname === "/login") {
-                        history.push("/mydecks");
-                    }
-                }
-            },
-            () => props.onSignOut()
-        );
-
-        props.firebase.realdb
-            .ref("/cards_ranks")
-            .once("value")
-            .then((snapshot) => {
-                props.updateCardRanks(snapshot.val());
-            });
-
-        return () => {
-            props.firebase.decks().off();
-            unsubscribe();
-        };
-    }, []);
-
+function MainLayout() {
+    const { pathname } = useLocation();
+    console.log(pathname);
     return (
         <>
-            <RootHelmet />
-            {/* <CssBaseline />
-            <Container maxWidth="lg" className={classes.root}>
-            </Container> */}
-                <ConnectedRouter history={history}>
-                    {/* <MenuAppBar /> */}
+            {/* LEARN HOW TO MAKE THIS WITH TAILWIND */}
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateRows: "1fr",
+                    gridTemplateColumns: "1fr",
+                    background: pathname == "/" ? "black" : "rgba(0,0,0,0)",
+                    overflowX: "auto",
+                }}
+            >
+                {pathname == "/" && (
+                    <>
+                        <div style={{ gridArea: "1 / 1 / 2 / 2" }}>
+                            <img
+                                src="/assets/direchasm_bg.jpg"
+                                style={{
+                                    width: "100%",
+                                    height: "50%",
+                                    objectFit: "cover",
+                                }}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                gridArea: "1 / 1 / 2 / 2",
+                                position: "relative",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    background:
+                                        "linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 30%, black 100%)",
+                                    width: "100%",
+                                    height: "50%",
+                                    position: "absolute",
+                                }}
+                            ></div>
+                        </div>
+                    </>
+                )}
+
+                <div
+                    style={{
+                        gridArea: "1 / 1 / 2 / 2",
+                        display: "grid",
+                        gridTemplateRows: "auto 1fr",
+                    }}
+                >
                     <NavigationPanel />
 
                     <main id="yawudb_main" className="flex-grow flex">
@@ -200,6 +175,7 @@ function App(props) {
                                         path={ROUTES.CREATOR_ROOT}
                                         render={(props) => (
                                             <DeckCreator {...props} />
+                                            // <DeckEditor {...props} />
                                         )}
                                     />
                                     <Route
@@ -288,8 +264,69 @@ function App(props) {
                             </Suspense>
                         </ErrorBoundary>
                     </main>
-                    <Footer />
-                </ConnectedRouter>
+                </div>
+            </div>
+        </>
+    );
+}
+
+function App(props) {
+    usePublicDecksSyncronization();
+
+    // const db = useDexie("wudb");
+    const firebase = useContext(FirebaseContext);
+
+    React.useEffect(() => {
+        firebase.realdb
+            .ref("/cards_ranks")
+            .once("value")
+            .then((snapshot) => {
+                props.updateCardRanks(snapshot.val());
+            });
+    }, [firebase]);
+
+    React.useEffect(() => {
+        const unsubscribe = firebase.onAuthUserListener(
+            async (user) => {
+                if (user.isNew) {
+                    // new user
+                    props.onLogin({
+                        displayName: user.displayName,
+                        uid: user.uid,
+                        role: "soul",
+                        avatar: `/assets/icons/garreks-reavers-icon.png`,
+                        mydecks: user.mydecks,
+                    });
+                    props.updateUserExpansions(user.expansions);
+                    history.push("/profile");
+                } else {
+                    props.onLogin({
+                        displayName: user.displayName,
+                        role: user.role,
+                        avatar: user.avatar,
+                        uid: user.uid,
+                        mydecks: user.mydecks,
+                    });
+                    props.updateUserExpansions(user.expansions);
+                    if (history.location.pathname === "/login") {
+                        history.push("/mydecks");
+                    }
+                }
+            },
+            () => props.onSignOut()
+        );
+
+        return () => {
+            props.firebase.decks().off();
+            unsubscribe();
+        };
+    }, []);
+
+    return (
+        <>
+            <ConnectedRouter history={history}>
+                <MainLayout />
+            </ConnectedRouter>
         </>
     );
 }
@@ -310,9 +347,9 @@ const ConnectedApp = connect(null, mapDispatchToProps)(withFirebase(App));
 const theme = createMuiTheme({
     palette: {
         primary: {
-            // light: will be calculated from palette.primary.main,
-            main: "#501408",
-            // dark: will be calculated from palette.primary.main,
+            light: "#6B46C1",
+            main: "#553C9A",
+            dark: "##44337A",
             // contrastText: will be calculated to contrast with palette.primary.main
         },
         secondary: {
@@ -324,6 +361,34 @@ const theme = createMuiTheme({
         // error: will use the default color
     },
 });
+
+const modalRoot = document.getElementById("modal-root");
+export class ModalPresenter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.el = document.createElement("div");
+    }
+
+    componentDidMount() {
+        // The portal element is inserted in the DOM tree after
+        // the Modal's children are mounted, meaning that children
+        // will be mounted on a detached DOM node. If a child
+        // component requires to be attached to the DOM tree
+        // immediately when mounted, for example to measure a
+        // DOM node, or uses 'autoFocus' in a descendant, add
+        // state to Modal and only render the children when Modal
+        // is inserted in the DOM tree.
+        modalRoot.appendChild(this.el);
+    }
+
+    componentWillUnmount() {
+        modalRoot.removeChild(this.el);
+    }
+
+    render() {
+        return ReactDOM.createPortal(this.props.children, this.el);
+    }
+}
 
 const Root = () => (
     <Provider store={store}>

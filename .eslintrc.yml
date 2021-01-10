@@ -1,5 +1,6 @@
 env:
   browser: true
+  node: true
   es2020: true
 extends:
   - 'eslint:recommended'
@@ -9,8 +10,12 @@ extends:
 parserOptions:
   ecmaFeatures:
     jsx: true
-  ecmaVersion: 12
+  ecmaVersion: 2019
   sourceType: module
 plugins:
   - react
-rules: {}
+rules:
+  'react/prop-types': 'warn'
+settings:
+  react:
+    version: 'detect'

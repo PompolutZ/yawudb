@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: "inset 6px 0 10px -7px rgba(0,0,0,1)",
         [theme.breakpoints.up("sm")]: {
             display: "none",
-        }
+        },
     },
 
     icon: {
@@ -91,12 +91,11 @@ function MotionDeckThumbnail({ children, deckId, deckName, onDelete }) {
         }
     );
 
-    const handleToggleShare = useCallback(
-        __debounce(() => {
-        }, 500)
-    );
+    const handleToggleShare = useCallback(__debounce(() => {}, 500));
 
-    const handleDelete = useCallback(__debounce(() => onDelete(deckId, deckName), 500));
+    const handleDelete = useCallback(
+        __debounce(() => onDelete(deckId, deckName), 500)
+    );
 
     return (
         <div className={classes.root}>

@@ -1,4 +1,4 @@
-export const UPDATE_EXPANSIONS = 'UPDATE_EXPANSIONS';
+export const UPDATE_EXPANSIONS = "UPDATE_EXPANSIONS";
 
 const initialState = {
     0: 0,
@@ -15,24 +15,24 @@ const initialState = {
     11: 0,
     12: 0,
     13: 0,
-}
+};
 
 const userExpansions = (state = initialState, action) => {
-    switch(action.type) {
-        case UPDATE_EXPANSIONS: 
+    switch (action.type) {
+        case UPDATE_EXPANSIONS:
             if (!action.payload) {
                 return initialState;
             }
-            
+
             return action.payload;
 
         default:
-            return state; 
+            return state;
     }
-}
+};
 
-export const mergeLoadedStateWithInitial = loadedState => {
+export const mergeLoadedStateWithInitial = (loadedState) => {
     return { ...initialState, ...loadedState.userExpansions };
-}
+};
 
 export default userExpansions;

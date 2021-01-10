@@ -6,7 +6,6 @@ import {
 } from "../../data";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import changelog from "../../changelog";
 import { connect } from "react-redux";
 import { addOrUpdateLastDeck } from "../../reducers/lastDeck";
 import { SET_DECKS_META } from "../../reducers/decksMeta";
@@ -14,54 +13,65 @@ import { SET_FACTION } from "../../reducers/deckUnderBuild";
 import DeckMetaSummary from "../../molecules/DecksMetaSummary";
 import { withFirebase } from "../../firebase";
 import AutosuggestSearch from "../../components/AutosuggestSearch";
-import Divider from "../../v2/components/Divider";
+import Footer from "../../components/Footer";
 
-const getChangeLogItemsByKey = (key) => {
-    return Object.keys(changelog[key]).reduce(
-        (acc, v) => [...acc, { name: v, description: changelog[key][v] }],
-        []
-    );
-};
 
 const Home = (props) => {
     const { classes } = props;
-    const lastUpdateKey = Object.keys(changelog)[0];
 
     const handleGlobalSearchClick = (payload) => {
         props.history.push(`/view/card/${payload.id}`);
     };
 
-    const handleAddDeckClicked = (faction) => {
-        const defaultSet = warbandsWithDefaultSet.reduce(
-            (acc, [f, defaultSet]) => {
-                if (f === faction) {
-                    return defaultSet;
-                }
-                return acc;
-            },
-            -1
-        );
+    // const handleAddDeckClicked = (faction) => {
+    //     const defaultSet = warbandsWithDefaultSet.reduce(
+    //         (acc, [f, defaultSet]) => {
+    //             if (f === faction) {
+    //                 return defaultSet;
+    //             }
+    //             return acc;
+    //         },
+    //         -1
+    //     );
 
-        props.setFactionForNewDeck(faction, defaultSet);
-        handleNavigateToDeckCreate();
-    };
+    //     props.setFactionForNewDeck(faction, defaultSet);
+    //     handleNavigateToDeckCreate();
+    // };
 
-    const handleNavigateToDeckCreate = () => {
-        props.history.push("/deck/create");
-    };
+    // const handleNavigateToDeckCreate = () => {
+    //     props.history.push("/deck/create");
+    // };
 
-    const handleNavigateToDecksByPrefix = (prefix) => {
-        props.history.push(`/decks/${prefix}`);
-    };
+    // const handleNavigateToDecksByPrefix = (prefix) => {
+    //     props.history.push(`/decks/${prefix}`);
+    // };
 
     return (
-        <div className="flex flex-col mx-2 sm:mx-4">
-            <h1 className="block text-2xl my-12 text-center text-white font-semibold">
+        <div className="flex flex-col relative">
+            {/* <div
+                style={{
+                    backgroundImage:
+                        'linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("/assets/direchasm_bg.jpg")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    position: "absolute",
+                    height: "50%",
+                    // width: "100vw",
+                    // margin:
+                    //     window.innerWidth > 640
+                    //         ? "-75px 0 0 -1rem"
+                    //         : "-75px 0 0 -.5rem",
+                    zIndex: -1,
+                }}
+            ></div> */}
+
+            <h1 className="block text-2xl my-12 text-center text-white font-semibold z-10">
                 Deck building website for Warhammer Underworlds.
             </h1>
 
             <div className="mb-12 flex justify-center">
-                <div className="flex-1 sm:flex-1/2 lg:flex-1/3">
+                <div className="mx-4 flex-1 sm:flex-1/2 lg:flex-1/3">
                     <AutosuggestSearch onClick={handleGlobalSearchClick} />
                 </div>
             </div>
@@ -77,11 +87,13 @@ const Home = (props) => {
                     <DeckMetaSummary
                         key={factionIdPrefix[faction]}
                         prefix={factionIdPrefix[faction]}
-                        onAddNewDeckClick={handleAddDeckClicked}
-                        onDecksCountClick={handleNavigateToDecksByPrefix}
+                        // onAddNewDeckClick={handleAddDeckClicked}
+                        // onDecksCountClick={handleNavigateToDecksByPrefix}
                     />
                 ))}
             </div>
+
+            <Footer />
         </div>
     );
 };
