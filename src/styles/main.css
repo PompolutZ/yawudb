@@ -980,6 +980,10 @@ body {
   font-size: 1rem;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+}
+
 .text-xl {
   font-size: 1.25rem;
 }
@@ -1309,6 +1313,12 @@ body {
   --text-opacity: 1;
   color: #4299e1;
   color: rgba(66, 153, 225, var(--text-opacity));
+}
+
+.text-purple-500 {
+  --text-opacity: 1;
+  color: #9f7aea;
+  color: rgba(159, 122, 234, var(--text-opacity));
 }
 
 .text-purple-800 {

@@ -7,12 +7,6 @@ import {
 import CardListSectionHeader from "../../../../v2/components/CardListSectionHeader";
 import SectionTitle from "../../../../v2/components/SectionTitle";
 
-const objectivesScoreOrder = ['Surge', 'End', 'Third'];
-
-function sortByObjectiveScoreType(x, y) {
-    return objectivesScoreOrder.indexOf(x.scoreType) - objectivesScoreOrder.indexOf(y.scoreType);
-}
-
 function ObjectivesList({ selectedObjectives, format, isValid }) {
     const totalGlory = useMemo(
         () =>

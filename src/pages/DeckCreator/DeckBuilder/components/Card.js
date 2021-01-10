@@ -3,6 +3,7 @@ import LockIcon from "@material-ui/icons/Lock";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import { ReactComponent as GloryIcon } from "../../../../svgs/wu-glory.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
+import { ReactComponent as RankIcon } from "../../../../svgs/wu-glory.svg";
 import { addCardAction, removeCardAction } from "../../reducer";
 import ObjectiveScoreTypeIcon from "../../../../components/ObjectiveScoreTypeIcon";
 import {
@@ -13,7 +14,37 @@ import {
 } from "../../../../data/wudb";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
 import Fade from "@material-ui/core/Fade";
-import { ModalPresenter } from '../../../../index';
+import { ModalPresenter } from "../../../../index";
+
+function Rank({ value }) {
+    const normalized = value >= 10000 ? value / 10000 : value;
+    const wholeStarsCount = Math.floor(normalized / 2);
+    const wholeStars = isNaN(wholeStarsCount)
+        ? []
+        : new Array(wholeStarsCount).fill(1);
+    const halfStars = normalized % 2 > 0 ? [0] : [];
+    const rankInStars = [...wholeStars, ...halfStars];
+    return (
+        <div className="flex fill-current">
+            {rankInStars.map((star, i) => {
+                if (star === 1)
+                    return (
+                        <RankIcon
+                            key={i}
+                            className="text-lg text-purple-800 fill-current"
+                        />
+                    );
+                if (star === 0)
+                    return (
+                        <RankIcon
+                            key={i}
+                            className="text-lg text-purple-500 fill-current"
+                        />
+                    );
+            })}
+        </div>
+    );
+}
 
 class WUCardInfo extends PureComponent {
     render() {
@@ -23,22 +54,24 @@ class WUCardInfo extends PureComponent {
         return (
             <div className="flex-1 self-start cursor-pointer" onClick={onClick}>
                 <div className="flex items-center">
-                    <h6 className="">{name}</h6>
-                </div>
-                <div className="flex items-center text-xs">
                     {scoreType && scoreType !== "-" && (
                         <ObjectiveScoreTypeIcon
                             type={scoreType}
                             style={{
-                                width: ".8rem",
-                                height: ".8rem",
+                                width: "1rem",
+                                height: "1rem",
                             }}
                         />
                     )}
 
+                    <h6 className={`${scoreType && scoreType !== "-" ? 'ml-2' : ''}`}>{name}</h6>
+                </div>
+                <div className="flex items-center">
+                    <Rank value={this.props.rank} />
+
                     {glory && (
                         <div className="flex items-center font-bold mx-2">
-                            <GloryIcon className="bg-objectiveGold rounded-full w-4 h-4 fill-current mr-1" />
+                            <GloryIcon className="bg-objectiveGold rounded-full w-3 h-3 fill-current mr-1" />
 
                             {glory}
                         </div>
@@ -69,6 +102,7 @@ function CardInDeck({ card, ...props }) {
     const [overlayIsVisible, setOverlayIsVisible] = useState(false);
     const dispatch = useDeckBuilderDispatcher();
     const {
+        ranking,
         type,
         id,
         scoreType,
@@ -139,7 +173,7 @@ function CardInDeck({ card, ...props }) {
                 </div>
                 <WUCardInfo
                     prefix={faction.abbr}
-                    rank={props.ranking}
+                    rank={ranking}
                     pickColor={pickForegroundColor}
                     isRestricted={isRestricted}
                     isBanned={isBanned}
@@ -152,7 +186,9 @@ function CardInDeck({ card, ...props }) {
                     onClick={handleShowCardImageOverlay}
                 />
                 <button
-                    className={`btn m-2 w-8 h-8 py-0 px-1 ${inDeck ? 'btn-red' : 'btn-purple'}`}
+                    className={`btn m-2 w-8 h-8 py-0 px-1 ${
+                        inDeck ? "btn-red" : "btn-purple"
+                    }`}
                     onClick={handleToggleCardInDeck}
                 >
                     <CloseIcon
@@ -162,35 +198,34 @@ function CardInDeck({ card, ...props }) {
                     />
                 </button>
             </div>
-            {
-                overlayIsVisible && (
-                    <ModalPresenter>
-                        <Fade in={overlayIsVisible}>
-                            <div
-                                className="fixed inset-0 z-10 cursor-pointer"
-                                onClick={() => setOverlayIsVisible(false)}
-                            >
-                                <div className="bg-black absolute inset-0 opacity-25"></div>
-                                <div className="absolute inset-0 z-20 flex justify-center items-center">
-                                    <div className="w-4/5 lg:w-1/4">
-                                        <img
-                                            className="rounded-lg"
-                                            style={{
-                                                filter: "drop-shadow(0 0 10px black)",
-                                            }}
-                                            alt={id}
-                                            src={`/assets/cards/${`${id}`.padStart(
-                                                5,
-                                                "0"
-                                            )}.png`}
-                                        />
-                                    </div>
+            {overlayIsVisible && (
+                <ModalPresenter>
+                    <Fade in={overlayIsVisible}>
+                        <div
+                            className="fixed inset-0 z-10 cursor-pointer"
+                            onClick={() => setOverlayIsVisible(false)}
+                        >
+                            <div className="bg-black absolute inset-0 opacity-25"></div>
+                            <div className="absolute inset-0 z-20 flex justify-center items-center">
+                                <div className="w-4/5 lg:w-1/4">
+                                    <img
+                                        className="rounded-lg"
+                                        style={{
+                                            filter:
+                                                "drop-shadow(0 0 10px black)",
+                                        }}
+                                        alt={id}
+                                        src={`/assets/cards/${`${id}`.padStart(
+                                            5,
+                                            "0"
+                                        )}.png`}
+                                    />
                                 </div>
                             </div>
-                        </Fade>
-                    </ModalPresenter>
-                )
-            }
+                        </div>
+                    </Fade>
+                </ModalPresenter>
+            )}
         </div>
     );
 }

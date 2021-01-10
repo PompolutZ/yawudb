@@ -174,6 +174,7 @@ function FilterableCardLibrary(props) {
                 isBanned: isForsaken,
                 isRestricted,
             };
+
             return card;
         });
 
