@@ -1,6 +1,6 @@
 {
   "name": "wudb",
-  "version": "0.46.0",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -13,7 +13,7 @@
     "connected-react-router": "^6.8.0",
     "dexie": "^3.0.2",
     "dexie-relationships": "^1.2.11",
-    "firebase": "^7.16.0",
+    "firebase": "^8.2.2",
     "immer": "^8.0.0",
     "immutable": "^3.8.2",
     "jspdf": "^1.5.3",
