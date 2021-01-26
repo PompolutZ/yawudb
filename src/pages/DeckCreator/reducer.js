@@ -71,7 +71,7 @@ export function saveDeckAction(deckMeta) {
 // }
 
 export const INITIAL_STATE = {
-    faction: getFactionByName("morgoks-krushas"),
+    faction: getFactionByName("khagras-ravagers"),
     sets: getAllSetsValidForFormat(CHAMPIONSHIP_FORMAT),
     hideDuplicates: true,
     format: CHAMPIONSHIP_FORMAT,
