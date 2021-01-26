@@ -99,7 +99,6 @@ const LAST_KNOWN_TIMESTAMP = "wu_lastPublicDeck";
 
 function MainLayout() {
     const { pathname } = useLocation();
-    console.log(pathname);
     return (
         <>
             {/* LEARN HOW TO MAKE THIS WITH TAILWIND */}

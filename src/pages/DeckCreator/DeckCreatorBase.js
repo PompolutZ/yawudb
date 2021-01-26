@@ -6,8 +6,6 @@ function DeckCreatorBase(props) {
     const { faction, editMode, transferMode } = props;
     const setFaction = props.setFaction;
 
-    console.log(props);
-
     return (
         <React.Fragment>
             <Helmet>

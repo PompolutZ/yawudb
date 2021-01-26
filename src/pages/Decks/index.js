@@ -15,7 +15,6 @@ export default function Deck(){
     const firebase = useContext(FirebaseContext)
 
     useEffect(() => {
-        console.log(fabbr);
         if(fabbr !== 'all') {
             const { name } = getFactionByAbbr(fabbr);
             db.publicDecks.where("faction").equalsIgnoreCase(name).toArray()

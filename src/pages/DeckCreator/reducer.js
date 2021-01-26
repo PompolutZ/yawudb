@@ -197,7 +197,6 @@ export const deckBuilderReducer = (state, event, exec) => {
             return nextState;
         }
         case SAVE_DECK:
-            console.log("START SAVING");
             exec({ type: "saveDeck", deckMeta: event.payload });
 
             return {

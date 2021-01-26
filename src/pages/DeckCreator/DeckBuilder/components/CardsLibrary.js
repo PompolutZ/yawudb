@@ -4,7 +4,7 @@ import { List, AutoSizer } from "react-virtualized";
 import { ADD_CARD, REMOVE_CARD } from "../../../../reducers/deckUnderBuild";
 import { connect } from "react-redux";
 import WUCard from "../../../../atoms/WUCard";
-import { cardTypes, CHAMPIONSHIP_FORMAT, RELIC_FORMAT, validateCardForPlayFormat, wucards } from "../../../../data/wudb";
+import { cardTypes, CHAMPIONSHIP_FORMAT, RELIC_FORMAT, validateCardForPlayFormat, VANGUARD_FORMAT, wucards } from "../../../../data/wudb";
 import { useDeckBuilderState } from "../..";
 import PropTypes from 'prop-types';
 import CardInDeck from "./Card";
@@ -34,6 +34,7 @@ function VirtualizedCardsList(props) {
         const { card, expanded } = cards[index];
         return (
             <CardInDeck
+                showType
                 key={card.id}
                 card={card}
                 editMode={props.editMode}
@@ -178,7 +179,8 @@ function FilterableCardLibrary(props) {
             return card;
         });
 
-        setCards(nextCards);
+        const nextCardsExcludingForsaken = state.format !== VANGUARD_FORMAT ? nextCards.filter(c => !c.isBanned) : nextCards;
+        setCards(nextCardsExcludingForsaken);
     }, [state]);
 
     useEffect(() => {

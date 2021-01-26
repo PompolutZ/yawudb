@@ -36,9 +36,7 @@ export function useDeckBuilderDispatcher() {
 }
 
 const initialiseState = deck => exec => {
-    console.log('HERE');
     if(deck) {
-        console.log('inside')
         return {
             ...INITIAL_STATE,
             faction: getFactionByName(deck.faction),

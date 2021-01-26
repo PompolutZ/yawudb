@@ -13,13 +13,10 @@ const PublicDecksProvider = ({ children }) => {
     const firebase = useContext(FirebaseContext);
 
     useEffect(() => {
-        console.log("Public Deck Context");
         if (!lastUsedPublicDeckId) {
             firebase.realdb.ref("/public_decks").on("value", (snapshot) => {
-                console.log("PublicDeckContext", snapshot.val());
                 const actions = snapshot.val();
                 const lastTimestamp = Number(Object.keys(actions).slice(-1));
-                console.log(lastTimestamp, new Date(lastTimestamp));
                 // maybe try not to use localstorage at all
                 localStorage.setItem(LAST_KNOWN_TIMESTAMP, lastTimestamp);
                 setLastUsedPublicDeckId(lastTimestamp);

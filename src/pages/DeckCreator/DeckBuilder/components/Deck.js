@@ -98,7 +98,6 @@ function Deck({
             gambits,
             upgrades,
         }, format);
-        console.log(isValid, issues);
         setIsValid(isValid);
         setIssues(issues);
     }, [objectives, gambits, upgrades, format]);

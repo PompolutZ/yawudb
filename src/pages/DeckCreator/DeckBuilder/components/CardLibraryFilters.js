@@ -151,12 +151,12 @@ function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
                 <picture>
                     <img
                         className="w-20 h-20"
-                        src={`/assets/icons/${faction}-deck.png`}
+                        src={`/assets/icons/${faction.name}-deck.png`}
                     />
                 </picture>
             </div>
             <div className="flex-grow grid place-content-center text-gray-900 text-2xl">
-                {factions[faction]}
+                {faction.displayName}
             </div>
         </div>
     );
@@ -175,7 +175,7 @@ function FactionsPicker({ selected, onChangeWarband, ...rest }) {
                 .map((faction) => (
                     <img
                         key={faction.id}
-                        className="w-10 h-10 m-1"
+                        className="w-10 h-10 m-1 cursor-pointer"
                         onClick={handleSelectWarband(faction)}
                         src={`/assets/icons/${faction.name}-icon.png`}
                     />
@@ -202,6 +202,7 @@ function CardLibraryFilters(props) {
 
     useEffect(() => {
         setWarband(state.faction);
+        console.log(state.faction);
     }, [state.faction.name]);
     
     const handleFormatChange = (format) => () => {
@@ -266,7 +267,7 @@ function CardLibraryFilters(props) {
                         <section className="overflow-y-auto px-4 pb-8">
                             <SectionTitle className="mb-8" title="Warband" />
 
-                            <SelectedFaction faction={warband.name} />
+                            <SelectedFaction faction={warband} />
 
                             <FactionsPicker
                                 selected={warband}

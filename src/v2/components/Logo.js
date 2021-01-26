@@ -5,7 +5,7 @@ function Logo() {
         <svg
             id="svg"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ width: "256px", height: "48px" }}
+            width="30vw"
             viewBox="0 0 1100 200"
         >
             <defs>

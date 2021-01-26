@@ -751,7 +751,6 @@ class ReadonlyDeck extends PureComponent {
 
     _handleSaveVassalFiles = () => {
         const { name, cards } = this.props;
-        console.log(cards);
         const objectives = cards
             .filter(({ type }) => type === 'Objective')
             .map(c => [`${c.id}`.padStart(5, "0"), c.name])

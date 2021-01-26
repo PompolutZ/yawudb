@@ -8,6 +8,7 @@ function useAuthUser() {
     const firebase = useContext(FirebaseContext);
 
     useEffect(() => {
+        firebase.auth.getRedirectResult().then(r => console.log(r)).catch(e => console.error(e));
         const releaseAuthListener = firebase.onAuthUserListener(
             (authUser) => {
                 localStorage.setItem(

@@ -146,12 +146,21 @@ function CardInDeck({ card, ...props }) {
     return (
         <div className={`${props.isAlter ? "bg-purple-100" : "bg-white"}`}>
             <div className="flex items-center">
-                <div className="mx-2 items-center relative">
+                <div className={`items-center relative ${props.showType ? 'ml-2 mr-6' : 'mx-2'}`}>
+                    { props.showType && (
+                        <img
+                            className="w-8 h-8 absolute top-0 left-1/2"
+                            style={{ zIndex: 0 }}
+                            alt={`${type}`}
+                            src={`/assets/icons/${type.toLowerCase()}-icon.png`}
+                        />
+                    )}
                     <img
                         className="w-8 h-8"
                         alt={`${getSetNameById(setId)}`}
                         src={`/assets/icons/${getSetNameById(setId)}-icon.png`}
                     />
+
                     {isRestricted && (
                         <LockIcon
                             className="absolute w-8 h-8 opacity-75 top-1/2 -mt-3 left-1/2 -ml-3"
@@ -163,9 +172,8 @@ function CardInDeck({ card, ...props }) {
                     )}
                     {isBanned && (
                         <NotInterestedIcon
+                            className="absolute w-8 h-8 opacity-75 top-1/2 -mt-3 left-1/2 -ml-3"
                             style={{
-                                width: "1rem",
-                                height: "1rem",
                                 fill: "darkred",
                             }}
                         />

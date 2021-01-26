@@ -118,6 +118,7 @@ class Firebase {
                     }
                 });
             } else {
+                console.error('Cannot login, fallback');
                 fallback();
             }
         });

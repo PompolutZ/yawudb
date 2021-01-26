@@ -54,7 +54,6 @@ export default function usePublicDecksSyncronization() {
                             timestamp: Number(timestamp),
                         }))
                         .sort((x, y) => x.timestamp - y.timestamp);
-                    console.log(flattened);
 
                     flattened.forEach(async (log) => {
                         switch (log.action) {
@@ -109,7 +108,6 @@ export default function usePublicDecksSyncronization() {
                                 try {
                                     await db.publicDecks.put(updatedDeck);
                                     setLastLogTimestamp(`${log.timestamp}`);
-                                    console.log("Caching Deck");
                                 } catch (error) {
                                     console.error(error);
                                 }
