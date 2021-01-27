@@ -67,7 +67,7 @@ function Card() {
                         <div className="flex break-words my-2">
                             <VanguardLogo className={`mr-2 text-3xl fill-current ${isVanguardValid ? 'text-green-700' : 'text-red-700'}`} />
                             { isVanguardValid && <span>This card is VALID for Vanguard format.</span> }
-                            { !isVanguardValid && <span>This card is cannot be used for Vanguard format.</span> }
+                            { !isVanguardValid && <span>This card cannot be used for Vanguard format.</span> }
                         </div>
                     </div>
                 </>
