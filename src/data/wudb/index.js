@@ -55,6 +55,18 @@ function getSetNameById(setId) {
     return value.name;
 }
 
+function getSetById(setId) {
+    if (idToSetKey[setId]) {
+        return sets[idToSetKey[setId]];
+    }
+
+    const [key, value] = Object.entries(sets).find(
+        ([, value]) => value.id == setId
+    );
+    idToSetKey[setId] = key;
+    return value;
+}
+
 const cardTypes = ["Objective", "Ploy", "Upgrade", "Spell"];
 
 // This is very stupid but best idea at 22:17 for backward compatibility
@@ -293,6 +305,7 @@ export {
     getCardNumberFromId,
     getCardWaveFromId,
     getSetNameById,
+    getSetById,
     cardTypes,
     getCardById,
     checkCardIsObjective,

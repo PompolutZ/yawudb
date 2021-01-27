@@ -7,8 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
-import { cardsDb } from "../data";
-import { cardTypeIcons, setsIndex } from "../data";
+import { cardTypeIcons } from "../data";
 import toPairs from "lodash/toPairs";
 import SearchIcon from "@material-ui/icons/Search";
 import { InputAdornment } from "@material-ui/core";
@@ -67,9 +66,6 @@ function AutosuggestSearch({ classes, onClick }) {
         return suggestion.label;
     };
 
-    const handleClick = () => {
-        onClick(lastPickedSuggestion);
-    };
 
     const handleKeyPress = (event) => {
         if (event.key !== "Enter") return;
@@ -140,6 +136,7 @@ function renderInputComponent(inputProps) {
     );
 }
 
+// eslint-disable-next-line react/display-name
 const renderSuggestion = (onMenuItemClick) => (
     suggestion,
     { query, isHighlighted }
@@ -167,9 +164,7 @@ const renderSuggestion = (onMenuItemClick) => (
                     }}
                 >
                     <img
-                        src={`/assets/icons/${
-                            cardTypeIcons[suggestion.type]
-                        }.png`}
+                        src={`/assets/icons/${suggestion.type.toLowerCase()}-icon.png`}
                         style={{
                             width: "1.5rem",
                             height: "1.5rem",
