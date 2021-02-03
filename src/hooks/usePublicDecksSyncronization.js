@@ -118,10 +118,11 @@ export default function usePublicDecksSyncronization() {
         } else {
             firebase.realdb
                 .ref("/decks")
+                .orderByChild('private')
+                .equalTo(false)
                 .once("value")
                 .then((s) => {
                     let allPublicDecks = Object.entries(s.val())
-                        .filter(([, info]) => !info.private)
                         .map(([id, deck]) => {
                             let updatedDeck = { ...deck, id };
                             if (typeof deck.sets !== "string") {
@@ -178,17 +179,19 @@ export default function usePublicDecksSyncronization() {
                                     timestamp: Number(timestamp),
                                 }))
                                 .sort((x, y) => x.timestamp - y.timestamp);
-                            console.log(flattened);
 
                             let bulk = flattened.reduce((bulk, log) => {
                                 if (log.action !== "SHARED") return bulk;
 
-                                return {
-                                    ...bulk,
-                                    [log.id]: allPublicDecks.find(
-                                        ({ id }) => id === log.id
-                                    ),
-                                };
+                                let deck = allPublicDecks.find(({ id }) => id === log.id);
+                                if(deck) {
+                                    return {
+                                        ...bulk,
+                                        [log.id]: deck,
+                                    }
+                                } 
+
+                                return bulk;
                             }, {});
 
                             try {
