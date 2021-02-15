@@ -33,6 +33,7 @@ import {
 } from "../../data/wudb";
 import CardListSectionHeader from "../../v2/components/CardListSectionHeader";
 import { ReactComponent as EditIcon } from '../../svgs/edit-2.svg';
+import CardImage from "../../v2/components/CardImage";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
 const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
@@ -542,10 +543,9 @@ class ReadonlyDeck extends PureComponent {
                     </div>
                     <div id="cardsPreloadedImages">
                         {cards.map((c) => (
-                            <img
+                            <CardImage
                                 key={c.id}
-                                id={`card_${c.id}`}
-                                src={`/assets/cards/${c.id}.png`}
+                                id={c.id}
                             />
                         ))}
                     </div>

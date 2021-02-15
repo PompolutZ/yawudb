@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    warbandsWithDefaultSet,
     factionIdPrefix,
     factionIndexes,
 } from "../../data";
@@ -23,49 +22,8 @@ const Home = (props) => {
         props.history.push(`/view/card/${payload.id}`);
     };
 
-    // const handleAddDeckClicked = (faction) => {
-    //     const defaultSet = warbandsWithDefaultSet.reduce(
-    //         (acc, [f, defaultSet]) => {
-    //             if (f === faction) {
-    //                 return defaultSet;
-    //             }
-    //             return acc;
-    //         },
-    //         -1
-    //     );
-
-    //     props.setFactionForNewDeck(faction, defaultSet);
-    //     handleNavigateToDeckCreate();
-    // };
-
-    // const handleNavigateToDeckCreate = () => {
-    //     props.history.push("/deck/create");
-    // };
-
-    // const handleNavigateToDecksByPrefix = (prefix) => {
-    //     props.history.push(`/decks/${prefix}`);
-    // };
-
     return (
         <div className="flex flex-col relative">
-            {/* <div
-                style={{
-                    backgroundImage:
-                        'linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("/assets/direchasm_bg.jpg")',
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    position: "absolute",
-                    height: "50%",
-                    // width: "100vw",
-                    // margin:
-                    //     window.innerWidth > 640
-                    //         ? "-75px 0 0 -1rem"
-                    //         : "-75px 0 0 -.5rem",
-                    zIndex: -1,
-                }}
-            ></div> */}
-
             <h1 className="block text-2xl my-12 text-center text-white font-semibold z-10">
                 Deck building website for Warhammer Underworlds.
             </h1>
@@ -87,8 +45,6 @@ const Home = (props) => {
                     <DeckMetaSummary
                         key={factionIdPrefix[faction]}
                         prefix={factionIdPrefix[faction]}
-                        // onAddNewDeckClick={handleAddDeckClicked}
-                        // onDecksCountClick={handleNavigateToDecksByPrefix}
                     />
                 ))}
             </div>

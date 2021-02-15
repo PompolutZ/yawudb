@@ -14,9 +14,12 @@ import BlockIcon from "@material-ui/icons/Block";
 import LockIcon from "@material-ui/icons/Lock";
 import CardRule from "../../../atoms/CardRule";
 import { getCardWaveFromId, getSetNameById } from "../../../data/wudb";
+import CardImage from "../../../v2/components/CardImage";
 
 const idToPrintId = (id) => {
-    return `${`${id}`.slice(-3)}/${totalCardsPerWave[parseInt(getCardWaveFromId(id))]}`;
+    return `${`${id}`.slice(-3)}/${
+        totalCardsPerWave[parseInt(getCardWaveFromId(id))]
+    }`;
 };
 
 const SetIcon = ({ id, setId }) => (
@@ -49,9 +52,9 @@ class Card extends PureComponent {
             <>
                 {asImage && (
                     <div style={{ margin: ".5rem", position: "relative" }}>
-                        <img
+                        <CardImage
                             alt={card.name}
-                            src={`/assets/cards/${cardId}.png`}
+                            id={cardId}
                             style={{ width: `14rem` }}
                         />
                         <div style={{ display: "flex", alignItems: "center" }}>
@@ -69,11 +72,15 @@ class Card extends PureComponent {
                 )}
                 {!asImage && (
                     <>
-                        <div className="flex items-center mt-2"
+                        <div
+                            className="flex items-center mt-2"
                             onClick={this._toggleExpanded}
                         >
                             <SetIcon id={`${cardId}`} setId={card.setId} />
-                            <h3 className="cursor-pointer underline" style={{ color: pickCardColor(cardId) }}>
+                            <h3
+                                className="cursor-pointer underline"
+                                style={{ color: pickCardColor(cardId) }}
+                            >
                                 {card.name}
                             </h3>
                             {card.glory && (
@@ -87,8 +94,7 @@ class Card extends PureComponent {
                                     style={{ width: ".8rem", height: ".8rem" }}
                                 />
                             )}
-                            <div className="flex items-center text-sm text-gray-500"
-                            >
+                            <div className="flex items-center text-sm text-gray-500">
                                 <div>(</div>
                                 {idToPrintId(cardId)}
                                 <picture>
@@ -121,11 +127,11 @@ class Card extends PureComponent {
                             easing="ease-out"
                         >
                             {!this.state.useTextFallback && (
-                                <img
+                                <CardImage
                                     onError={this._handleImageError}
                                     onLoad={this._handleImageLoaded}
                                     className={classes.img}
-                                    src={`/assets/cards/${cardId}.png`}
+                                    id={card.id}
                                     alt={card.id}
                                 />
                             )}

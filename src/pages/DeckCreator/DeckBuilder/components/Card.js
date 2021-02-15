@@ -15,6 +15,7 @@ import {
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
 import Fade from "@material-ui/core/Fade";
 import { ModalPresenter } from "../../../../index";
+import CardImage from "../../../../v2/components/CardImage";
 
 function Rank({ value }) {
     const normalized = value >= 10000 ? value / 10000 : value;
@@ -64,7 +65,13 @@ class WUCardInfo extends PureComponent {
                         />
                     )}
 
-                    <h6 className={`${scoreType && scoreType !== "-" ? 'ml-2' : ''}`}>{name}</h6>
+                    <h6
+                        className={`${
+                            scoreType && scoreType !== "-" ? "ml-2" : ""
+                        }`}
+                    >
+                        {name}
+                    </h6>
                 </div>
                 <div className="flex items-center">
                     <Rank value={this.props.rank} />
@@ -146,8 +153,12 @@ function CardInDeck({ card, ...props }) {
     return (
         <div className={`${props.isAlter ? "bg-purple-100" : "bg-white"}`}>
             <div className="flex items-center">
-                <div className={`items-center relative ${props.showType ? 'ml-2 mr-6' : 'mx-2'}`}>
-                    { props.showType && (
+                <div
+                    className={`items-center relative ${
+                        props.showType ? "ml-2 mr-6" : "mx-2"
+                    }`}
+                >
+                    {props.showType && (
                         <img
                             className="w-8 h-8 absolute top-0 left-1/2"
                             style={{ zIndex: 0 }}
@@ -216,17 +227,14 @@ function CardInDeck({ card, ...props }) {
                             <div className="bg-black absolute inset-0 opacity-25"></div>
                             <div className="absolute inset-0 z-20 flex justify-center items-center">
                                 <div className="w-4/5 lg:w-1/4">
-                                    <img
+                                    <CardImage
+                                        id={id}
                                         className="rounded-lg"
                                         style={{
                                             filter:
                                                 "drop-shadow(0 0 10px black)",
                                         }}
                                         alt={id}
-                                        src={`/assets/cards/${`${id}`.padStart(
-                                            5,
-                                            "0"
-                                        )}.png`}
                                     />
                                 </div>
                             </div>

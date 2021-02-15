@@ -8,9 +8,10 @@ import {
     validateCardForPlayFormat,
     VANGUARD_FORMAT,
 } from "../data/wudb";
-import { ReactComponent as ChampionshipLogo } from '../svgs/championship_logo.svg';
-import { ReactComponent as RelicLogo } from '../svgs/relic_logo.svg';
-import { ReactComponent as VanguardLogo } from '../svgs/vanguard_logo.svg';
+import { ReactComponent as ChampionshipLogo } from "../svgs/championship_logo.svg";
+import { ReactComponent as RelicLogo } from "../svgs/relic_logo.svg";
+import { ReactComponent as VanguardLogo } from "../svgs/vanguard_logo.svg";
+import CardImage from "../v2/components/CardImage";
 
 function Card() {
     const { id } = useParams();
@@ -29,8 +30,8 @@ function Card() {
 
     return (
         <div className="w-full h-full lg:w-1/2 lg:mx-auto grid place-content-center px-4 text-gray-900">
-            <img
-                src={`/assets/cards/${id.toString().padStart(5, "0")}.png`}
+            <CardImage
+                id={Number(id)}
                 alt={`card`}
                 className="max-w-full rounded-xl shadow-md"
             />
@@ -54,20 +55,71 @@ function Card() {
                             Play format availability:
                         </h3>
                         <div className="flex break-words my-2">
-                            <ChampionshipLogo className={`mr-2 text-3xl fill-current ${isValid ? 'text-green-700' : isRestrictedChampionship ? 'text-yellow-700' : 'text-red-700'}`} />
-                            { isValid && <span>This card is VALID for Championship format.</span> }
-                            { isRestrictedChampionship && <span>This card is RESTRICTED for Championship format.</span> }
-                            { isForsakenChampionship && <span>This card is FORSAKEN for Championship format.</span> }
+                            <ChampionshipLogo
+                                className={`mr-2 text-3xl fill-current ${
+                                    isValid
+                                        ? "text-green-700"
+                                        : isRestrictedChampionship
+                                        ? "text-yellow-700"
+                                        : "text-red-700"
+                                }`}
+                            />
+                            {isValid && (
+                                <span>
+                                    This card is VALID for Championship format.
+                                </span>
+                            )}
+                            {isRestrictedChampionship && (
+                                <span>
+                                    This card is RESTRICTED for Championship
+                                    format.
+                                </span>
+                            )}
+                            {isForsakenChampionship && (
+                                <span>
+                                    This card is FORSAKEN for Championship
+                                    format.
+                                </span>
+                            )}
                         </div>
                         <div className="flex break-words my-2">
-                            <RelicLogo className={`mr-2 text-3xl fill-current ${isRelicValid ? 'text-green-700' : 'text-red-700'}`} />
-                            { isRelicValid && <span>This card is VALID for Relic format.</span> }
-                            { isForsakenRelic && <span>This card is FORSAKEN for Relic format.</span> }
+                            <RelicLogo
+                                className={`mr-2 text-3xl fill-current ${
+                                    isRelicValid
+                                        ? "text-green-700"
+                                        : "text-red-700"
+                                }`}
+                            />
+                            {isRelicValid && (
+                                <span>
+                                    This card is VALID for Relic format.
+                                </span>
+                            )}
+                            {isForsakenRelic && (
+                                <span>
+                                    This card is FORSAKEN for Relic format.
+                                </span>
+                            )}
                         </div>
                         <div className="flex break-words my-2">
-                            <VanguardLogo className={`mr-2 text-3xl fill-current ${isVanguardValid ? 'text-green-700' : 'text-red-700'}`} />
-                            { isVanguardValid && <span>This card is VALID for Vanguard format.</span> }
-                            { !isVanguardValid && <span>This card cannot be used for Vanguard format.</span> }
+                            <VanguardLogo
+                                className={`mr-2 text-3xl fill-current ${
+                                    isVanguardValid
+                                        ? "text-green-700"
+                                        : "text-red-700"
+                                }`}
+                            />
+                            {isVanguardValid && (
+                                <span>
+                                    This card is VALID for Vanguard format.
+                                </span>
+                            )}
+                            {!isVanguardValid && (
+                                <span>
+                                    This card cannot be used for Vanguard
+                                    format.
+                                </span>
+                            )}
                         </div>
                     </div>
                 </>
