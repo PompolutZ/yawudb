@@ -79,7 +79,7 @@
 
 @layer components {
     .btn {
-        @apply p-2 cursor-pointer rounded-md shadow-xs stroke-current;
+        @apply p-2 cursor-pointer rounded-md shadow-md stroke-current;
     }
 
     .btn:disabled {

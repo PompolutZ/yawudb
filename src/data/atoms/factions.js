@@ -84,6 +84,7 @@ export const factionIdPrefix = {
     "myaris-purifiers": "mp",
     "dread-pageant": "dp",
     "khagras-ravagers": "kr", //29
+    "the-starblood-stalkers": "tss",
 }
 
 export const factionMembers = {
@@ -206,6 +207,7 @@ export const factionMembers = {
     "myaris-purifiers": ["Myari", "Bahannar", "Ailenn", "Senaela"],
     "dread-pageant": ["Vasillac", "Glissete", "Hadzu", "Slakeslash"],
     "khagras-ravagers": ["Khagra", "Cragan", "Razek", "Zarshia"],
+    "the-starblood-stalkers": ["Kixi-Taka", "Klaq-Trok", "Otapatl", "Tok", "Xepic", "Huachi"],
 }
 
 export const idPrefixToFaction = {
@@ -249,6 +251,7 @@ export const idPrefixToFaction = {
     "mp": "myaris-purifiers",
     "dp": "dread-pageant",
     "kr": "khagras-ravagers", //29
+    "tss": "the-starblood-stalkers",
 }
 
 export const factionIndexes = [
@@ -293,6 +296,7 @@ export const factionIndexes = [
     "myaris-purifiers", // 27
     "dread-pageant",// 28
     "khagras-ravagers", //29
+    "the-starblood-stalkers",
 ]
 
 export const factionIndexesWithDefaultSet = [
