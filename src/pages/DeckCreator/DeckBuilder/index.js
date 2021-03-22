@@ -19,8 +19,9 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "..";
 import useAuthUser from "../../../hooks/useAuthUser";
 import { resetDeckAction, saveDeckAction } from "../reducer";
-import uuid4 from 'uuid/v4';
+import uuid4 from "uuid/v4";
 import FactionDeckPicture from "../../../v2/components/FactionDeckPicture";
+import DeleteConfirmationDialog from "../../../atoms/DeleteConfirmationDialog";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -40,13 +41,16 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-
 function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     const [searchText, setSearchText] = useState("");
     const [deckId, setDeckId] = useState(existingDeckId || "");
     const [deckName, setDeckName] = useState(currentDeckName || "");
     const [isMobileDeckVisible, setIsMobileDeckVisible] = useState(false);
-    const { uid, displayName } = useAuthUser() || { uid: 'Anonymous', displayName: 'Anonymous' };
+    const [showConfirmDeckReset, setShowConfirmDeckReset] = useState(false);
+    const { uid, displayName } = useAuthUser() || {
+        uid: "Anonymous",
+        displayName: "Anonymous",
+    };
 
     const {
         faction,
@@ -74,32 +78,41 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     };
 
     useEffect(() => {
-        if(existingDeckId) return;
+        if (existingDeckId) return;
 
-        setDeckId(`${faction.abbr}-${uuid4().split('-').slice(-1)[0]}`);
+        setDeckId(`${faction.abbr}-${uuid4().split("-").slice(-1)[0]}`);
     }, [faction, existingDeckId]);
 
+    const handleCloseConfirmDialog = () => {
+        setShowConfirmDeckReset(false);
+    };
+
+    const handleResetDeck = () => {
+        dispatch(resetDeckAction());
+        handleCloseConfirmDialog();
+    };
+
     const handleResetCurrentDeck = () => {
-        dispatch(resetDeckAction())
-    }
+        setShowConfirmDeckReset(true);
+    };
 
     const handleSaveDeck = () => {
         const now = new Date();
-        dispatch(saveDeckAction({
-            deckName: deckName || `${faction.displayName} Deck`,
-            author: uid,
-            authorDisplayName: displayName,
-            deckId,
-            createdutc: createdTimestamp || now.getTime(),
-            updatedutc: now.getTime(),
-        }));
-    }
+        dispatch(
+            saveDeckAction({
+                deckName: deckName || `${faction.displayName} Deck`,
+                author: uid,
+                authorDisplayName: displayName,
+                deckId,
+                createdutc: createdTimestamp || now.getTime(),
+                updatedutc: now.getTime(),
+            })
+        );
+    };
 
     return (
         <div className={classes.root}>
-            {
-                status === 'Saved' && <Redirect to="/mydecks" />
-            }
+            {status === "Saved" && <Redirect to="/mydecks" />}
             <Grid container spacing={1} style={{ height: "98%" }}>
                 <Grid item xs={12} md={5} lg={3}>
                     <Paper className={classes.paper}>
@@ -122,12 +135,17 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                                             />
                                         }
                                     />
-                                    <Tab label={
-                                        <div className="flex items-center">
-                                            <FactionDeckPicture faction={faction.name} size="w-8 h-8 mr-1" />
-                                            Fighters
-                                        </div>
-                                    } />
+                                    <Tab
+                                        label={
+                                            <div className="flex items-center">
+                                                <FactionDeckPicture
+                                                    faction={faction.name}
+                                                    size="w-8 h-8 mr-1"
+                                                />
+                                                Fighters
+                                            </div>
+                                        }
+                                    />
                                 </Tabs>
                             </div>
                             <div className="flex flex-1">
@@ -135,9 +153,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                                     <CardsLibrary searchText={searchText} />
                                 )}
                                 {tabIndex === 1 && (
-                                    <FightersInfoList
-                                        faction={faction}
-                                    />
+                                    <FightersInfoList faction={faction} />
                                 )}
                             </div>
                         </div>
@@ -190,17 +206,17 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                             backgroundColor: "white",
                         }}
                     >
-                            <Deck
-                                deckName={deckName}
-                                onDeckNameChange={setDeckName}
-                                faction={faction}
-                                selectedObjectives={selectedObjectives}
-                                selectedGambits={selectedGambits}
-                                selectedUpgrades={selectedUpgrades}
-                                format={format}
-                                onSave={handleSaveDeck}
-                                onReset={handleResetCurrentDeck}
-                            />
+                        <Deck
+                            deckName={deckName}
+                            onDeckNameChange={setDeckName}
+                            faction={faction}
+                            selectedObjectives={selectedObjectives}
+                            selectedGambits={selectedGambits}
+                            selectedUpgrades={selectedUpgrades}
+                            format={format}
+                            onSave={handleSaveDeck}
+                            onReset={handleResetCurrentDeck}
+                        />
                     </Grid>
                 </Slide>
             </Grid>
@@ -210,6 +226,15 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                     message="Save was successful!"
                 />
             )}
+            <DeleteConfirmationDialog
+                title="Clear current deck"
+                description={`Are you sure you want to clear current deck? Your deck building progress will be lost.`}
+                open={showConfirmDeckReset}
+                onCloseDialog={handleCloseConfirmDialog}
+                onDeleteConfirmed={handleResetDeck}
+                onDeleteRejected={handleCloseConfirmDialog}
+            />
+
             <FloatingActionButton isEnabled onClick={_handleShowDeckMobile}>
                 {!isMobileDeckVisible && <DeckSVG />}
                 {isMobileDeckVisible && <AddCardSVG />}
@@ -218,4 +243,4 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     );
 }
 
-export default (withRouter(DeckBuilder));
+export default withRouter(DeckBuilder);
