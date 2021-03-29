@@ -100,7 +100,7 @@ const MobileMenu = ({ className }) => {
                 className={className}
                 onClick={() => setOpen((prev) => !prev)}
             />
-            {transition((style, item, t) => {
+            {transition((style, item) => {
                 return (
                     item && (
                         <animated.div
