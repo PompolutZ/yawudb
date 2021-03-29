@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReadonlyDeck from "../../components/ReadonlyDeck/index";
+import ReadonlyDeck from "./ReadonlyDeck/index";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { getCardById } from "../../data/wudb";

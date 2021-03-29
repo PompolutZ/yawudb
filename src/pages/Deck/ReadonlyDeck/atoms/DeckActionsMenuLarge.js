@@ -150,6 +150,7 @@ function DownloadMenu({
 }
 
 function DeckActionMenuLarge({
+    edit,
     cardsView,
     onCardsViewChange,
     canUpdateOrDelete,
@@ -161,7 +162,7 @@ function DeckActionMenuLarge({
 }) {
     return (
         <React.Fragment>
-            {canUpdateOrDelete && this.props.edit}{" "}
+            {canUpdateOrDelete && edit}{" "}
             <Button onClick={onCardsViewChange}>
                 {cardsView ? "View as List" : "View as Cards"}
             </Button>

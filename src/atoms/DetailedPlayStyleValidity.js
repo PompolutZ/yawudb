@@ -31,7 +31,7 @@ function DetailedPlayStyleValidity({ cards }) {
     );
 
     return (
-        <div className="mx-4 lg:flex lg:items-center lg:gap-2">
+        <div className="mx-4 my-4 lg:flex lg:items-center lg:gap-2">
             <div className="flex items-center">
                 <ChampionshipLogo
                     className={`fill-current text-2xl ${

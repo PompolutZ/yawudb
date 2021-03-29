@@ -1,20 +1,20 @@
 import React, { PureComponent } from "react";
-import ObjectiveScoreTypeIcon from "../../ObjectiveScoreTypeIcon";
 import {
     setsIndex,
     totalCardsPerWave,
     bannedCards,
     restrictedCards,
-} from "../../../data/index";
-import { pickCardColor } from "../../../utils/functions";
+} from "../../../../data/index";
+import { pickCardColor } from "../../../../utils/functions";
 import AnimateHeight from "react-animate-height";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import BlockIcon from "@material-ui/icons/Block";
 import LockIcon from "@material-ui/icons/Lock";
-import CardRule from "../../../atoms/CardRule";
-import { getCardWaveFromId, getSetNameById } from "../../../data/wudb";
-import CardImage from "../../../v2/components/CardImage";
+import { getCardWaveFromId, getSetNameById } from "../../../../data/wudb";
+import CardImage from "../../../../v2/components/CardImage";
+import CardRule from "../../../../atoms/CardRule";
+import ObjectiveScoreTypeIcon from "../../../../components/ObjectiveScoreTypeIcon";
 
 const idToPrintId = (id) => {
     return `${`${id}`.slice(-3)}/${

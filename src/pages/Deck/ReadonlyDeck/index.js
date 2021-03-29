@@ -5,30 +5,28 @@ import {
     factions,
     restrictedCards,
     bannedCards,
-} from "../../data/index";
+} from "../../../data/index";
 import {
     checkDeckValidFormats,
     ignoreAsDublicate,
-} from "../../utils/functions";
+} from "../../../utils/functions";
 import { Set } from "immutable";
-import DeckIcon from "../../atoms/DeckIcon";
 import { withStyles } from "@material-ui/core/styles";
-import SetsList from "../../atoms/SetsList";
 import { Link, withRouter } from "react-router-dom";
-import ScoringOverview from "../../atoms/ScoringOverview";
+import ScoringOverview from "../../../atoms/ScoringOverview";
 import b64toBlob from "b64-to-blob";
 import Card from "./atoms/Card";
-import { Typography } from "@material-ui/core";
-import * as ROUTES from "../../constants/routes";
-import DetailedPlayStyleValidity from "../../atoms/DetailedPlayStyleValidity";
+import * as ROUTES from "../../../constants/routes";
+import DetailedPlayStyleValidity from "../../../atoms/DetailedPlayStyleValidity";
 import * as clipboard from "clipboard-polyfill";
 import {
     checkCardIsObjective,
     checkCardIsPloy,
     checkCardIsUpgrade,
-} from "../../data/wudb";
-import CardListSectionHeader from "../../v2/components/CardListSectionHeader";
-import { ReactComponent as EditIcon } from '../../svgs/edit-2.svg';
+} from "../../../data/wudb";
+import CardListSectionHeader from "../../../v2/components/CardListSectionHeader";
+import { ReactComponent as EditIcon } from '../../../svgs/edit-2.svg';
+import DeckSummary from "./DeckSummary";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
 const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
@@ -96,100 +94,6 @@ const styles = (theme) => ({
         flex: "1 100%",
     },
 });
-
-function DeckSummary({
-    factionPrefix,
-    name,
-    author,
-    date,
-    draft,
-    sets,
-    amount,
-}) {
-    return (
-        <React.Fragment>
-            <DeckIcon
-                width="4rem"
-                height="4rem"
-                faction={idPrefixToFaction[factionPrefix]}
-            />
-            <div style={{ flex: "1 1 auto" }}>
-                <div
-                    style={{
-                        fontFamily: "roboto",
-                        fontSize: "1rem",
-                        fontWeight: "bold",
-                    }}
-                >
-                    {name}
-                </div>
-                <div style={{ fontFamily: "roboto", fontSize: ".7rem" }}>
-                    <span>{author}</span>
-                    <span>{date}</span>
-                    <span style={{ color: "darkorange" }}>{draft}</span>
-                </div>
-                <div style={{ margin: ".2rem 0 0 0" }}>
-                    {<SetsList sets={sets} />}
-                </div>
-                <div
-                    style={{
-                        margin: ".2rem 0 0 0",
-                        display: "flex",
-                        alignItems: "center",
-                    }}
-                >
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItem: "center",
-                            marginRight: ".3rem",
-                        }}
-                    >
-                        <img
-                            alt="objective-icon"
-                            src={`/assets/icons/objective-icon.png`}
-                            style={{ width: "1rem", height: "1rem" }}
-                        />
-                        <Typography>{amount && amount.objectives}</Typography>
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItem: "center",
-                            marginRight: ".3rem",
-                        }}
-                    >
-                        <img
-                            alt="ploy-icon"
-                            src={`/assets/icons/ploy-icon.png`}
-                            style={{ width: "1rem", height: "1rem" }}
-                        />
-                        <img
-                            alt="spell-icon"
-                            src={`/assets/icons/spell-icon.png`}
-                            style={{ width: "1rem", height: "1rem" }}
-                        />
-                        <Typography>{amount && amount.gambits}</Typography>
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItem: "center",
-                            marginRight: ".3rem",
-                        }}
-                    >
-                        <img
-                            alt="upgrade-icon"
-                            src={`/assets/icons/upgrade-icon.png`}
-                            style={{ width: "1rem", height: "1rem" }}
-                        />
-                        <Typography>{amount && amount.upgrades}</Typography>
-                    </div>
-                </div>
-            </div>
-        </React.Fragment>
-    );
-}
 
 class ReadonlyDeck extends PureComponent {
     state = {
