@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
@@ -149,49 +149,38 @@ function DownloadMenu({
     );
 }
 
-class DeckActionMenuLarge extends PureComponent {
-    render() {
-        const {
-            canUpdateOrDelete,
-            onDelete,
-            onSaveAsPdf,
-            exportToUDB,
-            exportToUDS,
-            exportToClub,
-        } = this.props;
-        return (
-            <React.Fragment>
-                {this.props.canUpdateOrDelete && this.props.edit}{" "}
-                <Button onClick={this.props.onCardsViewChange}>
-                    {this.props.cardsView ? "View as List" : "View as Cards"}
+function DeckActionMenuLarge({
+    cardsView,
+    onCardsViewChange,
+    canUpdateOrDelete,
+    onSaveVassalFiles,
+    onDelete,
+    exportToUDB,
+    exportToUDS,
+    exportToClub,
+}) {
+    return (
+        <React.Fragment>
+            {canUpdateOrDelete && this.props.edit}{" "}
+            <Button onClick={onCardsViewChange}>
+                {cardsView ? "View as List" : "View as Cards"}
+            </Button>
+            <DownloadMenu
+                onDownloadAsVassal={onSaveVassalFiles}
+            />
+            <ExportMenu
+                exportToUDB={exportToUDB}
+                exportToUDS={exportToUDS}
+                exportToClub={exportToClub}
+            />
+            {canUpdateOrDelete && (
+                <Button onClick={onDelete} style={{ color: "darkred" }}>
+                    Delete
                 </Button>
-                <DownloadMenu
-                    onDownloadAsText={this.handleExportToTextFile}
-                    onDownloadAsImage={this.handleExportToImage}
-                    onDownloadAsVassal={this.props.onSaveVassalFiles}
-                    onDownloadAsPDF={onSaveAsPdf}
-                />
-                <ExportMenu
-                    exportToUDB={exportToUDB}
-                    exportToUDS={exportToUDS}
-                    exportToClub={exportToClub}
-                />
-                {canUpdateOrDelete && (
-                    <Button onClick={onDelete} style={{ color: "darkred" }}>
-                        Delete
-                    </Button>
-                )}
-            </React.Fragment>
-        );
-    }
-
-    handleExportToTextFile = () => {
-        this.props.onSaveText(document.getElementById("deckTextLinkLarge"));
-    };
-
-    handleExportToImage = () => {
-        this.props.onSaveImage(document.getElementById("deckImageLinkLarge"));
-    };
+            )}
+        </React.Fragment>
+    );
 }
+
 
 export default DeckActionMenuLarge;
