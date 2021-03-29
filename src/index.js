@@ -6,7 +6,7 @@ import { ConnectedRouter } from "connected-react-router";
 import "./styles/main.css";
 import Home from "./pages/Home";
 
-import registerServiceWorker from "./registerServiceWorker";
+import { unregister } from "./registerServiceWorker";
 import Footer from "./components/Footer";
 import { createBrowserHistory } from "history";
 
@@ -94,8 +94,6 @@ class PrivateRouteContainer extends React.Component {
 const PrivateRoute = connect((state) => ({
     isAuthenticated: state.auth !== null,
 }))(PrivateRouteContainer);
-
-const LAST_KNOWN_TIMESTAMP = "wu_lastPublicDeck";
 
 function MainLayout() {
     const { pathname } = useLocation();
@@ -402,4 +400,4 @@ const Root = () => (
 );
 
 ReactDOM.render(<Root />, document.getElementById("root"));
-registerServiceWorker();
+unregister();
