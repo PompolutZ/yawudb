@@ -2,13 +2,11 @@ import React, { PureComponent, lazy } from "react";
 import classnames from "classnames";
 import {
     idPrefixToFaction,
-    totalCardsPerWave,
     factions,
     restrictedCards,
     bannedCards,
 } from "../../data/index";
 import {
-    pickCardColor,
     checkDeckValidFormats,
     ignoreAsDublicate,
 } from "../../utils/functions";
@@ -17,7 +15,6 @@ import DeckIcon from "../../atoms/DeckIcon";
 import { withStyles } from "@material-ui/core/styles";
 import SetsList from "../../atoms/SetsList";
 import { Link, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 import ScoringOverview from "../../atoms/ScoringOverview";
 import b64toBlob from "b64-to-blob";
 import Card from "./atoms/Card";
@@ -29,11 +26,9 @@ import {
     checkCardIsObjective,
     checkCardIsPloy,
     checkCardIsUpgrade,
-    getCardWaveFromId,
 } from "../../data/wudb";
 import CardListSectionHeader from "../../v2/components/CardListSectionHeader";
 import { ReactComponent as EditIcon } from '../../svgs/edit-2.svg';
-import CardImage from "../../v2/components/CardImage";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
 const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
@@ -338,9 +333,6 @@ class ReadonlyDeck extends PureComponent {
                                 exportToUDS={this._handleExportToUDS}
                                 exportToClub={this._handleExportToClub}
                                 onDelete={this.props.onDelete}
-                                exportToGamesAssistant={
-                                    this._handleExportToGamesAssistant
-                                }
                             />
                         </div>
                         <div className="hidden lg:flex items-center">
@@ -436,318 +428,9 @@ class ReadonlyDeck extends PureComponent {
                         </div>
                     </section>
                 </div>
-
-                {/* for exports */}
-                <div
-                    id="pdf-export-elements"
-                    style={{
-                        position: "fixed",
-                        left: 50000,
-                        top: 0,
-                        zIndex: 100,
-                    }}
-                >
-                    <img
-                        id="factionDeckIcon"
-                        src={`/assets/icons/${idPrefixToFaction[factionId]}-deck.png`}
-                        alt="factionDeckIcon"
-                    />
-                    <img
-                        id="wave-01"
-                        src={`/assets/icons/wave-01-icon.png`}
-                        alt="wave-01"
-                    />
-                    <img
-                        id="wave-02"
-                        src={`/assets/icons/wave-02-icon.png`}
-                        alt="wave-02"
-                    />
-                    <img
-                        id="wave-03"
-                        src={`/assets/icons/wave-03-icon.png`}
-                        alt="wave-03"
-                    />
-                    <img
-                        id="wave-04"
-                        src={`/assets/icons/wave-04-icon.png`}
-                        alt="wave-04"
-                    />
-                    <img
-                        id="wave-05"
-                        src={`/assets/icons/wave-05-icon.png`}
-                        alt="wave-05"
-                    />
-                    <img
-                        id="wave-06"
-                        src={`/assets/icons/wave-06-icon.png`}
-                        alt="wave-05"
-                    />
-                    <img
-                        id="wave-07"
-                        src={`/assets/icons/wave-07-icon.png`}
-                        alt="wave-05"
-                    />
-                    <img
-                        id="op_valid"
-                        src={`/assets/icons/ApprovedStamp.png`}
-                        alt="Organized Play Approved Stamp"
-                    />
-                    <img
-                        id="op_not_valid"
-                        src={`/assets/icons/NotValidStamp.png`}
-                        alt="Organized Play Denied Stamp"
-                    />
-                    <img
-                        id="restrictedIcon"
-                        src={`/assets/icons/restricted_card_icon.png`}
-                        alt="Restricted Icon"
-                    />
-                    <div
-                        id="textMeasureContainer"
-                        style={{
-                            display: "inline-flex",
-                            backgroundColor: "magenta",
-                            flexFlow: "column",
-                            width: "auto",
-                        }}
-                    >
-                        {cards.map((c) => {
-                            return (
-                                <div
-                                    key={`card-${c.id}`}
-                                    style={{
-                                        fontFamily: "Helvetica",
-                                        fontSize: ".5rem",
-                                        width: "auto",
-                                    }}
-                                    id={`card-${c.id}`}
-                                >
-                                    {c.type === 0
-                                        ? ` - ${c.name} (${c.glory})`
-                                        : `- ${c.name}`}
-                                </div>
-                            );
-                        })}
-                    </div>
-                    <div
-                        id="cardNumberMeasurer"
-                        style={{
-                            display: "inline-flex",
-                            backgroundColor: "magenta",
-                            flexFlow: "column",
-                            fontFamily: "Helvetica",
-                            fontSize: ".5rem",
-                        }}
-                    >
-                        000/000
-                    </div>
-                    <div id="cardsPreloadedImages">
-                        {cards.map((c) => (
-                            <CardImage
-                                key={c.id}
-                                id={c.id}
-                            />
-                        ))}
-                    </div>
-                    <div>
-                        <canvas
-                            id="deckCanvas"
-                            width={this.state.deckCanvasSize.width}
-                            height={this.state.deckCanvasSize.height}
-                        ></canvas>
-                    </div>
-                </div>
             </div>
         );
     }
-
-    _handleSaveAsPdf = () => {
-        import("jspdf").then(({ default: jsPDF }) => {
-            const { name, author, created, cards } = this.props;
-            const objectives = cards
-                .filter((v) => v.type === 0)
-                .sort((a, b) => a.name.localeCompare(b.name));
-            const gambits = cards
-                .filter((v) => v.type === 1 || v.type === 3)
-                .sort((a, b) => a.name.localeCompare(b.name));
-            const upgrades = cards
-                .filter((v) => v.type === 2)
-                .sort((a, b) => a.name.localeCompare(b.name));
-
-            let doc = new jsPDF({
-                unit: "px",
-            });
-
-            let docX = 20;
-            let docY = 10;
-            const rem = 16;
-            doc.addImage(
-                document.getElementById("factionDeckIcon"),
-                "png",
-                docX,
-                docY,
-                rem * 1.5,
-                rem * 1.5,
-                "",
-                "SLOW"
-            );
-
-            // Header
-            docX = docX + rem * 2;
-            docY = docY + 10;
-            doc.setFont("Helvetica", "");
-            doc.setFontSize(rem);
-            doc.text(name, docX, docY);
-            doc.setFontSize(rem * 0.5);
-            docY = docY + rem * 0.5;
-            doc.setTextColor("#BCBDC0");
-            doc.text(
-                `${author} ${
-                    created
-                        ? ` | ${new Date(created).toLocaleDateString()}`
-                        : ""
-                }`,
-                docX,
-                docY
-            );
-
-            let coords = this.addToPdf(
-                doc,
-                "Objectives (12):",
-                objectives,
-                docX,
-                docY,
-                rem
-            );
-            coords = this.addToPdf(
-                doc,
-                `Gambits (${gambits.count()}):`,
-                gambits,
-                coords.x,
-                coords.y,
-                rem
-            );
-            coords = this.addToPdf(
-                doc,
-                `Upgrades (${upgrades.count()}):`,
-                upgrades,
-                coords.x,
-                coords.y,
-                rem
-            );
-
-            const objs = objectives.toJS().map((c) => c.id);
-            const gs = gambits.toJS().map((c) => c.id);
-            const us = upgrades.toJS().map((c) => c.id);
-            const barCount = [...objs, ...gs, ...us].filter(
-                (id) => Boolean(restrictedCards[id]) || Boolean(bannedCards[id])
-            ).length;
-            const isOrganizedPlayValid =
-                objs.length === 12 &&
-                gs.length <= us.length &&
-                gs.length + us.length >= 20 &&
-                barCount <= 5;
-
-            const measuredWidth = document.getElementById(
-                `textMeasureContainer`
-            ).clientWidth;
-            const otherMeasuredWidth = document.getElementById(
-                `cardNumberMeasurer`
-            ).clientWidth;
-            if (isOrganizedPlayValid) {
-                doc.addImage(
-                    document.getElementById("op_valid"),
-                    "png",
-                    coords.x + measuredWidth + otherMeasuredWidth + rem * 2,
-                    coords.y,
-                    rem * 8,
-                    rem * 8,
-                    "",
-                    "SLOW"
-                );
-            } else {
-                doc.addImage(
-                    document.getElementById("op_not_valid"),
-                    "png",
-                    coords.x + measuredWidth + otherMeasuredWidth + rem * 2,
-                    coords.y,
-                    rem * 8,
-                    rem * 8,
-                    "",
-                    "SLOW"
-                );
-            }
-
-            doc.save(`${name}.pdf`);
-        });
-    };
-
-    addToPdf = (doc, header, cards, docX, docY, rem) => {
-        docX = 20;
-        docY = docY + rem * 2;
-        doc.setFont("Helvetica", "bold");
-        doc.setFontSize(rem * 0.8);
-        doc.setTextColor("black");
-        doc.text(header, docX, docY);
-
-        docX = 20;
-        docY = docY + rem * 0.5;
-        doc.setFont("Helvetica", "");
-        doc.setFontSize(rem * 0.6);
-        // doc.setTextColor('black');
-        for (let card of cards) {
-            doc.addImage(
-                document.getElementById(card.id),
-                "png",
-                docX,
-                docY - 2,
-                8,
-                8
-            );
-            doc.setTextColor(pickCardColor(card.id));
-            const text = card.hasOwnProperty("glory")
-                ? ` - ${card.name} (${card.glory})`
-                : ` - ${card.name}`;
-            doc.text(text, docX + 10, docY + 5);
-            doc.setTextColor("#BCBDC0");
-            const measuredWidth = document.getElementById(
-                `textMeasureContainer`
-            ).clientWidth;
-            doc.text(
-                `${`${card.id.slice(-3)}/${
-                    totalCardsPerWave[getCardWaveFromId(card.id)]
-                }`}`,
-                docX + 10 + measuredWidth,
-                docY + 5
-            );
-            const otherMeasuredWidth = document.getElementById(
-                `cardNumberMeasurer`
-            ).clientWidth;
-            doc.addImage(
-                document.getElementById(`wave-${card.id.substr(0, 2)}`),
-                "png",
-                docX + 10 + measuredWidth + otherMeasuredWidth,
-                docY - 2,
-                8,
-                8
-            );
-            if (Boolean(restrictedCards[card.id])) {
-                doc.addImage(
-                    document.getElementById("restrictedIcon"),
-                    "png",
-                    docX + 10 + measuredWidth + otherMeasuredWidth + 10,
-                    docY - 2,
-                    8,
-                    8
-                );
-            }
-            docY += 10;
-            doc.setTextColor("black");
-        }
-
-        const coords = { x: docX, y: docY };
-        return coords;
-    };
 
     _handleSaveVassalFiles = () => {
         const { name, cards } = this.props;

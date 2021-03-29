@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import ReadonlyDeck from "../components/ReadonlyDeck/index";
+import ReadonlyDeck from "../../components/ReadonlyDeck/index";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import DeleteConfirmationDialog from "../atoms/DeleteConfirmationDialog";
 import { Helmet } from "react-helmet";
-import { getCardById } from "../data/wudb";
-import useAuthUser from "../hooks/useAuthUser";
+import { getCardById } from "../../data/wudb";
+import useAuthUser from "../../hooks/useAuthUser";
 import { useContext } from "react";
-import { FirebaseContext } from "../firebase";
+import { FirebaseContext } from "../../firebase";
+import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
 
 function Deck(props) {
     const user = useAuthUser();
@@ -111,30 +111,6 @@ function Deck(props) {
         setIsDeleteDialogVisible(true);
     };
 
-    // const _copyDeck = () => {
-    //     props.copyResetDeck();
-    //     const { id, name, cards, sets } = deck;
-    //     const strippedId = id.substring(0, id.length - 13);
-    //     const faction =
-    //         strippedId.length > PREFIX_LENGTH
-    //             ? strippedId
-    //             : idPrefixToFaction[strippedId];
-    //     const defaultSet = warbandsWithDefaultSet.filter((a) =>
-    //         a.includes(faction)
-    //     );
-    //     props.copySetFaction(faction, defaultSet[0][1]);
-    //     props.copyCreateModeSets(sets);
-    //     if (cards) {
-    //         for (let c of cards) {
-    //             props.copyAddCard(c);
-    //         }
-    //     }
-
-    //     props.copyChangeName(`${name} - COPY`);
-    //     props.copyChangeDescription();
-    //     history.push(`/deck/create`);
-    // };
-
     return (
         <React.Fragment>
             <Helmet>
@@ -170,7 +146,6 @@ function Deck(props) {
                         factionId={factionId}
                         cards={cards}
                         canUpdateOrDelete={canUpdateOrDelete}
-                        // onCopy={_copyDeck}
                         onDelete={_deleteDeck}
                     />
 

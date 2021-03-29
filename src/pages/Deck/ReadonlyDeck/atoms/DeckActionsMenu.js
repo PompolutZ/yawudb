@@ -32,36 +32,6 @@ class DeckActionsMenu extends PureComponent {
                         <MenuItem>{this.props.onEdit}</MenuItem>
                     )}
                     {this.props.canUpdateOrDelete && <Divider />}
-                    {/* <MenuItem onClick={this.props.onCopy}>Copy</MenuItem> */}
-
-                    {/* <MenuItem onClick={this.handleExportToTextFile}>
-                        <a
-                            href=""
-                            id="deckTextLink"
-                            style={{ color: "inherit", textDecoration: "none" }}
-                        >
-                            Download as Text
-                        </a>
-                    </MenuItem> */}
-                    {/* <MenuItem onClick={this.handleExportToImage}>
-                        <a
-                            href=""
-                            id="deckImageLink"
-                            style={{ color: "inherit", textDecoration: "none" }}
-                        >
-                            Download as Image
-                        </a>
-                    </MenuItem> */}
-                    {/* <MenuItem onClick={this.handleExportToPdf}>
-                        Download as PDF
-                    </MenuItem> */}
-                    <MenuItem
-                        onClick={this.handleExportVassalFiles}
-                        style={{ position: "relative" }}
-                    >
-                        Download Vassal Decks
-                    </MenuItem>
-                    <Divider />
                     <MenuItem
                         onClick={this.handleExportToOtherWebsite(
                             this.props.exportToUDB
@@ -113,11 +83,6 @@ class DeckActionsMenu extends PureComponent {
                             Copy for WUnderworlds Club
                         </div>
                     </MenuItem>
-                    {/* <MenuItem onClick={this.handleOpenInGamesAssitant} style={{ position: 'relative'}}>
-                        <div style={{ display: 'flex', alignItems: 'center'}}>
-                            Open in Games Assistant
-                        </div>
-                    </MenuItem> */}
                     {this.props.canUpdateOrDelete && (
                         <div>
                             <Divider />

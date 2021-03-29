@@ -106,10 +106,7 @@ function ExportMenu({ exportToUDB, exportToUDS, exportToClub }) {
 }
 
 function DownloadMenu({
-    onDownloadAsText,
-    onDownloadAsImage,
     onDownloadAsVassal,
-    onDownloadAsPDF,
 }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -142,32 +139,11 @@ function DownloadMenu({
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                {/* <StyledMenuItem onClick={handleDownloadClick(onDownloadAsText)}>
-                    <a
-                        id="deckTextLinkLarge"
-                        style={{ color: "inherit", textDecoration: "none" }}
-                    >
-                        as Text
-                    </a>
-                </StyledMenuItem> */}
-                {/* <StyledMenuItem
-                    onClick={handleDownloadClick(onDownloadAsImage)}
-                >
-                    <a
-                        id="deckImageLinkLarge"
-                        style={{ color: "inherit", textDecoration: "none" }}
-                    >
-                        as Image
-                    </a>
-                </StyledMenuItem> */}
                 <StyledMenuItem
                     onClick={handleDownloadClick(onDownloadAsVassal)}
                 >
                     as Vassal Decks
                 </StyledMenuItem>
-                {/* <StyledMenuItem onClick={handleDownloadClick(onDownloadAsPDF)}>
-                    as PDF
-                </StyledMenuItem> */}
             </StyledMenu>
         </div>
     );
@@ -186,7 +162,6 @@ class DeckActionMenuLarge extends PureComponent {
         return (
             <React.Fragment>
                 {this.props.canUpdateOrDelete && this.props.edit}{" "}
-                {/* <Button onClick={onCopy}>Copy</Button> */}
                 <Button onClick={this.props.onCardsViewChange}>
                     {this.props.cardsView ? "View as List" : "View as Cards"}
                 </Button>
