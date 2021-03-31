@@ -13,7 +13,7 @@ import { ReactComponent as ChampionshipLogo } from "../svgs/championship_logo.sv
 import { ReactComponent as RelicLogo } from "../svgs/relic_logo.svg";
 import { ReactComponent as VanguardLogo } from "../svgs/vanguard_logo.svg";
 
-function DetailedPlayStyleValidity({ cards }) {
+function DetailedPlayStyleValidity({ cards, className = "" }) {
     const allCards = cards.map((cid) => getCardById(cid));
     const cardsByType = {
         objectives: allCards.filter(checkCardIsObjective),
@@ -31,7 +31,7 @@ function DetailedPlayStyleValidity({ cards }) {
     );
 
     return (
-        <div className="mx-4 my-4 lg:flex lg:items-center lg:gap-2">
+        <div className={`mx-4 my-4 lg:flex lg:items-center lg:gap-2 ${className}`}>
             <div className="flex items-center">
                 <ChampionshipLogo
                     className={`fill-current text-2xl ${

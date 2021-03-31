@@ -22,15 +22,15 @@ const idToPrintId = (id) => {
     }`;
 };
 
-const SetIcon = ({ id, setId }) => (
+const SetIcon = ({ id, setId, className = "" }) => (
     <picture>
         <source
             type="image/webp"
             srcSet={`/assets/icons/${getSetNameById(setId)}-icon.webp`}
         />
         <img
+            className={`w-4 h-4 ml-1 mr-2 ${className}`}
             id={id}
-            style={{ margin: "auto .1rem", width: "1.2rem", height: "1.2rem" }}
             src={`/assets/icons/${getSetNameById(setId)}-icon-24.png`}
             alt="icon"
         />
@@ -77,48 +77,51 @@ class Card extends PureComponent {
                             onClick={this._toggleExpanded}
                         >
                             <SetIcon id={`${cardId}`} setId={card.setId} />
-                            <h3
-                                className="cursor-pointer underline"
-                                style={{ color: pickCardColor(cardId) }}
-                            >
-                                {card.name}
-                            </h3>
-                            {card.glory && (
-                                <div style={{ marginLeft: ".3rem" }}>
-                                    ({card.glory})
+                            <div className="flex-1">
+                                <h3
+                                    className="cursor-pointer flex-1 inline-block"
+                                    style={{ color: pickCardColor(cardId) }}
+                                >
+                                    {card.name}
+                                </h3>
+                                <div className="flex items-center">
+                                    {card.scoreType && (
+                                        <ObjectiveScoreTypeIcon
+                                            type={card.scoreType}
+                                            style={{
+                                                width: ".8rem",
+                                                height: ".8rem",
+                                            }}
+                                        />
+                                    )}
+                                    {card.glory && <span className="text-xs font-bold">({card.glory})</span>}
+                                    <div className="ml-auto flex items-center text-xs text-gray-700">
+                                        <div>(</div>
+                                        {idToPrintId(cardId)}
+                                        <picture>
+                                            <source
+                                                type="image/webp"
+                                                srcSet={`/assets/icons/wave-${cardId.substr(
+                                                    0,
+                                                    2
+                                                )}-icon-48.webp`}
+                                            />
+                                            <img
+                                                className="w-3 h-3"
+                                                id={idToPrintId(cardId)}
+                                                alt={`wave-${cardId.substr(
+                                                    0,
+                                                    2
+                                                )}`}
+                                                src={`/assets/icons/wave-${cardId.substr(
+                                                    0,
+                                                    2
+                                                )}-icon-24.png`}
+                                            />
+                                        </picture>
+                                        <div>)</div>
+                                    </div>
                                 </div>
-                            )}
-                            {card.scoreType && (
-                                <ObjectiveScoreTypeIcon
-                                    type={card.scoreType}
-                                    style={{ width: ".8rem", height: ".8rem" }}
-                                />
-                            )}
-                            <div className="flex items-center text-sm text-gray-500">
-                                <div>(</div>
-                                {idToPrintId(cardId)}
-                                <picture>
-                                    <source
-                                        type="image/webp"
-                                        srcSet={`/assets/icons/wave-${cardId.substr(
-                                            0,
-                                            2
-                                        )}-icon-48.webp`}
-                                    />
-                                    <img
-                                        id={idToPrintId(cardId)}
-                                        alt={`wave-${cardId.substr(0, 2)}`}
-                                        src={`/assets/icons/wave-${cardId.substr(
-                                            0,
-                                            2
-                                        )}-icon-24.png`}
-                                        style={{
-                                            width: ".7rem",
-                                            height: ".7rem",
-                                        }}
-                                    />
-                                </picture>
-                                <div>)</div>
                             </div>
                         </div>
                         <AnimateHeight

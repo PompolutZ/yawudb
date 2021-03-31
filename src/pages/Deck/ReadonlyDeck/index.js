@@ -23,9 +23,10 @@ import {
     checkCardIsObjective,
     checkCardIsPloy,
     checkCardIsUpgrade,
+    compareObjectivesByScoreType,
 } from "../../../data/wudb";
 import CardListSectionHeader from "../../../v2/components/CardListSectionHeader";
-import { ReactComponent as EditIcon } from '../../../svgs/edit-2.svg';
+import { ReactComponent as EditIcon } from "../../../svgs/edit-2.svg";
 import DeckSummary from "./DeckSummary";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
@@ -135,7 +136,9 @@ class ReadonlyDeck extends PureComponent {
 
         const objectives = cards
             .filter(checkCardIsObjective)
-            .sort((a, b) => a.name.localeCompare(b.name));
+            .sort((a, b) =>
+                compareObjectivesByScoreType(a.scoreType, b.scoreType)
+            );
 
         const gambits = cards
             .filter(checkCardIsPloy)
@@ -157,8 +160,8 @@ class ReadonlyDeck extends PureComponent {
             updatedutc,
             objectives,
             gambits,
-            upgrades
-        }
+            upgrades,
+        };
 
         const createdDate = updatedutc
             ? ` | ${new Date(updatedutc).toLocaleDateString()}`
@@ -216,7 +219,13 @@ class ReadonlyDeck extends PureComponent {
                         draft={draft}
                         sets={sets}
                         amount={amount}
-                    />
+                    >
+                        <DetailedPlayStyleValidity
+                            className="relative -mx-1"
+                            validFormats={playFormats}
+                            cards={cards.map((c) => c.id)}
+                        />
+                    </DeckSummary>
                     <React.Fragment>
                         <div className="lg:hidden">
                             <DeckActionsMenu
@@ -226,12 +235,17 @@ class ReadonlyDeck extends PureComponent {
                                 onSaveVassalFiles={this._handleSaveVassalFiles}
                                 canUpdateOrDelete={this.props.canUpdateOrDelete}
                                 onEdit={
-                                    <Link className="px-2" to={{
-                                        pathname: `/deck/edit/${id}`,
-                                        state: {
-                                            deck
-                                        }
-                                    }}>Edit</Link>
+                                    <Link
+                                        className="px-2"
+                                        to={{
+                                            pathname: `/deck/edit/${id}`,
+                                            state: {
+                                                deck,
+                                            },
+                                        }}
+                                    >
+                                        Edit
+                                    </Link>
                                 }
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
@@ -249,12 +263,17 @@ class ReadonlyDeck extends PureComponent {
                                 onSaveVassalFiles={this._handleSaveVassalFiles}
                                 canUpdateOrDelete={this.props.canUpdateOrDelete}
                                 edit={
-                                    <Link className="px-4 flex hover:text-purple-800" to={{
-                                        pathname: `/deck/edit/${id}`,
-                                        state: {
-                                            deck
-                                        }
-                                    }}><EditIcon className="mr-2" /> Edit</Link>
+                                    <Link
+                                        className="px-4 flex hover:text-purple-800"
+                                        to={{
+                                            pathname: `/deck/edit/${id}`,
+                                            state: {
+                                                deck,
+                                            },
+                                        }}
+                                    >
+                                        <EditIcon className="mr-2" /> Edit
+                                    </Link>
                                 }
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
@@ -265,14 +284,10 @@ class ReadonlyDeck extends PureComponent {
                     </React.Fragment>
                 </div>
 
-                <DetailedPlayStyleValidity
-                    validFormats={playFormats}
-                    cards={cards.map((c) => c.id)}
-                />
-
-                <div className="lg:grid lg:grid-cols-3 lg:gap-2">
+                <div className="lg:grid lg:grid-cols-3 lg:gap-2 mb-8">
                     <section className="px-4">
                         <CardListSectionHeader
+                            className="px-2"
                             type={"Objectives"}
                             amount={objectives.length}
                         >
@@ -281,10 +296,10 @@ class ReadonlyDeck extends PureComponent {
                                 glory={totalGlory}
                             />
                         </CardListSectionHeader>
-                        <ul>
-                            {objectives.map((v, i) => (
+                        <ul className="px-3">
+                            {objectives.map((v) => (
                                 <Card
-                                    key={i}
+                                    key={v.id}
                                     card={v}
                                     asImage={this.props.cardsView}
                                 />
@@ -293,43 +308,35 @@ class ReadonlyDeck extends PureComponent {
                     </section>
                     <section className="mt-4 lg:mt-0 px-4">
                         <CardListSectionHeader
+                            className="px-2"
                             type={"Gambits"}
                             amount={gambits.length}
                         />
-                        <div
-                            className={classnames(classes.sectionItems, {
-                                [classes.cardsSectionItems]: this.props
-                                    .cardsView,
-                            })}
-                        >
-                            {gambits.map((v, i) => (
+                        <ul className="px-3">
+                            {gambits.map((v) => (
                                 <Card
-                                    key={i}
+                                    key={v.id}
                                     card={v}
                                     asImage={this.props.cardsView}
                                 />
                             ))}
-                        </div>
+                        </ul>
                     </section>
                     <section className="mt-4 lg:mt-0 px-4">
                         <CardListSectionHeader
+                            className="px-2"
                             type={"Upgrades"}
                             amount={upgrades.length}
                         />
-                        <div
-                            className={classnames(classes.sectionItems, {
-                                [classes.cardsSectionItems]: this.props
-                                    .cardsView,
-                            })}
-                        >
-                            {upgrades.map((v, i) => (
+                        <ul className="px-3">
+                            {upgrades.map((v) => (
                                 <Card
-                                    key={i}
+                                    key={v.id}
                                     card={v}
                                     asImage={this.props.cardsView}
                                 />
                             ))}
-                        </div>
+                        </ul>
                     </section>
                 </div>
             </div>
@@ -339,22 +346,27 @@ class ReadonlyDeck extends PureComponent {
     _handleSaveVassalFiles = () => {
         const { name, cards } = this.props;
         const objectives = cards
-            .filter(({ type }) => type === 'Objective')
-            .map(c => [`${c.id}`.padStart(5, "0"), c.name])
-            .map(([cardId, name]) =>
-                String.fromCharCode(27) +
-                `+/1600466341244/mark;RealCardName\tmacro;Puts back;;;DeckName = OBJECTIVE CARDS LEFT WIDE || DeckName = OBJECTIVE CARDS RIGHT WIDE;74\\,715;74\\,585;false;;;counted;;;;false;;1;1\\\treport;74\\,585;$PlayerName$ puts back an OBJECTIVE CARD;;;Puts back\\\\\tmacro;Location is not offboard;;;OldLocationName = OBJECTIVE CARDS LEFT WIDE || OldLocationName = OBJECTIVE CARDS RIGHT WIDE;74\\,715;74\\,195;false;;;counted;;;;false;;1;1\\\\\\\tmacro;Make playerside 2;;74,715;PlayerSide = PLAYER 2 && PlayerOwnership = NONE;;40\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\tmacro;Make playerside 1;;74,715;PlayerSide = PLAYER 1 && PlayerOwnership = NONE;;35\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\treport;74\\,195;$PlayerName$ draws an OBJECTIVE CARD;;;\\\\\\\\\\\\\tPROP;PlayerOwnership;false,0,100,false;:35\\,130:P\\,PLAYER1,:40\\,130:P\\,PLAYER2\\\\\\\\\\\\\\\tmacro;p2 return to deck;;72,130;PlayerOwnership = PLAYER2;;98\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\\\\\\\tmacro;p1 return to deck;;72,130;PlayerOwnership = PLAYER1;;97\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\\\\\\\\\treturn;;98,130;OBJECTIVE CARDS RIGHT WIDE;Select destination\\\\\\\\\\\\\\\\\\\\\treturn;;97,130;OBJECTIVE CARDS LEFT WIDE;Select destination\\\\\\\\\\\\\\\\\\\\\\\tobs;70,130;Objectives background.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\\\\\\\\\\\\\\\\\\\\\treport;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\\\\\\\\\\\\\\\\\\\\\\\\\\\timmob;g;N\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tmark;MapLayers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tdelete;Delete;68,195\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tpiece;;;${cardId}.png;${cardId}/${name}\t\\\t-1\\\\\t\\\\\\\t\\\\\\\\\t\\\\\\\\\\\t-1\\\\\\\\\\\\\tNONE\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\tnull;\\\\\\\\\\\\\\\\\\\\\\\\\t-1\\\\\\\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tCardsLayers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tnull;2852;244;0;6;OldZone;;OldLocationName;offboard;OldX;2256;OldY;832;OldBoard;BOARD WIDE;OldMap;MESA - BOARD`
+            .filter(({ type }) => type === "Objective")
+            .map((c) => [`${c.id}`.padStart(5, "0"), c.name])
+            .map(
+                ([cardId, name]) =>
+                    String.fromCharCode(27) +
+                    `+/1600466341244/mark;RealCardName\tmacro;Puts back;;;DeckName = OBJECTIVE CARDS LEFT WIDE || DeckName = OBJECTIVE CARDS RIGHT WIDE;74\\,715;74\\,585;false;;;counted;;;;false;;1;1\\\treport;74\\,585;$PlayerName$ puts back an OBJECTIVE CARD;;;Puts back\\\\\tmacro;Location is not offboard;;;OldLocationName = OBJECTIVE CARDS LEFT WIDE || OldLocationName = OBJECTIVE CARDS RIGHT WIDE;74\\,715;74\\,195;false;;;counted;;;;false;;1;1\\\\\\\tmacro;Make playerside 2;;74,715;PlayerSide = PLAYER 2 && PlayerOwnership = NONE;;40\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\tmacro;Make playerside 1;;74,715;PlayerSide = PLAYER 1 && PlayerOwnership = NONE;;35\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\treport;74\\,195;$PlayerName$ draws an OBJECTIVE CARD;;;\\\\\\\\\\\\\tPROP;PlayerOwnership;false,0,100,false;:35\\,130:P\\,PLAYER1,:40\\,130:P\\,PLAYER2\\\\\\\\\\\\\\\tmacro;p2 return to deck;;72,130;PlayerOwnership = PLAYER2;;98\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\\\\\\\tmacro;p1 return to deck;;72,130;PlayerOwnership = PLAYER1;;97\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\\\\\\\\\treturn;;98,130;OBJECTIVE CARDS RIGHT WIDE;Select destination\\\\\\\\\\\\\\\\\\\\\treturn;;97,130;OBJECTIVE CARDS LEFT WIDE;Select destination\\\\\\\\\\\\\\\\\\\\\\\tobs;70,130;Objectives background.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\\\\\\\\\\\\\\\\\\\\\treport;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\\\\\\\\\\\\\\\\\\\\\\\\\\\timmob;g;N\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tmark;MapLayers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tdelete;Delete;68,195\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tpiece;;;${cardId}.png;${cardId}/${name}\t\\\t-1\\\\\t\\\\\\\t\\\\\\\\\t\\\\\\\\\\\t-1\\\\\\\\\\\\\tNONE\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\tnull;\\\\\\\\\\\\\\\\\\\\\\\\\t-1\\\\\\\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tCardsLayers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tnull;2852;244;0;6;OldZone;;OldLocationName;offboard;OldX;2256;OldY;832;OldBoard;BOARD WIDE;OldMap;MESA - BOARD`
             );
 
         const powers = cards
-            .filter(({ type }) => type !== 'Objective')
-            .map(c => [`${c.id}`.padStart(5, "0"), c.name])
-            .map(([cardId, name]) =>
-                String.fromCharCode(27) +
-                `+/1600453884603/mark;RealCardName\tmacro;Puts back;;;DeckName = POWER CARDS LEFT WIDE || DeckName = POWER CARDS RIGHT WIDE;74\\,715;74\\,585;false;;;counted;;;;false;;1;1\\\treport;74\\,585;$PlayerName$ puts back a POWER CARD;;;Puts back\\\\\tmacro;Location is not offboard;;;OldLocationName = POWER CARDS LEFT WIDE || OldLocationName = POWER CARDS RIGHT WIDE;74\\,715;74\\,195;false;;;counted;;;;false;;1;1\\\\\\\tmacro;Make playerside 2;;74,715;PlayerSide = PLAYER 2 && PlayerOwnership = NONE;;40\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\tmacro;Make playerside 1;;74,715;PlayerSide = PLAYER 1 && PlayerOwnership = NONE;;35\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\treport;74\\,195;$PlayerName$ draws a POWER CARD;;;\\\\\\\\\\\\\tPROP;PlayerOwnership;false,0,100,false;:35\\,130:P\\,PLAYER1,:40\\,130:P\\,PLAYER2\\\\\\\\\\\\\\\tmacro;p2 return to deck;;72,130;PlayerOwnership = PLAYER2;;98\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\\\\\\\tmacro;p1 return to deck;;72,130;PlayerOwnership = PLAYER1;;97\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\\\\\\\\\treturn;;98,130;POWER CARDS RIGHT WIDE;Select destination\\\\\\\\\\\\\\\\\\\\\treturn;;97,130;POWER CARDS LEFT WIDE;Select destination\\\\\\\\\\\\\\\\\\\\\\\tobs;70,130;powercardsback.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\\\\\\\\\\\\\\\\\\\\\treport;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\\\\\\\\\\\\\\\\\\\\\\\\\\\timmob;g;N\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tmark;MapLayers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tdelete;Delete;68,195\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tpiece;;;${cardId}.png;${cardId}/${name}\t\\\t-1\\\\\t\\\\\\\t\\\\\\\\\t\\\\\\\\\\\t-1\\\\\\\\\\\\\tNONE\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\tnull;\\\\\\\\\\\\\\\\\\\\\\\\\t-1\\\\\\\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tCardsLayers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tnull;2543;244;0;6;OldZone;;OldLocationName;offboard;OldX;2204;OldY;1108;OldBoard;BOARD WIDE;OldMap;MESA - BOARD`
+            .filter(({ type }) => type !== "Objective")
+            .map((c) => [`${c.id}`.padStart(5, "0"), c.name])
+            .map(
+                ([cardId, name]) =>
+                    String.fromCharCode(27) +
+                    `+/1600453884603/mark;RealCardName\tmacro;Puts back;;;DeckName = POWER CARDS LEFT WIDE || DeckName = POWER CARDS RIGHT WIDE;74\\,715;74\\,585;false;;;counted;;;;false;;1;1\\\treport;74\\,585;$PlayerName$ puts back a POWER CARD;;;Puts back\\\\\tmacro;Location is not offboard;;;OldLocationName = POWER CARDS LEFT WIDE || OldLocationName = POWER CARDS RIGHT WIDE;74\\,715;74\\,195;false;;;counted;;;;false;;1;1\\\\\\\tmacro;Make playerside 2;;74,715;PlayerSide = PLAYER 2 && PlayerOwnership = NONE;;40\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\tmacro;Make playerside 1;;74,715;PlayerSide = PLAYER 1 && PlayerOwnership = NONE;;35\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\treport;74\\,195;$PlayerName$ draws a POWER CARD;;;\\\\\\\\\\\\\tPROP;PlayerOwnership;false,0,100,false;:35\\,130:P\\,PLAYER1,:40\\,130:P\\,PLAYER2\\\\\\\\\\\\\\\tmacro;p2 return to deck;;72,130;PlayerOwnership = PLAYER2;;98\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\\\\\\\tmacro;p1 return to deck;;72,130;PlayerOwnership = PLAYER1;;97\\,130;false;;;counted;;;;false;;1;1\\\\\\\\\\\\\\\\\\\treturn;;98,130;POWER CARDS RIGHT WIDE;Select destination\\\\\\\\\\\\\\\\\\\\\treturn;;97,130;POWER CARDS LEFT WIDE;Select destination\\\\\\\\\\\\\\\\\\\\\\\tobs;70,130;powercardsback.png;REVEAL;GHiddnoverlay 2.png;?;player:;Peek\\\\\\\\\\\\\\\\\\\\\\\\\treport;68\\,195;$PlayerName$ Deleted: $PieceName$;;;INFORME TIRADA\\\\\\\\\\\\\\\\\\\\\\\\\\\timmob;g;N\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tmark;MapLayers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tdelete;Delete;68,195\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tpiece;;;${cardId}.png;${cardId}/${name}\t\\\t-1\\\\\t\\\\\\\t\\\\\\\\\t\\\\\\\\\\\t-1\\\\\\\\\\\\\tNONE\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\tnull;\\\\\\\\\\\\\\\\\\\\\\\\\t-1\\\\\\\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tCardsLayers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\tnull;2543;244;0;6;OldZone;;OldLocationName;offboard;OldX;2204;OldY;1108;OldBoard;BOARD WIDE;OldMap;MESA - BOARD`
             );
 
-            this.downloadVassalDeckWithTempLink(objectives, `${name}_OBJECTIVES.txt`);
+        this.downloadVassalDeckWithTempLink(
+            objectives,
+            `${name}_OBJECTIVES.txt`
+        );
         this.downloadVassalDeckWithTempLink(powers, `${name}_POWERS.txt`);
     };
 
@@ -638,7 +650,7 @@ class ReadonlyDeck extends PureComponent {
             .map((card) => `${card.id}`.padStart(5, "0"));
 
         const powers = this.props.cards
-            .filter(c => !checkCardIsObjective(c))
+            .filter((c) => !checkCardIsObjective(c))
             .map((card) => `${card.id}`.padStart(5, "0"));
 
         const deck = JSON.stringify([objectives, powers]);
