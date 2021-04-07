@@ -85,6 +85,7 @@ export const factionIdPrefix = {
     "dread-pageant": "dp",
     "khagras-ravagers": "kr", //29
     "the-starblood-stalkers": "tss",
+    "the-crimson-court": "tcc",
 }
 
 export const factionMembers = {
@@ -208,6 +209,7 @@ export const factionMembers = {
     "dread-pageant": ["Vasillac", "Glissete", "Hadzu", "Slakeslash"],
     "khagras-ravagers": ["Khagra", "Cragan", "Razek", "Zarshia"],
     "the-starblood-stalkers": ["Kixi-Taka", "Klaq-Trok", "Otapatl", "Tok", "Xepic", "Huachi"],
+    "the-crimson-court": ["", "", "", ""],
 }
 
 export const idPrefixToFaction = {
@@ -252,6 +254,7 @@ export const idPrefixToFaction = {
     "dp": "dread-pageant",
     "kr": "khagras-ravagers", //29
     "tss": "the-starblood-stalkers",
+    tcc: "the-crimson-court",
 }
 
 export const factionIndexes = [
@@ -297,6 +300,7 @@ export const factionIndexes = [
     "dread-pageant",// 28
     "khagras-ravagers", //29
     "the-starblood-stalkers",
+    "the-crimson-court",
 ]
 
 export const factionIndexesWithDefaultSet = [
