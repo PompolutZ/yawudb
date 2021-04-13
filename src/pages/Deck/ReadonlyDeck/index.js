@@ -209,7 +209,7 @@ class ReadonlyDeck extends PureComponent {
         const playFormats = checkDeckValidFormats(cards.map((c) => c.id));
 
         return (
-            <div className="flex-1">
+            <div className="flex-1 w-screen">
                 <div className="flex px-4">
                     <DeckSummary
                         factionPrefix={factionId}

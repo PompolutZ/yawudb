@@ -17,9 +17,12 @@ import CardRule from "../../../../atoms/CardRule";
 import ObjectiveScoreTypeIcon from "../../../../components/ObjectiveScoreTypeIcon";
 
 const idToPrintId = (id) => {
-    return `${`${id}`.slice(-3)}/${
-        totalCardsPerWave[parseInt(getCardWaveFromId(id))]
-    }`;
+    return (
+        <>
+            <span className="font-bold">{`${id}`.slice(-3)}</span>
+            <span>/{totalCardsPerWave[parseInt(getCardWaveFromId(id))]}</span>
+        </>
+    );
 };
 
 const SetIcon = ({ id, setId, className = "" }) => (
@@ -29,13 +32,25 @@ const SetIcon = ({ id, setId, className = "" }) => (
             srcSet={`/assets/icons/${getSetNameById(setId)}-icon.webp`}
         />
         <img
-            className={`w-4 h-4 ml-1 mr-2 ${className}`}
+            className={`w-4 h-4 -ml-1 mr-2 ${className}`}
             id={id}
             src={`/assets/icons/${getSetNameById(setId)}-icon-24.png`}
             alt="icon"
         />
     </picture>
 );
+
+function CardImageOrText({ useTextFallback, image, fallback }) {
+    return useTextFallback ? fallback : image;
+}
+
+function Expandable({ animateHeight, children }) {
+    return (
+        <AnimateHeight height={animateHeight} duration={250} easing="ease-out">
+            {children}
+        </AnimateHeight>
+    );
+}
 
 class Card extends PureComponent {
     state = {
@@ -73,75 +88,73 @@ class Card extends PureComponent {
                 {!asImage && (
                     <>
                         <div
-                            className="flex items-center mt-2"
+                            className="flex items-center cursor-pointer space-x-1 transform hover:scale-105 transition-all hover:bg-gray-300 hover:shadow-sm p-2 rounded"
                             onClick={this._toggleExpanded}
                         >
                             <SetIcon id={`${cardId}`} setId={card.setId} />
-                            <div className="flex-1">
-                                <h3
-                                    className="cursor-pointer flex-1 inline-block"
-                                    style={{ color: pickCardColor(cardId) }}
-                                >
-                                    {card.name}
-                                </h3>
-                                <div className="flex items-center">
-                                    {card.scoreType && (
-                                        <ObjectiveScoreTypeIcon
-                                            type={card.scoreType}
-                                            style={{
-                                                width: ".8rem",
-                                                height: ".8rem",
-                                            }}
+                            <h3
+                                className="cursor-pointer flex-1 inline-block"
+                                style={{ color: pickCardColor(cardId) }}
+                            >
+                                {card.name}
+                            </h3>
+                            <div className="flex items-center">
+                                {card.scoreType && (
+                                    <ObjectiveScoreTypeIcon
+                                        type={card.scoreType}
+                                        style={{
+                                            width: ".8rem",
+                                            height: ".8rem",
+                                        }}
+                                    />
+                                )}
+                                {card.glory && (
+                                    <span className="text-xs font-bold">
+                                        ({card.glory})
+                                    </span>
+                                )}
+                            </div>
+                            <div className="flex items-center">
+                                <div className="ml-auto flex items-center text-xs text-gray-700">
+                                    <div>(</div>
+                                    {idToPrintId(cardId)}
+                                    <picture>
+                                        <source
+                                            type="image/webp"
+                                            srcSet={`/assets/icons/wave-${cardId.substr(
+                                                0,
+                                                2
+                                            )}-icon-48.webp`}
                                         />
-                                    )}
-                                    {card.glory && <span className="text-xs font-bold">({card.glory})</span>}
-                                    <div className="ml-auto flex items-center text-xs text-gray-700">
-                                        <div>(</div>
-                                        {idToPrintId(cardId)}
-                                        <picture>
-                                            <source
-                                                type="image/webp"
-                                                srcSet={`/assets/icons/wave-${cardId.substr(
-                                                    0,
-                                                    2
-                                                )}-icon-48.webp`}
-                                            />
-                                            <img
-                                                className="w-3 h-3"
-                                                id={idToPrintId(cardId)}
-                                                alt={`wave-${cardId.substr(
-                                                    0,
-                                                    2
-                                                )}`}
-                                                src={`/assets/icons/wave-${cardId.substr(
-                                                    0,
-                                                    2
-                                                )}-icon-24.png`}
-                                            />
-                                        </picture>
-                                        <div>)</div>
-                                    </div>
+                                        <img
+                                            className="w-3 h-3 ml-1"
+                                            id={idToPrintId(cardId)}
+                                            alt={`wave-${cardId.substr(0, 2)}`}
+                                            src={`/assets/icons/wave-${cardId.substr(
+                                                0,
+                                                2
+                                            )}-icon-24.png`}
+                                        />
+                                    </picture>
+                                    <div>)</div>
                                 </div>
                             </div>
                         </div>
-                        <AnimateHeight
-                            height={animateHeight}
-                            duration={250}
-                            easing="ease-out"
-                        >
-                            {!this.state.useTextFallback && (
-                                <CardImage
-                                    onError={this._handleImageError}
-                                    onLoad={this._handleImageLoaded}
-                                    className={classes.img}
-                                    id={card.id}
-                                    alt={card.id}
-                                />
-                            )}
-                            {this.state.useTextFallback && (
-                                <CardRule rule={card.rule} />
-                            )}
-                        </AnimateHeight>
+                        <Expandable animateHeight={animateHeight}>
+                            <CardImageOrText
+                                useTextFallback={this.state.useTextFallback}
+                                image={
+                                    <CardImage
+                                        onError={this._handleImageError}
+                                        onLoad={this._handleImageLoaded}
+                                        className="w-4/5 mx-auto my-2 rounded-lg shadow-md sm:max-w-xs"
+                                        id={card.id}
+                                        alt={card.name}
+                                    />
+                                }
+                                fallback={<CardRule rule={card.rule} />}
+                            />
+                        </Expandable>
                     </>
                 )}
             </>
