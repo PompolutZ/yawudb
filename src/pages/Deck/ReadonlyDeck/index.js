@@ -98,7 +98,6 @@ const styles = (theme) => ({
 
 class ReadonlyDeck extends PureComponent {
     state = {
-        deckCanvasSize: { width: 0, height: 0 },
         isDraft: false,
     };
 
@@ -109,7 +108,6 @@ class ReadonlyDeck extends PureComponent {
         const upgrades = cards.filter(checkCardIsUpgrade);
 
         this.setState({
-            deckCanvasSize: calcCanvasSize(this.props.cards),
             isDraft:
                 objectives.length < 12 ||
                 upgrades.length + gambits.length < 20 ||
@@ -120,7 +118,6 @@ class ReadonlyDeck extends PureComponent {
     render() {
         const {
             id,
-            classes,
             name,
             author,
             faction,
@@ -226,7 +223,7 @@ class ReadonlyDeck extends PureComponent {
                             cards={cards.map((c) => c.id)}
                         />
                     </DeckSummary>
-                    <React.Fragment>
+                    <>
                         <div className="lg:hidden">
                             <DeckActionsMenu
                                 onSaveAsPdf={this._handleSaveAsPdf}
@@ -281,7 +278,7 @@ class ReadonlyDeck extends PureComponent {
                                 onDelete={this.props.onDelete}
                             />
                         </div>
-                    </React.Fragment>
+                    </>
                 </div>
 
                 <div className="lg:grid lg:grid-cols-3 lg:gap-2 mb-8">
@@ -630,6 +627,8 @@ class ReadonlyDeck extends PureComponent {
             if (card.startsWith("07")) return `G${Number(card.slice(-3))}`;
             if (card.startsWith("08")) return `A${Number(card.slice(-3))}`;
             if (card.startsWith("09")) return `DC${Number(card.slice(-3))}`;
+            if (card.startsWith("10")) return `S${Number(card.slice(-3))}`;
+            if (card.startsWith("11")) return `E${Number(card.slice(-3))}`;
 
             return Number(card.slice(-3));
         };
@@ -658,43 +657,13 @@ class ReadonlyDeck extends PureComponent {
     };
 
     _handleExportToUDS = () => {
-        const encodeToUDS = (card) => {
-            if (card.startsWith("02"))
-                return `${1000 + Number(card.slice(-3))}`;
-            if (card.startsWith("03"))
-                return `${2000 + Number(card.slice(-3))}`;
-            if (card.startsWith("04"))
-                return `${3000 + Number(card.slice(-3))}`;
-            if (card.startsWith("05"))
-                return `${4000 + Number(card.slice(-3))}`;
-            if (card.startsWith("06"))
-                return `${5000 + Number(card.slice(-3))}`;
-            if (card.startsWith("07"))
-                return `${6000 + Number(card.slice(-3))}`;
-            if (card.startsWith("08"))
-                return `${7000 + Number(card.slice(-3))}`;
-            if (card.startsWith("09"))
-                return `${8000 + Number(card.slice(-3))}`;
-
-            return `${Number(card.slice(-3))}`;
-        };
-
         const udsEncodedCards = this.props.cards
-            .map((card) => `${card.id}`.padStart(5, "0"))
-            .map(encodeToUDS)
-            .sort()
+            .map(card => Number(card.id) - 1000)
             .join();
+        
         window.open(
             `https://www.underworlds-deckers.com/en/tournament-decks/?Deck=https://yawudb.com/cards,${udsEncodedCards}`
         );
-    };
-
-    _handleExportToGamesAssistant = () => {
-        this.props.history.push(ROUTES.GAME_ASSISTANT, {
-            cards: this.props.cards.toJS(),
-            factionId: this.props.factionId,
-            name: this.props.name,
-        });
     };
 }
 
