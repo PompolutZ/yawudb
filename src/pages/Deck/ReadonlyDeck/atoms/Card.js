@@ -88,7 +88,7 @@ class Card extends PureComponent {
                 {!asImage && (
                     <>
                         <div
-                            className="flex items-center cursor-pointer space-x-1 transform hover:scale-105 transition-all hover:bg-gray-300 hover:shadow-sm p-2 rounded"
+                            className="flex items-center p-2 rounded cursor-pointer space-x-1 transform transition-all sm:hover:bg-gray-300 sm:hover:shadow-sm sm:hover:scale-105"
                             onClick={this._toggleExpanded}
                         >
                             <SetIcon id={`${cardId}`} setId={card.setId} />
@@ -147,7 +147,7 @@ class Card extends PureComponent {
                                     <CardImage
                                         onError={this._handleImageError}
                                         onLoad={this._handleImageLoaded}
-                                        className="w-4/5 mx-auto my-2 rounded-lg shadow-md sm:max-w-xs"
+                                        className="w-full mx-auto my-2 rounded-lg shadow-md sm:max-w-xs"
                                         id={card.id}
                                         alt={card.name}
                                     />
