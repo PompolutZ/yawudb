@@ -215,7 +215,6 @@ class ReadonlyDeck extends PureComponent {
                         date={createdDate}
                         draft={draft}
                         sets={sets}
-                        amount={amount}
                     >
                         <DetailedPlayStyleValidity
                             className="relative -mx-1"
