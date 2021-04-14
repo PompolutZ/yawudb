@@ -158,6 +158,16 @@ export const sets = {
         "id": 33,
         "name": "the-crimson-court",
         "displayName": "The Crimson Court expansion"
+    },
+    "Starter Set": {
+        "id": 37,
+        "name": "starter-set",
+        "displayName": "Starter Set"
+    },
+    "Essential Cards Pack": {
+        "id": 38,
+        "name": "essential-cards-pack",
+        "displayName": "Essential Cards Pack"
     }
 }
 export const factions = {
@@ -352,6 +362,18 @@ export const factions = {
         "abbr": "tcc",
         "name": "the-crimson-court",
         "displayName": "The Crimson Court"
+    },
+    "Storm of Celestus": {
+        "id": 36,
+        "abbr": "soc",
+        "name": "storm-of-celestus",
+        "displayName": "Storm of Celestus"
+    },
+    "Drepur's Wraithcreepers": {
+        "id": 37,
+        "abbr": "dw",
+        "name": "drepurs-wraithcreepers",
+        "displayName": "Drepur's Wraithcreepers"
     }
 }
 export const cards = {
@@ -3421,7 +3443,8 @@ export const cards = {
         "duplicates": [
             1236,
             3294,
-            6264
+            6264,
+            11001
         ]
     },
     "1237": {
@@ -3562,7 +3585,8 @@ export const cards = {
         "duplicates": [
             1247,
             3306,
-            6273
+            6273,
+            11003
         ]
     },
     "1248": {
@@ -3643,7 +3667,8 @@ export const cards = {
         "duplicates": [
             1253,
             3310,
-            6275
+            6275,
+            11004
         ]
     },
     "1254": {
@@ -3768,7 +3793,8 @@ export const cards = {
         "duplicates": [
             1263,
             3330,
-            6283
+            6283,
+            11006
         ]
     },
     "1264": {
@@ -3785,7 +3811,8 @@ export const cards = {
         "duplicates": [
             1264,
             3331,
-            6284
+            6284,
+            11007
         ]
     },
     "1265": {
@@ -3802,7 +3829,8 @@ export const cards = {
         "duplicates": [
             1265,
             3332,
-            6285
+            6285,
+            11008
         ]
     },
     "1266": {
@@ -3819,7 +3847,8 @@ export const cards = {
         "duplicates": [
             1266,
             3333,
-            6286
+            6286,
+            11009
         ]
     },
     "1267": {
@@ -3836,7 +3865,8 @@ export const cards = {
         "duplicates": [
             1267,
             3334,
-            6287
+            6287,
+            11010
         ]
     },
     "1268": {
@@ -3873,7 +3903,11 @@ export const cards = {
         "rule": "Score this in an end phase if you hold *all objectives (at least one) in your opponent's territory*.",
         "scoreType": "End",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1270,
+            11011
+        ]
     },
     "1271": {
         "id": 1271,
@@ -3957,7 +3991,11 @@ export const cards = {
         "rule": "Score this immediately if one of your fighters takes an enemy fighter out of action with an Attack action with a Damage characteristic greater than the target's Wounds characteristic.",
         "scoreType": "Surge",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1277,
+            11012
+        ]
     },
     "1278": {
         "id": 1278,
@@ -4008,7 +4046,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1281,
-            7006
+            7006,
+            11014
         ]
     },
     "1282": {
@@ -4057,7 +4096,11 @@ export const cards = {
         "rule": "Score this in the third end phase if *seven or more* fighters are out of action.",
         "scoreType": "Third",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1285,
+            11015
+        ]
     },
     "1286": {
         "id": 1286,
@@ -4145,7 +4188,8 @@ export const cards = {
         "duplicates": [
             1292,
             3374,
-            6305
+            6305,
+            11017
         ]
     },
     "1293": {
@@ -4205,7 +4249,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1296,
-            7010
+            7010,
+            11018
         ]
     },
     "1297": {
@@ -4221,7 +4266,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1297,
-            7011
+            7011,
+            11019
         ]
     },
     "1298": {
@@ -4321,7 +4367,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1305,
-            7012
+            7012,
+            11020
         ]
     },
     "1306": {
@@ -4398,7 +4445,8 @@ export const cards = {
         "duplicates": [
             1311,
             3403,
-            6329
+            6329,
+            11023
         ]
     },
     "1312": {
@@ -4450,7 +4498,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1315,
-            7013
+            7013,
+            11025
         ]
     },
     "1316": {
@@ -4515,7 +4564,11 @@ export const cards = {
         "rule": "**Reaction:** Play this when an opponent plays a ploy. Draw two power cards.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1320,
+            11027
+        ]
     },
     "1321": {
         "id": 1321,
@@ -4551,7 +4604,11 @@ export const cards = {
         "rule": "Roll eight dice. Choose a friendly fighter and push them up to a number of hexes equal to the number of :atCrit: rolled.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1323,
+            11028
+        ]
     },
     "1324": {
         "id": 1324,
@@ -4635,7 +4692,11 @@ export const cards = {
         "rule": "Choose a friendly fighter and roll a defence dice. On a roll of :dfBlock: or :dfCrit: remove up to two wound tokens from them. Otherwise remove one wound token from them.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1330,
+            11030
+        ]
     },
     "1331": {
         "id": 1331,
@@ -4743,7 +4804,11 @@ export const cards = {
         "rule": "Your first Attack action with a Range characteristic of 1 in the next activation targets all adjacent enemy fighters. Roll for each.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1339,
+            11035
+        ]
     },
     "1340": {
         "id": 1340,
@@ -4774,7 +4839,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1341,
-            7019
+            7019,
+            11037
         ]
     },
     "1342": {
@@ -4814,7 +4880,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1344,
-            7020
+            7020,
+            11038
         ]
     },
     "1345": {
@@ -4999,7 +5066,11 @@ export const cards = {
         "rule": "Move an unheld objective one hex. You cannot move it into a hex that already contains an objective.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1359,
+            11039
+        ]
     },
     "1360": {
         "id": 1360,
@@ -5015,7 +5086,8 @@ export const cards = {
         "duplicates": [
             1360,
             3446,
-            6366
+            6366,
+            11040
         ]
     },
     "1361": {
@@ -5200,7 +5272,11 @@ export const cards = {
         "rule": "If this fighter is the last friendly fighter on the battlefield, they have +1 Defence and all of their Attack actions have +1 Dice.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1375,
+            11041
+        ]
     },
     "1376": {
         "id": 1376,
@@ -5296,7 +5372,11 @@ export const cards = {
         "rule": "[:Hex: 3 - :atFury: 3 - :boom: 1 -(Cleave)-]",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            1383,
+            11044
+        ]
     },
     "1384": {
         "id": 1384,
@@ -5372,7 +5452,8 @@ export const cards = {
         "duplicates": [
             1389,
             3504,
-            6396
+            6396,
+            11049
         ]
     },
     "1390": {
@@ -5389,7 +5470,8 @@ export const cards = {
         "duplicates": [
             1390,
             3505,
-            6397
+            6397,
+            11050
         ]
     },
     "1391": {
@@ -5406,7 +5488,8 @@ export const cards = {
         "duplicates": [
             1391,
             3506,
-            6398
+            6398,
+            11051
         ]
     },
     "1392": {
@@ -5710,7 +5793,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1416,
-            7026
+            7026,
+            11059
         ]
     },
     "1417": {
@@ -6443,7 +6527,11 @@ export const cards = {
         "rule": "Choose a friendly fighter (other than your leader) and push them up to one hex or put them on Guard. You can only play this if your leader is on the battlefield.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            2038,
+            11032
+        ]
     },
     "2039": {
         "id": 2039,
@@ -10471,7 +10559,8 @@ export const cards = {
         "duplicates": [
             1236,
             3294,
-            6264
+            6264,
+            11001
         ]
     },
     "3295": {
@@ -10532,7 +10621,11 @@ export const cards = {
         "rule": "Score this immediately if you roll three or more dice in an attack or defence roll and they all show a different symbol.",
         "scoreType": "Surge",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3299,
+            11002
+        ]
     },
     "3300": {
         "id": 3300,
@@ -10620,7 +10713,8 @@ export const cards = {
         "duplicates": [
             1247,
             3306,
-            6273
+            6273,
+            11003
         ]
     },
     "3307": {
@@ -10673,7 +10767,8 @@ export const cards = {
         "duplicates": [
             1253,
             3310,
-            6275
+            6275,
+            11004
         ]
     },
     "3311": {
@@ -10866,7 +10961,11 @@ export const cards = {
         "rule": "Score this in an end phase if you gained at least 5 glory points in this round.",
         "scoreType": "End",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3326,
+            11005
+        ]
     },
     "3327": {
         "id": 3327,
@@ -10918,7 +11017,8 @@ export const cards = {
         "duplicates": [
             1263,
             3330,
-            6283
+            6283,
+            11006
         ]
     },
     "3331": {
@@ -10935,7 +11035,8 @@ export const cards = {
         "duplicates": [
             1264,
             3331,
-            6284
+            6284,
+            11007
         ]
     },
     "3332": {
@@ -10952,7 +11053,8 @@ export const cards = {
         "duplicates": [
             1265,
             3332,
-            6285
+            6285,
+            11008
         ]
     },
     "3333": {
@@ -10969,7 +11071,8 @@ export const cards = {
         "duplicates": [
             1266,
             3333,
-            6286
+            6286,
+            11009
         ]
     },
     "3334": {
@@ -10986,7 +11089,8 @@ export const cards = {
         "duplicates": [
             1267,
             3334,
-            6287
+            6287,
+            11010
         ]
     },
     "3335": {
@@ -11455,7 +11559,11 @@ export const cards = {
         "rule": "Score this immediately if the first fighter taken out of action in this round is an enemy fighter.",
         "scoreType": "Surge",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3373,
+            11016
+        ]
     },
     "3374": {
         "id": 3374,
@@ -11471,7 +11579,8 @@ export const cards = {
         "duplicates": [
             1292,
             3374,
-            6305
+            6305,
+            11017
         ]
     },
     "3375": {
@@ -11784,7 +11893,11 @@ export const cards = {
         "rule": "*(Errata update)* Choose a fighter and push all other fighters that are within 2 hexes 1 hex so that they are closer to that fighter in an order you choose.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3400,
+            11021
+        ]
     },
     "3401": {
         "id": 3401,
@@ -11796,7 +11909,11 @@ export const cards = {
         "rule": "Push your leader up to three hexes. They must end this push on a starting hex.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3401,
+            11022
+        ]
     },
     "3402": {
         "id": 3402,
@@ -11824,7 +11941,8 @@ export const cards = {
         "duplicates": [
             1311,
             3403,
-            6329
+            6329,
+            11023
         ]
     },
     "3404": {
@@ -11837,7 +11955,11 @@ export const cards = {
         "rule": "**Reaction:** Play this after an enemy fighter's Move action that is part of a Charge action. Choose a friendly fighter and push them up to three hexes. They must end this push adjacent to the enemy fighter.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3404,
+            11024
+        ]
     },
     "3405": {
         "id": 3405,
@@ -11897,7 +12019,11 @@ export const cards = {
         "rule": "+1 Dice for the first Attack action in the next activation.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3409,
+            11026
+        ]
     },
     "3410": {
         "id": 3410,
@@ -12005,7 +12131,11 @@ export const cards = {
         "rule": "**Reaction:** Play this after an Attack action with a Range of 1 that targets a friendly fighter and fails, if there are any :atCrit: in your defence roll. The attacker suffers 2 damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3418,
+            11029
+        ]
     },
     "3419": {
         "id": 3419,
@@ -12113,7 +12243,11 @@ export const cards = {
         "rule": "Choose an objective token. Any fighter in the same hex as that token suffers 1 damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3427,
+            11034
+        ]
     },
     "3428": {
         "id": 3428,
@@ -12173,7 +12307,11 @@ export const cards = {
         "rule": "**Reaction:** Play this after an opponent pushes a fighter. Choose a different fighter and push them the same number of hexes.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3432,
+            11036
+        ]
     },
     "3433": {
         "id": 3433,
@@ -12345,7 +12483,8 @@ export const cards = {
         "duplicates": [
             1360,
             3446,
-            6366
+            6366,
+            11040
         ]
     },
     "3447": {
@@ -12718,7 +12857,11 @@ export const cards = {
         "rule": "**Action:** Search your power deck for a card, reveal it and add it to your hand. Then shuffle your power deck and place a Charge token next to this fighter.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3477,
+            11042
+        ]
     },
     "3478": {
         "id": 3478,
@@ -12826,7 +12969,11 @@ export const cards = {
         "rule": "You can re-roll one defence dice each time you make a defence roll for this fighter.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3486,
+            11043
+        ]
     },
     "3487": {
         "id": 3487,
@@ -12910,7 +13057,11 @@ export const cards = {
         "rule": "**Reaction:** After this fighter's Attack action, push them up to one hex.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3493,
+            11045
+        ]
     },
     "3494": {
         "id": 3494,
@@ -12922,7 +13073,11 @@ export const cards = {
         "rule": "If this fighter is standing on an objective token in a player's territory, no fighters in that territory are considered to be holding objectives.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3494,
+            11046
+        ]
     },
     "3495": {
         "id": 3495,
@@ -13006,7 +13161,11 @@ export const cards = {
         "rule": "If you score a critical hit when making an Attack action with this fighter, that Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3501,
+            11047
+        ]
     },
     "3502": {
         "id": 3502,
@@ -13030,7 +13189,11 @@ export const cards = {
         "rule": "+1 Damage to this fighter's Attack actions that target a fighter with a Wounds characteristic of 4 or more.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3503,
+            11048
+        ]
     },
     "3504": {
         "id": 3504,
@@ -13046,7 +13209,8 @@ export const cards = {
         "duplicates": [
             1389,
             3504,
-            6396
+            6396,
+            11049
         ]
     },
     "3505": {
@@ -13063,7 +13227,8 @@ export const cards = {
         "duplicates": [
             1390,
             3505,
-            6397
+            6397,
+            11050
         ]
     },
     "3506": {
@@ -13080,7 +13245,8 @@ export const cards = {
         "duplicates": [
             1391,
             3506,
-            6398
+            6398,
+            11051
         ]
     },
     "3507": {
@@ -13105,7 +13271,11 @@ export const cards = {
         "rule": "-1 Wound (to a minimum of 1). Adjacent enemy fighters' Attack actions have -1 Dice, to a minimum of 1.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3508,
+            11053
+        ]
     },
     "3509": {
         "id": 3509,
@@ -13177,7 +13347,11 @@ export const cards = {
         "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 2] \\n When a fighter makes this Attack action, choose Cleave or Knockback 1. This Attack action has that rule in this activation.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3514,
+            11055
+        ]
     },
     "3515": {
         "id": 3515,
@@ -13345,7 +13519,11 @@ export const cards = {
         "rule": "**Reaction:** After a Move token is placed next to this fighter, discard this card. Remove that token.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3528,
+            11056
+        ]
     },
     "3529": {
         "id": 3529,
@@ -13393,7 +13571,11 @@ export const cards = {
         "rule": "Remove up to one wound token from this fighter's fighter card at the beginning of each round.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3532,
+            11058
+        ]
     },
     "3533": {
         "id": 3533,
@@ -13537,7 +13719,11 @@ export const cards = {
         "rule": "[:Hex: 1 - :atSmash: 3 - :boom: 2] \\n On a critical hit, you can choose one of the target fighter's upgrades that confers an Attack action. That card is discarded.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            3544,
+            11060
+        ]
     },
     "3545": {
         "id": 3545,
@@ -14185,7 +14371,11 @@ export const cards = {
         "rule": "The first Attack action with a Range of 1 made by an Inspired friendly fighter in the next activation has +1 Dice and +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            4041,
+            11031
+        ]
     },
     "4042": {
         "id": 4042,
@@ -14197,7 +14387,11 @@ export const cards = {
         "rule": "The first Attack action with a Range of 1 or 2 made by a friendly fighter in the next activation has +1 Dice and Cleave if the target is holding an objective.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            4042,
+            11033
+        ]
     },
     "4043": {
         "id": 4043,
@@ -14317,7 +14511,11 @@ export const cards = {
         "rule": "Wound tokens cannot be removed from the fighter cards of fighters within two hexes of this fighter.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            4052,
+            11054
+        ]
     },
     "4053": {
         "id": 4053,
@@ -14353,7 +14551,11 @@ export const cards = {
         "rule": "In each round, you can do one of the following: push this fighter one hex before the roll to determine who has the first activation. or push this fighter one hex after the final power step.",
         "scoreType": "-",
         "status": "R--_R-_V",
-        "rotated": true
+        "rotated": true,
+        "duplicates": [
+            4055,
+            11057
+        ]
     },
     "4056": {
         "id": 4056,
@@ -18353,7 +18555,8 @@ export const cards = {
         "duplicates": [
             1236,
             3294,
-            6264
+            6264,
+            11001
         ]
     },
     "6265": {
@@ -18466,7 +18669,8 @@ export const cards = {
         "duplicates": [
             1247,
             3306,
-            6273
+            6273,
+            11003
         ]
     },
     "6274": {
@@ -18495,7 +18699,8 @@ export const cards = {
         "duplicates": [
             1253,
             3310,
-            6275
+            6275,
+            11004
         ]
     },
     "6276": {
@@ -18596,7 +18801,8 @@ export const cards = {
         "duplicates": [
             1263,
             3330,
-            6283
+            6283,
+            11006
         ]
     },
     "6284": {
@@ -18613,7 +18819,8 @@ export const cards = {
         "duplicates": [
             1264,
             3331,
-            6284
+            6284,
+            11007
         ]
     },
     "6285": {
@@ -18630,7 +18837,8 @@ export const cards = {
         "duplicates": [
             1265,
             3332,
-            6285
+            6285,
+            11008
         ]
     },
     "6286": {
@@ -18647,7 +18855,8 @@ export const cards = {
         "duplicates": [
             1266,
             3333,
-            6286
+            6286,
+            11009
         ]
     },
     "6287": {
@@ -18664,7 +18873,8 @@ export const cards = {
         "duplicates": [
             1267,
             3334,
-            6287
+            6287,
+            11010
         ]
     },
     "6288": {
@@ -18761,7 +18971,11 @@ export const cards = {
         "rule": "**Dual:** Score this in an end phase \\n *If:* One or more enemy fighters were taken out of action in the previous phase \\n *And:* Your warband holds two or more objectives.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": false
+        "rotated": false,
+        "duplicates": [
+            6295,
+            11013
+        ]
     },
     "6296": {
         "id": 6296,
@@ -18885,7 +19099,8 @@ export const cards = {
         "duplicates": [
             1292,
             3374,
-            6305
+            6305,
+            11017
         ]
     },
     "6306": {
@@ -19178,7 +19393,8 @@ export const cards = {
         "duplicates": [
             1311,
             3403,
-            6329
+            6329,
+            11023
         ]
     },
     "6330": {
@@ -19627,7 +19843,8 @@ export const cards = {
         "duplicates": [
             1360,
             3446,
-            6366
+            6366,
+            11040
         ]
     },
     "6367": {
@@ -19992,7 +20209,8 @@ export const cards = {
         "duplicates": [
             1389,
             3504,
-            6396
+            6396,
+            11049
         ]
     },
     "6397": {
@@ -20009,7 +20227,8 @@ export const cards = {
         "duplicates": [
             1390,
             3505,
-            6397
+            6397,
+            11050
         ]
     },
     "6398": {
@@ -20026,7 +20245,8 @@ export const cards = {
         "duplicates": [
             1391,
             3506,
-            6398
+            6398,
+            11051
         ]
     },
     "6399": {
@@ -20590,7 +20810,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1281,
-            7006
+            7006,
+            11014
         ]
     },
     "7007": {
@@ -20650,7 +20871,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1296,
-            7010
+            7010,
+            11018
         ]
     },
     "7011": {
@@ -20666,7 +20888,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1297,
-            7011
+            7011,
+            11019
         ]
     },
     "7012": {
@@ -20682,7 +20905,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1305,
-            7012
+            7012,
+            11020
         ]
     },
     "7013": {
@@ -20698,7 +20922,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1315,
-            7013
+            7013,
+            11025
         ]
     },
     "7014": {
@@ -20782,7 +21007,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1341,
-            7019
+            7019,
+            11037
         ]
     },
     "7020": {
@@ -20798,7 +21024,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1344,
-            7020
+            7020,
+            11038
         ]
     },
     "7021": {
@@ -20855,7 +21082,11 @@ export const cards = {
         "rule": "[:Hex: 2 - :atSmash: 2 - :boom: 2] \\n If this fighter is holding an objective, you can **re-roll** any number of attack dice in the attack roll.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": false
+        "rotated": false,
+        "duplicates": [
+            7024,
+            11052
+        ]
     },
     "7025": {
         "id": 7025,
@@ -20882,7 +21113,8 @@ export const cards = {
         "rotated": false,
         "duplicates": [
             1416,
-            7026
+            7026,
+            11059
         ]
     },
     "7027": {
@@ -24844,5 +25076,1769 @@ export const cards = {
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
+    },
+    "10001": {
+        "id": 10001,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Advancing Storm",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an activation in which a friendly fighter makes a Range 1 **Attack action** that takes an enemy fighter in enemy territory out of action.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10002": {
+        "id": 10002,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Balanced Strategy",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Surge:** Score this immediately after an opponent's activation if your warband holds objectives 2 and 4.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10003": {
+        "id": 10003,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Bold Claim",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Surge:** Score this immediately after an opponent's activation if your warband holds two or more of the following objectives: 1, 3 and 5.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10004": {
+        "id": 10004,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Bulwark Against the Dark",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if each surviving friendly fighter has one or more upgrades.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10005": {
+        "id": 10005,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Crucial Objective",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an opponent's activation if your warband holds objective 2 or 4.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10006": {
+        "id": 10006,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Great Purification",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "Score this in an end phase if your warband holds 3 or more objectives or if 4 or more enemy fighters are out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10007": {
+        "id": 10007,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Here We Stand",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if your warband holds two or more objectives.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10008": {
+        "id": 10008,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Lightning Strike",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if an enemy **leader** is out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10009": {
+        "id": 10009,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Point Blank",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an activation in which a friendly fighter made a successful Range 3+ **Attack action** which targeted an adjacent enemy fighter.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10010": {
+        "id": 10010,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Righteous Banishment",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if two or more enemy fighters are out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10011": {
+        "id": 10011,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Shining Heroes",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if each surviving friendly fighter is Inspired.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10012": {
+        "id": 10012,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Zone of Banishment",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "Score this in an end phase if there are no enemy fighters in your territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10013": {
+        "id": 10013,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Aetheric Channelling",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in an opponent's power step. The first Range 3+ **Attack action** made by a friendly fighter in the next activation has your pick of +1 Dice, **Cleave** or **Ensnare**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10014": {
+        "id": 10014,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Channelled Step",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter holding an objective that is not within 2 hexes of any enemy fighters. **Place** that fighter on another objective token that is not within 2 hexes of any enemy fighters. **Give** that fighter one Move token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10015": {
+        "id": 10015,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Concerted Consolidation",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** up to two friendly fighters in your territory. **Push** each chosen fighter 1 hex towards the nearest objective token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10016": {
+        "id": 10016,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Distracting Shot",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in your power step. -1 Dice from enemy fighter's **Attack actions** in the next activation (to a minimum of 1).",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10017": {
+        "id": 10017,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Greatbow Block",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in your power step. Each time a friendly fighter other than Sleek is **dealt** damage in the next activation, reduce that damage to 1.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10018": {
+        "id": 10018,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Healing Tempest",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter and roll one defence dice. On a roll of :dfBlock:, **Heal** (2) that fighter. Otherwise **Heal** (1) that fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10019": {
+        "id": 10019,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Lightning Flare",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in your power step. In the next activation, enemy fighters cannot target fighters that are 2 or more hexes away.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10020": {
+        "id": 10020,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Raise the Alarm",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in an opponent's power step. +1 Dice to friendly fighters' **Attack actions** in the next activation that target an enemy fighter with one or more Charge tokens.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10021": {
+        "id": 10021,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Stalwart Defence",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in your power step. +1 Defence to each friendly fighter holding an objective in the next activation.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10022": {
+        "id": 10022,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Swift Step",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter. **Push** that fighter 1 hex. **Push** that fighter up to 2 hexes instead if it is Sleek.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10023": {
+        "id": 10023,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Cautious Advance",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** After this fighter's activation in which this fighter made an **Attack action**, **push** this fighter 1 hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10024": {
+        "id": 10024,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Concussive Cloud",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "[:Hex: 3 - :atSmash: 2 - :boom: 1 -(Knockback 1)-] \\n If this **Attack action** succeeds, **give** the target one Move token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10025": {
+        "id": 10025,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Cool Head",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "You can **re-roll** one dice in this fighter's attack rolls.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10026": {
+        "id": 10026,
+        "factionId": 36,
+        "setId": 37,
+        "name": "I'll Cover You!",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "If this fighter has not yet made a Thunderhead Greatblow **Attack action** in this round, each time a friendly fighter within 3 hexes is the target of an **Attack action**, this fighter is a **supporting** fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10027": {
+        "id": 10027,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Long Ranged",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Range to this fighter's Thunderhead Greatbow **Attack action**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10028": {
+        "id": 10028,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Loyal Companion",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** After another friendly fighter's activation, **push** this fighter up to 2 hexes so that the two fighters are adjacent. If you cannot, you cannot use this reaction.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10029": {
+        "id": 10029,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Reconquerer",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Move \\n **Reaction:** After this fighter's **Move action**, **push** this fighter 1 hex onto an objective token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10030": {
+        "id": 10030,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Reconsecrate",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Action:** This fighter can only make this action if this fighter is in the same hex as an objective token. Pick another objective token. **Place** each objective token in the hex the other token was in. Then **give** this fighter one Charge token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10031": {
+        "id": 10031,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Stoic Fortitude",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Wounds.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10032": {
+        "id": 10032,
+        "factionId": 36,
+        "setId": 37,
+        "name": "Strength of Sigmar",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Damage to this fighter's Range 1 **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10033": {
+        "id": 10033,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Death's Bounty",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "Score this in an end phase if four or more enemy fighters are out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10034": {
+        "id": 10034,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Death's Triumph",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "Score this in an end phase if your warband holds two or more objectives in enemy territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10035": {
+        "id": 10035,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Deathly Blooms",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if your warband holds one or more objectives in enemy territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10036": {
+        "id": 10036,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Dread Harvest",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if two or more enemy fighters are out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10037": {
+        "id": 10037,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Ethereal Hunters",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an activation in which a friendly fighter made a **Charge action** in which they moved through one or more **blocked** and/or **occupied** hexes.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10038": {
+        "id": 10038,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Inevitable Advance",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if each surviving friendly fighter has one or more Move and/or Charge tokens.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10039": {
+        "id": 10039,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Massed Blades",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an activation in which a friendly fighter made an **Attack action** with one or more **supporting** fighters.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10040": {
+        "id": 10040,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Piercing Blow",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an activation in which a friendly fighter's **Attack action** with **Cleave** was successful.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10041": {
+        "id": 10041,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Scythed Down",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "Score this in an end phase if three or more enemy fighters are out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10042": {
+        "id": 10042,
+        "factionId": 37,
+        "setId": 37,
+        "name": "The Hunt Pursues",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if each surviving friendly fighter is in enemy territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10043": {
+        "id": 10043,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Unstoppable Death",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an activation in which a friendly fighter made a **Charge action** in which they took an enemy fighter out of action.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10044": {
+        "id": 10044,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Vengeance of Nagash",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an activation in which a friendly fighter made an **Attack action** that took an enemy **leader** out of action.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10045": {
+        "id": 10045,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Deadly Vengeance",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this during an enemy fighter's **Attack action**, after the deal damage step, if that **Attack action** will take a friendly fighter out of action. That friendly fighter makes an **Attack action**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10046": {
+        "id": 10046,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Drifting Death",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** up to two friendly fighters. **Push** each chosen fighter 1 hex closer to the nearest enemy fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10047": {
+        "id": 10047,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Enervating Beat",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in your power step. -1 Damage from enemy fighters' Range 1 and Range 2 **Attack actions** in the next activation (to a minimum of 1).",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10048": {
+        "id": 10048,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Fevered Beat",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in your power step. Enemy fighter's **Attack actions** have the :atFury: characteristic in the next activation.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10049": {
+        "id": 10049,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Heart-piercer",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in an opponent's power step. The first Range 2 **Attack action** made by a friendly fighter in the next activations has **Cleave**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10050": {
+        "id": 10050,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Horrifying Shriek",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one enemy fighter within 3 hexes of one or more friendly fighters. **Push** the chosen fighter 1 hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10051": {
+        "id": 10051,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Methodical Attacks",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this after an activation in which a friendly fighter made a failed **Attack action**. That fighter makes an **Attack action**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10052": {
+        "id": 10052,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Somnolent Beat",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in your power step. -1 Move from enemy fighters in the next activation (to a minimum of 0).",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10053": {
+        "id": 10053,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Stuff of Nightmares",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one enemy fighter within 2 hexes of a friendly fighter and roll one attack dice. On a roll of :atSmash:, **deal** 1 damage to the chosen fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10054": {
+        "id": 10054,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Unending Pursuit",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter. **Push** that fighter 1 hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10055": {
+        "id": 10055,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Bitter Strength",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Damage to this fighter's Range 1 and Range 2 **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10056": {
+        "id": 10056,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Carrion Companion",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "After this fighter's **Attack action** which takes an adjacent enemy fighter out of action, gain 1 glory point.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10057": {
+        "id": 10057,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Death Grasp",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "[:Hex: 1 - :atSmash: 3 - :boom: 2] \\n If this **Attack action** succeeds, **give** the target one Move token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10058": {
+        "id": 10058,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Deathly Vigour",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Wounds.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10059": {
+        "id": 10059,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Memories of the Hunt",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Move.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10060": {
+        "id": 10060,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Murderous Accomplice",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** After another friendly fighter's **Move action** made as part of a **Charge action**, **push** this fighter up to 2 hexes so that this fighter is adjacent to one or more of that fighter's targets.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10061": {
+        "id": 10061,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Murderpact",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Damage to this fighter's Range 1 and Range 2 **Attack actions** if this fighter has one or more **supporting** fighters. \\n +1 Dice to other friendly fighters' **Attack actions** if this fighter is **supporting** the attacker.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10062": {
+        "id": 10062,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Pall of Fear",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "-1 Dice from enemy fighter's Range 1 and Range 2 **Attack actions** that target this fighter (to a minimum of 1).",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10063": {
+        "id": 10063,
+        "factionId": 37,
+        "setId": 37,
+        "name": "Tearing Claws",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "[:Hex: 1 - :atFury: 2 - :boom: 2 -(Cleave, Ensnare)-]",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "10064": {
+        "id": 10064,
+        "factionId": 37,
+        "setId": 37,
+        "name": "The Point of Death",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "You can **re-roll** one dice in this fighter's attack rolls during this fighter's **Charge action**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "11001": {
+        "id": 11001,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Annihilation",
+        "type": "Objective",
+        "glory": 5,
+        "rule": "Score this in an end phase if *each enemy fighter* is out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1236,
+            3294,
+            6264,
+            11001
+        ]
+    },
+    "11002": {
+        "id": 11002,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Branching Fate",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an **Attack action** if you roll three or more dice during the attack or defence roll and they all show a different symbol.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3299,
+            11002
+        ]
+    },
+    "11003": {
+        "id": 11003,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Conquest",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "Score this in the third end phase if each surviving friendly fighter is in one opponent's territory.",
+        "scoreType": "Third",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1247,
+            3306,
+            6273,
+            11003
+        ]
+    },
+    "11004": {
+        "id": 11004,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Denial",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "Score this in the third end phase if there are no enemy fighters in your territory.",
+        "scoreType": "Third",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1253,
+            3310,
+            6275,
+            11004
+        ]
+    },
+    "11005": {
+        "id": 11005,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Great Gains",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "Score this in an end phase if you scored five or more glory points in this round.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3326,
+            11005
+        ]
+    },
+    "11006": {
+        "id": 11006,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Hold Objective 1",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if your warband holds objective *1*.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1263,
+            3330,
+            6283,
+            11006
+        ]
+    },
+    "11007": {
+        "id": 11007,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Hold Objective 2",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if your warband holds objective *2*.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1264,
+            3331,
+            6284,
+            11007
+        ]
+    },
+    "11008": {
+        "id": 11008,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Hold Objective 3",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if your warband holds objective *3*.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1265,
+            3332,
+            6285,
+            11008
+        ]
+    },
+    "11009": {
+        "id": 11009,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Hold Objective 4",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if your warband holds objective *4*.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1266,
+            3333,
+            6286,
+            11009
+        ]
+    },
+    "11010": {
+        "id": 11010,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Hold Objective 5",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if your warband holds objective *5*.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1267,
+            3334,
+            6287,
+            11010
+        ]
+    },
+    "11011": {
+        "id": 11011,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Making a Statement",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "Score this in an end phase if your warband holds each objective in one opponent's territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1270,
+            11011
+        ]
+    },
+    "11012": {
+        "id": 11012,
+        "factionId": 1,
+        "setId": 38,
+        "name": "No Remorse",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that takes an enemy fighter out of action, if that **Attack action** had a Damage characteristic greater than the target's Wounds characteristic.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1277,
+            11012
+        ]
+    },
+    "11013": {
+        "id": 11013,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Path to Victory",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Dual:** Score this in an end phase if \\n One or more enemy fighters were taken out of action in the preceding action phase \\n *And:* Your warband holds two or more objectives.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            6295,
+            11013
+        ]
+    },
+    "11014": {
+        "id": 11014,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Plant a Standard",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if your **leader** holds an objective in enemy territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1281,
+            7006,
+            11014
+        ]
+    },
+    "11015": {
+        "id": 11015,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Pure Carnage",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "Score this in the third end phase if *seven or more* fighters are out of action.",
+        "scoreType": "Third",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1285,
+            11015
+        ]
+    },
+    "11016": {
+        "id": 11016,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Strong Start",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after the first fighter is taken out of action in this round, if that fighter is an enemy fighter.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3373,
+            11016
+        ]
+    },
+    "11017": {
+        "id": 11017,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Supremacy",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "Score this in an end phase if your warband holds three or more objectives.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1292,
+            3374,
+            6305,
+            11017
+        ]
+    },
+    "11018": {
+        "id": 11018,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Tactical Supremacy 1-2",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "Score this in an end phase if your warband holds objectives 1 and 2.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1296,
+            7010,
+            11018
+        ]
+    },
+    "11019": {
+        "id": 11019,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Tactical Supremacy 3-4",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "Score this in an end phase if your warband holds objectives 3 and 4.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1297,
+            7011,
+            11019
+        ]
+    },
+    "11020": {
+        "id": 11020,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Victorious Duel",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Surge:** Score this immediately after your **leader's Attack action** which takes an enemy **leader** out of action.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1305,
+            7012,
+            11020
+        ]
+    },
+    "11021": {
+        "id": 11021,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Centre of Attention",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one fighter and **push** each other fighter that is within 2 hexes of the chosen fighter up to 1 hex so that they are closer to the chosen fighter in an order you choose.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3400,
+            11021
+        ]
+    },
+    "11022": {
+        "id": 11022,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Commanding Stride",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Push** your **leader** up to 3 hexes. After this **push** your **leader** must be in a **starting** hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3401,
+            11022
+        ]
+    },
+    "11023": {
+        "id": 11023,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Confusion",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** two fighters that are adjacent to each other. **Place** each fighter in the hex that was occupied by the other fighter when you chose them.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1311,
+            3403,
+            6329,
+            11023
+        ]
+    },
+    "11024": {
+        "id": 11024,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Countercharge",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this after an enemy fighter's **Move action** that is part of a **Charge action**. **Choose** one friendly fighter and **push** the chosen fighter up to 3 hexes. The chosen fighter must end this **push** adjacent to the enemy fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3404,
+            11024
+        ]
+    },
+    "11025": {
+        "id": 11025,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Daylight Robbery",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Roll one attack dice. On a roll of :atSmash: or :atCrit: take one unspent glory point from one opponent.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1315,
+            7013,
+            11025
+        ]
+    },
+    "11026": {
+        "id": 11026,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Determined Effort",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "+1 Dice to the first **Attack action** made in the next activation.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3409,
+            11026
+        ]
+    },
+    "11027": {
+        "id": 11027,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Duel of Wits",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this after an opponent plays a ploy. **Draw** two power cards.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1320,
+            11027
+        ]
+    },
+    "11028": {
+        "id": 11028,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Flickering Step",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Roll eight dice. **Choose** one friendly fighter and **push** the chosen fighter up to a number of hexes equal to the number of :atCrit: rolled.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1323,
+            11028
+        ]
+    },
+    "11029": {
+        "id": 11029,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Grievous Riposte",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this after a failed Range 1 **Attack action** that targets a friendly fighter, if there was one or more :dfCrit: in the defence roll. **Deal** 2 damage to the attacker.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3418,
+            11029
+        ]
+    },
+    "11030": {
+        "id": 11030,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Healing Potion",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter and roll one defence dice. On a roll of :dfBlock: or :dfCrit: **Heal** (2) that fighter. Otherwise **Heal** (1) that fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1330,
+            11030
+        ]
+    },
+    "11031": {
+        "id": 11031,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Inspired Attack",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "+1 Dice and +1 Damage to the first Range 1 **Attack action** made by an Inspired friendly fighter in the next activation.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            4041,
+            11031
+        ]
+    },
+    "11032": {
+        "id": 11032,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Inspired Command",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter other than your **leader** and pick one: **push** the chosen fighter 1 hex, or **give** the chosen fighter one Guard token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            2038,
+            11032
+        ]
+    },
+    "11033": {
+        "id": 11033,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Keen Avarice",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "The first Range 1 or Range 2 **Attack action** made by a friendly fighter in the next activation has +1 Dice and **Cleave** if the target holds an objective.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            4042,
+            11033
+        ]
+    },
+    "11034": {
+        "id": 11034,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Lethal Ward",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Pick one objective token. **Deal** 1 damage to any fighter in the same hex as that token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3427,
+            11034
+        ]
+    },
+    "11035": {
+        "id": 11035,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Mighty Swing",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "The first Range 1 **Attack action** made by a friendly fighter in the next activation has **Scything**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1339,
+            11035
+        ]
+    },
+    "11036": {
+        "id": 11036,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Mirror Move",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this after an opponent **pushes** one fighter. **Choose** one other fighter and **push** the chosen fighter the same number of hexes.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3432,
+            11036
+        ]
+    },
+    "11037": {
+        "id": 11037,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Misdirection",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this when one friendly fighter is chosen by a ploy. **Choose** one other friendly fighter that could be chosen by that ploy. That fighter is chosen instead.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1341,
+            7019,
+            11037
+        ]
+    },
+    "11038": {
+        "id": 11038,
+        "factionId": 1,
+        "setId": 38,
+        "name": "No Time",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Power cards cannot be played until after the next activation.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1344,
+            7020,
+            11038
+        ]
+    },
+    "11039": {
+        "id": 11039,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Shifting Shards",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Pick one objective token in an **empty** hex and move that objective token into an adjacent hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1359,
+            11039
+        ]
+    },
+    "11040": {
+        "id": 11040,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Sidestep",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter and **push** that fighter 1 hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1360,
+            3446,
+            6366,
+            11040
+        ]
+    },
+    "11041": {
+        "id": 11041,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Army of One",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "If this fighter is the last surviving friendly fighter: \\n +1 Defence \\n +1 Dice to this fighter's **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1375,
+            11041
+        ]
+    },
+    "11042": {
+        "id": 11042,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Bag of Tricks",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Action:** Search your power deck for a card, reveal it to each opponent and add it to your hand. Then shuffle your power deck and **give** this fighter one Charge token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3477,
+            11042
+        ]
+    },
+    "11043": {
+        "id": 11043,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Champion's Fortitude",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "You can **re-roll** one dice in this fighter's defence rolls.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3486,
+            11043
+        ]
+    },
+    "11044": {
+        "id": 11044,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Dark Darts",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "[:Hex: 3 - :atFury: 3 - :boom: 1 -(Cleave)-]",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1383,
+            11044
+        ]
+    },
+    "11045": {
+        "id": 11045,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Duellist's Speed",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** After this fighter's **Attack action**, but not during a superaction, **push** this fighter 1 hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3493,
+            11045
+        ]
+    },
+    "11046": {
+        "id": 11046,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Earthing Stone",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Metalith** \\n If this fighter is in the same hex as an objective token in one player's territory, fighters cannot hold objectives in that territory.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3494,
+            11046
+        ]
+    },
+    "11047": {
+        "id": 11047,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Fighter's Ferocity",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "On a **critical hit**, this fighter's **Attack actions** have +1 Damage.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3501,
+            11047
+        ]
+    },
+    "11048": {
+        "id": 11048,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Gloryseeker",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Damage to this fighter's **Attack actions** that target a fighter with a Wounds characteristic of 4 or more.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3503,
+            11048
+        ]
+    },
+    "11049": {
+        "id": 11049,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Great Fortitude",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Wounds.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1389,
+            3504,
+            6396,
+            11049
+        ]
+    },
+    "11050": {
+        "id": 11050,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Great Speed",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Move.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1390,
+            3505,
+            6397,
+            11050
+        ]
+    },
+    "11051": {
+        "id": 11051,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Great Strength",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Damage to this fighter's Range 1 and Range 2 **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1391,
+            3506,
+            6398,
+            11051
+        ]
+    },
+    "11052": {
+        "id": 11052,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Guardian Glaive",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "[:Hex: 2 - :atSmash: 2 - :boom: 2] \\n If this fighter holds an objective, you can **re-roll** any number of attack dice in the attack roll.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            7024,
+            11052
+        ]
+    },
+    "11053": {
+        "id": 11053,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Horrifying Armour",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "-1 Wounds (to a minimum of 1) \\n -1 Dice from adjacent enemy fighters' **Attack actions** (to a minimum of 1).",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3508,
+            11053
+        ]
+    },
+    "11054": {
+        "id": 11054,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Leech Stone",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Metalith** Fighters within 2 hexes cannot be **Healed**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            4052,
+            11054
+        ]
+    },
+    "11055": {
+        "id": 11055,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Mutating Maul",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 2] \\n Before the attack roll, pick **Cleave** or **Knockback** 1. This **Attack action** has that ability until it has been resolved.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3514,
+            11055
+        ]
+    },
+    "11056": {
+        "id": 11056,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Potion of Grace",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** After this fighter is given one Move token, **discard** this card. **Remove** that token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3528,
+            11056
+        ]
+    },
+    "11057": {
+        "id": 11057,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Quickening Greaves",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "In each round, you can do one of the following: **push** this fighter 1 hex before the roll to determine who has the first activation. or **push** this fighter 1 hex after the final power step.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            4055,
+            11057
+        ]
+    },
+    "11058": {
+        "id": 11058,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Regenerative Charm",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "At the start of each round **Heal** (1) this fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3532,
+            11058
+        ]
+    },
+    "11059": {
+        "id": 11059,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Shardcaller",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "At the beginning of each action phase, you can pick one objective held by this fighter and one other objective, then **place** each objective you picked in the hex that contained the other objective.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            1416,
+            7026,
+            11059
+        ]
+    },
+    "11060": {
+        "id": 11060,
+        "factionId": 1,
+        "setId": 38,
+        "name": "Swordbreaker",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "[:Hex: 1 - :atSmash: 3 - :boom: 2] \\n On a **critical hit**, pick one of the target's **Attack action** upgrades. **Discard** that card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false,
+        "duplicates": [
+            3544,
+            11060
+        ]
     }
 }
