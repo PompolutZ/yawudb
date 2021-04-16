@@ -23,7 +23,7 @@ export default function NavigationPanel() {
                 </Link>
             </div>
             <Menu
-                classes={`hidden lg:flex text-sm flex-1 ${
+                classes={`hidden text-sm lg:flex flex-1 lg:items-center ${
                     new RegExp(/^\/$/).test(pathname)
                         ? "text-white"
                         : "text-gray-900"
@@ -46,6 +46,8 @@ function UserMenu() {
     const auth = useAuthUser();
     const firebase = useContext(FirebaseContext);
     const history = useHistory();
+
+    console.log(history);
 
     return (
         <>
@@ -72,6 +74,15 @@ function UserMenu() {
                     >
                         Sign Out
                     </a>
+
+                    {history.location.pathname === "/" && (
+                        <Link
+                            className="block btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
+                            to="/deck/create"
+                        >
+                            + New Deck
+                        </Link>
+                    )}
                 </>
             )}
             {!auth && (
