@@ -1,14 +1,11 @@
 import React, { PureComponent, lazy } from "react";
-import classnames from "classnames";
 import {
     idPrefixToFaction,
     factions,
     restrictedCards,
-    bannedCards,
 } from "../../../data/index";
 import {
     checkDeckValidFormats,
-    ignoreAsDublicate,
 } from "../../../utils/functions";
 import { Set } from "immutable";
 import { withStyles } from "@material-ui/core/styles";
@@ -16,7 +13,6 @@ import { Link, withRouter } from "react-router-dom";
 import ScoringOverview from "../../../atoms/ScoringOverview";
 import b64toBlob from "b64-to-blob";
 import Card from "./atoms/Card";
-import * as ROUTES from "../../../constants/routes";
 import DetailedPlayStyleValidity from "../../../atoms/DetailedPlayStyleValidity";
 import * as clipboard from "clipboard-polyfill";
 import {
@@ -34,31 +30,6 @@ const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
 
 const cardWidthPx = 532 / 2;
 const cardHeightPx = 744 / 2;
-
-const calcCanvasSize = (cards) => {
-    const objectives = cards.filter(checkCardIsObjective);
-    const gambits = cards.filter(checkCardIsPloy);
-    const upgrades = cards.filter(checkCardIsUpgrade);
-
-    const objectivesWidth = 4 * (cardWidthPx + 10);
-    const gambitsWidth = 4 * (cardWidthPx + 10);
-    const upgradesWidth = 4 * (cardWidthPx + 10);
-
-    const width = objectivesWidth + 21 + gambitsWidth + 21 + upgradesWidth;
-
-    const objectivesHeight =
-        Math.ceil(objectives.length / 4) * (cardHeightPx + 10);
-    const gambitsHeight = Math.ceil(gambits.length / 4) * (cardHeightPx + 10);
-    const upgradesHeight = Math.ceil(upgrades.length / 4) * (cardHeightPx + 10);
-
-    const height =
-        Math.max(objectivesHeight, gambitsHeight, upgradesHeight) + 20;
-
-    return {
-        width: width,
-        height: height,
-    };
-};
 
 const styles = (theme) => ({
     deckHeader: {
@@ -96,25 +67,23 @@ const styles = (theme) => ({
     },
 });
 
+function CardsSectionContent({ cards, listView }) {
+    return listView ? (
+        <ul className="px-3">
+            {cards.map((v) => (
+                <Card key={v.id} card={v} />
+            ))}
+        </ul>
+    ) : (
+        <div className="flex flex-wrap max-w-7xl mx-auto">
+            {cards.map((v) => (
+                <Card asImage key={v.id} card={v} />
+            ))}
+        </div>
+    );
+}
+
 class ReadonlyDeck extends PureComponent {
-    state = {
-        isDraft: false,
-    };
-
-    componentDidMount = () => {
-        const cards = this.props.cards;
-        const objectives = cards.filter(checkCardIsObjective);
-        const gambits = cards.filter(checkCardIsPloy);
-        const upgrades = cards.filter(checkCardIsUpgrade);
-
-        this.setState({
-            isDraft:
-                objectives.length < 12 ||
-                upgrades.length + gambits.length < 20 ||
-                gambits.length > upgrades.length,
-        });
-    };
-
     render() {
         const {
             id,
@@ -128,7 +97,6 @@ class ReadonlyDeck extends PureComponent {
             createdutc,
             updatedutc,
             authorDisplayName,
-            isNarrow,
         } = this.props;
 
         const objectives = cards
@@ -165,7 +133,7 @@ class ReadonlyDeck extends PureComponent {
             : created
             ? ` | ${new Date(created).toLocaleDateString()}`
             : "";
-        const draft = this.state.isDraft ? ` | Draft` : "";
+
         const objectiveSummary = new Set(objectives)
             .groupBy((c) => c.scoreType)
             .reduce(
@@ -175,28 +143,6 @@ class ReadonlyDeck extends PureComponent {
                 },
                 [0, 0, 0, 0]
             );
-
-        const restrictedCount = cards
-            .map((c) => Boolean(restrictedCards[c.id]))
-            .filter((c) => c === true).length;
-        const bannedCount = cards
-            .map((c) => Boolean(bannedCards[c.id]))
-            .filter((c) => c === true).length;
-        const rotatedOutCount = cards.filter(
-            (c) =>
-                c.faction === 0 &&
-                Number(c.id) < 3000 &&
-                !ignoreAsDublicate(c.name)
-        ).length;
-
-        const amount = {
-            objectives: objectives.length,
-            gambits: gambits.length,
-            upgrades: upgrades.length,
-            restricted: restrictedCount,
-            banned: bannedCount,
-            rotatedOut: rotatedOutCount,
-        };
 
         const totalGlory = objectives.reduce(
             (acc, c) => acc + Number(c.glory),
@@ -213,7 +159,6 @@ class ReadonlyDeck extends PureComponent {
                         name={name}
                         author={authorDisplayName}
                         date={createdDate}
-                        draft={draft}
                         sets={sets}
                     >
                         <DetailedPlayStyleValidity
@@ -280,7 +225,13 @@ class ReadonlyDeck extends PureComponent {
                     </>
                 </div>
 
-                <div className="lg:grid lg:grid-cols-3 lg:gap-2 mb-8">
+                <div
+                    className={`lg:grid lg:gap-2 mb-8 ${
+                        this.props.cardsView
+                            ? ""
+                            : "lg:grid-cols-3"
+                    }`}
+                >
                     <section className="px-4">
                         <CardListSectionHeader
                             className="px-2"
@@ -292,15 +243,10 @@ class ReadonlyDeck extends PureComponent {
                                 glory={totalGlory}
                             />
                         </CardListSectionHeader>
-                        <ul className="px-3">
-                            {objectives.map((v) => (
-                                <Card
-                                    key={v.id}
-                                    card={v}
-                                    asImage={this.props.cardsView}
-                                />
-                            ))}
-                        </ul>
+                        <CardsSectionContent
+                            cards={objectives}
+                            listView={!this.props.cardsView}
+                        />
                     </section>
                     <section className="mt-4 lg:mt-0 px-4">
                         <CardListSectionHeader
@@ -308,15 +254,10 @@ class ReadonlyDeck extends PureComponent {
                             type={"Gambits"}
                             amount={gambits.length}
                         />
-                        <ul className="px-3">
-                            {gambits.map((v) => (
-                                <Card
-                                    key={v.id}
-                                    card={v}
-                                    asImage={this.props.cardsView}
-                                />
-                            ))}
-                        </ul>
+                        <CardsSectionContent
+                            cards={gambits}
+                            listView={!this.props.cardsView}
+                        />
                     </section>
                     <section className="mt-4 lg:mt-0 px-4">
                         <CardListSectionHeader
@@ -324,15 +265,10 @@ class ReadonlyDeck extends PureComponent {
                             type={"Upgrades"}
                             amount={upgrades.length}
                         />
-                        <ul className="px-3">
-                            {upgrades.map((v) => (
-                                <Card
-                                    key={v.id}
-                                    card={v}
-                                    asImage={this.props.cardsView}
-                                />
-                            ))}
-                        </ul>
+                        <CardsSectionContent
+                            cards={upgrades}
+                            listView={!this.props.cardsView}
+                        />{" "}
                     </section>
                 </div>
             </div>
@@ -657,9 +593,9 @@ class ReadonlyDeck extends PureComponent {
 
     _handleExportToUDS = () => {
         const udsEncodedCards = this.props.cards
-            .map(card => Number(card.id) - 1000)
+            .map((card) => Number(card.id) - 1000)
             .join();
-        
+
         window.open(
             `https://www.underworlds-deckers.com/en/tournament-decks/?Deck=https://yawudb.com/cards,${udsEncodedCards}`
         );

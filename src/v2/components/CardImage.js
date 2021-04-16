@@ -1,5 +1,4 @@
 import React from "react";
-import { PropTypes } from "prop-types";
 
 function CardImage({ id, ...rest }) {
     const cardId = typeof id !== "string" ? String(id).padStart(5, "0") : id;
@@ -10,9 +9,5 @@ function CardImage({ id, ...rest }) {
         </picture>
     );
 }
-
-CardImage.propTypes = {
-    id: PropTypes.number,
-};
 
 export default CardImage;

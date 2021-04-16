@@ -66,21 +66,18 @@ class Card extends PureComponent {
         return (
             <>
                 {asImage && (
-                    <div style={{ margin: ".5rem", position: "relative" }}>
-                        <CardImage
-                            alt={card.name}
-                            id={cardId}
-                            style={{ width: `14rem` }}
-                        />
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <Typography>Location: </Typography>
+                    <div className="relative m-2 w-56">
+                        <CardImage alt={card.name} id={cardId} className="shadow-lg rounded-2xl" />
+
+                        <div className="flex items-center space-x-2">
+                            <span className="inline-block">Location: </span>
                             <SetIcon id={`${cardId}`} setId={card.setId} />
                         </div>
 
-                        {bannedCards[card.id] && (
+                        {bannedCards[cardId] && (
                             <BlockIcon className={classes.blockedIcon} />
                         )}
-                        {restrictedCards[card.id] && (
+                        {restrictedCards[cardId] && (
                             <LockIcon className={classes.lockedIcon} />
                         )}
                     </div>

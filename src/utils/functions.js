@@ -27,11 +27,11 @@ const backgroundColors = {
 };
 
 export const pickCardColor = (id, defaultColor) => {
-    if (Boolean(bannedCards[id])) {
+    if (bannedCards[id]) {
         return colors["banned"];
     }
 
-    if (Boolean(restrictedCards[id])) {
+    if (restrictedCards[id]) {
         return colors["restricted"];
     }
 
@@ -43,11 +43,11 @@ export const pickCardColor = (id, defaultColor) => {
 };
 
 export const pickCardBackgroundColor = (id, defaultColor) => {
-    if (Boolean(bannedCards[id])) {
+    if (bannedCards[id]) {
         return backgroundColors["banned"];
     }
 
-    if (Boolean(restrictedCards[id])) {
+    if (restrictedCards[id]) {
         return backgroundColors["restricted"];
     }
 
