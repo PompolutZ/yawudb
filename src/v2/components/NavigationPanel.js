@@ -78,7 +78,7 @@ function UserMenu() {
 
                     {history.location.pathname === "/" && (
                         <Link
-                            className="block focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
+                            className="hidden lg:block focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
                             to="/deck/create"
                         >
                             + New Deck
@@ -147,7 +147,7 @@ const Menu = ({ classes, showHome, children }) => (
             </Link>
         )}
         <Link
-            className="block mr-8 cursor-pointer hover:font-semibold pt-px"
+            className="block mr-8 cursor-pointer hover:font-semibold pt-px lg:hidden text-purple-900"
             to="/deck/create"
         >
             Create New Deck
