@@ -67,6 +67,7 @@ function UserMenu() {
                         Profile
                     </Link>
                     <a
+                        href="#"
                         className="block mt-4 lg:mt-0 lg:ml-auto mr-8 cursor-pointer hover:font-semibold pt-px"
                         onClick={() =>
                             firebase.signOut().then(history.push("/"))
@@ -77,7 +78,7 @@ function UserMenu() {
 
                     {history.location.pathname === "/" && (
                         <Link
-                            className="block btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
+                            className="block focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
                             to="/deck/create"
                         >
                             + New Deck
