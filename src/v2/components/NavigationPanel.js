@@ -47,8 +47,6 @@ function UserMenu() {
     const firebase = useContext(FirebaseContext);
     const history = useHistory();
 
-    console.log(history);
-
     return (
         <>
             <Link

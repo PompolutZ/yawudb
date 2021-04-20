@@ -49,7 +49,6 @@ function DeckCreatorTransfer(props) {
         const decode = getDecodingFunction(transferFormat);
         const decodedCards = cardIds.map((foreignId) => {
             const wuid = decode(foreignId);
-            console.log(wuid);
             let card = getCardById(wuid);
             if (card.duplicates) {
                 const newest = Math.max(...card.duplicates);

@@ -202,8 +202,7 @@ function CardLibraryFilters(props) {
 
     useEffect(() => {
         setWarband(state.faction);
-        console.log(state.faction);
-    }, [state.faction.name]);
+    }, [state.faction]);
     
     const handleFormatChange = (format) => () => {
         setSelectedFormat(format);
