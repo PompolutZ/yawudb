@@ -210,6 +210,8 @@ export const factionMembers = {
     "khagras-ravagers": ["Khagra", "Cragan", "Razek", "Zarshia"],
     "the-starblood-stalkers": ["Kixi-Taka", "Klaq-Trok", "Otapatl", "Tok", "Xepic", "Huachi"],
     "the-crimson-court": ["", "", "", ""],
+    "storm-of-celestus": ["", "", "", ""],
+    "drepurs-wraithcreepers": ["", "", "", ""],
 }
 
 export const idPrefixToFaction = {
