@@ -212,6 +212,8 @@ export const factionMembers = {
     "the-crimson-court": ["", "", "", ""],
     "storm-of-celestus": ["", "", "", ""],
     "drepurs-wraithcreepers": ["", "", "", ""],
+    "hedkrakkas-madmob": ["", "", "", ""],
+    "Kainan’s Reapers": ["","","","","","",],
 }
 
 export const idPrefixToFaction = {
