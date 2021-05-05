@@ -86,6 +86,7 @@ export const factionIdPrefix = {
     "khagras-ravagers": "kr", //29
     "the-starblood-stalkers": "tss",
     "the-crimson-court": "tcc",
+    "hedkrakkas-madmob": "hem",
 }
 
 export const factionMembers = {
@@ -259,6 +260,7 @@ export const idPrefixToFaction = {
     "kr": "khagras-ravagers", //29
     "tss": "the-starblood-stalkers",
     tcc: "the-crimson-court",
+    hem: "hedkrakkas-madmob",
 }
 
 export const factionIndexes = [
@@ -305,6 +307,7 @@ export const factionIndexes = [
     "khagras-ravagers", //29
     "the-starblood-stalkers",
     "the-crimson-court",
+    "hedkrakkas-madmob",
 ]
 
 export const factionIndexesWithDefaultSet = [
