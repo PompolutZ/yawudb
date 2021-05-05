@@ -212,7 +212,7 @@ export const factionMembers = {
     "the-crimson-court": ["", "", "", ""],
     "storm-of-celestus": ["", "", "", ""],
     "drepurs-wraithcreepers": ["", "", "", ""],
-    "hedkrakkas-madmob": ["", "", "", ""],
+    "hedkrakkas-madmob": ["Hedkrakka", "Wollop", "Toofdagga", "Dakko"],
     "Kainan’s Reapers": ["","","","","","",],
 }
 
