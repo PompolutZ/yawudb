@@ -165,17 +165,17 @@ export const sets = {
         "displayName": "Hedkrakka's Madmob expansion"
     },
     "Starter Set": {
-        "id": 38,
+        "id": 37,
         "name": "starter-set",
         "displayName": "Starter Set"
     },
     "Essential Cards Pack": {
-        "id": 39,
+        "id": 38,
         "name": "essential-cards-pack",
         "displayName": "Essential Cards Pack"
     },
     "Silent Menace Universal Deck expansion": {
-        "id": 35,
+        "id": 39,
         "name": "silent-menace-universal-deck",
         "displayName": "Silent Menace Universal Deck expansion"
     }
