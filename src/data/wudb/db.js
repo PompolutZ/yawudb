@@ -164,6 +164,11 @@ export const sets = {
         "name": "hedkrakkas-madmob",
         "displayName": "Hedkrakka's Madmob expansion"
     },
+    "Silent Menace Universal Deck": {
+        "id": 39,
+        "name": "silent-menace-universal-deck",
+        "displayName": "Silent Menace Universal Deck"
+    },
     "Starter Set": {
         "id": 37,
         "name": "starter-set",
@@ -173,11 +178,6 @@ export const sets = {
         "id": 38,
         "name": "essential-cards-pack",
         "displayName": "Essential Cards Pack"
-    },
-    "Silent Menace Universal Deck expansion": {
-        "id": 39,
-        "name": "silent-menace-universal-deck",
-        "displayName": "Silent Menace Universal Deck expansion"
     }
 }
 export const factions = {
@@ -24028,7 +24028,7 @@ export const cards = {
     "9258": {
         "id": 9258,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Advancing Swarm",
         "type": "Objective",
         "glory": 1,
@@ -24100,7 +24100,7 @@ export const cards = {
     "9265": {
         "id": 9265,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Brutal Attrition",
         "type": "Objective",
         "glory": 1,
@@ -24136,7 +24136,7 @@ export const cards = {
     "9268": {
         "id": 9268,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Cold-blooded Killers",
         "type": "Objective",
         "glory": 1,
@@ -24148,11 +24148,11 @@ export const cards = {
     "9269": {
         "id": 9269,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Demolish the Opposition",
         "type": "Objective",
         "glory": 3,
-        "rule": "**Hybrid:** Scoret his in the third end phase if: \\n There are no enemy fighters in enemy territory \\n *Or:* There is no more than one surviving enemy fighter.",
+        "rule": "**Hybrid:** Score this in the third end phase if: \\n There are no enemy fighters in enemy territory \\n *Or:* There is no more than one surviving enemy fighter.",
         "scoreType": "Third",
         "status": "V--_V-_V",
         "rotated": false
@@ -24232,7 +24232,7 @@ export const cards = {
     "9277": {
         "id": 9277,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Forbidding Strike",
         "type": "Objective",
         "glory": 2,
@@ -24280,7 +24280,7 @@ export const cards = {
     "9285": {
         "id": 9285,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Impending Doom",
         "type": "Objective",
         "glory": 1,
@@ -24304,7 +24304,7 @@ export const cards = {
     "9288": {
         "id": 9288,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Killing Strike",
         "type": "Objective",
         "glory": 1,
@@ -24376,7 +24376,7 @@ export const cards = {
     "9294": {
         "id": 9294,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Martial Adept",
         "type": "Objective",
         "glory": 1,
@@ -24436,11 +24436,11 @@ export const cards = {
     "9300": {
         "id": 9300,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Orchestrated Kill",
         "type": "Objective",
         "glory": 1,
-        "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that takes an enemy fighter out of action, fi the friendly fighter had one or more **supporting** fighters.",
+        "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that takes an enemy fighter out of action, if the friendly fighter had one or more **supporting** fighters.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
@@ -24508,7 +24508,7 @@ export const cards = {
     "9311": {
         "id": 9311,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Promise of Destruction",
         "type": "Objective",
         "glory": 1,
@@ -24592,7 +24592,7 @@ export const cards = {
     "9323": {
         "id": 9323,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Stinging Strike",
         "type": "Objective",
         "glory": 1,
@@ -24736,7 +24736,7 @@ export const cards = {
     "9337": {
         "id": 9337,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Untouchable Swarm",
         "type": "Objective",
         "glory": 2,
@@ -24796,12 +24796,12 @@ export const cards = {
     "9342": {
         "id": 9342,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Acidic Strike",
         "type": "Ploy",
         "glory": null,
         "rule": "**Reaction:** Play this after a friendly fighter's successful **Attack action.** Pick one of the target's upgrades and **discard** that card.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25024,12 +25024,12 @@ export const cards = {
     "9367": {
         "id": 9367,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Hidden Sting",
         "type": "Ploy",
         "glory": null,
         "rule": "**Reaction:** Play this after a friendly fighter's successful Range 1 **Attack action,** if there were one or more :atCrit: in the attack roll. **Deal** 1 damage to the target.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25120,12 +25120,12 @@ export const cards = {
     "9377": {
         "id": 9377,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Hypnotic Buzz",
         "type": "Ploy",
         "glory": null,
         "rule": "**Choose** one enemy fighter within 2 hexes of one or more friendly fighters. **Push** the chosen fighter 1 hex.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25192,12 +25192,12 @@ export const cards = {
     "9385": {
         "id": 9385,
         "factionId": 1,
-        "setId": 35,
-        "name": "Maddending Drone",
+        "setId": 39,
+        "name": "Maddening Drone",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Choose** one enemy fighter. That fighter's player picks one: **give** that fighter one Move token, or that fighter is un-Inspired and cannot be Inspired. If they pick the latter, this **effect** persists until the end of the round, or until that fighter is taken out of action. When this effect ends, the chosen fighter is Inspired.",
-        "scoreType": "",
+        "rule": "**Choose** one enemy fighter. That fighter's player picks one: **give** that fighter one Move token, or that fighter is un-Inspired and cannot be Inspired. If they pick the latter, this effect **persists** until the end of the round, or until that fighter is taken out of action. When this effect ends, the chosen fighter is Inspired.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25216,12 +25216,12 @@ export const cards = {
     "9388": {
         "id": 9388,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Membranous Wings",
         "type": "Ploy",
         "glory": null,
-        "rule": "+2 Move to the next friendly fighter to make a **Charge action.** This effect **persists** until after the next friendly fighter's **Charge action.**",
-        "scoreType": "",
+        "rule": "+2 Move to the next friendly fighter to make a **Charge action**. This effect **persists** until after the next friendly fighter's **Charge action**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25360,12 +25360,12 @@ export const cards = {
     "9407": {
         "id": 9407,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Spiritcomb",
         "type": "Ploy",
         "glory": null,
         "rule": "**Choose** one friendly fighter. **Heal** (1) that fighter, or **Heal** (2) that fighter if that fighter has three or more upgrades.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25396,12 +25396,12 @@ export const cards = {
     "9410": {
         "id": 9410,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Strength of the Swarm",
         "type": "Ploy",
         "glory": null,
         "rule": "+1 Dice to the next **Attack action** made by a friendly fighter if the attacker has one or more **supporting** fighters. \\n In addition, +1 Damage to the next **Attack action** made by a friendly fighter if the attacker has two or more **supporting** fighters. \\n This effect **persists** until after the next **Attack action** made by a friendly fighter.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25420,36 +25420,36 @@ export const cards = {
     "9412": {
         "id": 9412,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Swarming Advance",
         "type": "Ploy",
         "glory": null,
         "rule": "**Choose** one friendly fighter in enemy territory. **Push** up to two other friendly fighters 1 hex so that they are closer to the chosen fighter.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
     "9413": {
         "id": 9413,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Swarming Strike",
         "type": "Ploy",
         "glory": null,
         "rule": "The first friendly fighter to make an **Attack action** in the next activation is considered to have one additional **supporting** fighter.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
     "9414": {
         "id": 9414,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Symbiote's Call",
         "type": "Ploy",
         "glory": null,
-        "rule": "Pick one feature token within one hex of one or more friendly fighters, then pick one: flip that token, or **push** one friendly fighter 1 hex so that they are in the same hex as that token.",
-        "scoreType": "",
+        "rule": "Pick one feature token within 1 hex of one or more friendly fighters, then pick one: flip that token, or **push** one friendly fighter 1 hex so that they are in the same hex as that token.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25540,12 +25540,12 @@ export const cards = {
     "9425": {
         "id": 9425,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Augmented Limbs",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter is a **Quarry.** If this fighter is a **Quarry,** this fighter's Range 1 **Attack actions** have +1 Dice.",
-        "scoreType": "",
+        "rule": "This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter's Range 1 **Attack actions** have +1 Dice.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25588,36 +25588,36 @@ export const cards = {
     "9430": {
         "id": 9430,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Chitin Scimitar",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:hex: 1 - :atFury: 3 - :boom: 2 -(Cleave)-] \\n If you roll no **successes**, you can **re-roll** one dice in the attack roll.",
-        "scoreType": "",
+        "rule": "[:Hex: 1 - :atFury: 3 - :boom: 2 -(Cleave)-] \\n If you roll no **successes**, you can **re-roll** one dice in the attack roll.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
     "9431": {
         "id": 9431,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Chitin Spear",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:hex: 2 - :atSmash: 2 - :boom: 2] \\n If you roll no **successes**, you can **re-roll** one dice in the attack roll.",
-        "scoreType": "",
+        "rule": "[:Hex: 2 - :atSmash: 2 - :boom: 2] \\n If you roll no **successes**, you can **re-roll** one dice in the attack roll.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
     "9432": {
         "id": 9432,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Collector",
         "type": "Upgrade",
         "glory": null,
         "rule": "**Reaction:** After this fighter's activation in which this fighter makes an **Attack action** that takes an adjacent enemy fighter out of action, give this fighter one upgrade from your hand.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25672,12 +25672,12 @@ export const cards = {
     "9440": {
         "id": 9440,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Extruded Snare",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:hex: 3 - :atFury: 3 - :boom: 1] \\n If this **Attack action** succeeds, **give** the target one Move token. Then **discard** this card.",
-        "scoreType": "",
+        "rule": "[:Hex: 3 - :atFury: 3 - :boom: 1] \\n If this **Attack action** succeeds, **give** the target one Move token. Then **discard** this card.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25948,12 +25948,12 @@ export const cards = {
     "9472": {
         "id": 9472,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Regenerative Cycle",
         "type": "Upgrade",
         "glory": null,
         "rule": "**Reaction:** After this fighter's activation, **discard** one or more power cards. **Heal** (X) this fighter where X is the number of power cards you **discarded.**",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25984,12 +25984,12 @@ export const cards = {
     "9476": {
         "id": 9476,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Savage Soldier",
         "type": "Upgrade",
         "glory": null,
         "rule": "This fighter has the following cumulative benefits, determined by how many upgrades they have: \\n **2+:** +1 Dice to this fighter's Range 1 **Attack actions** \\n **4+:** This fighter's **Attack actions** have **Cleave** and **Ensnare.**",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26044,12 +26044,12 @@ export const cards = {
     "9481": {
         "id": 9481,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Silent Armour",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Silent Relic** \\n This fighter is a **Quarry.** If this fighter is a **Quarry,** this fighter has the following reaction. \\n **Reaction:** After this fighter's **Move action, remove** all Guard tokens from enemy fighters adjacent to this fighter. \\n +1 Wounds if this fighter has two or more **Silent Relics.**",
-        "scoreType": "",
+        "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter has the following reaction. \\n **Reaction:** After this fighter's **Move action**, **remove** all Guard tokens from enemy fighters adjacent to this fighter. \\n +1 Wounds if this fighter has two or more **Silent Relics**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26068,12 +26068,12 @@ export const cards = {
     "9484": {
         "id": 9484,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Silent Ring",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Silent Relic** \\n This fighter is a **Quarry.** If this fighter is a **Quarry,** this fighter has the following reaction. \\n **Reaction:** After this fighter's activation, if you have three or fewer power cards in your hand, **draw** one power card. \\n +1 Dice to this fighter's Range 1 **Attack actions** if this fighter has two or more **Silent Relics.**",
-        "scoreType": "",
+        "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter has the following reaction. \\n **Reaction:** After this fighter's activation, if you have three or fewer power cards in your hand, **draw** one power card. \\n +1 Dice to this fighter's Range 1 **Attack actions** if this fighter has two or more **Silent Relics**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26176,12 +26176,12 @@ export const cards = {
     "9496": {
         "id": 9496,
         "factionId": 1,
-        "setId": 35,
+        "setId": 39,
         "name": "Swift Soldier",
         "type": "Upgrade",
         "glory": null,
         "rule": "This fighter has the following cumulative benefits, determined by how many upgrades they have: \\n **2+:** +1 Move \\n **4+:** +2 Move",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26224,7 +26224,7 @@ export const cards = {
     "10001": {
         "id": 10001,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Advancing Storm",
         "type": "Objective",
         "glory": 1,
@@ -26236,7 +26236,7 @@ export const cards = {
     "10002": {
         "id": 10002,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Balanced Strategy",
         "type": "Objective",
         "glory": 2,
@@ -26248,7 +26248,7 @@ export const cards = {
     "10003": {
         "id": 10003,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Bold Claim",
         "type": "Objective",
         "glory": 2,
@@ -26260,7 +26260,7 @@ export const cards = {
     "10004": {
         "id": 10004,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Bulwark Against the Dark",
         "type": "Objective",
         "glory": 1,
@@ -26272,7 +26272,7 @@ export const cards = {
     "10005": {
         "id": 10005,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Crucial Objective",
         "type": "Objective",
         "glory": 1,
@@ -26284,7 +26284,7 @@ export const cards = {
     "10006": {
         "id": 10006,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Great Purification",
         "type": "Objective",
         "glory": 3,
@@ -26296,7 +26296,7 @@ export const cards = {
     "10007": {
         "id": 10007,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Here We Stand",
         "type": "Objective",
         "glory": 1,
@@ -26308,7 +26308,7 @@ export const cards = {
     "10008": {
         "id": 10008,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Lightning Strike",
         "type": "Objective",
         "glory": 1,
@@ -26320,7 +26320,7 @@ export const cards = {
     "10009": {
         "id": 10009,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Point Blank",
         "type": "Objective",
         "glory": 1,
@@ -26332,7 +26332,7 @@ export const cards = {
     "10010": {
         "id": 10010,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Righteous Banishment",
         "type": "Objective",
         "glory": 1,
@@ -26344,7 +26344,7 @@ export const cards = {
     "10011": {
         "id": 10011,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Shining Heroes",
         "type": "Objective",
         "glory": 1,
@@ -26356,7 +26356,7 @@ export const cards = {
     "10012": {
         "id": 10012,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Zone of Banishment",
         "type": "Objective",
         "glory": 2,
@@ -26368,7 +26368,7 @@ export const cards = {
     "10013": {
         "id": 10013,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Aetheric Channelling",
         "type": "Ploy",
         "glory": null,
@@ -26380,7 +26380,7 @@ export const cards = {
     "10014": {
         "id": 10014,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Channelled Step",
         "type": "Ploy",
         "glory": null,
@@ -26392,7 +26392,7 @@ export const cards = {
     "10015": {
         "id": 10015,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Concerted Consolidation",
         "type": "Ploy",
         "glory": null,
@@ -26404,7 +26404,7 @@ export const cards = {
     "10016": {
         "id": 10016,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Distracting Shot",
         "type": "Ploy",
         "glory": null,
@@ -26416,7 +26416,7 @@ export const cards = {
     "10017": {
         "id": 10017,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Greatbow Block",
         "type": "Ploy",
         "glory": null,
@@ -26428,7 +26428,7 @@ export const cards = {
     "10018": {
         "id": 10018,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Healing Tempest",
         "type": "Ploy",
         "glory": null,
@@ -26440,7 +26440,7 @@ export const cards = {
     "10019": {
         "id": 10019,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Lightning Flare",
         "type": "Ploy",
         "glory": null,
@@ -26452,7 +26452,7 @@ export const cards = {
     "10020": {
         "id": 10020,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Raise the Alarm",
         "type": "Ploy",
         "glory": null,
@@ -26464,7 +26464,7 @@ export const cards = {
     "10021": {
         "id": 10021,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Stalwart Defence",
         "type": "Ploy",
         "glory": null,
@@ -26476,7 +26476,7 @@ export const cards = {
     "10022": {
         "id": 10022,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Swift Step",
         "type": "Ploy",
         "glory": null,
@@ -26488,7 +26488,7 @@ export const cards = {
     "10023": {
         "id": 10023,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Cautious Advance",
         "type": "Upgrade",
         "glory": null,
@@ -26500,7 +26500,7 @@ export const cards = {
     "10024": {
         "id": 10024,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Concussive Cloud",
         "type": "Upgrade",
         "glory": null,
@@ -26512,7 +26512,7 @@ export const cards = {
     "10025": {
         "id": 10025,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Cool Head",
         "type": "Upgrade",
         "glory": null,
@@ -26524,7 +26524,7 @@ export const cards = {
     "10026": {
         "id": 10026,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "I'll Cover You!",
         "type": "Upgrade",
         "glory": null,
@@ -26536,7 +26536,7 @@ export const cards = {
     "10027": {
         "id": 10027,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Long Ranged",
         "type": "Upgrade",
         "glory": null,
@@ -26548,7 +26548,7 @@ export const cards = {
     "10028": {
         "id": 10028,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Loyal Companion",
         "type": "Upgrade",
         "glory": null,
@@ -26560,7 +26560,7 @@ export const cards = {
     "10029": {
         "id": 10029,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Reconquerer",
         "type": "Upgrade",
         "glory": null,
@@ -26572,7 +26572,7 @@ export const cards = {
     "10030": {
         "id": 10030,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Reconsecrate",
         "type": "Upgrade",
         "glory": null,
@@ -26584,7 +26584,7 @@ export const cards = {
     "10031": {
         "id": 10031,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Stoic Fortitude",
         "type": "Upgrade",
         "glory": null,
@@ -26596,7 +26596,7 @@ export const cards = {
     "10032": {
         "id": 10032,
         "factionId": 36,
-        "setId": 38,
+        "setId": 37,
         "name": "Strength of Sigmar",
         "type": "Upgrade",
         "glory": null,
@@ -26608,7 +26608,7 @@ export const cards = {
     "10033": {
         "id": 10033,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Death's Bounty",
         "type": "Objective",
         "glory": 3,
@@ -26620,7 +26620,7 @@ export const cards = {
     "10034": {
         "id": 10034,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Death's Triumph",
         "type": "Objective",
         "glory": 2,
@@ -26632,7 +26632,7 @@ export const cards = {
     "10035": {
         "id": 10035,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Deathly Blooms",
         "type": "Objective",
         "glory": 1,
@@ -26644,7 +26644,7 @@ export const cards = {
     "10036": {
         "id": 10036,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Dread Harvest",
         "type": "Objective",
         "glory": 1,
@@ -26656,7 +26656,7 @@ export const cards = {
     "10037": {
         "id": 10037,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Ethereal Hunters",
         "type": "Objective",
         "glory": 1,
@@ -26668,7 +26668,7 @@ export const cards = {
     "10038": {
         "id": 10038,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Inevitable Advance",
         "type": "Objective",
         "glory": 1,
@@ -26680,7 +26680,7 @@ export const cards = {
     "10039": {
         "id": 10039,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Massed Blades",
         "type": "Objective",
         "glory": 1,
@@ -26692,7 +26692,7 @@ export const cards = {
     "10040": {
         "id": 10040,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Piercing Blow",
         "type": "Objective",
         "glory": 1,
@@ -26704,7 +26704,7 @@ export const cards = {
     "10041": {
         "id": 10041,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Scythed Down",
         "type": "Objective",
         "glory": 2,
@@ -26716,7 +26716,7 @@ export const cards = {
     "10042": {
         "id": 10042,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "The Hunt Pursues",
         "type": "Objective",
         "glory": 1,
@@ -26728,7 +26728,7 @@ export const cards = {
     "10043": {
         "id": 10043,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Unstoppable Death",
         "type": "Objective",
         "glory": 1,
@@ -26740,7 +26740,7 @@ export const cards = {
     "10044": {
         "id": 10044,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Vengeance of Nagash",
         "type": "Objective",
         "glory": 1,
@@ -26752,7 +26752,7 @@ export const cards = {
     "10045": {
         "id": 10045,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Deadly Vengeance",
         "type": "Ploy",
         "glory": null,
@@ -26764,7 +26764,7 @@ export const cards = {
     "10046": {
         "id": 10046,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Drifting Death",
         "type": "Ploy",
         "glory": null,
@@ -26776,7 +26776,7 @@ export const cards = {
     "10047": {
         "id": 10047,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Enervating Beat",
         "type": "Ploy",
         "glory": null,
@@ -26788,7 +26788,7 @@ export const cards = {
     "10048": {
         "id": 10048,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Fevered Beat",
         "type": "Ploy",
         "glory": null,
@@ -26800,7 +26800,7 @@ export const cards = {
     "10049": {
         "id": 10049,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Heart-piercer",
         "type": "Ploy",
         "glory": null,
@@ -26812,7 +26812,7 @@ export const cards = {
     "10050": {
         "id": 10050,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Horrifying Shriek",
         "type": "Ploy",
         "glory": null,
@@ -26824,7 +26824,7 @@ export const cards = {
     "10051": {
         "id": 10051,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Methodical Attacks",
         "type": "Ploy",
         "glory": null,
@@ -26836,7 +26836,7 @@ export const cards = {
     "10052": {
         "id": 10052,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Somnolent Beat",
         "type": "Ploy",
         "glory": null,
@@ -26848,7 +26848,7 @@ export const cards = {
     "10053": {
         "id": 10053,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Stuff of Nightmares",
         "type": "Ploy",
         "glory": null,
@@ -26860,7 +26860,7 @@ export const cards = {
     "10054": {
         "id": 10054,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Unending Pursuit",
         "type": "Ploy",
         "glory": null,
@@ -26872,7 +26872,7 @@ export const cards = {
     "10055": {
         "id": 10055,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Bitter Strength",
         "type": "Upgrade",
         "glory": null,
@@ -26884,7 +26884,7 @@ export const cards = {
     "10056": {
         "id": 10056,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Carrion Companion",
         "type": "Upgrade",
         "glory": null,
@@ -26896,7 +26896,7 @@ export const cards = {
     "10057": {
         "id": 10057,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Death Grasp",
         "type": "Upgrade",
         "glory": null,
@@ -26908,7 +26908,7 @@ export const cards = {
     "10058": {
         "id": 10058,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Deathly Vigour",
         "type": "Upgrade",
         "glory": null,
@@ -26920,7 +26920,7 @@ export const cards = {
     "10059": {
         "id": 10059,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Memories of the Hunt",
         "type": "Upgrade",
         "glory": null,
@@ -26932,7 +26932,7 @@ export const cards = {
     "10060": {
         "id": 10060,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Murderous Accomplice",
         "type": "Upgrade",
         "glory": null,
@@ -26944,7 +26944,7 @@ export const cards = {
     "10061": {
         "id": 10061,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Murderpact",
         "type": "Upgrade",
         "glory": null,
@@ -26956,7 +26956,7 @@ export const cards = {
     "10062": {
         "id": 10062,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Pall of Fear",
         "type": "Upgrade",
         "glory": null,
@@ -26968,7 +26968,7 @@ export const cards = {
     "10063": {
         "id": 10063,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "Tearing Claws",
         "type": "Upgrade",
         "glory": null,
@@ -26980,7 +26980,7 @@ export const cards = {
     "10064": {
         "id": 10064,
         "factionId": 37,
-        "setId": 38,
+        "setId": 37,
         "name": "The Point of Death",
         "type": "Upgrade",
         "glory": null,
@@ -26992,7 +26992,7 @@ export const cards = {
     "11001": {
         "id": 11001,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Annihilation",
         "type": "Objective",
         "glory": 5,
@@ -27010,7 +27010,7 @@ export const cards = {
     "11002": {
         "id": 11002,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Branching Fate",
         "type": "Objective",
         "glory": 1,
@@ -27026,7 +27026,7 @@ export const cards = {
     "11003": {
         "id": 11003,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Conquest",
         "type": "Objective",
         "glory": 2,
@@ -27044,7 +27044,7 @@ export const cards = {
     "11004": {
         "id": 11004,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Denial",
         "type": "Objective",
         "glory": 3,
@@ -27062,7 +27062,7 @@ export const cards = {
     "11005": {
         "id": 11005,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Great Gains",
         "type": "Objective",
         "glory": 2,
@@ -27078,7 +27078,7 @@ export const cards = {
     "11006": {
         "id": 11006,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Hold Objective 1",
         "type": "Objective",
         "glory": 1,
@@ -27096,7 +27096,7 @@ export const cards = {
     "11007": {
         "id": 11007,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Hold Objective 2",
         "type": "Objective",
         "glory": 1,
@@ -27114,7 +27114,7 @@ export const cards = {
     "11008": {
         "id": 11008,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Hold Objective 3",
         "type": "Objective",
         "glory": 1,
@@ -27132,7 +27132,7 @@ export const cards = {
     "11009": {
         "id": 11009,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Hold Objective 4",
         "type": "Objective",
         "glory": 1,
@@ -27150,7 +27150,7 @@ export const cards = {
     "11010": {
         "id": 11010,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Hold Objective 5",
         "type": "Objective",
         "glory": 1,
@@ -27168,7 +27168,7 @@ export const cards = {
     "11011": {
         "id": 11011,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Making a Statement",
         "type": "Objective",
         "glory": 3,
@@ -27184,7 +27184,7 @@ export const cards = {
     "11012": {
         "id": 11012,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "No Remorse",
         "type": "Objective",
         "glory": 1,
@@ -27200,7 +27200,7 @@ export const cards = {
     "11013": {
         "id": 11013,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Path to Victory",
         "type": "Objective",
         "glory": 2,
@@ -27216,7 +27216,7 @@ export const cards = {
     "11014": {
         "id": 11014,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Plant a Standard",
         "type": "Objective",
         "glory": 1,
@@ -27233,7 +27233,7 @@ export const cards = {
     "11015": {
         "id": 11015,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Pure Carnage",
         "type": "Objective",
         "glory": 3,
@@ -27249,7 +27249,7 @@ export const cards = {
     "11016": {
         "id": 11016,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Strong Start",
         "type": "Objective",
         "glory": 1,
@@ -27265,7 +27265,7 @@ export const cards = {
     "11017": {
         "id": 11017,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Supremacy",
         "type": "Objective",
         "glory": 3,
@@ -27283,7 +27283,7 @@ export const cards = {
     "11018": {
         "id": 11018,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Tactical Supremacy 1-2",
         "type": "Objective",
         "glory": 2,
@@ -27300,7 +27300,7 @@ export const cards = {
     "11019": {
         "id": 11019,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Tactical Supremacy 3-4",
         "type": "Objective",
         "glory": 2,
@@ -27317,7 +27317,7 @@ export const cards = {
     "11020": {
         "id": 11020,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Victorious Duel",
         "type": "Objective",
         "glory": 2,
@@ -27334,7 +27334,7 @@ export const cards = {
     "11021": {
         "id": 11021,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Centre of Attention",
         "type": "Ploy",
         "glory": null,
@@ -27350,7 +27350,7 @@ export const cards = {
     "11022": {
         "id": 11022,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Commanding Stride",
         "type": "Ploy",
         "glory": null,
@@ -27366,7 +27366,7 @@ export const cards = {
     "11023": {
         "id": 11023,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Confusion",
         "type": "Ploy",
         "glory": null,
@@ -27384,7 +27384,7 @@ export const cards = {
     "11024": {
         "id": 11024,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Countercharge",
         "type": "Ploy",
         "glory": null,
@@ -27400,7 +27400,7 @@ export const cards = {
     "11025": {
         "id": 11025,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Daylight Robbery",
         "type": "Ploy",
         "glory": null,
@@ -27417,7 +27417,7 @@ export const cards = {
     "11026": {
         "id": 11026,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Determined Effort",
         "type": "Ploy",
         "glory": null,
@@ -27433,7 +27433,7 @@ export const cards = {
     "11027": {
         "id": 11027,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Duel of Wits",
         "type": "Ploy",
         "glory": null,
@@ -27449,7 +27449,7 @@ export const cards = {
     "11028": {
         "id": 11028,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Flickering Step",
         "type": "Ploy",
         "glory": null,
@@ -27465,7 +27465,7 @@ export const cards = {
     "11029": {
         "id": 11029,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Grievous Riposte",
         "type": "Ploy",
         "glory": null,
@@ -27481,7 +27481,7 @@ export const cards = {
     "11030": {
         "id": 11030,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Healing Potion",
         "type": "Ploy",
         "glory": null,
@@ -27497,7 +27497,7 @@ export const cards = {
     "11031": {
         "id": 11031,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Inspired Attack",
         "type": "Ploy",
         "glory": null,
@@ -27513,7 +27513,7 @@ export const cards = {
     "11032": {
         "id": 11032,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Inspired Command",
         "type": "Ploy",
         "glory": null,
@@ -27529,7 +27529,7 @@ export const cards = {
     "11033": {
         "id": 11033,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Keen Avarice",
         "type": "Ploy",
         "glory": null,
@@ -27545,7 +27545,7 @@ export const cards = {
     "11034": {
         "id": 11034,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Lethal Ward",
         "type": "Ploy",
         "glory": null,
@@ -27561,7 +27561,7 @@ export const cards = {
     "11035": {
         "id": 11035,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Mighty Swing",
         "type": "Ploy",
         "glory": null,
@@ -27577,7 +27577,7 @@ export const cards = {
     "11036": {
         "id": 11036,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Mirror Move",
         "type": "Ploy",
         "glory": null,
@@ -27593,7 +27593,7 @@ export const cards = {
     "11037": {
         "id": 11037,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Misdirection",
         "type": "Ploy",
         "glory": null,
@@ -27610,7 +27610,7 @@ export const cards = {
     "11038": {
         "id": 11038,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "No Time",
         "type": "Ploy",
         "glory": null,
@@ -27627,7 +27627,7 @@ export const cards = {
     "11039": {
         "id": 11039,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Shifting Shards",
         "type": "Ploy",
         "glory": null,
@@ -27643,7 +27643,7 @@ export const cards = {
     "11040": {
         "id": 11040,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Sidestep",
         "type": "Ploy",
         "glory": null,
@@ -27661,7 +27661,7 @@ export const cards = {
     "11041": {
         "id": 11041,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Army of One",
         "type": "Upgrade",
         "glory": null,
@@ -27677,7 +27677,7 @@ export const cards = {
     "11042": {
         "id": 11042,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Bag of Tricks",
         "type": "Upgrade",
         "glory": null,
@@ -27693,7 +27693,7 @@ export const cards = {
     "11043": {
         "id": 11043,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Champion's Fortitude",
         "type": "Upgrade",
         "glory": null,
@@ -27709,7 +27709,7 @@ export const cards = {
     "11044": {
         "id": 11044,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Dark Darts",
         "type": "Upgrade",
         "glory": null,
@@ -27725,7 +27725,7 @@ export const cards = {
     "11045": {
         "id": 11045,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Duellist's Speed",
         "type": "Upgrade",
         "glory": null,
@@ -27741,7 +27741,7 @@ export const cards = {
     "11046": {
         "id": 11046,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Earthing Stone",
         "type": "Upgrade",
         "glory": null,
@@ -27757,7 +27757,7 @@ export const cards = {
     "11047": {
         "id": 11047,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Fighter's Ferocity",
         "type": "Upgrade",
         "glory": null,
@@ -27773,7 +27773,7 @@ export const cards = {
     "11048": {
         "id": 11048,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Gloryseeker",
         "type": "Upgrade",
         "glory": null,
@@ -27789,7 +27789,7 @@ export const cards = {
     "11049": {
         "id": 11049,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Great Fortitude",
         "type": "Upgrade",
         "glory": null,
@@ -27807,7 +27807,7 @@ export const cards = {
     "11050": {
         "id": 11050,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Great Speed",
         "type": "Upgrade",
         "glory": null,
@@ -27825,7 +27825,7 @@ export const cards = {
     "11051": {
         "id": 11051,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Great Strength",
         "type": "Upgrade",
         "glory": null,
@@ -27843,7 +27843,7 @@ export const cards = {
     "11052": {
         "id": 11052,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Guardian Glaive",
         "type": "Upgrade",
         "glory": null,
@@ -27859,7 +27859,7 @@ export const cards = {
     "11053": {
         "id": 11053,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Horrifying Armour",
         "type": "Upgrade",
         "glory": null,
@@ -27875,7 +27875,7 @@ export const cards = {
     "11054": {
         "id": 11054,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Leech Stone",
         "type": "Upgrade",
         "glory": null,
@@ -27891,7 +27891,7 @@ export const cards = {
     "11055": {
         "id": 11055,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Mutating Maul",
         "type": "Upgrade",
         "glory": null,
@@ -27907,7 +27907,7 @@ export const cards = {
     "11056": {
         "id": 11056,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Potion of Grace",
         "type": "Upgrade",
         "glory": null,
@@ -27923,7 +27923,7 @@ export const cards = {
     "11057": {
         "id": 11057,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Quickening Greaves",
         "type": "Upgrade",
         "glory": null,
@@ -27939,7 +27939,7 @@ export const cards = {
     "11058": {
         "id": 11058,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Regenerative Charm",
         "type": "Upgrade",
         "glory": null,
@@ -27955,7 +27955,7 @@ export const cards = {
     "11059": {
         "id": 11059,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Shardcaller",
         "type": "Upgrade",
         "glory": null,
@@ -27972,7 +27972,7 @@ export const cards = {
     "11060": {
         "id": 11060,
         "factionId": 1,
-        "setId": 39,
+        "setId": 38,
         "name": "Swordbreaker",
         "type": "Upgrade",
         "glory": null,
