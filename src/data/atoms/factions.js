@@ -87,6 +87,7 @@ export const factionIdPrefix = {
     "the-starblood-stalkers": "tss",
     "the-crimson-court": "tcc",
     "hedkrakkas-madmob": "hem",
+    "kainans-reapers": "kar",
 }
 
 export const factionMembers = {
@@ -214,7 +215,7 @@ export const factionMembers = {
     "storm-of-celestus": ["", "", "", ""],
     "drepurs-wraithcreepers": ["", "", "", ""],
     "hedkrakkas-madmob": ["Hedkrakka", "Wollop", "Toofdagga", "Dakko"],
-    "Kainan’s Reapers": ["","","","","","",],
+    "kainans-reapers": ["","","","","","",],
 }
 
 export const idPrefixToFaction = {
@@ -261,6 +262,7 @@ export const idPrefixToFaction = {
     "tss": "the-starblood-stalkers",
     tcc: "the-crimson-court",
     hem: "hedkrakkas-madmob",
+    kar: "kainans-reapers"
 }
 
 export const factionIndexes = [
@@ -308,6 +310,7 @@ export const factionIndexes = [
     "the-starblood-stalkers",
     "the-crimson-court",
     "hedkrakkas-madmob",
+    "kainans-reapers",
 ]
 
 export const factionIndexesWithDefaultSet = [
