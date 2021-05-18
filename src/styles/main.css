@@ -623,29 +623,6 @@ body {
   border-radius: 0 0.7em 0.7em 0;
 }
 
-/* Works on Firefox */
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #374151 #D1D5DB;
-}
-
-/* Works on Chrome, Edge, and Safari */
-
-*::-webkit-scrollbar {
-  width: 12px;
-}
-
-*::-webkit-scrollbar-track {
-  background: rgba(209, 213, 219, .1);
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: rgba(55, 65, 81, .5);
-  border-radius: 20px;
-  border: 3px solid rgba(209, 213, 219, .1);
-}
-
 .container {
   width: 100%;
 }
