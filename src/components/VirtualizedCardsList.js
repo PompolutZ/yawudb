@@ -1,145 +1,24 @@
-import React, { Component, PureComponent } from "react";
+import React, { Component } from "react";
 import { List, AutoSizer } from "react-virtualized";
-import { withStyles } from "@material-ui/core/styles";
-import { setsIndex, setsNames, cardTypeIcons } from "../data/index";
-import { withRouter } from "react-router-dom";
-import ObjectiveScoreTypeIcon from "./ObjectiveScoreTypeIcon";
-import { Typography } from "@material-ui/core";
-import { pickCardColor, pickCardBackgroundColor } from "../utils/functions";
-
-const cardNameViewStyles = (theme) => ({
-    root: {
-        display: "flex",
-        alignItems: "center",
-        cursor: "pointer",
-    },
-    setImage: {
-        width: "1.5rem",
-        height: "1.5rem",
-    },
-});
-
-class CardNameView extends PureComponent {
-    render() {
-        const { classes, set, name, type, scoreType, id } = this.props;
-        return (
-            <div className={classes.root} onClick={this._navitateToCard}>
-                <img
-                    src={`/assets/icons/${setsIndex[set]}-icon.png`}
-                    alt={`${setsIndex[set]}`}
-                    className={classes.setImage}
-                />
-                <img
-                    src={`/assets/icons/${cardTypeIcons[type]}.png`}
-                    alt={`${cardTypeIcons[type]}`}
-                    className={classes.setImage}
-                    style={{ margin: "0 0 0 .2rem" }}
-                />
-                <div
-                    style={{
-                        margin: "0 0 0 .2rem",
-                        fontSize: ".8rem",
-                        color: pickCardColor(id),
-                    }}
-                >
-                    {name.toUpperCase()}
-                </div>
-                {scoreType >= 0 && (
-                    <ObjectiveScoreTypeIcon
-                        type={scoreType}
-                        style={{
-                            color: "#3B9979",
-                            width: "1rem",
-                            height: "1rem",
-                        }}
-                    />
-                )}
-            </div>
-        );
-    }
-
-    _navitateToCard = () => {
-        this.props.setLastScrollIndex(this.props.index);
-        this.props.history.push(`/view/card/${this.props.id}`);
-    };
-}
-
-const cardImageViewStyles = (theme) => ({
-    root: {
-        display: "flex",
-        flexFlow: "column nowrap",
-        alignItems: "center",
-        margin: "1rem auto",
-    },
-    setImage: {
-        width: "1.5rem",
-        height: "1.5rem",
-    },
-
-    cardImage: {
-        maxWidth: "100%",
-        [theme.breakpoints.up("sm")]: {
-            maxWidth: "20rem",
-        },
-        margin: "0 0 .3rem 0",
-    },
-
-    cardInfoItem: {
-        margin: "0 0 1rem 0",
-        width: "100%",
-        borderBottom: "1px solid gray",
-        [theme.breakpoints.up("sm")]: {
-            maxWidth: "20rem",
-        },
-    },
-
-    row: {
-        display: "flex",
-        alignItems: "center",
-        margin: "0 0 .5rem 0",
-    },
-
-    setName: {
-        margin: "0 0 0 .5rem",
-    },
-});
-
-class CardImageView extends PureComponent {
-    render() {
-        const { classes, set, id } = this.props;
-        return (
-            <div className={classes.root}>
-                <img
-                    src={`/assets/cards/${id}.png`}
-                    alt={`${id}`}
-                    className={classes.cardImage}
-                />
-                <div className={classes.cardInfoItem}>
-                    <Typography>Card location: </Typography>
-                    <div
-                        className={classes.row}
-                        style={{ backgroundColor: pickCardBackgroundColor(id) }}
-                    >
-                        <img
-                            src={`/assets/icons/${setsIndex[set]}-icon.png`}
-                            alt={`${setsIndex[set]}`}
-                            className={classes.setImage}
-                        />
-                        <Typography
-                            variant="subheading"
-                            className={classes.setName}
-                        >
-                            {setsNames[set]}
-                        </Typography>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
 
 const ratio = 744 / 532;
 const minOptimalWidth = 200;
+
+function CardPicture({ name, id }) {
+    return (
+        <picture>
+            <source
+                type="image/webp"
+                srcSet={`/assets/cards/${String(id).padStart(5, "0")}_xs.webp`}
+            />
+            <img
+                className="relative w-full rounded-md shadow-md cursor-pointer transform hover:scale-150 transition-all hover:z-10"
+                alt={name}
+                src={`/assets/cards/${String(id).padStart(5, "0")}.png`}
+            />
+        </picture>
+    );
+}
 
 class VirtualizedCardsList extends Component {
     state = {
@@ -182,24 +61,14 @@ class VirtualizedCardsList extends Component {
         }
 
         return (
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div className="w-full h-full flex">
                 {this.state.cardRows[index] &&
                     this.state.cardRows[index].map((card) => (
                         <div
                             key={card.id}
-                            style={{
-                                width: this.state.cardRenderWidth,
-                                height: this.state.cardRenderHeight,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "flex-start",
-                            }}
+                            className="flex-1 m-2 flex items-center "
                         >
-                            <img
-                                style={{ width: "calc(100% - 1rem)" }}
-                                alt={card.name}
-                                src={`/assets/cards/${card.id}.png`}
-                            />
+                            <CardPicture id={card.id} name={card.name} />
                         </div>
                     ))}
             </div>
@@ -218,12 +87,12 @@ class VirtualizedCardsList extends Component {
 
     render() {
         return (
-            <AutoSizer disableHeight>
-                {() => (
+            <AutoSizer>
+                {({ width, height }) => (
                     <List
                         ref={this._setRef}
-                        width={this.state.width}
-                        height={this.state.height}
+                        width={width}
+                        height={height}
                         rowCount={this.state.cardRows.length}
                         rowHeight={this.state.cardRenderHeight}
                         rowRenderer={this._rowRenderer}

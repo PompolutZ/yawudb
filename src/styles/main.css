@@ -27884,59 +27884,31 @@ body {
   z-index: auto;
 }
 
-.focus-within\:z-0:focus-within {
+.hover\:z-0:hover {
   z-index: 0;
 }
 
-.focus-within\:z-10:focus-within {
+.hover\:z-10:hover {
   z-index: 10;
 }
 
-.focus-within\:z-20:focus-within {
+.hover\:z-20:hover {
   z-index: 20;
 }
 
-.focus-within\:z-30:focus-within {
+.hover\:z-30:hover {
   z-index: 30;
 }
 
-.focus-within\:z-40:focus-within {
+.hover\:z-40:hover {
   z-index: 40;
 }
 
-.focus-within\:z-50:focus-within {
+.hover\:z-50:hover {
   z-index: 50;
 }
 
-.focus-within\:z-auto:focus-within {
-  z-index: auto;
-}
-
-.focus\:z-0:focus {
-  z-index: 0;
-}
-
-.focus\:z-10:focus {
-  z-index: 10;
-}
-
-.focus\:z-20:focus {
-  z-index: 20;
-}
-
-.focus\:z-30:focus {
-  z-index: 30;
-}
-
-.focus\:z-40:focus {
-  z-index: 40;
-}
-
-.focus\:z-50:focus {
-  z-index: 50;
-}
-
-.focus\:z-auto:focus {
+.hover\:z-auto:hover {
   z-index: auto;
 }
 
@@ -59096,90 +59068,6 @@ body {
     width: 1em;
   }
 
-  .sm\:z-0 {
-    z-index: 0;
-  }
-
-  .sm\:z-10 {
-    z-index: 10;
-  }
-
-  .sm\:z-20 {
-    z-index: 20;
-  }
-
-  .sm\:z-30 {
-    z-index: 30;
-  }
-
-  .sm\:z-40 {
-    z-index: 40;
-  }
-
-  .sm\:z-50 {
-    z-index: 50;
-  }
-
-  .sm\:z-auto {
-    z-index: auto;
-  }
-
-  .sm\:focus-within\:z-0:focus-within {
-    z-index: 0;
-  }
-
-  .sm\:focus-within\:z-10:focus-within {
-    z-index: 10;
-  }
-
-  .sm\:focus-within\:z-20:focus-within {
-    z-index: 20;
-  }
-
-  .sm\:focus-within\:z-30:focus-within {
-    z-index: 30;
-  }
-
-  .sm\:focus-within\:z-40:focus-within {
-    z-index: 40;
-  }
-
-  .sm\:focus-within\:z-50:focus-within {
-    z-index: 50;
-  }
-
-  .sm\:focus-within\:z-auto:focus-within {
-    z-index: auto;
-  }
-
-  .sm\:focus\:z-0:focus {
-    z-index: 0;
-  }
-
-  .sm\:focus\:z-10:focus {
-    z-index: 10;
-  }
-
-  .sm\:focus\:z-20:focus {
-    z-index: 20;
-  }
-
-  .sm\:focus\:z-30:focus {
-    z-index: 30;
-  }
-
-  .sm\:focus\:z-40:focus {
-    z-index: 40;
-  }
-
-  .sm\:focus\:z-50:focus {
-    z-index: 50;
-  }
-
-  .sm\:focus\:z-auto:focus {
-    z-index: auto;
-  }
-
   .sm\:gap-0 {
     gap: 0px;
   }
@@ -90285,90 +90173,6 @@ body {
 
   .md\:w-em {
     width: 1em;
-  }
-
-  .md\:z-0 {
-    z-index: 0;
-  }
-
-  .md\:z-10 {
-    z-index: 10;
-  }
-
-  .md\:z-20 {
-    z-index: 20;
-  }
-
-  .md\:z-30 {
-    z-index: 30;
-  }
-
-  .md\:z-40 {
-    z-index: 40;
-  }
-
-  .md\:z-50 {
-    z-index: 50;
-  }
-
-  .md\:z-auto {
-    z-index: auto;
-  }
-
-  .md\:focus-within\:z-0:focus-within {
-    z-index: 0;
-  }
-
-  .md\:focus-within\:z-10:focus-within {
-    z-index: 10;
-  }
-
-  .md\:focus-within\:z-20:focus-within {
-    z-index: 20;
-  }
-
-  .md\:focus-within\:z-30:focus-within {
-    z-index: 30;
-  }
-
-  .md\:focus-within\:z-40:focus-within {
-    z-index: 40;
-  }
-
-  .md\:focus-within\:z-50:focus-within {
-    z-index: 50;
-  }
-
-  .md\:focus-within\:z-auto:focus-within {
-    z-index: auto;
-  }
-
-  .md\:focus\:z-0:focus {
-    z-index: 0;
-  }
-
-  .md\:focus\:z-10:focus {
-    z-index: 10;
-  }
-
-  .md\:focus\:z-20:focus {
-    z-index: 20;
-  }
-
-  .md\:focus\:z-30:focus {
-    z-index: 30;
-  }
-
-  .md\:focus\:z-40:focus {
-    z-index: 40;
-  }
-
-  .md\:focus\:z-50:focus {
-    z-index: 50;
-  }
-
-  .md\:focus\:z-auto:focus {
-    z-index: auto;
   }
 
   .md\:gap-0 {
@@ -121478,90 +121282,6 @@ body {
     width: 1em;
   }
 
-  .lg\:z-0 {
-    z-index: 0;
-  }
-
-  .lg\:z-10 {
-    z-index: 10;
-  }
-
-  .lg\:z-20 {
-    z-index: 20;
-  }
-
-  .lg\:z-30 {
-    z-index: 30;
-  }
-
-  .lg\:z-40 {
-    z-index: 40;
-  }
-
-  .lg\:z-50 {
-    z-index: 50;
-  }
-
-  .lg\:z-auto {
-    z-index: auto;
-  }
-
-  .lg\:focus-within\:z-0:focus-within {
-    z-index: 0;
-  }
-
-  .lg\:focus-within\:z-10:focus-within {
-    z-index: 10;
-  }
-
-  .lg\:focus-within\:z-20:focus-within {
-    z-index: 20;
-  }
-
-  .lg\:focus-within\:z-30:focus-within {
-    z-index: 30;
-  }
-
-  .lg\:focus-within\:z-40:focus-within {
-    z-index: 40;
-  }
-
-  .lg\:focus-within\:z-50:focus-within {
-    z-index: 50;
-  }
-
-  .lg\:focus-within\:z-auto:focus-within {
-    z-index: auto;
-  }
-
-  .lg\:focus\:z-0:focus {
-    z-index: 0;
-  }
-
-  .lg\:focus\:z-10:focus {
-    z-index: 10;
-  }
-
-  .lg\:focus\:z-20:focus {
-    z-index: 20;
-  }
-
-  .lg\:focus\:z-30:focus {
-    z-index: 30;
-  }
-
-  .lg\:focus\:z-40:focus {
-    z-index: 40;
-  }
-
-  .lg\:focus\:z-50:focus {
-    z-index: 50;
-  }
-
-  .lg\:focus\:z-auto:focus {
-    z-index: auto;
-  }
-
   .lg\:gap-0 {
     gap: 0px;
   }
@@ -152669,90 +152389,6 @@ body {
     width: 1em;
   }
 
-  .xl\:z-0 {
-    z-index: 0;
-  }
-
-  .xl\:z-10 {
-    z-index: 10;
-  }
-
-  .xl\:z-20 {
-    z-index: 20;
-  }
-
-  .xl\:z-30 {
-    z-index: 30;
-  }
-
-  .xl\:z-40 {
-    z-index: 40;
-  }
-
-  .xl\:z-50 {
-    z-index: 50;
-  }
-
-  .xl\:z-auto {
-    z-index: auto;
-  }
-
-  .xl\:focus-within\:z-0:focus-within {
-    z-index: 0;
-  }
-
-  .xl\:focus-within\:z-10:focus-within {
-    z-index: 10;
-  }
-
-  .xl\:focus-within\:z-20:focus-within {
-    z-index: 20;
-  }
-
-  .xl\:focus-within\:z-30:focus-within {
-    z-index: 30;
-  }
-
-  .xl\:focus-within\:z-40:focus-within {
-    z-index: 40;
-  }
-
-  .xl\:focus-within\:z-50:focus-within {
-    z-index: 50;
-  }
-
-  .xl\:focus-within\:z-auto:focus-within {
-    z-index: auto;
-  }
-
-  .xl\:focus\:z-0:focus {
-    z-index: 0;
-  }
-
-  .xl\:focus\:z-10:focus {
-    z-index: 10;
-  }
-
-  .xl\:focus\:z-20:focus {
-    z-index: 20;
-  }
-
-  .xl\:focus\:z-30:focus {
-    z-index: 30;
-  }
-
-  .xl\:focus\:z-40:focus {
-    z-index: 40;
-  }
-
-  .xl\:focus\:z-50:focus {
-    z-index: 50;
-  }
-
-  .xl\:focus\:z-auto:focus {
-    z-index: auto;
-  }
-
   .xl\:gap-0 {
     gap: 0px;
   }
@@ -183858,90 +183494,6 @@ body {
 
   .\32xl\:w-em {
     width: 1em;
-  }
-
-  .\32xl\:z-0 {
-    z-index: 0;
-  }
-
-  .\32xl\:z-10 {
-    z-index: 10;
-  }
-
-  .\32xl\:z-20 {
-    z-index: 20;
-  }
-
-  .\32xl\:z-30 {
-    z-index: 30;
-  }
-
-  .\32xl\:z-40 {
-    z-index: 40;
-  }
-
-  .\32xl\:z-50 {
-    z-index: 50;
-  }
-
-  .\32xl\:z-auto {
-    z-index: auto;
-  }
-
-  .\32xl\:focus-within\:z-0:focus-within {
-    z-index: 0;
-  }
-
-  .\32xl\:focus-within\:z-10:focus-within {
-    z-index: 10;
-  }
-
-  .\32xl\:focus-within\:z-20:focus-within {
-    z-index: 20;
-  }
-
-  .\32xl\:focus-within\:z-30:focus-within {
-    z-index: 30;
-  }
-
-  .\32xl\:focus-within\:z-40:focus-within {
-    z-index: 40;
-  }
-
-  .\32xl\:focus-within\:z-50:focus-within {
-    z-index: 50;
-  }
-
-  .\32xl\:focus-within\:z-auto:focus-within {
-    z-index: auto;
-  }
-
-  .\32xl\:focus\:z-0:focus {
-    z-index: 0;
-  }
-
-  .\32xl\:focus\:z-10:focus {
-    z-index: 10;
-  }
-
-  .\32xl\:focus\:z-20:focus {
-    z-index: 20;
-  }
-
-  .\32xl\:focus\:z-30:focus {
-    z-index: 30;
-  }
-
-  .\32xl\:focus\:z-40:focus {
-    z-index: 40;
-  }
-
-  .\32xl\:focus\:z-50:focus {
-    z-index: 50;
-  }
-
-  .\32xl\:focus\:z-auto:focus {
-    z-index: auto;
   }
 
   .\32xl\:gap-0 {

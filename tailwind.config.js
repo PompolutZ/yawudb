@@ -48,6 +48,7 @@ module.exports = {
   variants: {
     backgroundColor: ['responsive', 'hover', 'focus', 'active', 'disabled'],
     opacity: ['responsive', 'hover', 'focus', 'disabled'],
+    zIndex: ['hover'],
   },
   plugins: [],
 }
