@@ -12,7 +12,7 @@ function CardPicture({ name, id }) {
                 srcSet={`/assets/cards/${String(id).padStart(5, "0")}_xs.webp`}
             />
             <img
-                className="relative w-full rounded-md shadow-md cursor-pointer transform hover:scale-150 transition-all hover:z-10"
+                className="relative w-full rounded-md cursor-pointer transform hover:scale-150 transition-all hover:z-10 filter hover:drop-shadow-md"
                 alt={name}
                 src={`/assets/cards/${String(id).padStart(5, "0")}.png`}
             />

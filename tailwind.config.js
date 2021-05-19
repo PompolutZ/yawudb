@@ -49,6 +49,7 @@ module.exports = {
     backgroundColor: ['responsive', 'hover', 'focus', 'active', 'disabled'],
     opacity: ['responsive', 'hover', 'focus', 'disabled'],
     zIndex: ['hover'],
+    dropShadow: ['hover'],
   },
   plugins: [],
 }
