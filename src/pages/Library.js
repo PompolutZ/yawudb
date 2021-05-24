@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { cardsDb } from "../data/index";
 import VirtualizedCardsList from "../components/VirtualizedCardsList";
 import { Helmet } from "react-helmet";
 import { CHAMPIONSHIP_FORMAT, getAllSetsValidForFormat, wucards } from "../data/wudb";
@@ -13,19 +12,25 @@ function useFilteredCards(format) {
     return filteredCards;
 }
 
+function CardPicture({ name, id }) {
+    return (
+        <picture>
+            <source
+                type="image/webp"
+                srcSet={`/assets/cards/${String(id).padStart(5, "0")}_xs.webp`}
+            />
+            <img
+                className="relative w-full rounded-md cursor-pointer transform hover:scale-150 transition-all hover:z-10 filter hover:drop-shadow-md"
+                alt={name}
+                src={`/assets/cards/${String(id).padStart(5, "0")}.png`}
+            />
+        </picture>
+    );
+}
+
 function Library() {
-    // const [cards, setCards] = React.useState([]);
     const cardsContainerRef = React.createRef();
     const filteredCards = useFilteredCards(CHAMPIONSHIP_FORMAT);
-
-    // React.useEffect(() => {
-    //     let cards = [];
-    //     for (let c in cardsDb) {
-    //         cards.push({ id: c, ...cardsDb[c] });
-    //     }
-
-    //     setCards(cards);
-    // }, []);
 
     return (
         <React.Fragment>
@@ -42,7 +47,18 @@ function Library() {
                         <VirtualizedCardsList
                             cards={filteredCards}
                             containerRef={cardsContainerRef.current}
-                        />
+                        >
+                            {(items) => 
+                                items.map((card) => (
+                                        <div
+                                            key={card.id}
+                                            className="flex-1 m-2 flex items-center "
+                                        >
+                                            <CardPicture id={card.id} name={card.name} />
+                                        </div>
+                                    ))
+                            }
+                        </VirtualizedCardsList>
                     )}
                 </div>
             </div>
