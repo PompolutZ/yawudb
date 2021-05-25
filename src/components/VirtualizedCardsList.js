@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { List } from "react-virtualized";
+import { Grid } from "react-virtualized";
 import PropTypes from 'prop-types';
 
 const ratio = 744 / 532;
 const minOptimalWidth = 200;
 
 function VirtualizedCardsList({ width, height, cards, children, scrollIndex = 0 }) {
-    const [cardRows, setCardRows] = useState([]);
+    const [cardRows, setCardRows] = useState([[]]);
     const [cardRenderHeight, setCardRenderHEight] = useState(0);
+    const [columnWidth, setColumnWidth] = useState(minOptimalWidth);
     const listRef = useRef();
     
     useEffect(() => {
@@ -22,40 +23,44 @@ function VirtualizedCardsList({ width, height, cards, children, scrollIndex = 0 
         }, []);
 
         setCardRows(rows);
-        setCardRenderHEight(width / itemsPerRow * ratio)
+        setCardRenderHEight(width / itemsPerRow * ratio);
+        setColumnWidth(width / itemsPerRow);
     }, [cards, width])
 
-    const rowRenderer = (params) => {
-        const renderedItem = renderItem(params.index);
+    const rowRenderer = ({columnIndex, key, rowIndex, style}) => {
+        const renderedItem = renderItem(columnIndex, rowIndex);
         return (
-            <div key={params.key} style={params.style}>
+            <div key={key} style={style}>
                 {renderedItem}
             </div>
         );
     };
 
-    const renderItem = (index) => {
+    const renderItem = (columnIndex, rowIndex) => {
+        const card = cardRows[rowIndex][columnIndex];
         // eslint-disable-next-line no-prototype-builtins
-        if (cards[index] && !cards[index].hasOwnProperty("name")) {
+        if (card && !card.hasOwnProperty("name")) {
             return <span></span>;
         }
 
         return (
             <div className="w-full h-full flex">
-                { children(cardRows[index] || []) }
+                { children(card) }
             </div>
         );
     };
 
 
     return (
-            <List
+            <Grid
                 ref={listRef}
                 width={width}
                 height={height}
+                columnCount={cardRows[0].length}
+                columnWidth={columnWidth}
                 rowCount={cardRows.length}
                 rowHeight={cardRenderHeight}
-                rowRenderer={rowRenderer}
+                cellRenderer={rowRenderer}
                 scrollToIndex={scrollIndex}
             />
     );

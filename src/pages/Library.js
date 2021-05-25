@@ -37,7 +37,7 @@ function CardPicture({ name, id }) {
                 srcSet={`/assets/cards/${String(id).padStart(5, "0")}_xs.webp`}
             />
             <img
-                className="relative w-full rounded-md cursor-pointer transform hover:scale-150 transition-all hover:z-10 filter hover:drop-shadow-md"
+                className="relative w-full rounded-md cursor-pointer transform hover:scale-125 transition-all hover:z-10 filter hover:drop-shadow-md"
                 alt={name}
                 src={`/assets/cards/${String(id).padStart(5, "0")}.png`}
             />
@@ -47,7 +47,9 @@ function CardPicture({ name, id }) {
 
 function Library() {
     const cardsContainerRef = React.createRef();
-    const [filteredCards, findCardsWithText] = useFilteredCards(CHAMPIONSHIP_FORMAT);
+    const [filteredCards, findCardsWithText] = useFilteredCards(
+        CHAMPIONSHIP_FORMAT
+    );
 
     return (
         <React.Fragment>
@@ -58,7 +60,7 @@ function Library() {
 
             <div className="flex-1 p-4 flex flex-col">
                 <input
-                    onChange={e => findCardsWithText(e.target.value)}
+                    onChange={(e) => findCardsWithText(e.target.value)}
                     placeholder="Search for text on a card"
                     className="px-3 py-2 border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
                 />
@@ -72,19 +74,17 @@ function Library() {
                                     cards={filteredCards}
                                     containerRef={cardsContainerRef.current}
                                 >
-                                    {(items) =>
-                                        items.map((card) => (
-                                            <div
-                                                key={card.id}
-                                                className="flex-1 m-2 flex items-center "
-                                            >
-                                                <CardPicture
-                                                    id={card.id}
-                                                    name={card.name}
-                                                />
-                                            </div>
-                                        ))
-                                    }
+                                    {(card) => card ? (
+                                        <div
+                                            key={card.id}
+                                            className="flex-1 m-2 flex items-center "
+                                        >
+                                            <CardPicture
+                                                id={card.id}
+                                                name={card.name}
+                                            />
+                                        </div>
+                                    ) : null}
                                 </VirtualizedCardsList>
                             )}
                         </AutoSizer>
