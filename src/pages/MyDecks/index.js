@@ -63,7 +63,9 @@ function DeckLink({ onDelete, ...props }) {
                     {props.name}
                 </Link>
                 <div>
-                    <h3 className="text-sm font-bold text-gray-700">{new Date(props.updatedutc).toLocaleDateString()}</h3>
+                    <h3 className="text-sm font-bold text-gray-700">
+                        {new Date(props.updatedutc).toLocaleDateString()}
+                    </h3>
                     <SetsList sets={props.sets} />
                     <ScoringOverview
                         summary={objectiveSummary}
@@ -99,9 +101,15 @@ function MyDecksPage() {
             .once("value")
             .then((snapshot) => {
                 setLoading(false);
+
+                if (!snapshot.val()) {
+                    return;
+                }
+
                 let decks = Object.entries(
                     snapshot.val()
                 ).map(([id, data]) => ({ ...data, id }));
+
                 let updatedDecks = decks.map((deck) => {
                     const updatedDeck = { ...deck };
                     if (typeof updatedDeck.sets === "string") {
@@ -123,9 +131,11 @@ function MyDecksPage() {
                             .map((x) => x.padStart(5, "0"));
                     }
 
-                    if(!deck.updatedutc) {
-                        if(typeof deck.created === 'string') {
-                            updatedDeck.updatedutc = new Date(deck.created).getTime();
+                    if (!deck.updatedutc) {
+                        if (typeof deck.created === "string") {
+                            updatedDeck.updatedutc = new Date(
+                                deck.created
+                            ).getTime();
                         } else {
                             let date = new Date(0);
                             date.setSeconds(deck.created.seconds);
@@ -158,13 +168,22 @@ function MyDecksPage() {
     return (
         <div className="flex-1 p-4">
             {loading && <span>Loading...</span>}
-            {decks.sort((x,y) => y.updatedutc - x.updatedutc).map((deck) => (
-                <DeckLink
-                    key={deck.id}
-                    onDelete={handleDeleteDeckId}
-                    {...deck}
-                />
-            ))}
+            {decks.length === 0 && (
+                <div className="flex justify-center">
+                    <h1 className=" inline-block text-xl mx-auto">
+                        You don't have any decks yet.
+                    </h1>
+                </div>
+            )}
+            {decks
+                .sort((x, y) => y.updatedutc - x.updatedutc)
+                .map((deck) => (
+                    <DeckLink
+                        key={deck.id}
+                        onDelete={handleDeleteDeckId}
+                        {...deck}
+                    />
+                ))}
 
             <DeleteConfirmationDialog
                 title="Delete deck"
