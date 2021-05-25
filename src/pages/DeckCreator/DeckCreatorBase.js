@@ -15,14 +15,7 @@ function DeckCreatorBase(props) {
                 <link rel="canonical" href="https://yawudb.com/deck/create" />
             </Helmet>
 
-            <div
-                style={{
-                    flexGrow: 1,
-                    display: "flex",
-                    flexFlow: "column nowrap",
-                    height: "100%",
-                    background: "#f8f8f8",
-                }}
+            <div className="flex-1"
             >
                 <DeckBuilder
                     currentDeckName={props.deckName}

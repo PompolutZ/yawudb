@@ -67,7 +67,6 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     const theme = useTheme();
 
     const [tabIndex, setTabIndex] = React.useState(0);
-    const [showNotification] = React.useState(false); //isMobileDeckVisible: this.props.editMode || this.props.transferMode,
 
     const handleTabChange = (event, value) => {
         setTabIndex(value);
@@ -220,12 +219,6 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                     </Grid>
                 </Slide>
             </Grid>
-            {showNotification && (
-                <SimpleSnackbar
-                    position="center"
-                    message="Save was successful!"
-                />
-            )}
             <DeleteConfirmationDialog
                 title="Clear current deck"
                 description={`Are you sure you want to clear current deck? Your deck building progress will be lost.`}
