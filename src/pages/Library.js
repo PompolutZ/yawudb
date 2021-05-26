@@ -74,10 +74,10 @@ function Library() {
                                     cards={filteredCards}
                                     containerRef={cardsContainerRef.current}
                                 >
-                                    {(card) => card ? (
+                                    {(card, key, style) => card ? (
                                         <div
-                                            key={card.id}
-                                            className="flex-1 m-2 flex items-center "
+                                            key={key} style={style}
+                                            className="flex-1 p-2 flex items-center "
                                         >
                                             <CardPicture
                                                 id={card.id}
