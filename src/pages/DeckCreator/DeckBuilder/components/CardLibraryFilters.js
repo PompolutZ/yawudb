@@ -130,7 +130,8 @@ function DeckPlayFormatInfo({ format, ...rest }) {
             return (
                 <Typography variant="body2" {...rest}>
                     Library will be filtered to fullfil competitive play
-                    requirements: forsaken and rotated out cards will be excluded.
+                    requirements: forsaken and rotated out cards will be
+                    excluded.
                 </Typography>
             );
         case "relic":
@@ -203,7 +204,7 @@ function CardLibraryFilters(props) {
     useEffect(() => {
         setWarband(state.faction);
     }, [state.faction]);
-    
+
     const handleFormatChange = (format) => () => {
         setSelectedFormat(format);
     };
@@ -226,15 +227,8 @@ function CardLibraryFilters(props) {
     }, [validSets]);
 
     return (
-        <div style={{ flex: "1 1 auto" }}>
-            <div
-                style={{
-                    paddingBottom: "1rem",
-                    margin: "1rem .5rem 0 .5rem",
-                    display: "flex",
-                    alignItems: "center",
-                }}
-            >
+        <>
+            <div className="flex items-center">
                 <DebouncedInput
                     className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-purple-700"
                     placeholder="Search for any text on card"
@@ -314,7 +308,7 @@ function CardLibraryFilters(props) {
 
                 {/*  */}
             </Slide>
-        </div>
+        </>
     );
 }
 
