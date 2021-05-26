@@ -1,94 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { bannedCards } from "../../../../data";
-import { List, AutoSizer } from "react-virtualized";
-import { ADD_CARD, REMOVE_CARD } from "../../../../reducers/deckUnderBuild";
+import React, { useEffect, useState } from "react";
+import { AutoSizer } from "react-virtualized";
 import { connect } from "react-redux";
-import WUCard from "../../../../atoms/WUCard";
-import { cardTypes, CHAMPIONSHIP_FORMAT, RELIC_FORMAT, validateCardForPlayFormat, VANGUARD_FORMAT, wucards } from "../../../../data/wudb";
+import {
+    cardTypes,
+    validateCardForPlayFormat,
+    VANGUARD_FORMAT,
+    wucards,
+} from "../../../../data/wudb";
 import { useDeckBuilderState } from "../..";
-import PropTypes from 'prop-types';
 import CardInDeck from "./Card";
-
-// I am not sure if I need to use useEffect here
-// there must be some more simple way to check which cards are expanded
-// without modifying cards state.
-function VirtualizedCardsList(props) {
-
-    const listRef = useRef();
-    const [cards, setCards] = useState(props.cards);
-
-    useEffect(() => {
-        setCards(props.cards);
-    }, [props.cards]);
-
-    const _rowRenderer = (params) => {
-        const renderedItem = _renderItem(params.index);
-        return (
-            <div key={params.key} style={params.style}>
-                {renderedItem}
-            </div>
-        );
-    };
-
-    const _renderItem = (index) => {
-        const { card, expanded } = cards[index];
-        return (
-            <CardInDeck
-                showType
-                key={card.id}
-                card={card}
-                editMode={props.editMode}
-                isAlter={index % 2 === 0}
-                expanded={expanded}
-                onExpandChange={_handleExpanded.bind(this, index)}
-                withAnimation={false}
-            />
-        );
-    };
-
-    const _handleExpanded = (index) => {
-        setCards((prev) => [
-            ...prev.slice(0, index),
-            {
-                card: prev[index].card,
-                expanded: !prev[index].expanded,
-            },
-            ...prev.slice(index + 1),
-        ]);
-        listRef.current.recomputeRowHeights();
-        listRef.current.forceUpdate();
-    };
-
-    const _calcRowHeight = (params) => {
-        const item = cards[params.index];
-        if (item) {
-            return item.expanded ? 550 : 70;
-        }
-
-        return 70;
-    };
-
-    return (
-        <AutoSizer>
-            {({ width, height }) => (
-                <List
-                    ref={listRef}
-                    width={width}
-                    height={height}
-                    rowCount={cards.length}
-                    rowHeight={_calcRowHeight}
-                    rowRenderer={_rowRenderer}
-                />
-            )}
-        </AutoSizer>
-    );
-}
-
-VirtualizedCardsList.propTypes = {
-    cards: PropTypes.array,
-    editMode: PropTypes.bool,
-    toggleCardInDeck: PropTypes.func,
-}
+import VirtualizedCardsList from "../../../../components/VirtualizedCardsList";
 
 function stringTypeToNumber(type) {
     switch (type) {
@@ -149,12 +70,12 @@ function FilterableCardLibrary(props) {
             let oldCardId = `${Number(c.id)}`.padStart(5, "0");
             // Cards ids is a mess
             const universalRank =
-                cardsRanking && 
-                cardsRanking["u"] && 
+                cardsRanking &&
+                cardsRanking["u"] &&
                 cardsRanking["u"][oldCardId]
                     ? cardsRanking["u"][oldCardId]
                     : 0;
-                    
+
             const rank =
                 cardsRanking &&
                 cardsRanking[state.faction.abbr] &&
@@ -162,11 +83,10 @@ function FilterableCardLibrary(props) {
                     ? cardsRanking[state.faction.abbr][oldCardId] * 10000
                     : universalRank;
 
-            const [
-                ,
-                isForsaken,
-                isRestricted,
-            ] = validateCardForPlayFormat(c, state.format);
+            const [, isForsaken, isRestricted] = validateCardForPlayFormat(
+                c,
+                state.format
+            );
 
             const card = {
                 oldId: `${c.id}`.padStart(5, "0"),
@@ -179,16 +99,18 @@ function FilterableCardLibrary(props) {
             return card;
         });
 
-        const nextCardsExcludingForsaken = state.format !== VANGUARD_FORMAT ? nextCards.filter(c => !c.isBanned) : nextCards;
+        const nextCardsExcludingForsaken =
+            state.format !== VANGUARD_FORMAT
+                ? nextCards.filter((c) => !c.isBanned)
+                : nextCards;
         setCards(nextCardsExcludingForsaken);
     }, [state]);
 
     useEffect(() => {
-        let filteredCards = cards
-            .filter(({ type }) => {
-                return visibleCardTypes.includes(cardTypes.indexOf(type));
-            })
-        
+        let filteredCards = cards.filter(({ type }) => {
+            return visibleCardTypes.includes(cardTypes.indexOf(type));
+        });
+
         if (isNaN(searchText)) {
             filteredCards = filteredCards.filter((c) => {
                 if (!searchText) return true;
@@ -211,9 +133,36 @@ function FilterableCardLibrary(props) {
 
     return (
         <div className="flex-1">
-            <VirtualizedCardsList
-                cards={filteredCards}
-            />
+            <AutoSizer>
+                {({ width, height }) => (
+                    <VirtualizedCardsList
+                        width={width}
+                        height={height}
+                        cards={filteredCards}
+                        variant="list"
+                    >
+                        {({ card, expanded }, key, style) =>
+                            card ? (
+                                <div key={key} className="h-full w-full m-1 flex flex-col justify-center odd:bg-purple-100" style={style}>
+                                    <CardInDeck
+                                        showType
+                                        key={card.id}
+                                        card={card}
+                                        expanded={expanded}
+                                        // onExpandChange={_handleExpanded.bind(
+                                        //     this,
+                                        //     index
+                                        // )}
+                                        withAnimation={false}
+                                    />
+                                </div>
+                            ) : (
+                                <span>NONE</span>
+                            )
+                        }
+                    </VirtualizedCardsList>
+                )}
+            </AutoSizer>
         </div>
     );
 }
@@ -226,6 +175,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(
-    mapStateToProps
-)(FilterableCardLibrary);
+export default connect(mapStateToProps)(FilterableCardLibrary);

@@ -151,7 +151,7 @@ function CardInDeck({ card, ...props }) {
     };
 
     return (
-        <div className={`${props.isAlter ? "bg-purple-100" : "bg-white"}`}>
+        <>
             <div className="flex items-center">
                 <div
                     className={`items-center relative ${
@@ -242,7 +242,7 @@ function CardInDeck({ card, ...props }) {
                     </Fade>
                 </ModalPresenter>
             )}
-        </div>
+        </>
     );
 }
 

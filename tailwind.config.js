@@ -50,6 +50,9 @@ module.exports = {
         opacity: ["responsive", "hover", "focus", "disabled"],
         zIndex: ["hover"],
         dropShadow: ["hover"],
+        extend: {
+            backgroundColor: ['odd'],
+        }
     },
     plugins: [require("@tailwindcss/forms")],
 };
