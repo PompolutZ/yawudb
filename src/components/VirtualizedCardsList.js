@@ -50,7 +50,7 @@ function VirtualizedCardsList({ width, height, cards, children, variant = 'grid'
     }, [cards, width])
 
     const rowRenderer = ({columnIndex, key, rowIndex, style}) => {
-        return children(cardRows[rowIndex][columnIndex], key, style)
+        return children(cardRows[rowIndex][columnIndex], key, style, rowIndex, columnIndex)
     };
 
     return (

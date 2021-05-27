@@ -141,9 +141,9 @@ function FilterableCardLibrary(props) {
                         cards={filteredCards}
                         variant="list"
                     >
-                        {({ card, expanded }, key, style) =>
+                        {({ card, expanded }, key, style, rowIndex) =>
                             card ? (
-                                <div key={key} className="h-full w-full m-1 flex flex-col justify-center odd:bg-purple-100" style={style}>
+                                <div key={key} className={`h-full w-full m-1 flex flex-col justify-center ${rowIndex % 2 === 0 ? 'bg-purple-100' : 'bg-white'}`} style={style}>
                                     <CardInDeck
                                         showType
                                         key={card.id}

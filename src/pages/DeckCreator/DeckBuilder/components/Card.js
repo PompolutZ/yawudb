@@ -66,7 +66,7 @@ class WUCardInfo extends PureComponent {
                     )}
 
                     <h6
-                        className={`${
+                        className={`truncate ${
                             scoreType && scoreType !== "-" ? "ml-2" : ""
                         }`}
                     >
