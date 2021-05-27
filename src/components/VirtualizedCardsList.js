@@ -13,11 +13,15 @@ function VirtualizedCardsList({ width, height, cards, children, variant = 'grid'
     const listRef = useRef();
     
     useEffect(() => {
-        if(width === 0 || cards.length === 0) return;
+        if(width === 0) return;
+
+        if(cards.length === 0) {
+            setCardRows([[]]);
+            return;
+        }
+
         let itemsPerRow;
         let rows;
-
-        console.log(rows, cards);
 
         if (variant == 'list') {
             itemsPerRow = 1;
@@ -46,8 +50,7 @@ function VirtualizedCardsList({ width, height, cards, children, variant = 'grid'
         }
         setCardRows(rows);
         setColumnWidth(width / itemsPerRow);    
-
-    }, [cards, width])
+    }, [cards, width, variant])
 
     const rowRenderer = ({columnIndex, key, rowIndex, style}) => {
         return children(cardRows[rowIndex][columnIndex], key, style, rowIndex, columnIndex)

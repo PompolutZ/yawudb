@@ -211,7 +211,7 @@ function CardInDeck({ card, ...props }) {
                     onClick={handleToggleCardInDeck}
                 >
                     <CloseIcon
-                        className={`text-white stroke-current transform ${
+                        className={`text-white stroke-current transform transition-transform duration-300 ${
                             inDeck ? "rotate-0" : "rotate-45"
                         }`}
                     />

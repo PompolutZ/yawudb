@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import CardLibraryFilters from "./components/CardLibraryFilters";
 import CardsLibrary from "./components/CardsLibrary";
 import { AddCardSVG, DeckSVG } from "../../../atoms/SVGs";
-import CardsTab from "./atoms/CardsTab";
+import CardsTab from "./components/CardsTab";
 import { useTheme } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
