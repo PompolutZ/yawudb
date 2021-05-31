@@ -129,7 +129,7 @@ function CardsTab(props) {
         <div className="flex items-center my-2">
             {format === CHAMPIONSHIP_FORMAT && (
                 <div className="flex flex-col items-center mx-2">
-                    <LockIcon className="text-yellow-600 stroke-current w-3 h-3" />
+                    <LockIcon className="text-yellow-600 stroke-current w-4 h-4" />
                     <h6 className="text-gray-700 text-xs">
                         {restrictedCards.length}/3
                     </h6>
@@ -148,12 +148,12 @@ function CardsTab(props) {
                     />
                     <div>{selectedObjectives.length}</div>
                     <SurgeIcon
-                        className={`lg:hidden stroke-current w-3 h-3 ${
+                        className={`stroke-current w-3 h-3 flex-shrink-0 ${
                             surgeCount > 6 ? "text-red-700" : "text-gray-700"
                         }`}
                     />
                     <h6
-                        className={`lg:hidden ml-1 text-xs ${
+                        className={`ml-1 text-xs ${
                             surgeCount > 6 ? "text-red-700" : "text-gray-700"
                         }`}
                     >
@@ -192,7 +192,7 @@ function CardsTab(props) {
                     />
                     <div>{selectedUpgrades.length}</div>
             </ToggleButton>
-            <IconButton className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center">
+            <IconButton className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center" onClick={props.onToggleShowFilters}>
                 <FilterIcon className="w-6 h-6 text-gray-700 stroke-current filter drop-shadow-md" />
             </IconButton>
         </div>

@@ -14,6 +14,16 @@ import useAuthUser from "../../../hooks/useAuthUser";
 import { resetDeckAction, saveDeckAction } from "../reducer";
 import uuid4 from "uuid/v4";
 import DeleteConfirmationDialog from "../../../atoms/DeleteConfirmationDialog";
+import { animated, useSpring } from 'react-spring';
+import useMeasure from 'react-use-measure'
+
+function LibraryFilters({ open, height, width, x, y }) {
+    console.log(open, height, width, x, y);
+    const spring = useSpring({ height: open ? height : 0, backgroundColor: 'magenta', width, top: y, left: x })
+    return <animated.div className="fixed bg-red-700" style={spring}>
+
+    </animated.div>
+}
 
 function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     const [searchText, setSearchText] = useState("");
@@ -25,6 +35,8 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
         uid: "Anonymous",
         displayName: "Anonymous",
     };
+    const [cardLibraryRef, { height, width, x, y }] = useMeasure()
+    const [showFilters, setShowFilters] = useState(false);
 
     const {
         faction,
@@ -82,8 +94,9 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
 
             <div className="flex-1 flex-col flex p-2 lg:border-r">
                 <CardLibraryFilters onSearchTextChange={setSearchText} />
-                <CardsTab />
-                <CardsLibrary searchText={searchText} />
+                <CardsTab onToggleShowFilters={() => setShowFilters(prev => !prev)} />
+                <CardsLibrary ref={cardLibraryRef} searchText={searchText} />
+                <LibraryFilters height={height} width={width} x={x} y={y} open={showFilters}  />
             </div>
 
             <Slide
