@@ -1,6 +1,6 @@
 {
   "name": "wudb",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.2.0",
@@ -77,12 +77,12 @@
     "firebase-tools": "^8.12.1",
     "lint-staged": "^10.5.2",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8",
+    "postcss": "^7",
     "postcss-cli": "^7.1.2",
     "postcss-import": "^12.0.1",
     "prettier": "^2.0.5",
     "react-app-env": "^1.2.3",
-    "tailwindcss": "yarn:@tailwindcss/postcss7-compat",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "worker-plugin": "^4.0.3"
   },
   "engines": {
