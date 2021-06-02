@@ -52,6 +52,9 @@ module.exports = {
         dropShadow: ["hover"],
         extend: {
             backgroundColor: ['odd'],
+            borderColor: ['disabled'],
+            boxShadow: ['disabled'],
+            textColor: ['disabled'],
         }
     },
     plugins: [require("@tailwindcss/forms")],

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Deck from "./components/Deck";
 import FloatingActionButton from "../../../components/FloatingActionButton";
 import { Redirect } from "react-router-dom";
 import CardLibraryFilters from "./components/CardLibraryFilters";
-import CardsLibrary from "./components/CardsLibrary";
 import { AddCardSVG, DeckSVG } from "../../../atoms/SVGs";
-import CardsTab from "./components/CardsTab";
 import { useTheme } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -14,19 +12,33 @@ import useAuthUser from "../../../hooks/useAuthUser";
 import { resetDeckAction, saveDeckAction } from "../reducer";
 import uuid4 from "uuid/v4";
 import DeleteConfirmationDialog from "../../../atoms/DeleteConfirmationDialog";
-import { animated, useSpring } from 'react-spring';
-import useMeasure from 'react-use-measure'
+import CardsLibrary from "./components/CardsLibrary";
+import LibraryFilters from "./components/LibraryFilters";
 
-function LibraryFilters({ open, height, width, x, y }) {
-    console.log(open, height, width, x, y);
-    const spring = useSpring({ height: open ? height : 0, backgroundColor: 'magenta', width, top: y, left: x })
-    return <animated.div className="fixed bg-red-700" style={spring}>
+function Filters() {
+    const [searchText, setSearchText] = useState("");
+    const [bounds, setBounds] = useState({});
+    const ref = useRef();
 
-    </animated.div>
+    useLayoutEffect(() => {
+        if(!ref.current) return;
+        let bounds = ref.current.getBoundingClientRect();
+        setBounds(bounds);
+    }, [])
+
+    return (
+        <div className="flex-1 flex-col flex p-2 lg:border-r">
+            <CardLibraryFilters onSearchTextChange={setSearchText} />
+            <LibraryFilters bounds={bounds} />
+
+            <div ref={ref} className="flex flex-1">
+                <CardsLibrary searchText={searchText} />
+            </div>
+        </div>
+    );
 }
 
 function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
-    const [searchText, setSearchText] = useState("");
     const [deckId, setDeckId] = useState(existingDeckId || "");
     const [deckName, setDeckName] = useState(currentDeckName || "");
     const [isMobileDeckVisible, setIsMobileDeckVisible] = useState(false);
@@ -35,8 +47,6 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
         uid: "Anonymous",
         displayName: "Anonymous",
     };
-    const [cardLibraryRef, { height, width, x, y }] = useMeasure()
-    const [showFilters, setShowFilters] = useState(false);
 
     const {
         faction,
@@ -92,12 +102,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 bg-white">
             {status === "Saved" && <Redirect to="/mydecks" />}
 
-            <div className="flex-1 flex-col flex p-2 lg:border-r">
-                <CardLibraryFilters onSearchTextChange={setSearchText} />
-                <CardsTab onToggleShowFilters={() => setShowFilters(prev => !prev)} />
-                <CardsLibrary ref={cardLibraryRef} searchText={searchText} />
-                <LibraryFilters height={height} width={width} x={x} y={y} open={showFilters}  />
-            </div>
+            <Filters />
 
             <Slide
                 mountOnEnter
@@ -128,7 +133,8 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                         : "fixed",
                 }}
             >
-                <div className="lg:col-span-3 p-2 pt-4"
+                <div
+                    className="lg:col-span-3 p-2 pt-4"
                     style={{
                         overflow: useMediaQuery(theme.breakpoints.up("md"))
                             ? "hidden"
