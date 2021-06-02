@@ -24995,6 +24995,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "9273": {
+        "id": 9273,
+        "factionId": 1,
+        "setId": 36,
+        "name": "Everything to Prove",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Hybrid:** Score this immediately after an activation if: \\n An opponent has the Primacy token \\n *Or:* There is one or more surviving friendly **Quarry** and you have the Primacy token.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "9274": {
         "id": 9274,
         "factionId": 1,
