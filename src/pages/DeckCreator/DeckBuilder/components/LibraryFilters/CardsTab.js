@@ -20,7 +20,12 @@ function IconButton({ children, className, ...rest }) {
     );
 }
 
-function CardsTab({ enabledTypes, onToggleType, onToggleShowFilters }) {
+function CardsTab({
+    enabledTypes,
+    totalActiveFilters,
+    onToggleType,
+    onToggleShowFilters,
+}) {
     const {
         selectedObjectives,
         selectedGambits,
@@ -58,8 +63,8 @@ function CardsTab({ enabledTypes, onToggleType, onToggleShowFilters }) {
             )}
             <ToggleButton
                 className="flex-1"
-                isOn={enabledTypes.includes('Objective')}
-                onClick={onToggleType('Objective')}
+                isOn={enabledTypes.includes("Objective")}
+                onClick={onToggleType("Objective")}
             >
                 <div className="flex items-center space-x-1">
                     <img
@@ -84,8 +89,8 @@ function CardsTab({ enabledTypes, onToggleType, onToggleShowFilters }) {
             </ToggleButton>
             <ToggleButton
                 className="flex-1 flex items-center space-x-1"
-                isOn={enabledTypes.includes('Gambit')}
-                onClick={onToggleType('Gambit')}
+                isOn={enabledTypes.includes("Gambit")}
+                onClick={onToggleType("Gambit")}
             >
                 <img
                     src={`/assets/icons/spell-icon.png`}
@@ -101,8 +106,8 @@ function CardsTab({ enabledTypes, onToggleType, onToggleShowFilters }) {
             </ToggleButton>
             <ToggleButton
                 className="flex-1 flex items-center space-x-1 border-r-2"
-                isOn={enabledTypes.includes('Upgrade')}
-                onClick={onToggleType('Upgrade')}
+                isOn={enabledTypes.includes("Upgrade")}
+                onClick={onToggleType("Upgrade")}
             >
                 <img
                     src={`/assets/icons/upgrade-icon.png`}
@@ -112,10 +117,15 @@ function CardsTab({ enabledTypes, onToggleType, onToggleShowFilters }) {
                 <div>{selectedUpgrades.length}</div>
             </ToggleButton>
             <IconButton
-                className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center"
+                className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative"
                 onClick={onToggleShowFilters}
             >
                 <FilterIcon className="w-6 h-6 stroke-current filter drop-shadow-md" />
+                {totalActiveFilters > 0 && (
+                    <div className="absolute top-0 right-0 grid place-content-center w-5 h-5 rounded-full border-white border bg-purple-500 text-white text-xs">
+                        {totalActiveFilters}
+                    </div>
+                )}
             </IconButton>
         </div>
     );

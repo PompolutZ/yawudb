@@ -59,7 +59,9 @@ function FilterableCardLibrary(props) {
                         ? card.id === Math.max(...card.duplicates)
                         : true)
             ),
-        ].map((c) => {
+        ].filter(card => {
+            return props.filter.test ? props.filter.test(card) : true
+        }).map((c) => {
             // previously cards were in format '00000' where first two digits were wave
             // (e.g. Shadespire, Beastgrave or Power Unbound) and then card number
             // =========
@@ -104,13 +106,11 @@ function FilterableCardLibrary(props) {
                 ? nextCards.filter((c) => !c.isBanned)
                 : nextCards;
         setCards(nextCardsExcludingForsaken);
-    }, [state]);
+    }, [state, props.filter]);
 
     useEffect(() => {
-        let filteredCards = cards.filter(({ type }) => {
-            return visibleCardTypes.includes(cardTypes.indexOf(type));
-        });
-
+        let filteredCards = cards;
+        
         if (isNaN(searchText)) {
             filteredCards = filteredCards.filter((c) => {
                 if (!searchText) return true;

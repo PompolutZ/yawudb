@@ -17,6 +17,7 @@ import LibraryFilters from "./components/LibraryFilters";
 
 function Filters() {
     const [searchText, setSearchText] = useState("");
+    const [filter, setFilter] = useState({});
     const [bounds, setBounds] = useState({});
     const ref = useRef();
 
@@ -29,10 +30,10 @@ function Filters() {
     return (
         <div className="flex-1 flex-col flex p-2 lg:border-r">
             <CardLibraryFilters onSearchTextChange={setSearchText} />
-            <LibraryFilters bounds={bounds} />
+            <LibraryFilters bounds={bounds} onFiltersChanged={setFilter} />
 
             <div ref={ref} className="flex flex-1">
-                <CardsLibrary searchText={searchText} />
+                <CardsLibrary searchText={searchText} filter={filter} />
             </div>
         </div>
     );
