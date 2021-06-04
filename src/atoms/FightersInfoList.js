@@ -5,16 +5,15 @@ import { useSpring, animated as a } from "react-spring";
 export default function FightersInfoList({ faction }) {
     return (
         <div className="flex-1">
-            { factionMembers[faction.name].map((fighter, index) => 
-                <div key={fighter} className="mb-2 h-0 overflow-hidden relative"
-                style={{ paddingTop: 'calc(532 / 744 * 100%)' }}>
-                    <div className="absolute inset-0 flex">
-                        <FighterCard faction={faction.name} index={index + 1} />    
-                    </div>
-                </div> 
-            )}
+            {factionMembers[faction.name].map((fighter, index) => (
+                <FighterCard
+                    key={fighter}
+                    faction={faction.name}
+                    index={index + 1}
+                />
+            ))}
         </div>
-    )
+    );
 }
 
 function FighterCard({ faction, index }) {
@@ -25,21 +24,19 @@ function FighterCard({ faction, index }) {
         config: { mass: 5, tension: 500, friction: 80 },
     });
     return (
-        <div className="h-full relative flex-1"
-            onClick={() => set((state) => !state)}
-        >            
-            <a.div
-                className="absolute w-full h-full cursor-pointer bg-contain bg-no-repeat bg-center"
+        <div className="grid px-4 sm:px-0 mb-4" onClick={() => set((state) => !state)}>
+            <a.img
+                className="w-full rounded-sm sm:w-3/4 row-start-1 col-start-1 sm:mx-auto cursor-pointer hover:shadow-lg"
+                src={`/assets/cards/fighters/${faction}-${index}.png`}
                 style={{
-                    backgroundImage: `url(/assets/cards/fighters/${faction}-${index}.png)`,
                     opacity: opacity.to((o) => 1 - o),
                     transform,
                 }}
-                />
-            <a.div
-                className="absolute w-full h-full cursor-pointer bg-contain bg-no-repeat bg-center"
+            />
+            <a.img
+                className="w-full rounded-sm sm:w-3/4 row-start-1 col-start-1 sm:mx-auto cursor-pointer hover:shadow-lg"
+                src={`/assets/cards/fighters/${faction}-${index}-inspired.png`}
                 style={{
-                    backgroundImage: `url(/assets/cards/fighters/${faction}-${index}-inspired.png)`,
                     opacity,
                     transform: transform.to((t) => `${t} rotateY(180deg)`),
                 }}

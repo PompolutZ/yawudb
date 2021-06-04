@@ -202,29 +202,22 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                     exit: useMediaQuery(theme.breakpoints.up("md")) ? 0 : 175,
                 }}
                 style={{
-                    backgroundColor: useMediaQuery(theme.breakpoints.up("md"))
-                        ? "white"
-                        : "rgba(0, 0, 0, .5)",
                     top: 0,
                     left: 0,
                     bottom: 0,
                     right: 0,
                     zIndex: 1,
-                    paddingBottom: useMediaQuery(theme.breakpoints.up("md"))
-                        ? 0
-                        : "4rem",
-                    position: useMediaQuery(theme.breakpoints.up("md"))
-                        ? "static"
-                        : "fixed",
+                    position: "fixed",
+                    backgroundColor: 'rgba(0,0,0,.5)',
+                    backdropFilter: "blur(3px)",
                 }}
             >
                 <div
-                    className="lg:col-span-3 p-2 pt-4"
+                    className="lg:col-span-3 p-2 pt-4 flex"
                     style={{
                         overflow: useMediaQuery(theme.breakpoints.up("md"))
                             ? "hidden"
                             : "auto",
-                        backgroundColor: "white",
                     }}
                 >
                     <FightersInfoList faction={faction} />
