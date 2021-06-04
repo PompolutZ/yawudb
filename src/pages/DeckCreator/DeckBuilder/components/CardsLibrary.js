@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { AutoSizer } from "react-virtualized";
 import { connect } from "react-redux";
 import {
-    cardTypes,
     validateCardForPlayFormat,
     VANGUARD_FORMAT,
     wucards,

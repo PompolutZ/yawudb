@@ -58,34 +58,17 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
 
     const changeShowFilters = () => {
         if (showFilters) {
-            const typesFilter = composeTypeFilters(enabledCardTypes);
-
-            const keywordsFilters = composeFilters(
-                enabledKeywords,
-                KEYWORD_FILTERS
-            );
-            const gloryFilters = composeFilters(
-                enabledGloryFilters,
-                OBJECTIVE_GLORY_FILTERS
-            );
-            const scoreTypeFilters = composeFilters(
-                enabledObjectiveScoreTypes,
-                OBJECTIVE_SCORE_TYPE_FILTERS
-            )
-
-            onFiltersChanged({
-                test: (card) =>
-                    typesFilter(card) &&
-                    keywordsFilters(card) &&
-                    gloryFilters(card) &&
-                    scoreTypeFilters(card),
-            });
+            updateAllFilters();
         }
 
         setShowFilters((prev) => !prev);
     };
 
     useEffect(() => {
+        updateAllFilters();
+    }, [enabledCardTypes]);
+
+    const updateAllFilters = () => {
         const typesFilter = composeTypeFilters(enabledCardTypes);
 
         const keywordsFilters = composeFilters(
@@ -108,7 +91,7 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
                 gloryFilters(card) &&
                 scoreTypeFilters(card),
         });
-    }, [enabledCardTypes]);
+    }
 
     const handleToggleKeyword = (value, update) => (keyword) => () => {
         const index = value.indexOf(keyword);
@@ -121,6 +104,12 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
             update((prev) => [...prev, keyword]);
         }
     };
+
+    const handleClearAll = () => {
+        setEnabledGloryFilters([]);
+        setObjectiveScoreTypes([]);
+        setEnabledKeywords([]);
+    }
 
     return (
         <>
@@ -138,7 +127,7 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
                 onToggleShowFilters={changeShowFilters}
             />
             <animated.div className="bg-white text-gray-900" style={styles}>
-                <div className={`${showFilters ? "block" : "hidden"} p-2`}>
+                <div className={`${showFilters ? "flex flex-col" : "hidden"} p-2`}>
                     <FiltersGroupToggles
                         title="Glory"
                         disabled={!enabledCardTypes.includes("Objective")}
@@ -168,6 +157,12 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
                             setEnabledKeywords
                         )}
                     />
+
+                    <button className="btn btn-red py-3" disabled={
+                        enabledGloryFilters.length === 0 &&
+                        enabledKeywords.length === 0 &&
+                        enabledObjectiveScoreTypes.length === 0
+                    } onClick={handleClearAll}>Clear All Filters</button>
                 </div>
             </animated.div>
         </>
