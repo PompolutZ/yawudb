@@ -152,7 +152,7 @@ function CardInDeck({ card, ...props }) {
 
     return (
         <>
-            <div className="flex items-center">
+            <div className={`flex items-center ${props.isAlter ? 'bg-purple-100' : props.isAlter !== undefined ? 'bg-white' : ''}`}>
                 <div
                     className={`items-center relative ${
                         props.showType ? "ml-2 mr-6" : "mx-2"

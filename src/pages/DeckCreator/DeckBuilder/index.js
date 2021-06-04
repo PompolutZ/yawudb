@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Deck from "./components/Deck";
 import FloatingActionButton from "../../../components/FloatingActionButton";
 import { Redirect } from "react-router-dom";
-import CardLibraryFilters from "./components/CardLibraryFilters";
+import CardLibraryToggles from "./components/CardLibraryFilters";
 import { AddCardSVG, DeckSVG } from "../../../atoms/SVGs";
 import { useTheme } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
@@ -29,7 +29,7 @@ function Filters() {
 
     return (
         <div className="flex-1 flex-col flex p-2 lg:border-r">
-            <CardLibraryFilters onSearchTextChange={setSearchText} />
+            <CardLibraryToggles onSearchTextChange={setSearchText} />
             <LibraryFilters bounds={bounds} onFiltersChanged={setFilter} />
 
             <div ref={ref} className="flex flex-1">
@@ -121,7 +121,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                     backgroundColor: useMediaQuery(theme.breakpoints.up("md"))
                         ? "white"
                         : "rgba(0, 0, 0, .5)",
-                    top: 60,
+                    top: 0,
                     left: 0,
                     bottom: 0,
                     right: 0,
