@@ -14,6 +14,10 @@ import uuid4 from "uuid/v4";
 import DeleteConfirmationDialog from "../../../atoms/DeleteConfirmationDialog";
 import CardsLibrary from "./components/CardsLibrary";
 import LibraryFilters from "./components/LibraryFilters";
+import { ReactComponent as AddCardIcon } from '../../../svgs/add-card.svg';
+import { ReactComponent as DeckIcon } from '../../../svgs/deck.svg';
+import { ReactComponent as WarbandIcon } from '../../../svgs/warband.svg';
+import FightersInfoList from '../../../atoms/FightersInfoList';
 
 function Filters() {
     const [searchText, setSearchText] = useState("");
@@ -24,6 +28,7 @@ function Filters() {
     useLayoutEffect(() => {
         if(!ref.current) return;
         let bounds = ref.current.getBoundingClientRect();
+        console.log(bounds);
         setBounds(bounds);
     }, [])
 
@@ -43,6 +48,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     const [deckId, setDeckId] = useState(existingDeckId || "");
     const [deckName, setDeckName] = useState(currentDeckName || "");
     const [isMobileDeckVisible, setIsMobileDeckVisible] = useState(false);
+    const [isMobileWarbandVisible, setIsMobileWarbandVisible] = useState(false);
     const [showConfirmDeckReset, setShowConfirmDeckReset] = useState(false);
     const { uid, displayName } = useAuthUser() || {
         uid: "Anonymous",
@@ -100,10 +106,37 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     };
 
     return (
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 bg-white">
+        <div className="flex-1 grid grid-cols-1 pb-16 lg:pb-0 lg:grid-cols-4 bg-white">
             {status === "Saved" && <Redirect to="/mydecks" />}
 
             <Filters />
+            <div className={`lg:hidden absolute z-10 flex bottom-0 left-0 right-0 transition-colors duration-500 bg-gradient-to-r ${
+                !isMobileDeckVisible && !isMobileWarbandVisible ? 'from-purple-200 via-gray-100 to-gray-100' :
+                isMobileDeckVisible && !isMobileWarbandVisible ? 'from-gray-100 via-purple-200 to-gray-100' :
+                'from-gray-100 via-gray-100 to-purple-200'
+            }`}>
+                <button className={`flex-1 flex flex-col items-center py-2 text-xs ${!isMobileDeckVisible && !isMobileWarbandVisible ? 'text-purple-700' : 'text-gray-700'}`} onClick={() => {
+                    setIsMobileDeckVisible(false);
+                    setIsMobileWarbandVisible(false);
+                }}>
+                    <AddCardIcon className="h-6 fill-current mb-1" />
+                    Library
+                </button>
+                <button className={`flex-1 flex flex-col items-center py-2 text-xs ${isMobileDeckVisible && !isMobileWarbandVisible ? 'text-purple-700' : 'text-gray-700'}`} onClick={() => {
+                    setIsMobileDeckVisible(true);
+                    setIsMobileWarbandVisible(false);
+                }}>
+                    <DeckIcon className="h-6 fill-current mb-1" />
+                    Deck
+                </button>
+                <button className={`flex-1 flex flex-col items-center py-2 text-xs ${!isMobileDeckVisible && isMobileWarbandVisible ? 'text-purple-700' : 'text-gray-700'}`} onClick={() => {
+                    setIsMobileDeckVisible(false);
+                    setIsMobileWarbandVisible(true);
+                }}>
+                    <WarbandIcon className="h-6 fill-current mb-1" />
+                    Warband
+                </button>
+            </div>
 
             <Slide
                 mountOnEnter
@@ -125,10 +158,10 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                     left: 0,
                     bottom: 0,
                     right: 0,
-                    zIndex: 10,
+                    zIndex: 1,
                     paddingBottom: useMediaQuery(theme.breakpoints.up("md"))
                         ? 0
-                        : "1rem",
+                        : "4rem",
                     position: useMediaQuery(theme.breakpoints.up("md"))
                         ? "static"
                         : "fixed",
@@ -156,6 +189,47 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                     />
                 </div>
             </Slide>
+            <Slide
+                mountOnEnter
+                in={
+                    useMediaQuery(theme.breakpoints.up("md"))
+                        ? false
+                        : isMobileWarbandVisible
+                }
+                direction="up"
+                timeout={{
+                    enter: useMediaQuery(theme.breakpoints.up("md")) ? 0 : 175,
+                    exit: useMediaQuery(theme.breakpoints.up("md")) ? 0 : 175,
+                }}
+                style={{
+                    backgroundColor: useMediaQuery(theme.breakpoints.up("md"))
+                        ? "white"
+                        : "rgba(0, 0, 0, .5)",
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    zIndex: 1,
+                    paddingBottom: useMediaQuery(theme.breakpoints.up("md"))
+                        ? 0
+                        : "4rem",
+                    position: useMediaQuery(theme.breakpoints.up("md"))
+                        ? "static"
+                        : "fixed",
+                }}
+            >
+                <div
+                    className="lg:col-span-3 p-2 pt-4"
+                    style={{
+                        overflow: useMediaQuery(theme.breakpoints.up("md"))
+                            ? "hidden"
+                            : "auto",
+                        backgroundColor: "white",
+                    }}
+                >
+                    <FightersInfoList faction={faction} />
+                </div>
+            </Slide>
             <DeleteConfirmationDialog
                 title="Clear current deck"
                 description={`Are you sure you want to clear current deck? Your deck building progress will be lost.`}
@@ -164,11 +238,6 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                 onDeleteConfirmed={handleResetDeck}
                 onDeleteRejected={handleCloseConfirmDialog}
             />
-
-            <FloatingActionButton isEnabled onClick={_handleShowDeckMobile}>
-                {!isMobileDeckVisible && <DeckSVG />}
-                {isMobileDeckVisible && <AddCardSVG />}
-            </FloatingActionButton>
         </div>
     );
 }
