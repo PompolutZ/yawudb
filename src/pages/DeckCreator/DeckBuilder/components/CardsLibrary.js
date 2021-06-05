@@ -131,7 +131,7 @@ function FilterableCardLibrary(props) {
     }, [cards, searchText, visibleCardTypes]);
 
     return (
-        <div className="flex-1">
+        <div className="flex-1 outline-none">
             <AutoSizer>
                 {({ width, height }) => (
                     <VirtualizedCardsList

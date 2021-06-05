@@ -14,10 +14,11 @@ import uuid4 from "uuid/v4";
 import DeleteConfirmationDialog from "../../../atoms/DeleteConfirmationDialog";
 import CardsLibrary from "./components/CardsLibrary";
 import LibraryFilters from "./components/LibraryFilters";
-import { ReactComponent as AddCardIcon } from '../../../svgs/add-card.svg';
-import { ReactComponent as DeckIcon } from '../../../svgs/deck.svg';
-import { ReactComponent as WarbandIcon } from '../../../svgs/warband.svg';
-import FightersInfoList from '../../../atoms/FightersInfoList';
+import { ReactComponent as AddCardIcon } from "../../../svgs/add-card.svg";
+import { ReactComponent as DeckIcon } from "../../../svgs/deck.svg";
+import { ReactComponent as WarbandIcon } from "../../../svgs/warband.svg";
+import FightersInfoList from "../../../atoms/FightersInfoList";
+import { Transition } from "@headlessui/react";
 
 function Filters() {
     const [searchText, setSearchText] = useState("");
@@ -26,11 +27,11 @@ function Filters() {
     const ref = useRef();
 
     useLayoutEffect(() => {
-        if(!ref.current) return;
+        if (!ref.current) return;
         let bounds = ref.current.getBoundingClientRect();
         console.log(bounds);
         setBounds(bounds);
-    }, [])
+    }, []);
 
     return (
         <div className="flex-1 flex-col flex p-2 lg:border-r">
@@ -110,29 +111,54 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
             {status === "Saved" && <Redirect to="/mydecks" />}
 
             <Filters />
-            <div className={`lg:hidden absolute z-10 flex bottom-0 left-0 right-0 transition-colors duration-500 bg-gradient-to-r ${
-                !isMobileDeckVisible && !isMobileWarbandVisible ? 'from-purple-200 via-gray-100 to-gray-100' :
-                isMobileDeckVisible && !isMobileWarbandVisible ? 'from-gray-100 via-purple-200 to-gray-100' :
-                'from-gray-100 via-gray-100 to-purple-200'
-            }`}>
-                <button className={`flex-1 flex flex-col items-center py-2 text-xs ${!isMobileDeckVisible && !isMobileWarbandVisible ? 'text-purple-700' : 'text-gray-700'}`} onClick={() => {
-                    setIsMobileDeckVisible(false);
-                    setIsMobileWarbandVisible(false);
-                }}>
+            <div
+                className={`lg:hidden absolute z-10 flex bottom-0 left-0 right-0 transition-colors duration-500 bg-gradient-to-r ${
+                    !isMobileDeckVisible && !isMobileWarbandVisible
+                        ? "from-purple-200 via-gray-100 to-gray-100"
+                        : isMobileDeckVisible && !isMobileWarbandVisible
+                        ? "from-gray-100 via-purple-200 to-gray-100"
+                        : "from-gray-100 via-gray-100 to-purple-200"
+                }`}
+            >
+                <button
+                    className={`flex-1 flex flex-col items-center py-2 text-xs ${
+                        !isMobileDeckVisible && !isMobileWarbandVisible
+                            ? "text-purple-700"
+                            : "text-gray-700"
+                    }`}
+                    onClick={() => {
+                        setIsMobileDeckVisible(false);
+                        setIsMobileWarbandVisible(false);
+                    }}
+                >
                     <AddCardIcon className="h-6 fill-current mb-1" />
                     Library
                 </button>
-                <button className={`flex-1 flex flex-col items-center py-2 text-xs ${isMobileDeckVisible && !isMobileWarbandVisible ? 'text-purple-700' : 'text-gray-700'}`} onClick={() => {
-                    setIsMobileDeckVisible(true);
-                    setIsMobileWarbandVisible(false);
-                }}>
+                <button
+                    className={`flex-1 flex flex-col items-center py-2 text-xs ${
+                        isMobileDeckVisible && !isMobileWarbandVisible
+                            ? "text-purple-700"
+                            : "text-gray-700"
+                    }`}
+                    onClick={() => {
+                        setIsMobileDeckVisible(true);
+                        setIsMobileWarbandVisible(false);
+                    }}
+                >
                     <DeckIcon className="h-6 fill-current mb-1" />
                     Deck
                 </button>
-                <button className={`flex-1 flex flex-col items-center py-2 text-xs ${!isMobileDeckVisible && isMobileWarbandVisible ? 'text-purple-700' : 'text-gray-700'}`} onClick={() => {
-                    setIsMobileDeckVisible(false);
-                    setIsMobileWarbandVisible(true);
-                }}>
+                <button
+                    className={`flex-1 flex flex-col items-center py-2 text-xs ${
+                        !isMobileDeckVisible && isMobileWarbandVisible
+                            ? "text-purple-700"
+                            : "text-gray-700"
+                    }`}
+                    onClick={() => {
+                        setIsMobileDeckVisible(false);
+                        setIsMobileWarbandVisible(true);
+                    }}
+                >
                     <WarbandIcon className="h-6 fill-current mb-1" />
                     Warband
                 </button>
@@ -189,7 +215,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                     />
                 </div>
             </Slide>
-            <Slide
+            {/* <Slide
                 mountOnEnter
                 in={
                     useMediaQuery(theme.breakpoints.up("md"))
@@ -220,9 +246,18 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                             : "auto",
                     }}
                 >
-                    <FightersInfoList faction={faction} />
+                    
                 </div>
-            </Slide>
+            </Slide> */}
+
+            <Transition
+                show={isMobileWarbandVisible}
+                className="fixed inset-0 z-1 flex backdrop-filter backdrop-blur-sm lg:hidden"
+                enterTo="opacity-100 transition-opacity duration-75"
+                enterFrom="opacity-0"
+            >
+                <FightersInfoList faction={faction} />
+            </Transition>
             <DeleteConfirmationDialog
                 title="Clear current deck"
                 description={`Are you sure you want to clear current deck? Your deck building progress will be lost.`}
