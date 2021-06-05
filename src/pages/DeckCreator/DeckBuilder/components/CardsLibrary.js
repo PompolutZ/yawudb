@@ -148,10 +148,6 @@ function FilterableCardLibrary(props) {
                                         key={card.id}
                                         card={card}
                                         expanded={expanded}
-                                        // onExpandChange={_handleExpanded.bind(
-                                        //     this,
-                                        //     index
-                                        // )}
                                         withAnimation={false}
                                     />
                                 </div>

@@ -58,6 +58,7 @@ function VirtualizedCardsList({ width, height, cards, children, variant = 'grid'
 
     return (
             <Grid
+                className="outline-none"
                 ref={listRef}
                 width={width}
                 height={height}
