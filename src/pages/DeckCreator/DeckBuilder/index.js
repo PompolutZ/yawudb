@@ -215,46 +215,12 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                     />
                 </div>
             </Slide>
-            {/* <Slide
-                mountOnEnter
-                in={
-                    useMediaQuery(theme.breakpoints.up("md"))
-                        ? false
-                        : isMobileWarbandVisible
-                }
-                direction="up"
-                timeout={{
-                    enter: useMediaQuery(theme.breakpoints.up("md")) ? 0 : 175,
-                    exit: useMediaQuery(theme.breakpoints.up("md")) ? 0 : 175,
-                }}
-                style={{
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    zIndex: 1,
-                    position: "fixed",
-                    backgroundColor: 'rgba(0,0,0,.5)',
-                    backdropFilter: "blur(3px)",
-                }}
-            >
-                <div
-                    className="lg:col-span-3 p-2 pt-4 flex"
-                    style={{
-                        overflow: useMediaQuery(theme.breakpoints.up("md"))
-                            ? "hidden"
-                            : "auto",
-                    }}
-                >
-                    
-                </div>
-            </Slide> */}
-
             <Transition
                 show={isMobileWarbandVisible}
                 className="fixed inset-0 z-1 flex backdrop-filter backdrop-blur-sm lg:hidden"
-                enterTo="opacity-100 transition-opacity duration-75"
-                enterFrom="opacity-0"
+                enter="transition transform duration-300"
+                enterTo="opacity-100 translate-y-0"
+                enterFrom="opacity-0 translate-y-10"
             >
                 <FightersInfoList faction={faction} />
             </Transition>
