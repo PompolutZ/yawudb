@@ -1,11 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { factionMembers } from "../data";
 import { useSpring, animated as a } from "react-spring";
 
-export default function FightersInfoList({ faction }) {
+function useClickAway() {
+    const [clickedAway, setClickedAway] = useState(false);
+    
+    useEffect(() => {
+        const handleClick = e => {
+            let el = document.elementFromPoint(e.clientX, e.clientY);
+            if (el && el.nodeName !== 'IMG') {
+                setClickedAway(true);
+            }
+        }
+
+        const handleKeyUp = e => {
+            if (e.key === 'Escape') {
+                setClickedAway(true);
+            }
+        }
+    
+        document.addEventListener('click', handleClick);
+        document.addEventListener('keyup', handleKeyUp);
+
+        return () => {
+            document.removeEventListener('click', handleClick);
+            document.removeEventListener('keyup', handleKeyUp);
+        };
+    }, []);
+
+    return clickedAway;
+}
+
+export default function FightersInfoList({ faction, onClose }) {
+    const clickedAway = useClickAway();
+
+    useEffect(() => {
+        if (clickedAway) {
+            onClose();
+        }
+
+    }, [clickedAway, onClose]);
+
     return (
         <div className="flex-1 relative">
-            <div className="absolute inset-0 overflow-y-auto pb-12">
+            <div className="absolute inset-0 overflow-y-auto pb-12 lg:p-12">
                 {factionMembers[faction.name].map((fighter, index) => (
                     <FighterCard
                         key={fighter}
@@ -27,7 +65,7 @@ function FighterCard({ faction, index }) {
     });
     return (
         <div
-            className="grid px-4 sm:px-0 mb-4"
+            className="grid px-4 sm:px-0 mb-4 lg:w-1/3 lg:mx-auto cursor-pointer"
             onClick={() => set((state) => !state)}
         >
             <a.img

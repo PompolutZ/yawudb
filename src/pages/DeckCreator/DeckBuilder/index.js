@@ -202,6 +202,16 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
                         backgroundColor: "white",
                     }}
                 >
+                    <button
+                        className={`hidden lg:flex ml-auto mr-4 items-center py-2 text-xs text-gray-700 outline-none hover:text-purple-700 focus:text-purple-500`}
+                        onClick={() => {
+                            setIsMobileWarbandVisible(true);
+                        }}
+                    >
+                        <WarbandIcon className="h-6 fill-current mr-2" />
+                        Warband
+                    </button>
+
                     <Deck
                         deckName={deckName}
                         onDeckNameChange={setDeckName}
@@ -217,12 +227,12 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
             </Slide>
             <Transition
                 show={isMobileWarbandVisible}
-                className="fixed inset-0 z-1 flex backdrop-filter backdrop-blur-sm lg:hidden"
+                className="fixed inset-0 z-10 flex backdrop-filter backdrop-blur-sm"
                 enter="transition transform duration-300"
                 enterTo="opacity-100 translate-y-0"
                 enterFrom="opacity-0 translate-y-10"
             >
-                <FightersInfoList faction={faction} />
+                <FightersInfoList faction={faction} onClose={() => setIsMobileWarbandVisible(false)} />
             </Transition>
             <DeleteConfirmationDialog
                 title="Clear current deck"
