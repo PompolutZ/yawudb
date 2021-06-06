@@ -112,7 +112,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
 
             <Filters />
             <div
-                className={`lg:hidden absolute z-10 flex bottom-0 left-0 right-0 transition-colors duration-500 bg-gradient-to-r ${
+                className={`lg:hidden absolute z-20 flex bottom-0 left-0 right-0 transition-colors duration-500 bg-gradient-to-r ${
                     !isMobileDeckVisible && !isMobileWarbandVisible
                         ? "from-purple-200 via-gray-100 to-gray-100"
                         : isMobileDeckVisible && !isMobileWarbandVisible
