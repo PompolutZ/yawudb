@@ -3,7 +3,15 @@ import { FirebaseContext } from "../firebase";
 import Button from "@material-ui/core/Button";
 import Progress from "@material-ui/core/CircularProgress";
 import { firstUniversalCardPerWave } from "../data";
-import { checkCardIsObjective, checkCardIsPloy, checkCardIsUpgrade, getCardById, RELIC_FORMAT, validateDeckForPlayFormat } from "../data/wudb";
+import {
+    checkCardIsObjective,
+    checkCardIsPloy,
+    checkCardIsUpgrade,
+    getCardById,
+    RELIC_FORMAT,
+    validateDeckForPlayFormat,
+    wucards,
+} from "../data/wudb";
 
 function CardsRating(props) {
     const firebase = React.useContext(FirebaseContext);
@@ -42,12 +50,28 @@ function CardsRating(props) {
                 //const filteredByDate = fixedDate.filter(([id, value]) => value.lastModified > new Date(2019, 6, 23));
                 const groupedByFactions = fixedDate.reduce(
                     (acc, [id, value]) => {
-                        if (id === "undefined" || !value.cards) return acc;
+                        if (id === "undefined" || (!value.cards && !value.deck)) return acc;
+
+                        const updated = { ...value };
+                        if (value.deck) {
+                            updated.cards = value.deck
+                                .split(",")
+                                .map((s) => s.padStart(5, "0"));
+                        }
+
+                        if (typeof value.sets === "string") {
+                            updated.sets = value.sets.split(",");
+                        }
+
+                        if (value.updatedutc) {
+                            updated.lastModified = new Date(value.updatedutc)
+                        }
 
                         const factionPrefix = id.split("-")[0];
                         const decks = acc[factionPrefix]
-                            ? [...acc[factionPrefix], value]
-                            : [value];
+                            ? [...acc[factionPrefix], updated]
+                            : [updated];
+
                         return { ...acc, [factionPrefix]: decks };
                     },
                     {}
@@ -61,7 +85,7 @@ function CardsRating(props) {
                         [prefix]: {
                             data: value,
                             maxSets: Math.max(
-                                ...value.map((x) => x.sets.length)
+                                ...value.map((x) => x.sets ? x.sets.length : 0)
                             ),
                         },
                     };
@@ -128,18 +152,15 @@ function CardsRating(props) {
                     if (id === "undefined" || !deck.cards) return acc;
 
                     const ratings = deck.cards
+                        .map((cardId) => wucards[Number(cardId)])
                         .filter((card) => {
-                            return (
-                                Number(card) >=
-                                firstUniversalCardPerWave[
-                                    Math.round(Number(card) / 1000)
-                                ]
-                            ); // here we find wave first then filter out non-universal cards
+                            // here we find wave first then filter out non-universal cards
+                            return card.factionId > 1;
                         })
                         .reduce((acc, card) => {
                             return {
                                 ...acc,
-                                [card]:
+                                [card.id]:
                                     ((deck.lastModified - baseDate) /
                                         (new Date() - baseDate)) *
                                     (deck.sets.length / allMaxSetsCount),
@@ -175,7 +196,6 @@ function CardsRating(props) {
                 console.log("DONE", cardRankingsPerFaction, {
                     u: normalizedGenericRanks,
                 });
-                // console.log(cardRankingsPerFaction);
                 setData({
                     ...cardRankingsPerFaction,
                     u: normalizedGenericRanks,
@@ -191,16 +211,22 @@ function CardsRating(props) {
             .then((s) => {
                 let allPublicDecks = Object.entries(s.val())
                     .filter(([, info]) => !info.private)
-                    .map(([id, deck]) => { 
-                        let updatedDeck = {...deck, id}
+                    .map(([id, deck]) => {
+                        let updatedDeck = { ...deck, id };
                         if (!deck.deck && deck.cards) {
-                            updatedDeck.deck = deck.cards.map(card => Number(card)).join(",")
+                            updatedDeck.deck = deck.cards
+                                .map((card) => Number(card))
+                                .join(",");
                         }
 
                         if (!deck.createdutc) {
-                            if(typeof deck.created === "string") {
-                                updatedDeck.createdutc = new Date(deck.created).getTime();
-                                updatedDeck.updatedutc = new Date(deck.created).getTime();
+                            if (typeof deck.created === "string") {
+                                updatedDeck.createdutc = new Date(
+                                    deck.created
+                                ).getTime();
+                                updatedDeck.updatedutc = new Date(
+                                    deck.created
+                                ).getTime();
                             } else {
                                 let timestamp = new Date(0);
                                 timestamp.setSeconds(deck.created.seconds);
@@ -210,34 +236,54 @@ function CardsRating(props) {
                             }
                         }
 
-                        let cards = updatedDeck.deck.split(",").map(getCardById);
-                        let [isRelicValid, issues] = validateDeckForPlayFormat({ 
-                            objectives: cards.filter(checkCardIsObjective),
-                            gambits: cards.filter(checkCardIsPloy),
-                            upgrades: cards.filter(checkCardIsUpgrade),
-                        }, RELIC_FORMAT)
+                        let cards = updatedDeck.deck
+                            .split(",")
+                            .map(getCardById);
+                        let [isRelicValid, issues] = validateDeckForPlayFormat(
+                            {
+                                objectives: cards.filter(checkCardIsObjective),
+                                gambits: cards.filter(checkCardIsPloy),
+                                upgrades: cards.filter(checkCardIsUpgrade),
+                            },
+                            RELIC_FORMAT
+                        );
 
                         updatedDeck.isRelicValid = isRelicValid;
                         updatedDeck.issues = issues;
 
                         return updatedDeck;
-                     });
-                let relicValidOnly = allPublicDecks.filter(deck => deck.isRelicValid);
-                let unique = relicValidOnly.reduce((unique, deck) => ({
-                    ...unique, [deck.deck]: deck
-                }), {})   
-                
-                const uniqueKeys = Object.values(unique).map(x => x.id);
+                    });
+                let relicValidOnly = allPublicDecks.filter(
+                    (deck) => deck.isRelicValid
+                );
+                let unique = relicValidOnly.reduce(
+                    (unique, deck) => ({
+                        ...unique,
+                        [deck.deck]: deck,
+                    }),
+                    {}
+                );
 
-                const decksToDelete = allPublicDecks.filter(deck => !uniqueKeys.includes(deck.id) && deck.author === "Anonymous");
-                
-                setDecksToDelete(decksToDelete.map(({ id }) => id))
-                
-                const descending = Object.values(unique).sort((x, y) => y.updatedutc - x.updatedutc);
+                const uniqueKeys = Object.values(unique).map((x) => x.id);
+
+                const decksToDelete = allPublicDecks.filter(
+                    (deck) =>
+                        !uniqueKeys.includes(deck.id) &&
+                        deck.author === "Anonymous"
+                );
+
+                setDecksToDelete(decksToDelete.map(({ id }) => id));
+
+                const descending = Object.values(unique).sort(
+                    (x, y) => y.updatedutc - x.updatedutc
+                );
                 const initPubLog = descending.reduce((log, deck) => {
-                    return { ...log, [deck.updatedutc]: { id: deck.id, action: "SHARED" }}
-                }, {})
-                
+                    return {
+                        ...log,
+                        [deck.updatedutc]: { id: deck.id, action: "SHARED" },
+                    };
+                }, {});
+
                 setPubLog(initPubLog);
             });
     }, [firebase]);
@@ -259,10 +305,10 @@ function CardsRating(props) {
     };
 
     const handleDeleteDeadDecks = () => {
-        for(let id of decksToDelete) {
+        for (let id of decksToDelete) {
             firebase.realdb.ref(`/decks/${id}`).remove();
         }
-    }
+    };
 
     return (
         <div>
@@ -279,7 +325,9 @@ function CardsRating(props) {
                 {/* {decksError && <pre>{JSON.stringify(decksError)}</pre>} */}
             </div>
             <Button onClick={handleUpdatePubLog}>Update PubLog</Button>
-            <Button onClick={handleDeleteDeadDecks}>Delete {decksToDelete.length} no-valid decks</Button>
+            <Button onClick={handleDeleteDeadDecks}>
+                Delete {decksToDelete.length} no-valid decks
+            </Button>
         </div>
     );
 }
