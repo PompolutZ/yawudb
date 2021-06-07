@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
 import { idPrefixToFaction } from "../data/index";
-import { withFirebase } from "../firebase";
-import { SET_DECKS_META } from "../reducers/decksMeta";
 import { Link } from "react-router-dom";
 import useDexie from "../hooks/useDexie";
 import { getFactionByAbbr } from "../data/wudb";
@@ -33,7 +29,6 @@ const DecksCount = ({ count, ...props }) => (
 );
 
 function DeckMetaSummary({
-    classes,
     prefix,
 }) {
     const [count, setCount] = React.useState(0);
@@ -44,7 +39,7 @@ function DeckMetaSummary({
         db.publicDecks.where("faction").equalsIgnoreCase(faction.name).toArray().then(r => {
             setCount(r.length);
         }).catch(error => console.error(error));
-    }, [db])
+    }, [db, prefix])
 
     return (
         <div className="flex justify-center items-center p-6 group">
@@ -70,23 +65,4 @@ function DeckMetaSummary({
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        decksMeta: state.decksMeta,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addDecksMeta: (key, value) =>
-            dispatch({
-                type: SET_DECKS_META,
-                payload: { key: key, value: value },
-            }),
-    };
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withFirebase(DeckMetaSummary));
+export default DeckMetaSummary;
