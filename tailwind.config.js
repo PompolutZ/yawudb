@@ -55,6 +55,7 @@ module.exports = {
             borderColor: ['disabled'],
             boxShadow: ['disabled'],
             textColor: ['disabled'],
+            scale: ['group-hover'],
         }
     },
     plugins: [require("@tailwindcss/forms")],

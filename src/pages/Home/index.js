@@ -24,17 +24,17 @@ const Home = (props) => {
 
     return (
         <div className="flex flex-col relative">
-            <h1 className="block text-2xl my-12 text-center text-white font-semibold z-10">
+            <h1 className="block text-2xl my-16 px-2 text-center text-white font-semibold">
                 Deck building website for Warhammer Underworlds.
             </h1>
 
-            <div className="mb-12 flex justify-center">
+            <div className="mb-16 flex justify-center">
                 <div className="mx-4 flex-1 sm:flex-1/2 lg:flex-1/3">
                     <AutosuggestSearch onClick={handleGlobalSearchClick} />
                 </div>
             </div>
 
-            <div className={classes.metaSummary}>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                     ...factionIndexes.slice(27),
                     ...factionIndexes.slice(19, 27),
