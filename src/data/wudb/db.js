@@ -25471,7 +25471,7 @@ export const cards = {
         "type": "Objective",
         "glory": 2,
         "rule": "**Hybrid:** Score this in the third end phase if: \\n You have scored seven or more objective cards \\n *Or:* Your **leader** is in enemy territory.",
-        "scoreType": "Surge",
+        "scoreType": "Third",
         "status": "V--_V-_V",
         "rotated": false
     },
