@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardsTab from "./CardsTab";
 import { animated, useSpring } from "react-spring";
 import { OBJECTIVE_GLORY_FILTERS } from "./constants/objectiveGloryFilters";
@@ -6,6 +6,7 @@ import { OBJECTIVE_SCORE_TYPE_FILTERS } from "./constants/objectiveScoreTypeFilt
 import { KEYWORD_FILTERS } from "./constants/keywordFilters";
 import { CARD_TYPE_FILTERS } from "./constants/cardTypeFilters";
 import FiltersGroupToggles from "./FilterGroupToggles";
+import useMeasure from "react-use-measure";
 
 const composeTypeFilters = (enabledTypes) => {
     if (enabledTypes.length === 0) {
@@ -46,12 +47,13 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
 
     const [enabledObjectiveScoreTypes, setObjectiveScoreTypes] = useState([]);
     const [enabledGloryFilters, setEnabledGloryFilters] = useState([]);
+    const [ref, { height }] = useMeasure();
 
     const styles = useSpring({
         height: showFilters ? bounds.height : 0,
         width: bounds.width,
-        top: bounds.top,
-        left: bounds.left,
+        top: height,
+        left: 0,
         position: "absolute",
         zIndex: 1,
     });
@@ -82,7 +84,7 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
         const scoreTypeFilters = composeFilters(
             enabledObjectiveScoreTypes,
             OBJECTIVE_SCORE_TYPE_FILTERS
-        )
+        );
 
         onFiltersChanged({
             test: (card) =>
@@ -91,7 +93,7 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
                 gloryFilters(card) &&
                 scoreTypeFilters(card),
         });
-    }
+    };
 
     const handleToggleKeyword = (value, update) => (keyword) => () => {
         const index = value.indexOf(keyword);
@@ -109,10 +111,10 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
         setEnabledGloryFilters([]);
         setObjectiveScoreTypes([]);
         setEnabledKeywords([]);
-    }
+    };
 
     return (
-        <>
+        <div className="relative" ref={ref}>
             <CardsTab
                 enabledTypes={enabledCardTypes}
                 onToggleType={handleToggleKeyword(
@@ -127,7 +129,11 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
                 onToggleShowFilters={changeShowFilters}
             />
             <animated.div className="bg-white text-gray-900" style={styles}>
-                <div className={`${showFilters ? "flex flex-col" : "hidden"} p-2`}>
+                <div
+                    className={`${
+                        showFilters ? "flex flex-col" : "hidden"
+                    } p-2`}
+                >
                     <FiltersGroupToggles
                         title="Glory"
                         disabled={!enabledCardTypes.includes("Objective")}
@@ -158,14 +164,20 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
                         )}
                     />
 
-                    <button className="btn btn-red py-3" disabled={
-                        enabledGloryFilters.length === 0 &&
-                        enabledKeywords.length === 0 &&
-                        enabledObjectiveScoreTypes.length === 0
-                    } onClick={handleClearAll}>Clear All Filters</button>
+                    <button
+                        className="btn btn-red py-3"
+                        disabled={
+                            enabledGloryFilters.length === 0 &&
+                            enabledKeywords.length === 0 &&
+                            enabledObjectiveScoreTypes.length === 0
+                        }
+                        onClick={handleClearAll}
+                    >
+                        Clear All Filters
+                    </button>
                 </div>
             </animated.div>
-        </>
+        </div>
     );
 }
 

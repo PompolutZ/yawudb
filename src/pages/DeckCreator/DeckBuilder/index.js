@@ -19,19 +19,12 @@ import { ReactComponent as DeckIcon } from "../../../svgs/deck.svg";
 import { ReactComponent as WarbandIcon } from "../../../svgs/warband.svg";
 import FightersInfoList from "../../../atoms/FightersInfoList";
 import { Transition } from "@headlessui/react";
+import useMeasure from "react-use-measure";
 
 function Filters() {
     const [searchText, setSearchText] = useState("");
     const [filter, setFilter] = useState({});
-    const [bounds, setBounds] = useState({});
-    const ref = useRef();
-
-    useLayoutEffect(() => {
-        if (!ref.current) return;
-        let bounds = ref.current.getBoundingClientRect();
-        console.log(bounds);
-        setBounds(bounds);
-    }, []);
+    const [ref, bounds] = useMeasure();
 
     return (
         <div className="flex-1 flex-col flex p-2 lg:border-r">
@@ -69,10 +62,6 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
 
     const theme = useTheme();
 
-    const _handleShowDeckMobile = () => {
-        setIsMobileDeckVisible((prev) => !prev);
-    };
-
     useEffect(() => {
         if (existingDeckId) return;
 
@@ -107,7 +96,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     };
 
     return (
-        <div className="flex-1 grid grid-cols-1 pb-16 lg:pb-0 lg:grid-cols-4 bg-white">
+        <div className="flex-1 grid grid-cols-1 pb-16 lg:pb-0 lg:grid-cols-4 bg-white relative">
             {status === "Saved" && <Redirect to="/mydecks" />}
 
             <Filters />
