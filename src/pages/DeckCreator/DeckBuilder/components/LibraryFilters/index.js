@@ -128,10 +128,10 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
                 }
                 onToggleShowFilters={changeShowFilters}
             />
-            <animated.div className="bg-white text-gray-900" style={styles}>
+            <animated.div className="bg-white text-gray-900 flex" style={styles}>
                 <div
                     className={`${
-                        showFilters ? "flex flex-col" : "hidden"
+                        showFilters ? "flex-1 flex flex-col overflow-y-auto" : "hidden"
                     } p-2`}
                 >
                     <FiltersGroupToggles
