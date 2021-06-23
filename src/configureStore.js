@@ -14,7 +14,6 @@ import mydecks from "./reducers/mydecks";
 import lastDeck from "./reducers/lastDeck";
 import deckUnderEdit from "./reducers/deckUnderEdit";
 import decksMeta from "./reducers/decksMeta";
-import privateDecksReducer from "./features/privateDecksSlice";
 
 const routerReducer = (history) => {
     const reducer = connectRouter(history);
@@ -40,7 +39,6 @@ const createRootReducer = (history) =>
         lastDeck,
         deckUnderEdit,
         decksMeta,
-        privateDecks: privateDecksReducer,
         router: routerReducer(history),
     });
 

@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import useAuthUser from "../../hooks/useAuthUser";
-import MyDecksAuth from "./MyDecksAuth";
-import MyDecksAnon from "./MyDecksAnon";
 import { FirebaseContext } from "../../firebase";
 import { Link } from "react-router-dom";
 import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
