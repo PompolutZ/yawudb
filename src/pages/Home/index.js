@@ -3,23 +3,18 @@ import {
     factionIdPrefix,
     factionIndexes,
 } from "../../data";
-import { withRouter } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
-import { addOrUpdateLastDeck } from "../../reducers/lastDeck";
-import { SET_DECKS_META } from "../../reducers/decksMeta";
-import { SET_FACTION } from "../../reducers/deckUnderBuild";
+import { useHistory } from "react-router-dom";
 import DeckMetaSummary from "../../molecules/DecksMetaSummary";
-import { withFirebase } from "../../firebase";
 import AutosuggestSearch from "../../components/AutosuggestSearch";
 import Footer from "../../components/Footer";
+import { useFetch } from "../../hooks/useFetch";
 
-
-const Home = (props) => {
-    const { classes } = props;
+const Home = () => {
+    const history = useHistory();
+    const { result: stats } = useFetch('api/v1/public-decks/stats');
 
     const handleGlobalSearchClick = (payload) => {
-        props.history.push(`/view/card/${payload.id}`);
+        history.push(`/view/card/${payload.id}`);
     };
 
     return (
@@ -44,7 +39,8 @@ const Home = (props) => {
                 ].map((faction) => (
                     <DeckMetaSummary
                         key={factionIdPrefix[faction]}
-                        prefix={factionIdPrefix[faction]}
+                        faction={faction}
+                        stats={stats}
                     />
                 ))}
             </div>
@@ -54,90 +50,4 @@ const Home = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        lastDeck: state.lastDeck,
-        userInfo: state.auth,
-        decksMeta: state.decksMeta,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addOrUpdate: (id, timestamp, data) =>
-            dispatch(addOrUpdateLastDeck(id, timestamp, data)),
-        addDecksMeta: (key, value) =>
-            dispatch({
-                type: SET_DECKS_META,
-                payload: { key: key, value: value },
-            }),
-        setFactionForNewDeck: (faction, defaultSet) =>
-            dispatch({
-                type: SET_FACTION,
-                faction: faction,
-                defaultSet: defaultSet,
-            }),
-    };
-};
-
-const styles = (theme) => ({
-    root: {
-        margin: "0 auto",
-        flex: "0 1 75%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-    },
-
-    columnOne: {
-        flex: "1 100%",
-        [theme.breakpoints.up("md")]: {
-            flex: "1 50%",
-            order: 1,
-        },
-    },
-
-    columnTwo: {
-        flex: "1 100%",
-        [theme.breakpoints.up("md")]: {
-            flex: "1 30%",
-            order: 0,
-        },
-    },
-
-    item: {
-        fontFamily: "roboto",
-        fontSize: "1rem",
-        color: "white",
-        marginLeft: "1rem",
-    },
-
-    changeLogItem: {
-        fontFamily: "roboto",
-        fontSize: ".7rem",
-        color: "white",
-        display: "flex",
-        flexFlow: "column wrap",
-        marginLeft: "1rem",
-        alignItems: "flex-start",
-        marginBottom: ".5rem",
-    },
-
-    entry: {
-        fontFamily: "roboto",
-    },
-
-    metaSummary: {
-        flexGrow: 1,
-        display: "flex",
-        flexWrap: "wrap",
-        alignContent: "space-around",
-        justifyContent: "center",
-        minWidth: "375px",
-    },
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withFirebase(withRouter(withStyles(styles)(Home))));
+export default Home;
