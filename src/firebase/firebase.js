@@ -64,6 +64,16 @@ class Firebase {
         return this.auth.signOut();
     };
 
+    getTokenId = () => {
+        return new Promise((res, rej) => {
+            this.auth.onIdTokenChanged(user => {
+                if (user) {
+                    user.getIdToken().then(token => res(token)).catch(e => rej(e))
+                }
+            })
+        })
+    }
+
     onAuthUserListener = (next, fallback) =>
         this.auth.onAuthStateChanged((user) => {
             if (user) {
