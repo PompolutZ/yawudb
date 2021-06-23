@@ -18,7 +18,6 @@ import Firebase, { FirebaseContext, withFirebase } from "./firebase";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import * as ROUTES from "./constants/routes";
 import CardsRating from "./pages/CardsRating";
-import Admin from "./pages/Admin";
 import NavigationPanel from "./v2/components/NavigationPanel";
 import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
 
@@ -28,8 +27,6 @@ const SignUp = lazy(() => import("./pages/SignUp"));
 const Library = lazy(() => import("./pages/Library"));
 const Deck = lazy(() => import("./pages/Deck"));
 const About = lazy(() => import("./pages/About"));
-const SecretDeckUploader = lazy(() => import("./pages/SecretDeckUploader"));
-const Statistics = lazy(() => import("./pages/Statistics"));
 const Feedback = lazy(() => import("./pages/Feedback"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
 const Card = lazy(() => import("./pages/Card"));
@@ -39,7 +36,6 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const PasswordResetRequest = lazy(() => import("./pages/PasswordResetRequest"));
 const GameAssistant = lazy(() => import("./pages/GameAssistant"));
 const WarbandsInfoPage = lazy(() => import("./pages/WarbandsInfo"));
-const MetaReset = lazy(() => import("./pages/MetaResetPage"));
 
 const history = createBrowserHistory();
 const store = configureStore(history);
@@ -191,12 +187,6 @@ function MainLayout() {
                                         render={(props) => <About {...props} />}
                                     />
                                     <Route
-                                        path={ROUTES.STATISTICS}
-                                        render={(props) => (
-                                            <Statistics {...props} />
-                                        )}
-                                    />
-                                    <Route
                                         path={ROUTES.FEEDBACK}
                                         render={(props) => (
                                             <Feedback {...props} />
@@ -231,20 +221,8 @@ function MainLayout() {
                                         component={UserProfile}
                                     />
                                     <PrivateRoute
-                                        path="/secret/deck-uploader"
-                                        component={SecretDeckUploader}
-                                    />
-                                    <PrivateRoute
-                                        path="/secret/meta-reset"
-                                        component={MetaReset}
-                                    />
-                                    <PrivateRoute
                                         path="/secret/cards-rating/:faction?"
                                         component={CardsRating}
-                                    />
-                                    <PrivateRoute
-                                        path="/secret/admin"
-                                        component={Admin}
                                     />
                                     <PrivateRoute
                                         path={ROUTES.GAME_ASSISTANT}
