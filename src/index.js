@@ -307,7 +307,6 @@ function App(props) {
         );
 
         return () => {
-            props.firebase.decks().off();
             unsubscribe();
         };
     }, []);
