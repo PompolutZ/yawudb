@@ -1,13 +1,11 @@
-import React, { Suspense, lazy, useState, useContext } from "react";
+import React, { Suspense, lazy, useContext } from "react";
 import ReactDOM from "react-dom";
 import { Route, Redirect, Switch, useLocation } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-// import "./index.css";
 import "./styles/main.css";
 import Home from "./pages/Home";
 
 import { unregister } from "./registerServiceWorker";
-import Footer from "./components/Footer";
 import { createBrowserHistory } from "history";
 
 import { connect, Provider } from "react-redux";
@@ -21,12 +19,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import * as ROUTES from "./constants/routes";
 import CardsRating from "./pages/CardsRating";
 import Admin from "./pages/Admin";
-import { makeStyles } from "@material-ui/core/styles";
 import NavigationPanel from "./v2/components/NavigationPanel";
-import PublicDecksProvider from "./contexts/publicDecksContext";
-import useDexie from "./hooks/useDexie";
-import shadows from "@material-ui/core/styles/shadows";
-import useRealtimeDatabaseRefOnce from "./hooks/useRealtimeDatabaseValueOnce";
 import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
 
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
@@ -391,9 +384,7 @@ const Root = () => (
     <Provider store={store}>
         <FirebaseContext.Provider value={new Firebase()}>
             <MuiThemeProvider theme={theme}>
-                <PublicDecksProvider>
-                    <ConnectedApp />
-                </PublicDecksProvider>
+                <ConnectedApp />
             </MuiThemeProvider>
         </FirebaseContext.Provider>
     </Provider>
