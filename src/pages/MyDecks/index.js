@@ -114,9 +114,7 @@ function MyDecksPage() {
         await deleteUserDeck({
             url: `/api/v1/user-decks/${confirmDeleteDeckId}`,
         });
-        setDecks((prev) =>
-            prev.filter((deck) => deck.id !== confirmDeleteDeckId)
-        );
+        await refetch();
         setConfirmDeleteDeckId(null);
     };
 

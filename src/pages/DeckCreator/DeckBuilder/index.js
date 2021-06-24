@@ -9,7 +9,7 @@ import Slide from "@material-ui/core/Slide";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "..";
 import useAuthUser from "../../../hooks/useAuthUser";
-import { resetDeckAction, saveDeckAction } from "../reducer";
+import { resetDeckAction, saveDeckAction, updateDeckAction } from "../reducer";
 import uuid4 from "uuid/v4";
 import DeleteConfirmationDialog from "../../../atoms/DeleteConfirmationDialog";
 import CardsLibrary from "./components/CardsLibrary";
@@ -82,17 +82,25 @@ function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
     };
 
     const handleSaveDeck = () => {
-        const now = new Date();
-        dispatch(
-            saveDeckAction({
-                deckName: deckName || `${faction.displayName} Deck`,
-                author: uid,
-                authorDisplayName: displayName,
-                deckId,
-                createdutc: createdTimestamp || now.getTime(),
-                updatedutc: now.getTime(),
-            })
-        );
+        if (existingDeckId) {
+            dispatch(
+                updateDeckAction({
+                    deckName: deckName || `${faction.displayName} Deck`,
+                    author: uid,
+                    authorDisplayName: displayName,
+                    deckId,
+                })
+            )
+        } else {
+            dispatch(
+                saveDeckAction({
+                    deckName: deckName || `${faction.displayName} Deck`,
+                    author: uid,
+                    authorDisplayName: displayName,
+                    deckId,
+                })
+            );
+        }
     };
 
     return (

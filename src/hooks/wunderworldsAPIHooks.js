@@ -28,5 +28,8 @@ export const useGetUserDeckById = (deckId, manual = false) =>
 export const usePostUserDeck = () =>
     useAxios({ method: "POST", url: "/api/v1/user-decks" }, { manual: true });
 
+export const useUpdateUserDeck = () =>
+    useAxios({ method: "PUT", url: "/api/v1/user-decks" }, { manual: true });
+
 export const useDeleteUserDeck = () =>
     useAxios({ method: "DELETE" }, { manual: true });
