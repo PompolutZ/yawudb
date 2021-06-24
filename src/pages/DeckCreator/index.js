@@ -54,7 +54,7 @@ const initialiseState = deck => exec => {
 
 function DeckBuilderContextProvider({ children }) {
     const location = useLocation();
-    const [{ data, error, loading}, saveUserDeck] = usePostUserDeck();
+    const [, saveUserDeck] = usePostUserDeck();
     const [, update] = useUpdateUserDeck();
     const [state, dispatch] = useEffectReducer(
         deckBuilderReducer, 
@@ -66,10 +66,6 @@ function DeckBuilderContextProvider({ children }) {
             removeKeyFromLocalStorage,
             initialiseStateFromLocalStorage,
     });
-
-    useEffect(() => {
-        console.log(data, error, loading);
-    }, [data, error, loading])
 
     return (
         <DeckBuilderContext.Provider value={state}>

@@ -89,10 +89,6 @@ function MyDecksPage() {
     const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
 
     useEffect(() => {
-        console.log(data, loading);
-    }, [data, loading]);
-
-    useEffect(() => {
         if (data) {
             setDecks();
         }

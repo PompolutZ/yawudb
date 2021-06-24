@@ -29,7 +29,6 @@ function Deck() {
     useEffect(() => {
         setLoading(true);
         if (state) {
-            console.log("Set deck from state");
             setDeck(state.deck);
             setCards(state.deck.cards.map(getCardById));
             setFactionId(state.deck && state.deck.id.split("-")[0]);
@@ -37,7 +36,6 @@ function Deck() {
 
             setLoading(false);
         } else {
-            console.log("Load deck from server");
             fetch()
                 .then((r) => {
                     const [data] = r.data;
