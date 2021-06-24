@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { FirebaseContext } from "../../firebase";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
 import { VIEW_DECK } from "../../constants/routes";
@@ -8,7 +7,6 @@ import { ReactComponent as TrashIcon } from "../../svgs/trash.svg";
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
 import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
-import { useAuthFetch } from "../../hooks/useAuthFetch";
 import {
     useDeleteUserDeck,
     useGetUserDecks,
@@ -114,7 +112,7 @@ function MyDecksPage() {
     };
 
     const handleDeleteDeck = async () => {
-        deleteUserDeck({
+        await deleteUserDeck({
             url: `/api/v1/user-decks/${confirmDeleteDeckId}`,
         });
         setDecks((prev) =>

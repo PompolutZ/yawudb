@@ -7,6 +7,7 @@ import useAuthUser from "../../hooks/useAuthUser";
 import { useContext } from "react";
 import { FirebaseContext } from "../../firebase";
 import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
+import { useDeleteUserDeck } from "../../hooks/wunderworldsAPIHooks";
 
 function Deck(props) {
     const user = useAuthUser();
@@ -22,6 +23,7 @@ function Deck(props) {
         false
     );
     const [cardsView, setCardsView] = React.useState(false);
+    const [{ error: deleteError }, deleteUserDeck] = useDeleteUserDeck();
 
     useEffect(() => {
         if (state) {
@@ -83,28 +85,12 @@ function Deck(props) {
     };
 
     const handleDeleteDeck = async () => {
-        try {
-            const { id } = deck;
-            firebase.deck(id).off();
-
-            await firebase.realdb.ref(`/decks/${id}`).remove();
-
-            if (props.uid) {
-                props.removeDeck(id);
-
-                firebase.db
-                    .collection("users")
-                    .doc(user.uid)
-                    .update({
-                        mydecks: props.firebase.firestoreArrayRemove(id),
-                    });
-            }
-
-            handleCloseDeleteDialog();
-            history.push("/mydecks");
-        } catch (err) {
-            console.error("ERROR deleting deck: ", err);
-        }
+        const { id } = deck;
+        await deleteUserDeck({
+            url: `/api/v1/user-decks/${id}`,
+        });
+        handleCloseDeleteDialog();
+        history.push("/mydecks");
     };
 
     const _deleteDeck = async () => {
@@ -114,9 +100,7 @@ function Deck(props) {
     return (
         <React.Fragment>
             <Helmet>
-                <title>
-                    {`Deck for Warhammer Underworlds`}
-                </title>
+                <title>{`Deck for Warhammer Underworlds`}</title>
                 <meta
                     name="description"
                     content={`Get inspired with this deck to build your next Grand Clash winning deck.`}

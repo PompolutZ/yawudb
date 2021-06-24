@@ -1,6 +1,10 @@
-import { FINISH_SAVING_DECK } from './reducer';
+import { FINISH_SAVING_DECK } from "./reducer";
 
-export const firebaseSaveDeckAsync = firebase => async (state, effect, dispatch) => {
+export const firebaseSaveDeckAsync = (firebase) => async (
+    state,
+    effect,
+    dispatch
+) => {
     try {
         const {
             deckName,
@@ -16,7 +20,7 @@ export const firebaseSaveDeckAsync = firebase => async (state, effect, dispatch)
             ...state.selectedGambits,
             ...state.selectedUpgrades,
         ];
-        
+
         await firebase.realdb.ref(`/decks/${deckId}`).set({
             author,
             authorDisplayName,
@@ -25,19 +29,47 @@ export const firebaseSaveDeckAsync = firebase => async (state, effect, dispatch)
             private: true,
             name: deckName,
             faction: state.faction.name,
-            deck: deck.map(c => c.id).join(","),
-            sets: Array.from(new Set(deck.map(c => c.setId))).join(",")
+            deck: deck.map((c) => c.id).join(","),
+            sets: Array.from(new Set(deck.map((c) => c.setId))).join(","),
         });
 
         dispatch({ type: FINISH_SAVING_DECK });
     } catch (e) {
         console.error(e);
     }
-}
+};
 
-export function addKeyToLocalStorage(state, {key, value}) {
+export const apiSaveDeckAsync = (save) => async (state, effect, dispatch) => {
+    try {
+        const {
+            deckName,
+            deckId,
+        } = effect.deckMeta;
+
+        const deck = [
+            ...state.selectedObjectives,
+            ...state.selectedGambits,
+            ...state.selectedUpgrades,
+        ];
+
+        await save({ data: {
+            deckId,
+            private: true,
+            name: deckName,
+            faction: state.faction.name,
+            deck: deck.map((c) => c.id),
+            sets: Array.from(new Set(deck.map((c) => c.setId))),
+        }})
+
+        dispatch({ type: FINISH_SAVING_DECK });
+    } catch (e) {
+        console.error("Error saving deck", e);
+    }
+};
+
+export function addKeyToLocalStorage(state, { key, value }) {
     localStorage.setItem(key, JSON.stringify(value));
-} 
+}
 
 export function removeKeyFromLocalStorage(state, { key }) {
     localStorage.removeItem(key);
@@ -46,7 +78,7 @@ export function removeKeyFromLocalStorage(state, { key }) {
 export function initialiseStateFromLocalStorage(state, { key }, dispatch) {
     const value = localStorage.getItem(key);
 
-    if(!value) return;
+    if (!value) return;
 
     const serializedState = JSON.parse(value);
 

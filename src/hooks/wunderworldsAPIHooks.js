@@ -19,5 +19,8 @@ axios.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-export const useGetUserDecks = () => useAxios('/api/v1/user-decks');
-export const useDeleteUserDeck = () => useAxios({ method: 'DELETE', }, { manual: true });
+export const useGetUserDecks = () => useAxios("/api/v1/user-decks");
+export const usePostUserDeck = () =>
+    useAxios({ method: "POST", url: "/api/v1/user-decks" }, { manual: true });
+export const useDeleteUserDeck = () =>
+    useAxios({ method: "DELETE" }, { manual: true });
