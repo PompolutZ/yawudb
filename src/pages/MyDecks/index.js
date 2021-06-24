@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
 import { VIEW_DECK } from "../../constants/routes";
 import { checkCardIsObjective, getCardById } from "../../data/wudb";
@@ -79,29 +79,28 @@ function DeckLink({ onDelete, ...props }) {
 }
 
 function MyDecksPage() {
-    const [{ data, loading }] = useGetUserDecks();
+    const [{ data, loading }, refetch] = useGetUserDecks(true);
     const [
         { data: deleteRes, loading: deleting },
         deleteUserDeck,
     ] = useDeleteUserDeck();
+    const { state } = useLocation();
     const [decks, setDecks] = useState([]);
     const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
 
     useEffect(() => {
-        if (data) {
-            setDecks(
-                data.map((deck) => ({
-                    ...deck,
-                    id: deck.deckId,
-                    cards: deck.deck,
-                }))
-            );
-        }
-    }, [data]);
+        console.log(data, loading);
+    }, [data, loading]);
 
     useEffect(() => {
-        console.log(deleteRes, deleting);
-    }, [deleteRes, deleting]);
+        if (data) {
+            setDecks();
+        }
+    }, [data, state]);
+
+    useEffect(() => {
+        refetch();
+    }, [state]);
 
     const handleCloseDeleteDialog = () => {
         setConfirmDeleteDeckId(null);
@@ -122,29 +121,41 @@ function MyDecksPage() {
     };
 
     return (
-        <div className="flex-1 p-4">
-            {loading && <span>Loading...</span>}
-            {decks.length === 0 && (
-                <div className="flex justify-center">
-                    <h1 className=" inline-block text-xl mx-auto">
-                        You don't have any decks yet.
-                    </h1>
+        <div className="flex-1 flex p-4">
+            {loading && (
+                <div className="flex-1 flex items-center justify-center">
+                    <p>Loading...</p>
                 </div>
             )}
-            {decks
-                .sort((x, y) => y.updatedutc - x.updatedutc)
-                .map((deck) => (
-                    <DeckLink
-                        key={deck.id}
-                        onDelete={handleDeleteDeckId}
-                        {...deck}
-                    />
-                ))}
+            {!loading && data && data.length === 0 && (
+                <div className="flex-1 flex items-center justify-center">
+                    <p> You don't have any decks yet.</p>
+                </div>
+            )}
+            {data && (
+                <div className="flex-1">
+                    {data
+                        .map((deck) => ({
+                            ...deck,
+                            id: deck.deckId,
+                            cards: deck.deck,
+                        }))
+                        .sort((x, y) => y.updatedutc - x.updatedutc)
+                        .map((deck) => (
+                            <DeckLink
+                                key={deck.id}
+                                onDelete={handleDeleteDeckId}
+                                {...deck}
+                            />
+                        ))}
+                </div>
+            )}
 
             <DeleteConfirmationDialog
                 title="Delete deck"
                 description={`Are you sure you want to delete deck: '${
-                    decks.find((deck) => deck.id === confirmDeleteDeckId)?.name
+                    data &&
+                    data.find((deck) => deck.id === confirmDeleteDeckId)?.name
                 }'`}
                 open={!!confirmDeleteDeckId}
                 onCloseDialog={handleCloseDeleteDialog}
