@@ -268,9 +268,6 @@ class UserProfile extends Component {
                     authorDisplayName: this.state.userName,
                     created: Date(),
                 };
-                await this.props.firebase.realdb
-                    .ref(`/decks/${key}`)
-                    .set(updatedDeck);
                 localStorage.setItem(
                     "yawudb_decks",
                     JSON.stringify({ ...cache, [key]: updatedDeck })
