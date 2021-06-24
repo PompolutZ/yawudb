@@ -80,19 +80,9 @@ function DeckLink({ onDelete, ...props }) {
 
 function MyDecksPage() {
     const [{ data, loading }, refetch] = useGetUserDecks(true);
-    const [
-        { data: deleteRes, loading: deleting },
-        deleteUserDeck,
-    ] = useDeleteUserDeck();
+    const [, deleteUserDeck] = useDeleteUserDeck();
     const { state } = useLocation();
-    const [decks, setDecks] = useState([]);
     const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
-
-    useEffect(() => {
-        if (data) {
-            setDecks();
-        }
-    }, [data, state]);
 
     useEffect(() => {
         refetch();
