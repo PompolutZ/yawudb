@@ -44,10 +44,10 @@ export const sets = {
         "name": "nightvault-core",
         "displayName": "Nightvault core set"
     },
-    "The Eyes of the Nine expansion": {
+    "Eyes of the Nine expansion": {
         "id": 10,
         "name": "the-eyes-of-the-nine",
-        "displayName": "The Eyes of the Nine expansion"
+        "displayName": "Eyes of the Nine expansion"
     },
     "Zarbag's Gitz expansion": {
         "id": 11,
@@ -257,11 +257,11 @@ export const factions = {
         "name": "thorns-of-the-briar-queen",
         "displayName": "Thorns of the Briar Queen"
     },
-    "The Eyes of the Nine": {
+    "Eyes of the Nine": {
         "id": 12,
         "abbr": "teotn",
         "name": "the-eyes-of-the-nine",
-        "displayName": "The Eyes of the Nine"
+        "displayName": "Eyes of the Nine"
     },
     "Zarbag's Gitz": {
         "id": 13,
@@ -3648,7 +3648,7 @@ export const cards = {
         "glory": 1,
         "rule": "Score this immediately if a friendly fighter makes a Move action of six or more hexes.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             1249,
@@ -3940,8 +3940,8 @@ export const cards = {
         "glory": 3,
         "rule": "Score this in an end phase if you hold *all objectives (at least one) in your opponent's territory*.",
         "scoreType": "End",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1270,
             11011
@@ -4028,8 +4028,8 @@ export const cards = {
         "glory": 1,
         "rule": "Score this immediately if one of your fighters takes an enemy fighter out of action with an Attack action with a Damage characteristic greater than the target's Wounds characteristic.",
         "scoreType": "Surge",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1277,
             11012
@@ -4133,8 +4133,8 @@ export const cards = {
         "glory": 3,
         "rule": "Score this in the third end phase if *seven or more* fighters are out of action.",
         "scoreType": "Third",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1285,
             11015
@@ -4601,8 +4601,8 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** Play this when an opponent plays a ploy. Draw two power cards.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1320,
             11027
@@ -4641,8 +4641,8 @@ export const cards = {
         "glory": null,
         "rule": "Roll eight dice. Choose a friendly fighter and push them up to a number of hexes equal to the number of :atCrit: rolled.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1323,
             11028
@@ -4729,8 +4729,8 @@ export const cards = {
         "glory": null,
         "rule": "Choose a friendly fighter and roll a defence dice. On a roll of :dfBlock: or :dfCrit: remove up to two wound tokens from them. Otherwise remove one wound token from them.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1330,
             11030
@@ -4841,8 +4841,8 @@ export const cards = {
         "glory": null,
         "rule": "Your first Attack action with a Range characteristic of 1 in the next activation targets all adjacent enemy fighters. Roll for each.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1339,
             11035
@@ -4857,7 +4857,7 @@ export const cards = {
         "glory": null,
         "rule": "Taking it in turns with your opponent(s), starting with you and going clockwise, move each objective one hex. Objectives cannot be moved into a hex that already contains an objective.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             1340,
@@ -5103,8 +5103,8 @@ export const cards = {
         "glory": null,
         "rule": "Move an unheld objective one hex. You cannot move it into a hex that already contains an objective.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1359,
             11039
@@ -5309,8 +5309,8 @@ export const cards = {
         "glory": null,
         "rule": "If this fighter is the last friendly fighter on the battlefield, they have +1 Defence and all of their Attack actions have +1 Dice.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1375,
             11041
@@ -5409,8 +5409,8 @@ export const cards = {
         "glory": null,
         "rule": "[:Hex: 3 - :atFury: 3 - :boom: 1 -(Cleave)-]",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             1383,
             11044
@@ -6564,8 +6564,8 @@ export const cards = {
         "glory": null,
         "rule": "Choose a friendly fighter (other than your leader) and push them up to one hex or put them on Guard. You can only play this if your leader is on the battlefield.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             2038,
             11032
@@ -9752,7 +9752,7 @@ export const cards = {
         "glory": null,
         "rule": "You can re-roll one dice in each attack roll for this fighter's Attack actions.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "3225": {
@@ -10658,8 +10658,8 @@ export const cards = {
         "glory": 1,
         "rule": "Score this immediately if you roll three or more dice in an attack or defence roll and they all show a different symbol.",
         "scoreType": "Surge",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3299,
             11002
@@ -10998,8 +10998,8 @@ export const cards = {
         "glory": 2,
         "rule": "Score this in an end phase if you gained at least 5 glory points in this round.",
         "scoreType": "End",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3326,
             11005
@@ -11596,8 +11596,8 @@ export const cards = {
         "glory": 1,
         "rule": "Score this immediately if the first fighter taken out of action in this round is an enemy fighter.",
         "scoreType": "Surge",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3373,
             11016
@@ -11930,8 +11930,8 @@ export const cards = {
         "glory": null,
         "rule": "*(Errata update)* Choose a fighter and push all other fighters that are within 2 hexes 1 hex so that they are closer to that fighter in an order you choose.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3400,
             11021
@@ -11946,8 +11946,8 @@ export const cards = {
         "glory": null,
         "rule": "Push your leader up to three hexes. They must end this push on a starting hex.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3401,
             11022
@@ -11992,8 +11992,8 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** Play this after an enemy fighter's Move action that is part of a Charge action. Choose a friendly fighter and push them up to three hexes. They must end this push adjacent to the enemy fighter.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3404,
             11024
@@ -12056,8 +12056,8 @@ export const cards = {
         "glory": null,
         "rule": "+1 Dice for the first Attack action in the next activation.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3409,
             11026
@@ -12168,8 +12168,8 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** Play this after an Attack action with a Range of 1 that targets a friendly fighter and fails, if there are any :atCrit: in your defence roll. The attacker suffers 2 damage.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3418,
             11029
@@ -12280,8 +12280,8 @@ export const cards = {
         "glory": null,
         "rule": "Choose an objective token. Any fighter in the same hex as that token suffers 1 damage.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3427,
             11034
@@ -12344,8 +12344,8 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** Play this after an opponent pushes a fighter. Choose a different fighter and push them the same number of hexes.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3432,
             11036
@@ -12894,8 +12894,8 @@ export const cards = {
         "glory": null,
         "rule": "**Action:** Search your power deck for a card, reveal it and add it to your hand. Then shuffle your power deck and place a Charge token next to this fighter.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3477,
             11042
@@ -13006,8 +13006,8 @@ export const cards = {
         "glory": null,
         "rule": "You can re-roll one defence dice each time you make a defence roll for this fighter.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3486,
             11043
@@ -13094,8 +13094,8 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** After this fighter's Attack action, push them up to one hex.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3493,
             11045
@@ -13110,8 +13110,8 @@ export const cards = {
         "glory": null,
         "rule": "If this fighter is standing on an objective token in a player's territory, no fighters in that territory are considered to be holding objectives.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3494,
             11046
@@ -13198,8 +13198,8 @@ export const cards = {
         "glory": null,
         "rule": "If you score a critical hit when making an Attack action with this fighter, that Attack action has +1 Damage.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3501,
             11047
@@ -13226,8 +13226,8 @@ export const cards = {
         "glory": null,
         "rule": "+1 Damage to this fighter's Attack actions that target a fighter with a Wounds characteristic of 4 or more.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3503,
             11048
@@ -13308,8 +13308,8 @@ export const cards = {
         "glory": null,
         "rule": "-1 Wound (to a minimum of 1). Adjacent enemy fighters' Attack actions have -1 Dice, to a minimum of 1.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3508,
             11053
@@ -13384,8 +13384,8 @@ export const cards = {
         "glory": null,
         "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 2] \\n When a fighter makes this Attack action, choose Cleave or Knockback 1. This Attack action has that rule in this activation.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3514,
             11055
@@ -13556,8 +13556,8 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** After a Move token is placed next to this fighter, discard this card. Remove that token.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3528,
             11056
@@ -13608,8 +13608,8 @@ export const cards = {
         "glory": null,
         "rule": "Remove up to one wound token from this fighter's fighter card at the beginning of each round.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3532,
             11058
@@ -13756,8 +13756,8 @@ export const cards = {
         "glory": null,
         "rule": "[:Hex: 1 - :atSmash: 3 - :boom: 2] \\n On a critical hit, you can choose one of the target fighter's upgrades that confers an Attack action. That card is discarded.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             3544,
             11060
@@ -14408,8 +14408,8 @@ export const cards = {
         "glory": null,
         "rule": "The first Attack action with a Range of 1 made by an Inspired friendly fighter in the next activation has +1 Dice and +1 Damage.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             4041,
             11031
@@ -14424,8 +14424,8 @@ export const cards = {
         "glory": null,
         "rule": "The first Attack action with a Range of 1 or 2 made by a friendly fighter in the next activation has +1 Dice and Cleave if the target is holding an objective.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             4042,
             11033
@@ -14548,8 +14548,8 @@ export const cards = {
         "glory": null,
         "rule": "Wound tokens cannot be removed from the fighter cards of fighters within two hexes of this fighter.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             4052,
             11054
@@ -14588,8 +14588,8 @@ export const cards = {
         "glory": null,
         "rule": "In each round, you can do one of the following: push this fighter one hex before the roll to determine who has the first activation. or push this fighter one hex after the final power step.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true,
+        "status": "V--_V-_V",
+        "rotated": false,
         "duplicates": [
             4055,
             11057
