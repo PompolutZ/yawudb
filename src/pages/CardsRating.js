@@ -2,16 +2,11 @@ import React, { useState } from "react";
 import { FirebaseContext } from "../firebase";
 import Button from "@material-ui/core/Button";
 import Progress from "@material-ui/core/CircularProgress";
-import { firstUniversalCardPerWave } from "../data";
 import {
-    checkCardIsObjective,
-    checkCardIsPloy,
-    checkCardIsUpgrade,
-    getCardById,
-    RELIC_FORMAT,
-    validateDeckForPlayFormat,
+    getFactionByAbbr,
     wucards,
 } from "../data/wudb";
+import axios from "axios";
 
 function CardsRating(props) {
     const firebase = React.useContext(FirebaseContext);
@@ -20,15 +15,6 @@ function CardsRating(props) {
     const [updated, setUpdated] = React.useState(false);
     const [pubLog, setPubLog] = useState(undefined);
     const [decksToDelete, setDecksToDelete] = useState([]);
-
-    React.useEffect(() => {
-        if (!props.match.params.faction) return;
-
-        firebase.realdb
-            .ref(`/cards_ranks/${props.match.params.faction}`)
-            .once("value")
-            .then((s) => setPrintData(s.val()));
-    }, [props.match.params]);
 
     React.useEffect(() => {
         firebase
@@ -50,7 +36,8 @@ function CardsRating(props) {
                 //const filteredByDate = fixedDate.filter(([id, value]) => value.lastModified > new Date(2019, 6, 23));
                 const groupedByFactions = fixedDate.reduce(
                     (acc, [id, value]) => {
-                        if (id === "undefined" || (!value.cards && !value.deck)) return acc;
+                        if (id === "undefined" || (!value.cards && !value.deck))
+                            return acc;
 
                         const updated = { ...value };
                         if (value.deck) {
@@ -64,7 +51,7 @@ function CardsRating(props) {
                         }
 
                         if (value.updatedutc) {
-                            updated.lastModified = new Date(value.updatedutc)
+                            updated.lastModified = new Date(value.updatedutc);
                         }
 
                         const factionPrefix = id.split("-")[0];
@@ -85,7 +72,9 @@ function CardsRating(props) {
                         [prefix]: {
                             data: value,
                             maxSets: Math.max(
-                                ...value.map((x) => x.sets ? x.sets.length : 0)
+                                ...value.map((x) =>
+                                    x.sets ? x.sets.length : 0
+                                )
                             ),
                         },
                     };
@@ -193,107 +182,50 @@ function CardsRating(props) {
                     };
                 }, {});
 
-                console.log("DONE", cardRankingsPerFaction, {
-                    u: normalizedGenericRanks,
+                const withFullFunctionNames = Object.entries(
+                    cardRankingsPerFaction
+                ).map(([abbr, values]) => {
+                    const faction = getFactionByAbbr(abbr);
+                    return {
+                        faction: faction.name,
+                        weights: values,
+                    };
                 });
-                setData({
-                    ...cardRankingsPerFaction,
-                    u: normalizedGenericRanks,
-                    universal: normalizedGenericRanks,
-                });
+
+                console.log("DONE", [
+                    {
+                        faction: "universal",
+                        weights: normalizedGenericRanks,
+                    },
+                    ...withFullFunctionNames,
+                ]);
+
+                setData([
+                    {
+                        faction: "universal",
+                        weights: normalizedGenericRanks,
+                    },
+                    ...withFullFunctionNames,
+                ]);
             });
     }, []);
 
-    React.useEffect(() => {
-        firebase.realdb
-            .ref("/decks")
-            .once("value")
-            .then((s) => {
-                let allPublicDecks = Object.entries(s.val())
-                    .filter(([, info]) => !info.private)
-                    .map(([id, deck]) => {
-                        let updatedDeck = { ...deck, id };
-                        if (!deck.deck && deck.cards) {
-                            updatedDeck.deck = deck.cards
-                                .map((card) => Number(card))
-                                .join(",");
-                        }
-
-                        if (!deck.createdutc) {
-                            if (typeof deck.created === "string") {
-                                updatedDeck.createdutc = new Date(
-                                    deck.created
-                                ).getTime();
-                                updatedDeck.updatedutc = new Date(
-                                    deck.created
-                                ).getTime();
-                            } else {
-                                let timestamp = new Date(0);
-                                timestamp.setSeconds(deck.created.seconds);
-
-                                updatedDeck.createdutc = timestamp.getTime();
-                                updatedDeck.updatedutc = timestamp.getTime();
-                            }
-                        }
-
-                        let cards = updatedDeck.deck
-                            .split(",")
-                            .map(getCardById);
-                        let [isRelicValid, issues] = validateDeckForPlayFormat(
-                            {
-                                objectives: cards.filter(checkCardIsObjective),
-                                gambits: cards.filter(checkCardIsPloy),
-                                upgrades: cards.filter(checkCardIsUpgrade),
-                            },
-                            RELIC_FORMAT
-                        );
-
-                        updatedDeck.isRelicValid = isRelicValid;
-                        updatedDeck.issues = issues;
-
-                        return updatedDeck;
-                    });
-                let relicValidOnly = allPublicDecks.filter(
-                    (deck) => deck.isRelicValid
-                );
-                let unique = relicValidOnly.reduce(
-                    (unique, deck) => ({
-                        ...unique,
-                        [deck.deck]: deck,
-                    }),
-                    {}
-                );
-
-                const uniqueKeys = Object.values(unique).map((x) => x.id);
-
-                const decksToDelete = allPublicDecks.filter(
-                    (deck) =>
-                        !uniqueKeys.includes(deck.id) &&
-                        deck.author === "Anonymous"
-                );
-
-                setDecksToDelete(decksToDelete.map(({ id }) => id));
-
-                const descending = Object.values(unique).sort(
-                    (x, y) => y.updatedutc - x.updatedutc
-                );
-                const initPubLog = descending.reduce((log, deck) => {
-                    return {
-                        ...log,
-                        [deck.updatedutc]: { id: deck.id, action: "SHARED" },
-                    };
-                }, {});
-
-                setPubLog(initPubLog);
-            });
-    }, [firebase]);
-
     const handleUpdateClick = () => {
-        firebase.realdb
-            .ref("/cards_ranks")
-            .set(data)
-            .then(() => setUpdated(true))
-            .catch((e) => console.error(e));
+        firebase.getTokenId().then((token) => {
+            return Promise.all(
+                data.map(({ faction, weights }) => {
+                    axios.put(
+                        `http://localhost:4242/api/v1/cards-ratings/${faction}`,
+                        { faction, weights },
+                        {
+                            headers: {
+                                authtoken: token,
+                            },
+                        }
+                    );
+                })
+            );
+        }).then(r => console.log(r));
     };
 
     const handleUpdatePubLog = () => {
