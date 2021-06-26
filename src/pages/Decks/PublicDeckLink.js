@@ -6,12 +6,12 @@ import {
     checkCardIsObjective,
     getCardById,
 } from "../../data/wudb";
-import { ReactComponent as TrashIcon } from "../../svgs/trash.svg";
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
 
 export default function PublicDeckLink({ ...props }) {
     const [cards, setCards] = useState([]);
+    const [ userInfo ] = props.userInfo;
 
     useEffect(() => {
         const cards = props.cards.map((x) => getCardById(x));
@@ -45,10 +45,11 @@ export default function PublicDeckLink({ ...props }) {
                 <Link
                     className="text-xl"
                     to={{
-                        pathname: `${VIEW_DECK}/${props.id}`,
+                        pathname: `${VIEW_DECK}/${props.deckId}`,
                         state: {
                             deck: {
                                 ...props,
+                                id: props.deckId
                             },
                             canUpdateOrDelete: false,
                         },
@@ -58,7 +59,7 @@ export default function PublicDeckLink({ ...props }) {
                 </Link>
                 <div>
                     <div className="flex gap-2 my-1">
-                    <h3 className="text-sm font-bold text-gray-600">{props.authorDisplayName}</h3>
+                    <h3 className="text-sm font-bold text-gray-600">{userInfo ? userInfo.displayName : 'Anonymous'}</h3>
                     <h3 className="text-sm font-bold text-gray-700">{new Date(props.updatedutc).toLocaleDateString()}</h3>
                     </div>
                     <SetsList sets={props.sets} />

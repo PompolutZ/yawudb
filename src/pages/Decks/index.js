@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import VirtualizedDecksList from "./VirtualizedDecksList";
 import { useParams } from "react-router-dom";
 import { useListAllPublicDecks } from "../../hooks/wunderworldsAPIHooks";
-import axios from "axios";
 
 export default function Deck() {
     const { faction } = useParams();

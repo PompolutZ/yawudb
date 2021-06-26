@@ -96,8 +96,10 @@ class ReadonlyDeck extends PureComponent {
             created,
             createdutc,
             updatedutc,
-            authorDisplayName,
         } = this.props;
+
+        const [userInfo] = this.props.userInfo;
+        const authorDisplayName = userInfo ? userInfo.displayName : 'Anonymous';        
 
         const objectives = cards
             .filter(checkCardIsObjective)
