@@ -1,17 +1,15 @@
 import React, { PureComponent } from "react";
 import {
-    setsIndex,
     totalCardsPerWave,
     bannedCards,
     restrictedCards,
 } from "../../../../data/index";
-import { pickCardColor } from "../../../../utils/functions";
+import { pickCardColor2 } from "../../../../utils/functions";
 import AnimateHeight from "react-animate-height";
 import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import BlockIcon from "@material-ui/icons/Block";
 import LockIcon from "@material-ui/icons/Lock";
-import { getCardWaveFromId, getSetNameById } from "../../../../data/wudb";
+import { CHAMPIONSHIP_FORMAT, getCardWaveFromId, getSetNameById, validateCardForPlayFormat } from "../../../../data/wudb";
 import CardImage from "../../../../v2/components/CardImage";
 import CardRule from "../../../../atoms/CardRule";
 import ObjectiveScoreTypeIcon from "../../../../components/ObjectiveScoreTypeIcon";
@@ -62,6 +60,7 @@ class Card extends PureComponent {
         const { card, classes, asImage } = this.props;
         const cardId = `${card.id}`.padStart(5, "0");
         const animateHeight = this.state.expanded ? "auto" : 0;
+        const [, isForsaken, isRestricted] = validateCardForPlayFormat(cardId, CHAMPIONSHIP_FORMAT)
 
         return (
             <>
@@ -74,10 +73,10 @@ class Card extends PureComponent {
                             <SetIcon id={`${cardId}`} setId={card.setId} />
                         </div>
 
-                        {bannedCards[cardId] && (
+                        {isForsaken && (
                             <BlockIcon className={classes.blockedIcon} />
                         )}
-                        {restrictedCards[cardId] && (
+                        {isRestricted && (
                             <LockIcon className={classes.lockedIcon} />
                         )}
                     </div>
@@ -91,7 +90,7 @@ class Card extends PureComponent {
                             <SetIcon id={`${cardId}`} setId={card.setId} />
                             <h3
                                 className="cursor-pointer flex-1 inline-block"
-                                style={{ color: pickCardColor(cardId) }}
+                                style={{ color: pickCardColor2(cardId, CHAMPIONSHIP_FORMAT) }}
                             >
                                 {card.name}
                             </h3>

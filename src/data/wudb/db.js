@@ -1,14 +1,4 @@
 export const sets = {
-    "Elathain's Soulreapers": {
-        "id": 36,
-        "name": "elathains-soulreapers",
-        "displayName": "Elathain's Soulreapers"
-    },
-    "Kainan's Reapers expansion": {
-        "id": 35,
-        "name": "kainans-reapers",
-        "displayName": "Kainan's Reapers expansion"
-    },
     "Core set": {
         "id": 1,
         "name": "shadespire-core",
@@ -174,6 +164,16 @@ export const sets = {
         "name": "hedkrakkas-madmob",
         "displayName": "Hedkrakka's Madmob expansion"
     },
+    "Kainan's Reapers expansion": {
+        "id": 35,
+        "name": "kainans-reapers",
+        "displayName": "Kainan's Reapers expansion"
+    },
+    "Elathain's Soulraid expansion": {
+        "id": 36,
+        "name": "elathains-soulreapers",
+        "displayName": "Elathain's Soulraid expansion"
+    },
     "Silent Menace Universal Deck": {
         "id": 39,
         "name": "silent-menace-universal-deck",
@@ -191,24 +191,6 @@ export const sets = {
     }
 }
 export const factions = {
-    "Elathain's Soulreapers": {
-        "id": 35,
-        "abbr": "es",
-        "name": "elathains-soulreapers",
-        "displayName": "Elathain's Soulreapers"
-    },
-    "Universal": {
-        "id": 1,
-        "abbr": "u",
-        "name": "universal",
-        "displayName": "Universal"
-    },
-    "Kainan's Reapers": {
-        "id": 34,
-        "abbr": "kar",
-        "name": "kainans-reapers",
-        "displayName": "Kainan's Reapers"
-    },
     "Garrek's Reavers": {
         "id": 2,
         "abbr": "gr",
@@ -256,6 +238,12 @@ export const factions = {
         "abbr": "tf",
         "name": "the-farstriders",
         "displayName": "The Farstriders"
+    },
+    "Universal": {
+        "id": 1,
+        "abbr": "u",
+        "name": "universal",
+        "displayName": "Universal"
     },
     "Stormsire's Cursebreakers": {
         "id": 10,
@@ -400,6 +388,18 @@ export const factions = {
         "abbr": "hem",
         "name": "hedkrakkas-madmob",
         "displayName": "Hedkrakka's Madmob"
+    },
+    "Kainan's Reapers": {
+        "id": 34,
+        "abbr": "kar",
+        "name": "kainans-reapers",
+        "displayName": "Kainan's Reapers"
+    },
+    "Elathain's Soulraid": {
+        "id": 35,
+        "abbr": "es",
+        "name": "elathains-soulreapers",
+        "displayName": "Elathain's Soulraid"
     },
     "Storm of Celestus": {
         "id": 36,
@@ -15084,7 +15084,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately when a friendly fighter finishes a **Move action** and entered two or more different hexes that contained an objective during that **Move action**.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "5037": {
@@ -16620,7 +16620,7 @@ export const cards = {
         "glory": 2,
         "rule": "**Dual:** Score this in an end phase \\n *If:* Two or more enemy fighters are out of action \\n *And:* One or more friendly fighters are in enemy territory.",
         "scoreType": "End",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "6101": {
@@ -17364,7 +17364,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately when your warband **removes** a feature token from the battlefield, or flips a feature token.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "6163": {
@@ -18180,7 +18180,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after an activation if your warband holds one or more objectives in enemy territory.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "6231": {
@@ -18264,7 +18264,7 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** Play this during an **Attack action** that targets a friendly fighter, before the deal damage step. **Remove** any number of Waaagh! counters from that fighter's fighter card. The **Attack action** has -1 Damage for each counter **removed** (to a minimum of 1).",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "6238": {
@@ -19084,7 +19084,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge, Hybrid:** Score this immediately after an activation \\n *If:* Three or more friendly fighters are in enemy territory \\n *Or:* One or more friendly fighters each have three or more upgrades.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "6302": {
@@ -20110,7 +20110,7 @@ export const cards = {
         "glory": null,
         "rule": "[:Hex: 1 - :atSmash: 3 - :boom: 2] \\n If this **Attack action** takes an enemy fighter out of action, **discard** this card and gain 1 glory point.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "6386": {
@@ -20356,7 +20356,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Dice to this fighter's **Attack actions**. If the target is a **Quarry**, you can **re-roll** one attack dice in the attack roll.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "6405": {
@@ -20632,7 +20632,7 @@ export const cards = {
         "glory": null,
         "rule": "**Ur-grub Aspect** \\n +1 Damage to this fighter's Range 1 **Attack actions**. \\n If this fighter has three or more **Ur-grub Aspects**, remove those cards from the game (they do not go into a discard pile) and **give** the Avatar of the Ur-grub upgrade to this fighter.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "6428": {
@@ -20668,7 +20668,7 @@ export const cards = {
         "glory": null,
         "rule": "This fighter's Defence characteristic is :dfDodge: X where X is the round number. Their Defence characteristic cannot be modified, and you cannot **re-roll** dice in the defence roll when this fighter is the target of an **Attack action**.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "6431": {
@@ -20804,7 +20804,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after a friendly fighter makes a **Move action** in which they enter 6 or more hexes.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             1249,
@@ -21025,7 +21025,7 @@ export const cards = {
         "glory": null,
         "rule": "Starting with you and going clockwise, each player does the following: pick one objective that has not been moved with this ploy, and move that objective into an adjacent hex. Do this until each objective has been moved once.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             1340,
@@ -21524,7 +21524,7 @@ export const cards = {
         "glory": null,
         "rule": "This fighter has the following cumulative benefits, depending on how many upgrades they have: \\n **3+:** +1 Wound and this fighter cannot be **driven back**. \\n **5+:** +1 Move \\n **9+:** This fighter's **Attack actions** have **Innate** (:atFury: :atSmash:).",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "8024": {
@@ -21584,7 +21584,7 @@ export const cards = {
         "glory": null,
         "rule": "**Mortis Relic** \\n If this fighter has two or more **Mortis Relics**, +1 Wounds. \\n **Reaction:** After this fighter's activation, spend 1 glory point. If you do, **push** one friendly fighter 1 hex.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "8029": {
@@ -21692,7 +21692,7 @@ export const cards = {
         "glory": null,
         "rule": "**Mortis Relic** \\n If this fighter has two or more **Mortis Relics**, you can **re-roll** one attack dice in this fighter's attack rolls. \\n **Reaction:** After this fighter's activation, spend 1 glory point. If you do, **draw** two power cards and then **discard** one power card.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "8038": {
@@ -24066,7 +24066,7 @@ export const cards = {
         "name": "Gruesome Certainty",
         "type": "Objective",
         "glory": 1,
-        "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that resulted in a **critical hit.**",
+        "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that resulted in a **critical hit**.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
@@ -24162,7 +24162,7 @@ export const cards = {
         "name": "Tithemasters",
         "type": "Objective",
         "glory": 1,
-        "rule": "**Surge:** Score this immediately  after you gain a second or subsuquent tithe counter in the same phase.",
+        "rule": "**Surge:** Score this immediately  after you gain a second or subsequent tithe counter in the same phase.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
@@ -24186,8 +24186,8 @@ export const cards = {
         "name": "Ceaseless Advance",
         "type": "Ploy",
         "glory": null,
-        "rule": "When you play this, you can discard any number of your tithe counters. **Push** one friendly **Mortek** for each tithe counter you discarded, and one additional friendly **Mortek,** up to 2 hexes towards the nearest enemy fighter",
-        "scoreType": "",
+        "rule": "When you play this, you can discard any number of your tithe counters. **Push** one friendly **Mortek** for each tithe counter you discarded, and one additional friendly **Mortek**, up to 2 hexes towards the nearest enemy fighter.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24198,8 +24198,8 @@ export const cards = {
         "name": "Deathless Warriors",
         "type": "Ploy",
         "glory": null,
-        "rule": "At the start of the deal damage step for each enemy fighter's **Attack action** that targets a friendly **Mortek,** rol one defence dice. On a roll of :dfCrit:, that **Attack action deals** no damage, the combat sequence ends and you **discard** this card. This effect **persists** until the end of the round.",
-        "scoreType": "",
+        "rule": "At the start of the deal damage step for each enemy fighter's **Attack action** that targets a friendly **Mortek**, roll one defence dice. On a roll of :dfCrit:, that **Attack action deals** no damage, the combat sequence ends and you **discard** this card. This effect **persists** until the end of the round.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24210,8 +24210,8 @@ export const cards = {
         "name": "Dire Ultimatum",
         "type": "Ploy",
         "glory": null,
-        "rule": "-1 Dice from enemy fighters' **Attack actions,** to a minimum of 1, unless the **Attack action** targets a friendly Kainan. This effect **persists** until an enemy fighter makes an **Attack action** that targets a friendly Kainan, until a friendly Kainan is out of action, or until the end of the round.",
-        "scoreType": "",
+        "rule": "-1 Dice from enemy fighters' **Attack actions**, to a minimum of 1, unless the **Attack action** targets a friendly Kainan. This effect **persists** until an enemy fighter makes an **Attack action** that targets a friendly Kainan, until a friendly Kainan is out of action, or until the end of the round.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24220,10 +24220,10 @@ export const cards = {
         "factionId": 34,
         "setId": 35,
         "name": "Exceptional Efficiency",
-        "type": "Spell",
+        "type": "Ploy",
         "glory": null,
         "rule": "When you play this card, pick one opponent. That opponent picks one: you gain two tithe counters, or in the next activation, you can **re-roll** any number of dice in friendly **Morteks'** attack rolls.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24234,8 +24234,8 @@ export const cards = {
         "name": "Lethal Accuracy",
         "type": "Ploy",
         "glory": null,
-        "rule": "When you play this, you can discard any number of your tithe counters. In the next activation, +1 Dice to the first **Attack action** made by a friendly **Mortek,** and +X Dice in addition where X is the number of tithe counters you discarded.",
-        "scoreType": "",
+        "rule": "When you play this, you can discard any number of your tithe counters. In the next activation, +1 Dice to the first **Attack action** made by a friendly **Mortek**, and +X Dice in addition where X is the number of tithe counters you discarded.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24246,8 +24246,8 @@ export const cards = {
         "name": "Methodical Assault",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Reaction:** Paly this after a friendly **Mortek's** failed **Attack action.** Pick one opponenet. That opponenent picks one: you gain two tithe counters, or that **Mortek** makes an **Attack action.**",
-        "scoreType": "",
+        "rule": "**Reaction:** Play this after a friendly **Mortek's** failed **Attack action**. Pick one opponent. That opponent picks one: you gain two tithe counters, or that **Mortek** makes an **Attack action**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24258,8 +24258,8 @@ export const cards = {
         "name": "Mortal Contract",
         "type": "Spell",
         "glory": null,
-        "rule": "**Gambit Spell (:MagChannel:):** If **cast, choose** one enemy fighter within 3 hexes of the caster. That fighter's player picks one: you gain one tithe counter, or each time  a friendly fighter is taken out of action, **deal** 1 damage to the chose fighter. This effect **persists** until th echose fighter is taken out of action.",
-        "scoreType": "",
+        "rule": "**Gambit Spell (:MagChannel:):** If **cast**, **choose** one enemy fighter within 3 hexes of the caster. That fighter's player picks one: you gain one tithe counter, or each time a friendly fighter is taken out of action, **deal** 1 damage to the chosen fighter. This effect **persists** until the chosen fighter is taken out of action.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24270,8 +24270,8 @@ export const cards = {
         "name": "Never Falter",
         "type": "Ploy",
         "glory": null,
-        "rule": "+1 Move to friendly **Morteks.** This effect **persists** until the end of the round.",
-        "scoreType": "",
+        "rule": "+1 Move to friendly **Morteks**. This effect **persists** until the end of the round.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24283,7 +24283,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "When you play this, discard two tithe counters. When you do so, friendly **Morteks** adjacent to one or more friendly **Morteks** have +1 Defence. This effect **persists** until the end of the round.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24295,7 +24295,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Each time a friendly **Mortek** is **dealt** damage, you can discard one tithe counter. If you do, reduce that damage by 1, to a minimum of 1. This effect **persists** until the end of the round.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24306,8 +24306,8 @@ export const cards = {
         "name": "Artificer's Blade",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter's Range 1 and Range 2 **Attack actions** have **Cleave.**",
-        "scoreType": "",
+        "rule": "This fighter's Range 1 and Range 2 **Attack actions** have **Cleave**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24318,8 +24318,8 @@ export const cards = {
         "name": "Aura of Shyish",
         "type": "Upgrade",
         "glory": null,
-        "rule": "-1 Dice from adjacent enemy fighters' **Attack actions,** to a minimum of 1.",
-        "scoreType": "",
+        "rule": "-1 Dice from adjacent enemy fighters' **Attack actions**, to a minimum of 1.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24330,8 +24330,8 @@ export const cards = {
         "name": "Disciplined Charge",
         "type": "Upgrade",
         "glory": null,
-        "rule": "You can **re-roll** any number of dice in this fighter's attack rolls during this fighter's **Charge action.**",
-        "scoreType": "",
+        "rule": "You can **re-roll** any number of dice in this fighter's attack rolls during this fighter's **Charge action**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24342,8 +24342,8 @@ export const cards = {
         "name": "Empowered Nadirite",
         "type": "Upgrade",
         "glory": null,
-        "rule": "+1 Damage to this fighter's Range 1 and Range 2 **Nadirite Attack actions.** \\n +1 Dice ot this fighter's **Nadirite Attack actions.**",
-        "scoreType": "",
+        "rule": "+1 Damage to this fighter's Range 1 and Range 2 **Nadirite Attack actions**. \\n +1 Dice to this fighter's **Nadirite Attack actions**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24354,8 +24354,8 @@ export const cards = {
         "name": "Hatred of the Living",
         "type": "Upgrade",
         "glory": null,
-        "rule": "You can **re-roll** one attack dice in this fighter's attack rolls for Range 1 and Range 2 **Attack actions.** \\n **Reaction:** During an **Attack action** that targets this fighter, before the deal damage step, reduce the Damage characteristic of that **Attack action** by 1, to a minimum of 1, then **discard** this card.",
-        "scoreType": "",
+        "rule": "You can **re-roll** one attack dice in this fighter's attack rolls for Range 1 and Range 2 **Attack actions**. \\n **Reaction:** During an **Attack action** that targets this fighter, before the deal damage step, reduce the Damage characteristic of that **Attack action** by 1, to a minimum of 1, then **discard** this card.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24367,7 +24367,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "**Reaction:** After this fighter's activation in which this fighter's Range 1 or Range 2 **Attack action** takes an enemy fighter out of action, **choose** one enemy fighter and **push** the chosen fighter 1 hex away from this fighter.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24378,8 +24378,8 @@ export const cards = {
         "name": "Tithestone",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Reaction:** During a friendly **Mortek's** Range 1 or Range 2 **Attack action,** before the attack roll, discard one tithe counter. If you do, +1 Dice to that **Attack action** until it has been resolved.",
-        "scoreType": "",
+        "rule": "**Reaction:** During a friendly **Mortek's** Range 1 or Range 2 **Attack action**, before the attack roll, discard one tithe counter. If you do, +1 Dice to that **Attack action** until it has been resolved.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24390,8 +24390,8 @@ export const cards = {
         "name": "Unnerving Synchrony",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Reaction:** After an adjacent friendly **Mortek's Attack action,** other than a **Scything Attack action,** this fighter makes an **Attack action.**",
-        "scoreType": "",
+        "rule": "**Reaction:** After an adjacent friendly **Mortek's Attack action**, other than a **Scything Attack action**, this fighter makes an **Attack action**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24402,8 +24402,8 @@ export const cards = {
         "name": "Unstoppable Juggernaut",
         "type": "Upgrade",
         "glory": null,
-        "rule": "+1 Move \\n +1 Wounds",
-        "scoreType": "",
+        "rule": "+1 Move \\n +1 Wounds.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24415,7 +24415,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "This fighter is Inspired and cannot be un-Inspired. \\n You can **re-roll** one dice in this fighter's attack rolls.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24522,7 +24522,7 @@ export const cards = {
         "name": "Taker of Souls",
         "type": "Objective",
         "glory": 1,
-        "rule": "**Surge:** Scoret his immediately after your **leader's** Range 1 **Attack action** that takes an enemy fighter out of action.",
+        "rule": "**Surge:** Score this immediately after your **leader's** Range 1 **Attack action** that takes an enemy fighter out of action.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
@@ -24570,8 +24570,8 @@ export const cards = {
         "name": "Brain Barnacles",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Choose** one enemy fighter within 3 hexes of one or more friendly **Idoneth.** The chosen fighter has -1 Move, to a minimum of 0. In addition, if the chosen fighter is within 1 hex of one or more friendly **Idoneth** when this card is played, that fighter's **Attack actions** have the :atFury: characteristic. This effect **persists** until the end of the round or until that fighter is out of action.",
-        "scoreType": "",
+        "rule": "**Choose** one enemy fighter within 3 hexes of one or more friendly **Idoneth**. The chosen fighter has -1 Move, to a minimum of 0. In addition, if the chosen fighter is within 1 hex of one or more friendly **Idoneth** when this card is played, that fighter's **Attack actions** have the :atFury: characteristic. This effect **persists** until the end of the round or until that fighter is out of action.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24582,8 +24582,8 @@ export const cards = {
         "name": "Chill Mist",
         "type": "Ploy",
         "glory": null,
-        "rule": "In the next activation, fighters have -1 Move, to a minimum of 0, and cannot make Range 3+ **Attack actions.**",
-        "scoreType": "",
+        "rule": "In the next activation, fighters have -1 Move, to a minimum of 0, and cannot make Range 3+ **Attack actions**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24594,8 +24594,8 @@ export const cards = {
         "name": "Cloud of Midnight",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Choose** one friendly fighter. Until the end of the next activation, that fighter cannot be the target of **Attack actions,** cannot be chosen or damaged by gambits, and cannot be pushed.",
-        "scoreType": "",
+        "rule": "**Choose** one friendly fighter. Until the end of the next activation, that fighter cannot be the target of **Attack actions**, cannot be chosen or damaged by gambits, and cannot be pushed.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24604,10 +24604,10 @@ export const cards = {
         "factionId": 35,
         "setId": 36,
         "name": "Crushing Pressure",
-        "type": "Spell",
+        "type": "Ploy",
         "glory": null,
-        "rule": "**Choose** one enemy fighter. That fighter's player picks one: in the next activation, the chosen fighter has -2 Move, to a minimum of 0, and -2 Dice from their **Attack actions,** to a minimum of 1, or that player **discards** one power card.",
-        "scoreType": "",
+        "rule": "**Choose** one enemy fighter. That fighter's player picks one: in the next activation, the chosen fighter has -2 Move, to a minimum of 0, and -2 Dice from their **Attack actions**, to a minimum of 1, or that player **discards** one power card.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24618,8 +24618,8 @@ export const cards = {
         "name": "Forgotten Nightmares",
         "type": "Ploy",
         "glory": null,
-        "rule": "When an enemy fighter makes an **Attack action,** pick one eligible fighter as the target of that **Attack action** unless, during the declare Attack action step, that enemy fighter's player **discards** one power card. This effect **persists** until the end of the round.",
-        "scoreType": "",
+        "rule": "When an enemy fighter makes an **Attack action**, pick one eligible fighter as the target of that **Attack action** unless, during the declare Attack action step, that enemy fighter's player **discards** one power card. This effect **persists** until the end of the round.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24631,7 +24631,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Play this only in the third round. Each surviving friendly fighter is Inspired, unless another player **discards** two power cards, in which case nothing happens.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24640,10 +24640,10 @@ export const cards = {
         "factionId": 35,
         "setId": 36,
         "name": "Phantasmal Forms",
-        "type": "Spell",
+        "type": "Ploy",
         "glory": null,
         "rule": "In the next activation, friendly fighters have a Defence characteristic of :dfDodge: 3.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24655,7 +24655,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Pick one: **remove** all friendly shoal tokens from the battlefield and then **place** one shoal token in an **empty** hex, or pick one objective token in an **empty** hex and move that objective token into an adjacent hex. You cannot move it into a **lethal** hex or a hex that contains a feature token.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24666,8 +24666,8 @@ export const cards = {
         "name": "Spinefin Toxin",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Poison** \\n **Choose one enemy fighter adjacent to a friendly Spinefin. **Deal** 1 damage to that fighter. In addition, the chosen fighter cannot hold objectives, cannot bee on Guard, and cannot make Range 3+ **Attack actions.** This effect **persists** until the end of the round or until that fighter is out of action.",
-        "scoreType": "",
+        "rule": "**Poison** \\n **Choose** one enemy fighter adjacent to a friendly Spinefin. **Deal** 1 damage to that fighter. In addition, the chosen fighter cannot hold objectives, cannot be on Guard, and cannot make Range 3+ **Attack actions**. This effect **persists** until the end of the round or until that fighter is out of action.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24679,7 +24679,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "**Poison** \\n **Choose** one enemy fighter adjacent to one or more friendly fighters. You can **re-roll** one attack dice in attack rolls for **Attack actions** made by friendly fighters that target the chosen fighter. This effect **persists** until the end of the round or until that fighter is out of action.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24691,7 +24691,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "-1 Dice from adjacent fighters' **Attack actions** that target this fighter, to a minimum of 1.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24703,7 +24703,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "+1 Wounds \\n **Lethal** hexes cannot **deal** damage to this fighter.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24714,8 +24714,8 @@ export const cards = {
         "name": "Ethersea Predator",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter's Crushing Claw **Attack action** has **Ensnare.** \\n **Reaction:** During an enemy fighter's **Move action,** after that fighter enters a hex adjacent to this fighter for the first time in that action, roll one attack dice. On a roll of :atSmash: that fighter's **Move action** ends.",
-        "scoreType": "",
+        "rule": "This fighter's Crushing Claw **Attack action** has **Ensnare**. \\n **Reaction:** During an enemy fighter's **Move action**, after that fighter enters a hex adjacent to this fighter for the first time in that action, roll one attack dice. On a roll of :atSmash: that fighter's **Move action** ends.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24727,7 +24727,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "+1 Damage to this fighter's **Attack actions** that target a fighter with one or more wound counters.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24738,8 +24738,8 @@ export const cards = {
         "name": "Lurelight",
         "type": "Upgrade",
         "glory": null,
-        "rule": "When an enemy fighter is taken ou to f action while adjacent to this fighter, that fighter's player pick one: you gain 1 glory point, or that player **discards** one power card.",
-        "scoreType": "",
+        "rule": "When an enemy fighter is taken out of action while adjacent to this fighter, that fighter's player pick one: you gain 1 glory point, or that player **discards** one power card.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24751,7 +24751,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "If this fighter has one or more Charge tokens, this fighter is on Guard.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24763,7 +24763,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "Reduce the damage **dealt** to this fighter by adjacent enemy fighters' **Attack actions** by 1, to a minimum of 1.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24774,8 +24774,8 @@ export const cards = {
         "name": "Soulbond",
         "type": "Upgrade",
         "glory": null,
-        "rule": "When this fighter makes an **Attack action,** if there is a friendly Elathain within 3 hexes, that fighter is considered to be **supporting** this fighter.",
-        "scoreType": "",
+        "rule": "When this fighter makes an **Attack action**, if there is a friendly Elathain within 3 hexes, that fighter is considered to be **supporting** this fighter.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24786,8 +24786,8 @@ export const cards = {
         "name": "Unstoppable Fury",
         "type": "Upgrade",
         "glory": null,
-        "rule": "You can **re-roll** one attack dice in this fighter's attack rolls for **Attack actions** made as part of a **Charge action.**",
-        "scoreType": "",
+        "rule": "You can **re-roll** one attack dice in this fighter's attack rolls for **Attack actions** made as part of a **Charge action**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -24798,8 +24798,8 @@ export const cards = {
         "name": "Voltane Eel",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:hex: 3 - :atFury: 3 - :boom: 1] \\n On a **critical hit, give** the target one Move token.",
-        "scoreType": "",
+        "rule": "[:Hex: 3 - :atFury: 3 - :boom: 1] \\n On a **critical hit**, **give** the target one Move token.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25062,7 +25062,7 @@ export const cards = {
         "name": "Formidable Prey",
         "type": "Objective",
         "glory": 1,
-        "rule": "**Hybrid:** Score this in an end phase if: \\n One or more surviving friendly fighters each have two or more upgrades that give them the **Quarry** keyword. \\n *Or:* One or more surviving friendly fighters each have a Wounds characteristic of 6+ and are a **Quarry.**",
+        "rule": "**Hybrid:** Score this in an end phase if: \\n One or more surviving friendly fighters each have two or more upgrades that give them the **Quarry** keyword \\n *Or:* One or more surviving friendly fighters each have a Wounds characteristic of 6+ and are a **Quarry**.",
         "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
@@ -25074,7 +25074,7 @@ export const cards = {
         "name": "Futile Hunt",
         "type": "Objective",
         "glory": 1,
-        "rule": "**Surge, Hybrid:** Scoret his immediately after a friendly fighter's **Attack action** in which they take an enemy fighter out of action if: \\n That friendly fighter is a **Quarry** \\n *Or:* The target had one or more Hunger counters.",
+        "rule": "**Surge, Hybrid:** Score this immediately after a friendly fighter's **Attack action** in which they take an enemy fighter out of action if: \\n That friendly fighter is a **Quarry** \\n *Or:* The target had one or more Hunger counters.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
@@ -25110,7 +25110,7 @@ export const cards = {
         "name": "Hunger for Supremacy",
         "type": "Objective",
         "glory": 1,
-        "rule": "**Dual:** Score this in an end phase if: \\n Two or more friendly fighters hodl objectives \\n *And:* Each of those fighters has one or more Hunger counters.",
+        "rule": "**Dual:** Score this in an end phase if: \\n Two or more friendly fighters hold objectives \\n *And:* Each of those fighters has one or more Hunger counters.",
         "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
@@ -25133,9 +25133,9 @@ export const cards = {
         "setId": 35,
         "name": "Immortal Hunger",
         "type": "Objective",
-        "glory": 2,
+        "glory": 3,
         "rule": "**Dual:** Score this in the third end phase if: \\n The number of surviving friendly fighters is greater or equal to the number of friendly fighters out of action \\n *And:* Each surviving friendly fighter has four or more Hunger counters.",
-        "scoreType": "End",
+        "scoreType": "Third",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25339,7 +25339,7 @@ export const cards = {
         "type": "Objective",
         "glory": 1,
         "rule": "**Dual:** Score this in an end phase if: \\n One or more surviving friendly **Hunters** have **Ensnare** and/or **Cleave** on one or more of their **Attack actions** \\n *And:* You have the Primacy token.",
-        "scoreType": "Surge",
+        "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25350,7 +25350,7 @@ export const cards = {
         "name": "Perfect Strike",
         "type": "Objective",
         "glory": 2,
-        "rule": "**Surge, Dual:** Score this immediately after friendly fighter's **Attack action** that took an enemy fighter out of action if: \\n The **attack roll** contained only **successes** and/or **critical successes** \\n *And:* The **Attack action dealt** the precise amount of damage necessary to take the target out of action.",
+        "rule": "**Surge, Dual:** Score this immediately after friendly fighter's **Attack action** that took an enemy fighter out of action if: \\n The attack roll contained only **successes** and/or **critical successes** \\n *And:* The **Attack action dealt** the precise amount of damage necessary to take the target out of action.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
@@ -25387,7 +25387,7 @@ export const cards = {
         "type": "Objective",
         "glory": 1,
         "rule": "**Surge:** Score this immediately after you discard the Primacy token if your warband holds more objectives than any other warband.",
-        "scoreType": "End",
+        "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25495,7 +25495,7 @@ export const cards = {
         "type": "Objective",
         "glory": 1,
         "rule": "**Surge:** Score this immediately when you **remove** three or more Hunger counters from a surviving fighter.",
-        "scoreType": "End",
+        "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25554,7 +25554,7 @@ export const cards = {
         "name": "Silent Sentinel",
         "type": "Objective",
         "glory": 1,
-        "rule": "Score this in an end phase if one or more friendly fighters each have two or more **Silent Relics.**",
+        "rule": "Score this in an end phase if one or more friendly fighters each have two or more **Silent Relics**.",
         "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
@@ -25640,7 +25640,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge, Hybrid:** Score this immediately after: \\n You gain the Primacy token \\n *Or:* A friendly fighter's successful **Attack action** with a Damage characteristic of 4+.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9327": {
@@ -25662,8 +25662,8 @@ export const cards = {
         "name": "Tale of Victory",
         "type": "Objective",
         "glory": 6,
-        "rule": "Score this in the third end phase if each surviving fighter is a friendly **Hunter.**",
-        "scoreType": "End",
+        "rule": "Score this in the third end phase if each surviving fighter is a friendly **Hunter**.",
+        "scoreType": "Third",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25878,8 +25878,8 @@ export const cards = {
         "name": "Call to Hunt",
         "type": "Ploy",
         "glory": null,
-        "rule": "Discard the Primacy token. If you do, firendly fighters are **Hunters** and each enemy fighter is a **Quarry.** This effect **persists** until the end of the round.",
-        "scoreType": "",
+        "rule": "Discard the Primacy token. If you do, friendly fighters are **Hunters** and each enemy fighter is a **Quarry**. This effect **persists** until the end of the round.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25890,8 +25890,8 @@ export const cards = {
         "name": "Carnivores All",
         "type": "Ploy",
         "glory": null,
-        "rule": "Starting with you, each player can **choose** one or more fighters from their warband. **Give** each chosen fighter one Hunger counter. \\n Each fighter with two or more Hunger coutners is a **Hunter.** This effect **persists** until the end of the round.",
-        "scoreType": "",
+        "rule": "Starting with you, each player can **choose** one or more fighters from their warband. **Give** each chosen fighter one Hunger counter. \\n Each fighter with two or more Hunger conuters is a **Hunter**. This effect **persists** until the end of the round.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25986,8 +25986,8 @@ export const cards = {
         "name": "Desperate Caution",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Choose** one friendly fighter. **Give** that fighter one Guard token. If that fighter is a **Quarry, push** that fighter up to 1 hex.",
-        "scoreType": "",
+        "rule": "**Choose** one friendly fighter. **Give** that fighter one Guard token. If that fighter is a **Quarry**, **push** that fighter up to 1 hex.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -25998,8 +25998,8 @@ export const cards = {
         "name": "Endurance Hunter",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Choose** one friendly fighter. **Push** the chosen fighter 1 hex towards the closest enemy fighter, or up to hexes towards the closest enemy fighter if that enemy fighter is a **Quarry.**",
-        "scoreType": "",
+        "rule": "**Choose** one friendly fighter. **Push** the chosen fighter 1 hex towards the closest enemy fighter, or up to 2 hexes towards the closest enemy fighter if that enemy fighter is a **Quarry**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26022,8 +26022,8 @@ export const cards = {
         "name": "Eternal Chase",
         "type": "Ploy",
         "glory": null,
-        "rule": "Each fighter's Move characteristic is 4 and cannot be modified further, each fighter is a **Hunter** and each fighter is a **Quarry.** This effect **persists** until the end of the round.",
-        "scoreType": "",
+        "rule": "Each fighter's Move characteristic is 4 and cannot be modified further, each fighter is a **Hunter** and each fighter is a **Quarry**. This effect **persists** until the end of the round.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26084,7 +26084,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one friendly fighter. Roll one magic dice for each of the chosen fighter's wound counters, and one additional magic dice if that fighter has one or more Hunger counters. For each roll of :MagChannel:, **Heal** (1) that fighter.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "NY-_N-_V",
         "rotated": false
     },
     "9364": {
@@ -26107,7 +26107,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Roll 5 attack dice. For each roll of :atCrit:, pick one feature token and flip it. You cannot pick the same token twice.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26167,7 +26167,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "**Choose** one enemy fighter with one or more Move and/or Charge tokens. If the chosen fighter has one or more Hunger counters, **deal** 1 damage to that fighter and **remove** that fighter's Hunger counters. Otherwise, **give** the chosen fighter one Hunger counter.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26214,8 +26214,8 @@ export const cards = {
         "name": "Hunter's Helper",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Reaction:** Play this after a friendly **Hunter's Attack action,** if there are one or more enemy fighters adjacent to that fighter other than the target of that **Attack action. Choose** one of those enemy fighters and **deal** 1 damage to the chosen fighter.",
-        "scoreType": "",
+        "rule": "**Reaction:** Play this after a friendly **Hunter's Attack action**, if there are one or more enemy fighters adjacent to that fighter other than the target of that **Attack action**. **Choose** one of those enemy fighters and **deal** 1 damage to the chosen fighter.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26286,8 +26286,8 @@ export const cards = {
         "name": "Keila's Clarion",
         "type": "Spell",
         "glory": null,
-        "rule": "**Gambit Spell (:MagChannel: :MagChannel:) If **cast, choose** one or more friendly fighters within 2 hexes of the caster and **push** each chosen fighter 1 hex.",
-        "scoreType": "",
+        "rule": "**Gambit Spell (:MagChannel::MagChannel:):** If **cast**, **choose** one or more friendly fighters within 2 hexes of the caster and **push** each chosen fighter 1 hex.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26298,8 +26298,8 @@ export const cards = {
         "name": "Lifeblood Draught",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Reaction:** Play this after a friendly fighter's **Attack action** that took an adjacent enemy fighter out of action. **Heal** (1) that fighter or **Heal** (2) that fighter if that fighter's target was a **leader** and/or a **wizard.**",
-        "scoreType": "",
+        "rule": "**Reaction:** Play this after a friendly fighter's **Attack action** that took an adjacent enemy fighter out of action. **Heal** (1) that fighter or **Heal** (2) that fighter if that fighter's target was a **leader** and/or a **wizard**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26370,8 +26370,8 @@ export const cards = {
         "name": "Mazzig's Machinations",
         "type": "Spell",
         "glory": null,
-        "rule": "**Gambit Spell (:MagFocus:) If **cast,** pick one: flip each feature token within 2 hexes of the caster, or one feature token in one one's territory or one opponent's territory.",
-        "scoreType": "",
+        "rule": "**Gambit Spell (:MagFocus:):** If **cast**, pick one: flip each feature token within 2 hexes of the caster, or one feature token in no one's territory or one opponent's territory.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26407,7 +26407,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "The player who has the most surviving friendly fighters adjacent to enemy fighters gains the Primacy token.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26491,7 +26491,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Friendly fighters have +1 Wounds if you have the Primacy token. If a friendly fighter's **Attack action** fails, discard the Primacy token. This effect **persists** until the end of the phase.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26514,8 +26514,8 @@ export const cards = {
         "name": "Quintok's Quarrel",
         "type": "Spell",
         "glory": null,
-        "rule": "**Gambit Spell (:MagChannel:) If **cast, choose** one enemy fighter within 2 hexes of the caster. **Roll off** with that fighter's player. If your opponent wins, nothing happens. If you win, that fighter has -1 Wounds, is un-Inspired and cannot be Inspired. this effect **persists** until the end of the round. When this effect ends, the chosen fighter is Inspired.",
-        "scoreType": "",
+        "rule": "**Gambit Spell (:MagChannel:):** If **cast**, **choose** one enemy fighter within 3 hexes of the caster. **Roll off** with that fighter's player. If your opponent wins, nothing happens. If you win, that fighter has -1 Wounds, is un-Inspired and cannot be Inspired. this effect **persists** until the end of the round. When this effect ends, the chosen fighter is Inspired.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26526,8 +26526,8 @@ export const cards = {
         "name": "Roar of Defiance",
         "type": "Ploy",
         "glory": null,
-        "rule": "Discard the Primacy token. If you do, **give** one friendly fighter one Guard token. In addition, friendly fighters cannot be a **Quarry.** This effect **persists** until the end of the round.",
-        "scoreType": "",
+        "rule": "Discard the Primacy token. If you do, **give** one friendly fighter one Guard token. In addition, friendly fighters cannot be a **Quarry**. This effect **persists** until the end of the round.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26538,8 +26538,8 @@ export const cards = {
         "name": "Sanity Siphon",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter's **Move action** made as part of a **Charge action.** Roll one magic dice: on a roll of :MagChannel:, **choose** one friendly fighter that could be the target of one of that fighter's **Attack actions.** The enemy fighter must target the chosen fighter with the **Attack action** made as a part of their **Charge action.**",
-        "scoreType": "",
+        "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter's **Move action** made as part of a **Charge action**. Roll one magic dice: on a roll of :MagChannel:, **choose** one friendly fighter that could be the target of one of that fighter's **Attack actions**. The enemy fighter must target the chosen fighter with the **Attack action** made as a part of their **Charge action**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26575,7 +26575,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "**Give** one Move token to each fighter in no one's territory.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26588,7 +26588,7 @@ export const cards = {
         "glory": null,
         "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter's **Move action** that ends in the same hex as an objective token. **Scatter** 1 from that hex and **push** that enemy fighter to the end of the **chain**. If that enemy fighter cannot be pushed into a hex, that fighter is not pushed.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9406": {
@@ -26598,8 +26598,8 @@ export const cards = {
         "name": "Souljaws",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter's **Move action.** Roll one magic dice. On a roll of :magChannel:, that fighter is un-Inspired and cannot be Inspired. This effect **persists** until the end of the round or until that fighter is taken out of action. When this effect ends, the chosen fighter is Inspired.",
-        "scoreType": "",
+        "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter's **Move action**. Roll one magic dice. On a roll of :MagChannel:, that fighter is un-Inspired and cannot be Inspired. This effect **persists** until the end of the round or until that fighter is taken out of action. When this effect ends, the chosen fighter is Inspired.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26755,7 +26755,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Play this only if your warband holds two or more objectives. Pick one: spend one glory point and gain the Primacy token, or discard the Primacy token and **draw** three power cards.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26767,7 +26767,7 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "**Reaction:** Play this after a fighter is taken out of action by damage **dealt** by a **lethal** hex. Pick a feature token and flip that token. If a fighter is in that hex, **deal** 1 damage to that fighter.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26814,8 +26814,8 @@ export const cards = {
         "name": "Armour of Disdain",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter is a **Quarry.** If this fighter is a **Quarry,** gambits cannot **deal** damage to this fighter, and this fighter's Move, Defence and Wounds characteristics cannot be modified.",
-        "scoreType": "",
+        "rule": "This fighter is a **Quarry**. If this fighter is a **Quarry**, gambits cannot **deal** damage to this fighter, and this fighter's Move, Defence and Wounds characteristics cannot be modified.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26863,7 +26863,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "When this fighter is activated, **give** this fighter one Hunger counter. Then if this fighter has a number of Hunger counters equal to or greater than their Wounds characteristic, **deal** 1 damage to this fighter.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26946,8 +26946,8 @@ export const cards = {
         "name": "Driven by Envy",
         "type": "Upgrade",
         "glory": null,
-        "rule": "+1 Move \\n This fighter's **Attack actions** have +1 Dice and **Cleave** if the target is a **leader.**",
-        "scoreType": "",
+        "rule": "+1 Move \\n This fighter's **Attack actions** have +1 Dice and **Cleave** if the target is a **leader**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26958,8 +26958,8 @@ export const cards = {
         "name": "Driven by Hunger",
         "type": "Upgrade",
         "glory": null,
-        "rule": "Each time this fighter makes a **Move action,** you can first **remove** one or more of this fighter's Hunger counters. If you do, increase their Move characteristic by that number for that action.",
-        "scoreType": "",
+        "rule": "Each time this fighter makes a **Move action**, you can first **remove** one or more of this fighter's Hunger counters. If you do, increase their Move characteristic by that number for that action.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -26994,8 +26994,8 @@ export const cards = {
         "name": "Experienced Eye",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter is a **Hunter.** \\n You can **re-roll** one attack dice in each of this fighter's attack rolls for each instance of the **Quarry** keyword on the target's fighter card and upgrades.",
-        "scoreType": "",
+        "rule": "This fighter is a **Hunter**. \\n You can **re-roll** one attack dice in each of this fighter's attack rolls for each instance of the **Quarry** keyword on the target's fighter card and upgrades.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27018,8 +27018,8 @@ export const cards = {
         "name": "Eye for Weakness",
         "type": "Upgrade",
         "glory": null,
-        "rule": "Each enemy fighter with one or more Hunger counters is a **Quarry.**",
-        "scoreType": "",
+        "rule": "Each enemy fighter with one or more Hunger counters is a **Quarry**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27104,7 +27104,7 @@ export const cards = {
         "glory": null,
         "rule": "**Action:** Flip each feature token within 1 hex.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9449": {
@@ -27116,7 +27116,7 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** During an **Attack action** that targets this fighter, after the deal damage step, gain the Primacy token. If you have the Primacy token, instead **discard** the Primacy token and reduce the damage **dealt** by 1 (to a minimum of 1).",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9450": {
@@ -27174,8 +27174,8 @@ export const cards = {
         "name": "Impressive Bulk",
         "type": "Upgrade",
         "glory": null,
-        "rule": "-1 Move, to a minimum of 0 \\n +1 Wounds \\n This fighter is **Quarry.**",
-        "scoreType": "",
+        "rule": "-1 Move, to a minimum of 0 \\n +1 Wounds \\n This fighter is **Quarry**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27186,8 +27186,8 @@ export const cards = {
         "name": "Inured by Hunger",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Reaction:** Use this during an **Attack action** that targets this fighter, after the determine success step. If you do, **remove** all of this fighter's Hunger counters. Reduce the damage **dealt** to this fighter by that **Attack action** by the number of counters **removed,** to a minimum 1.",
-        "scoreType": "",
+        "rule": "**Reaction:** Use this during an **Attack action** that targets this fighter, after the determine success step. If you do, **remove** all of this fighter's Hunger counters. Reduce the damage **dealt** to this fighter by that **Attack action** by the number of counters **removed**, to a minimum 1.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27222,8 +27222,8 @@ export const cards = {
         "name": "Mask of the Silent People",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Silent Relic** \\n This fighter is a **Quarry.** If this fighter is a **Quarry.** If this fighter is a **Quarry,** each enemy fighter is a **Quarry.**",
-        "scoreType": "",
+        "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, each enemy fighter is a **Quarry**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27235,7 +27235,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "**Action:** Discard the Primacy token. If you do, **push** each other surviving friendly fighter up to 1 hex. \\n If this fighter is taken out of action, discard the Primacy token.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27247,7 +27247,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "**Action:** Discard the Primacy token. If you do, this fighter makes one Range 1 or Range 2 **Attack action** with +2 Dice. \\n If this fighter is taken out of action, discard the Primacy token.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27295,7 +27295,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "-1 Dice from Range 3+ **Attack actions** that target this fighter, to a minimum of 1 \\n -1 Dice from **Attack actions** that target this fighter instead, to a minimum of 1, if you have the Primacy token.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27342,8 +27342,8 @@ export const cards = {
         "name": "Primal Lunge",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Reaction:** After an activation, discard the Primacy token. If you do, this fighter makes one **Move action** or **Attack action.** Then **discard** this card.",
-        "scoreType": "",
+        "rule": "**Reaction:** After an activation, discard the Primacy token. If you do, this fighter makes one **Move action** or **Attack action**. Then **discard** this card.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27356,7 +27356,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Move \\n Each time this fighter finishes a **Move action** 5 or more hexes from where the **Move action** began, gain the Primacy token. At the end of the action phase, if this fighter has no Move or Charge tokens, **discard** the Primacy token.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9470": {
@@ -27366,8 +27366,8 @@ export const cards = {
         "name": "Rampaging Killer",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter is a **Hunter** and a **Quarry.** \\n This fighter's Range 1 **Attack actions** have **Scything.** After each superaction made by this fighter, **deal** 2 damage to this fighter.",
-        "scoreType": "",
+        "rule": "This fighter is a **Hunter** and a **Quarry**. \\n This fighter's Range 1 **Attack actions** have **Scything**. After each superaction made by this fighter, **deal** 2 damage to this fighter.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27426,8 +27426,8 @@ export const cards = {
         "name": "Savage Hunger",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter is a **Hunter.** \\n If this fighter has one or more Hunger counters, this fighter's Range 1 **Attack actions** have **Ensnare.**",
-        "scoreType": "",
+        "rule": "This fighter is a **Hunter**. \\n If this fighter has one or more Hunger counters, this fighter's Range 1 **Attack actions** have **Ensnare**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27476,7 +27476,7 @@ export const cards = {
         "glory": null,
         "rule": "This fighter is a **Hunter**. \\n You can **re-roll** one dice in this fighter's attack rolls for Range 1 **Attack actions** for each of this fighter's upgrades that have one or more instances of the **Hunter** keyword.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9480": {
@@ -27510,8 +27510,8 @@ export const cards = {
         "name": "Silent Bracers",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Silent Relic** \\n This fighter is a **Quarry.** If this fighter is a **Quarry.** If this fighter is a **Quarry,** this fighter can move through **blocked** and **occupied** hexes, but must end their move in an **empty** hex. If this fighter's **Move action** begins in non one's territory, this fighter has +2 Move for the duration of that action. \\n +1 Move if this fighter has two or more **Silent Relics.**",
-        "scoreType": "",
+        "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter can move through **blocked** and **occupied** hexes, but must end their move in an **empty** hex. If this fighter's **Move action** begins in non one's territory, this fighter has +2 Move for the duration of that action. \\n +1 Move if this fighter has two or more **Silent Relics**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27546,8 +27546,8 @@ export const cards = {
         "name": "Silent Shield",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Silent Relic** \\n This fighter is a **Quarry.** If this fighter is a **Quarry** and in noe one's territory, their Defence characteristic is :dfBlock: 2. \\n This fighter is on Guard if this fighter has three or more **Silent Relics.**",
-        "scoreType": "",
+        "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry** and in no one's territory, their Defence characteristic is :dfBlock: 2. \\n This fighter is on Guard if this fighter has three or more **Silent Relics**.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27594,8 +27594,8 @@ export const cards = {
         "name": "Soultooth Darts",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:hex: 3 - :atFury: 3 - :boom: 1 -(Ensnare)-] \\n You can **re-roll** one dice in the attack roll if the target has one or more Move and/or Charge tokens.",
-        "scoreType": "",
+        "rule": "This fighter is a **Hunter**. \\n [:Hex: 3 - :atFury: 3 - :boom: 1 -(Ensnare)-] \\n You can **re-roll** one dice in the attack roll if the target has one or more Move and/or Charge tokens.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27643,7 +27643,7 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "**Reaction:** After this fighter's activation, **push** this fighter 1 hex.",
-        "scoreType": "",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -27723,11 +27723,11 @@ export const cards = {
         "id": 9500,
         "factionId": 1,
         "setId": 35,
-        "name": "Wicked Leash",
+        "name": "Wicked Lash",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:hex: 2 - :atFury: 2 - :boom: 1] \\n +1 Dice and +1 Damage if this fighter has one or more wound counters \\n +1 Dice and +1 Damage if the target has one or more wound counters",
-        "scoreType": "",
+        "rule": "[:Hex: 2 - :atFury: 2 - :boom: 1] \\n +1 Dice and +1 Damage if this fighter has one or more wound counters \\n +1 Dice and +1 Damage if the target has one or more wound counters.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },

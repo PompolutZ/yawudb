@@ -6,6 +6,7 @@ import {
     relicForsakenCards,
     championshipRestrictedCards,
 } from "../data/index";
+import { validateCardForPlayFormat } from "../data/wudb";
 
 export const checkStandalone = () => {
     return (
@@ -42,6 +43,21 @@ export const pickCardColor = (id, defaultColor) => {
     return colors["default"];
 };
 
+export const pickCardColor2 = (id, format) => {
+    const [, isForsaken, isRestricted] = validateCardForPlayFormat(id, format);
+    
+    if(isForsaken) {
+        return colors["banned"];
+    }
+
+    if (isRestricted) {
+        return colors["restricted"];
+    }
+
+    return colors["default"];
+}
+
+
 export const pickCardBackgroundColor = (id, defaultColor) => {
     if (bannedCards[id]) {
         return backgroundColors["banned"];
@@ -57,6 +73,20 @@ export const pickCardBackgroundColor = (id, defaultColor) => {
 
     return backgroundColors["default"];
 };
+
+export const pickCardBackgroundColor2 = (id, format) => {
+    const [, isForsaken, isRestricted] = validateCardForPlayFormat(id, format);
+    
+    if(isForsaken) {
+        return backgroundColors["banned"];
+    }
+
+    if (isRestricted) {
+        return backgroundColors["restricted"];
+    }
+
+    return backgroundColors["default"];
+}
 
 export const ignoreAsDublicate = (cardName) => {
     return [
