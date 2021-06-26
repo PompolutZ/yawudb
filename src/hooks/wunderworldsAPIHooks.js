@@ -19,6 +19,9 @@ axios.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
+export const useCardsRatings = (manual = false) => 
+    useAxios({}, { manual });
+
 export const useListAllPublicDecks = (manual = false) =>
     useAxios({ method: "POST", url: "/api/v1/public-decks" }, { manual });
 

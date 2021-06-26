@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FirebaseContext } from "../firebase";
 import Button from "@material-ui/core/Button";
 import Progress from "@material-ui/core/CircularProgress";
@@ -13,8 +13,6 @@ function CardsRating(props) {
     const [data, setData] = React.useState(null);
     const [, setPrintData] = React.useState({});
     const [updated, setUpdated] = React.useState(false);
-    const [pubLog, setPubLog] = useState(undefined);
-    const [decksToDelete, setDecksToDelete] = useState([]);
 
     React.useEffect(() => {
         firebase
@@ -228,20 +226,6 @@ function CardsRating(props) {
         }).then(r => console.log(r));
     };
 
-    const handleUpdatePubLog = () => {
-        firebase.realdb
-            .ref("/public_decks_log")
-            .set(pubLog)
-            .then(() => console.log("Updated Pub Log"))
-            .catch((e) => console.error(e));
-    };
-
-    const handleDeleteDeadDecks = () => {
-        for (let id of decksToDelete) {
-            firebase.realdb.ref(`/decks/${id}`).remove();
-        }
-    };
-
     return (
         <div>
             Card Rating
@@ -256,10 +240,6 @@ function CardsRating(props) {
             <div>
                 {/* {decksError && <pre>{JSON.stringify(decksError)}</pre>} */}
             </div>
-            <Button onClick={handleUpdatePubLog}>Update PubLog</Button>
-            <Button onClick={handleDeleteDeadDecks}>
-                Delete {decksToDelete.length} no-valid decks
-            </Button>
         </div>
     );
 }
