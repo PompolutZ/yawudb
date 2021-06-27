@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
-import { VIEW_DECK } from "../../constants/routes";
+import { CREATE_NEW_DECK, VIEW_DECK } from "../../constants/routes";
 import { checkCardIsObjective, getCardById } from "../../data/wudb";
 import { ReactComponent as TrashIcon } from "../../svgs/trash.svg";
 import ScoringOverview from "../../atoms/ScoringOverview";
@@ -113,10 +113,18 @@ function MyDecksPage() {
             )}
             {!loading && data && data.length === 0 && (
                 <div className="flex-1 flex items-center justify-center">
-                    <p> You don't have any decks yet.</p>
+                    <p>
+                        You don't have any decks yet.
+                        <Link
+                            className="text-purple-700 font-bold"
+                            to="/deck/create"
+                        >
+                            Let's make one!
+                        </Link>
+                    </p>
                 </div>
             )}
-            {data && (
+            {data && data.length > 0 && (
                 <div className="flex-1">
                     {data
                         .map((deck) => ({
