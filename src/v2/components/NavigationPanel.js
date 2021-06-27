@@ -84,7 +84,7 @@ function UserMenu() {
             )}
             {!auth && (
                 <Link
-                    className="block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    className="block mr-8 lg:ml-auto cursor-pointer hover:font-semibold pt-px"
                     to={ROUTES.SIGN_IN}
                 >
                     Sign In
@@ -99,7 +99,6 @@ const MobileMenu = ({ className }) => {
     const transition = useTransition(open, {
         from: { opacity: 0.5, transform: "translateY(-10%)" },
         enter: { opacity: 1, transform: "translateY(0)" },
-        // leave: { opacity: .5, transform: "translateY(-10%)" },
     });
 
     return (

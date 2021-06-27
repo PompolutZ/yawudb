@@ -34,11 +34,12 @@ function UserProfile() {
         }
     }, [data])
 
-    const save = () => {
-        update({ data: {
+    const save = async () => {
+        await update({ data: {
             displayName: username,
             avatar: avatar
-        }})
+        }});
+        refetch();
     }
 
     if (loading) {
@@ -72,7 +73,7 @@ function UserProfile() {
                 </section>
 
                 <button className="w-full focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
-                    disabled={!avatar || !username}
+                    disabled={(!avatar || !username) || (data && data.displayName === username && data.avatar === avatar)}
                     onClick={save}>
                     Save
                 </button>

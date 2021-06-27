@@ -1,129 +1,99 @@
-import React, { PureComponent } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { withRouter } from "react-router-dom";
-import EmailAndPasswordForm from "../components/EmailAndPasswordForm";
-import { TextField } from "@material-ui/core";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import AvatarPicker from "../components/AvatarPicker";
-import { connect } from "react-redux";
-import { withFirebase } from "../firebase";
+import { MY_DECKS } from "../constants/routes";
+import { FirebaseContext } from "../firebase";
+import { useCreateUser } from "../hooks/wunderworldsAPIHooks";
 
-const styles = (theme) => ({
-    container: {
-        display: 'flex',
-        flexFlow: 'column nowrap',
-        background: "white"
-    },
+function EmailPasswordForm({ purpose, onUseCredentials }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    innerContainer: {
-        margin: "auto",
-    },
-
-    title: {
-        margin: "0 0 1rem 0",
-        fontFamily: "roboto",
-    },
-});
-
-const ErrorMessage = ({ error }) => {
-    if (!error) {
-        return <span></span>;
-    }
+    const handleClick = () => {
+        onUseCredentials(email, password);
+    };
 
     return (
-        <div
-            style={{
-                display: "flex",
-                flexFlow: "column wrap",
-                alignItems: "center",
-                maxWidth: "20rem",
-            }}
-        >
-            <div style={{ color: "red", margin: "1rem" }}>{error}</div>
+        <div className="space-y-4">
+            <input
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                value={email}
+                type="email"
+                className="px-3 py-2 w-full border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
+            />
+            <input
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                type="password"
+                value={password}
+                className="px-3 py-2 w-full border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
+            />
+
+            <button
+                className="w-full focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
+                onClick={handleClick}
+                disabled={!email || !password}
+            >
+                {purpose}
+            </button>
         </div>
     );
-};
-
-class SignUp extends PureComponent {
-    state = {
-        signUpError: null,
-        displayName: "",
-        avatar: `/assets/icons/garreks-reavers-icon.png`,
-    };
-
-    render() {
-        const { classes } = this.props;
-        return (
-            <div className={classes.container}>
-                <div className={classes.innerContainer}>
-                    <div className={classes.title}>
-                        Create new account for YAWUDB:{" "}
-                    </div>
-                    <div>Pick your avatar image: </div>
-                    <AvatarPicker onSelectionChange={this.handleAvatarChange} />
-                    <TextField
-                        id="with-placeholder"
-                        label="Profile name"
-                        value={this.state.displayName}
-                        margin="none"
-                        onChange={this.handleUseNameChange}
-                        style={{ margin: "1rem auto", minWidth: "20rem" }}
-                    />
-                    <EmailAndPasswordForm
-                        purpose="Sign up"
-                        onUseCredentials={this.handleSignUp}
-                    />
-                    <ErrorMessage error={this.state.signUpError} />
-                </div>
-            </div>
-        );
-    }
-
-    handleUseNameChange = (e) => {
-        this.setState({ displayName: e.target.value });
-    };
-
-    handleAvatarChange = (avatar) => {
-        this.setState({ avatar: avatar });
-    };
-
-    handleSignUp = async (username, password) => {
-        try {
-            this.setState({ signUpError: null });
-            const result = await this.props.firebase.createUserWithEmailAndPassword(
-                username,
-                password
-            );
-            const payload = {
-                displayName: this.state.displayName,
-                mydecks: [],
-                role: "soul",
-                avatar: this.state.avatar,
-            };
-
-            const uid = result.user.uid;
-
-            await this.props.firebase.db
-                .collection("users")
-                .doc(uid)
-                .set(payload);
-            this.props.onSignUp({
-                displayName: payload.displayName,
-                role: payload.role,
-                avatar: payload.avatar,
-                uid,
-            });
-            this.props.history.push("/mydecks");
-        } catch (err) {
-            this.setState({ signUpError: err.message });
-        }
-    };
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    onSignUp: (user) => dispatch({ type: "SET_USER", user: user }),
-});
+function SignUp() {
+    const history = useHistory();
+    const firebase = useContext(FirebaseContext);
+    const [, create] = useCreateUser();
+    const [signUpError, setError] = useState(null);
+    const [displayName, setDisplayName] = useState("");
+    const [avatar, setAvatar] = useState("garreks-reavers");
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(withFirebase(withRouter(withStyles(styles)(SignUp))));
+    const handleSignUp = async (username, password) => {
+        try {
+            setError(null);
+
+            await firebase.createUserWithEmailAndPassword(username, password);
+            
+            const payload = {
+                displayName,
+                avatar,
+            };
+
+            await create({ data: payload });
+
+            history.push(MY_DECKS);
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    return (
+        <div className="flex-1 text-gray-900">
+            <div className="w-full sm:w-2/4 lg:w-1/4 mx-auto p-4 space-y-4">
+                <h1 className="text-xl">Create new WUnderworlds account</h1>
+                <input
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    placeholder="Username"
+                    value={displayName}
+                    type="text"
+                    className="px-3 py-2 w-full border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
+                />
+                <EmailPasswordForm
+                    purpose="Sign up"
+                    onUseCredentials={handleSignUp}
+                />
+
+                <p>Pick your avatar image: </p>
+                <AvatarPicker
+                    current={avatar}
+                    onSelectionChange={(v) => setAvatar(v)}
+                />
+                
+                <p className="text-red-500">{signUpError}</p>
+            </div>
+        </div>
+    );
+}
+
+export default SignUp;

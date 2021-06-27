@@ -238,41 +238,41 @@ function App(props) {
     // const db = useDexie("wudb");
     const firebase = useContext(FirebaseContext);
 
-    React.useEffect(() => {
-        const unsubscribe = firebase.onAuthUserListener(
-            async (user) => {
-                if (user.isNew) {
-                    // new user
-                    props.onLogin({
-                        displayName: user.displayName,
-                        uid: user.uid,
-                        role: "soul",
-                        avatar: `/assets/icons/garreks-reavers-icon.png`,
-                        mydecks: user.mydecks,
-                    });
-                    props.updateUserExpansions(user.expansions);
-                    history.push("/profile");
-                } else {
-                    props.onLogin({
-                        displayName: user.displayName,
-                        role: user.role,
-                        avatar: user.avatar,
-                        uid: user.uid,
-                        mydecks: user.mydecks,
-                    });
-                    props.updateUserExpansions(user.expansions);
-                    if (history.location.pathname === "/login") {
-                        history.push("/mydecks");
-                    }
-                }
-            },
-            () => props.onSignOut()
-        );
+    // React.useEffect(() => {
+    //     const unsubscribe = firebase.onAuthUserListener(
+    //         async (user) => {
+    //             if (user.isNew) {
+    //                 // new user
+    //                 props.onLogin({
+    //                     displayName: user.displayName,
+    //                     uid: user.uid,
+    //                     role: "soul",
+    //                     avatar: `/assets/icons/garreks-reavers-icon.png`,
+    //                     mydecks: user.mydecks,
+    //                 });
+    //                 props.updateUserExpansions(user.expansions);
+    //                 history.push("/profile");
+    //             } else {
+    //                 props.onLogin({
+    //                     displayName: user.displayName,
+    //                     role: user.role,
+    //                     avatar: user.avatar,
+    //                     uid: user.uid,
+    //                     mydecks: user.mydecks,
+    //                 });
+    //                 props.updateUserExpansions(user.expansions);
+    //                 if (history.location.pathname === "/login") {
+    //                     history.push("/mydecks");
+    //                 }
+    //             }
+    //         },
+    //         () => props.onSignOut()
+    //     );
 
-        return () => {
-            unsubscribe();
-        };
-    }, []);
+    //     return () => {
+    //         unsubscribe();
+    //     };
+    // }, []);
 
     return (
         <>
