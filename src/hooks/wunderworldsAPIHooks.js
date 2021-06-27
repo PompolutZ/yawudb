@@ -19,8 +19,7 @@ axios.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-export const useCardsRatings = (manual = false) => 
-    useAxios({}, { manual });
+export const useCardsRatings = (manual = false) => useAxios({}, { manual });
 
 export const useListAllPublicDecks = (manual = false) =>
     useAxios({ method: "POST", url: "/api/v1/public-decks" }, { manual });
@@ -39,3 +38,13 @@ export const useUpdateUserDeck = () =>
 
 export const useDeleteUserDeck = () =>
     useAxios({ method: "DELETE" }, { manual: true });
+
+export const useGetUserData = (manual = false) =>
+    useAxios("/api/v1/users", { manual });
+
+export const useUpdateUser = () => 
+    useAxios({ method: "PUT", url: "/api/v1/users" }, { manual: true });
+
+export const useCreateUser = () => 
+    useAxios({ method: "POST", url: "/api/v1/users" }, { manual: true });
+
