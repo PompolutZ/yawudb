@@ -18,6 +18,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import * as ROUTES from "./constants/routes";
 import NavigationPanel from "./v2/components/NavigationPanel";
 import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
+import HeroImage from "./v2/components/HeroImage";
 
 const Home = lazy(() => import("./pages/Home"));
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
@@ -100,14 +101,7 @@ function MainLayout() {
                 {pathname == "/" && (
                     <>
                         <div style={{ gridArea: "1 / 1 / 2 / 2" }}>
-                            <img
-                                src="/assets/direchasm_bg.jpg"
-                                style={{
-                                    width: "100%",
-                                    height: "50%",
-                                    objectFit: "cover",
-                                }}
-                            />
+                            <HeroImage />
                         </div>
                         <div
                             style={{
