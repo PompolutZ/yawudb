@@ -1,6 +1,4 @@
 import app from "firebase/app";
-import "firebase/firestore";
-import "firebase/database";
 import "firebase/auth";
 import "firebase/analytics";
 
@@ -39,16 +37,6 @@ class Firebase {
             this.auth.signInWithRedirect(new app.auth.FacebookAuthProvider());
         this.signInWithGoogleProvider = () =>
             this.auth.signInWithRedirect(new app.auth.GoogleAuthProvider());
-
-        this.db = app.firestore();
-        this.firestoreArrayUnion = (value) =>
-            app.firestore.FieldValue.arrayUnion(value);
-
-        this.firestoreArrayRemove = (value) =>
-            app.firestore.FieldValue.arrayRemove(value);
-        // this.db.settings({ timestampsInSnapshots: true });
-
-        this.realdb = app.database();
     }
 
     // *** Auth API ***
@@ -77,77 +65,61 @@ class Firebase {
     onAuthUserListener = (next, fallback) =>
         this.auth.onAuthStateChanged((user) => {
             if (user) {
-                const userDocRef = this.db.collection("users").doc(user.uid);
-                const anonDeckIds =
-                    JSON.parse(localStorage.getItem("yawudb_anon_deck_ids")) ||
-                    [];
-                userDocRef.get().then((userSnapshot) => {
-                    if (!userSnapshot.exists) {
-                        const displayName = `Soul${Math.floor(
-                            Math.random() * Math.floor(1000)
-                        )}`;
-
-                        const newUserBase = {
-                            displayName: displayName,
-                            mydecks: anonDeckIds,
-                            role: "soul",
-                            avatar: `/assets/icons/garreks-reavers-icon.png`,
-                            expansions: {},
-                        };
-
-                        userDocRef.set(newUserBase).then(() => {
-                            next({
-                                ...newUserBase,
-                                uid: user.uid,
-                                isNew: true,
-                            });
-                        });
-                    } else {
-                        const profile = userSnapshot.data();
-
-                        const userData = {
-                            displayName: profile.displayName,
-                            role: profile.role,
-                            avatar: profile.avatar,
-                            expansions: profile.expansions || {},
-                            mydecks: [
-                                ...profile.mydecks,
-                                ...anonDeckIds.filter(
-                                    (anonId) =>
-                                        !profile.mydecks.includes(anonId)
-                                ),
-                            ],
-                        };
-                        userDocRef.set(userData).then(() => {
-                            next({
-                                ...userData,
-                                uid: user.uid,
-                                isNew: false,
-                            });
-                        });
-                    }
+                next({
+                    // ...newUserBase,
+                    uid: user.uid,
+                    isNew: true,
                 });
+                // const userDocRef = this.db.collection("users").doc(user.uid);
+                // const anonDeckIds =
+                //     JSON.parse(localStorage.getItem("yawudb_anon_deck_ids")) ||
+                //     [];
+                // userDocRef.get().then((userSnapshot) => {
+                //     if (!userSnapshot.exists) {
+                //         const displayName = `Soul${Math.floor(
+                //             Math.random() * Math.floor(1000)
+                //         )}`;
+
+                //         const newUserBase = {
+                //             displayName: displayName,
+                //             mydecks: anonDeckIds,
+                //             role: "soul",
+                //             avatar: `/assets/icons/garreks-reavers-icon.png`,
+                //             expansions: {},
+                //         };
+
+                //         userDocRef.set(newUserBase).then(() => {
+                //         });
+                //     } else {
+                //         const profile = userSnapshot.data();
+
+                //         const userData = {
+                //             displayName: profile.displayName,
+                //             role: profile.role,
+                //             avatar: profile.avatar,
+                //             expansions: profile.expansions || {},
+                //             mydecks: [
+                //                 ...profile.mydecks,
+                //                 ...anonDeckIds.filter(
+                //                     (anonId) =>
+                //                         !profile.mydecks.includes(anonId)
+                //                 ),
+                //             ],
+                //         };
+                //         userDocRef.set(userData).then(() => {
+                //             next({
+                //                 ...userData,
+                //                 uid: user.uid,
+                //                 isNew: false,
+                //             });
+                //         });
+                //     }
+                // });
             } else {
                 console.error('Cannot login, fallback');
                 fallback();
             }
         });
-
-    // *** Decks API
-    deck = (id) => this.realdb.ref(`/decks/${id}`);
-
-    decks = () => this.realdb.ref(`decks`);
-
-    decksMeta = () => this.realdb.ref(`decks_meta`);
-
-    decksMetaCount = (faction) =>
-        this.realdb.ref(`/decks_meta/${faction}/count`);
-
-    decksMetaIds = (faction) => this.realdb.ref(`/decks_meta/${faction}/ids`);
-
-    user = (uid) => this.db.collection("users").doc(uid);
-
-    decksMetaDb = () => this.db.collection("decks_meta");
 }
 
 export default Firebase;
