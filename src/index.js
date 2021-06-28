@@ -1,9 +1,8 @@
-import React, { Suspense, lazy, useContext } from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import { Route, Redirect, Switch, useLocation } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import "./styles/main.css";
-import Home from "./pages/Home";
 
 import { unregister } from "./registerServiceWorker";
 import { createBrowserHistory } from "history";
@@ -17,10 +16,10 @@ import { SET_CARDS_RANKING } from "./reducers/cardLibraryFilters";
 import Firebase, { FirebaseContext, withFirebase } from "./firebase";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import * as ROUTES from "./constants/routes";
-import CardsRating from "./pages/CardsRating";
 import NavigationPanel from "./v2/components/NavigationPanel";
 import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
 
+const Home = lazy(() => import("./pages/Home"));
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
 const SignUp = lazy(() => import("./pages/SignUp"));
@@ -35,6 +34,7 @@ const Login = lazy(() => import("./pages/Login"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const PasswordResetRequest = lazy(() => import("./pages/PasswordResetRequest"));
 const WarbandsInfoPage = lazy(() => import("./pages/WarbandsInfo"));
+const CardsRating = lazy(() => import("./pages/CardsRating"));
 
 const history = createBrowserHistory();
 const store = configureStore(history);
@@ -234,45 +234,6 @@ function MainLayout() {
 
 function App(props) {
     usePublicDecksSyncronization();
-
-    // const db = useDexie("wudb");
-    const firebase = useContext(FirebaseContext);
-
-    // React.useEffect(() => {
-    //     const unsubscribe = firebase.onAuthUserListener(
-    //         async (user) => {
-    //             if (user.isNew) {
-    //                 // new user
-    //                 props.onLogin({
-    //                     displayName: user.displayName,
-    //                     uid: user.uid,
-    //                     role: "soul",
-    //                     avatar: `/assets/icons/garreks-reavers-icon.png`,
-    //                     mydecks: user.mydecks,
-    //                 });
-    //                 props.updateUserExpansions(user.expansions);
-    //                 history.push("/profile");
-    //             } else {
-    //                 props.onLogin({
-    //                     displayName: user.displayName,
-    //                     role: user.role,
-    //                     avatar: user.avatar,
-    //                     uid: user.uid,
-    //                     mydecks: user.mydecks,
-    //                 });
-    //                 props.updateUserExpansions(user.expansions);
-    //                 if (history.location.pathname === "/login") {
-    //                     history.push("/mydecks");
-    //                 }
-    //             }
-    //         },
-    //         () => props.onSignOut()
-    //     );
-
-    //     return () => {
-    //         unsubscribe();
-    //     };
-    // }, []);
 
     return (
         <>
