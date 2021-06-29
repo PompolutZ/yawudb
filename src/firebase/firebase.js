@@ -52,11 +52,17 @@ const Firebase2 = (function () {
             return signInWithRedirect(auth, new GoogleAuthProvider());
         },
 
-        signInWithEmailAndPassword: function signInWithEmailAndPassword(email, password) {
+        signInWithEmailAndPassword: function signInWithEmailAndPassword(
+            email,
+            password
+        ) {
             return authSignInWithEmailAndPassword(auth, email, password);
         },
 
-        createUserWithEmailAndPassword: function createUserWithEmailAndPassword(email, password) {
+        createUserWithEmailAndPassword: function createUserWithEmailAndPassword(
+            email,
+            password
+        ) {
             return authCreateWithEmailAndPassword(auth, email, password);
         },
 
@@ -66,14 +72,17 @@ const Firebase2 = (function () {
 
         getTokenId: function getTokenId() {
             return new Promise((res, rej) => {
-                onIdTokenChanged(auth, (user) => {
+                const user = auth.currentUser;
+                if (user) {
                     if (user) {
                         user.getIdToken()
                             .then((token) => res(token))
                             .catch((e) => rej(e));
                     }
-                })
-            });    
+                } else {
+                    rej('Anon');
+                }
+            });
         },
 
         onAuthUserListener: function onAuthUserListener(next, fallback) {
@@ -88,7 +97,7 @@ const Firebase2 = (function () {
                             },
                         }
                     );
-    
+
                     if (userInfo.data) {
                         next({
                             ...userInfo.data,
@@ -104,9 +113,9 @@ const Firebase2 = (function () {
                 } else {
                     console.error("Cannot login, fallback");
                     fallback();
-                }    
-            })
-        }
+                }
+            });
+        },
     };
 })();
 

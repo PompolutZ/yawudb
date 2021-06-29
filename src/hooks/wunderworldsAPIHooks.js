@@ -5,16 +5,23 @@ import Firebase from "../firebase";
 axios.defaults.baseURL = process.env.REACT_APP_WUNDERWORLDS_API_ORIGIN;
 axios.interceptors.request.use(
     async (config) => {
-        const token = await Firebase.getTokenId();
-
-        if (token) {
-            config.headers = {
-                authtoken: token,
-            };
-        }
-        return config;
+        try {
+            const token = await Firebase.getTokenId();
+            if (token) {
+                config.headers = {
+                    authtoken: token,
+                };
+            }
+            return config;
+        } catch(e) {
+            console.error(e);
+            return config;
+        } 
     },
-    (error) => Promise.reject(error)
+    (error) => {
+        console.error(error);
+        Promise.reject(error)
+    }
 );
 
 export const useCardsRatings = (manual = false) => useAxios({}, { manual });

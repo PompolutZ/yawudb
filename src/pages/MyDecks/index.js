@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
 import { CREATE_NEW_DECK, VIEW_DECK } from "../../constants/routes";
 import { checkCardIsObjective, getCardById } from "../../data/wudb";
@@ -79,7 +79,8 @@ function DeckLink({ onDelete, ...props }) {
 }
 
 function MyDecksPage() {
-    const [{ data, loading }, refetch] = useGetUserDecks(true);
+    const history = useHistory();
+    const [{ data, loading, error }, refetch] = useGetUserDecks(true);
     const [, deleteUserDeck] = useDeleteUserDeck();
     const { state } = useLocation();
     const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
@@ -106,6 +107,11 @@ function MyDecksPage() {
 
     return (
         <div className="flex-1 flex p-4">
+            {
+                error && error.response.status === 401 && (
+                    <Redirect to="/login" />
+                )
+            }
             {loading && (
                 <div className="flex-1 flex items-center justify-center">
                     <p>Loading...</p>
