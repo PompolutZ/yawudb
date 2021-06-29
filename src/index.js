@@ -299,7 +299,7 @@ export class ModalPresenter extends React.Component {
 
 const Root = () => (
     <Provider store={store}>
-        <FirebaseContext.Provider value={new Firebase()}>
+        <FirebaseContext.Provider value={Firebase}>
             <MuiThemeProvider theme={theme}>
                 <ConnectedApp />
             </MuiThemeProvider>

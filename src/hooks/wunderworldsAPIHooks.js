@@ -2,12 +2,10 @@ import axios from "axios";
 import useAxios from "axios-hooks";
 import Firebase from "../firebase";
 
-const firebase = new Firebase();
-
 axios.defaults.baseURL = process.env.REACT_APP_WUNDERWORLDS_API_ORIGIN;
 axios.interceptors.request.use(
     async (config) => {
-        const token = await firebase.getTokenId();
+        const token = await Firebase.getTokenId();
 
         if (token) {
             config.headers = {

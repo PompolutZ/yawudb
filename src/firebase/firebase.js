@@ -1,6 +1,18 @@
-import app from "firebase/app";
-import "firebase/auth";
-import "firebase/analytics";
+import { initializeApp } from "firebase/app";
+import {
+    getAuth,
+    onAuthStateChanged,
+    onIdTokenChanged,
+    FacebookAuthProvider,
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword as authCreateWithEmailAndPassword,
+    signInWithRedirect,
+    signInWithEmailAndPassword as authSignInWithEmailAndPassword,
+    signOut as authSignOut,
+} from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+// import "firebase/auth";
+// import "firebase/analytics";
 import axios from "axios";
 
 // import { prodConfig, devConfig } from './config';
@@ -26,94 +38,76 @@ const config = {
 
 // const config = process.env.REACT_APP_ENVIRONMENT === 'prod' ? prodConfig : devConfig
 
-class Firebase {
-    constructor() {
-        if (!app.apps.length) {
-            app.initializeApp(config);
-            app.analytics();
-        }
+const Firebase2 = (function () {
+    const app = initializeApp(config);
+    getAnalytics(app);
+    const auth = getAuth(app);
 
-        this.auth = app.auth();
-        this.signInWithFacebookProvider = () =>
-            this.auth.signInWithRedirect(new app.auth.FacebookAuthProvider());
-        this.signInWithGoogleProvider = () =>
-            this.auth.signInWithRedirect(new app.auth.GoogleAuthProvider());
-    }
+    return {
+        signInWithFacebookProvider: function signInWithFacebookProvider() {
+            return signInWithRedirect(auth, new FacebookAuthProvider());
+        },
 
-    // *** Auth API ***
-    signInWithEmailAndPassword = (email, password) => {
-        return this.auth.signInWithEmailAndPassword(email, password);
-    };
+        signInWithGoogleProvider: function signInWithGoogleProvider() {
+            return signInWithRedirect(auth, new GoogleAuthProvider());
+        },
 
-    createUserWithEmailAndPassword = (email, password) => {
-        return this.auth.createUserWithEmailAndPassword(email, password);
-    };
+        signInWithEmailAndPassword: function signInWithEmailAndPassword(email, password) {
+            return authSignInWithEmailAndPassword(auth, email, password);
+        },
 
-    signOut = () => {
-        return this.auth.signOut();
-    };
+        createUserWithEmailAndPassword: function createUserWithEmailAndPassword(email, password) {
+            return authCreateWithEmailAndPassword(auth, email, password);
+        },
 
-    getTokenId = () => {
-        return new Promise((res, rej) => {
-            this.auth.onIdTokenChanged((user) => {
-                if (user) {
-                    user.getIdToken()
-                        .then((token) => res(token))
-                        .catch((e) => rej(e));
-                }
-            });
-        });
-    };
+        signOut: function signOut() {
+            return authSignOut(auth);
+        },
 
-    onAuthUserListener = (next, fallback) =>
-        this.auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                const token = await user.getIdToken();
-                console.log('HELLO!');
-                const userInfo = await axios.get(
-                    `${process.env.REACT_APP_WUNDERWORLDS_API_ORIGIN}/api/v1/users`,
-                    {
-                        headers: {
-                            authtoken: token,
-                        },
+        getTokenId: function getTokenId() {
+            return new Promise((res, rej) => {
+                onIdTokenChanged(auth, (user) => {
+                    if (user) {
+                        user.getIdToken()
+                            .then((token) => res(token))
+                            .catch((e) => rej(e));
                     }
-                );
-                
-                if (userInfo.data) {
-                    next({
-                        ...userInfo.data,
-                        uid: user.uid,
-                        isNew: false,
-                    });
-                } else {
-                    // const token = await user.getIdToken();
-                    // const displayName = `${prefixes[random(prefixes.length - 1)]} ${postfixes[random(postfixes.length - 1)]}`;
-                    // const avatar = 'elathains-soulreapers';
-                    
-                    // await axios.post(
-                    //     `${process.env.REACT_APP_WUNDERWORLDS_API_ORIGIN}/api/v1/users`,
-                    //     {
-                    //         displayName,
-                    //         avatar,
-                    //     },
-                    //     {
-                    //         headers: {
-                    //             authtoken: token,
-                    //         },
-                    //     }
-                    // )
-                    next({
-                        // displayName,
-                        // avatar,
-                        uid: user.uid,
-                        isNew: true,
-                    });
-                }
-            } else {
-                console.error("Cannot login, fallback");
-                fallback();
-            }
-        });
-}
+                })
+            });    
+        },
 
-export default Firebase;
+        onAuthUserListener: function onAuthUserListener(next, fallback) {
+            return onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const token = await user.getIdToken();
+                    const userInfo = await axios.get(
+                        `${process.env.REACT_APP_WUNDERWORLDS_API_ORIGIN}/api/v1/users`,
+                        {
+                            headers: {
+                                authtoken: token,
+                            },
+                        }
+                    );
+    
+                    if (userInfo.data) {
+                        next({
+                            ...userInfo.data,
+                            uid: user.uid,
+                            isNew: false,
+                        });
+                    } else {
+                        next({
+                            uid: user.uid,
+                            isNew: true,
+                        });
+                    }
+                } else {
+                    console.error("Cannot login, fallback");
+                    fallback();
+                }    
+            })
+        }
+    };
+})();
+
+export default Firebase2;
