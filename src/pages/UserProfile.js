@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import AvatarPicker from "../components/AvatarPicker";
-import { useGetUserData, useUpdateUser } from "../hooks/wunderworldsAPIHooks";
+import { useCreateUser, useGetUserData, useUpdateUser } from "../hooks/wunderworldsAPIHooks";
+
+const prefixes = ['Doom of', 'Curse of', 'Nemesis of', 'Salvation of'];
+const postfixes = ['Beastgrave', 'Shadespire', 'Kathophranes', 'Direchasm', 'Ghur'];
+const random = max => Math.floor(Math.random() * Math.floor(max))
 
 function UserProfile() {
     const [{ data, loading }, refetch] = useGetUserData();
+    const [, create] = useCreateUser();
     const [, update] = useUpdateUser();
-    const [username, setUsername] = useState(data ? data.displayName : '');
-    const [avatar, setAvatar] = useState(data ? data.avatar : '');
+    const [username, setUsername] = useState(data ? data.displayName : `${prefixes[random(prefixes.length - 1)]} ${postfixes[random(postfixes.length - 1)]}`);
+    const [avatar, setAvatar] = useState(data ? data.avatar : 'elathains-soulreapers');
 
     useEffect(() => {
         refetch();
@@ -35,10 +40,17 @@ function UserProfile() {
     }, [data])
 
     const save = async () => {
-        await update({ data: {
-            displayName: username,
-            avatar: avatar
-        }});
+        if (data) {
+            await update({ data: {
+                displayName: username,
+                avatar: avatar
+            }});
+        } else {
+            await create({ data: {
+                displayName: username,
+                avatar: avatar
+            }});
+        }
         refetch();
     }
 

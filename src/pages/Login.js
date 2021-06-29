@@ -71,8 +71,7 @@ function Login() {
         const unsubscribe = firebase.onAuthUserListener(
             async (user) => {
                 if (user.isNew) {
-                    // new user
-                    history.replace(PROFILE);
+                    history.replace({ pathname: PROFILE, state: user });
                 } else {
                     history.replace(MY_DECKS)
                 }

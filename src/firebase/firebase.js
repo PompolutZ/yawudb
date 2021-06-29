@@ -1,6 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/analytics";
+import axios from "axios";
 
 // import { prodConfig, devConfig } from './config';
 const config = {
@@ -54,69 +55,62 @@ class Firebase {
 
     getTokenId = () => {
         return new Promise((res, rej) => {
-            this.auth.onIdTokenChanged(user => {
+            this.auth.onIdTokenChanged((user) => {
                 if (user) {
-                    user.getIdToken().then(token => res(token)).catch(e => rej(e))
+                    user.getIdToken()
+                        .then((token) => res(token))
+                        .catch((e) => rej(e));
                 }
-            })
-        })
-    }
+            });
+        });
+    };
 
     onAuthUserListener = (next, fallback) =>
-        this.auth.onAuthStateChanged((user) => {
+        this.auth.onAuthStateChanged(async (user) => {
             if (user) {
-                next({
-                    // ...newUserBase,
-                    uid: user.uid,
-                    isNew: true,
-                });
-                // const userDocRef = this.db.collection("users").doc(user.uid);
-                // const anonDeckIds =
-                //     JSON.parse(localStorage.getItem("yawudb_anon_deck_ids")) ||
-                //     [];
-                // userDocRef.get().then((userSnapshot) => {
-                //     if (!userSnapshot.exists) {
-                //         const displayName = `Soul${Math.floor(
-                //             Math.random() * Math.floor(1000)
-                //         )}`;
-
-                //         const newUserBase = {
-                //             displayName: displayName,
-                //             mydecks: anonDeckIds,
-                //             role: "soul",
-                //             avatar: `/assets/icons/garreks-reavers-icon.png`,
-                //             expansions: {},
-                //         };
-
-                //         userDocRef.set(newUserBase).then(() => {
-                //         });
-                //     } else {
-                //         const profile = userSnapshot.data();
-
-                //         const userData = {
-                //             displayName: profile.displayName,
-                //             role: profile.role,
-                //             avatar: profile.avatar,
-                //             expansions: profile.expansions || {},
-                //             mydecks: [
-                //                 ...profile.mydecks,
-                //                 ...anonDeckIds.filter(
-                //                     (anonId) =>
-                //                         !profile.mydecks.includes(anonId)
-                //                 ),
-                //             ],
-                //         };
-                //         userDocRef.set(userData).then(() => {
-                //             next({
-                //                 ...userData,
-                //                 uid: user.uid,
-                //                 isNew: false,
-                //             });
-                //         });
-                //     }
-                // });
+                const token = await user.getIdToken();
+                console.log('HELLO!');
+                const userInfo = await axios.get(
+                    `${process.env.REACT_APP_WUNDERWORLDS_API_ORIGIN}/api/v1/users`,
+                    {
+                        headers: {
+                            authtoken: token,
+                        },
+                    }
+                );
+                
+                if (userInfo.data) {
+                    next({
+                        ...userInfo.data,
+                        uid: user.uid,
+                        isNew: false,
+                    });
+                } else {
+                    // const token = await user.getIdToken();
+                    // const displayName = `${prefixes[random(prefixes.length - 1)]} ${postfixes[random(postfixes.length - 1)]}`;
+                    // const avatar = 'elathains-soulreapers';
+                    
+                    // await axios.post(
+                    //     `${process.env.REACT_APP_WUNDERWORLDS_API_ORIGIN}/api/v1/users`,
+                    //     {
+                    //         displayName,
+                    //         avatar,
+                    //     },
+                    //     {
+                    //         headers: {
+                    //             authtoken: token,
+                    //         },
+                    //     }
+                    // )
+                    next({
+                        // displayName,
+                        // avatar,
+                        uid: user.uid,
+                        isNew: true,
+                    });
+                }
             } else {
-                console.error('Cannot login, fallback');
+                console.error("Cannot login, fallback");
                 fallback();
             }
         });
