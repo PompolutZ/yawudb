@@ -1,13 +1,10 @@
-import React, { Suspense, lazy, useState, useContext } from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import { Route, Redirect, Switch, useLocation } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-// import "./index.css";
 import "./styles/main.css";
-import Home from "./pages/Home";
 
 import { unregister } from "./registerServiceWorker";
-import Footer from "./components/Footer";
 import { createBrowserHistory } from "history";
 
 import { connect, Provider } from "react-redux";
@@ -19,24 +16,17 @@ import { SET_CARDS_RANKING } from "./reducers/cardLibraryFilters";
 import Firebase, { FirebaseContext, withFirebase } from "./firebase";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import * as ROUTES from "./constants/routes";
-import CardsRating from "./pages/CardsRating";
-import Admin from "./pages/Admin";
-import { makeStyles } from "@material-ui/core/styles";
 import NavigationPanel from "./v2/components/NavigationPanel";
-import PublicDecksProvider from "./contexts/publicDecksContext";
-import useDexie from "./hooks/useDexie";
-import shadows from "@material-ui/core/styles/shadows";
-import useRealtimeDatabaseRefOnce from "./hooks/useRealtimeDatabaseValueOnce";
 import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
+import HeroImage from "./v2/components/HeroImage";
 
+const Home = lazy(() => import("./pages/Home"));
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Library = lazy(() => import("./pages/Library"));
 const Deck = lazy(() => import("./pages/Deck"));
 const About = lazy(() => import("./pages/About"));
-const SecretDeckUploader = lazy(() => import("./pages/SecretDeckUploader"));
-const Statistics = lazy(() => import("./pages/Statistics"));
 const Feedback = lazy(() => import("./pages/Feedback"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
 const Card = lazy(() => import("./pages/Card"));
@@ -44,9 +34,8 @@ const MyDecks = lazy(() => import("./pages/MyDecks/index"));
 const Login = lazy(() => import("./pages/Login"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const PasswordResetRequest = lazy(() => import("./pages/PasswordResetRequest"));
-const GameAssistant = lazy(() => import("./pages/GameAssistant"));
 const WarbandsInfoPage = lazy(() => import("./pages/WarbandsInfo"));
-const MetaReset = lazy(() => import("./pages/MetaResetPage"));
+const CardsRating = lazy(() => import("./pages/CardsRating"));
 
 const history = createBrowserHistory();
 const store = configureStore(history);
@@ -112,14 +101,7 @@ function MainLayout() {
                 {pathname == "/" && (
                     <>
                         <div style={{ gridArea: "1 / 1 / 2 / 2" }}>
-                            <img
-                                src="/assets/direchasm_bg.jpg"
-                                style={{
-                                    width: "100%",
-                                    height: "50%",
-                                    objectFit: "cover",
-                                }}
-                            />
+                            <HeroImage />
                         </div>
                         <div
                             style={{
@@ -172,7 +154,6 @@ function MainLayout() {
                                         path={ROUTES.CREATOR_ROOT}
                                         render={(props) => (
                                             <DeckCreator {...props} />
-                                            // <DeckEditor {...props} />
                                         )}
                                     />
                                     <Route
@@ -196,12 +177,6 @@ function MainLayout() {
                                     <Route
                                         path={ROUTES.ABOUT}
                                         render={(props) => <About {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.STATISTICS}
-                                        render={(props) => (
-                                            <Statistics {...props} />
-                                        )}
                                     />
                                     <Route
                                         path={ROUTES.FEEDBACK}
@@ -238,24 +213,8 @@ function MainLayout() {
                                         component={UserProfile}
                                     />
                                     <PrivateRoute
-                                        path="/secret/deck-uploader"
-                                        component={SecretDeckUploader}
-                                    />
-                                    <PrivateRoute
-                                        path="/secret/meta-reset"
-                                        component={MetaReset}
-                                    />
-                                    <PrivateRoute
                                         path="/secret/cards-rating/:faction?"
                                         component={CardsRating}
-                                    />
-                                    <PrivateRoute
-                                        path="/secret/admin"
-                                        component={Admin}
-                                    />
-                                    <PrivateRoute
-                                        path={ROUTES.GAME_ASSISTANT}
-                                        component={GameAssistant}
                                     />
                                 </Switch>
                             </Suspense>
@@ -269,55 +228,6 @@ function MainLayout() {
 
 function App(props) {
     usePublicDecksSyncronization();
-
-    // const db = useDexie("wudb");
-    const firebase = useContext(FirebaseContext);
-
-    React.useEffect(() => {
-        firebase.realdb
-            .ref("/cards_ranks")
-            .once("value")
-            .then((snapshot) => {
-                props.updateCardRanks(snapshot.val());
-            });
-    }, [firebase]);
-
-    React.useEffect(() => {
-        const unsubscribe = firebase.onAuthUserListener(
-            async (user) => {
-                if (user.isNew) {
-                    // new user
-                    props.onLogin({
-                        displayName: user.displayName,
-                        uid: user.uid,
-                        role: "soul",
-                        avatar: `/assets/icons/garreks-reavers-icon.png`,
-                        mydecks: user.mydecks,
-                    });
-                    props.updateUserExpansions(user.expansions);
-                    history.push("/profile");
-                } else {
-                    props.onLogin({
-                        displayName: user.displayName,
-                        role: user.role,
-                        avatar: user.avatar,
-                        uid: user.uid,
-                        mydecks: user.mydecks,
-                    });
-                    props.updateUserExpansions(user.expansions);
-                    if (history.location.pathname === "/login") {
-                        history.push("/mydecks");
-                    }
-                }
-            },
-            () => props.onSignOut()
-        );
-
-        return () => {
-            props.firebase.decks().off();
-            unsubscribe();
-        };
-    }, []);
 
     return (
         <>
@@ -389,11 +299,9 @@ export class ModalPresenter extends React.Component {
 
 const Root = () => (
     <Provider store={store}>
-        <FirebaseContext.Provider value={new Firebase()}>
+        <FirebaseContext.Provider value={Firebase}>
             <MuiThemeProvider theme={theme}>
-                <PublicDecksProvider>
-                    <ConnectedApp />
-                </PublicDecksProvider>
+                <ConnectedApp />
             </MuiThemeProvider>
         </FirebaseContext.Provider>
     </Provider>

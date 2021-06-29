@@ -1,8 +1,19 @@
-import app from "firebase/app";
-import "firebase/firestore";
-import "firebase/database";
-import "firebase/auth";
-import "firebase/analytics";
+import { initializeApp } from "firebase/app";
+import {
+    getAuth,
+    onAuthStateChanged,
+    onIdTokenChanged,
+    FacebookAuthProvider,
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword as authCreateWithEmailAndPassword,
+    signInWithRedirect,
+    signInWithEmailAndPassword as authSignInWithEmailAndPassword,
+    signOut as authSignOut,
+} from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+// import "firebase/auth";
+// import "firebase/analytics";
+import axios from "axios";
 
 // import { prodConfig, devConfig } from './config';
 const config = {
@@ -27,117 +38,85 @@ const config = {
 
 // const config = process.env.REACT_APP_ENVIRONMENT === 'prod' ? prodConfig : devConfig
 
-class Firebase {
-    constructor() {
-        if (!app.apps.length) {
-            app.initializeApp(config);
-            app.analytics();
-        }
+const Firebase2 = (function () {
+    const app = initializeApp(config);
+    getAnalytics(app);
+    const auth = getAuth(app);
 
-        this.auth = app.auth();
-        this.signInWithFacebookProvider = () =>
-            this.auth.signInWithRedirect(new app.auth.FacebookAuthProvider());
-        this.signInWithGoogleProvider = () =>
-            this.auth.signInWithRedirect(new app.auth.GoogleAuthProvider());
+    return {
+        signInWithFacebookProvider: function signInWithFacebookProvider() {
+            return signInWithRedirect(auth, new FacebookAuthProvider());
+        },
 
-        this.db = app.firestore();
-        this.firestoreArrayUnion = (value) =>
-            app.firestore.FieldValue.arrayUnion(value);
+        signInWithGoogleProvider: function signInWithGoogleProvider() {
+            return signInWithRedirect(auth, new GoogleAuthProvider());
+        },
 
-        this.firestoreArrayRemove = (value) =>
-            app.firestore.FieldValue.arrayRemove(value);
-        // this.db.settings({ timestampsInSnapshots: true });
+        signInWithEmailAndPassword: function signInWithEmailAndPassword(
+            email,
+            password
+        ) {
+            return authSignInWithEmailAndPassword(auth, email, password);
+        },
 
-        this.realdb = app.database();
-    }
+        createUserWithEmailAndPassword: function createUserWithEmailAndPassword(
+            email,
+            password
+        ) {
+            return authCreateWithEmailAndPassword(auth, email, password);
+        },
 
-    // *** Auth API ***
-    signInWithEmailAndPassword = (email, password) => {
-        return this.auth.signInWithEmailAndPassword(email, password);
-    };
+        signOut: function signOut() {
+            return authSignOut(auth);
+        },
 
-    createUserWithEmailAndPassword = (email, password) => {
-        return this.auth.createUserWithEmailAndPassword(email, password);
-    };
+        getTokenId: function getTokenId() {
+            return new Promise((res, rej) => {
+                const user = auth.currentUser;
+                if (user) {
+                    if (user) {
+                        user.getIdToken()
+                            .then((token) => res(token))
+                            .catch((e) => rej(e));
+                    }
+                } else {
+                    rej('Anon');
+                }
+            });
+        },
 
-    signOut = () => {
-        return this.auth.signOut();
-    };
+        onAuthUserListener: function onAuthUserListener(next, fallback) {
+            return onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const token = await user.getIdToken();
+                    const userInfo = await axios.get(
+                        `${process.env.REACT_APP_WUNDERWORLDS_API_ORIGIN}/api/v1/users`,
+                        {
+                            headers: {
+                                authtoken: token,
+                            },
+                        }
+                    );
 
-    onAuthUserListener = (next, fallback) =>
-        this.auth.onAuthStateChanged((user) => {
-            if (user) {
-                const userDocRef = this.db.collection("users").doc(user.uid);
-                const anonDeckIds =
-                    JSON.parse(localStorage.getItem("yawudb_anon_deck_ids")) ||
-                    [];
-                userDocRef.get().then((userSnapshot) => {
-                    if (!userSnapshot.exists) {
-                        const displayName = `Soul${Math.floor(
-                            Math.random() * Math.floor(1000)
-                        )}`;
-
-                        const newUserBase = {
-                            displayName: displayName,
-                            mydecks: anonDeckIds,
-                            role: "soul",
-                            avatar: `/assets/icons/garreks-reavers-icon.png`,
-                            expansions: {},
-                        };
-
-                        userDocRef.set(newUserBase).then(() => {
-                            next({
-                                ...newUserBase,
-                                uid: user.uid,
-                                isNew: true,
-                            });
+                    if (userInfo.data) {
+                        next({
+                            ...userInfo.data,
+                            uid: user.uid,
+                            isNew: false,
                         });
                     } else {
-                        const profile = userSnapshot.data();
-
-                        const userData = {
-                            displayName: profile.displayName,
-                            role: profile.role,
-                            avatar: profile.avatar,
-                            expansions: profile.expansions || {},
-                            mydecks: [
-                                ...profile.mydecks,
-                                ...anonDeckIds.filter(
-                                    (anonId) =>
-                                        !profile.mydecks.includes(anonId)
-                                ),
-                            ],
-                        };
-                        userDocRef.set(userData).then(() => {
-                            next({
-                                ...userData,
-                                uid: user.uid,
-                                isNew: false,
-                            });
+                        next({
+                            uid: user.uid,
+                            isNew: true,
                         });
                     }
-                });
-            } else {
-                console.error('Cannot login, fallback');
-                fallback();
-            }
-        });
+                } else {
+                    console.error("Cannot login, fallback");
+                    fallback();
+                }
+            });
+        },
+    };
+})();
 
-    // *** Decks API
-    deck = (id) => this.realdb.ref(`/decks/${id}`);
-
-    decks = () => this.realdb.ref(`decks`);
-
-    decksMeta = () => this.realdb.ref(`decks_meta`);
-
-    decksMetaCount = (faction) =>
-        this.realdb.ref(`/decks_meta/${faction}/count`);
-
-    decksMetaIds = (faction) => this.realdb.ref(`/decks_meta/${faction}/ids`);
-
-    user = (uid) => this.db.collection("users").doc(uid);
-
-    decksMetaDb = () => this.db.collection("decks_meta");
-}
-
-export default Firebase;
+export default Firebase2;

@@ -1,6 +1,6 @@
 {
   "name": "wudb",
-  "version": "1.11.1",
+  "version": "2.0.6",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.2.0",
@@ -10,12 +10,14 @@
     "@reduxjs/toolkit": "^1.4.0",
     "@tailwindcss/forms": "^0.3.2",
     "autosuggest-highlight": "^3.1.1",
+    "axios": "^0.21.1",
+    "axios-hooks": "^2.6.3",
     "b64-to-blob": "^1.2.19",
     "clipboard-polyfill": "^2.8.6",
     "connected-react-router": "^6.8.0",
     "dexie": "^3.0.2",
     "dexie-relationships": "^1.2.11",
-    "firebase": "^8.2.2",
+    "firebase": "9.0.0-beta.2",
     "immer": "^8.0.0",
     "immutable": "^3.8.2",
     "jspdf": "^2.3.1",
@@ -67,7 +69,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@craco/craco": "^5.6.4",
     "autoprefixer": "^9",
     "chokidar-cli": "^2.1.0",
     "eslint-config-prettier": "^6.15.0",
@@ -81,9 +82,7 @@
     "postcss-cli": "^7.1.2",
     "postcss-import": "^12.0.1",
     "prettier": "^2.0.5",
-    "react-app-env": "^1.2.3",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
-    "worker-plugin": "^4.0.3"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "engines": {
     "node": "14.16.1"

@@ -3,16 +3,17 @@ import ReadonlyDeck from "./ReadonlyDeck/index";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { getCardById } from "../../data/wudb";
-import useAuthUser from "../../hooks/useAuthUser";
-import { useContext } from "react";
-import { FirebaseContext } from "../../firebase";
 import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
+import {
+    useDeleteUserDeck,
+    useGetUserDeckById,
+} from "../../hooks/wunderworldsAPIHooks";
 
-function Deck(props) {
-    const user = useAuthUser();
-    const firebase = useContext(FirebaseContext);
+function Deck() {
     const { id } = useParams();
+    const [, fetch] = useGetUserDeckById(id, true);
     const { state } = useLocation();
+    const [loading, setLoading] = useState(false);
     const [deck, setDeck] = useState(undefined);
     const [cards, setCards] = useState([]);
     const [factionId, setFactionId] = useState("");
@@ -22,55 +23,36 @@ function Deck(props) {
         false
     );
     const [cardsView, setCardsView] = React.useState(false);
+    const [, deleteUserDeck] = useDeleteUserDeck();
+    const [cannotShowDeckMessage, setCannotShowDeckMessage] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         if (state) {
             setDeck(state.deck);
             setCards(state.deck.cards.map(getCardById));
             setFactionId(state.deck && state.deck.id.split("-")[0]);
             setCanUpdateOrDelete(state.canUpdateOrDelete);
+
+            setLoading(false);
         } else {
-            firebase.realdb
-                .ref(`/decks/${id}`)
-                .once("value")
-                .then((s) => {
-                    if (!s.val()) return;
-
-                    let deck = s.val();
-                    let updatedDeck = { ...deck, id };
-                    if (typeof deck.sets !== "string") {
-                        updatedDeck.sets = deck.sets.map((s) => s + 1);
-                    } else {
-                        updatedDeck.sets = deck.sets.split(",");
+            fetch()
+                .then((r) => {
+                    const [data] = r.data;
+                    if (!data) {
+                        setCannotShowDeckMessage(true);
                     }
 
-                    if (!deck.deck && deck.cards) {
-                        updatedDeck.deck = deck.cards
-                            .map((card) => Number(card))
-                            .join(",");
-                    }
-
-                    if (!deck.createdutc) {
-                        if (typeof deck.created === "string") {
-                            updatedDeck.createdutc = new Date(
-                                deck.created
-                            ).getTime();
-                            updatedDeck.updatedutc = new Date(
-                                deck.created
-                            ).getTime();
-                        } else {
-                            let timestamp = new Date(0);
-                            timestamp.setSeconds(deck.created.seconds);
-
-                            updatedDeck.createdutc = timestamp.getTime();
-                            updatedDeck.updatedutc = timestamp.getTime();
-                        }
-                    }
-
-                    setDeck(updatedDeck);
-                    setCards(updatedDeck.deck.split(",").map(getCardById));
+                    setDeck(data);
+                    setCards(data.deck.map(getCardById));
                     setFactionId(id.split("-")[0]);
-                });
+
+                    // NOTE! This should be fine, since we are using user-decks endpoint which
+                    // performs token check whether current user is the one who is the decks author
+                    setCanUpdateOrDelete(true);
+                })
+                .catch((e) => console.error(e))
+                .finally(() => setLoading(false));
         }
     }, [state]);
 
@@ -83,28 +65,12 @@ function Deck(props) {
     };
 
     const handleDeleteDeck = async () => {
-        try {
-            const { id } = deck;
-            firebase.deck(id).off();
-
-            await firebase.realdb.ref(`/decks/${id}`).remove();
-
-            if (props.uid) {
-                props.removeDeck(id);
-
-                firebase.db
-                    .collection("users")
-                    .doc(user.uid)
-                    .update({
-                        mydecks: props.firebase.firestoreArrayRemove(id),
-                    });
-            }
-
-            handleCloseDeleteDialog();
-            history.push("/mydecks");
-        } catch (err) {
-            console.error("ERROR deleting deck: ", err);
-        }
+        const { id } = deck;
+        await deleteUserDeck({
+            url: `/api/v1/user-decks/${id}`,
+        });
+        handleCloseDeleteDialog();
+        history.replace({ pathname: "/mydecks", state: { deck, status: 'DELETED' } });
     };
 
     const _deleteDeck = async () => {
@@ -114,9 +80,7 @@ function Deck(props) {
     return (
         <React.Fragment>
             <Helmet>
-                <title>
-                    {`Deck for Warhammer Underworlds`}
-                </title>
+                <title>{`Deck for Warhammer Underworlds`}</title>
                 <meta
                     name="description"
                     content={`Get inspired with this deck to build your next Grand Clash winning deck.`}
@@ -135,7 +99,19 @@ function Deck(props) {
                     content={`https://yawudb.com/view/deck/${id}`}
                 />
             </Helmet>
-            {!deck && <div className="flex-1">Loading...</div>}
+            {loading && (
+                <div className="flex-1 flex items-center justify-center">
+                    <p>Loading...</p>
+                </div>
+            )}
+            {cannotShowDeckMessage && (
+                <div className="flex-1 flex items-center justify-center px-8 text-xl">
+                    <p>
+                        Not possible to see this deck because it was either
+                        deleted or not shared with everyone.
+                    </p>
+                </div>
+            )}
             {deck && (
                 <>
                     <ReadonlyDeck

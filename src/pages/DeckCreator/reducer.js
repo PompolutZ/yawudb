@@ -9,6 +9,7 @@ export const ADD_CARD_ACTION = "ADD_CARD";
 export const REMOVE_CARD_ACTION = "REMOVE_CARD";
 export const RESET_DECK_ACTION = "RESET_DECK_ACTION";
 export const SAVE_DECK = "SAVE_DECK";
+export const UPDATE_DECK = "UPDATE_DECK";
 export const FINISH_SAVING_DECK = "FINISH_SAVING_DECK";
 
 export function addCardAction(card) {
@@ -31,6 +32,10 @@ export function resetDeckAction() {
 
 export function saveDeckAction(deckMeta) {
     return { type: SAVE_DECK, payload: deckMeta };
+}
+
+export function updateDeckAction(deckMeta) {
+    return { type: UPDATE_DECK, payload: deckMeta };
 }
 
 ///// CURRENT DECK SCHEMA
@@ -198,6 +203,13 @@ export const deckBuilderReducer = (state, event, exec) => {
         }
         case SAVE_DECK:
             exec({ type: "saveDeck", deckMeta: event.payload });
+
+            return {
+                ...state,
+                status: "Saving...",
+            };
+        case UPDATE_DECK:
+            exec({ type: "updateDeck", deckMeta: event.payload });
 
             return {
                 ...state,

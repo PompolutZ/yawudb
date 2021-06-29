@@ -49,15 +49,14 @@ function UserMenu() {
 
     return (
         <>
-            <Link
-                className="block mr-8 cursor-pointer hover:font-semibold pt-px"
-                to={ROUTES.MY_DECKS}
-            >
-                My Decks
-            </Link>
-
             {auth && (
                 <>
+                    <Link
+                        className="block mr-8 cursor-pointer hover:font-semibold pt-px"
+                        to={ROUTES.MY_DECKS}
+                    >
+                        My Decks
+                    </Link>
                     <Link
                         className="block mr-8 cursor-pointer hover:font-semibold pt-px"
                         to={ROUTES.PROFILE}
@@ -73,7 +72,6 @@ function UserMenu() {
                     >
                         Sign Out
                     </a>
-
                     <Link
                         className="hidden lg:block focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
                         to="/deck/create"
@@ -84,7 +82,7 @@ function UserMenu() {
             )}
             {!auth && (
                 <Link
-                    className="block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    className="block mr-8 lg:ml-auto cursor-pointer hover:font-semibold pt-px"
                     to={ROUTES.SIGN_IN}
                 >
                     Sign In
@@ -99,7 +97,6 @@ const MobileMenu = ({ className }) => {
     const transition = useTransition(open, {
         from: { opacity: 0.5, transform: "translateY(-10%)" },
         enter: { opacity: 1, transform: "translateY(0)" },
-        // leave: { opacity: .5, transform: "translateY(-10%)" },
     });
 
     return (
@@ -132,35 +129,42 @@ const MobileMenu = ({ className }) => {
     );
 };
 
-const Menu = ({ classes, showHome, children }) => (
-    <nav className={`${classes}`}>
-        {showHome && (
+const Menu = ({ classes, showHome, children }) => {
+    const auth = useAuthUser();
+
+    return (
+        <nav className={`${classes}`}>
+            {showHome && (
+                <Link
+                    className="block mr-8 cursor-pointer hover:font-semibold pt-px"
+                    to="/"
+                >
+                    Home
+                </Link>
+            )}
+            {auth && (
+                <Link
+                    className="block mr-8 cursor-pointer hover:font-semibold pt-px lg:hidden text-purple-900"
+                    to="/deck/create"
+                >
+                    Create New Deck
+                </Link>
+            )}
+
             <Link
                 className="block mr-8 cursor-pointer hover:font-semibold pt-px"
-                to="/"
+                to={ROUTES.BROWSE_ALL_DECKS}
             >
-                Home
+                Public decks
             </Link>
-        )}
-        <Link
-            className="block mr-8 cursor-pointer hover:font-semibold pt-px lg:hidden text-purple-900"
-            to="/deck/create"
-        >
-            Create New Deck
-        </Link>
-        <Link
-            className="block mr-8 cursor-pointer hover:font-semibold pt-px"
-            to={ROUTES.BROWSE_ALL_DECKS}
-        >
-            Public decks
-        </Link>
-        <Link
-            className="block mr-8 cursor-pointer hover:font-semibold pt-px"
-            to={ROUTES.CARDS_LIBRARY}
-        >
-            Library
-        </Link>
+            <Link
+                className="block mr-8 cursor-pointer hover:font-semibold pt-px"
+                to={ROUTES.CARDS_LIBRARY}
+            >
+                Library
+            </Link>
 
-        {children}
-    </nav>
-);
+            {children}
+        </nav>
+    );
+};

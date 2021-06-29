@@ -1,143 +1,135 @@
-import React, { Component } from "react";
-//import firebase from '../firebase/firebase';
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { FirebaseContext } from "../firebase";
+import SectionTitle from "../v2/components/SectionTitle";
+import { MY_DECKS, PROFILE, SIGN_UP } from "../constants/routes";
 import GoogleButton from "react-google-button";
 import { FacebookLoginButton } from "react-social-login-buttons";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import EmailAndPasswordForm from "../components/EmailAndPasswordForm";
-import { withFirebase } from "../firebase";
+import { useEffect } from "react";
 
-const OrSeparator = () => (
-    <div style={{ display: "flex", margin: "0 1rem", width: "20rem" }}>
-        <div style={{ flex: "1 1 auto" }}>
-            <div
-                style={{
-                    height: "48%",
-                    margin: "0 .5rem 0 0",
-                    borderBottom: "1px solid gray",
-                }}
-            ></div>
-            <div></div>
-        </div>
-        <div style={{ flex: "0 1 auto", color: "gray" }}>OR</div>
-        <div style={{ flex: "1 1 auto" }}>
-            <div
-                style={{
-                    height: "48%",
-                    margin: "0 0 0 .5rem",
-                    borderBottom: "1px solid gray",
-                }}
-            ></div>
-            <div></div>
-        </div>
-    </div>
-);
+function EmailPasswordForm({ purpose, onUseCredentials }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-const CreateAccount = withRouter(({ history, styles }) => {
-    const redirectToSignUpPage = () => {
-        history.push("/user/signup");
+    const handleClick = () => {
+        onUseCredentials(email, password);
     };
 
     return (
-        <div style={{ display: "flex", ...styles }}>
-            <div style={{ margin: "0 .3rem 0 0" }}>New to the YAWUDB?</div>
-            <div
-                style={{ color: "#3B9979", cursor: "pointer" }}
-                onClick={redirectToSignUpPage}
-            >
-                <b>SIGN UP</b>
+        <div className="space-y-4">
+            <input
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                value={email}
+                type="email"
+                className="px-3 py-2 w-full border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
+            />
+            <input
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                type="password"
+                value={password}
+                className="px-3 py-2 w-full border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
+            />
+
+            <div>
+                <Link
+                    className="text-sm font-bold text-purple-700"
+                    to="/requestPasswordReset"
+                >
+                    Forgot your password?
+                </Link>
             </div>
+            <button
+                className="w-full focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
+                onClick={handleClick}
+                disabled={!email || !password}
+            >
+                {purpose}
+            </button>
         </div>
     );
-});
+}
 
-const ErrorMessage = ({ error }) => {
-    if (!error) {
-        return <span></span>;
-    }
-
+const CreateAccount = () => {
     return (
-        <div
-            style={{
-                display: "flex",
-                flexFlow: "column wrap",
-                alignItems: "center",
-                maxWidth: "20rem",
-            }}
-        >
-            <div style={{ color: "red", margin: "1rem" }}>{error}</div>
+        <div className="flex space-x-2">
+            <div>New to the WUnderworlds?</div>
+            <Link className="text-purple-700 font-bold" to={SIGN_UP}>
+                Sign Up
+            </Link>
         </div>
     );
 };
 
-class Login extends Component {
-    state = {
-        loginError: null,
-    };
+function Login() {
+    const history = useHistory();
+    const [loginError, setLoginError] = useState(undefined);
+    const firebase = useContext(FirebaseContext);
 
-    render() {
-        const { firebase } = this.props;
-
-        return (
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexFlow: "column nowrap",
-                    background: "white",
-                    flex: 1,
-                }}
-            >
-                <FacebookLoginButton
-                    onClick={firebase.signInWithFacebookProvider}
-                    style={{ margin: "1rem", width: "19rem" }}
-                />
-                <GoogleButton
-                    onClick={firebase.signInWithGoogleProvider}
-                    style={{ margin: "0 1rem 1rem 1rem", width: "20rem" }}
-                />
-
-                <OrSeparator />
-
-                <EmailAndPasswordForm
-                    purpose="Sign in"
-                    onUseCredentials={this.handleEmailAndPasswordLogin}
-                    onResetPasswordClick={this.handlePasswordResetRequest}
-                />
-                <ErrorMessage error={this.state.loginError} />
-                <CreateAccount styles={{ margin: "1rem 0 2rem 0" }} />
-            </div>
+    React.useEffect(() => {
+        const unsubscribe = firebase.onAuthUserListener(
+            async (user) => {
+                if (user.isNew) {
+                    history.replace({ pathname: PROFILE, state: user });
+                } else {
+                    history.replace(MY_DECKS)
+                }
+            },
+            () => {}
         );
-    }
 
-    handlePasswordResetRequest = () => {
-        this.props.history.push("/requestPasswordReset");
-    };
+        return () => {
+            unsubscribe();
+        };
+    }, [firebase, history]);
 
-    handleEmailAndPasswordLogin = async (username, password) => {
+    const handleEmailAndPasswordLogin = async (username, password) => {
         try {
-            this.setState({ loginError: null });
-            await this.props.firebase.signInWithEmailAndPassword(
-                username,
-                password
-            );
+            setLoginError(null);
+            
+            const credentials = await firebase.signInWithEmailAndPassword(username, password);
+            
+            if (credentials.user) {
+                history.replace(MY_DECKS);
+            }
         } catch (err) {
             if (err.code === "auth/user-not-found") {
-                this.setState({
-                    loginError:
-                        "Sorry, but you either mistyped your email and/or password or you need to sign up.",
-                });
+                setLoginError(
+                    "Sorry, but you either mistyped your email and/or password or you need to sign up."
+                );
             } else {
-                this.setState({ loginError: err.message });
+                setLoginError(err.message);
             }
         }
     };
+
+    return (
+        <div className="flex-1 text-gray-900">
+            <div className="w-full sm:w-2/4 lg:w-1/4 mx-auto p-4 space-y-4">
+                <h1 className="text-xl">Welcome to WUnderworlds, stranger!</h1>
+                <FacebookLoginButton
+                    style={{ margin: "1rem 0" }}
+                    onClick={firebase.signInWithFacebookProvider}
+                />
+                <GoogleButton
+                    style={{ width: "100%" }}
+                    onClick={firebase.signInWithGoogleProvider}
+                />
+
+                <SectionTitle title="OR" />
+
+                <EmailPasswordForm
+                    purpose="Sign in"
+                    onUseCredentials={handleEmailAndPasswordLogin}
+                />
+                
+                <p className="text-red-500">{loginError}</p>
+                
+                <CreateAccount styles={{ margin: "1rem 0 2rem 0" }} />
+            </div>
+        </div>
+    );
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onLogin: user => dispatch({type: 'SET_USER', user: user})
-//     }
-// }
-
-export default withRouter(withFirebase(Login)); //connect(null, mapDispatchToProps)();
+export default Login;

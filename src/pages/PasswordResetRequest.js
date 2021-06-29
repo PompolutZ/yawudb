@@ -1,113 +1,75 @@
-import React, { PureComponent } from "react";
-import { TextField, Button } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import { withRouter } from "react-router-dom";
-import { withFirebase } from "../firebase";
+import React, { useContext, useState, useRef, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { FirebaseContext } from "../firebase";
 
-class PasswordResetRequest extends PureComponent {
-    state = {
-        emailSent: false,
-        email: "",
-        redirectCountdown: 3,
-        errorMessage: "",
+function PasswordResetRequest() {
+    const [emailSent, setEmailSent] = useState(false);
+    const [email, setEmail] = useState("");
+    const [redirectCountdown, setRedirectCountdown] = useState(3);
+    const [errorMessage, setErrorMessage] = useState("");
+    const firebase = useContext(FirebaseContext);
+    const intervalRef = useRef();
+    const history = useHistory();
+
+    useEffect(() => {
+        if (redirectCountdown <= 0) {
+            clearInterval(intervalRef.current);
+            history.replace("/login");
+        }
+    }, [redirectCountdown, history]);
+
+    const handleClick = async () => {
+        try {
+            await firebase.auth.sendPasswordResetEmail(email);
+
+            setEmailSent(true);
+
+            intervalRef.current = setInterval(() => {
+                setRedirectCountdown((prev) => prev - 1);
+            }, 1000);
+        } catch (err) {
+            setErrorMessage(err.message)
+        }
     };
 
-    render() {
-        const { classes } = this.props;
-
+    if (emailSent) {
         return (
-            <div className={classes.root}>
-                {!this.state.emailSent && (
-                    <React.Fragment>
-                        <TextField
-                            id="username"
-                            label="Email"
-                            className={classes.textField}
-                            value={this.state.email}
-                            onChange={this.handleChangeEmail}
-                            margin="normal"
-                        />
-
-                        <Button
-                            className={classes.button}
-                            onClick={this.handleClick}
-                        >
-                            Request password reset
-                        </Button>
-                        <div className={classes.errorMsg}>
-                            {this.state.errorMessage}
-                        </div>
-                    </React.Fragment>
-                )}
-                {this.state.emailSent && (
-                    <React.Fragment>
-                        <div style={{ margin: "5rem auto 1rem auto" }}>
-                            Email with a link to reset your password has been
-                            sent.
-                        </div>
-                        <div style={{ margin: "0 auto 5rem auto" }}>
-                            Back to the gates in {this.state.redirectCountdown}{" "}
-                            seconds...
-                        </div>
-                    </React.Fragment>
-                )}
+            <div className="flex-1 text-gray-900">
+                <div className="w-full sm:w-2/4 lg:w-1/4 mx-auto p-4 space-y-4">
+                    <div>
+                        Email with a link to reset your password has been sent.
+                    </div>
+                    <div>
+                        Back to the gates in {this.state.redirectCountdown}{" "}
+                        seconds...
+                    </div>
+                </div>
             </div>
         );
     }
 
-    handleChangeEmail = (e) => {
-        this.setState({ email: e.target.value });
-    };
+    return (
+        <div className="flex-1 text-gray-900">
+            <div className="w-full sm:w-2/4 lg:w-1/4 mx-auto p-4 space-y-4">
+                <h1>You will receive an email with a link to reset your password.</h1>
+                <input
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    value={email}
+                    type="email"
+                    className="px-3 py-2 w-full border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
+                />
 
-    handleClick = async () => {
-        try {
-            await this.props.firebase.auth.sendPasswordResetEmail(
-                this.state.email
-            );
-            this.setState({ emailSent: true });
-            const intervalHook = setInterval(() => {
-                this.setState(
-                    (state) => ({
-                        redirectCountdown: state.redirectCountdown - 1,
-                    }),
-                    () => {
-                        if (this.state.redirectCountdown <= 0) {
-                            clearInterval(intervalHook);
-                            this.props.history.replace("/login");
-                        }
-                    }
-                );
-            }, 1000);
-        } catch (err) {
-            this.setState({ errorMessage: err.message });
-        }
-    };
+                <button
+                    className="w-full focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
+                    onClick={handleClick}
+                >
+                    Request password reset
+                </button>
+                <div className="text-red-500">{errorMessage}</div>
+            </div>
+        </div>
+    );
 }
 
-const styles = (theme) => ({
-    root: {
-        display: "flex",
-        flexFlow: "column nowrap",
-        alignItems: "center",
-    },
-
-    textField: {
-        width: "20rem",
-        flex: "1 0 auto",
-        margin: "2rem auto",
-    },
-
-    button: {
-        color: "#3B9979",
-        margin: "0 auto 0 auto",
-    },
-
-    errorMsg: {
-        color: "red",
-        margin: "0 auto",
-    },
-});
-
-export default withFirebase(
-    withRouter(withStyles(styles)(PasswordResetRequest))
-);
+export default PasswordResetRequest;
