@@ -201,12 +201,6 @@ function MainLayout() {
                                             <MyDecks {...props} />
                                         )}
                                     />
-                                    <Route
-                                        path={ROUTES.VIEW_WARBAND_ID}
-                                        render={(props) => (
-                                            <WarbandsInfoPage {...props} />
-                                        )}
-                                    />
                                     <PrivateRoute
                                         path={ROUTES.PROFILE}
                                         component={UserProfile}
