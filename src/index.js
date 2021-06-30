@@ -34,7 +34,6 @@ const MyDecks = lazy(() => import("./pages/MyDecks/index"));
 const Login = lazy(() => import("./pages/Login"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const PasswordResetRequest = lazy(() => import("./pages/PasswordResetRequest"));
-const WarbandsInfoPage = lazy(() => import("./pages/WarbandsInfo"));
 const CardsRating = lazy(() => import("./pages/CardsRating"));
 
 const history = createBrowserHistory();
