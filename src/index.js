@@ -89,25 +89,17 @@ function MainLayout() {
         <>
             {/* LEARN HOW TO MAKE THIS WITH TAILWIND */}
             <div
+                className="grid grid-cols-1 grid-rows-1 overflow-x-auto"
                 style={{
-                    display: "grid",
-                    gridTemplateRows: "1fr",
-                    gridTemplateColumns: "1fr",
                     background: pathname == "/" ? "black" : "rgba(0,0,0,0)",
-                    overflowX: "auto",
                 }}
             >
                 {pathname == "/" && (
                     <>
-                        <div style={{ gridArea: "1 / 1 / 2 / 2" }}>
+                        <div className="row-start-1 row-end-2 col-start-1 col-end-2">
                             <HeroImage />
                         </div>
-                        <div
-                            style={{
-                                gridArea: "1 / 1 / 2 / 2",
-                                position: "relative",
-                            }}
-                        >
+                        <div className="row-start-1 row-end-2 col-start-1 col-end-2 relative">
                             <div
                                 style={{
                                     background:
@@ -122,9 +114,8 @@ function MainLayout() {
                 )}
 
                 <div
+                    className="row-start-1 row-end-2 col-start-1 col-end-2 grid"
                     style={{
-                        gridArea: "1 / 1 / 2 / 2",
-                        display: "grid",
                         gridTemplateRows: "auto 1fr",
                     }}
                 >
