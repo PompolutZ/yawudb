@@ -1,11 +1,11 @@
 import React from "react";
 
-function Logo() {
+function Logo({ className }) {
     return (
         <svg
             id="svg"
+            className={`${ className }`}
             xmlns="http://www.w3.org/2000/svg"
-            width="30vw"
             viewBox="0 0 1100 200"
         >
             <defs>

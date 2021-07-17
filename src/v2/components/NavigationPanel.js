@@ -19,7 +19,7 @@ export default function NavigationPanel() {
                     className="text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
                     to="/"
                 >
-                    <Logo />
+                    <Logo className="h-8 lg:h-12 filter drop-shadow-md" />
                 </Link>
             </div>
             <Menu
