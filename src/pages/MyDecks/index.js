@@ -106,14 +106,14 @@ function MyDecksPage() {
     };
 
     return (
-        <div className="flex-1 flex p-4">
+        <div className="flex-1 flex p-4 flex-col">
             {
                 error && error.response.status === 401 && (
                     <Redirect to="/login" />
                 )
             }
             {loading && (
-                <div className="flex-1 flex items-center justify-center">
+                <div className="flex items-center justify-center">
                     <p>Loading...</p>
                 </div>
             )}
