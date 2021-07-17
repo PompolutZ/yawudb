@@ -107,6 +107,18 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
         }
     };
 
+    const handleToggleType = (selectedTypes, allTypes, update) => type => () => {
+        if (selectedTypes.length === allTypes.length) {
+            update([type]);
+            return;
+        } else if (selectedTypes.length === 1 && selectedTypes[0] === type) {
+            update(allTypes);
+            return;
+        } 
+
+        handleToggleKeyword(selectedTypes, update)(type)();
+    }
+
     const handleClearAll = () => {
         setEnabledGloryFilters([]);
         setObjectiveScoreTypes([]);
@@ -117,8 +129,9 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
         <div className="relative" ref={ref}>
             <CardsTab
                 enabledTypes={enabledCardTypes}
-                onToggleType={handleToggleKeyword(
+                onToggleType={handleToggleType(
                     enabledCardTypes,
+                    CARD_TYPE_FILTERS.map((f) => f.label),
                     setEnabledCardTypes
                 )}
                 totalActiveFilters={
