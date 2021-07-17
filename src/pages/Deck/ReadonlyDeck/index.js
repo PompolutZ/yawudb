@@ -172,24 +172,9 @@ class ReadonlyDeck extends PureComponent {
                     <>
                         <div className="lg:hidden">
                             <DeckActionsMenu
-                                onSaveAsPdf={this._handleSaveAsPdf}
-                                onSaveText={this._handleSaveText}
-                                onSaveImage={this._handleSaveImage}
-                                onSaveVassalFiles={this._handleSaveVassalFiles}
+                                deck={deck}
+                                deckId={id}
                                 canUpdateOrDelete={this.props.canUpdateOrDelete}
-                                onEdit={
-                                    <Link
-                                        className="px-2"
-                                        to={{
-                                            pathname: `/deck/edit/${id}`,
-                                            state: {
-                                                deck,
-                                            },
-                                        }}
-                                    >
-                                        Edit
-                                    </Link>
-                                }
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
                                 exportToClub={this._handleExportToClub}
@@ -200,24 +185,10 @@ class ReadonlyDeck extends PureComponent {
                             <DeckActionMenuLarge
                                 cardsView={this.props.cardsView}
                                 onCardsViewChange={this.props.onCardsViewChange}
-                                onSaveAsPdf={this._handleSaveAsPdf}
-                                onSaveText={this._handleSaveText}
-                                onSaveImage={this._handleSaveImage}
                                 onSaveVassalFiles={this._handleSaveVassalFiles}
                                 canUpdateOrDelete={this.props.canUpdateOrDelete}
-                                edit={
-                                    <Link
-                                        className="px-4 flex hover:text-purple-800"
-                                        to={{
-                                            pathname: `/deck/edit/${id}`,
-                                            state: {
-                                                deck,
-                                            },
-                                        }}
-                                    >
-                                        <EditIcon className="mr-2" /> Edit
-                                    </Link>
-                                }
+                                deck={deck}
+                                deckId={id}
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
                                 exportToClub={this._handleExportToClub}

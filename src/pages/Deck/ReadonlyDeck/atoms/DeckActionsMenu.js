@@ -1,151 +1,168 @@
-import React, { PureComponent } from "react";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import MoreVerticalIcon from "@material-ui/icons/MoreVert";
-import Divider from "@material-ui/core/Divider";
+import React from "react";
+import { Link } from "react-router-dom";
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react";
 
-class DeckActionsMenu extends PureComponent {
-    state = {
-        anchorEl: null,
-    };
-
-    render() {
-        const { anchorEl } = this.state;
-
-        return (
-            <div style={this.props.style}>
-                <IconButton
-                    aria-owns={anchorEl ? "actions-menu" : undefined}
-                    aria-haspopup
-                    onClick={this.handleClick}
+function DeckActionsMenu({ deckId, deck, exportToUDB, exportToUDS, exportToClub, onDelete, canUpdateOrDelete }) {
+    return (
+        <Menu as="div" className="relative inline-block text-left w-6 h-6">
+            <Menu.Button>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                 >
-                    <MoreVerticalIcon />
-                </IconButton>
-                <Menu
-                    id="actions-menu"
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={this.handleClose}
-                >
-                    {this.props.canUpdateOrDelete && (
-                        <MenuItem>{this.props.onEdit}</MenuItem>
-                    )}
-                    {this.props.canUpdateOrDelete && <Divider />}
-                    <MenuItem
-                        onClick={this.handleExportToOtherWebsite(
-                            this.props.exportToUDB
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                    />
+                </svg>
+            </Menu.Button>
+            <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+            >
+                <Menu.Items className="absolute left-0 w-60 -ml-52 mt-2 origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="flex flex-col">
+                        {canUpdateOrDelete && (
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <Link
+                                        className={`text-purple-700 group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                        to={{
+                                            pathname: `/deck/edit/${deckId}`,
+                                            state: {
+                                                deck
+                                            },
+                                        }}
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-5 w-5 mr-2 stroke-current"
+                                            fill="#C4B5FD"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                            />
+                                        </svg>
+                                        <span className="text-gray-900">
+                                            Edit
+                                        </span>
+                                    </Link>
+                                )}
+                            </Menu.Item>
                         )}
-                        style={{ position: "relative" }}
-                    >
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <img
-                                style={{ marginRight: ".3rem" }}
-                                alt={"favicon.ico"}
-                                src="https://www.underworldsdb.com/favicon.ico"
-                                width="16"
-                                height="16"
-                            />
-                            Open on UnderworldsDB
-                        </div>
-                    </MenuItem>
-                    <MenuItem
-                        onClick={this.handleExportToOtherWebsite(
-                            this.props.exportToUDS
+
+                        <Menu.Item>
+                            {({ active }) => (
+                                <button
+                                    className={`${
+                                        active
+                                            ? "bg-violet-500 text-white"
+                                            : "text-gray-900"
+                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                    onClick={exportToUDB}
+                                >
+                                    <img
+                                        className="w-5 h-5 mr-2"
+                                        alt="UnderworldsDB logo"
+                                        src="https://www.underworldsdb.com/favicon.ico"
+                                        width="16"
+                                        height="16"
+                                    />
+                                    Open on UnderworldsDB
+                                </button>
+                            )}
+                        </Menu.Item>
+
+                        <Menu.Item>
+                            {({ active }) => (
+                                <button
+                                    className={`${
+                                        active
+                                            ? "bg-violet-500 text-white"
+                                            : "text-gray-900"
+                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                    onClick={exportToUDS}
+                                >
+                                    <img
+                                        alt="Underworld-Deckers logo"
+                                        src="https://www.underworlds-deckers.com/images/faviconNew.png"
+                                        className="w-5 h-5 mr-2"
+                                    />
+                                    Open on Underworld-Deckers
+                                </button>
+                            )}
+                        </Menu.Item>
+
+                        <Menu.Item>
+                            {({ active }) => (
+                                <button
+                                    className={`${
+                                        active
+                                            ? "bg-violet-500 text-white"
+                                            : "text-gray-900"
+                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                    onClick={exportToClub}
+                                >
+                                    <img
+                                        className="h-5 w-5"
+                                        style={{ marginRight: ".3rem" }}
+                                        alt="WUnderworlds Club logo"
+                                        src="/assets/icons/wuc-pwa-192.png"
+                                    />
+                                    Copy for WUnderworlds Club
+                                </button>
+                            )}
+                        </Menu.Item>
+                    </div>
+                    <div>
+                        {canUpdateOrDelete && (
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        className={`text-accent3-700 group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                        onClick={onDelete}
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6 mr-2"
+                                            fill="#F27263"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                            />
+                                        </svg>
+                                        <span>
+                                            Delete
+                                        </span>
+                                    </button>
+                                )}
+                            </Menu.Item>
                         )}
-                        style={{ position: "relative" }}
-                    >
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <img
-                                style={{ marginRight: ".3rem" }}
-                                alt={"faviconNew.png"}
-                                src="https://www.underworlds-deckers.com/images/faviconNew.png"
-                                width="16"
-                                height="16"
-                            />
-                            Open on Underworld-Deckers
-                        </div>
-                    </MenuItem>
-                    <MenuItem
-                        onClick={this.handleExportToOtherWebsite(
-                            this.props.exportToClub
-                        )}
-                        style={{ position: "relative" }}
-                    >
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <img
-                                style={{ marginRight: ".3rem" }}
-                                alt={"wunderworlds_club"}
-                                src="/assets/icons/wuc-pwa-192.png"
-                                width="16"
-                                height="16"
-                            />
-                            Copy for WUnderworlds Club
-                        </div>
-                    </MenuItem>
-                    {this.props.canUpdateOrDelete && (
-                        <div>
-                            <Divider />
-                            <MenuItem
-                                onClick={this.handleDelete}
-                                style={{ color: "darkred" }}
-                            >
-                                Delete
-                            </MenuItem>
-                        </div>
-                    )}
-                </Menu>
-            </div>
-        );
-    }
-
-    handleEdit = () => {
-        this.props.onEdit();
-        this.handleClose();
-    };
-
-    handleDelete = () => {
-        this.props.onDelete();
-        this.handleClose();
-    };
-
-    handleExportToPdf = () => {
-        this.props.onSaveAsPdf();
-        this.handleClose();
-    };
-
-    handleExportToOtherWebsite = (invokeExport) => () => {
-        invokeExport();
-        this.handleClose();
-    };
-
-    handleExportToTextFile = () => {
-        this.props.onSaveText(document.getElementById("deckTextLink"));
-        this.handleClose();
-    };
-
-    handleExportVassalFiles = () => {
-        this.props.onSaveVassalFiles();
-        this.handleClose();
-    };
-
-    handleExportToImage = () => {
-        this.props.onSaveImage(document.getElementById("deckImageLink"));
-        this.handleClose();
-    };
-
-    handleOpenInGamesAssitant = () => {
-        this.props.exportToGamesAssistant();
-        this.handleClose();
-    };
-
-    handleClick = (event) => {
-        this.setState({ anchorEl: event.currentTarget });
-    };
-
-    handleClose = () => {
-        this.setState({ anchorEl: null });
-    };
+                    </div>
+                </Menu.Items>
+            </Transition>
+        </Menu>
+    );
 }
 
 export default DeckActionsMenu;
