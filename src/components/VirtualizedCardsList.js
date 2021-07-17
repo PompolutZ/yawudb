@@ -49,7 +49,7 @@ function VirtualizedCardsList({ width, height, cards, children, variant = 'grid'
             // row height will be according to card's height based on keeping original aspect ratio
         }
         setCardRows(rows);
-        setColumnWidth(width / itemsPerRow);    
+        setColumnWidth(width / itemsPerRow * 0.97);    
     }, [cards, width, variant])
 
     const rowRenderer = ({columnIndex, key, rowIndex, style}) => {
@@ -58,7 +58,7 @@ function VirtualizedCardsList({ width, height, cards, children, variant = 'grid'
 
     return (
             <Grid
-                className="outline-none"
+                className="outline-none scrollbar scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200"
                 ref={listRef}
                 width={width}
                 height={height}
