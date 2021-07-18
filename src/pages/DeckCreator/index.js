@@ -8,6 +8,8 @@ import { deckBuilderReducer, INITIAL_STATE } from "./reducer";
 import { getFactionByName } from "../../data/wudb";
 import { addKeyToLocalStorage, removeKeyFromLocalStorage, initialiseStateFromLocalStorage, apiSaveDeckAsync, apiUpdateDeckAsync } from "./effects";
 import { usePostUserDeck, useUpdateUserDeck } from "../../hooks/wunderworldsAPIHooks";
+import useAuthUser from "../../hooks/useAuthUser";
+import useDexie from "../../hooks/useDexie";
 
 const DeckBuilderContext = React.createContext();
 const DeckBuilderDispatchContext = React.createContext();
@@ -51,15 +53,35 @@ const initialiseState = deck => exec => {
     return INITIAL_STATE;
 }
 
+function useSaveDeckFactory() {
+    const user = useAuthUser();
+    const db = useDexie('wudb');
+    const [, saveUserDeck] = usePostUserDeck();
+
+    if (user !== null) {
+        return saveUserDeck;
+    } else {
+        return function saveLocally(payload) {
+            const now = new Date().getTime();
+            return db.anonDecks.add({
+                ...payload.data,
+                createdutc: now,
+                updatedutc: now,
+            });
+        }
+    }
+}
+
 function DeckBuilderContextProvider({ children }) {
     const location = useLocation();
+    const saveDeck = useSaveDeckFactory();
     const [, saveUserDeck] = usePostUserDeck();
     const [, update] = useUpdateUserDeck();
     const [state, dispatch] = useEffectReducer(
         deckBuilderReducer, 
         initialiseState(location.state && location.state.deck), 
         {
-            saveDeck: apiSaveDeckAsync(saveUserDeck),
+            saveDeck: apiSaveDeckAsync(saveDeck),
             updateDeck: apiUpdateDeckAsync(update),
             addKeyToLocalStorage,
             removeKeyFromLocalStorage,

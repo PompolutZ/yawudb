@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
 import { CREATE_NEW_DECK, VIEW_DECK } from "../../constants/routes";
@@ -11,6 +11,8 @@ import {
     useDeleteUserDeck,
     useGetUserDecks,
 } from "../../hooks/wunderworldsAPIHooks";
+import useAuthUser from "../../hooks/useAuthUser";
+import useDexie from "../../hooks/useDexie";
 
 function DeckLink({ onDelete, ...props }) {
     const [cards, setCards] = useState([]);
@@ -78,16 +80,58 @@ function DeckLink({ onDelete, ...props }) {
     );
 }
 
-function MyDecksPage() {
-    const history = useHistory();
+function useUserDecksLoader() {
+    const user = useAuthUser();
+    const db = useDexie('wudb');
     const [{ data, loading, error }, refetch] = useGetUserDecks(true);
-    const [, deleteUserDeck] = useDeleteUserDeck();
-    const { state } = useLocation();
-    const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
+    const [decks, setDecks] = useState([]);
+    const refetchFunc = useCallback(
+        () => {
+            if (user !== null) {
+                refetch();
+            } else {
+                 db.anonDecks.toArray().then(setDecks).catch(e => console.error(e))
+            }
+        },
+        [],
+    )
 
     useEffect(() => {
-        refetch();
-    }, [state]);
+        if (data) {
+            setDecks(data);
+        }
+    }, [data]);
+
+    useEffect(() => {
+       refetchFunc();
+    }, [user])
+
+    return [decks, loading, error, refetchFunc];
+}
+
+function useDeleteUserDeckFactory() {
+    const user = useAuthUser();
+    const db = useDexie('wudb');
+    const [, deleteUserDeck] = useDeleteUserDeck();
+
+    if (user !== null) {
+        return function deleteDeckRemotely(deckId) {
+            return deleteUserDeck({
+                url: `/api/v1/user-decks/${deckId}`,
+            });
+        }
+    } else {
+        return function deleteDeckLocally(deckId) {
+            return db.anonDecks.where('deckId').equals(deckId).delete();
+        }
+    }
+}
+
+function MyDecksPage() {
+    const [userDecks, loading, error, refetch] = useUserDecksLoader();
+    const user = useAuthUser();
+    const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
+    const deleteDeckAsync = useDeleteUserDeckFactory();
 
     const handleCloseDeleteDialog = () => {
         setConfirmDeleteDeckId(null);
@@ -98,26 +142,32 @@ function MyDecksPage() {
     };
 
     const handleDeleteDeck = async () => {
-        await deleteUserDeck({
-            url: `/api/v1/user-decks/${confirmDeleteDeckId}`,
-        });
-        await refetch();
-        setConfirmDeleteDeckId(null);
+        try {
+            await deleteDeckAsync(confirmDeleteDeckId);
+            refetch();
+            setConfirmDeleteDeckId(null);
+        } catch(e) {
+            console.error(e);
+        }
     };
+
+    if (!user) {
+        console.log('anon')
+    }
 
     return (
         <div className="flex-1 flex p-4 flex-col">
-            {
+            {/* {
                 error && error.response.status === 401 && (
                     <Redirect to="/login" />
                 )
-            }
+            } */}
             {loading && (
                 <div className="flex items-center justify-center">
                     <p>Loading...</p>
                 </div>
             )}
-            {!loading && data && data.length === 0 && (
+            {!loading && userDecks.length === 0 && (
                 <div className="flex-1 flex items-center justify-center">
                     <p>
                         You don't have any decks yet.
@@ -130,9 +180,10 @@ function MyDecksPage() {
                     </p>
                 </div>
             )}
-            {data && data.length > 0 && (
+            
+            {userDecks.length > 0 && (
                 <div className="flex-1">
-                    {data
+                    {userDecks
                         .map((deck) => ({
                             ...deck,
                             id: deck.deckId,
@@ -152,8 +203,7 @@ function MyDecksPage() {
             <DeleteConfirmationDialog
                 title="Delete deck"
                 description={`Are you sure you want to delete deck: '${
-                    data &&
-                    data.find((deck) => deck.id === confirmDeleteDeckId)?.name
+                    userDecks.find((deck) => deck.deckId === confirmDeleteDeckId)?.name
                 }'`}
                 open={!!confirmDeleteDeckId}
                 onCloseDialog={handleCloseDeleteDialog}
