@@ -40,7 +40,7 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
     const [showFilters, setShowFilters] = useState(false);
 
     const [enabledCardTypes, setEnabledCardTypes] = useState(
-        CARD_TYPE_FILTERS.map((f) => f.label)
+        CARD_TYPE_FILTERS.slice(0,1).map((f) => f.label)
     );
 
     const [enabledKeywords, setEnabledKeywords] = useState([]);
@@ -108,15 +108,7 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
     };
 
     const handleToggleType = (selectedTypes, allTypes, update) => type => () => {
-        if (selectedTypes.length === allTypes.length) {
-            update([type]);
-            return;
-        } else if (selectedTypes.length === 1 && selectedTypes[0] === type) {
-            update(allTypes);
-            return;
-        } 
-
-        handleToggleKeyword(selectedTypes, update)(type)();
+        update([type])
     }
 
     const handleClearAll = () => {

@@ -160,7 +160,7 @@ function FilterableCardLibrary(props) {
                                 card ? (
                                     <div
                                         key={key}
-                                        className={`flex flex-col justify-center ${
+                                        className={`flex flex-col justify-center pr-2 ${
                                             rowIndex % 2 === 0
                                                 ? "bg-purple-100"
                                                 : "bg-white"

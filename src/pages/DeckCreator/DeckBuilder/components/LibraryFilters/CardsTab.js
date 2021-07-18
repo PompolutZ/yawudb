@@ -117,7 +117,7 @@ function CardsTab({
                 <div>{selectedUpgrades.length}</div>
             </ToggleButton>
             <IconButton
-                className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative"
+                className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100"
                 onClick={onToggleShowFilters}
             >
                 <FilterIcon className="w-6 h-6 stroke-current filter drop-shadow-md" />
