@@ -101,7 +101,7 @@ function FilterableCardLibrary(props) {
                 );
                 const card = {
                     oldId: `${c.id}`.padStart(5, "0"),
-                    ranking: ranks[c.id],
+                    ranking: ranks[c.id] || 0,
                     ...c,
                     isBanned: isForsaken,
                     isRestricted,
