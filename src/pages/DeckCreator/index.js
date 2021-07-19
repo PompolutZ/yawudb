@@ -72,17 +72,35 @@ function useSaveDeckFactory() {
     }
 }
 
+function useUpdateDeckFactory() {
+    const user = useAuthUser();
+    const db = useDexie('wudb');
+    const [, update] = useUpdateUserDeck(); 
+
+    if (user !== null) {
+        return update;
+    } else {
+        return function saveLocally(payload) {
+            const now = new Date().getTime();
+            
+            return db.anonDecks.where('deckId').equals(payload.data.deckId).modify({
+                ...payload.data,
+                updatedutc: now,
+            });
+        }
+    }
+}
+
 function DeckBuilderContextProvider({ children }) {
     const location = useLocation();
     const saveDeck = useSaveDeckFactory();
-    const [, saveUserDeck] = usePostUserDeck();
-    const [, update] = useUpdateUserDeck();
+    const updateDeck = useUpdateDeckFactory();
     const [state, dispatch] = useEffectReducer(
         deckBuilderReducer, 
         initialiseState(location.state && location.state.deck), 
         {
             saveDeck: apiSaveDeckAsync(saveDeck),
-            updateDeck: apiUpdateDeckAsync(update),
+            updateDeck: apiUpdateDeckAsync(updateDeck),
             addKeyToLocalStorage,
             removeKeyFromLocalStorage,
             initialiseStateFromLocalStorage,

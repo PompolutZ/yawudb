@@ -151,10 +151,6 @@ function MyDecksPage() {
         }
     };
 
-    if (!user) {
-        console.log('anon')
-    }
-
     return (
         <div className="flex-1 flex p-4 flex-col">
             {/* {
