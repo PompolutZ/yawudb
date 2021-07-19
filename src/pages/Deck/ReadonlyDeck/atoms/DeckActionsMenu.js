@@ -3,7 +3,15 @@ import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-function DeckActionsMenu({ deckId, deck, exportToUDB, exportToUDS, exportToClub, onDelete, canUpdateOrDelete }) {
+function DeckActionsMenu({
+    deckId,
+    deck,
+    exportToUDB,
+    exportToUDS,
+    exportToClub,
+    onDelete,
+    canUpdateOrDelete,
+}) {
     return (
         <Menu as="div" className="relative inline-block text-left w-6 h-6">
             <Menu.Button>
@@ -37,11 +45,15 @@ function DeckActionsMenu({ deckId, deck, exportToUDB, exportToUDS, exportToClub,
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link
-                                        className={`text-purple-700 group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                        className={`${
+                                            active
+                                                ? "bg-purple-500 text-white"
+                                                : "text-purple-900"
+                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                         to={{
                                             pathname: `/deck/edit/${deckId}`,
                                             state: {
-                                                deck
+                                                deck,
                                             },
                                         }}
                                     >
@@ -58,7 +70,13 @@ function DeckActionsMenu({ deckId, deck, exportToUDB, exportToUDS, exportToClub,
                                                 d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                                             />
                                         </svg>
-                                        <span className="text-gray-900">
+                                        <span
+                                            className={`${
+                                                active
+                                                    ? "text-white"
+                                                    : "text-gray-900"
+                                            }`}
+                                        >
                                             Edit
                                         </span>
                                     </Link>
@@ -71,7 +89,7 @@ function DeckActionsMenu({ deckId, deck, exportToUDB, exportToUDS, exportToClub,
                                 <button
                                     className={`${
                                         active
-                                            ? "bg-violet-500 text-white"
+                                            ? "bg-purple-500 text-white"
                                             : "text-gray-900"
                                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                     onClick={exportToUDB}
@@ -93,7 +111,7 @@ function DeckActionsMenu({ deckId, deck, exportToUDB, exportToUDS, exportToClub,
                                 <button
                                     className={`${
                                         active
-                                            ? "bg-violet-500 text-white"
+                                            ? "bg-purple-500 text-white"
                                             : "text-gray-900"
                                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                     onClick={exportToUDS}
@@ -113,7 +131,7 @@ function DeckActionsMenu({ deckId, deck, exportToUDB, exportToUDS, exportToClub,
                                 <button
                                     className={`${
                                         active
-                                            ? "bg-violet-500 text-white"
+                                            ? "bg-purple-500 text-white"
                                             : "text-gray-900"
                                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                     onClick={exportToClub}
@@ -134,7 +152,11 @@ function DeckActionsMenu({ deckId, deck, exportToUDB, exportToUDS, exportToClub,
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
-                                        className={`text-accent3-700 group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                        className={`${
+                                            active
+                                                ? "bg-accent3-500 text-white"
+                                                : "text-accent3-900"
+                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                         onClick={onDelete}
                                     >
                                         <svg
@@ -151,9 +173,7 @@ function DeckActionsMenu({ deckId, deck, exportToUDB, exportToUDS, exportToClub,
                                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                                             />
                                         </svg>
-                                        <span>
-                                            Delete
-                                        </span>
+                                        <span>Delete</span>
                                     </button>
                                 )}
                             </Menu.Item>
