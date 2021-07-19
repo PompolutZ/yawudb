@@ -15,12 +15,14 @@ export default function useDexie(name) {
             //     "id,name,factionId -> factions.id,type,setId -> sets.id,[factionId+setId],rule,glory,scoreType,status,rotated,duplicates",
             // cardsRanks:
             //     "id,factionId -> factions.id, cardId -> cards.id, [factionId+cardId], rank",
-            publicDecks: "id,author,authorDisplayName,createdutc,deck,faction,name,sets,updatedutc",
-            anonDecks: "++id,deckId,createdutc,deck,faction,name,private,sets,updatedutc",
+            publicDecks:
+                "id,author,authorDisplayName,createdutc,deck,faction,name,sets,updatedutc",
+            anonDecks:
+                "++id,deckId,createdutc,deck,faction,name,private,sets,updatedutc",
         });
 
         return dexie;
-    })
+    });
 
     return db;
 }
