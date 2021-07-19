@@ -83,19 +83,19 @@ function DeckLink({ onDelete, ...props }) {
 
 function useUserDecksLoader() {
     const user = useAuthUser();
-    const db = useDexie('wudb');
+    const db = useDexie("wudb");
     const [{ data, loading, error }, refetch] = useGetUserDecks(true);
     const [decks, setDecks] = useState([]);
-    const refetchFunc = useCallback(
-        () => {
-            if (user !== null) {
-                refetch();
-            } else {
-                 db.anonDecks.toArray().then(setDecks).catch(e => console.error(e))
-            }
-        },
-        [],
-    )
+    const refetchFunc = useCallback(() => {
+        if (user !== null) {
+            refetch();
+        } else {
+            db.anonDecks
+                .toArray()
+                .then(setDecks)
+                .catch((e) => console.error(e));
+        }
+    }, [user]);
 
     useEffect(() => {
         if (data) {
@@ -104,10 +104,42 @@ function useUserDecksLoader() {
     }, [data]);
 
     useEffect(() => {
-       refetchFunc();
-    }, [user])
+        refetchFunc();
+    }, [user]);
 
     return [decks, loading, error, refetchFunc];
+}
+
+function AnonymousUserDecksStorageInfo() {
+    return (
+        <div>
+            <p className="border-2 border-purple-700 text-purple-700 bg-purple-100 text-justify p-4 my-4 rounded-md lg:mx-auto lg:w-2/5">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="inline relative mb-1 h-5 w-5 mr-2"
+                    fill="#DDD6FE"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                </svg>
+                Greetings stranger! Decks below are stored in this very browser
+                only. If you{" "}
+                {
+                    <Link className="underline font-bold" to="/login">
+                        sign in
+                    </Link>
+                }
+                , they will be stored in database and available to you on any
+                device.
+            </p>
+        </div>
+    );
 }
 
 function MyDecksPage() {
@@ -129,13 +161,14 @@ function MyDecksPage() {
             await deleteDeckAsync(confirmDeleteDeckId);
             refetch();
             setConfirmDeleteDeckId(null);
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     };
 
     return (
         <div className="flex-1 flex p-4 flex-col">
+            {!user && <AnonymousUserDecksStorageInfo />}
             {/* {
                 error && error.response.status === 401 && (
                     <Redirect to="/login" />
@@ -149,7 +182,7 @@ function MyDecksPage() {
             {!loading && userDecks.length === 0 && (
                 <div className="flex-1 flex items-center justify-center">
                     <p>
-                        You don't have any decks yet.
+                        You don't have any decks yet.{" "}
                         <Link
                             className="text-purple-700 font-bold"
                             to="/deck/create"
@@ -159,7 +192,7 @@ function MyDecksPage() {
                     </p>
                 </div>
             )}
-            
+
             {userDecks.length > 0 && (
                 <div className="flex-1">
                     {userDecks
@@ -182,7 +215,9 @@ function MyDecksPage() {
             <DeleteConfirmationDialog
                 title="Delete deck"
                 description={`Are you sure you want to delete deck: '${
-                    userDecks.find((deck) => deck.deckId === confirmDeleteDeckId)?.name
+                    userDecks.find(
+                        (deck) => deck.deckId === confirmDeleteDeckId
+                    )?.name
                 }'`}
                 open={!!confirmDeleteDeckId}
                 onCloseDialog={handleCloseDeleteDialog}
