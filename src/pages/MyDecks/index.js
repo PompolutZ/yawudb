@@ -13,6 +13,7 @@ import {
 } from "../../hooks/wunderworldsAPIHooks";
 import useAuthUser from "../../hooks/useAuthUser";
 import useDexie from "../../hooks/useDexie";
+import { useDeleteUserDeckFactory } from "../../hooks/useDeleteUserDeckFactory";
 
 function DeckLink({ onDelete, ...props }) {
     const [cards, setCards] = useState([]);
@@ -107,24 +108,6 @@ function useUserDecksLoader() {
     }, [user])
 
     return [decks, loading, error, refetchFunc];
-}
-
-function useDeleteUserDeckFactory() {
-    const user = useAuthUser();
-    const db = useDexie('wudb');
-    const [, deleteUserDeck] = useDeleteUserDeck();
-
-    if (user !== null) {
-        return function deleteDeckRemotely(deckId) {
-            return deleteUserDeck({
-                url: `/api/v1/user-decks/${deckId}`,
-            });
-        }
-    } else {
-        return function deleteDeckLocally(deckId) {
-            return db.anonDecks.where('deckId').equals(deckId).delete();
-        }
-    }
 }
 
 function MyDecksPage() {

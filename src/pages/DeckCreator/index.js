@@ -7,9 +7,8 @@ import DeckCreatorTransfer from "./DeckCreatorTransfer";
 import { deckBuilderReducer, INITIAL_STATE } from "./reducer";
 import { getFactionByName } from "../../data/wudb";
 import { addKeyToLocalStorage, removeKeyFromLocalStorage, initialiseStateFromLocalStorage, apiSaveDeckAsync, apiUpdateDeckAsync } from "./effects";
-import { usePostUserDeck, useUpdateUserDeck } from "../../hooks/wunderworldsAPIHooks";
-import useAuthUser from "../../hooks/useAuthUser";
-import useDexie from "../../hooks/useDexie";
+import { useSaveDeckFactory } from "../../hooks/useSaveDeckFactory";
+import { useUpdateDeckFactory } from "../../hooks/useUpdateDeckFactory";
 
 const DeckBuilderContext = React.createContext();
 const DeckBuilderDispatchContext = React.createContext();
@@ -51,44 +50,6 @@ const initialiseState = deck => exec => {
     exec({ type: 'initialiseStateFromLocalStorage', key: 'wunderworlds_deck_in_progress' })
 
     return INITIAL_STATE;
-}
-
-function useSaveDeckFactory() {
-    const user = useAuthUser();
-    const db = useDexie('wudb');
-    const [, saveUserDeck] = usePostUserDeck();
-
-    if (user !== null) {
-        return saveUserDeck;
-    } else {
-        return function saveLocally(payload) {
-            const now = new Date().getTime();
-            return db.anonDecks.add({
-                ...payload.data,
-                createdutc: now,
-                updatedutc: now,
-            });
-        }
-    }
-}
-
-function useUpdateDeckFactory() {
-    const user = useAuthUser();
-    const db = useDexie('wudb');
-    const [, update] = useUpdateUserDeck(); 
-
-    if (user !== null) {
-        return update;
-    } else {
-        return function saveLocally(payload) {
-            const now = new Date().getTime();
-            
-            return db.anonDecks.where('deckId').equals(payload.data.deckId).modify({
-                ...payload.data,
-                updatedutc: now,
-            });
-        }
-    }
 }
 
 function DeckBuilderContextProvider({ children }) {
