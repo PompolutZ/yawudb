@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useState, useCallback } from "react";
+import React, {
+    useEffect,
+    useMemo,
+    useState,
+    useCallback,
+    useRef,
+} from "react";
 import { Link } from "react-router-dom";
 import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
 import { VIEW_DECK } from "../../constants/routes";
@@ -9,6 +15,7 @@ import SetsList from "../../atoms/SetsList";
 import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
 import {
     useGetUserDecks,
+    fetchUserDecks,
 } from "../../hooks/wunderworldsAPIHooks";
 import useAuthUser from "../../hooks/useAuthUser";
 import useDexie from "../../hooks/useDexie";
@@ -83,32 +90,37 @@ function DeckLink({ onDelete, ...props }) {
 }
 
 function useUserDecksLoader() {
-    const user = useAuthUser();
     const db = useDexie("wudb");
-    const [{ data, loading, error }, refetch] = useGetUserDecks(true);
+    const user = useAuthUser();
+    const [error, setError] = useState(undefined);
+    const [loading, setLoading] = useState(false);
     const [decks, setDecks] = useState([]);
-    const refetchFunc = useCallback(() => {
-        if (user !== null) {
-            Firebase.getTokenId().then((token) => {
-                if(token) {
-                    refetch();
+    const fetchAsync = useCallback(async () => {
+        setLoading(true);
+
+        try {
+            if (user) {
+                const token = await Firebase.getTokenId();
+                if (token) {
+                    const { data } = await fetchUserDecks();
+                    setDecks(data);
                 }
-            });
-        } else {
-            db.anonDecks
-                .toArray()
-                .then(setDecks)
-                .catch((e) => console.error(e));
+            } else {
+                const localDecks = await db.anonDecks.toArray();
+                setDecks(localDecks);
+            }
+        } catch (e) {
+            setError(e);
+        } finally {
+            setLoading(false);
         }
     }, [user]);
 
     useEffect(() => {
-        if (data) {
-            setDecks(data);
-        }
-    }, [data]);
+        fetchAsync();
+    }, [user]);
 
-    return [decks, loading, error, refetchFunc];
+    return [decks, loading, error, fetchAsync];
 }
 
 function useAnonDecksSyncronisation(refetch) {
@@ -119,25 +131,43 @@ function useAnonDecksSyncronisation(refetch) {
     useEffect(() => {
         if (!user) return;
 
-        db.anonDecks.toArray()
-        .then(anonDecks => {
-            anonDecks.forEach(async d => {
-                const { deckId, createdutc, updatedutc, deck, sets, name, faction } = d;
-                await saveDeck({
-                    data: {
-                        deckId, createdutc, updatedutc, deck, sets, name, faction,
-                        private: d.private
-                    }
-                })
+        db.anonDecks
+            .toArray()
+            .then((anonDecks) => {
+                anonDecks.forEach(async (d) => {
+                    const {
+                        deckId,
+                        createdutc,
+                        updatedutc,
+                        deck,
+                        sets,
+                        name,
+                        faction,
+                    } = d;
+                    await saveDeck({
+                        data: {
+                            deckId,
+                            createdutc,
+                            updatedutc,
+                            deck,
+                            sets,
+                            name,
+                            faction,
+                            private: d.private,
+                        },
+                    });
+                });
+
+                return anonDecks.map(({ id }) => id);
             })
-
-            return anonDecks.map(({ id }) => id)
-        })
-        .then(idsToDelete => db.anonDecks.bulkDelete(idsToDelete))
-        .then(() => refetch())
-        .catch(e => console.error("Error transfering decks to server", e));
-
-    }, [user, db, refetch, saveDeck])
+            .then((idsToDelete) => db.anonDecks.bulkDelete(idsToDelete))
+            .then(() => {
+                refetch();
+            })
+            .catch((e) =>
+                console.error("Error transfering decks to server", e)
+            );
+    }, [user, db, refetch, saveDeck]);
 }
 
 function AnonymousUserDecksStorageInfo() {
@@ -173,8 +203,8 @@ function AnonymousUserDecksStorageInfo() {
 }
 
 function MyDecksPage() {
-    const [userDecks, loading, error, refetch] = useUserDecksLoader();
     const user = useAuthUser();
+    const [userDecks, loading, error, refetch] = useUserDecksLoader(user);
     useAnonDecksSyncronisation(refetch);
     const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
     const deleteDeckAsync = useDeleteUserDeckFactory();

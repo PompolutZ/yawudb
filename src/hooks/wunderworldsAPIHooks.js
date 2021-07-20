@@ -24,6 +24,10 @@ axios.interceptors.request.use(
     }
 );
 
+export function fetchUserDecks() {
+    return axios.get("/api/v1/user-decks");
+}
+
 export const useCardsRatings = (manual = false) => useAxios({}, { manual });
 
 export const useListAllPublicDecks = (manual = false) =>

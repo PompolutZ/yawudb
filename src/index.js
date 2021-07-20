@@ -19,6 +19,7 @@ import * as ROUTES from "./constants/routes";
 import NavigationPanel from "./v2/components/NavigationPanel";
 import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
 import HeroImage from "./v2/components/HeroImage";
+import { AuthContextProvider } from "./hooks/useAuthUser";
 
 const Home = lazy(() => import("./pages/Home"));
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
@@ -284,9 +285,11 @@ export class ModalPresenter extends React.Component {
 const Root = () => (
     <Provider store={store}>
         <FirebaseContext.Provider value={Firebase}>
-            <MuiThemeProvider theme={theme}>
-                <ConnectedApp />
-            </MuiThemeProvider>
+            <AuthContextProvider>
+                <MuiThemeProvider theme={theme}>
+                    <ConnectedApp />
+                </MuiThemeProvider>
+            </AuthContextProvider>
         </FirebaseContext.Provider>
     </Provider>
 );
