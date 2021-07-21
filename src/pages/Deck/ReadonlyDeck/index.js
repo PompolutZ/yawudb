@@ -178,6 +178,7 @@ class ReadonlyDeck extends PureComponent {
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
                                 exportToClub={this._handleExportToClub}
+                                createShareableLink={this._handleCreateShareableLink}
                                 onDelete={this.props.onDelete}
                             />
                         </div>
@@ -192,6 +193,7 @@ class ReadonlyDeck extends PureComponent {
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
                                 exportToClub={this._handleExportToClub}
+                                createShareableLink={this._handleCreateShareableLink}
                                 onDelete={this.props.onDelete}
                             />
                         </div>
@@ -349,6 +351,12 @@ class ReadonlyDeck extends PureComponent {
             `https://www.underworlds-deckers.com/en/tournament-decks/?Deck=https://yawudb.com/cards,${udsEncodedCards}`
         );
     };
+
+    _handleCreateShareableLink = () => {
+        const link = `${process.env.REACT_APP_BASE_URL}/deck/transfer/wuc,${this.props.cards.map(card => card.id).join(',')}`
+        clipboard.writeText(link);
+        this.props.showToast('Link copied to clipboard!')
+    }
 }
 
 export default withRouter(withStyles(styles)(ReadonlyDeck));
