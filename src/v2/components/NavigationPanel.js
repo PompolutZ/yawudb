@@ -46,7 +46,10 @@ export default function NavigationPanel() {
 function AnimatedLink(props) {
     const [hovering, setHovering] = useState(false);
     const [ref, { width }] = useMeasure();
-    const spring = useSpring({ width: hovering ? width * .8 : 0, config: config.stiff });
+    const spring = useSpring({
+        width: hovering ? width * 0.8 : 0,
+        config: config.stiff,
+    });
     return (
         <div
             ref={ref}
@@ -169,14 +172,12 @@ const Menu = ({ classes, showHome, children }) => {
                     Home
                 </Link>
             )}
-            {auth && (
-                <Link
-                    className="block mr-8 cursor-pointer hover:font-semibold pt-px lg:hidden text-purple-900"
-                    to="/deck/create"
-                >
-                    Create New Deck
-                </Link>
-            )}
+            <Link
+                className="block mr-8 cursor-pointer hover:font-semibold pt-px lg:hidden text-purple-900"
+                to="/deck/create"
+            >
+                Create New Deck
+            </Link>
 
             <AnimatedLink
                 className="block mr-8 cursor-pointer hover:font-semibold pt-px"
