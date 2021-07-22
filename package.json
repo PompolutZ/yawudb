@@ -81,10 +81,10 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "engines": {
-    "node": "14.16.1"
+    "node": "12.18.0"
   },
   "volta": {
-    "node": "14.16.1",
+    "node": "12.18.0",
     "yarn": "1.22.10"
   }
 }
