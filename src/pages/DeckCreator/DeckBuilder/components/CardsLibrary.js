@@ -101,7 +101,7 @@ function FilterableCardLibrary(props) {
                 );
                 const card = {
                     oldId: `${c.id}`.padStart(5, "0"),
-                    ranking: ranks[c.id],
+                    ranking: ranks[c.id] || 0,
                     ...c,
                     isBanned: isForsaken,
                     isRestricted,
@@ -160,7 +160,7 @@ function FilterableCardLibrary(props) {
                                 card ? (
                                     <div
                                         key={key}
-                                        className={`flex flex-col justify-center ${
+                                        className={`flex flex-col justify-center pr-2 ${
                                             rowIndex % 2 === 0
                                                 ? "bg-purple-100"
                                                 : "bg-white"

@@ -3,11 +3,12 @@ import useAuthUser from "../../hooks/useAuthUser";
 import * as ROUTES from "../../constants/routes";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
-import { animated, useTransition } from "react-spring";
+import { animated, useSpring, useTransition, config } from "react-spring";
 import { ReactComponent as MenuIcon } from "../../svgs/menu.svg";
 import Divider from "./Divider";
 import { FirebaseContext } from "../../firebase";
 import { useHistory, useLocation } from "react-router-dom";
+import useMeasure from "react-use-measure";
 
 export default function NavigationPanel() {
     const { pathname } = useLocation();
@@ -19,7 +20,7 @@ export default function NavigationPanel() {
                     className="text-base block mr-8 cursor-pointer hover:font-semibold pt-px"
                     to="/"
                 >
-                    <Logo />
+                    <Logo className="h-8 lg:h-12 filter drop-shadow-md" />
                 </Link>
             </div>
             <Menu
@@ -42,6 +43,26 @@ export default function NavigationPanel() {
     );
 }
 
+function AnimatedLink(props) {
+    const [hovering, setHovering] = useState(false);
+    const [ref, { width }] = useMeasure();
+    const spring = useSpring({ width: hovering ? width * .8 : 0, config: config.stiff });
+    return (
+        <div
+            ref={ref}
+            className="relative"
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
+        >
+            <Link {...props}>{props.children}</Link>
+            <animated.div
+                className="absolute h-1 -mb-1 bg-purple-500"
+                style={spring}
+            ></animated.div>
+        </div>
+    );
+}
+
 function UserMenu() {
     const auth = useAuthUser();
     const firebase = useContext(FirebaseContext);
@@ -49,20 +70,26 @@ function UserMenu() {
 
     return (
         <>
+            <AnimatedLink
+                className="block mr-8 cursor-pointer hover:font-semibold pt-px"
+                to={ROUTES.MY_DECKS}
+            >
+                My Decks
+            </AnimatedLink>
+            {/* <Link
+                className="block mr-8 cursor-pointer hover:font-semibold pt-px"
+                to={ROUTES.MY_DECKS}
+            >
+                My Decks
+            </Link> */}
             {auth && (
                 <>
-                    <Link
-                        className="block mr-8 cursor-pointer hover:font-semibold pt-px"
-                        to={ROUTES.MY_DECKS}
-                    >
-                        My Decks
-                    </Link>
-                    <Link
+                    <AnimatedLink
                         className="block mr-8 cursor-pointer hover:font-semibold pt-px"
                         to={ROUTES.PROFILE}
                     >
                         Profile
-                    </Link>
+                    </AnimatedLink>
                     <a
                         href="#"
                         className="block mt-4 lg:mt-0 lg:ml-auto mr-8 cursor-pointer hover:font-semibold pt-px"
@@ -72,22 +99,22 @@ function UserMenu() {
                     >
                         Sign Out
                     </a>
-                    <Link
-                        className="hidden lg:block focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
-                        to="/deck/create"
-                    >
-                        + New Deck
-                    </Link>
                 </>
             )}
             {!auth && (
-                <Link
+                <AnimatedLink
                     className="block mr-8 lg:ml-auto cursor-pointer hover:font-semibold pt-px"
                     to={ROUTES.SIGN_IN}
                 >
                     Sign In
-                </Link>
+                </AnimatedLink>
             )}
+            <Link
+                className="hidden lg:block focus:bg-purple-500 btn btn-purple mr-8 cursor-pointer hover:font-semibold px-4 py-2 font-bold"
+                to="/deck/create"
+            >
+                + New Deck
+            </Link>
         </>
     );
 }
@@ -151,18 +178,18 @@ const Menu = ({ classes, showHome, children }) => {
                 </Link>
             )}
 
-            <Link
+            <AnimatedLink
                 className="block mr-8 cursor-pointer hover:font-semibold pt-px"
                 to={ROUTES.BROWSE_ALL_DECKS}
             >
                 Public decks
-            </Link>
-            <Link
+            </AnimatedLink>
+            <AnimatedLink
                 className="block mr-8 cursor-pointer hover:font-semibold pt-px"
                 to={ROUTES.CARDS_LIBRARY}
             >
                 Library
-            </Link>
+            </AnimatedLink>
 
             {children}
         </nav>

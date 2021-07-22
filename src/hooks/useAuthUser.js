@@ -1,7 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 import { FirebaseContext } from "../firebase";
 
-function useAuthUser() {
+const AuthUserContext = createContext();
+
+function AuthContextProvider({ children }) {
     const [authUser, setAuthUser] = useState(
         JSON.parse(localStorage.getItem("yawudb_authUser"))
     );
@@ -25,7 +27,24 @@ function useAuthUser() {
         return () => releaseAuthListener();
     }, [firebase]);
 
+    return (
+        <AuthUserContext.Provider value={authUser}>
+            { children }
+        </AuthUserContext.Provider>
+    )
+}
+
+function useAuthUser() {
+    const authUser = useContext(AuthUserContext);
+    if (authUser === undefined) {
+        throw Error(
+            "useAuthUser should be used within AuthContextProvider"
+        );
+    }
+
     return authUser;
 }
+
+export { AuthContextProvider };
 
 export default useAuthUser;

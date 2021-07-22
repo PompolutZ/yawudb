@@ -1,16 +1,27 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import React, {
+    useEffect,
+    useMemo,
+    useState,
+    useCallback,
+    useRef,
+} from "react";
+import { Link } from "react-router-dom";
 import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
-import { CREATE_NEW_DECK, VIEW_DECK } from "../../constants/routes";
+import { VIEW_DECK } from "../../constants/routes";
 import { checkCardIsObjective, getCardById } from "../../data/wudb";
 import { ReactComponent as TrashIcon } from "../../svgs/trash.svg";
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
 import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
 import {
-    useDeleteUserDeck,
     useGetUserDecks,
+    fetchUserDecks,
 } from "../../hooks/wunderworldsAPIHooks";
+import useAuthUser from "../../hooks/useAuthUser";
+import useDexie from "../../hooks/useDexie";
+import { useDeleteUserDeckFactory } from "../../hooks/useDeleteUserDeckFactory";
+import { useSaveDeckFactory } from "../../hooks/useSaveDeckFactory";
+import Firebase from "../../firebase";
 
 function DeckLink({ onDelete, ...props }) {
     const [cards, setCards] = useState([]);
@@ -78,16 +89,125 @@ function DeckLink({ onDelete, ...props }) {
     );
 }
 
-function MyDecksPage() {
-    const history = useHistory();
-    const [{ data, loading, error }, refetch] = useGetUserDecks(true);
-    const [, deleteUserDeck] = useDeleteUserDeck();
-    const { state } = useLocation();
-    const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
+function useUserDecksLoader() {
+    const db = useDexie("wudb");
+    const user = useAuthUser();
+    const [error, setError] = useState(undefined);
+    const [loading, setLoading] = useState(false);
+    const [decks, setDecks] = useState([]);
+    const fetchAsync = useCallback(async () => {
+        setLoading(true);
+
+        try {
+            if (user) {
+                const token = await Firebase.getTokenId();
+                if (token) {
+                    const { data } = await fetchUserDecks();
+                    setDecks(data);
+                }
+            } else {
+                const localDecks = await db.anonDecks.toArray();
+                setDecks(localDecks);
+            }
+        } catch (e) {
+            setError(e);
+        } finally {
+            setLoading(false);
+        }
+    }, [user]);
 
     useEffect(() => {
-        refetch();
-    }, [state]);
+        fetchAsync();
+    }, [user]);
+
+    return [decks, loading, error, fetchAsync];
+}
+
+function useAnonDecksSyncronisation(refetch) {
+    const user = useAuthUser();
+    const db = useDexie("wudb");
+    const saveDeck = useSaveDeckFactory();
+
+    useEffect(() => {
+        if (!user) return;
+
+        db.anonDecks
+            .toArray()
+            .then((anonDecks) => {
+                anonDecks.forEach(async (d) => {
+                    const {
+                        deckId,
+                        createdutc,
+                        updatedutc,
+                        deck,
+                        sets,
+                        name,
+                        faction,
+                    } = d;
+                    await saveDeck({
+                        data: {
+                            deckId,
+                            createdutc,
+                            updatedutc,
+                            deck,
+                            sets,
+                            name,
+                            faction,
+                            private: d.private,
+                        },
+                    });
+                });
+
+                return anonDecks.map(({ id }) => id);
+            })
+            .then((idsToDelete) => db.anonDecks.bulkDelete(idsToDelete))
+            .then(() => {
+                refetch();
+            })
+            .catch((e) =>
+                console.error("Error transfering decks to server", e)
+            );
+    }, [user, db, refetch, saveDeck]);
+}
+
+function AnonymousUserDecksStorageInfo() {
+    return (
+        <div>
+            <p className="border-2 border-purple-700 text-purple-700 bg-purple-100 text-justify p-4 my-4 rounded-md lg:mx-auto lg:w-2/5">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="inline relative mb-1 h-5 w-5 mr-2"
+                    fill="#DDD6FE"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                </svg>
+                Greetings stranger! Decks below are stored in this very browser
+                only. If you{" "}
+                {
+                    <Link className="underline font-bold" to="/login">
+                        sign in
+                    </Link>
+                }
+                , they will be stored in database and available to you on any
+                device.
+            </p>
+        </div>
+    );
+}
+
+function MyDecksPage() {
+    const user = useAuthUser();
+    const [userDecks, loading, error, refetch] = useUserDecksLoader(user);
+    useAnonDecksSyncronisation(refetch);
+    const [confirmDeleteDeckId, setConfirmDeleteDeckId] = useState(undefined);
+    const deleteDeckAsync = useDeleteUserDeckFactory();
 
     const handleCloseDeleteDialog = () => {
         setConfirmDeleteDeckId(null);
@@ -98,29 +218,32 @@ function MyDecksPage() {
     };
 
     const handleDeleteDeck = async () => {
-        await deleteUserDeck({
-            url: `/api/v1/user-decks/${confirmDeleteDeckId}`,
-        });
-        await refetch();
-        setConfirmDeleteDeckId(null);
+        try {
+            await deleteDeckAsync(confirmDeleteDeckId);
+            refetch();
+            setConfirmDeleteDeckId(null);
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     return (
-        <div className="flex-1 flex p-4">
-            {
+        <div className="flex-1 flex p-4 flex-col">
+            {!user && <AnonymousUserDecksStorageInfo />}
+            {/* {
                 error && error.response.status === 401 && (
                     <Redirect to="/login" />
                 )
-            }
+            } */}
             {loading && (
-                <div className="flex-1 flex items-center justify-center">
+                <div className="flex items-center justify-center">
                     <p>Loading...</p>
                 </div>
             )}
-            {!loading && data && data.length === 0 && (
+            {!loading && userDecks.length === 0 && (
                 <div className="flex-1 flex items-center justify-center">
                     <p>
-                        You don't have any decks yet.
+                        You don't have any decks yet.{" "}
                         <Link
                             className="text-purple-700 font-bold"
                             to="/deck/create"
@@ -130,9 +253,10 @@ function MyDecksPage() {
                     </p>
                 </div>
             )}
-            {data && data.length > 0 && (
+
+            {userDecks.length > 0 && (
                 <div className="flex-1">
-                    {data
+                    {userDecks
                         .map((deck) => ({
                             ...deck,
                             id: deck.deckId,
@@ -152,8 +276,9 @@ function MyDecksPage() {
             <DeleteConfirmationDialog
                 title="Delete deck"
                 description={`Are you sure you want to delete deck: '${
-                    data &&
-                    data.find((deck) => deck.id === confirmDeleteDeckId)?.name
+                    userDecks.find(
+                        (deck) => deck.deckId === confirmDeleteDeckId
+                    )?.name
                 }'`}
                 open={!!confirmDeleteDeckId}
                 onCloseDialog={handleCloseDeleteDialog}

@@ -4,10 +4,9 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { getCardById } from "../../data/wudb";
 import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
-import {
-    useDeleteUserDeck,
-    useGetUserDeckById,
-} from "../../hooks/wunderworldsAPIHooks";
+import { useGetUserDeckById } from "../../hooks/wunderworldsAPIHooks";
+import { useDeleteUserDeckFactory } from "../../hooks/useDeleteUserDeckFactory";
+import { Toast } from "./ReadonlyDeck/atoms/Toast";
 
 function Deck() {
     const { id } = useParams();
@@ -23,8 +22,10 @@ function Deck() {
         false
     );
     const [cardsView, setCardsView] = React.useState(false);
-    const [, deleteUserDeck] = useDeleteUserDeck();
+    const deleteUserDeck = useDeleteUserDeckFactory();
     const [cannotShowDeckMessage, setCannotShowDeckMessage] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [toastContent, setToastContent] = useState(null);
 
     useEffect(() => {
         setLoading(true);
@@ -66,15 +67,30 @@ function Deck() {
 
     const handleDeleteDeck = async () => {
         const { id } = deck;
-        await deleteUserDeck({
-            url: `/api/v1/user-decks/${id}`,
-        });
-        handleCloseDeleteDialog();
-        history.replace({ pathname: "/mydecks", state: { deck, status: 'DELETED' } });
+        try {
+            await deleteUserDeck(id);
+            handleCloseDeleteDialog();
+            history.replace({
+                pathname: "/mydecks",
+                state: { deck, status: "DELETED" },
+            });
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     const _deleteDeck = async () => {
         setIsDeleteDialogVisible(true);
+    };
+
+    const handleShowToast = (text) => {
+        setToastContent(text);
+        setShowToast(true);
+    };
+
+    const resetToast = () => {
+        setShowToast(false);
+        setToastContent(null);
     };
 
     return (
@@ -123,6 +139,7 @@ function Deck() {
                         cards={cards}
                         canUpdateOrDelete={canUpdateOrDelete}
                         onDelete={_deleteDeck}
+                        showToast={handleShowToast}
                     />
 
                     <DeleteConfirmationDialog
@@ -135,6 +152,13 @@ function Deck() {
                     />
                 </>
             )}
+            <Toast
+                className="border-purple-700 border-2 bg-purple-100 font-bold p-4 text-purple-700 text-xs lg:text-default rounded-md shadow-md"
+                show={showToast}
+                onTimeout={resetToast}
+            >
+                {toastContent}
+            </Toast>
         </React.Fragment>
     );
 }

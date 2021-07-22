@@ -111,12 +111,12 @@ export const sets = {
     },
     "The Wurmspat expansion": {
         "id": 24,
-        "name": "hrothgorns-mantrappers",
+        "name": "the-wurmspat",
         "displayName": "The Wurmspat expansion"
     },
     "Hrothgorn's Mantrappers expansion": {
         "id": 25,
-        "name": "the-wurmspat",
+        "name": "hrothgorns-mantrappers",
         "displayName": "Hrothgorn's Mantrappers expansion"
     },
     "Morgwaeth's Blade-coven expansion": {

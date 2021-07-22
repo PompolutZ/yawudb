@@ -98,7 +98,7 @@ class ReadonlyDeck extends PureComponent {
             updatedutc,
         } = this.props;
 
-        const [userInfo] = this.props.userInfo;
+        const [userInfo] = this.props.userInfo || [];
         const authorDisplayName = userInfo ? userInfo.displayName : 'Anonymous';        
 
         const objectives = cards
@@ -172,27 +172,13 @@ class ReadonlyDeck extends PureComponent {
                     <>
                         <div className="lg:hidden">
                             <DeckActionsMenu
-                                onSaveAsPdf={this._handleSaveAsPdf}
-                                onSaveText={this._handleSaveText}
-                                onSaveImage={this._handleSaveImage}
-                                onSaveVassalFiles={this._handleSaveVassalFiles}
+                                deck={deck}
+                                deckId={id}
                                 canUpdateOrDelete={this.props.canUpdateOrDelete}
-                                onEdit={
-                                    <Link
-                                        className="px-2"
-                                        to={{
-                                            pathname: `/deck/edit/${id}`,
-                                            state: {
-                                                deck,
-                                            },
-                                        }}
-                                    >
-                                        Edit
-                                    </Link>
-                                }
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
                                 exportToClub={this._handleExportToClub}
+                                createShareableLink={this._handleCreateShareableLink}
                                 onDelete={this.props.onDelete}
                             />
                         </div>
@@ -200,27 +186,14 @@ class ReadonlyDeck extends PureComponent {
                             <DeckActionMenuLarge
                                 cardsView={this.props.cardsView}
                                 onCardsViewChange={this.props.onCardsViewChange}
-                                onSaveAsPdf={this._handleSaveAsPdf}
-                                onSaveText={this._handleSaveText}
-                                onSaveImage={this._handleSaveImage}
                                 onSaveVassalFiles={this._handleSaveVassalFiles}
                                 canUpdateOrDelete={this.props.canUpdateOrDelete}
-                                edit={
-                                    <Link
-                                        className="px-4 flex hover:text-purple-800"
-                                        to={{
-                                            pathname: `/deck/edit/${id}`,
-                                            state: {
-                                                deck,
-                                            },
-                                        }}
-                                    >
-                                        <EditIcon className="mr-2" /> Edit
-                                    </Link>
-                                }
+                                deck={deck}
+                                deckId={id}
                                 exportToUDB={this._handleExportToUDB}
                                 exportToUDS={this._handleExportToUDS}
                                 exportToClub={this._handleExportToClub}
+                                createShareableLink={this._handleCreateShareableLink}
                                 onDelete={this.props.onDelete}
                             />
                         </div>
@@ -319,230 +292,6 @@ class ReadonlyDeck extends PureComponent {
         document.body.removeChild(tempDownloadLink);
     };
 
-    _handleSaveText = (link) => {
-        const { id, name, cards } = this.props;
-        let newLineChar;
-        if (navigator.platform.startsWith("Win")) {
-            newLineChar = "\r\n";
-        } else {
-            newLineChar = "\n";
-        }
-
-        const header = `Faction: ${
-            factions[idPrefixToFaction[id.split("-")[0]]]
-        }`;
-        const cardsjs = cards.toJS();
-        const objectives = cardsjs.filter((c) => c.type === 0);
-        const totalGlory = objectives.reduce(
-            (acc, c) => (acc += Number(c.glory)),
-            0
-        );
-        const objectivesAsText = objectives
-            .map(
-                (c) =>
-                    `${this._convertCardIdToPrintFormat(c.id)}${` - `}${
-                        c.name
-                    }${` - `}${c.glory} glory${newLineChar}`
-            )
-            .reduce((acc, el) => (acc += el), "");
-        const objectivesSection = `Objectives - Total glory: ${totalGlory}${newLineChar}-----------------------------${newLineChar}${objectivesAsText}`;
-
-        const gambits = cardsjs.filter((c) => c.type === 1 || c.type === 3);
-        const gambitsAsText = gambits
-            .map(
-                (c) =>
-                    `${this._convertCardIdToPrintFormat(c.id)}${` - `}${
-                        c.name
-                    }${newLineChar}`
-            )
-            .reduce((acc, el) => (acc += el), "");
-        const gambitsSection = `Gambits (${gambits.length})${newLineChar}-----------------------------${newLineChar}${gambitsAsText}`;
-
-        const upgrades = cardsjs.filter((c) => c.type === 2);
-        const upgradesAsText = upgrades
-            .map(
-                (c) =>
-                    `${this._convertCardIdToPrintFormat(c.id)}${` - `}${
-                        c.name
-                    }${newLineChar}`
-            )
-            .reduce((acc, el) => (acc += el), "");
-        const upgradesSection = `Upgrades (${upgrades.length})${newLineChar}-----------------------------${newLineChar}${upgradesAsText}`;
-
-        const location = window.location.href.endsWith(id)
-            ? window.location.href
-            : `${window.location.href}view/deck/${id}`;
-        const footer = `-----------------------------${newLineChar}Deck URL: ${location}`;
-
-        const content = [
-            header,
-            `${newLineChar}${newLineChar}`,
-            objectivesSection,
-            `${newLineChar}${newLineChar}`,
-            gambitsSection,
-            `${newLineChar}${newLineChar}`,
-            upgradesSection,
-            `${newLineChar}${newLineChar}`,
-            footer,
-        ];
-        const file = new Blob(content, { type: "text/plain" });
-        link.href = URL.createObjectURL(file);
-        link.download = `${name}.txt`;
-    };
-
-    _handleSaveImage = (link) => {
-        const { cards, name } = this.props;
-
-        const canvas = document.getElementById("deckCanvas");
-        const ctx = canvas.getContext("2d");
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        const objectives = cards
-            .toJS()
-            .filter((c) => c.type === 0)
-            .reduce((acc, el, i, arr) => {
-                if (i % 4 === 0) {
-                    acc.push(arr.slice(i, i + 4));
-                }
-                return acc;
-            }, []);
-
-        const gambits = cards
-            .toJS()
-            .filter((c) => c.type === 1 || c.type === 3)
-            .reduce((acc, el, i, arr) => {
-                if (i % 4 === 0) {
-                    acc.push(arr.slice(i, i + 4));
-                }
-                return acc;
-            }, []);
-
-        const upgrades = cards
-            .toJS()
-            .filter((c) => c.type === 2)
-            .reduce((acc, el, i, arr) => {
-                if (i % 4 === 0) {
-                    acc.push(arr.slice(i, i + 4));
-                }
-                return acc;
-            }, []);
-
-        try {
-            let cursorX = 10;
-            let cursorY = 10;
-            for (let row of objectives) {
-                for (let c of row) {
-                    if (restrictedCards[c.id]) {
-                        ctx.fillStyle = "Goldenrod";
-                        ctx.fillRect(
-                            cursorX - 5,
-                            cursorY - 5,
-                            cardWidthPx + 10,
-                            cardHeightPx + 10
-                        );
-                    }
-
-                    const image = document.getElementById(`card_${c.id}`);
-                    ctx.drawImage(
-                        image,
-                        cursorX,
-                        cursorY,
-                        cardWidthPx,
-                        cardHeightPx
-                    );
-                    cursorX += cardWidthPx + 10;
-                }
-
-                cursorX = 10;
-                cursorY += cardHeightPx + 10;
-            }
-
-            ctx.beginPath();
-            ctx.moveTo(4 * (cardWidthPx + 10) + 10, 5);
-            ctx.lineTo(
-                4 * (cardWidthPx + 10) + 10,
-                3 * (cardHeightPx + 10) + 10
-            );
-            ctx.stroke();
-
-            cursorY = 10;
-            cursorX = 4 * (cardWidthPx + 10) + 21;
-            for (let row of gambits) {
-                for (let c of row) {
-                    if (restrictedCards[c.id]) {
-                        ctx.fillStyle = "Goldenrod";
-                        ctx.fillRect(
-                            cursorX - 5,
-                            cursorY - 5,
-                            cardWidthPx + 10,
-                            cardHeightPx + 10
-                        );
-                    }
-
-                    const image = document.getElementById(`card_${c.id}`);
-                    ctx.drawImage(
-                        image,
-                        cursorX,
-                        cursorY,
-                        cardWidthPx,
-                        cardHeightPx
-                    );
-                    cursorX += cardWidthPx + 10;
-                }
-
-                cursorX = 4 * (cardWidthPx + 10) + 21;
-                cursorY += cardHeightPx + 10;
-            }
-
-            ctx.beginPath();
-            ctx.moveTo(8 * (cardWidthPx + 10) + 20, 5);
-            ctx.lineTo(
-                8 * (cardWidthPx + 10) + 20,
-                3 * (cardHeightPx + 10) + 10
-            );
-            ctx.stroke();
-
-            cursorY = 10;
-            cursorX = 8 * (cardWidthPx + 10) + 31;
-            for (let row of upgrades) {
-                for (let c of row) {
-                    if (restrictedCards[c.id]) {
-                        ctx.fillStyle = "Goldenrod";
-                        ctx.fillRect(
-                            cursorX - 5,
-                            cursorY - 5,
-                            cardWidthPx + 10,
-                            cardHeightPx + 10
-                        );
-                    }
-
-                    const image = document.getElementById(`card_${c.id}`);
-                    ctx.drawImage(
-                        image,
-                        cursorX,
-                        cursorY,
-                        cardWidthPx,
-                        cardHeightPx
-                    );
-                    cursorX += cardWidthPx + 10;
-                }
-
-                cursorX = 8 * (cardWidthPx + 10) + 31;
-                cursorY += cardHeightPx + 10;
-            }
-
-            const dataUrl = canvas.toDataURL();
-            const contentType = "image/png";
-            const b64Data = dataUrl.slice("data:image/png;base64,".length);
-            const blob = b64toBlob(b64Data, contentType);
-            link.href = URL.createObjectURL(blob);
-            link.download = `${name}.png`;
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
     _convertCardIdToPrintFormat = (cardId) => {
         switch (cardId.slice(0, 2)) {
             case "02":
@@ -602,6 +351,12 @@ class ReadonlyDeck extends PureComponent {
             `https://www.underworlds-deckers.com/en/tournament-decks/?Deck=https://yawudb.com/cards,${udsEncodedCards}`
         );
     };
+
+    _handleCreateShareableLink = () => {
+        const link = `${process.env.REACT_APP_BASE_URL}/deck/transfer/wuc,${this.props.cards.map(card => card.id).join(',')}`
+        clipboard.writeText(link);
+        this.props.showToast('Link copied to clipboard!')
+    }
 }
 
 export default withRouter(withStyles(styles)(ReadonlyDeck));

@@ -7,7 +7,8 @@ import DeckCreatorTransfer from "./DeckCreatorTransfer";
 import { deckBuilderReducer, INITIAL_STATE } from "./reducer";
 import { getFactionByName } from "../../data/wudb";
 import { addKeyToLocalStorage, removeKeyFromLocalStorage, initialiseStateFromLocalStorage, apiSaveDeckAsync, apiUpdateDeckAsync } from "./effects";
-import { usePostUserDeck, useUpdateUserDeck } from "../../hooks/wunderworldsAPIHooks";
+import { useSaveDeckFactory } from "../../hooks/useSaveDeckFactory";
+import { useUpdateDeckFactory } from "../../hooks/useUpdateDeckFactory";
 
 const DeckBuilderContext = React.createContext();
 const DeckBuilderDispatchContext = React.createContext();
@@ -53,14 +54,14 @@ const initialiseState = deck => exec => {
 
 function DeckBuilderContextProvider({ children }) {
     const location = useLocation();
-    const [, saveUserDeck] = usePostUserDeck();
-    const [, update] = useUpdateUserDeck();
+    const saveDeck = useSaveDeckFactory();
+    const updateDeck = useUpdateDeckFactory();
     const [state, dispatch] = useEffectReducer(
         deckBuilderReducer, 
         initialiseState(location.state && location.state.deck), 
         {
-            saveDeck: apiSaveDeckAsync(saveUserDeck),
-            updateDeck: apiUpdateDeckAsync(update),
+            saveDeck: apiSaveDeckAsync(saveDeck),
+            updateDeck: apiUpdateDeckAsync(updateDeck),
             addKeyToLocalStorage,
             removeKeyFromLocalStorage,
             initialiseStateFromLocalStorage,

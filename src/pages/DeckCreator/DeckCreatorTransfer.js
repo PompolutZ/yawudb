@@ -15,6 +15,8 @@ const decodeUDS = (card) => {
     return String(Number(card) + 1000).padStart(5, "0");
 };
 
+const decodeWUC = card => card;
+
 const udbPrefixesMap = {
     L: 2000,
     N: 3000,
@@ -37,7 +39,12 @@ const decodeUDB = (card) => {
 };
 
 const getDecodingFunction = (encoding) => {
-    return encoding === "udb" ? decodeUDB : decodeUDS;
+    switch (encoding) {
+        case "udb": return decodeUDB;
+        case 'uds': return decodeUDS;
+        case 'wuc': return decodeWUC;
+        default: throw Error("Unknown encoding format");
+    }
 };
 
 function DeckCreatorTransfer(props) {

@@ -5,7 +5,7 @@ import { useState } from "react";
 export default function useDexie(name) {
     const [db] = useState(() => {
         const dexie = new Dexie(name, { addons: [relationships] });
-        dexie.version(1).stores({
+        dexie.version(2).stores({
             // maybe to consider making restriction as a keyword,
             // maybe use more keywords?..
             // revision: "++id,revision",
@@ -15,11 +15,14 @@ export default function useDexie(name) {
             //     "id,name,factionId -> factions.id,type,setId -> sets.id,[factionId+setId],rule,glory,scoreType,status,rotated,duplicates",
             // cardsRanks:
             //     "id,factionId -> factions.id, cardId -> cards.id, [factionId+cardId], rank",
-            publicDecks: "id,author,authorDisplayName,createdutc,deck,faction,name,sets,updatedutc"
+            publicDecks:
+                "id,author,authorDisplayName,createdutc,deck,faction,name,sets,updatedutc",
+            anonDecks:
+                "++id,deckId,createdutc,deck,faction,name,private,sets,updatedutc",
         });
 
         return dexie;
-    })
+    });
 
     return db;
 }
