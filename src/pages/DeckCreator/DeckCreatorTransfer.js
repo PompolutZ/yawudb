@@ -12,10 +12,17 @@ import { INITIAL_STATE } from "./reducer";
 import DeckCreatorBase from "./DeckCreatorBase";
 
 const decodeUDS = (card) => {
+    const udsId = Number(card);
+    if (udsId >= 9000 && udsId < 10000) {
+        return String(Number(card) + 2000).padStart(5, "0");
+    } else if (udsId >= 10000 && udsId < 11000) {
+        return String(Number(card)).padStart(5, "0");
+    }
+    
     return String(Number(card) + 1000).padStart(5, "0");
 };
 
-const decodeWUC = card => card;
+const decodeWUC = (card) => card;
 
 const udbPrefixesMap = {
     L: 2000,
@@ -40,10 +47,14 @@ const decodeUDB = (card) => {
 
 const getDecodingFunction = (encoding) => {
     switch (encoding) {
-        case "udb": return decodeUDB;
-        case 'uds': return decodeUDS;
-        case 'wuc': return decodeWUC;
-        default: throw Error("Unknown encoding format");
+        case "udb":
+            return decodeUDB;
+        case "uds":
+            return decodeUDS;
+        case "wuc":
+            return decodeWUC;
+        default:
+            throw Error("Unknown encoding format");
     }
 };
 
