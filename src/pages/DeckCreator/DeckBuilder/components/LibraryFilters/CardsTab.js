@@ -8,17 +8,7 @@ import {
 import { ReactComponent as FilterIcon } from "../../../../../svgs/filter.svg";
 import ToggleButton from "../ToggleButton";
 import { useDeckBuilderState } from "../../..";
-
-function IconButton({ children, className, ...rest }) {
-    return (
-        <button
-            className={` rounded-full focus:outline-none focus:text-purple-700 ${className}`}
-            {...rest}
-        >
-            {children}
-        </button>
-    );
-}
+import IconButton from "../../../../../v2/components/IconButton";
 
 function CardsTab({
     enabledTypes,
@@ -117,7 +107,7 @@ function CardsTab({
                 <div>{selectedUpgrades.length}</div>
             </ToggleButton>
             <IconButton
-                className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100"
+                className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100 focus:text-purple-700 "
                 onClick={onToggleShowFilters}
             >
                 <FilterIcon className="w-6 h-6 stroke-current filter drop-shadow-md" />
