@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "@material-ui/core/Link";
 import { version } from "../../package.json";
 
 function Footer() {
@@ -13,7 +12,7 @@ function Footer() {
                 affiliated with Games Workshop and produced without commercial
                 purpose in mind. This website is licensed under MIT license and
                 its source code could be found{" "}
-                <Link href="https://github.com/PompolutZ/yawudb">here</Link>.
+                <a className="text-purple-500 font-bold" href="https://github.com/PompolutZ/yawudb">here</a>.
             </p>
         </footer>
     );
