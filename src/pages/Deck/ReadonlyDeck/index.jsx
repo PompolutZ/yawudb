@@ -1,17 +1,11 @@
 import React, { PureComponent, lazy } from "react";
 import {
-    idPrefixToFaction,
-    factions,
-    restrictedCards,
-} from "../../../data/index";
-import {
     checkDeckValidFormats,
 } from "../../../utils/functions";
 import { Set } from "immutable";
 import { withStyles } from "@material-ui/core/styles";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import ScoringOverview from "../../../atoms/ScoringOverview";
-import b64toBlob from "b64-to-blob";
 import Card from "./atoms/Card";
 import DetailedPlayStyleValidity from "../../../atoms/DetailedPlayStyleValidity";
 import * as clipboard from "clipboard-polyfill";
@@ -22,7 +16,6 @@ import {
     compareObjectivesByScoreType,
 } from "../../../data/wudb";
 import CardListSectionHeader from "../../../v2/components/CardListSectionHeader";
-import { ReactComponent as EditIcon } from "../../../svgs/edit-2.svg";
 import DeckSummary from "./DeckSummary";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
