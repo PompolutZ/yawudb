@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import ExpansionIcon from "./ExpansionIcon";
 import classnames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
