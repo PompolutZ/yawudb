@@ -10,7 +10,6 @@ import { withStyles } from "@material-ui/core/styles";
 import toPairs from "lodash/toPairs";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { getSetNameById, wucards } from "../data/wudb";
 
 const styles = (theme) => ({
     container: {
@@ -48,8 +47,9 @@ function AutosuggestSearch({ classes, onClick }) {
     const [suggestions, setSuggestions] = useState([]);
     const [lastPickedSuggestion, setLastPickedSuggestion] = useState(null);
 
-    const handleSuggestionsFetchRequested = ({ value }) => {
-        setSuggestions(getSuggestions(value));
+    const handleSuggestionsFetchRequested = async ({ value }) => {
+        const { getSetNameById, wucards } = await import("../data/wudb");
+        setSuggestions(getSuggestions(value, wucards, getSetNameById));
     };
 
     const handleSuggestionsClearRequested = () => {
@@ -64,7 +64,6 @@ function AutosuggestSearch({ classes, onClick }) {
         setLastPickedSuggestion(suggestion);
         return suggestion.label;
     };
-
 
     const handleKeyPress = (event) => {
         if (event.key !== "Enter") return;
@@ -136,80 +135,83 @@ function renderInputComponent(inputProps) {
 }
 
 // eslint-disable-next-line react/display-name
-const renderSuggestion = (onMenuItemClick) => (
-    suggestion,
-    { query, isHighlighted }
-) => {
-    const matches = match(suggestion.label, query);
-    const parts = parse(suggestion.label, matches);
+const renderSuggestion =
+    (onMenuItemClick) =>
+    (suggestion, { query, isHighlighted }) => {
+        const matches = match(suggestion.label, query);
+        const parts = parse(suggestion.label, matches);
 
-    const handleMenuSuggestionClicked = () => {
-        onMenuItemClick(suggestion);
+        const handleMenuSuggestionClicked = () => {
+            onMenuItemClick(suggestion);
+        };
+
+        return (
+            <MenuItem
+                selected={isHighlighted}
+                component="div"
+                onClick={handleMenuSuggestionClicked}
+            >
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <div
+                        style={{
+                            position: "relative",
+                            marginRight: ".5rem",
+                            width: "2rem",
+                            height: "1.5rem",
+                        }}
+                    >
+                        <img
+                            src={`/assets/icons/${suggestion.type.toLowerCase()}-icon.png`}
+                            style={{
+                                width: "1.5rem",
+                                height: "1.5rem",
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                            }}
+                        />
+                        <img
+                            src={suggestion.setImgUrl}
+                            style={{
+                                width: "1.5rem",
+                                height: "1.5rem",
+                                position: "absolute",
+                                top: 0,
+                                left: 12,
+                            }}
+                        />
+                    </div>
+                    {parts.map((part, index) =>
+                        part.highlight ? (
+                            <span
+                                key={String(index)}
+                                style={{ fontWeight: 500 }}
+                            >
+                                {part.text}
+                            </span>
+                        ) : (
+                            <strong
+                                key={String(index)}
+                                style={{ fontWeight: 300 }}
+                            >
+                                {part.text}
+                            </strong>
+                        )
+                    )}
+                </div>
+            </MenuItem>
+        );
     };
 
-    return (
-        <MenuItem
-            selected={isHighlighted}
-            component="div"
-            onClick={handleMenuSuggestionClicked}
-        >
-            <div style={{ display: "flex", alignItems: "center" }}>
-                <div
-                    style={{
-                        position: "relative",
-                        marginRight: ".5rem",
-                        width: "2rem",
-                        height: "1.5rem",
-                    }}
-                >
-                    <img
-                        src={`/assets/icons/${suggestion.type.toLowerCase()}-icon.png`}
-                        style={{
-                            width: "1.5rem",
-                            height: "1.5rem",
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                        }}
-                    />
-                    <img
-                        src={`/assets/icons/${
-                            getSetNameById(suggestion.set)
-                        }-icon.png`}
-                        style={{
-                            width: "1.5rem",
-                            height: "1.5rem",
-                            position: "absolute",
-                            top: 0,
-                            left: 12,
-                        }}
-                    />
-                </div>
-                {parts.map((part, index) =>
-                    part.highlight ? (
-                        <span key={String(index)} style={{ fontWeight: 500 }}>
-                            {part.text}
-                        </span>
-                    ) : (
-                        <strong key={String(index)} style={{ fontWeight: 300 }}>
-                            {part.text}
-                        </strong>
-                    )
-                )}
-            </div>
-        </MenuItem>
-    );
-};
-
-function getSuggestions(value) {
+function getSuggestions(value, cards, getSetNameById) {
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
-    const suggestions = toPairs(wucards).map(([id, card]) => ({
+    const suggestions = toPairs(cards).map(([id, card]) => ({
         id: id,
         label: card.name,
         type: card.type,
-        set: card.setId,
+        setImgUrl: `/assets/icons/${getSetNameById(card.setId)}-icon.png`,
     }));
 
     return inputLength === 0
