@@ -5,7 +5,6 @@ import SectionTitle from "../v2/components/SectionTitle";
 import { MY_DECKS, PROFILE, SIGN_UP } from "../constants/routes";
 import GoogleButton from "react-google-button";
 import { FacebookLoginButton } from "react-social-login-buttons";
-import { useEffect } from "react";
 
 function EmailPasswordForm({ purpose, onUseCredentials }) {
     const [email, setEmail] = useState("");

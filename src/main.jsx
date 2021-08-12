@@ -10,7 +10,6 @@ import {
 import "./index.css";
 
 import { unregister } from "./registerServiceWorker";
-import { createBrowserHistory } from "history";
 
 import { connect } from "react-redux";
 import LazyLoading from "./components/LazyLoading";
@@ -29,8 +28,6 @@ const Decks = lazy(() => import("./pages/Decks"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Library = lazy(() => import("./pages/Library"));
 const Deck = lazy(() => import("./pages/Deck"));
-const About = lazy(() => import("./pages/About"));
-const Feedback = lazy(() => import("./pages/Feedback"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
 const Card = lazy(() => import("./pages/Card"));
 const MyDecks = lazy(() => import("./pages/MyDecks/index"));
@@ -38,8 +35,6 @@ const Login = lazy(() => import("./pages/Login"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const PasswordResetRequest = lazy(() => import("./pages/PasswordResetRequest"));
 const CardsRating = lazy(() => import("./pages/CardsRating"));
-
-const history = createBrowserHistory();
 
 class PrivateRouteContainer extends React.Component {
     render() {
@@ -150,16 +145,7 @@ function MainLayout() {
                                         path={ROUTES.VIEW_CARD_ID}
                                         render={(props) => <Card {...props} />}
                                     />
-                                    <Route
-                                        path={ROUTES.ABOUT}
-                                        render={(props) => <About {...props} />}
-                                    />
-                                    <Route
-                                        path={ROUTES.FEEDBACK}
-                                        render={(props) => (
-                                            <Feedback {...props} />
-                                        )}
-                                    />
+
                                     <Route
                                         path={ROUTES.PRIVACY_POLICY}
                                         render={(props) => (
