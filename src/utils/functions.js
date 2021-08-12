@@ -1,7 +1,6 @@
 import {
     bannedCards,
     restrictedCards,
-    cardsDb,
     championshipForsakenCards,
     relicForsakenCards,
     championshipRestrictedCards,
@@ -126,44 +125,6 @@ export const ignoreAsDublicate = (cardName) => {
         "THE HALLOWED KEY",
         "THE SHADOWED KEY",
     ].includes(cardName.toUpperCase());
-};
-
-export const checkDeckValidFormats = (cardIds) => {
-    const cards = cardIds.map((id) => ({ ...cardsDb[id], id: id }));
-    const onlyUniversals = cards.filter((c) => c.faction === 0);
-
-    const anyChampionshipForsaken = onlyUniversals.some((c) =>
-        checkCardForsakenFor(c.id, "championship")
-    );
-    const anyRelicForsaken = onlyUniversals.some((c) =>
-        checkCardForsakenFor(c.id, "relic")
-    );
-    const championshipRestrictedCount = onlyUniversals.filter((c) =>
-        checkCardRestrictedFor(c.id, "championship")
-    ).length;
-    const surgesCount = cards.filter((c) => c.type === 0 && c.scoreType === 0)
-        .length;
-    const anyOutOfSeason = onlyUniversals.some(
-        (c) => Number(c.id) < 3000 && !ignoreAsDublicate(c.name)
-    );
-
-    const validForFormats = ["open"];
-
-    if (
-        !(
-            anyChampionshipForsaken ||
-            anyOutOfSeason ||
-            championshipRestrictedCount > 3 ||
-            surgesCount > 6
-        )
-    ) {
-        validForFormats.push("championship");
-    }
-
-    if (!anyRelicForsaken) {
-        validForFormats.push("relic");
-    }
-    return validForFormats;
 };
 
 export const checkCardForsakenFor = (cardId, format) => {

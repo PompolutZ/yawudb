@@ -1,7 +1,4 @@
 import React, { PureComponent, lazy } from "react";
-import {
-    checkDeckValidFormats,
-} from "../../../utils/functions";
 import { Set } from "immutable";
 import { withStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
@@ -144,8 +141,6 @@ class ReadonlyDeck extends PureComponent {
             0
         );
 
-        const playFormats = checkDeckValidFormats(cards.map((c) => c.id));
-
         return (
             <div className="flex-1 w-screen">
                 <div className="flex px-4">
@@ -158,7 +153,6 @@ class ReadonlyDeck extends PureComponent {
                     >
                         <DetailedPlayStyleValidity
                             className="relative -mx-1"
-                            validFormats={playFormats}
                             cards={cards.map((c) => c.id)}
                         />
                     </DeckSummary>

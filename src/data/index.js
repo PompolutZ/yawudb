@@ -1,19 +1,10 @@
-import { cardsdb } from "./cardsdb";
-import powersUnboundCards from "./dbs/powers_unbound_db";
-import { dreadfaneDb } from "./dbs/dreadfane_db";
-import { beastgraveDB } from "./dbs/beastgrave_db";
-import { beastgraveGiftPackDb } from "./dbs/beastgrave_giftpack_db";
-import { arenaMortisDb } from "./dbs/arena-mortis-db";
 import { setsIndex, rotatedOutSetsIndexes } from "./atoms/sets";
 
 export {
     factions,
-    // factionCards,
     PREFIX_LENGTH,
     factionIdPrefix,
-    // filterFactionByIdRange,
     idPrefixToFaction,
-    // factionSets,
     factionIndexes,
     warbandsWithDefaultSet,
     factionMembers,
@@ -70,15 +61,6 @@ export const deckPlayFormats = [CHAMPIONSHIP_FORMAT, OPEN_FORMAT, RELIC_FORMAT];
 export const universalCardsStartNumber = 233;
 
 export const firstUniversalCardPerWave = [0, 1233, 2017, 3291, 4025, 5065];
-
-export const cardsDb = {
-    ...cardsdb,
-    ...powersUnboundCards,
-    ...dreadfaneDb,
-    ...beastgraveDB,
-    ...beastgraveGiftPackDb,
-    ...arenaMortisDb,
-};
 
 export const bannedCards = {
     // "03317": 1, // Extreme Flank
