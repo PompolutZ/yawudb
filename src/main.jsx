@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import {
     BrowserRouter as Router,
     Route,
-    Redirect,
     Switch,
     useLocation,
 } from "react-router-dom";
@@ -11,11 +10,9 @@ import "./index.css";
 
 import { unregister } from "./registerServiceWorker";
 
-import { connect } from "react-redux";
 import LazyLoading from "./components/LazyLoading";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Firebase, { FirebaseContext } from "./firebase";
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import * as ROUTES from "./constants/routes";
 import NavigationPanel from "./v2/components/NavigationPanel";
 import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
@@ -34,35 +31,34 @@ const MyDecks = lazy(() => import("./pages/MyDecks/index"));
 const Login = lazy(() => import("./pages/Login"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const PasswordResetRequest = lazy(() => import("./pages/PasswordResetRequest"));
-const CardsRating = lazy(() => import("./pages/CardsRating"));
 
-class PrivateRouteContainer extends React.Component {
-    render() {
-        const { isAuthenticated, component: Component, ...props } = this.props;
+// class PrivateRouteContainer extends React.Component {
+//     render() {
+//         const { isAuthenticated, component: Component, ...props } = this.props;
 
-        return (
-            <Route
-                {...props}
-                render={(props) =>
-                    isAuthenticated ? (
-                        <Component {...props} />
-                    ) : (
-                        <Redirect
-                            to={{
-                                pathname: ROUTES.SIGN_IN,
-                                state: { from: props.location },
-                            }}
-                        />
-                    )
-                }
-            />
-        );
-    }
-}
+//         return (
+//             <Route
+//                 {...props}
+//                 render={(props) =>
+//                     isAuthenticated ? (
+//                         <Component {...props} />
+//                     ) : (
+//                         <Redirect
+//                             to={{
+//                                 pathname: ROUTES.SIGN_IN,
+//                                 state: { from: props.location },
+//                             }}
+//                         />
+//                     )
+//                 }
+//             />
+//         );
+//     }
+// }
 
-const PrivateRoute = connect((state) => ({
-    isAuthenticated: state.auth !== null,
-}))(PrivateRouteContainer);
+// const PrivateRoute = connect((state) => ({
+//     isAuthenticated: state.auth !== null,
+// }))(PrivateRouteContainer);
 
 function MainLayout() {
     const { pathname } = useLocation();
@@ -164,14 +160,14 @@ function MainLayout() {
                                             <MyDecks {...props} />
                                         )}
                                     />
-                                    <PrivateRoute
+                                    <Route
                                         path={ROUTES.PROFILE}
                                         component={UserProfile}
                                     />
-                                    <PrivateRoute
+                                    {/* <PrivateRoute
                                         path="/secret/cards-rating/:faction?"
                                         component={CardsRating}
-                                    />
+                                    /> */}
                                 </Switch>
                             </Suspense>
                         </ErrorBoundary>
@@ -191,24 +187,6 @@ function App() {
         </Router>
     );
 }
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            light: "#6B46C1",
-            main: "#553C9A",
-            dark: "##44337A",
-            // contrastText: will be calculated to contrast with palette.primary.main
-        },
-        secondary: {
-            //light: '#0066ff',
-            main: "#4b806e",
-            // dark: will be calculated from palette.secondary.main,
-            contrastText: "#ffcc00",
-        },
-        // error: will use the default color
-    },
-});
 
 const modalRoot = document.getElementById("modal-root");
 export class ModalPresenter extends React.Component {
@@ -241,9 +219,7 @@ export class ModalPresenter extends React.Component {
 const Root = () => (
     <FirebaseContext.Provider value={Firebase}>
         <AuthContextProvider>
-            <MuiThemeProvider theme={theme}>
-                <App />
-            </MuiThemeProvider>
+            <App />
         </AuthContextProvider>
     </FirebaseContext.Provider>
 );

@@ -1,7 +1,7 @@
 import React, { PureComponent, useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { factionIndexes } from "../data/index";
-import { ButtonBase } from "@material-ui/core";
+import ButtonBase from "@material-ui/core/ButtonBase";
 import classnames from "classnames";
 import { wufactions } from "../data/wudb";
 

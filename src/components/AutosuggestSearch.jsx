@@ -7,10 +7,9 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
-import { cardTypeIcons } from "../data";
 import toPairs from "lodash/toPairs";
 import SearchIcon from "@material-ui/icons/Search";
-import { InputAdornment } from "@material-ui/core";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import { getSetNameById, wucards } from "../data/wudb";
 
 const styles = (theme) => ({

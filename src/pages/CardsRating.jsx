@@ -1,11 +1,6 @@
 import React from "react";
 import { FirebaseContext } from "../firebase";
-import Button from "@material-ui/core/Button";
-import Progress from "@material-ui/core/CircularProgress";
-import {
-    getFactionByAbbr,
-    wucards,
-} from "../data/wudb";
+import { getFactionByAbbr, wucards } from "../data/wudb";
 import axios from "axios";
 
 function CardsRating(props) {
@@ -209,37 +204,37 @@ function CardsRating(props) {
     }, []);
 
     const handleUpdateClick = () => {
-        firebase.getTokenId().then((token) => {
-            return Promise.all(
-                data.map(({ faction, weights }) => {
-                    axios.put(
-                        `http://localhost:4242/api/v1/cards-ratings/${faction}`,
-                        { faction, weights },
-                        {
-                            headers: {
-                                authtoken: token,
-                            },
-                        }
-                    );
-                })
-            );
-        }).then(r => console.log(r));
+        firebase
+            .getTokenId()
+            .then((token) => {
+                return Promise.all(
+                    data.map(({ faction, weights }) => {
+                        axios.put(
+                            `http://localhost:4242/api/v1/cards-ratings/${faction}`,
+                            { faction, weights },
+                            {
+                                headers: {
+                                    authtoken: token,
+                                },
+                            }
+                        );
+                    })
+                );
+            })
+            .then((r) => console.log(r));
     };
 
     return (
         <div>
             Card Rating
-            {!data && <Progress />}
-            <Button
+            {!data && <div>Uploading...</div>}
+            <button
                 onClick={handleUpdateClick}
                 disabled={!data}
                 style={{ color: updated ? "green" : "black" }}
             >
                 Update Ranking
-            </Button>
-            <div>
-                {/* {decksError && <pre>{JSON.stringify(decksError)}</pre>} */}
-            </div>
+            </button>
         </div>
     );
 }

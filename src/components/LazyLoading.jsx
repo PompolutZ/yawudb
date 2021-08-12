@@ -1,5 +1,5 @@
 import React from "react";
-import { CircularProgress } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const LazyLoading = () => (
     <div style={{ width: "100%", height: "100vh", display: "flex" }}>
