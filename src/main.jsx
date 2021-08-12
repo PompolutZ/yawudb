@@ -1,19 +1,21 @@
 import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
-import { Route, Redirect, Switch, useLocation } from "react-router-dom";
-import { ConnectedRouter } from "connected-react-router";
+import {
+    BrowserRouter as Router,
+    Route,
+    Redirect,
+    Switch,
+    useLocation,
+} from "react-router-dom";
 import "./index.css";
 
 import { unregister } from "./registerServiceWorker";
 import { createBrowserHistory } from "history";
 
-import { connect, Provider } from "react-redux";
-import configureStore from "./configureStore";
+import { connect } from "react-redux";
 import LazyLoading from "./components/LazyLoading";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { UPDATE_EXPANSIONS } from "./reducers/userExpansions";
-import { SET_CARDS_RANKING } from "./reducers/cardLibraryFilters";
-import Firebase, { FirebaseContext, withFirebase } from "./firebase";
+import Firebase, { FirebaseContext } from "./firebase";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import * as ROUTES from "./constants/routes";
 import NavigationPanel from "./v2/components/NavigationPanel";
@@ -38,23 +40,6 @@ const PasswordResetRequest = lazy(() => import("./pages/PasswordResetRequest"));
 const CardsRating = lazy(() => import("./pages/CardsRating"));
 
 const history = createBrowserHistory();
-const store = configureStore(history);
-
-const setToLastLocation = () => {
-    // if (state.router.location.pathname !== history.location.pathname) {
-    //     if (window.matchMedia('(display-mode: standalone)').matches) {
-    //         history.push(state.router.location.pathname)
-    //         return
-    //     }
-    //     // Safari
-    //     if (window.navigator.standalone === true) {
-    //         history.push(state.router.location.pathname)
-    //         return
-    //     }
-    // }
-};
-
-setToLastLocation(store.getState(), history);
 
 class PrivateRouteContainer extends React.Component {
     render() {
@@ -211,30 +196,15 @@ function MainLayout() {
     );
 }
 
-function App(props) {
+function App() {
     usePublicDecksSyncronization();
 
     return (
-        <>
-            <ConnectedRouter history={history}>
-                <MainLayout />
-            </ConnectedRouter>
-        </>
+        <Router>
+            <MainLayout />
+        </Router>
     );
 }
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onLogin: (user) => dispatch({ type: "SET_USER", user: user }),
-        onSignOut: () => dispatch({ type: "CLEAR_USER" }),
-        updateUserExpansions: (expansions) =>
-            dispatch({ type: UPDATE_EXPANSIONS, payload: expansions }),
-        updateCardRanks: (ranks) =>
-            dispatch({ type: SET_CARDS_RANKING, payload: ranks }),
-    };
-};
-
-const ConnectedApp = connect(null, mapDispatchToProps)(withFirebase(App));
 
 const theme = createTheme({
     palette: {
@@ -283,15 +253,13 @@ export class ModalPresenter extends React.Component {
 }
 
 const Root = () => (
-    <Provider store={store}>
-        <FirebaseContext.Provider value={Firebase}>
-            <AuthContextProvider>
-                <MuiThemeProvider theme={theme}>
-                    <ConnectedApp />
-                </MuiThemeProvider>
-            </AuthContextProvider>
-        </FirebaseContext.Provider>
-    </Provider>
+    <FirebaseContext.Provider value={Firebase}>
+        <AuthContextProvider>
+            <MuiThemeProvider theme={theme}>
+                <App />
+            </MuiThemeProvider>
+        </AuthContextProvider>
+    </FirebaseContext.Provider>
 );
 
 ReactDOM.render(<Root />, document.getElementById("root"));

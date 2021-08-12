@@ -1,9 +1,7 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Deck from "./components/Deck";
-import FloatingActionButton from "../../../components/FloatingActionButton";
 import { Redirect } from "react-router-dom";
 import CardLibraryToggles from "./components/CardLibraryFilters";
-import { AddCardSVG, DeckSVG } from "../../../atoms/SVGs";
 import { useTheme } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -38,7 +36,7 @@ function Filters() {
     );
 }
 
-function DeckBuilder({ currentDeckName, existingDeckId, createdTimestamp }) {
+function DeckBuilder({ currentDeckName, existingDeckId }) {
     const [deckId, setDeckId] = useState(existingDeckId || "");
     const [deckName, setDeckName] = useState(currentDeckName || "");
     const [isMobileDeckVisible, setIsMobileDeckVisible] = useState(false);

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { AutoSizer } from "react-virtualized";
-import { connect } from "react-redux";
 import {
     validateCardForPlayFormat,
     VANGUARD_FORMAT,
@@ -187,12 +186,4 @@ function FilterableCardLibrary(props) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        visibleCardTypes: state.cardLibraryFilters.visibleCardTypes,
-        eligibleForOP: state.cardLibraryFilters.eligibleForOP,
-        cardsRanking: state.cardLibraryFilters.cardsRanking,
-    };
-};
-
-export default connect(mapStateToProps)(FilterableCardLibrary);
+export default FilterableCardLibrary;
