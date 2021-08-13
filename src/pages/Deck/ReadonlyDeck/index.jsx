@@ -340,7 +340,7 @@ class ReadonlyDeck extends PureComponent {
     };
 
     _handleCreateShareableLink = () => {
-        const link = `${import.meta.env.VITE_APP_BASE_URL}/deck/transfer/wuc,${this.props.cards.map(card => card.id).join(',')}`
+        const link = `${import.meta.env.VITE_BASE_URL}/deck/transfer/wuc,${this.props.cards.map(card => card.id).join(',')}`
         clipboard.writeText(link);
         this.props.showToast('Link copied to clipboard!')
     }
