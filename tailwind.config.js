@@ -1,9 +1,7 @@
 module.exports = {
-    future: {
-        removeDeprecatedGapUtilities: true,
-        purgeLayersByDefault: true,
-    },
-    purge: ["src/**/*.{js,jsx}"],
+    purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+    darkMode: false,
+    mode: "jit", // or 'media' or 'class'
     theme: {
         extend: {
             inset: {
@@ -23,7 +21,7 @@ module.exports = {
                     700: "#A61712",
                     900: "#8C0601",
                 },
-                objectiveGold: "#D38E36",
+                "objective-gold": "#D38E36",
                 swirl: "#d0cec2",
             },
             minWidth: {
@@ -46,17 +44,7 @@ module.exports = {
         },
     },
     variants: {
-        backgroundColor: ["responsive", "hover", "focus", "active", "disabled"],
-        opacity: ["responsive", "hover", "focus", "disabled"],
-        zIndex: ["hover"],
-        dropShadow: ["hover"],
-        extend: {
-            backgroundColor: ['odd'],
-            borderColor: ['disabled'],
-            boxShadow: ['disabled'],
-            textColor: ['disabled'],
-            scale: ['group-hover'],
-        }
+        extend: {},
     },
-    plugins: [require("@tailwindcss/forms"), require('tailwind-scrollbar'),],
+    plugins: [require("@tailwindcss/forms"), require("tailwind-scrollbar")],
 };

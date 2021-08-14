@@ -1,8 +1,8 @@
-const {
+import {
     getFactionByName,
     getAllSetsValidForFormat,
     CHAMPIONSHIP_FORMAT,
-} = require("../../data/wudb");
+} from "../../data/wudb";
 
 export const UPDATE_FILTERS_ACTION = "UPDATE_FILTERS";
 export const ADD_CARD_ACTION = "ADD_CARD";

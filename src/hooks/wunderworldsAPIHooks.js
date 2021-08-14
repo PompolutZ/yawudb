@@ -2,7 +2,7 @@ import axios from "axios";
 import useAxios from "axios-hooks";
 import Firebase from "../firebase";
 
-axios.defaults.baseURL = process.env.REACT_APP_WUNDERWORLDS_API_ORIGIN;
+axios.defaults.baseURL = import.meta.env.VITE_WUNDERWORLDS_API_ORIGIN;
 axios.interceptors.request.use(
     async (config) => {
         try {
