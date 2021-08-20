@@ -1,5 +1,4 @@
 import React, { useMemo, useState, useEffect } from "react";
-import IconButton from "@material-ui/core/IconButton";
 import { ReactComponent as TogglesIcon } from "../../../../svgs/sliders.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
 import ExpansionsToggle from "../../../../components/ExpansionsToggle";
@@ -9,13 +8,11 @@ import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../../v2/components/SectionTitle";
 import Toggle from "../../../../v2/components/HexToggle";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
-import {
-    getAllSetsValidForFormat,
-    wufactions,
-} from "../../../../data/wudb";
+import { getAllSetsValidForFormat, wufactions } from "../../../../data/wudb";
 import DebouncedInput from "../../../../v2/components/DebouncedInput";
 import { DeckPlayFormatToggle } from "../../../../v2/components/DeckPlayFormatToggle";
 import { DeckPlayFormatInfo } from "../../../../v2/components/DeckPlayFormatInfo";
+import IconButton from "../../../../v2/components/IconButton";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
@@ -36,10 +33,6 @@ const useClasses = makeStyles((theme) => ({
         padding: theme.spacing(2),
     },
 
-    closeIcon: {
-        display: "block",
-        margin: `0 ${theme.spacing(1)}px 0 auto`,
-    },
 }));
 
 function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
@@ -91,9 +84,10 @@ function CardLibraryFilters(props) {
     const [selectedFormat, setSelectedFormat] = useState(state.format);
 
     /// Here will be new approach, keeping the rest for now
-    const validSets = useMemo(() => getAllSetsValidForFormat(selectedFormat), [
-        selectedFormat,
-    ]);
+    const validSets = useMemo(
+        () => getAllSetsValidForFormat(selectedFormat),
+        [selectedFormat]
+    );
     const [warband, setWarband] = useState(state.faction);
     const [hideDuplicates, setHideDuplicates] = useState(true);
     const [selectedSets, setSelectedSets] = useState(state.sets);
@@ -127,11 +121,14 @@ function CardLibraryFilters(props) {
         <>
             <div className="flex items-center">
                 <DebouncedInput
-                    className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-purple-700"
+                    className="rounded h-12 bg-gray-200 box-border flex-1 py-1 px-2 outline-none border-2 focus:border-purple-700"
                     placeholder="Search for any text on card"
                     onChange={props.onSearchTextChange}
                 />
-                <IconButton onClick={() => setShowFilters(true)}>
+                <IconButton
+                    className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100 focus:text-purple-700"
+                    onClick={() => setShowFilters(true)}
+                >
                     <TogglesIcon />
                 </IconButton>
             </div>
@@ -150,7 +147,7 @@ function CardLibraryFilters(props) {
                     <div className="w-full h-full flex flex-col overflow-x-hidden">
                         <IconButton
                             onClick={closeAndUpdateFilters}
-                            className="self-end"
+                            className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100 self-end"
                         >
                             <CloseIcon />
                         </IconButton>
@@ -197,13 +194,6 @@ function CardLibraryFilters(props) {
                         </section>
                     </div>
                 </Grid>
-                {/* 
-
-                    <div>
-
-                    </div> */}
-
-                {/*  */}
             </Slide>
         </>
     );
