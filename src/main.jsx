@@ -23,7 +23,7 @@ const Home = lazy(() => import("./pages/Home"));
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
 const Decks = lazy(() => import("./pages/Decks"));
 const SignUp = lazy(() => import("./pages/SignUp"));
-const Library = lazy(() => import("./pages/Library"));
+const Library = lazy(() => import("./pages/Library/Library"));
 const Deck = lazy(() => import("./pages/Deck"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
 const Card = lazy(() => import("./pages/Card"));

@@ -2,26 +2,19 @@ import React, { useMemo, useState, useEffect } from "react";
 import { IconButton, Typography } from "@material-ui/core";
 import { ReactComponent as TogglesIcon } from "../../../../svgs/sliders.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
-import { ReactComponent as ChampionshipLogo } from "../../../../svgs/championship_logo.svg";
-import { ReactComponent as VanguardLogo } from "../../../../svgs/vanguard_logo.svg";
-import { ReactComponent as RelicLogo } from "../../../../svgs/relic_logo.svg";
 import ExpansionsToggle from "../../../../components/ExpansionsToggle";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../../v2/components/SectionTitle";
 import Toggle from "../../../../v2/components/HexToggle";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
 import {
-    CHAMPIONSHIP_FORMAT,
     getAllSetsValidForFormat,
-    RELIC_FORMAT,
-    VANGUARD_FORMAT,
     wufactions,
 } from "../../../../data/wudb";
 import DebouncedInput from "../../../../v2/components/DebouncedInput";
+import { DeckPlayFormatToggle } from "../../../../v2/components/DeckPlayFormatToggle";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
@@ -52,67 +45,7 @@ const useClasses = makeStyles((theme) => ({
     },
 }));
 
-function DeckPlayFormatToggle({ selectedFormat, onFormatChange }) {
-    return (
-        <ButtonGroup color="primary" aria-label="outlined primary button group">
-            <Button
-                onClick={onFormatChange(VANGUARD_FORMAT)}
-                variant={
-                    selectedFormat === VANGUARD_FORMAT
-                        ? "contained"
-                        : "outlined"
-                }
-                startIcon={
-                    <VanguardLogo
-                        className={`${
-                            selectedFormat !== VANGUARD_FORMAT
-                                ? "text-purple-800"
-                                : "text-white"
-                        } text-2xl fill-current`}
-                    />
-                }
-            >
-                vanguard
-            </Button>
-            <Button
-                onClick={onFormatChange(CHAMPIONSHIP_FORMAT)}
-                variant={
-                    selectedFormat === CHAMPIONSHIP_FORMAT
-                        ? "contained"
-                        : "outlined"
-                }
-                startIcon={
-                    <ChampionshipLogo
-                        className={`${
-                            selectedFormat !== CHAMPIONSHIP_FORMAT
-                                ? "text-purple-800"
-                                : "text-white"
-                        } text-2xl fill-current`}
-                    />
-                }
-            >
-                championship
-            </Button>
-            <Button
-                onClick={onFormatChange(RELIC_FORMAT)}
-                variant={
-                    selectedFormat === RELIC_FORMAT ? "contained" : "outlined"
-                }
-                startIcon={
-                    <RelicLogo
-                        className={`${
-                            selectedFormat !== RELIC_FORMAT
-                                ? "text-purple-800"
-                                : "text-white"
-                        } text-2xl fill-current`}
-                    />
-                }
-            >
-                relic
-            </Button>
-        </ButtonGroup>
-    );
-}
+
 
 function DeckPlayFormatInfo({ format, ...rest }) {
     switch (format) {
@@ -201,7 +134,7 @@ function CardLibraryFilters(props) {
         setWarband(state.faction);
     }, [state.faction]);
 
-    const handleFormatChange = (format) => () => {
+    const handleFormatChange = (format) => {
         setSelectedFormat(format);
     };
 
