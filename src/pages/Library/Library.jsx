@@ -10,6 +10,7 @@ import { AutoSizer } from "react-virtualized";
 import { useBreakpoint } from "../../hooks/useMediaQuery";
 import SectionTitle from "../../v2/components/SectionTitle";
 import { DeckPlayFormatToggle } from "../../v2/components/DeckPlayFormatToggle";
+import { DeckPlayFormatInfo } from "../../v2/components/DeckPlayFormatInfo";
 
 function useFilteredCards(format) {
     const [searchText, setSearchText] = useState("");
@@ -70,6 +71,11 @@ function Library() {
                         <DeckPlayFormatToggle
                             selectedFormat={CHAMPIONSHIP_FORMAT}
                             onFormatChange={setSelectedFormat}
+                        />
+
+                        <DeckPlayFormatInfo
+                            className="text-gray-900 text-sm mt-2 max-w-sm"
+                            format={selectedFormat}
                         />
                     </section>
                 </div>

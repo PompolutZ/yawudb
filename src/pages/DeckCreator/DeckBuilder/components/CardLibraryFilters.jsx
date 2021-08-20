@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { IconButton, Typography } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
 import { ReactComponent as TogglesIcon } from "../../../../svgs/sliders.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
 import ExpansionsToggle from "../../../../components/ExpansionsToggle";
@@ -15,6 +15,7 @@ import {
 } from "../../../../data/wudb";
 import DebouncedInput from "../../../../v2/components/DebouncedInput";
 import { DeckPlayFormatToggle } from "../../../../v2/components/DeckPlayFormatToggle";
+import { DeckPlayFormatInfo } from "../../../../v2/components/DeckPlayFormatInfo";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
@@ -39,40 +40,7 @@ const useClasses = makeStyles((theme) => ({
         display: "block",
         margin: `0 ${theme.spacing(1)}px 0 auto`,
     },
-
-    formatInfo: {
-        marginTop: theme.spacing(2),
-    },
 }));
-
-
-
-function DeckPlayFormatInfo({ format, ...rest }) {
-    switch (format) {
-        case "open":
-            return (
-                <Typography variant="body2" {...rest}>
-                    Only cards from the latest season (Direchasm) can be used.
-                </Typography>
-            );
-        case "championship":
-            return (
-                <Typography variant="body2" {...rest}>
-                    Library will be filtered to fullfil competitive play
-                    requirements: forsaken and rotated out cards will be
-                    excluded.
-                </Typography>
-            );
-        case "relic":
-            return (
-                <Typography variant="body2" {...rest}>
-                    Library will be filtered to exlude forsaken cards.
-                </Typography>
-            );
-        default:
-            return null;
-    }
-}
 
 function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     return (
@@ -205,8 +173,8 @@ function CardLibraryFilters(props) {
                                 />
 
                                 <DeckPlayFormatInfo
-                                    className={classes.formatInfo}
-                                    format={state.format}
+                                    className="text-gray-900 text-sm mt-2"
+                                    format={selectedFormat}
                                 />
                             </div>
 
