@@ -5,12 +5,18 @@ import {
     CHAMPIONSHIP_FORMAT,
     getAllSetsValidForFormat,
     wucards,
+    wufactions,
 } from "../../data/wudb";
 import { AutoSizer } from "react-virtualized";
 import { useBreakpoint } from "../../hooks/useMediaQuery";
 import SectionTitle from "../../v2/components/SectionTitle";
 import { DeckPlayFormatToggle } from "../../v2/components/DeckPlayFormatToggle";
 import { DeckPlayFormatInfo } from "../../v2/components/DeckPlayFormatInfo";
+import IconButton from "../../v2/components/IconButton";
+import { ReactComponent as TogglesIcon } from "../../svgs/sliders.svg";
+import { sortByIdAsc } from "../../utils/sort";
+import { GrouppedFactionsToggle } from "../../v2/components/GrouppedFactionsToggle";
+import { GrouppedExpansions } from "../../v2/components/GrouppedExpansions";
 
 function useFilteredCards(format) {
     const [searchText, setSearchText] = useState("");
@@ -50,22 +56,32 @@ function CardPicture({ name, id }) {
 }
 
 function Library() {
-    const isMobile = useBreakpoint("mobile");
-    console.log(isMobile);
     const cardsContainerRef = React.createRef();
     const [selectedFormat, setSelectedFormat] = useState(CHAMPIONSHIP_FORMAT);
+    const sortedFactions = Object.values(wufactions).sort(sortByIdAsc);
+    const [selectedFactions, setSelectedFactions] = useState(
+        sortedFactions.map((f) => f.id)
+    );
     const [filteredCards, findCardsWithText] = useFilteredCards(selectedFormat);
+    const [showFilters, setShowFilters] = useState(false);
 
     return (
         <React.Fragment>
             <div className="flex-1 flex flex-col lg:grid lg:grid-cols-4 p-4">
                 <div className={`bg-gray-200 space-y-3`}>
-                    <input
-                        onChange={(e) => findCardsWithText(e.target.value)}
-                        placeholder="Search for text on a card"
-                        className="px-3 py-2 w-full m-1border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
-                    />
-
+                    <section className="flex space-x-2 m-2">
+                        <input
+                            onChange={(e) => findCardsWithText(e.target.value)}
+                            placeholder="Search for text on a card"
+                            className="flex-1 px-3 py-2 w-full m-1border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
+                        />
+                        <IconButton
+                            className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100 focus:text-purple-700"
+                            onClick={() => setShowFilters((prev) => !prev)}
+                        >
+                            <TogglesIcon />
+                        </IconButton>
+                    </section>
                     <section className="flex flex-col items-center space-y-2">
                         <SectionTitle title="Game format" />
                         <DeckPlayFormatToggle
@@ -78,6 +94,10 @@ function Library() {
                             format={selectedFormat}
                         />
                     </section>
+
+                    <GrouppedFactionsToggle selectedFactions={selectedFactions} />
+                    
+                    <GrouppedExpansions />
                 </div>
                 <div className="flex-1 lg:col-span-3 flex flex-col lg:px-2">
                     <div className="flex-1" ref={cardsContainerRef}>
