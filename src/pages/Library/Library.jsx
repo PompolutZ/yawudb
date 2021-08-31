@@ -18,23 +18,23 @@ import { sortByIdAsc } from "../../utils/sort";
 import { GrouppedFactionsToggle } from "../../v2/components/GrouppedFactionsToggle";
 import { GrouppedExpansions } from "../../v2/components/GrouppedExpansions";
 
-function useFilteredCards(format) {
+function useFilteredCards(factions = [], expansions = []) {
     const [searchText, setSearchText] = useState("");
     const filteredCards = useMemo(() => {
-        const setsValidForFormat = getAllSetsValidForFormat(format).map(
-            (set) => set.id
-        );
         const cards = Object.values(wucards).filter((card) =>
-            setsValidForFormat.includes(card.setId)
-        );
-
+            (card.factionId > 1 && factions.includes(card.factionId)) || (
+                card.factionId === 1 && expansions.includes(card.setId)
+            )
+        ).sort((prev, next) => prev.factionId - next.factionId || next.setId - prev.setId);
+        console.log(factions, expansions)
         const findText = searchText.toUpperCase();
         return cards.filter(
             (card) =>
                 card.name.toUpperCase().includes(findText) ||
                 card.rule.toUpperCase().includes(findText)
         );
-    }, [format, searchText]);
+        
+    }, [factions, expansions, searchText]);
 
     return [filteredCards, setSearchText];
 }
@@ -58,11 +58,15 @@ function CardPicture({ name, id }) {
 function Library() {
     const cardsContainerRef = React.createRef();
     const [selectedFormat, setSelectedFormat] = useState(CHAMPIONSHIP_FORMAT);
+    const validSetIds = getAllSetsValidForFormat(selectedFormat).map(
+        (set) => set.id
+    );
     const sortedFactions = Object.values(wufactions).sort(sortByIdAsc);
     const [selectedFactions, setSelectedFactions] = useState(
         sortedFactions.map((f) => f.id)
     );
-    const [filteredCards, findCardsWithText] = useFilteredCards(selectedFormat);
+    const [selectedExpansions, setSelectedExpansions] = useState(validSetIds);
+    const [filteredCards, findCardsWithText] = useFilteredCards(selectedFactions, selectedExpansions);
     const [showFilters, setShowFilters] = useState(false);
 
     return (
@@ -97,7 +101,7 @@ function Library() {
 
                     <GrouppedFactionsToggle selectedFactions={selectedFactions} />
                     
-                    <GrouppedExpansions />
+                    <GrouppedExpansions validSetIds={validSetIds} selectedExpansions={selectedExpansions} />
                 </div>
                 <div className="flex-1 lg:col-span-3 flex flex-col lg:px-2">
                     <div className="flex-1" ref={cardsContainerRef}>
