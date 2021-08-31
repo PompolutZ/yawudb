@@ -12,6 +12,7 @@ export const totalCardsPerWave = {
     9: 500,
     10: 64,
     11: 60,
+    12: 60,
 };
 
 export const latestSeasonStartNumber = 9000;
