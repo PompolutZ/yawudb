@@ -125,10 +125,10 @@ function Library() {
                 </div>
                 <div className="flex-1 lg:col-span-3 flex flex-col lg:px-2">
                     {filteredCards.length === 0 && (
-                        <div className="flex-1 flex items-center justify-center text-gray-900 text-lg">
+                        <div className="flex-1 flex items-center justify-center text-gray-900 text-xl">
                             <div>
                                 <img
-                                    src="/assets/images/not-found.png"
+                                    src="/assets/art/not-found.png"
                                     alt="No result matching filter."
                                 />
                                 Oops! Seems like there are no cards matching
