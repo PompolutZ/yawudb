@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { wufactions } from "../../data/wudb";
 import { sortByIdAsc } from "../../utils/sort";
+import IconButton from "./IconButton";
 import SectionTitle from "./SectionTitle";
 
 function FactionPicture({ faction, ...rest }) {
@@ -18,11 +19,6 @@ function FactionPicture({ faction, ...rest }) {
         </picture>
     );
 }
-
-function FactionToggleButton({ children, className }) {
-    return <button className={className}>{children}</button>;
-}
-
 
 const grouppedFactions = () => {
     const sortedFactions = Object.values(wufactions).sort(sortByIdAsc);
@@ -82,8 +78,21 @@ const grouppedFactions = () => {
     ];
 };
 
-const GrouppedFactionsToggle = ({ selectedFactions }) => {
+const GrouppedFactionsToggle = ({ selectedFactions, onSelectionChanged, allowMultiSelect = true }) => {
     const factionGroups = grouppedFactions();
+    const [selectedIds, setSelectedIds] = useState(selectedFactions);
+
+    const onToggle = factionId => () => {
+        if (allowMultiSelect) {
+            const next = selectedIds.includes(factionId) ? selectedIds.filter(id => id !== factionId) : [...selectedIds, factionId]
+            setSelectedIds(next);
+            onSelectionChanged(next);
+        } else {
+            setSelectedIds([factionId]);
+            onSelectionChanged([factionId]);
+        }
+    }
+
     return (
         <section className="flex flex-col space-y-2 mx-4">
             <SectionTitle title="Factions" />
@@ -93,16 +102,16 @@ const GrouppedFactionsToggle = ({ selectedFactions }) => {
                     <h6 className="text-xs font-bold text-gray-500">{title}</h6>
                     <div className="m-2 flex flex-wrap content-start items-center">
                         {factions.map((faction) => (
-                            <FactionToggleButton className="mb-2 mr-2" key={faction.id}>
+                            <IconButton className="mb-2 mr-2" key={faction.id} onClick={onToggle(faction.id)}>
                                 <FactionPicture
                                     faction={faction.name}
                                     className={`w-8 h-8 ${
-                                        selectedFactions.includes(faction.id)
+                                        selectedIds.includes(faction.id)
                                             ? "drop-shadow-md opacity-100"
-                                            : "drop-shadow-md opacity-75"
+                                            : "drop-shadow-sm opacity-50"
                                     }  hover:scale-105`}
                                 />
-                            </FactionToggleButton>
+                            </IconButton>
                         ))}
                     </div>
                 </article>

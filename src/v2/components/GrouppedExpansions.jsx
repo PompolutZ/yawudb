@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-    CHAMPIONSHIP_FORMAT,
-    getAllSetsValidForFormat,
     wusets,
 } from "../../data/wudb";
-import { sortByIdAsc } from "../../utils/sort";
+import IconButton from "./IconButton";
 import SectionTitle from "./SectionTitle";
 
 const createExpansionGroups = () => {
@@ -64,15 +62,19 @@ function ExpansionPicture({ setName, ...rest }) {
     );
 }
 
-function FactionToggleButton({ children, className }) {
-    return <button className={className}>{children}</button>;
-}
-
-const GrouppedExpansions = ({
-    selectedExpansions = [],
-    validSetIds = [],
-}) => {
+const GrouppedExpansions = ({ onSelectionChanged, selectedExpansions = [], validSetIds = [] }) => {
     const expansionGroups = createExpansionGroups();
+    const [selectedExpansionIds, setSelectedExpansionIds] =
+        useState(selectedExpansions);
+
+    const onToggle = (expansionId) => () => {
+        const next = selectedExpansionIds.includes(expansionId)
+            ? selectedExpansionIds.filter((id) => id !== expansionId)
+            : [...selectedExpansionIds, expansionId];
+        setSelectedExpansionIds(next);
+        onSelectionChanged(next);
+    };
+
     return (
         <section className="flex flex-col space-y-2 mx-4">
             <SectionTitle title="Expansions" />
@@ -81,9 +83,11 @@ const GrouppedExpansions = ({
                     <h6 className="text-xs font-bold text-gray-500">{title}</h6>
                     <div className="m-2 flex flex-wrap content-start items-center">
                         {expansions.map((expansion) => (
-                            <FactionToggleButton
+                            <IconButton
                                 className="mb-2 mr-2"
                                 key={expansion.id}
+                                onClick={onToggle(expansion.id)}
+                                disabled={!validSetIds.includes(expansion.id)}
                             >
                                 <ExpansionPicture
                                     setName={expansion.name}
@@ -99,7 +103,7 @@ const GrouppedExpansions = ({
                                             : "opacity-75"
                                     }`}
                                 />
-                            </FactionToggleButton>
+                            </IconButton>
                         ))}
                     </div>
                 </article>

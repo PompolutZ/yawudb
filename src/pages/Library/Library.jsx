@@ -21,19 +21,29 @@ import { GrouppedExpansions } from "../../v2/components/GrouppedExpansions";
 function useFilteredCards(factions = [], expansions = []) {
     const [searchText, setSearchText] = useState("");
     const filteredCards = useMemo(() => {
-        const cards = Object.values(wucards).filter((card) =>
-            (card.factionId > 1 && factions.includes(card.factionId)) || (
-                card.factionId === 1 && expansions.includes(card.setId)
+        const includeUniversalCards = factions.includes(
+            wufactions["Universal"].id
+        );
+
+        const cards = Object.values(wucards)
+            .filter(
+                (card) =>
+                    (card.factionId > 1 && factions.includes(card.factionId)) ||
+                    (includeUniversalCards &&
+                        card.factionId === 1 &&
+                        expansions.includes(card.setId))
             )
-        ).sort((prev, next) => prev.factionId - next.factionId || next.setId - prev.setId);
-        console.log(factions, expansions)
+            .sort(
+                (prev, next) =>
+                    prev.factionId - next.factionId || next.setId - prev.setId
+            );
+        console.log(factions, expansions);
         const findText = searchText.toUpperCase();
         return cards.filter(
             (card) =>
                 card.name.toUpperCase().includes(findText) ||
                 card.rule.toUpperCase().includes(findText)
         );
-        
     }, [factions, expansions, searchText]);
 
     return [filteredCards, setSearchText];
@@ -66,7 +76,10 @@ function Library() {
         sortedFactions.map((f) => f.id)
     );
     const [selectedExpansions, setSelectedExpansions] = useState(validSetIds);
-    const [filteredCards, findCardsWithText] = useFilteredCards(selectedFactions, selectedExpansions);
+    const [filteredCards, findCardsWithText] = useFilteredCards(
+        selectedFactions,
+        selectedExpansions
+    );
     const [showFilters, setShowFilters] = useState(false);
 
     return (
@@ -99,11 +112,30 @@ function Library() {
                         />
                     </section>
 
-                    <GrouppedFactionsToggle selectedFactions={selectedFactions} />
-                    
-                    <GrouppedExpansions validSetIds={validSetIds} selectedExpansions={selectedExpansions} />
+                    <GrouppedFactionsToggle
+                        selectedFactions={selectedFactions}
+                        onSelectionChanged={setSelectedFactions}
+                    />
+
+                    <GrouppedExpansions
+                        validSetIds={validSetIds}
+                        selectedExpansions={selectedExpansions}
+                        onSelectionChanged={setSelectedExpansions}
+                    />
                 </div>
                 <div className="flex-1 lg:col-span-3 flex flex-col lg:px-2">
+                    {filteredCards.length === 0 && (
+                        <div className="flex-1 flex items-center justify-center text-gray-900 text-lg">
+                            <div>
+                                <img
+                                    src="/assets/images/not-found.png"
+                                    alt="No result matching filter."
+                                />
+                                Oops! Seems like there are no cards matching
+                                your filters.
+                            </div>
+                        </div>
+                    )}
                     <div className="flex-1" ref={cardsContainerRef}>
                         {filteredCards.length > 0 && (
                             <AutoSizer>
