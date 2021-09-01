@@ -186,7 +186,7 @@ const Menu = ({ classes, showHome, children }) => {
                 Public decks
             </AnimatedLink>
             <AnimatedLink
-                className="block mr-8 cursor-pointer hover:font-semibold pt-px"
+                className="hidden lg:block mr-8 cursor-pointer hover:font-semibold pt-px"
                 to={ROUTES.CARDS_LIBRARY}
             >
                 Library

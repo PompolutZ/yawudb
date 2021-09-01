@@ -93,7 +93,7 @@ function Library() {
                             className="flex-1 px-3 py-2 w-full m-1border border-purple-300 focus:ring focus:ring-purple-500 focus:outline-none"
                         />
                         <IconButton
-                            className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100 focus:text-purple-700"
+                            className="lg:hidden rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100 focus:text-purple-700"
                             onClick={() => setShowFilters((prev) => !prev)}
                         >
                             <TogglesIcon />
