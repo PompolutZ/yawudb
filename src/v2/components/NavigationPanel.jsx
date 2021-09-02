@@ -17,7 +17,7 @@ export default function NavigationPanel() {
         <header className="mx-2 sm:mx-8 flex p-2 items-center relative">
             <div className="mr-8">
                 <Link
-                    className="text-base block mr-8 cursor-pointer"
+                    className="text-base block mr-8 cursor-pointer uppercase font-bold text-xs hover:text-purple-700"
                     to="/"
                 >
                     <Logo className="h-8 lg:h-12 filter drop-shadow-md" />
@@ -47,19 +47,22 @@ function AnimatedLink(props) {
     const [hovering, setHovering] = useState(false);
     const [ref, { width }] = useMeasure();
     const spring = useSpring({
-        width: hovering ? width * 0.8 : 0,
+        width: hovering ? width * 0.33 : 0,
         config: {
-            duration: 175
+            duration: 175,
         },
     });
     return (
-        <div
-            ref={ref}
-            className={`relative ${props.container}`}
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
-        >
-            <Link {...props}>{props.children}</Link>
+        <div className={`relative ${props.container}`}>
+            <Link {...props}>
+                <span
+                    ref={ref}
+                    onMouseEnter={() => setHovering(true)}
+                    onMouseLeave={() => setHovering(false)}
+                >
+                    {props.children}
+                </span>
+            </Link>
             <animated.div
                 className="absolute h-[2px] -mb-1 bg-purple-500"
                 style={spring}
@@ -76,13 +79,13 @@ function UserMenu() {
     return (
         <>
             <AnimatedLink
-                className="block mr-8 cursor-pointer"
+                className="block mr-8 cursor-pointer uppercase font-bold text-xs hover:text-purple-700"
                 to={ROUTES.MY_DECKS}
             >
                 My Decks
             </AnimatedLink>
             {/* <Link
-                className="block mr-8 cursor-pointer"
+                className="block mr-8 cursor-pointer uppercase font-bold text-xs hover:text-purple-700"
                 to={ROUTES.MY_DECKS}
             >
                 My Decks
@@ -90,14 +93,14 @@ function UserMenu() {
             {auth && (
                 <>
                     <AnimatedLink
-                        className="block mr-8 cursor-pointer"
+                        className="block mr-8 cursor-pointer uppercase font-bold text-xs hover:text-purple-700"
                         to={ROUTES.PROFILE}
                     >
                         Profile
                     </AnimatedLink>
                     <a
                         href="#"
-                        className="block mt-4 lg:mt-0 lg:ml-auto mr-8 cursor-pointer"
+                        className="block mt-4 lg:mt-0 lg:ml-auto mr-8 cursor-pointer uppercase font-bold text-xs hover:text-purple-700"
                         onClick={() =>
                             firebase.signOut().then(history.push("/"))
                         }
@@ -108,7 +111,7 @@ function UserMenu() {
             )}
             {!auth && (
                 <AnimatedLink
-                    className="cursor-pointer"
+                    className="cursor-pointer uppercase font-bold text-xs hover:text-purple-700"
                     container="block mr-8 lg:ml-auto"
                     to={ROUTES.SIGN_IN}
                 >
@@ -169,27 +172,27 @@ const Menu = ({ classes, showHome, children }) => {
         <nav className={`${classes}`}>
             {showHome && (
                 <Link
-                    className="block mr-8 cursor-pointer"
+                    className="block mr-8 cursor-pointer uppercase font-bold text-xs hover:text-purple-700"
                     to="/"
                 >
                     Home
                 </Link>
             )}
             <Link
-                className="block mr-8 cursor-pointer lg:hidden text-purple-900"
+                className="block mr-8 cursor-pointer uppercase font-bold text-xs hover:text-purple-700 lg:hidden text-purple-900"
                 to="/deck/create"
             >
                 Create New Deck
             </Link>
 
             <AnimatedLink
-                className="block mr-8 cursor-pointer"
+                className="block mr-8 cursor-pointer uppercase font-bold text-xs hover:text-purple-700"
                 to={ROUTES.BROWSE_ALL_DECKS}
             >
                 Public decks
             </AnimatedLink>
             <AnimatedLink
-                className="hidden lg:block mr-8 cursor-pointer"
+                className="hidden lg:block mr-8 cursor-pointer uppercase font-bold text-xs hover:text-purple-700"
                 to={ROUTES.CARDS_LIBRARY}
             >
                 Library
