@@ -302,6 +302,7 @@ class ReadonlyDeck extends PureComponent {
             if (card.startsWith("09")) return `DC${Number(card.slice(-3))}`;
             if (card.startsWith("10")) return `S${Number(card.slice(-3))}`;
             if (card.startsWith("11")) return `E${Number(card.slice(-3))}`;
+            if (card.startsWith("12")) return `AM${Number(card.slice(-3))}`;
 
             return Number(card.slice(-3));
         };
