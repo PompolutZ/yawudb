@@ -11,18 +11,26 @@ import {
     validateDeckForPlayFormat,
 } from "../../../../data/wudb";
 import uuid4 from "uuid";
+import { useDeckBuilderState } from "../..";
 
 function Deck({
-    faction,
-    selectedObjectives,
-    selectedGambits,
-    selectedUpgrades,
-    format,
+    // faction,
+    // selectedObjectives,
+    // selectedGambits,
+    // selectedUpgrades,
+    // format,
     deckName,
     onDeckNameChange,
     onSave,
     onReset,
 }) {
+    const {
+        faction,
+        selectedObjectives,
+        selectedGambits,
+        selectedUpgrades,
+        format,
+    } = useDeckBuilderState();
     const [objectives, setObjectives] = useState(selectedObjectives);
     const [gambits, setGambits] = useState(selectedGambits);
     const [upgrades, setUpgrades] = useState(selectedUpgrades);
@@ -39,7 +47,6 @@ function Deck({
             ] = validateCardForPlayFormat(c, format);
     
             const card = {
-                oldId: `${c.id}`.padStart(5, "0"),
                 ...c,
                 isBanned: isForsaken,
                 isRestricted,
@@ -60,7 +67,6 @@ function Deck({
             ] = validateCardForPlayFormat(c, format);
     
             const card = {
-                oldId: `${c.id}`.padStart(5, "0"),
                 ...c,
                 isBanned: isForsaken,
                 isRestricted,
@@ -81,7 +87,6 @@ function Deck({
             ] = validateCardForPlayFormat(c, format);
     
             const card = {
-                oldId: `${c.id}`.padStart(5, "0"),
                 ...c,
                 isBanned: isForsaken,
                 isRestricted,

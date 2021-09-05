@@ -49,10 +49,6 @@ function DeckBuilder({ currentDeckName, existingDeckId }) {
 
     const {
         faction,
-        selectedObjectives,
-        selectedGambits,
-        selectedUpgrades,
-        format,
         status,
     } = useDeckBuilderState();
 
@@ -210,11 +206,6 @@ function DeckBuilder({ currentDeckName, existingDeckId }) {
                     <Deck
                         deckName={deckName}
                         onDeckNameChange={setDeckName}
-                        faction={faction}
-                        selectedObjectives={selectedObjectives}
-                        selectedGambits={selectedGambits}
-                        selectedUpgrades={selectedUpgrades}
-                        format={format}
                         onSave={handleSaveDeck}
                         onReset={handleResetCurrentDeck}
                     />
@@ -227,7 +218,7 @@ function DeckBuilder({ currentDeckName, existingDeckId }) {
                 enterTo="opacity-100 translate-y-0"
                 enterFrom="opacity-0 translate-y-10"
             >
-                <FightersInfoList faction={faction} onClose={() => setIsMobileWarbandVisible(false)} />
+                <FightersInfoList onClose={() => setIsMobileWarbandVisible(false)} />
             </Transition>
             <DeleteConfirmationDialog
                 title="Clear current deck"

@@ -1,12 +1,12 @@
 import React from "react";
 import { CardsList } from "./CardsList";
-import { CHAMPIONSHIP_FORMAT } from "../../../../data/wudb";
 import CardListSectionHeader from "../../../../v2/components/CardListSectionHeader";
 import { animated, useSpring } from "react-spring";
 import { useResizeHeight } from "../../../../hooks/useResizeHeight";
 import { ExpandCollapseButton } from "../../../../v2/components/ExpandCollapseButton";
 
 function GambitsList({ selectedGambits, format, isValid }) {
+    console.log('RENDER');
     const [measureRef, open, toggle, contentHeight] = useResizeHeight({
         open: true,
     });
@@ -34,7 +34,6 @@ function GambitsList({ selectedGambits, format, isValid }) {
             <animated.div style={expand} className="overflow-hidden">
                 <div ref={measureRef}>
                     <CardsList
-                        isEligibleForOP={format == CHAMPIONSHIP_FORMAT}
                         cards={selectedGambits}
                     />
                 </div>

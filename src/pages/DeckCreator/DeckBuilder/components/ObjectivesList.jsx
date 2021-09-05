@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import ScoringOverview from "../../../../atoms/ScoringOverview";
 import { CardsList } from "./CardsList";
-import { CHAMPIONSHIP_FORMAT } from "../../../../data/wudb";
 import CardListSectionHeader from "../../../../v2/components/CardListSectionHeader";
 import SectionTitle from "../../../../v2/components/SectionTitle";
 import { animated, useSpring } from "react-spring";
@@ -86,7 +85,6 @@ function ObjectivesList({ selectedObjectives, format, isValid }) {
                         <section className="mt-4 mb-2">
                             <SectionTitle className="my-2" title="Surge" />
                             <CardsList
-                                isEligibleForOP={format == CHAMPIONSHIP_FORMAT}
                                 cards={surge}
                             />
                         </section>
@@ -98,7 +96,6 @@ function ObjectivesList({ selectedObjectives, format, isValid }) {
                                 title="End Phase"
                             />
                             <CardsList
-                                isEligibleForOP={format == CHAMPIONSHIP_FORMAT}
                                 cards={end}
                             />
                         </section>
@@ -107,7 +104,6 @@ function ObjectivesList({ selectedObjectives, format, isValid }) {
                         <section className="mt-4 mb-2">
                             <SectionTitle title="Third End Phase" />
                             <CardsList
-                                isEligibleForOP={format == CHAMPIONSHIP_FORMAT}
                                 cards={third}
                             />
                         </section>

@@ -5,10 +5,12 @@ import {
     VANGUARD_FORMAT,
     wucards,
 } from "../../../../data/wudb";
-import { useDeckBuilderState } from "../..";
+import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
 import VirtualizedCardsList from "../../../../components/VirtualizedCardsList";
 import { useCardsRatings } from "../../../../hooks/wunderworldsAPIHooks";
 import CardInDeck from "./Card";
+import { toggleCardAction } from "../../reducer";
+import { useMemo } from "react";
 
 function stringTypeToNumber(type) {
     switch (type) {
@@ -34,6 +36,7 @@ const _sort = (card1, card2) => {
 };
 
 function FilterableCardLibrary(props) {
+    const dispatch = useDeckBuilderDispatcher();
     const [cards, setCards] = useState([]);
     const [filteredCards, setFilteredCards] = useState([]);
     const state = useDeckBuilderState();
@@ -43,6 +46,19 @@ function FilterableCardLibrary(props) {
     useEffect(() => {
         refetch({ url: `/api/v1/cards-ratings/${state.faction.name}` });
     }, [state.faction]);
+
+    const deck = useMemo(
+        () => [
+            ...state.selectedObjectives,
+            ...state.selectedGambits,
+            ...state.selectedUpgrades,
+        ],
+        [
+            state.selectedObjectives,
+            state.selectedGambits,
+            state.selectedUpgrades,
+        ]
+    );
 
     useEffect(() => {
         const factionCards = Object.values(wucards).filter(
@@ -99,7 +115,6 @@ function FilterableCardLibrary(props) {
                     state.format
                 );
                 const card = {
-                    oldId: `${c.id}`.padStart(5, "0"),
                     ranking: ranks[c.id] || 0,
                     ...c,
                     isBanned: isForsaken,
@@ -169,8 +184,13 @@ function FilterableCardLibrary(props) {
                                         <CardInDeck
                                             showType
                                             key={card.id}
-                                            card={card}
+                                            cardId={card.id}
+                                            ranking={card.ranking}
                                             expanded={expanded}
+                                            inDeck={deck.find(({ id }) => id === card.id )}
+                                            toggleCard={() =>
+                                                dispatch(toggleCardAction(card))
+                                            }
                                             withAnimation={false}
                                         />
                                     </div>

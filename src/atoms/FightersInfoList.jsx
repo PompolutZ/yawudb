@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { factionMembers } from "../data";
 import { useSpring, animated as a } from "react-spring";
+import { useDeckBuilderState } from "../pages/DeckCreator";
 
 function useClickAway() {
     const [clickedAway, setClickedAway] = useState(false);
@@ -31,7 +32,8 @@ function useClickAway() {
     return clickedAway;
 }
 
-export default function FightersInfoList({ faction, onClose }) {
+export default function FightersInfoList({ onClose }) {
+    const { faction } = useDeckBuilderState();
     const clickedAway = useClickAway();
 
     useEffect(() => {

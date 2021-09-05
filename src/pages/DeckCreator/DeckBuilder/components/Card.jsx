@@ -1,18 +1,18 @@
-import React, { PureComponent, useMemo, useState } from "react";
+import React, { PureComponent, useState, memo } from "react";
 import LockIcon from "@material-ui/icons/Lock";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import { ReactComponent as GloryIcon } from "../../../../svgs/wu-glory.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
 import { ReactComponent as RankIcon } from "../../../../svgs/wu-glory.svg";
-import { addCardAction, removeCardAction } from "../../reducer";
 import ObjectiveScoreTypeIcon from "../../../../components/ObjectiveScoreTypeIcon";
 import {
+    getCardById,
     getCardNumberFromId,
     getCardWaveFromId,
     getSetNameById,
     totalCardsPerWave,
+    wucards,
 } from "../../../../data/wudb";
-import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
 import Fade from "@material-ui/core/Fade";
 import { ModalPresenter } from "../../../../main";
 import CardImage from "../../../../v2/components/CardImage";
@@ -99,13 +99,10 @@ class WUCardInfo extends PureComponent {
     }
 }
 
-function CardInDeck({ card, ...props }) {
-    const { selectedObjectives, selectedGambits, selectedUpgrades, faction } =
-        useDeckBuilderState();
+const CardInDeck = memo(({ cardId, toggleCard, inDeck, ranking, ...props }) => {
     const [overlayIsVisible, setOverlayIsVisible] = useState(false);
-    const dispatch = useDeckBuilderDispatcher();
+    const card = getCardById(cardId);
     const {
-        ranking,
         type,
         id,
         scoreType,
@@ -115,24 +112,6 @@ function CardInDeck({ card, ...props }) {
         isRestricted,
         isBanned,
     } = card;
-
-    const inDeck = useMemo(
-        () =>
-            [
-                ...selectedObjectives,
-                ...selectedGambits,
-                ...selectedUpgrades,
-            ].find((card) => card.id == id),
-        [selectedObjectives, selectedGambits, selectedUpgrades]
-    );
-
-    const handleToggleCardInDeck = () => {
-        if (inDeck) {
-            dispatch(removeCardAction(card));
-        } else {
-            dispatch(addCardAction(card));
-        }
-    };
 
     const pickForegroundColor = (isRestricted, isBanned, defaultColor) => {
         if (isBanned || isRestricted) {
@@ -195,7 +174,6 @@ function CardInDeck({ card, ...props }) {
                     )}
                 </div>
                 <WUCardInfo
-                    prefix={faction.abbr}
                     rank={ranking}
                     pickColor={pickForegroundColor}
                     isRestricted={isRestricted}
@@ -212,7 +190,7 @@ function CardInDeck({ card, ...props }) {
                     className={`btn m-2 w-8 h-8 py-0 px-1 ${
                         inDeck ? "btn-red" : "btn-purple"
                     }`}
-                    onClick={handleToggleCardInDeck}
+                    onClick={toggleCard}
                 >
                     <CloseIcon
                         className={`text-white stroke-current transform transition-transform duration-300 ${
@@ -247,6 +225,6 @@ function CardInDeck({ card, ...props }) {
             )}
         </>
     );
-}
+})
 
 export default CardInDeck;
