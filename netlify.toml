@@ -1,4 +1,10 @@
 [[redirects]]
+  from = "https://yawudb.com"
+  to = "https://wunderworlds.club"
+  force = true
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
@@ -10,18 +16,6 @@
   [headers.values]
     # Multi-value headers are expressed with multi-line strings.
 	cache-control = '''public, max-age=604800''' 
-
-[[headers]]
-  # Define which paths this specific [[headers]] block will cover.
-  for = "/static/*"
-
-  [headers.values]
-    # Multi-value headers are expressed with multi-line strings.
-	cache-control = '''
-	max-age=0,
-	no-cache,
-	no-store,
-	must-revalidate'''
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
