@@ -37,7 +37,6 @@ function useFilteredCards(factions = [], expansions = []) {
                 (prev, next) =>
                     prev.factionId - next.factionId || next.setId - prev.setId
             );
-        console.log(factions, expansions);
         const findText = searchText.toUpperCase();
         return cards.filter(
             (card) =>

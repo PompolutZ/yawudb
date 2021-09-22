@@ -6,7 +6,6 @@ import { useResizeHeight } from "../../../../hooks/useResizeHeight";
 import { ExpandCollapseButton } from "../../../../v2/components/ExpandCollapseButton";
 
 function GambitsList({ selectedGambits, format, isValid }) {
-    console.log('RENDER');
     const [measureRef, open, toggle, contentHeight] = useResizeHeight({
         open: true,
     });

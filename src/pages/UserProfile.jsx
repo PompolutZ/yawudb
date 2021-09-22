@@ -32,7 +32,6 @@ function UserProfile() {
         if (data.avatar.includes("/")) {
             const [icon] = data.avatar.split("/").slice(-1);
             const a = icon.split('-icon.png')[0];
-            console.log(a)
             setAvatar(a);
         } else {
             setAvatar(data.avatar);

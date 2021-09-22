@@ -12,8 +12,9 @@ export function useUpdateDeckFactory() {
     } else {
         return function saveLocally(payload) {
             const now = new Date().getTime();
+            const [deckId] = payload.url.split('/').slice(-1);
             
-            return db.anonDecks.where('deckId').equals(payload.data.deckId).modify({
+            return db.anonDecks.where('deckId').equals(deckId).modify({
                 ...payload.data,
                 updatedutc: now,
             });

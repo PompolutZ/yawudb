@@ -1,18 +1,21 @@
 import React, { useContext } from "react";
-import { useEffectReducer } from 'use-effect-reducer';
-import { Switch, Route, useLocation } from "react-router-dom";
-import DeckCreatorNew from "./DeckCreatorNew";
-import DeckCreatorEdit from "./DeckCreatorEdit";
-import DeckCreatorTransfer from "./DeckCreatorTransfer";
+import { useEffectReducer } from "use-effect-reducer";
 import { deckBuilderReducer, INITIAL_STATE } from "./reducer";
-import { getFactionByName } from "../../data/wudb";
-import { addKeyToLocalStorage, removeKeyFromLocalStorage, initialiseStateFromLocalStorage, apiSaveDeckAsync, apiUpdateDeckAsync } from "./effects";
+import {
+    addKeyToLocalStorage,
+    removeKeyFromLocalStorage,
+    initialiseStateFromLocalStorage,
+    apiSaveDeckAsync,
+    apiUpdateDeckAsync,
+} from "./effects";
 import { useSaveDeckFactory } from "../../hooks/useSaveDeckFactory";
 import { useUpdateDeckFactory } from "../../hooks/useUpdateDeckFactory";
+import DeckBuilder from "./DeckBuilder";
+import { Helmet } from "react-helmet";
+import { useStateCreator } from "./useStateCreator";
 
 const DeckBuilderContext = React.createContext();
 const DeckBuilderDispatchContext = React.createContext();
-
 
 export function useDeckBuilderState() {
     const context = useContext(DeckBuilderContext);
@@ -36,36 +39,33 @@ export function useDeckBuilderDispatcher() {
     return context;
 }
 
-const initialiseState = deck => exec => {
-    if(deck) {
-        return {
-            ...INITIAL_STATE,
-            faction: getFactionByName(deck.faction),
-            selectedObjectives: deck.objectives,
-            selectedGambits: deck.gambits,
-            selectedUpgrades: deck.upgrades,
-        }
+const initialiseState = (deck) => (exec) => {
+    if (deck) {
+        return deck;
     }
 
-    exec({ type: 'initialiseStateFromLocalStorage', key: 'wunderworlds_deck_in_progress' })
+    exec({
+        type: "initialiseStateFromLocalStorage",
+        key: "wunderworlds_deck_in_progress",
+    });
 
     return INITIAL_STATE;
-}
+};
 
-function DeckBuilderContextProvider({ children }) {
-    const location = useLocation();
+function DeckBuilderContextProvider({ children, deck }) {
     const saveDeck = useSaveDeckFactory();
     const updateDeck = useUpdateDeckFactory();
     const [state, dispatch] = useEffectReducer(
-        deckBuilderReducer, 
-        initialiseState(location.state && location.state.deck), 
+        deckBuilderReducer,
+        initialiseState(deck),
         {
             saveDeck: apiSaveDeckAsync(saveDeck),
             updateDeck: apiUpdateDeckAsync(updateDeck),
             addKeyToLocalStorage,
             removeKeyFromLocalStorage,
             initialiseStateFromLocalStorage,
-    });
+        }
+    );
 
     return (
         <DeckBuilderContext.Provider value={state}>
@@ -76,27 +76,30 @@ function DeckBuilderContextProvider({ children }) {
     );
 }
 
+
+
 function DeckCreator() {
+    const state = useStateCreator();
+
     return (
-        // THIS INNER ROUTING PART NEEDS TO BE REDESIGNED
-        <DeckBuilderContextProvider>
-            <Switch>
-                <Route
-                    exact
-                    path="/deck/create"
-                    component={DeckCreatorNew}
+        <DeckBuilderContextProvider deck={state}>
+            <React.Fragment>
+                <Helmet>
+                    <title>
+                        Warhammer Underworlds: Nightvault (Shadespire) Deck
+                        Builder
+                    </title>
+                    <link
+                        rel="canonical"
+                        href="https://yawudb.com/deck/create"
+                    />
+                </Helmet>
+
+                <DeckBuilder
+                    existingDeckId={state?.id}
+                    currentDeckName={state?.name}
                 />
-                <Route
-                    exact
-                    path="/deck/edit/:id"
-                    component={DeckCreatorEdit}
-                />
-                <Route
-                    exact
-                    path="/deck/transfer/:data"
-                    component={DeckCreatorTransfer}
-                />
-            </Switch>
+            </React.Fragment>
         </DeckBuilderContextProvider>
     );
 }
