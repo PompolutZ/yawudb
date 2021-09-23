@@ -12,12 +12,12 @@ import uuid4 from "uuid/v4";
 import DeleteConfirmationDialog from "../../../atoms/DeleteConfirmationDialog";
 import CardsLibrary from "./components/CardsLibrary";
 import LibraryFilters from "./components/LibraryFilters";
-import { ReactComponent as AddCardIcon } from "../../../svgs/add-card.svg";
-import { ReactComponent as DeckIcon } from "../../../svgs/deck.svg";
+
 import { ReactComponent as WarbandIcon } from "../../../svgs/warband.svg";
 import FightersInfoList from "../../../atoms/FightersInfoList";
 import { Transition } from "@headlessui/react";
 import useMeasure from "react-use-measure";
+import BottomPanelNavigation from "./components/BottomPanelNavigation";
 
 function Filters() {
     const [searchText, setSearchText] = useState("");
@@ -36,11 +36,11 @@ function Filters() {
     );
 }
 
-function DeckBuilder({ currentDeckName, existingDeckId }) {
+function DeckBuilder({ currentDeckName, existingDeckId, action }) {
     const [deckId, setDeckId] = useState(existingDeckId || "");
     const [deckName, setDeckName] = useState(currentDeckName || "");
-    const [isMobileDeckVisible, setIsMobileDeckVisible] = useState(false);
-    const [isMobileWarbandVisible, setIsMobileWarbandVisible] = useState(false);
+    const [activeTabMobile, setActiveTabMobile] = useState(action === "create" ? "LIBRARY" : "DECK");
+    const [showWarband, setShowWarband] = useState(false);
     const [showConfirmDeckReset, setShowConfirmDeckReset] = useState(false);
     const { uid, displayName } = useAuthUser() || {
         uid: "Anonymous",
@@ -102,65 +102,14 @@ function DeckBuilder({ currentDeckName, existingDeckId }) {
             {status === "Saved" && <Redirect to="/mydecks" />}
 
             <Filters />
-            <div
-                className={`lg:hidden fixed z-20 flex bottom-0 left-0 right-0 transition-colors duration-500 bg-gradient-to-r ${
-                    !isMobileDeckVisible && !isMobileWarbandVisible
-                        ? "from-purple-200 via-gray-100 to-gray-100"
-                        : isMobileDeckVisible && !isMobileWarbandVisible
-                        ? "from-gray-100 via-purple-200 to-gray-100"
-                        : "from-gray-100 via-gray-100 to-purple-200"
-                }`}
-            >
-                <button
-                    className={`flex-1 flex flex-col items-center py-2 text-xs ${
-                        !isMobileDeckVisible && !isMobileWarbandVisible
-                            ? "text-purple-700"
-                            : "text-gray-700"
-                    }`}
-                    onClick={() => {
-                        setIsMobileDeckVisible(false);
-                        setIsMobileWarbandVisible(false);
-                    }}
-                >
-                    <AddCardIcon className="h-6 fill-current mb-1" />
-                    Library
-                </button>
-                <button
-                    className={`flex-1 flex flex-col items-center py-2 text-xs ${
-                        isMobileDeckVisible && !isMobileWarbandVisible
-                            ? "text-purple-700"
-                            : "text-gray-700"
-                    }`}
-                    onClick={() => {
-                        setIsMobileDeckVisible(true);
-                        setIsMobileWarbandVisible(false);
-                    }}
-                >
-                    <DeckIcon className="h-6 fill-current mb-1" />
-                    Deck
-                </button>
-                <button
-                    className={`flex-1 flex flex-col items-center py-2 text-xs ${
-                        !isMobileDeckVisible && isMobileWarbandVisible
-                            ? "text-purple-700"
-                            : "text-gray-700"
-                    }`}
-                    onClick={() => {
-                        setIsMobileDeckVisible(false);
-                        setIsMobileWarbandVisible(true);
-                    }}
-                >
-                    <WarbandIcon className="h-6 fill-current mb-1" />
-                    Warband
-                </button>
-            </div>
-
+            
+            <BottomPanelNavigation activeOption={activeTabMobile} onShow={setActiveTabMobile} />
             <Slide
                 mountOnEnter
                 in={
                     useMediaQuery(theme.breakpoints.up("md"))
                         ? true
-                        : isMobileDeckVisible
+                        : activeTabMobile === "DECK"
                 }
                 direction="up"
                 timeout={{
@@ -196,7 +145,7 @@ function DeckBuilder({ currentDeckName, existingDeckId }) {
                     <button
                         className={`hidden lg:flex ml-auto mr-4 items-center py-2 text-xs text-gray-700 outline-none hover:text-purple-700 focus:text-purple-500`}
                         onClick={() => {
-                            setIsMobileWarbandVisible(true);
+                            setShowWarband(true);
                         }}
                     >
                         <WarbandIcon className="h-6 fill-current mr-2" />
@@ -212,13 +161,13 @@ function DeckBuilder({ currentDeckName, existingDeckId }) {
                 </div>
             </Slide>
             <Transition
-                show={isMobileWarbandVisible}
+                show={activeTabMobile === "WARBAND" || showWarband}
                 className="fixed inset-0 z-10 flex backdrop-filter backdrop-blur-sm"
                 enter="transition transform duration-300"
                 enterTo="opacity-100 translate-y-0"
                 enterFrom="opacity-0 translate-y-10"
             >
-                <FightersInfoList onClose={() => setIsMobileWarbandVisible(false)} />
+                <FightersInfoList onClose={() => setShowWarband(false)} />
             </Transition>
             <DeleteConfirmationDialog
                 title="Clear current deck"

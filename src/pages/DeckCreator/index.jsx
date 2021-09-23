@@ -76,10 +76,8 @@ function DeckBuilderContextProvider({ children, deck }) {
     );
 }
 
-
-
 function DeckCreator() {
-    const state = useStateCreator();
+    const { action, state } = useStateCreator();
 
     return (
         <DeckBuilderContextProvider deck={state}>
@@ -98,6 +96,7 @@ function DeckCreator() {
                 <DeckBuilder
                     existingDeckId={state?.id}
                     currentDeckName={state?.name}
+                    action={action}
                 />
             </React.Fragment>
         </DeckBuilderContextProvider>

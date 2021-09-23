@@ -8,9 +8,9 @@ export function useStateCreator() {
 
     switch (action) {
         case "create":
-            return null;
+            return { action, state: null};
         case "edit":
-            return {
+            return { action, state: {
                 ...INITIAL_STATE,
                 faction: getFactionByName(state?.deck?.faction),
                 selectedObjectives: state?.deck?.objectives,
@@ -18,7 +18,7 @@ export function useStateCreator() {
                 selectedUpgrades: state?.deck?.upgrades,
                 id: data,
                 name: state?.deck?.name
-            };
+            }};
         case "transfer": {
             const [transferFormat, ...cardIds] = data.split(",");
             const decode = getDecodingFunction(transferFormat);
@@ -38,13 +38,13 @@ export function useStateCreator() {
             );
             const faction = getFactionById(factionId);
 
-            return {
+            return { action, state: {
                 ...INITIAL_STATE,
                 faction,
                 selectedObjectives: decodedCards.filter(checkCardIsObjective),
                 selectedGambits: decodedCards.filter(checkCardIsPloy),
                 selectedUpgrades: decodedCards.filter(checkCardIsUpgrade),
-            };
+            }};
         }
     }
 }
