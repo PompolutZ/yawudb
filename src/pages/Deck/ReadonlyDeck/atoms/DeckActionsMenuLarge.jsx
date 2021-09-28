@@ -3,6 +3,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import IconLink from "./IconLink";
+import { EditIcon } from "./Icons";
 
 const StyledMenu = withStyles({
     paper: {
@@ -179,6 +181,8 @@ function DownloadMenu({ onDownloadAsVassal }) {
 
 function DeckActionMenuLarge({
     deckId,
+    isPublic,
+    toToggleDeckPublicity,
     deck,
     cardsView,
     onCardsViewChange,
@@ -193,31 +197,23 @@ function DeckActionMenuLarge({
     return (
         <React.Fragment>
             {canUpdateOrDelete && (
-                <Link
-                    className={`text-purple-700 group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
+                <IconLink
+                    className="hover:bg-gray-200"
                     to={{
                         pathname: `/deck/edit/${deckId}`,
                         state: {
                             deck,
                         },
                     }}
+                    label="Edit"
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
+                    <EditIcon
                         className="h-5 w-5 mr-2 stroke-current"
                         fill="#C4B5FD"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                        />
-                    </svg>
-                    <span className="text-gray-900">Edit</span>
-                </Link>
+                    />
+                </IconLink>
             )}
+
             <button
                 className={`text-purple-700 w-24 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
                 onClick={onCardsViewChange}
@@ -261,8 +257,50 @@ function DeckActionMenuLarge({
                 )}
             </button>
             <button
-             className={`text-purple-700 w-28 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
-             onClick={createShareableLink}
+                className={`text-purple-700 w-32 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
+                onClick={toToggleDeckPublicity}
+            >
+                {isPublic ? (
+                    <>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5 mr-2"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            />
+                        </svg>
+                        <span className="text-gray-900">Make private</span>
+                    </>
+                ) : (
+                    <>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5 mr-2"
+                            fill="#C4B5FD"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                            />
+                        </svg>
+                        <span className="text-gray-900">Make public</span>
+                    </>
+                )}
+            </button>
+            <button
+                className={`text-purple-700 w-28 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
+                onClick={createShareableLink}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

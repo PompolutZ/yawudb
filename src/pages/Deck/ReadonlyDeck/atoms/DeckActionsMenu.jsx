@@ -2,10 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { DeleteIcon, EditIcon, ShareIcon } from "./Icons";
+import IconLink from "./IconLink";
 
 function DeckActionsMenu({
     deckId,
     deck,
+    isPublic,
+    toToggleDeckPublicity,
     exportToUDB,
     exportToUDS,
     exportToClub,
@@ -41,50 +45,31 @@ function DeckActionsMenu({
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items className="absolute left-0 w-60 -ml-52 mt-2 origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="flex flex-col">
+                    <div>
                         {canUpdateOrDelete && (
                             <Menu.Item>
                                 {({ active }) => (
-                                    <Link
-                                        className={`${
-                                            active
-                                                ? "bg-purple-500 text-white"
-                                                : "text-purple-900"
-                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                    <IconLink
+                                        active={active}
                                         to={{
                                             pathname: `/deck/edit/${deckId}`,
                                             state: {
                                                 deck,
                                             },
                                         }}
+                                        label="Edit"
                                     >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
+                                        <EditIcon
                                             className="h-5 w-5 mr-2 stroke-current"
                                             fill="#C4B5FD"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                                            />
-                                        </svg>
-                                        <span
-                                            className={`${
-                                                active
-                                                    ? "text-white"
-                                                    : "text-gray-900"
-                                            }`}
-                                        >
-                                            Edit
-                                        </span>
-                                    </Link>
+                                        />
+                                    </IconLink>
                                 )}
                             </Menu.Item>
                         )}
+                    </div>
 
+                    <div className="flex flex-col">
                         <Menu.Item>
                             {({ active }) => (
                                 <button
@@ -95,20 +80,10 @@ function DeckActionsMenu({
                                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                     onClick={createShareableLink}
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
+                                    <ShareIcon
                                         className="h-5 w-5 mr-2 stroke-current"
                                         fill="#C4B5FD"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                                        />
-                                    </svg>
+                                    />
                                     <span
                                         className={`${
                                             active
@@ -121,6 +96,9 @@ function DeckActionsMenu({
                                 </button>
                             )}
                         </Menu.Item>
+                    </div>
+
+                    <div className="flex flex-col">
                         <Menu.Item>
                             {({ active }) => (
                                 <button
@@ -196,20 +174,10 @@ function DeckActionsMenu({
                                         } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                         onClick={onDelete}
                                     >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
+                                        <DeleteIcon
                                             className="h-6 w-6 mr-2"
                                             fill="#F27263"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                            />
-                                        </svg>
+                                        />
                                         <span>Delete</span>
                                     </button>
                                 )}
