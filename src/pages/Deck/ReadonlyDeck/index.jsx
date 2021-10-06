@@ -121,9 +121,9 @@ class ReadonlyDeck extends PureComponent {
         };
 
         const createdDate = updatedutc
-            ? ` | ${new Date(updatedutc).toLocaleDateString()}`
+            ? `${new Date(updatedutc).toLocaleDateString()}`
             : created
-            ? ` | ${new Date(created).toLocaleDateString()}`
+            ? `${new Date(created).toLocaleDateString()}`
             : "";
 
         const objectiveSummary = new Set(objectives)
@@ -150,6 +150,7 @@ class ReadonlyDeck extends PureComponent {
                         author={authorDisplayName}
                         date={createdDate}
                         sets={sets}
+                        isPrivate={this.props.private}
                     >
                         <DetailedPlayStyleValidity
                             className="relative -mx-1"
