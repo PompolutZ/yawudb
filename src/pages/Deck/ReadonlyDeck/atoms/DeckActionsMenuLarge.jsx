@@ -1,14 +1,15 @@
 import React from "react";
 import IconLink from "./IconLink";
-import { EditIcon, PeopleIcon } from "./Icons";
+import { EditIcon, PeopleIcon, PersonIcon } from "./Icons";
 import DropdownMenu from "./DropdownMenu";
 import ExportMenu from "./ExportMenu";
 import { Menu } from "@headlessui/react";
+import { DeckPrivacyToggleButton } from "./DeckPrivacyToggle";
 
 function DeckActionMenuLarge({
     deckId,
-    isPublic,
-    toToggleDeckPublicity,
+    isPrivate,
+    onToggleDeckPrivacy,
     deck,
     cardsView,
     onCardsViewChange,
@@ -82,22 +83,10 @@ function DeckActionMenuLarge({
                     </>
                 )}
             </button>
-            <button
-                className={`text-purple-700 w-32 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
-                onClick={toToggleDeckPublicity}
-            >
-                {isPublic ? (
-                    <>
-                        <PersonIcon className="h-5 w-5 mr-2" />
-                        <span className="text-gray-900">Make private</span>
-                    </>
-                ) : (
-                    <>
-                        <PeopleIcon className="h-5 w-5 mr-2" />
-                        <span className="text-gray-900">Make public</span>
-                    </>
-                )}
-            </button>
+            <DeckPrivacyToggleButton
+                isPrivate={isPrivate}
+                onClick={onToggleDeckPrivacy}
+            />
             <button
                 className={`text-purple-700 w-28 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
                 onClick={createShareableLink}

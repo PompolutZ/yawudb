@@ -96,6 +96,7 @@ function DeckCreator() {
                 <DeckBuilder
                     existingDeckId={state?.id}
                     currentDeckName={state?.name}
+                    isPrivate={state?.private}
                     action={action}
                 />
             </React.Fragment>

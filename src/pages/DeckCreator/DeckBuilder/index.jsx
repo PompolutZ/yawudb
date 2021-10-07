@@ -36,7 +36,7 @@ function Filters() {
     );
 }
 
-function DeckBuilder({ currentDeckName, existingDeckId, action }) {
+function DeckBuilder({ currentDeckName, existingDeckId, isPrivate, action }) {
     const [deckId, setDeckId] = useState(existingDeckId || "");
     const [deckName, setDeckName] = useState(currentDeckName || "");
     const [activeTabMobile, setActiveTabMobile] = useState(action === "create" ? "LIBRARY" : "DECK");
@@ -83,6 +83,7 @@ function DeckBuilder({ currentDeckName, existingDeckId, action }) {
                     author: uid,
                     authorDisplayName: displayName,
                     deckId,
+                    private: isPrivate,
                 })
             )
         } else {
