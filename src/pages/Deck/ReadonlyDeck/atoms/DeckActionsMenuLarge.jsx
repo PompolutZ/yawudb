@@ -1,10 +1,10 @@
 import React from "react";
 import IconLink from "./IconLink";
-import { EditIcon, PeopleIcon, PersonIcon } from "./Icons";
 import DropdownMenu from "./DropdownMenu";
 import ExportMenu from "./ExportMenu";
 import { Menu } from "@headlessui/react";
 import { DeckPrivacyToggleButton } from "./DeckPrivacyToggle";
+import { EditIcon } from "../../../../v2/components/Icons";
 
 function DeckActionMenuLarge({
     deckId,

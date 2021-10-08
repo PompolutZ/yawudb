@@ -1,10 +1,10 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
-import { EditIcon, ShareIcon, MoreVerticalIcon } from "./Icons";
 import IconLink from "./IconLink";
 import { DeleteMenuButton } from "./IconButton";
 import ExportMenu from "./ExportMenu";
 import DropdownMenu from "./DropdownMenu";
+import { EditIcon, MoreVerticalIcon, ShareIcon } from "../../../../v2/components/Icons";
 
 function DeckActionsMenu({
     deckId,

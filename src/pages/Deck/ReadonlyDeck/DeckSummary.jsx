@@ -2,7 +2,7 @@ import React from "react";
 import { idPrefixToFaction } from "../../../data/index";
 import DeckIcon from "../../../atoms/DeckIcon";
 import SetsList from "../../../atoms/SetsList";
-import { PeopleIcon, PersonIcon } from "./atoms/Icons";
+import { PeopleIcon, PersonIcon } from "../../../v2/components/Icons";
 
 function DeckSummary({
     factionPrefix,

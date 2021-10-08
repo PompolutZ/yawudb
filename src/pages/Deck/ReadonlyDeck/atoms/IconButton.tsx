@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { DeleteIcon } from "./Icons";
+import { DeleteIcon } from "../../../../v2/components/Icons";
 
 interface IconButtonProps {
     active?: boolean;

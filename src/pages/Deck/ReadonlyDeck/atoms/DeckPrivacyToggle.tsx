@@ -1,6 +1,6 @@
 import React from "react";
 import useAuthUser from "../../../../hooks/useAuthUser";
-import { PeopleIcon, PersonIcon } from "./Icons";
+import { PeopleIcon, PersonIcon } from "../../../../v2/components/Icons";
 
 const DeckPrivacyToggleButton = ({ onClick, isPrivate }): JSX.Element | null => {
     const user = useAuthUser();
