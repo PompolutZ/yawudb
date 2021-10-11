@@ -1,184 +1,15 @@
 import React from "react";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import { withStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
-
-const StyledMenu = withStyles({
-    paper: {
-        border: "1px solid #d3d4d5",
-    },
-})((props) => (
-    <Menu
-        elevation={0}
-        getContentAnchorEl={null}
-        anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-        }}
-        transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-        }}
-        {...props}
-    />
-));
-
-const StyledMenuItem = withStyles((theme) => ({
-    root: {
-        "&:focus": {
-            backgroundColor: theme.palette.primary.main,
-            "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-                color: theme.palette.common.white,
-            },
-        },
-    },
-}))(MenuItem);
-
-function ExportMenu({ exportToUDB, exportToUDS, exportToClub }) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    function handleClick(event) {
-        setAnchorEl(event.currentTarget);
-    }
-
-    function handleClose() {
-        setAnchorEl(null);
-    }
-
-    const handleExportClick = (invokeExport) => () => {
-        invokeExport();
-        handleClose();
-    };
-
-    return (
-        <div style={{ display: "flex" }}>
-            <button
-                className={`text-purple-700 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
-                aria-controls="customized-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
-                    fill="#C4B5FD"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    />
-                </svg>
-                <span className="text-gray-900">Export</span>
-            </button>
-            <StyledMenu
-                id="customized-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
-                <StyledMenuItem onClick={handleExportClick(exportToUDB)}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                            style={{ marginRight: ".3rem" }}
-                            src="https://www.underworldsdb.com/favicon.ico"
-                            width="16"
-                            height="16"
-                        />
-                        to UnderworldsDB
-                    </div>
-                </StyledMenuItem>
-                <StyledMenuItem onClick={handleExportClick(exportToUDS)}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                            style={{ marginRight: ".3rem" }}
-                            src="https://www.underworlds-deckers.com/images/faviconNew.png"
-                            width="16"
-                            height="16"
-                        />
-                        to Underworld-Deckers
-                    </div>
-                </StyledMenuItem>
-                <StyledMenuItem onClick={handleExportClick(exportToClub)}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                            style={{ marginRight: ".3rem" }}
-                            src="/assets/icons/wuc-pwa-192.png"
-                            width="16"
-                            height="16"
-                        />
-                        to WUnderworlds Club
-                    </div>
-                </StyledMenuItem>
-            </StyledMenu>
-        </div>
-    );
-}
-
-function DownloadMenu({ onDownloadAsVassal }) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    function handleClick(event) {
-        setAnchorEl(event.currentTarget);
-    }
-
-    function handleClose() {
-        setAnchorEl(null);
-    }
-
-    const handleDownloadClick = (invokeDownload) => () => {
-        invokeDownload();
-        handleClose();
-    };
-
-    return (
-        <div style={{ display: "flex" }}>
-            <button
-                className={`text-purple-700 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
-                aria-controls="customized-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
-                    fill="#C4B5FD"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    />
-                </svg>
-                <span className="text-gray-900">Download</span>
-            </button>
-            <StyledMenu
-                id="customized-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
-                <StyledMenuItem
-                    onClick={handleDownloadClick(onDownloadAsVassal)}
-                >
-                    as Vassal Decks
-                </StyledMenuItem>
-            </StyledMenu>
-        </div>
-    );
-}
+import IconLink from "./IconLink";
+import DropdownMenu from "./DropdownMenu";
+import ExportMenu from "./ExportMenu";
+import { Menu } from "@headlessui/react";
+import { DeckPrivacyToggleButton } from "./DeckPrivacyToggle";
+import { EditIcon } from "../../../../v2/components/Icons";
 
 function DeckActionMenuLarge({
     deckId,
+    isPrivate,
+    onToggleDeckPrivacy,
     deck,
     cardsView,
     onCardsViewChange,
@@ -193,31 +24,23 @@ function DeckActionMenuLarge({
     return (
         <React.Fragment>
             {canUpdateOrDelete && (
-                <Link
-                    className={`text-purple-700 group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
+                <IconLink
+                    className="hover:bg-gray-200"
                     to={{
                         pathname: `/deck/edit/${deckId}`,
                         state: {
                             deck,
                         },
                     }}
+                    label="Edit"
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
+                    <EditIcon
                         className="h-5 w-5 mr-2 stroke-current"
                         fill="#C4B5FD"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                        />
-                    </svg>
-                    <span className="text-gray-900">Edit</span>
-                </Link>
+                    />
+                </IconLink>
             )}
+
             <button
                 className={`text-purple-700 w-24 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
                 onClick={onCardsViewChange}
@@ -260,9 +83,15 @@ function DeckActionMenuLarge({
                     </>
                 )}
             </button>
+            {canUpdateOrDelete && (
+                <DeckPrivacyToggleButton
+                    isPrivate={isPrivate}
+                    onClick={onToggleDeckPrivacy}
+                />
+            )}
             <button
-             className={`text-purple-700 w-28 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
-             onClick={createShareableLink}
+                className={`text-purple-700 w-28 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
+                onClick={createShareableLink}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -280,12 +109,86 @@ function DeckActionMenuLarge({
                 </svg>
                 <span className="text-gray-900">Share link</span>
             </button>
-            <DownloadMenu onDownloadAsVassal={onSaveVassalFiles} />
-            <ExportMenu
-                exportToUDB={exportToUDB}
-                exportToUDS={exportToUDS}
-                exportToClub={exportToClub}
-            />
+            {/* <DownloadMenu onDownloadAsVassal={onSaveVassalFiles} /> */}
+
+            <DropdownMenu
+                className="relative z-10"
+                trigger={
+                    <div className="flex text-purple-700 w-28 justify-center group hover:bg-gray-200 rounded-md items-center px-2 py-2 text-sm">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5 mr-2"
+                            fill="#C4B5FD"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                            />
+                        </svg>
+                        <span className="text-gray-900">Download</span>
+                    </div>
+                }
+            >
+                <Menu.Item>
+                    {({ active }) => (
+                        <button
+                            className={`${
+                                active
+                                    ? "bg-purple-500 text-white"
+                                    : "text-purple-900"
+                            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                            onClick={onSaveVassalFiles}
+                        >
+                            <img
+                                className="w-14 h-5 mr-2"
+                                alt="Vassal logo"
+                                src="https://vassalengine.org/images/wordmark-path.png"
+                                width="356"
+                                height="120"
+                            />
+                            <span
+                                className={`${
+                                    active ? "text-white" : "text-gray-900"
+                                }`}
+                            >
+                                Decks
+                            </span>
+                        </button>
+                    )}
+                </Menu.Item>
+            </DropdownMenu>
+            <DropdownMenu
+                className="relative z-10"
+                trigger={
+                    <div className="flex text-purple-700 w-28 justify-center group hover:bg-gray-200 rounded-md items-center px-2 py-2 text-sm">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5 mr-2"
+                            fill="#C4B5FD"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            />
+                        </svg>
+                        <span className="text-gray-900">Export</span>
+                    </div>
+                }
+            >
+                <ExportMenu
+                    exportToUDB={exportToUDB}
+                    exportToUDS={exportToUDS}
+                    exportToClub={exportToClub}
+                />
+            </DropdownMenu>
             {canUpdateOrDelete && (
                 <button
                     className={`text-accent3-700 group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}

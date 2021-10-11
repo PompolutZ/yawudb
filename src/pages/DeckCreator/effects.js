@@ -42,7 +42,7 @@ export const apiUpdateDeckAsync = update => async (state, effect, dispatch) => {
         ];
 
         await update({ url: `/api/v1/user-decks/${deckId}`, data: {
-            private: true,
+            private: effect.deckMeta.private,
             name: deckName,
             faction: state.faction.name,
             deck: deck.map((c) => c.id),

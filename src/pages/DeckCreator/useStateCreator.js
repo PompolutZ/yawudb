@@ -12,6 +12,7 @@ export function useStateCreator() {
         case "edit":
             return { action, state: {
                 ...INITIAL_STATE,
+                ...state.deck,
                 faction: getFactionByName(state?.deck?.faction),
                 selectedObjectives: state?.deck?.objectives,
                 selectedGambits: state?.deck?.gambits,

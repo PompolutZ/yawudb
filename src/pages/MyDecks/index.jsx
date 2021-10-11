@@ -1,10 +1,4 @@
-import React, {
-    useEffect,
-    useMemo,
-    useState,
-    useCallback,
-    useRef,
-} from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
 import { VIEW_DECK } from "../../constants/routes";
@@ -13,15 +7,13 @@ import { ReactComponent as TrashIcon } from "../../svgs/trash.svg";
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
 import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
-import {
-    useGetUserDecks,
-    fetchUserDecks,
-} from "../../hooks/wunderworldsAPIHooks";
+import { fetchUserDecks } from "../../hooks/wunderworldsAPIHooks";
 import useAuthUser from "../../hooks/useAuthUser";
 import useDexie from "../../hooks/useDexie";
 import { useDeleteUserDeckFactory } from "../../hooks/useDeleteUserDeckFactory";
 import { useSaveDeckFactory } from "../../hooks/useSaveDeckFactory";
 import Firebase from "../../firebase";
+import { PeopleIcon } from "../../v2/components/Icons";
 
 function DeckLink({ onDelete, ...props }) {
     const [cards, setCards] = useState([]);
@@ -69,10 +61,18 @@ function DeckLink({ onDelete, ...props }) {
                 >
                     {props.name}
                 </Link>
-                <div>
-                    <h3 className="text-sm font-bold text-gray-700">
-                        {new Date(props.updatedutc).toLocaleDateString()}
-                    </h3>
+                <div className="space-y-2">
+                    <div className="flex">
+                        <h3 className="text-sm font-bold text-gray-700">
+                            {new Date(props.updatedutc).toLocaleDateString()}
+                        </h3>
+                        {!props.private && (
+                            <div className="flex items-center text-purple-700 uppercase text-xs pl-2 font-bold space-x-2">
+                                <PeopleIcon className="w-4 h-4 stroke-current" />
+                                public
+                            </div>
+                        )}
+                    </div>
                     <SetsList sets={props.sets} />
                     <ScoringOverview
                         summary={objectiveSummary}
