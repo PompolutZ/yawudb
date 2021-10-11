@@ -2,14 +2,14 @@ import React from "react";
 import useAuthUser from "../../../../hooks/useAuthUser";
 import { PeopleIcon, PersonIcon } from "../../../../v2/components/Icons";
 
-const DeckPrivacyToggleButton = ({ onClick, isPrivate }): JSX.Element | null => {
+const DeckPrivacyToggleButton = ({ onClick, isPrivate, className = `text-purple-700 w-32 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm` }): JSX.Element | null => {
     const user = useAuthUser();
 
     if (!user) return null;
 
     return (
         <button
-                className={`text-purple-700 w-32 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
+                className={className}
                 onClick={onClick}
             >
                 {isPrivate ? (

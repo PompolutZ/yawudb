@@ -4,13 +4,18 @@ import IconLink from "./IconLink";
 import { DeleteMenuButton } from "./IconButton";
 import ExportMenu from "./ExportMenu";
 import DropdownMenu from "./DropdownMenu";
-import { EditIcon, MoreVerticalIcon, ShareIcon } from "../../../../v2/components/Icons";
+import {
+    EditIcon,
+    MoreVerticalIcon,
+    ShareIcon,
+} from "../../../../v2/components/Icons";
+import { DeckPrivacyToggleButton } from "./DeckPrivacyToggle";
 
 function DeckActionsMenu({
     deckId,
     deck,
-    isPublic,
-    toToggleDeckPublicity,
+    isPrivate,
+    onToggleDeckPrivacy,
     exportToUDB,
     exportToUDS,
     exportToClub,
@@ -70,6 +75,24 @@ function DeckActionsMenu({
                     )}
                 </Menu.Item>
             </div>
+
+            {canUpdateOrDelete && (
+                <div className="flex flex-col">
+                    <Menu.Item>
+                        {({ active }) => (
+                            <DeckPrivacyToggleButton
+                                className={`${
+                                    active
+                                        ? "bg-purple-500 text-white"
+                                        : "text-purple-900"
+                                } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                isPrivate={isPrivate}
+                                onClick={onToggleDeckPrivacy}
+                            />
+                        )}
+                    </Menu.Item>
+                </div>
+            )}
 
             <ExportMenu
                 exportToUDB={exportToUDB}

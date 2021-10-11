@@ -83,10 +83,12 @@ function DeckActionMenuLarge({
                     </>
                 )}
             </button>
-            <DeckPrivacyToggleButton
-                isPrivate={isPrivate}
-                onClick={onToggleDeckPrivacy}
-            />
+            {canUpdateOrDelete && (
+                <DeckPrivacyToggleButton
+                    isPrivate={isPrivate}
+                    onClick={onToggleDeckPrivacy}
+                />
+            )}
             <button
                 className={`text-purple-700 w-28 justify-center group hover:bg-gray-200 flex rounded-md items-center px-2 py-2 text-sm`}
                 onClick={createShareableLink}

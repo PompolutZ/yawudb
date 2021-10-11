@@ -185,6 +185,8 @@ function ReadonlyDeck(props) {
                             exportToClub={handleExportToClub(cards)}
                             createShareableLink={handleCreateShareableLink}
                             onDelete={props.onDelete}
+                            onToggleDeckPrivacy={toggleDeckPrivacy}
+                            isPrivate={isPrivate}
                         />
                     </div>
                     <div className="hidden lg:flex items-center">
