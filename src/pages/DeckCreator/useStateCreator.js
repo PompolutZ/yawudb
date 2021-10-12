@@ -6,19 +6,22 @@ export function useStateCreator() {
     const { action, data } = useParams();
     const { state } = useLocation();
 
+    console.log(INITIAL_STATE, state.deck)
+
     switch (action) {
         case "create":
             return { action, state: null};
         case "edit":
             return { action, state: {
                 ...INITIAL_STATE,
-                ...state.deck,
                 faction: getFactionByName(state?.deck?.faction),
                 selectedObjectives: state?.deck?.objectives,
                 selectedGambits: state?.deck?.gambits,
                 selectedUpgrades: state?.deck?.upgrades,
+            }, previous: {
                 id: data,
-                name: state?.deck?.name
+                name: state?.deck?.name,
+                private: state?.deck?.private,
             }};
         case "transfer": {
             const [transferFormat, ...cardIds] = data.split(",");
