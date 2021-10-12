@@ -187,7 +187,8 @@ function FilterableCardLibrary(props) {
                                             cardId={card.id}
                                             ranking={card.ranking}
                                             expanded={expanded}
-                                            inDeck={deck.find(({ id }) => id === card.id )}
+                                            inDeck={!!deck.find(({ id }) => id === card.id )}
+                                            format={state.format}
                                             toggleCard={() =>
                                                 dispatch(toggleCardAction(card))
                                             }

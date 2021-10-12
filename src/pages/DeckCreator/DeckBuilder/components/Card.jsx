@@ -11,6 +11,7 @@ import {
     getCardWaveFromId,
     getSetNameById,
     totalCardsPerWave,
+    validateCardForPlayFormat,
     wucards,
 } from "../../../../data/wudb";
 import Fade from "@material-ui/core/Fade";
@@ -99,132 +100,135 @@ class WUCardInfo extends PureComponent {
     }
 }
 
-const CardInDeck = memo(({ cardId, toggleCard, inDeck, ranking, ...props }) => {
-    const [overlayIsVisible, setOverlayIsVisible] = useState(false);
-    const card = getCardById(cardId);
-    const {
-        type,
-        id,
-        scoreType,
-        glory,
-        name,
-        setId,
-        isRestricted,
-        isBanned,
-    } = card;
+const CardInDeck = memo(
+    ({ cardId, format, toggleCard, inDeck, ranking, ...props }) => {
+        const [overlayIsVisible, setOverlayIsVisible] = useState(false);
+        const card = getCardById(cardId);
+        const [, isBanned, isRestricted] = validateCardForPlayFormat(
+            cardId,
+            format
+        );
+        const { type, id, scoreType, glory, name, setId } = card;
 
-    const pickForegroundColor = (isRestricted, isBanned, defaultColor) => {
-        if (isBanned || isRestricted) {
-            return "white";
-        }
+        const pickForegroundColor = (isRestricted, isBanned, defaultColor) => {
+            if (isBanned || isRestricted) {
+                return "white";
+            }
 
-        return defaultColor;
-    };
+            return defaultColor;
+        };
 
-    const handleShowCardImageOverlay = () => {
-        setOverlayIsVisible(true);
-    };
+        const handleShowCardImageOverlay = () => {
+            setOverlayIsVisible(true);
+        };
 
-    return (
-        <>
-            <div
-                className={`flex items-center ${
-                    props.isAlter
-                        ? "bg-purple-100"
-                        : props.isAlter !== undefined
-                        ? "bg-white"
-                        : ""
-                }`}
-            >
+        return (
+            <>
                 <div
-                    className={`items-center relative ${
-                        props.showType ? "ml-2 mr-6" : "mx-2"
+                    className={`flex items-center ${
+                        isRestricted
+                            ? "bg-yellow-100"
+                            : isBanned
+                            ? "bg-red-100"
+                            : props.isAlter
+                            ? "bg-purple-100"
+                            : props.isAlter !== undefined
+                            ? "bg-white"
+                            : ""
                     }`}
                 >
-                    {props.showType && (
-                        <img
-                            className="w-8 h-8 absolute top-0 left-1/2"
-                            style={{ zIndex: 0 }}
-                            alt={`${type}`}
-                            src={`/assets/icons/${type.toLowerCase()}-icon.png`}
-                        />
-                    )}
-                    <img
-                        className="w-8 h-8"
-                        alt={`${getSetNameById(setId)}`}
-                        src={`/assets/icons/${getSetNameById(setId)}-icon.png`}
-                    />
-
-                    {isRestricted && (
-                        <LockIcon
-                            className="absolute w-8 h-8 opacity-75 top-1/2 -mt-3 left-1/2 -ml-3"
-                            style={{
-                                stroke: "white",
-                                fill: "goldenrod",
-                            }}
-                        />
-                    )}
-                    {isBanned && (
-                        <NotInterestedIcon
-                            className="absolute w-8 h-8 opacity-75 top-1/2 -mt-3 left-1/2 -ml-3"
-                            style={{
-                                fill: "darkred",
-                            }}
-                        />
-                    )}
-                </div>
-                <WUCardInfo
-                    rank={ranking}
-                    pickColor={pickForegroundColor}
-                    isRestricted={isRestricted}
-                    isBanned={isBanned}
-                    set={setId}
-                    name={name}
-                    scoreType={scoreType}
-                    type={type}
-                    id={id}
-                    glory={glory}
-                    onClick={handleShowCardImageOverlay}
-                />
-                <button
-                    className={`btn m-2 w-8 h-8 py-0 px-1 ${
-                        inDeck ? "btn-red" : "btn-purple"
-                    }`}
-                    onClick={toggleCard}
-                >
-                    <CloseIcon
-                        className={`text-white stroke-current transform transition-transform duration-300 ${
-                            inDeck ? "rotate-0" : "rotate-45"
+                    <div
+                        className={`items-center relative ${
+                            props.showType ? "ml-2 mr-6" : "mx-2"
                         }`}
+                    >
+                        {props.showType && (
+                            <img
+                                className="w-8 h-8 absolute top-0 left-1/2"
+                                style={{ zIndex: 0 }}
+                                alt={`${type}`}
+                                src={`/assets/icons/${type.toLowerCase()}-icon.png`}
+                            />
+                        )}
+                        <img
+                            className="w-8 h-8"
+                            alt={`${getSetNameById(setId)}`}
+                            src={`/assets/icons/${getSetNameById(
+                                setId
+                            )}-icon.png`}
+                        />
+
+                        {isRestricted && (
+                            <LockIcon
+                                className="absolute w-8 h-8 opacity-75 top-1/2 -mt-3 left-1/2 -ml-3"
+                                style={{
+                                    stroke: "white",
+                                    fill: "goldenrod",
+                                }}
+                            />
+                        )}
+                        {isBanned && (
+                            <NotInterestedIcon
+                                className="absolute w-8 h-8 opacity-75 top-1/2 -mt-3 left-1/2 -ml-3"
+                                style={{
+                                    fill: "darkred",
+                                }}
+                            />
+                        )}
+                    </div>
+                    <WUCardInfo
+                        rank={ranking}
+                        pickColor={pickForegroundColor}
+                        isRestricted={isRestricted}
+                        isBanned={isBanned}
+                        set={setId}
+                        name={name}
+                        scoreType={scoreType}
+                        type={type}
+                        id={id}
+                        glory={glory}
+                        onClick={handleShowCardImageOverlay}
                     />
-                </button>
-            </div>
-            {overlayIsVisible && (
-                <ModalPresenter>
-                    <Fade in={overlayIsVisible}>
-                        <div
-                            className="fixed inset-0 z-10 cursor-pointer"
-                            onClick={() => setOverlayIsVisible(false)}
-                        >
-                            <div className="bg-black absolute inset-0 opacity-25"></div>
-                            <div className="absolute inset-0 z-20 flex justify-center items-center">
-                                <div className="w-4/5 lg:w-1/4">
-                                    <CardImage
-                                        id={id}
-                                        className="rounded-lg"
-                                        style={{
-                                            filter: "drop-shadow(0 0 10px black)",
-                                        }}
-                                        alt={id}
-                                    />
+                    <button
+                        className={`btn m-2 w-8 h-8 py-0 px-1 ${
+                            inDeck ? "btn-red" : "btn-purple"
+                        }`}
+                        onClick={toggleCard}
+                    >
+                        <CloseIcon
+                            className={`text-white stroke-current transform transition-transform duration-300 ${
+                                inDeck ? "rotate-0" : "rotate-45"
+                            }`}
+                        />
+                    </button>
+                </div>
+                {overlayIsVisible && (
+                    <ModalPresenter>
+                        <Fade in={overlayIsVisible}>
+                            <div
+                                className="fixed inset-0 z-10 cursor-pointer"
+                                onClick={() => setOverlayIsVisible(false)}
+                            >
+                                <div className="bg-black absolute inset-0 opacity-25"></div>
+                                <div className="absolute inset-0 z-20 flex justify-center items-center">
+                                    <div className="w-4/5 lg:w-1/4">
+                                        <CardImage
+                                            id={id}
+                                            className="rounded-lg"
+                                            style={{
+                                                filter: "drop-shadow(0 0 10px black)",
+                                            }}
+                                            alt={id}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </Fade>
-                </ModalPresenter>
-            )}
-        </>
-    );
-})
+                        </Fade>
+                    </ModalPresenter>
+                )}
+            </>
+        );
+    }
+);
 
 export default CardInDeck;
