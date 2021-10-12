@@ -32,9 +32,7 @@ function GambitsList({ selectedGambits, format, isValid }) {
 
             <animated.div style={expand} className="overflow-hidden">
                 <div ref={measureRef}>
-                    <CardsList
-                        cards={selectedGambits}
-                    />
+                    <CardsList format={format} cards={selectedGambits} />
                 </div>
             </animated.div>
         </div>

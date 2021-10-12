@@ -12,7 +12,7 @@ function ObjectivesList({ selectedObjectives, format, isValid }) {
         open: true,
     });
     const expand = useSpring({
-        height: open ? `${contentHeight}px` : '0px',
+        height: open ? `${contentHeight}px` : "0px",
     });
 
     const totalGlory = useMemo(
@@ -84,9 +84,7 @@ function ObjectivesList({ selectedObjectives, format, isValid }) {
                     {surge.length > 0 && (
                         <section className="mt-4 mb-2">
                             <SectionTitle className="my-2" title="Surge" />
-                            <CardsList
-                                cards={surge}
-                            />
+                            <CardsList format={format} cards={surge} />
                         </section>
                     )}
                     {end.length > 0 && (
@@ -95,17 +93,13 @@ function ObjectivesList({ selectedObjectives, format, isValid }) {
                                 className="mt-4 mb-2"
                                 title="End Phase"
                             />
-                            <CardsList
-                                cards={end}
-                            />
+                            <CardsList format={format} cards={end} />
                         </section>
                     )}
                     {third.length > 0 && (
                         <section className="mt-4 mb-2">
                             <SectionTitle title="Third End Phase" />
-                            <CardsList
-                                cards={third}
-                            />
+                            <CardsList format={format} cards={third} />
                         </section>
                     )}
                 </div>

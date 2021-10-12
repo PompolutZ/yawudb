@@ -14,11 +14,6 @@ import uuid4 from "uuid";
 import { useDeckBuilderState } from "../..";
 
 function Deck({
-    // faction,
-    // selectedObjectives,
-    // selectedGambits,
-    // selectedUpgrades,
-    // format,
     deckName,
     onDeckNameChange,
     onSave,

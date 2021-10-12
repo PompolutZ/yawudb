@@ -77,7 +77,7 @@ function DeckBuilderContextProvider({ children, deck }) {
 }
 
 function DeckCreator() {
-    const { action, state } = useStateCreator();
+    const { action, state, previous } = useStateCreator();
 
     return (
         <DeckBuilderContextProvider deck={state}>
@@ -94,9 +94,9 @@ function DeckCreator() {
                 </Helmet>
 
                 <DeckBuilder
-                    existingDeckId={state?.id}
-                    currentDeckName={state?.name}
-                    isPrivate={state?.private}
+                    existingDeckId={previous?.id}
+                    currentDeckName={previous?.name}
+                    isPrivate={previous?.private}
                     action={action}
                 />
             </React.Fragment>

@@ -32,9 +32,7 @@ function UpgradesList({ selectedUpgrades, format, isValid }) {
 
             <animated.div style={expand} className="overflow-hidden">
                 <div ref={measureRef}>
-                    <CardsList
-                        cards={selectedUpgrades}
-                    />
+                    <CardsList format={format} cards={selectedUpgrades} />
                 </div>
             </animated.div>
         </div>

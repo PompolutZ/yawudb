@@ -123,7 +123,8 @@ function getAllSetsValidForFormat(format) {
     }
 }
 
-function validateCardForPlayFormat(card, format) {
+function validateCardForPlayFormat(card, format = CHAMPIONSHIP_FORMAT) {
+    if (!format) return [];
     let c = undefined;
     if (typeof card === "string") {
         c = cards[Number(card)];
