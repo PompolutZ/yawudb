@@ -116,9 +116,9 @@ export const VANGUARD_FORMAT = "vanguard";
 function getAllSetsValidForFormat(format) {
     switch (format) {
         case VANGUARD_FORMAT: 
-            return Object.values(sets).filter(set => set.id > 29)
+            return Object.values(sets).filter(set => set.id > 40)
         case CHAMPIONSHIP_FORMAT:
-            return Object.values(sets).filter((set) => set.id > 20);
+            return Object.values(sets).filter((set) => set.id > 29);
         default:
             return Object.values(sets);
     }

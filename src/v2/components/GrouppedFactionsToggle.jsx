@@ -25,7 +25,14 @@ const grouppedFactions = () => {
     return [
         {
             title: "Universal (Any warband)",
-            factions: [wufactions["Universal"]],
+            factions: [wufactions["Universal"], wufactions["Order"], wufactions["Chaos"], wufactions["Death"], wufactions["Destruction"]],
+        },
+        {
+            title: "Harrowdeep",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= wufactions["Xandire's Truthseekers"].id
+            ),
         },
         {
             title: "Direchasm",

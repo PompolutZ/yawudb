@@ -10,9 +10,16 @@ const createExpansionGroups = () => {
     const season2 = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
     const season3 = [21, 22, 23, 24, 25, 26, 27, 28, 29];
     const season4 = [30, 31, 32, 33, 34, 35, 36, 39, 40];
+    const season5 = [41];
     const noSeason = [20, 37, 38];
 
     return [
+        {
+            title: "Season 5",
+            expansions: Object.values(wusets).filter((exp) =>
+                season5.includes(exp.id)
+            ),
+        },
         {
             title: "Season 4",
             expansions: Object.values(wusets).filter((exp) =>
