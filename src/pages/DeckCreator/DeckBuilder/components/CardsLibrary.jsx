@@ -95,7 +95,7 @@ function FilterableCardLibrary(props) {
             ...Object.values(wucards).filter(
                 (card) =>
                     !!state.sets.find((set) => set.id == card.setId) &&
-                    card.factionId === 1 &&
+                    (card.factionId === 1  || card.factionId === state.faction.gaId) &&
                     (card.duplicates
                         ? card.id === Math.max(...card.duplicates)
                         : true)
@@ -124,6 +124,7 @@ function FilterableCardLibrary(props) {
                 return card;
             });
 
+        console.log(nextCards);
         const nextCardsExcludingForsaken =
             state.format !== VANGUARD_FORMAT
                 ? nextCards.filter((c) => !c.isBanned)

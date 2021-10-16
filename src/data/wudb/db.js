@@ -205,48 +205,56 @@ export const factions = {
         "id": 2,
         "abbr": "gr",
         "name": "garreks-reavers",
+        "gaId": 39,
         "displayName": "Garrek's Reavers"
     },
     "Steelheart's Champions": {
         "id": 3,
         "abbr": "sc",
         "name": "steelhearts-champions",
+        "gaId": 38,
         "displayName": "Steelheart's Champions"
     },
     "Sepulchral Guard": {
         "id": 4,
         "abbr": "sg",
         "name": "sepulchral-guard",
+        "gaId": 40,
         "displayName": "Sepulchral Guard"
     },
     "Ironskull's Boyz": {
         "id": 5,
         "abbr": "ib",
         "name": "ironskulls-boyz",
+        "gaId": 41,
         "displayName": "Ironskull's Boyz"
     },
     "The Chosen Axes": {
         "id": 6,
         "abbr": "tca",
         "name": "the-chosen-axes",
+        "gaId": 38,
         "displayName": "The Chosen Axes"
     },
     "Spiteclaw's Swarm": {
         "id": 7,
         "abbr": "ss",
         "name": "spiteclaws-swarm",
+        "gaId": 39,
         "displayName": "Spiteclaw's Swarm"
     },
     "Magore's Fiends": {
         "id": 8,
         "abbr": "mf",
         "name": "magores-fiends",
+        "gaId": 39,
         "displayName": "Magore's Fiends"
     },
     "The Farstriders": {
         "id": 9,
         "abbr": "tf",
         "name": "the-farstriders",
+        "gaId": 38,
         "displayName": "The Farstriders"
     },
     "Universal": {
@@ -259,180 +267,210 @@ export const factions = {
         "id": 10,
         "abbr": "stc",
         "name": "stormsires-cursebreakers",
+        "gaId": 38,
         "displayName": "Stormsire's Cursebreakers"
     },
     "Thorns of the Briar Queen": {
         "id": 11,
         "abbr": "toftbq",
         "name": "thorns-of-the-briar-queen",
+        "gaId": 40,
         "displayName": "Thorns of the Briar Queen"
     },
     "Eyes of the Nine": {
         "id": 12,
         "abbr": "teotn",
         "name": "the-eyes-of-the-nine",
+        "gaId": 39,
         "displayName": "Eyes of the Nine"
     },
     "Zarbag's Gitz": {
         "id": 13,
         "abbr": "zg",
         "name": "zarbags-gitz",
+        "gaId": "zg",
         "displayName": "Zarbag's Gitz"
     },
     "Godsworn Hunt": {
         "id": 14,
         "abbr": "gh",
         "name": "godsworn-hunt",
+        "gaId": 39,
         "displayName": "Godsworn Hunt"
     },
     "Mollog's Mob": {
         "id": 15,
         "abbr": "mm",
         "name": "mollogs-mob",
+        "gaId": 41,
         "displayName": "Mollog's Mob"
     },
     "Thundrik's Profiteers": {
         "id": 16,
         "abbr": "tp",
         "name": "thundriks-profiteers",
+        "gaId": 38,
         "displayName": "Thundrik's Profiteers"
     },
     "Ylthari's Guardians": {
         "id": 17,
         "abbr": "yg",
         "name": "yltharis-guardians",
+        "gaId": 38,
         "displayName": "Ylthari's Guardians"
     },
     "Ironsoul's Condemners": {
         "id": 18,
         "abbr": "ic",
         "name": "ironsouls-condemners",
+        "gaId": 38,
         "displayName": "Ironsoul's Condemners"
     },
     "Lady Harrow's Mournflight": {
         "id": 19,
         "abbr": "lhm",
         "name": "lady-harrows-mournflight",
+        "gaId": 40,
         "displayName": "Lady Harrow's Mournflight"
     },
     "Grashrak's Despoilers": {
         "id": 20,
         "abbr": "gd",
         "name": "grashraks-despoilers",
+        "gaId": 39,
         "displayName": "Grashrak's Despoilers"
     },
     "Skaeth's Wild Hunt": {
         "id": 21,
         "abbr": "swh",
         "name": "skaeths-wild-hunt",
+        "gaId": 38,
         "displayName": "Skaeth's Wild Hunt"
     },
     "The Grymwatch": {
         "id": 22,
         "abbr": "tg",
         "name": "the-grymwatch",
+        "gaId": 40,
         "displayName": "The Grymwatch"
     },
     "Rippa's Snarlfangs": {
         "id": 23,
         "abbr": "rs",
         "name": "rippas-snarlfangs",
+        "gaId": 41,
         "displayName": "Rippa's Snarlfangs"
     },
     "The Wurmspat": {
         "id": 25,
         "abbr": "tw",
         "name": "the-wurmspat",
+        "gaId": 40,
         "displayName": "The Wurmspat"
     },
     "Hrothgorn's Mantrappers": {
         "id": 24,
         "abbr": "hm",
         "name": "hrothgorns-mantrappers",
+        "gaId": 41,
         "displayName": "Hrothgorn's Mantrappers"
     },
     "Morgwaeth's Blade-coven": {
         "id": 26,
         "abbr": "mbc",
         "name": "morgwaeths-blade-coven",
+        "gaId": 38,
         "displayName": "Morgwaeth's Blade-coven"
     },
     "Morgok's Krushas": {
         "id": 27,
         "abbr": "mk",
         "name": "morgoks-krushas",
+        "gaId": 41,
         "displayName": "Morgok's Krushas"
     },
     "Myari's Purifiers": {
         "id": 28,
         "abbr": "mp",
         "name": "myaris-purifiers",
+        "gaId": 38,
         "displayName": "Myari's Purifiers"
     },
     "The Dread Pageant": {
         "id": 29,
         "abbr": "dp",
         "name": "dread-pageant",
+        "gaId": 39,
         "displayName": "The Dread Pageant"
     },
     "Khagra's Ravagers": {
         "id": 30,
         "abbr": "kr",
         "name": "khagras-ravagers",
+        "gaId": 39,
         "displayName": "Khagra's Ravagers"
     },
     "The Starblood Stalkers": {
         "id": 31,
         "abbr": "tss",
         "name": "the-starblood-stalkers",
+        "gaId": 38,
         "displayName": "The Starblood Stalkers"
     },
     "The Crimson Court": {
         "id": 32,
         "abbr": "tcc",
         "name": "the-crimson-court",
+        "gaId": 40,
         "displayName": "The Crimson Court"
     },
     "Hedkrakka's Madmob": {
         "id": 33,
         "abbr": "hem",
         "name": "hedkrakkas-madmob",
+        "gaId": "hem",
         "displayName": "Hedkrakka's Madmob"
     },
     "Kainan's Reapers": {
         "id": 34,
         "abbr": "kar",
         "name": "kainans-reapers",
+        "gaId": 40,
         "displayName": "Kainan's Reapers"
     },
     "Elathain's Soulraid": {
         "id": 35,
         "abbr": "es",
         "name": "elathains-soulreapers",
+        "gaId": 38,
         "displayName": "Elathain's Soulraid"
     },
     "Storm of Celestus": {
         "id": 36,
         "abbr": "soc",
         "name": "storm-of-celestus",
+        "gaId": 38,
         "displayName": "Storm of Celestus"
     },
     "Drepur's Wraithcreepers": {
         "id": 37,
         "abbr": "dw",
         "name": "drepurs-wraithcreepers",
+        "gaId": 40,
         "displayName": "Drepur's Wraithcreepers"
     },
     "Xandire's Truthseekers": {
         "id": 42,
         "abbr": "xt",
         "name": "xandires-truthseekers",
+        "gaId": 38,
         "displayName": "Xandire's Truthseekers"
     },
     "Da Kunnin' Krew": {
         "id": 43,
         "abbr": "dkk",
         "name": "da-kunnin-krew",
+        "gaId": 41,
         "displayName": "Da Kunnin' Krew"
     },
     "Order": {
