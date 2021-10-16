@@ -148,7 +148,7 @@ class Card extends PureComponent {
                                         alt={card.name}
                                     />
                                 }
-                                fallback={<CardRule rule={card.rule} />}
+                                fallback={<CardRule rule={card.rule} glory={card.glory} />}
                             />
                         </Expandable>
                     </>

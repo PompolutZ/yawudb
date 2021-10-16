@@ -272,6 +272,9 @@ export const idPrefixToFaction = {
     hem: "hedkrakkas-madmob",
     kar: "kainans-reapers",
     es: "elathains-soulreapers",
+
+    "xt": "xandires-truthseekers", 
+    "dkk": "da-kunnin-krew",
 }
 
 export const factionIndexes = [
