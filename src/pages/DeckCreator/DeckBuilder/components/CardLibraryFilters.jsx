@@ -53,6 +53,8 @@ function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     );
 }
 
+const notPlayableFactionIds = [1,38,39,40,41];
+
 function FactionsPicker({ selected, onChangeWarband, ...rest }) {
     const handleSelectWarband = (faction) => () => {
         onChangeWarband(faction);
@@ -61,7 +63,7 @@ function FactionsPicker({ selected, onChangeWarband, ...rest }) {
     return (
         <div className={`flex flex-wrap align-middle ${rest.className}`}>
             {Object.values(wufactions)
-                .filter((faction) => faction.id != selected.id)
+                .filter((faction) => faction.id != selected.id && !notPlayableFactionIds.includes(faction.id))
                 .reverse()
                 .map((faction) => (
                     <img
