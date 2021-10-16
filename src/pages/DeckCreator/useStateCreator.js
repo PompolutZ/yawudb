@@ -6,8 +6,6 @@ export function useStateCreator() {
     const { action, data } = useParams();
     const { state } = useLocation();
 
-    console.log(INITIAL_STATE, state.deck)
-
     switch (action) {
         case "create":
             return { action, state: null};
