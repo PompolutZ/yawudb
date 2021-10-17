@@ -197,9 +197,9 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
         }
     }
 
-    if (objectives.length != 12) {
+    if (objectives.length < 12) {
         isValid = false;
-        issues.push("Deck must have 12 objective cards");
+        issues.push("Deck must have at least 12 objective cards");
     }
 
     if (
