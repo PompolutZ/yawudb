@@ -76,6 +76,7 @@ const udbPrefixesMap = {
     S: 10000,
     E: 11000,
     AM: 12000,
+    H: 13000,
 };
 
 const decodeUDB = (card) => {
