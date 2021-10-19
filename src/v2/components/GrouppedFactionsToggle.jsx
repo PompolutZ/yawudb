@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { wufactions } from "../../data/wudb";
+import { useMultiSelectArray } from "../../hooks/useMultiSelectArray";
 import { sortByIdAsc } from "../../utils/sort";
 import IconButton from "./IconButton";
 import SectionTitle from "./SectionTitle";
@@ -20,8 +21,9 @@ function FactionPicture({ faction, ...rest }) {
     );
 }
 
+const sortedFactions = Object.values(wufactions).sort(sortByIdAsc);
+
 const grouppedFactions = () => {
-    const sortedFactions = Object.values(wufactions).sort(sortByIdAsc);
     return [
         {
             title: "Universal (Any warband)",
@@ -86,19 +88,13 @@ const grouppedFactions = () => {
 };
 
 const GrouppedFactionsToggle = ({ selectedFactions, onSelectionChanged, allowMultiSelect = true }) => {
+    const { selected, onToggle } = useMultiSelectArray(
+        selectedFactions,
+        allowMultiSelect,
+        sortedFactions.map(f => f.id),
+        onSelectionChanged
+    )
     const factionGroups = grouppedFactions();
-    const [selectedIds, setSelectedIds] = useState(selectedFactions);
-
-    const onToggle = factionId => () => {
-        if (allowMultiSelect) {
-            const next = selectedIds.includes(factionId) ? selectedIds.filter(id => id !== factionId) : [...selectedIds, factionId]
-            setSelectedIds(next);
-            onSelectionChanged(next);
-        } else {
-            setSelectedIds([factionId]);
-            onSelectionChanged([factionId]);
-        }
-    }
 
     return (
         <section className="flex flex-col space-y-2 mx-4">
@@ -113,7 +109,7 @@ const GrouppedFactionsToggle = ({ selectedFactions, onSelectionChanged, allowMul
                                 <FactionPicture
                                     faction={faction.name}
                                     className={`w-8 h-8 ${
-                                        selectedIds.includes(faction.id)
+                                        selected.includes(faction.id)
                                             ? "drop-shadow-md opacity-100"
                                             : "drop-shadow-sm opacity-50"
                                     }  hover:scale-105`}

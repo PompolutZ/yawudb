@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
     wusets,
 } from "../../data/wudb";
+import { useMultiSelectArray } from "../../hooks/useMultiSelectArray";
 import IconButton from "./IconButton";
 import SectionTitle from "./SectionTitle";
 
@@ -71,16 +72,12 @@ function ExpansionPicture({ setName, ...rest }) {
 
 const GrouppedExpansions = ({ onSelectionChanged, selectedExpansions = [], validSetIds = [] }) => {
     const expansionGroups = createExpansionGroups();
-    const [selectedExpansionIds, setSelectedExpansionIds] =
-        useState(selectedExpansions);
-
-    const onToggle = (expansionId) => () => {
-        const next = selectedExpansionIds.includes(expansionId)
-            ? selectedExpansionIds.filter((id) => id !== expansionId)
-            : [...selectedExpansionIds, expansionId];
-        setSelectedExpansionIds(next);
-        onSelectionChanged(next);
-    };
+    const { onToggle } = useMultiSelectArray(
+        selectedExpansions,
+        true,
+        validSetIds,
+        onSelectionChanged
+    )
 
     return (
         <section className="flex flex-col space-y-2 mx-4">
@@ -107,7 +104,7 @@ const GrouppedExpansions = ({ onSelectionChanged, selectedExpansions = [], valid
                                             expansion.id
                                         )
                                             ? "opacity-100"
-                                            : "opacity-75"
+                                            : "opacity-50"
                                     }`}
                                 />
                             </IconButton>
