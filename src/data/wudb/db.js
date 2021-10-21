@@ -288,7 +288,7 @@ export const factions = {
         "id": 13,
         "abbr": "zg",
         "name": "zarbags-gitz",
-        "gaId": "zg",
+        "gaId": 41,
         "displayName": "Zarbag's Gitz"
     },
     "Godsworn Hunt": {
@@ -365,7 +365,7 @@ export const factions = {
         "id": 25,
         "abbr": "tw",
         "name": "the-wurmspat",
-        "gaId": 40,
+        "gaId": 39,
         "displayName": "The Wurmspat"
     },
     "Hrothgorn's Mantrappers": {
@@ -428,7 +428,7 @@ export const factions = {
         "id": 33,
         "abbr": "hem",
         "name": "hedkrakkas-madmob",
-        "gaId": "hem",
+        "gaId": 41,
         "displayName": "Hedkrakka's Madmob"
     },
     "Kainan's Reapers": {
