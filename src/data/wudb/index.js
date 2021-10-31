@@ -16,7 +16,7 @@ export const totalCardsPerWave = {
     13: 308,
 };
 
-export const latestSeasonStartNumber = 9000;
+export const latestSeasonStartNumber = 13000;
 
 function getCardNumberFromId(cardId) {
     if (typeof cardId == "string") {
@@ -189,7 +189,7 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
     }
 
     if(format == CHAMPIONSHIP_FORMAT) {
-        const onlyLastTwoSeasons = deck.filter(c => c.factionId < 2).reduce((lastTwoSeasons, c) => lastTwoSeasons && c.id > 6000, true)
+        const onlyLastTwoSeasons = deck.filter(c => c.factionId < 2).reduce((lastTwoSeasons, c) => lastTwoSeasons && c.id > 9000, true)
         isValid = onlyLastTwoSeasons;
         
         if(!onlyLastTwoSeasons) {
