@@ -13,7 +13,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@tailwindcss/forms": "^0.3.2",
     "autosuggest-highlight": "^3.1.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "axios-hooks": "^2.6.3",
     "b64-to-blob": "^1.2.19",
     "clipboard-polyfill": "^2.8.6",
