@@ -174,6 +174,9 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
         ...upgrades,
     ];
     const MAX_RESTRICTED_CARDS = 3;
+    const MIN_OBJECTIVE_COUNT = 12;
+    const MAX_SURGE_OBJECTIVE_COUNT = 6;
+    const MIN_POWER_CARD_COUNT = 20;
     const issues = [];
     let isValid = true;
 
@@ -184,7 +187,7 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
 
         isValid = onlyLatestSeason;
         if(!onlyLatestSeason) {
-            issues.push(`Vanguard decks could include cards from last season only.`);
+            issues.push(`Vanguard decks can onlyinclude cards from last season`);
         }
     }
 
@@ -193,33 +196,30 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
         isValid = onlyLastTwoSeasons;
         
         if(!onlyLastTwoSeasons) {
-            issues.push(`Championship decks cannot include rotated out cards.`);
+            issues.push(`Championship decks cannot include rotated out cards`);
         }
     }
 
-    if (objectives.length < 12) {
+    if (objectives.length < MIN_OBJECTIVE_COUNT) {
         isValid = false;
-        issues.push("Deck must have at least 12 objective cards");
+        issues.push("Your deck must include at least 12 objective cards");
     }
 
-    if (
-        objectives.filter((card) => card.scoreType == SURGE_SCORE_TYPE).length >
-        6
-    ) {
+    if (objectives.filter((card) => card.scoreType == SURGE_SCORE_TYPE).length > MAX_SURGE_OBJECTIVE_COUNT) {
         isValid = false;
-        issues.push("Deck cannot have more than 6 Surge cards");
+        issues.push("Your deck can't include more than 6 Surge cards");
     }
 
-    if (gambits.length + upgrades.length < 20) {
+    if (gambits.length + upgrades.length < MIN_POWER_CARD_COUNT) {
         isValid = false;
         issues.push(
-            "Deck must have at least 20 power cards (gambits and upgrades)"
+            "Your deck must include at least 20 power cards (gambits and upgrades)"
         );
     }
 
     if (gambits.length > upgrades.length) {
         isValid = false;
-        issues.push("Deck cannot have more gambits than upgrade cards.");
+        issues.push("Your deck must can't include more gambits than upgrade cards");
     }
 
     var totalInvalidCards = deck
