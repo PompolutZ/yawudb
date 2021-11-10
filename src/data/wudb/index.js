@@ -187,7 +187,7 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
 
         isValid = onlyLatestSeason;
         if(!onlyLatestSeason) {
-            issues.push(`Vanguard decks can onlyinclude cards from last season`);
+            issues.push(`Vanguard decks can only include cards from last season`);
         }
     }
 
@@ -219,7 +219,7 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
 
     if (gambits.length > upgrades.length) {
         isValid = false;
-        issues.push("Your deck must can't include more gambits than upgrade cards");
+        issues.push("Your deck can't include more gambits than upgrade cards");
     }
 
     var totalInvalidCards = deck
