@@ -66,5 +66,9 @@
     "vite": "^2.4.4",
     "vite-plugin-react-svg": "^0.2.0",
     "vite-plugin-svgr": "^0.3.0"
+  },
+  "volta": {
+    "node": "16.13.0",
+    "yarn": "1.22.17"
   }
 }
