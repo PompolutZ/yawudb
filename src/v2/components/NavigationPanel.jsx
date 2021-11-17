@@ -20,7 +20,7 @@ export default function NavigationPanel() {
                     className="text-base block mr-8 cursor-pointer uppercase font-bold hover:text-purple-700"
                     to="/"
                 >
-                    <Logo className="h-8 lg:h-12 filter drop-shadow-md" />
+                    <Logo className="h-8 filter drop-shadow-md" />
                 </Link>
             </div>
             <Menu
@@ -84,23 +84,18 @@ function UserMenu() {
             >
                 My Decks
             </AnimatedLink>
-            {/* <Link
-                className="block mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
-                to={ROUTES.MY_DECKS}
-            >
-                My Decks
-            </Link> */}
+
             {auth && (
                 <>
                     <AnimatedLink
-                        className="block mr-8 my-2 lg:my-0 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
+                        className="block mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
                         to={ROUTES.PROFILE}
                     >
                         Profile
                     </AnimatedLink>
                     <a
                         href="#"
-                        className="block mt-4 lg:mt-0 lg:ml-auto mr-8 my-2 lg:my-0 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
+                        className="block lg:ml-auto mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
                         onClick={() =>
                             firebase.signOut().then(history.push("/"))
                         }
@@ -112,7 +107,7 @@ function UserMenu() {
             {!auth && (
                 <AnimatedLink
                     className="cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
-                    container="block mr-8 my-2 lg:my-0 lg:ml-auto"
+                    container="block mr-8 lg:ml-auto"
                     to={ROUTES.SIGN_IN}
                 >
                     Sign In
@@ -150,10 +145,10 @@ const MobileMenu = ({ className }) => {
                             onClick={() => setOpen((prev) => !prev)}
                         >
                             <Menu
-                                classes="flex p-8 flex-col items-end justify-evenly text-xl"
+                                classes="flex p-8 flex-col space-y-6 items-end justify-evenly text-xl"
                                 showHome
                             >
-                                <Divider className="my-8" />
+                                <Divider />
 
                                 <UserMenu />
                             </Menu>
@@ -172,27 +167,27 @@ const Menu = ({ classes, showHome, children }) => {
         <nav className={`${classes}`}>
             {showHome && (
                 <Link
-                    className="block mr-8 my-4 lg:my-0 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
+                    className="block mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
                     to="/"
                 >
                     Home
                 </Link>
             )}
             <Link
-                className="block mr-8 my-4 lg:my-0 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700 lg:hidden text-purple-900"
+                className="block mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700 lg:hidden text-purple-900"
                 to="/deck/create"
             >
                 Create New Deck
             </Link>
 
             <AnimatedLink
-                className="block mr-8 my-4 lg:my-0 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
+                className="block mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
                 to={ROUTES.BROWSE_ALL_DECKS}
             >
                 Public decks
             </AnimatedLink>
             <AnimatedLink
-                className="hidden lg:block mr-8 my-4 lg:my-0 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
+                className="hidden lg:block mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
                 to={ROUTES.CARDS_LIBRARY}
             >
                 Library
