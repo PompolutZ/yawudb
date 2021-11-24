@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import { Set } from "immutable";
 import ScoringOverview from "../../../atoms/ScoringOverview";
 import Card from "./atoms/Card";
@@ -14,9 +14,11 @@ import CardListSectionHeader from "../../../v2/components/CardListSectionHeader"
 import DeckSummary from "./DeckSummary";
 import { useState } from "react";
 import { useUpdateUserDeck } from "../../../hooks/wunderworldsAPIHooks";
+import { ModalPresenter } from "../../../main";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
 const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
+const CardProxyMaker = lazy(() => import("../CardProxyMaker"));
 
 function CardsSectionContent({ cards, listView }) {
     return listView ? (
@@ -49,6 +51,7 @@ function ReadonlyDeck(props) {
     } = props;
 
     const [isPrivate, setIsPrivate] = useState(props.private);
+    const [isProxyPickerVisible, setIsProxyPickerVisible] = useState(false);
     const [, update] = useUpdateUserDeck();
 
     const handleExportToUDB = () => {
@@ -101,14 +104,17 @@ function ReadonlyDeck(props) {
         const nextState = !isPrivate;
         setIsPrivate(nextState);
 
-        update({ url: `/api/v1/user-decks/${id}`, data: {
-            private: nextState,
-            name,
-            faction,
-            deck: cards.map((c) => c.id),
-            sets: Array.from(new Set(cards.map((c) => c.setId))),
-        }})
-    }
+        update({
+            url: `/api/v1/user-decks/${id}`,
+            data: {
+                private: nextState,
+                name,
+                faction,
+                deck: cards.map((c) => c.id),
+                sets: Array.from(new Set(cards.map((c) => c.setId))),
+            },
+        });
+    };
 
     const [userInfo] = props.userInfo || [];
     const authorDisplayName = userInfo ? userInfo.displayName : "Anonymous";
@@ -138,7 +144,7 @@ function ReadonlyDeck(props) {
         objectives,
         gambits,
         upgrades,
-        private: isPrivate
+        private: isPrivate,
     };
 
     const createdDate = updatedutc
@@ -208,6 +214,7 @@ function ReadonlyDeck(props) {
                             onDelete={props.onDelete}
                             onToggleDeckPrivacy={toggleDeckPrivacy}
                             isPrivate={isPrivate}
+                            onDownloadProxy={() => setIsProxyPickerVisible(true)}
                         />
                     </div>
                 </>
@@ -257,6 +264,14 @@ function ReadonlyDeck(props) {
                     />{" "}
                 </section>
             </div>
+
+            {isProxyPickerVisible && (
+                    <ModalPresenter>
+                        <Suspense fallback="Loading...">
+                            <CardProxyMaker cards={cards}></CardProxyMaker>
+                        </Suspense>
+                    </ModalPresenter>
+                )}
         </div>
     );
 }
@@ -309,6 +324,63 @@ const downloadVassalDeckWithTempLink = (deck, fileName) => {
     tempDownloadLink.click();
 
     document.body.removeChild(tempDownloadLink);
+};
+
+const downloadProxyDeck = (cards) => async () => {
+    const { default: jsPDF } = await import("jspdf");
+    let doc = new jsPDF({
+        unit: "mm",
+    });
+
+    const w = 64.5;
+    const h = 89.9;
+
+    const pages = cards.reduce((acc, el, index, array) => {
+        if (index % 9 === 0) {
+            acc.push(array.slice(index, index + 9));
+        }
+        return acc;
+    }, []);
+
+    console.log(pages);
+
+    // for (let page of pages) {
+    //     {
+    //         const index = pages.indexOf(page);
+    //         if (index > 0) {
+    //             doc.addPage();
+    //         }
+    //     }
+
+    //     let rowIdx = 0;
+    //     let x = 3;
+    //     let y = 3;
+    //     let idx = 0;
+
+    //     for (let c of page) {
+    //         doc.addImage(
+    //             document.getElementById(c),
+    //             "png",
+    //             x,
+    //             y,
+    //             w,
+    //             h,
+    //             "",
+    //             "SLOW"
+    //         );
+    //         x += w + 3;
+    //         idx += 1;
+
+    //         if (idx % 3 === 0) {
+    //             rowIdx += 1;
+    //             x = 3;
+    //             y = rowIdx * h + rowIdx * 5;
+    //             console.log(x, y);
+    //         }
+    //     }
+    // }
+
+    // doc.save("cards.pdf");
 };
 
 export default ReadonlyDeck;

@@ -20,6 +20,7 @@ function DeckActionMenuLarge({
     exportToUDS,
     exportToClub,
     createShareableLink,
+    onDownloadProxy,
 }) {
     return (
         <React.Fragment>
@@ -156,6 +157,26 @@ function DeckActionMenuLarge({
                                 }`}
                             >
                                 Decks
+                            </span>
+                        </button>
+                    )}
+                </Menu.Item>
+                <Menu.Item>
+                    {({ active }) => (
+                        <button
+                            className={`${
+                                active
+                                    ? "bg-purple-500 text-white"
+                                    : "text-purple-900"
+                            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                            onClick={onDownloadProxy}
+                        >
+                            <span
+                                className={`${
+                                    active ? "text-white" : "text-gray-900"
+                                }`}
+                            >
+                                Proxy Cards
                             </span>
                         </button>
                     )}
