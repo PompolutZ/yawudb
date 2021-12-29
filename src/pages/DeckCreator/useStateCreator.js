@@ -1,5 +1,13 @@
 import { useLocation, useParams } from "react-router-dom";
-import { checkCardIsObjective, checkCardIsPloy, checkCardIsUpgrade, getCardById, getFactionById, getFactionByName } from "../../data/wudb";
+import {
+    checkCardIsObjective,
+    checkCardIsPloy,
+    checkCardIsUpgrade,
+    checkWarbandSpecificCard,
+    getCardById,
+    getFactionById,
+    getFactionByName,
+} from "../../data/wudb";
 import { INITIAL_STATE } from "./reducer";
 
 export function useStateCreator() {
@@ -8,19 +16,23 @@ export function useStateCreator() {
 
     switch (action) {
         case "create":
-            return { action, state: null};
+            return { action, state: null };
         case "edit":
-            return { action, state: {
-                ...INITIAL_STATE,
-                faction: getFactionByName(state?.deck?.faction),
-                selectedObjectives: state?.deck?.objectives,
-                selectedGambits: state?.deck?.gambits,
-                selectedUpgrades: state?.deck?.upgrades,
-            }, previous: {
-                id: data,
-                name: state?.deck?.name,
-                private: state?.deck?.private,
-            }};
+            return {
+                action,
+                state: {
+                    ...INITIAL_STATE,
+                    faction: getFactionByName(state?.deck?.faction),
+                    selectedObjectives: state?.deck?.objectives,
+                    selectedGambits: state?.deck?.gambits,
+                    selectedUpgrades: state?.deck?.upgrades,
+                },
+                previous: {
+                    id: data,
+                    name: state?.deck?.name,
+                    private: state?.deck?.private,
+                },
+            };
         case "transfer": {
             const [transferFormat, ...cardIds] = data.split(",");
             const decode = getDecodingFunction(transferFormat);
@@ -36,17 +48,21 @@ export function useStateCreator() {
             });
 
             const [{ factionId }] = decodedCards.filter(
-                (card) => card.factionId > 1
+                checkWarbandSpecificCard
             );
             const faction = getFactionById(factionId);
 
-            return { action, state: {
-                ...INITIAL_STATE,
-                faction,
-                selectedObjectives: decodedCards.filter(checkCardIsObjective),
-                selectedGambits: decodedCards.filter(checkCardIsPloy),
-                selectedUpgrades: decodedCards.filter(checkCardIsUpgrade),
-            }};
+            return {
+                action,
+                state: {
+                    ...INITIAL_STATE,
+                    faction,
+                    selectedObjectives:
+                        decodedCards.filter(checkCardIsObjective),
+                    selectedGambits: decodedCards.filter(checkCardIsPloy),
+                    selectedUpgrades: decodedCards.filter(checkCardIsUpgrade),
+                },
+            };
         }
     }
 }
