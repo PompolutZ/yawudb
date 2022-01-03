@@ -13,6 +13,7 @@ import DebouncedInput from "../../../../v2/components/DebouncedInput";
 import { DeckPlayFormatToggle } from "../../../../v2/components/DeckPlayFormatToggle";
 import { DeckPlayFormatInfo } from "../../../../v2/components/DeckPlayFormatInfo";
 import IconButton from "../../../../v2/components/IconButton";
+import { FactionDeckPicture, FactionPicture } from "../../../../v2/components/FactionDeckPicture";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
@@ -32,20 +33,12 @@ const useClasses = makeStyles((theme) => ({
     filtersContent: {
         padding: theme.spacing(2),
     },
-
 }));
 
 function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     return (
         <div className={`flex flex-grow ${rest.className}`}>
-            <div className="">
-                <picture>
-                    <img
-                        className="w-20 h-20"
-                        src={`/assets/icons/${faction.name}-deck.png`}
-                    />
-                </picture>
-            </div>
+            <FactionDeckPicture faction={faction.name} />
             <div className="flex-grow grid place-content-center text-gray-900 text-2xl">
                 {faction.displayName}
             </div>
@@ -53,7 +46,7 @@ function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     );
 }
 
-const notPlayableFactionIds = [1,38,39,40,41];
+const notPlayableFactionIds = [1, 38, 39, 40, 41];
 
 function FactionsPicker({ selected, onChangeWarband, ...rest }) {
     const handleSelectWarband = (faction) => () => {
@@ -63,7 +56,11 @@ function FactionsPicker({ selected, onChangeWarband, ...rest }) {
     return (
         <div className={`flex flex-wrap align-middle ${rest.className}`}>
             {Object.values(wufactions)
-                .filter((faction) => faction.id != selected.id && !notPlayableFactionIds.includes(faction.id))
+                .filter(
+                    (faction) =>
+                        faction.id != selected.id &&
+                        !notPlayableFactionIds.includes(faction.id)
+                )
                 .reverse()
                 .map((faction) => (
                     <img
@@ -122,6 +119,13 @@ function CardLibraryFilters(props) {
     return (
         <>
             <div className="flex items-center">
+                <IconButton
+                    className="rounded-full mr-1 w-12 h-12 drop-shadow-md bg-gray-100 grid place-content-center relative hover:bg-gray-100 focus:text-purple-700"
+                    onClick={() => setShowFilters(true)}
+                >
+                    <FactionPicture faction={state.faction.name} size="w-11 h-11" />
+                </IconButton>
+
                 <DebouncedInput
                     className="rounded h-12 bg-gray-200 box-border flex-1 py-1 px-2 outline-none border-2 focus:border-purple-700"
                     placeholder="Search for any text on card"

@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
 import { VIEW_DECK } from "../../constants/routes";
 import { checkCardIsObjective, getCardById } from "../../data/wudb";
 import { ReactComponent as TrashIcon } from "../../svgs/trash.svg";
@@ -14,6 +13,7 @@ import { useDeleteUserDeckFactory } from "../../hooks/useDeleteUserDeckFactory";
 import { useSaveDeckFactory } from "../../hooks/useSaveDeckFactory";
 import Firebase from "../../firebase";
 import { PeopleIcon } from "../../v2/components/Icons";
+import { FactionDeckPicture } from "../../v2/components/FactionDeckPicture";
 
 function DeckLink({ onDelete, ...props }) {
     const [cards, setCards] = useState([]);
