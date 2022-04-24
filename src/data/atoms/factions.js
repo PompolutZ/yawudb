@@ -330,6 +330,9 @@ export const factionIndexes = [
     "xandires-truthseekers", 
     "da-kunnin-krew",
     "blackpowders-buccaneers",
+    'the-exiled-dead',
+    'skittershanks-clawpack',
+    'the-shadeborn',
 ]
 
 export const factionIndexesWithDefaultSet = [
