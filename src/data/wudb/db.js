@@ -1,4 +1,4 @@
-export const sets = {
+ export const sets = {
     "Core set": {
         "id": 1,
         "name": "shadespire-core",
@@ -4861,7 +4861,7 @@ export const cards = {
         "glory": null,
         "rule": "Choose a friendly fighter and roll a defence dice. On a roll of :dfBlock: or :dfCrit: remove up to two wound tokens from them. Otherwise remove one wound token from them.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             1330,
@@ -23516,7 +23516,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after an enemy fighter's **Attack action** that **deals** damage to a friendly fighter if that friendly fighter is not out of action.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9139": {
@@ -24488,7 +24488,7 @@ export const cards = {
         "glory": null,
         "rule": "You can **re-roll** one attack dice in this fighter's attack rolls for Range 1 and Range 2 **Attack actions**. \\n **Reaction:** During an **Attack action** that targets this fighter, before the deal damage step, reduce the Damage characteristic of that **Attack action** by 1, to a minimum of 1, then **discard** this card.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9220": {
@@ -24632,7 +24632,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately  after an activation if three or more friendly fighters are in enemy territory.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9232": {
@@ -25652,7 +25652,7 @@ export const cards = {
         "glory": 2,
         "rule": "**Hybrid:** Score this in an end phase if: \\n All objectives are held \\n *Or:* Each player has no unspent glory points.",
         "scoreType": "End",
-        "status": "V-Y_V-_V",
+        "status": "NY-_N-_V",
         "rotated": false
     },
     "9317": {
@@ -26108,7 +26108,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one fighter. **Heal** (1) that fighter. If that fighter has any Hunger counters, instead **Heal** (2) that fighter and **remove** two of that fighter's Hunger counters, or one Hunger counter if the fighter only has one.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9355": {
@@ -26720,7 +26720,7 @@ export const cards = {
         "glory": null,
         "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter's **Move action** that ends in the same hex as an objective token. **Scatter** 1 from that hex and **push** that enemy fighter to the end of the **chain**. If that enemy fighter cannot be pushed into a hex, that fighter is not pushed.",
         "scoreType": "-",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "9406": {
@@ -26744,7 +26744,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one friendly fighter. **Heal** (1) that fighter, or **Heal** (2) that fighter if that fighter has three or more upgrades.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9408": {
@@ -27320,7 +27320,7 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** Use this during an **Attack action** that targets this fighter, after the determine success step. If you do, **remove** all of this fighter's Hunger counters. Reduce the damage **dealt** to this fighter by that **Attack action** by the number of counters **removed**, to a minimum 1.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9456": {
@@ -27656,7 +27656,7 @@ export const cards = {
         "glory": null,
         "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, each time this fighter is the target of an **Attack action**, one :atCrit: in the **attack** roll is considered to be a **success** instead. \\n If this fighter has three or more **Silent Relics**, you can **re-roll** one dice in this fighter's defence rolls.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9484": {
@@ -29129,7 +29129,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one friendly fighter and roll one defence dice. On a roll of :dfBlock: or :dfCrit: **Heal** (2) that fighter. Otherwise **Heal** (1) that fighter.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             1330,
@@ -29876,7 +29876,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Dice and +1 Damage to this fighter's Range 1 **Attack actions**. \\n During **Attack actions** that target this fighter, skip the defence roll in the combat sequence for that **Attack action**. This fighter is considered to have rolled 0 **successes** in their defence roll.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "12022": {
@@ -31350,7 +31350,7 @@ export const cards = {
         "name": "Meat Locker",
         "type": "Objective",
         "glory": 3,
-        "rule": "**Dual:** Score this in an end phase if: \\n Each surviving friendly fighter is in enemy territory \\n *And:* Each surviving friendly **minion** is in enemy territory.",
+        "rule": "**Dual:** Score this in an end phase if: \\n Each surviving enemy fighter is in enemy territory \\n *And:* Each surviving friendly **minion** is in enemy territory.",
         "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
@@ -34960,7 +34960,7 @@ export const cards = {
         "factionId": 41,
         "setId": 45,
         "name": "Shadow Jaws",
-        "type": "Ploy",
+        "type": "Spell",
         "glory": null,
         "rule": "**Gambit Spell (:MagChannel:):** If **cast**, **choose** one enemy fighter within 4 hexes of the caster and in a **cover** hex. **Deal** 1 damage to the chosen fighter.",
         "scoreType": "-",
@@ -35262,7 +35262,7 @@ export const cards = {
         "name": "Murky Oblivion",
         "type": "Spell",
         "glory": null,
-        "rule": "**Gambit Spell (:MagChannel:):** If **cast**, each **Attack action** has -1 Dice if the target is in a **cover** hex, to a minimum of 1. \\n This effect **persists** until the end of the round.",
+        "rule": "**Gambit Spell (:MagFocus:):** If **cast**, each **Attack action** has -1 Dice if the target is in a **cover** hex, to a minimum of 1. \\n This effect **persists** until the end of the round.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
