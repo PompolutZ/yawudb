@@ -1,4 +1,4 @@
- export const sets = {
+export const sets = {
     "Core set": {
         "id": 1,
         "name": "shadespire-core",
@@ -218,6 +218,11 @@
         "id": 45,
         "name": "nethermaze-core-set",
         "displayName": "Nethermaze core set"
+    },
+    "Hexbane's Hunters expansion": {
+        "id": 46,
+        "name": "hexbanes-hunters-expansion",
+        "displayName": "Hexbane's Hunters expansion"
     }
 }
 export const factions = {
@@ -544,6 +549,13 @@ export const factions = {
         "name": "the-shadeborn",
         "gaId": 38,
         "displayName": "The Shadeborn"
+    },
+    "Hexbane's Hunters": {
+        "id": 48,
+        "abbr": "hh",
+        "name": "hexbanes-hunters",
+        "gaId": 38,
+        "displayName": "Hexbane's Hunters"
     }
 }
 export const cards = {
@@ -890,7 +902,7 @@ export const cards = {
         "name": "Deadly Spin",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atFury: 3 - :boom: 1] \\n Targets adjacent enemy fighters - roll for each.",
+        "rule": "*(Errata update)* The Scything keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 3 - :boom: 1] \\n Targets adjacent enemy fighters - roll for each.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -1418,7 +1430,7 @@ export const cards = {
         "name": "Lightning Blade",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 2 - :atSmash: 2 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 2 - :atSmash: 2 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -2094,7 +2106,7 @@ export const cards = {
         "name": "Brutal Swing",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atFury: 3 - :boom: 2] \\n Targets all adjacent enemy fighters - roll for each.",
+        "rule": "*(Errata update)* The Scything keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 3 - :boom: 2] \\n Targets all adjacent enemy fighters - roll for each.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -2454,7 +2466,7 @@ export const cards = {
         "name": "Great Swing",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atFury: 2 - :boom: 2] \\n Targets all adjacent enemy fighters - roll for each.",
+        "rule": "*(Errata update)* The Scything keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 2 - :boom: 2] \\n Targets all adjacent enemy fighters - roll for each.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -2502,7 +2514,7 @@ export const cards = {
         "name": "Returning Axe",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 3 - :atFury: 2 - :boom: 1] \\n On a critical hit this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :atFury: 2 - :boom: 1] \\n On a critical hit this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -2754,7 +2766,7 @@ export const cards = {
         "name": "Black Hunger",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter's Attack actions with a Range of 1 have +1 Damage, and target all adjacent fighters (friend and foe) - roll for each. Fighters do not provide support for Attack actions against friendly models (in attack or defence).",
+        "rule": "*(Errata update)* This fighter's Range 1 Attack actions have +1 Damage and Scything. While this fighter makes a Range 1 Attack action, other friendly fighters are considered to be enemy fighters, and fighters in your warband cannot be supported.",
         "scoreType": "-",
         "status": "V-Y_V-_V",
         "rotated": false
@@ -2838,7 +2850,7 @@ export const cards = {
         "name": "Swarm of Rats",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atFury: 3 - :boom: 1] \\n Targets all adjacent enemy fighters - roll for each.",
+        "rule": "*(Errata update)* The Scything keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 3 - :boom: 1] \\n Targets all adjacent enemy fighters - roll for each.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -2862,7 +2874,7 @@ export const cards = {
         "name": "Whirling Halberd",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atFury: 2 - :boom: 2] \\n Targets all adjacent enemy fighters - roll for each.",
+        "rule": "*(Errata update)* The Scything keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 2 - :boom: 2] \\n Targets all adjacent enemy fighters - roll for each.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -3534,7 +3546,7 @@ export const cards = {
         "name": "Spinning Strike",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atFury: 3 - :boom: 1] \\n Targets all adjacent enemy fighters - roll for each.",
+        "rule": "*(Errata update)* The Scything keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 3 - :boom: 1] \\n Targets all adjacent enemy fighters - roll for each.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -4971,7 +4983,7 @@ export const cards = {
         "name": "Mighty Swing",
         "type": "Ploy",
         "glory": null,
-        "rule": "Your first Attack action with a Range characteristic of 1 in the next activation targets all adjacent enemy fighters. Roll for each.",
+        "rule": "*(Errata update)* The Scything keyword replaces the similar ability on this card. \\n Your first Attack action with a Range characteristic of 1 in the next activation targets all adjacent enemy fighters. Roll for each.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -5873,7 +5885,7 @@ export const cards = {
         "name": "Shadeglass Axe",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage. \\n [:Hex: 3 - :atSmash: 2 - :boom: 2] After a fighter makes this Attack action, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage. \\n [:Hex: 3 - :atSmash: 2 - :boom: 2] After a fighter makes this Attack action, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -5885,7 +5897,7 @@ export const cards = {
         "name": "Shadeglass Dagger",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atFury: 3 - :boom: 3] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 3 - :boom: 3] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -5897,7 +5909,7 @@ export const cards = {
         "name": "Shadeglass Darts",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 3 - :atFury: 3 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :atFury: 3 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -5909,7 +5921,7 @@ export const cards = {
         "name": "Shadeglass Hammer",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 3] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 3] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -5921,7 +5933,7 @@ export const cards = {
         "name": "Shadeglass Spear",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 2 - :atSmash: 2 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 2 - :atSmash: 2 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -5933,7 +5945,7 @@ export const cards = {
         "name": "Shadeglass Sword",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atSmash: 3 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 3 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -7154,7 +7166,7 @@ export const cards = {
         "name": "Lightning Step",
         "type": "Ploy",
         "glory": null,
-        "rule": "The first friendly fighter to make a Move or Charge action in the next activation can move through occupied and blocked hexes, but must end their move in an empty hex.",
+        "rule": "*(Errata update)* The Flying trait replaces the similar ability on this card. \\n The first friendly fighter to make a Move or Charge action in the next activation can move through occupied and blocked hexes, but must end their move in an empty hex.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -7310,7 +7322,7 @@ export const cards = {
         "name": "Warding Blast",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atFury: 2 - :boom: 2] \\n Targets all adjacent enemies - roll for each.",
+        "rule": "*(Errata update)* The Scything keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 2 - :boom: 2] \\n Targets all adjacent enemies - roll for each.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -7550,7 +7562,7 @@ export const cards = {
         "name": "Chill Touch",
         "type": "Upgrade",
         "glory": null,
-        "rule": "Rolls of :dfDodge: are not successes for defence rolls made during Attack actions made by this fighter.",
+        "rule": "*(Errata update)* The Ensnare keyword replaces the similar ability on this card. \\n Rolls of :dfDodge: are not successes for defence rolls made during Attack actions made by this fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -8270,7 +8282,7 @@ export const cards = {
         "name": "Fiery Brand",
         "type": "Upgrade",
         "glory": null,
-        "rule": "On a critical hit, this fighter's Attack actions with a Range of 1 have +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n On a critical hit, this fighter's Attack actions with a Range of 1 have +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -8342,7 +8354,7 @@ export const cards = {
         "name": "Vindictive Glare",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 3 - :MagChannel: - - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :MagChannel: - - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -8702,7 +8714,7 @@ export const cards = {
         "name": "Deadly Spin",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atFury: 3 - :boom: 1] \\n Targets adjacent enemy fighters - roll for each.",
+        "rule": "*(Errata update)* The Scything keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 3 - :boom: 1] \\n Targets adjacent enemy fighters - roll for each.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -9230,7 +9242,7 @@ export const cards = {
         "name": "Lightning Blade",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 2 - :atSmash: 2 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 2 - :atSmash: 2 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -9606,7 +9618,7 @@ export const cards = {
         "name": "Shond's Path",
         "type": "Upgrade",
         "glory": null,
-        "rule": "On a critical hit, this fighter's Attack actions with a Range of 1 or 2 have +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n On a critical hit, this fighter's Attack actions with a Range of 1 or 2 have +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -10602,7 +10614,7 @@ export const cards = {
         "name": "Inescapable Grasp",
         "type": "Upgrade",
         "glory": null,
-        "rule": "Rolls of :dfDodge: are not successes in the defence rolls of enemy fighters targeted by this fighter's Attack actions with a Range of 1 or 2.",
+        "rule": "*(Errata update)* The Ensnare keyword replaces the similar ability on this card. \\n Rolls of :dfDodge: are not successes in the defence rolls of enemy fighters targeted by this fighter's Attack actions with a Range of 1 or 2.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -12362,7 +12374,7 @@ export const cards = {
         "name": "Incredible Leap",
         "type": "Ploy",
         "glory": null,
-        "rule": "The first fighter to make a Move action in the next activation can pass through blocked and occupied hexes, and treats lethal hexes as normal hexes. They must end this move in an empty hex.",
+        "rule": "*(Errata update)* The Flying trait replaces the similar ability on this card. \\n The first fighter to make a Move action in the next activation can pass through blocked and occupied hexes, and treats lethal hexes as normal hexes. They must end this move in an empty hex.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -13292,7 +13304,7 @@ export const cards = {
         "name": "Fading Form",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter treats lethal hexes as normal hexes and can move through blocked and occupied hexes, but cannot end their move in a blocked or occupied hex.",
+        "rule": "*(Errata update)* The Flying trait replaces the similar ability on this card. \\n This fighter treats lethal hexes as normal hexes and can move through blocked and occupied hexes, but cannot end their move in a blocked or occupied hex.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -13328,7 +13340,7 @@ export const cards = {
         "name": "Fighter's Ferocity",
         "type": "Upgrade",
         "glory": null,
-        "rule": "If you score a critical hit when making an Attack action with this fighter, that Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n If you score a critical hit when making an Attack action with this fighter, that Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -13790,7 +13802,7 @@ export const cards = {
         "name": "Seeking Blade",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 1] \\n Rolls of :dfDodge: aren't successes in defence rolls for targets of this Attack action.",
+        "rule": "*(Errata update)* The Ensnare keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 1] \\n Rolls of :dfDodge: aren't successes in defence rolls for targets of this Attack action.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -13802,7 +13814,7 @@ export const cards = {
         "name": "Seeking Stones",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 3 - :atSmash: 2 - :boom: 1] \\n Rolls of :dfDodge: are not considered successes against this Attack action.",
+        "rule": "*(Errata update)* The Ensnare keyword replaces the similar ability on this card. \\n [:Hex: 3 - :atSmash: 2 - :boom: 1] \\n Rolls of :dfDodge: are not considered successes against this Attack action.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -14334,7 +14346,7 @@ export const cards = {
         "name": "Spitethorn Arrow",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 4 - :atSmash: 3 - :boom: 2] \\n Rolls of :dfDodge: are not successes against this Attack action. Discard this card after making this Attack action.",
+        "rule": "*(Errata update)* The Ensnare keyword replaces the similar ability on this card. \\n [:Hex: 4 - :atSmash: 3 - :boom: 2] \\n Rolls of :dfDodge: are not successes against this Attack action. Discard this card after making this Attack action.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -15910,7 +15922,7 @@ export const cards = {
         "name": "Savage Bolt",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 3 - :MagFocus: - - :boom: 1] \\n **Knockback** 1. On a **critical hit** this **Attack action** has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n **Knockback** 1. On a **critical hit** this **Attack action** has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -16318,7 +16330,7 @@ export const cards = {
         "name": "Vicious Darts",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 3 - :MagFocus: - - :boom: 1] \\n **Ensnare**. On a **critical hit** this **Attack action** has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n **Ensnare**. On a **critical hit** this **Attack action** has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -17242,7 +17254,7 @@ export const cards = {
         "name": "Blades of Putrefaction",
         "type": "Spell",
         "glory": null,
-        "rule": "**Gambit Spell (:MagFocus:):** If **cast**, friendly fighters' Range 1 and Range 2 **Attack actions** have +1 Damage on a **critical hit**. This spell **persists** until the end of the round.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n **Gambit Spell (:MagFocus:):** If **cast**, friendly fighters' Range 1 and Range 2 **Attack actions** have +1 Damage on a **critical hit**. This spell **persists** until the end of the round.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -17338,7 +17350,7 @@ export const cards = {
         "name": "The Burgeoning",
         "type": "Ploy",
         "glory": null,
-        "rule": "**Cycle** \\n **Heal (1)** the first friendly fighter that moves, is **place**, **pushed**, or **driven back** into a **lethal** hex. That fighter is not **dealt** damage from the **lethal** hex. This effect **persists** until a friendly fighter is healed in this way or you play another **Cycle** ploy.",
+        "rule": "**Cycle** \\n **Heal (1)** the first friendly fighter that moves, is **placed**, **pushed**, or **driven back** into a **lethal** hex. That fighter is not **dealt** damage from the **lethal** hex. This effect **persists** until a friendly fighter is healed in this way or you play another **Cycle** ploy.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -18094,7 +18106,7 @@ export const cards = {
         "name": "Incredible Agility",
         "type": "Ploy",
         "glory": null,
-        "rule": "In the next activation, friendly fighters other than Kyrae treat **lethal** hexes as normal hexes and can move through **occupied** hexes, but cannot end their move in an **occupied** hex.",
+        "rule": "*(Errata update)* The Flying trait replaces the similar ability on this card. \\n In the next activation, friendly fighters other than Kyrae treat **lethal** hexes as normal hexes and can move through **occupied** hexes, but cannot end their move in an **occupied** hex.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -20558,7 +20570,7 @@ export const cards = {
         "name": "Keila's Choking Coil",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Lost page** \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n On a **critical hit**, this **Attack action** has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n **Lost page** \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n On a **critical hit**, this **Attack action** has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -23310,7 +23322,7 @@ export const cards = {
         "name": "Cloak of Feathers",
         "type": "Upgrade",
         "glory": null,
-        "rule": "+2 Move \\n When this fighter makes a **Move action**, it can move through **occupied** hexes and cannot be **dealt** damage by **lethal** hexes. It must end its **Move action** in an **empty** hex.",
+        "rule": "*(Errata update)* The Flying trait replaces the similar ability on this card. \\n +2 Move \\n When this fighter makes a **Move action**, it can move through **occupied** hexes and cannot be **dealt** damage by **lethal** hexes. It must end its **Move action** in an **empty** hex.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -26982,7 +26994,7 @@ export const cards = {
         "name": "Biting Axe",
         "type": "Upgrade",
         "glory": null,
-        "rule": "[:Hex: 1 - :atSmash: 2 - :boom: 2] \\n On a **critical hit,** this **Attack action** has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 2] \\n On a **critical hit,** this **Attack action** has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -27642,7 +27654,7 @@ export const cards = {
         "name": "Silent Bracers",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter can move through **blocked** and **occupied** hexes, but must end their move in an **empty** hex. If this fighter's **Move action** begins in non one's territory, this fighter has +2 Move for the duration of that action. \\n +1 Move if this fighter has two or more **Silent Relics**.",
+        "rule": "*(Errata update)* The Flying trait replaces the similar ability on this card. \\n **Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter can move through **blocked** and **occupied** hexes, but must end their move in an **empty** hex. If this fighter's **Move action** begins in non one's territory, this fighter has +2 Move for the duration of that action. \\n +1 Move if this fighter has two or more **Silent Relics**.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -27714,7 +27726,7 @@ export const cards = {
         "name": "Soultooth Dagger",
         "type": "Upgrade",
         "glory": null,
-        "rule": "This fighter is a **Hunter**. \\n [:Hex: 1 - :atFury: 3 - :boom: 2] \\n +1 Damage on a **critical hit**. You can **re-roll** one dice in the attack roll if the target has one or more Move and/or Charge tokens.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n This fighter is a **Hunter**. \\n [:Hex: 1 - :atFury: 3 - :boom: 2] \\n +1 Damage on a **critical hit**. You can **re-roll** one dice in the attack roll if the target has one or more Move and/or Charge tokens.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -27846,7 +27858,7 @@ export const cards = {
         "name": "Voidsphere",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Action:** **Discard** all **persisting** gambits. \\n [:Hex: 3 - :atFury: 3 - :boom: 1] \\n On a **critical hit** this **Attack action** has +1 Damage. After making this **Attack action**, **discard** this card.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n **Action:** **Discard** all **persisting** gambits. \\n [:Hex: 3 - :atFury: 3 - :boom: 1] \\n On a **critical hit** this **Attack action** has +1 Damage. After making this **Attack action**, **discard** this card.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -29403,7 +29415,7 @@ export const cards = {
         "name": "Fighter's Ferocity",
         "type": "Upgrade",
         "glory": null,
-        "rule": "On a **critical hit**, this fighter's **Attack actions** have +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n On a **critical hit**, this fighter's **Attack actions** have +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -29886,7 +29898,7 @@ export const cards = {
         "name": "Blessing of Behemat",
         "type": "Upgrade",
         "glory": null,
-        "rule": "+1 Wounds, +1 Move \\n When this fighter makes a **Move action**, this fighter can move through **blocked** and **occupied** hexes and cannot be **dealt** damage by **lethal** hexes. This fighter must end their **Move action** in an **empty** hex. After this upgrade is given to a fighter, discard one glory point. If you do not, **discard** this card.",
+        "rule": "*(Errata update)* The Flying trait replaces the similar ability on this card. \\n +1 Wounds, +1 Move \\n When this fighter makes a **Move action**, this fighter can move through **blocked** and **occupied** hexes and cannot be **dealt** damage by **lethal** hexes. This fighter must end their **Move action** in an **empty** hex. After this upgrade is given to a fighter, discard one glory point. If you do not, **discard** this card.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -30558,7 +30570,7 @@ export const cards = {
         "name": "Malicious Blow",
         "type": "Objective",
         "glory": 1,
-        "rule": "**Surge, Hybrid:** Score this immediately after a friendly fighter's Range 1 or Range 2 **Attack action** if that **Attack action:** \\n Takes an enemy fighter with a Wounds characteristic of 2 or less out of action \\n *Or:* Takes a *vulnerable* enemy fighter out of action.",
+        "rule": "**Surge, Hybrid:** Score this immediately after a friendly fighter's Range 1 or Range 2 **Attack action** if that **Attack action:** \\n Takes an enemy fighter with a Wounds characteristic of 2 or less out of action \\n *Or:* Takes a **vulnerable** enemy fighter out of action.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
@@ -30582,7 +30594,7 @@ export const cards = {
         "name": "Outmanoover",
         "type": "Objective",
         "glory": 1,
-        "rule": "Score this in an end phase if two or more friendly fighters each have the same enemy fighter within the Range or one or more of their **Attack actions**.",
+        "rule": "Score this in an end phase if two or more friendly fighters each have the same enemy fighter within the Range of one or more of their **Attack actions**.",
         "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
@@ -33690,7 +33702,7 @@ export const cards = {
         "name": "Shadow Keeper",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Denizen** \\n This fighter is on Guard. \\n **Reaction:** After an enemy fighter's failed **Attack action**, if this fighter was the target, was adjacent and there was one or more :dfCrit: in the defence roll, **deal** 1 damage to the attacker.",
+        "rule": "*(Errata update)* **Illusion, Denizen** \\n Do not spend any glory points when you play this card. At the end of the action phase, or when this fighter is chosen by a gambit or is **dealt** damage, **break** this card. \\n This fighter is on Guard. \\n **Reaction:** After an enemy fighter's failed **Attack action**, if this fighter was the target, was adjacent and there was one or more :dfCrit: in the defence roll, **deal** 1 damage to the attacker.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -34571,6 +34583,402 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14065": {
+        "id": 14065,
+        "factionId": 48,
+        "setId": 46,
+        "name": "An Eye for an Eye",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n A friendly fighter's **Attack action** takes the target out of action \\n *If:* One or more friendly fighters are out of action.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14066": {
+        "id": 14066,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Burn them Out",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an enemy fighter on a **starting** hex in enemy territory is taken out of action.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14067": {
+        "id": 14067,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Due Process",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Hybrid:** Score this immediately after: \\n Your warband makes a fourth or subsequent **Attack action** in the same round \\n *Or:* After the second or subsequent successful **Attack action** made by your warband in the same round.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14068": {
+        "id": 14068,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Fear the Righteous...",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Dual:** Score this in an end phase if: \\n Three or more enemy fighters are out of action \\n *And:* There are two or more surviving friendly **hunters**.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14069": {
+        "id": 14069,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Interrogate the Wicked",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Dual:** Score this in an end phase if: \\n There are two or more friendly **hunters** adjacent to the same enemy fighter \\n *And:* That enemy fighter has one or more wound counters.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14070": {
+        "id": 14070,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Lives Well Spent",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Dual:** Score this in an end phase if: \\n Two or more friendly **hunters** are out of action. \\n *And:* You have scored three or more objectives.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14071": {
+        "id": 14071,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Loaded for Bear",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if two or more friendly **hunters** each have two or more upgrades.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14072": {
+        "id": 14072,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Proof of Guilt",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n Each surviving enemy fighter (at least one) has no Move or Charge tokens \\n *Or:* Each surviving enemy fighter (at least one) is in the same player's territory \\n *Or:* One or more opponents have each scored six or more objectives.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14073": {
+        "id": 14073,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Sowing Doubt",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Dual:** Score this in an end phase if: \\n One or more enemy fighters are out of action \\n *And:* One or more of those enemy fighters have one or more upgrades.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14074": {
+        "id": 14074,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Tools of the Faithful",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Dual:** Score this in an end phase if: \\n There are three or more surviving friendly fighters \\n *And:* Each surviving friendly fighter has one or more upgrades.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14075": {
+        "id": 14075,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Uncover the Truth",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if there are two or more friendly fighters in enemy territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14076": {
+        "id": 14076,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Weapons of Justice",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Hybrid:** Score this immediately after: \\n A friendly fighter is given their second or subsequent upgrade in the same round \\n *Or:* After a second or subsequent Move or Charge token is removed from a friendly fighter during the action phase.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14077": {
+        "id": 14077,
+        "factionId": 48,
+        "setId": 46,
+        "name": "By Hook or by Crook",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this after a friendly **hunter** with one or more upgrades is **dealt** damage. Reduce that damage by 1, to a minimum of 1.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14078": {
+        "id": 14078,
+        "factionId": 48,
+        "setId": 46,
+        "name": "By Order of the Vault",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** a friendly fighter. Give the chosen fighter an upgrade from your hand. Do not spend any glory points when you play that card. When you play this card you can spend one glory point. If you do, **draw** one power card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14079": {
+        "id": 14079,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Circle of the Silvered Gravesalt",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Domain** \\n Enemy fighters treat hexes adjacent to friendly **hunters** as **lethal** hexes, in addition to other hex types. \\n This effect **persists** until the end of the round, until this gambit **deals** damage to an enemy fighter, until a friendly fighter makes a **Move action**, or until another **Domain** gambit is played.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14080": {
+        "id": 14080,
+        "factionId": 48,
+        "setId": 46,
+        "name": "For the Order!",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this in your power step after a friendly **hunter** is given an upgrade. **Remove** all Move and Charge tokens from that **hunter**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14081": {
+        "id": 14081,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Lead the Crusade",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this after the out of action check of a friendly **hunter's Attack action**, if the target was taken out of action. **Choose** one friendly **hunter**. Inspire that **hunter** and **draw** one power card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14082": {
+        "id": 14082,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Making a Point",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** a friendly Aemos, Brydget or Haskel. The chosen fighter makes the following **Attack action:** \\n [:Hex: 3 - :atFury: 2 - :boom: 1 -(Finisher)-] \\n **Finisher:** +1 Dice and **Cleave** to this **Attack action** if the target is adjacent and **vulnerable**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14083": {
+        "id": 14083,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Prayers of the Faithful",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "This card cannot be played in an opponent's third or fourth power step. Until the end of the next power step, enemy fighters cannot **cast** spells and opponents cannot play ploy cards.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14084": {
+        "id": 14084,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Sanctified Sharpening Stone",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "+1 Dice to the first Range 1 **Attack action** made by a friendly **hunter** in the next activation.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14085": {
+        "id": 14085,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Ward of Martyr's Blood",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "In the next activation, the characteristics of enemy fighters' **Attack actions** cannot be modified, and **Cleave** and **Ensnare** cannot affect friendly fighters' defence rolls.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14086": {
+        "id": 14086,
+        "factionId": 48,
+        "setId": 46,
+        "name": "You Stand Accused!",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one enemy fighter. +1 Dice to **Attack actions** made by friendly fighters that target the chosen fighter. This effect **persists** until the chosen fighter is out of action or ends an activation in your territory.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14087": {
+        "id": 14087,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Bane of Evil",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "This fighter has the following cumulative benefits, depending on how many friendly **hunters** are out of action. \\n **1+:** +1 Wound. \\n **2+:** +1 Dice to this fighter's **Attack actions**. \\n **3+:** +1 Damage to this fighter's **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14088": {
+        "id": 14088,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Charmed Horseshoe",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Dice to this fighter's **Attack actions**. \\n This fighter's **Attack actions** have **Ensnare**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14089": {
+        "id": 14089,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Cold Iron Nails",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "Each time this fighter's Range 1 **Attack action** takes a target out of action, pick one: \\n Gain 1 glory point or that target cannot be **Raised**. \\n Place the affected target's fighter card to one side to remind both players.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14090": {
+        "id": 14090,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Deep Scars",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Wound \\n -1 Damage from **Attack actions** that target this fighter, to a minimum of 1. \\n This fighter cannot be **dealt** damage by gambits.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14091": {
+        "id": 14091,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Lucky Hexbeak Foot",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Defence \\n This fighter cannot be **dealt** damage by **lethal** hexes or gambits.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14092": {
+        "id": 14092,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Martyr's Fervour",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Damage to this fighter's Range 1 and Range 2 **Attack actions** that target a fighter with a Wounds characteristic of 4 or greater.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14093": {
+        "id": 14093,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Protective Brand",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "You can **re-roll** one dice in this fighter's defence rolls. \\n The target of this fighter's **Attack actions** cannot have **supporting** fighters. \\n Attackers that target this fighter cannot have **supporting** fighters. \\n This card cannot be **broken**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14094": {
+        "id": 14094,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Retractable Pistol",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "[:Hex: 4 - :atFury: 3 - :boom: 1 -(Surprise!)-] \\n This **Attack action's** characteristics cannot be modified. \\n **Surprise! (Reaction):** Use this after an enemy fighter's **Move action**. This fighter makes this **Attack action**. It must target that enemy fighter and cannot drive the target back.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14095": {
+        "id": 14095,
+        "factionId": 48,
+        "setId": 46,
+        "name": "The Lantern of Vengeance",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Spell action (:MagFocus:):** If **cast**, **deal** 1 damage to each enemy fighter within 2 hexes of this fighter. \\n This fighter is a **wizard** (X) while attempting to **cast** this spell, where X is the number of friendly **hunters** that are out of action, to a maximum of 3, and cannot attempt to **cast** any other spells. \\n After this fighter makes this action, **break** this card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14096": {
+        "id": 14096,
+        "factionId": 48,
+        "setId": 46,
+        "name": "Woodcutter's Strength",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Damage to this fighter's Range 1 **Attack actions** for each **success** or **critical success** in the attack roll.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14129": {
+        "id": 14129,
+        "factionId": 38,
+        "setId": 46,
+        "name": "Bastion of Light",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Dual:** Score this in an end phase if: \\n Your **leader** is holding an objective that is not in your territory \\n *And:* Your **leader** is Inspired.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14130": {
         "id": 14130,
         "factionId": 38,
@@ -34615,6 +35023,18 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "**Reaction:** Play this after a failed **Attack action** that targeted a friendly fighter. Pick one: **give** that friendly fighter one Guard token or **remove** one Move token from that fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14136": {
+        "id": 14136,
+        "factionId": 38,
+        "setId": 46,
+        "name": "Disciplined Strike",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "The first **Attack action** made by a friendly fighter in the next activation step has **Innate** (:atSup1:). If that fighter is an **assassin**, that fighter is considered to have one additional **supporting** fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -34667,6 +35087,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14141": {
+        "id": 14141,
+        "factionId": 38,
+        "setId": 46,
+        "name": "Channelled Force",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Spell Attack action** \\n [:Hex: 1 - :MagChannel: - - :boom: 2] \\n **Backlash** cannot **deal** damage to this fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14142": {
         "id": 14142,
         "factionId": 38,
@@ -34703,6 +35135,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14146": {
+        "id": 14146,
+        "factionId": 39,
+        "setId": 46,
+        "name": "Divine Attention",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Hybrid:** Score this immediately after: \\n A third or subsequent ploy **chooses** the same friendly fighter in the same round \\n *Or:* A friendly fighter is given a third or subsequent upgrade in the same round.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14147": {
         "id": 14147,
         "factionId": 39,
@@ -34712,6 +35156,18 @@ export const cards = {
         "glory": 1,
         "rule": "**Hybrid:** Score this in an end phase if: \\n Three or more friendly fighters each have one or more upgrades \\n *Or:* Your warband holds two or more objectives.",
         "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14149": {
+        "id": 14149,
+        "factionId": 39,
+        "setId": 46,
+        "name": "Sadistic Stab",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this during a friendly fighter's Range 1 or Range 2 **Attack action**, after the defence roll. If you do, **deal** 1 damage to the attacker. That **Attack action** has +1 Damage until it has been resolved. If the fighter is a **Slaanesh** fighter, that **Attack action** has **Cleave** until it has been resolved.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -34758,7 +35214,7 @@ export const cards = {
         "name": "Daemonic Agility",
         "type": "Upgrade",
         "glory": null,
-        "rule": "You cannot give this to a **leader**. \\n If this fighter is a **Slaanesh** fighter, this fighter is an **assassin**. \\n When this fighterr is **dealt** damage by an **Attack action**, reduce that damage by 1, to a minimum of 1, for each :dfDodge: in this fighter's defence roll.",
+        "rule": "You cannot give this to a **leader**. \\n If this fighter is a **Slaanesh** fighter, this fighter is an **assassin**. \\n When this fighter is **dealt** damage by an **Attack action**, reduce that damage by 1, to a minimum of 1, for each :dfDodge: in this fighter's defence roll.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -34783,6 +35239,18 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "**Attack action** \\n [:Hex: 1 - :atSmash: 2 - :boom: 2 -(Knockback 1, Stagger)-] \\n +1 Dice while one or more of this fighter or the target of this **Attack action** are in a **cover** hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14158": {
+        "id": 14158,
+        "factionId": 39,
+        "setId": 46,
+        "name": "Threshing Throw",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "[:Hex: 1 - :atSmash: - - :boom: 2 -(Scything)-] \\n The Dice characteristic is equal to the number of adjacent enemy fighters. \\n If this fighter is a **Nurgle** fighter, this **Attack action** has **Ensnare**.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -34823,6 +35291,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14163": {
+        "id": 14163,
+        "factionId": 40,
+        "setId": 46,
+        "name": "Unworthy Souls",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n There are no enemy fighters in your territory \\n *Or:* One or more enemy **beasts** are out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14164": {
         "id": 14164,
         "factionId": 40,
@@ -34847,6 +35327,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14166": {
+        "id": 14166,
+        "factionId": 40,
+        "setId": 46,
+        "name": "Doom Foretold",
+        "type": "Spell",
+        "glory": null,
+        "rule": "**Gambit Spell (:MagFocus:):** If **cast**, **choose** one Inspired enemy fighter within 3 hexes of the caster. The chosen fighter is un-Inspired and cannot be Inspired. In addition, that fighter's player cannot **re-roll** dice in that fighter's defence rolls. This effect **persists** until the end of the round or until that fighter is taken out of action. When this effect ends, the chosen fighter is Inspired.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14168": {
         "id": 14168,
         "factionId": 40,
@@ -34866,7 +35358,7 @@ export const cards = {
         "name": "Bonds of Death",
         "type": "Upgrade",
         "glory": null,
-        "rule": "Give this only to a fighter with a Wounds characteristic of 2. \\n **Reaction:** After an **Attack action** that takes this fighter out of action. **place** this fighter in a **starting** hex in your territory. **Give** this fighter one Raise token. Then **break** this card.",
+        "rule": "Give this only to a fighter with a Wounds characteristic of 2. \\n **Reaction:** After an **Attack action** that takes this fighter out of action, **place** this fighter in a **starting** hex in your territory. **Give** this fighter one Raise token. Then **break** this card.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -34883,6 +35375,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14171": {
+        "id": 14171,
+        "factionId": 40,
+        "setId": 46,
+        "name": "Grave Baron",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Action:** Pick one card in your objective discard pile (not your scored objective pile) and add it to your hand. Then **discard** one objective card. This fighter can only make this action once per round.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14173": {
         "id": 14173,
         "factionId": 40,
@@ -34890,8 +35394,20 @@ export const cards = {
         "name": "Transferred Vigour",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Spell Action (:MagChannel:):** If **cast**, **choose** one friendly fighter that is out of action. **Place** the chosen fighter in a hx adjacent to the caster and give that fighter one Raise token. Then **deal** damage to the caster equal to the Wounds characteristic of the chosen fighter.",
+        "rule": "**Spell Action (:MagChannel:):** If **cast**, **choose** one friendly fighter that is out of action. **Place** the chosen fighter in a hex adjacent to the caster and give that fighter one Raise token. Then **deal** damage to the caster equal to the Wounds characteristic of the chosen fighter.",
         "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14174": {
+        "id": 14174,
+        "factionId": 41,
+        "setId": 46,
+        "name": "Easy Target",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that took a **staggered** target out of action.",
+        "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -34928,6 +35444,18 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that took the target out of action, if the target was in a **cover** hex or an **edge** hex.",
         "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14180": {
+        "id": 14180,
+        "factionId": 41,
+        "setId": 46,
+        "name": "Flying Bludgeon",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one enemy fighter within 3 hexes of one or more friendly fighters with one or more **Attack action** upgrades. **Break** one **Attack action** upgrade given to one of those friendly fighters. **Deal** 1 damage to the chosen enemy fighter and **stagger** that fighter.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -35000,6 +35528,30 @@ export const cards = {
         "glory": null,
         "rule": "**Attack action** \\n [:Hex: 1 - :atSmash: 2 - :boom: 2 -(Scything)-]",
         "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14188": {
+        "id": 14188,
+        "factionId": 41,
+        "setId": 46,
+        "name": "Tenacious Survivor",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "If this fighter is **vulnerable**, this fighter cannot be **dealt** damage except by **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14192": {
+        "id": 14192,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Bottom Feeders",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n An enemy fighter is taken out of action \\n *If:* Two or more friendly fighters were adjacent to that enemy fighter when that fighter was taken out of action.",
+        "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -35099,6 +35651,30 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14206": {
+        "id": 14206,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Flying High",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n There are more **flying** friendly fighters in enemy territory than there are enemy fighters in your territory \\n *Or:* Three or more surviving friendly fighters are Inspired.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14207": {
+        "id": 14207,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Having a Brawl",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n One or more friendly **brawlers** each made two or more **Attack actions** in this round \\n *Or:* One or more friendly fighters each made two or more **Attack actions** in this round, and each of those **Attack actions** targeted a different fighter.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14208": {
         "id": 14208,
         "factionId": 1,
@@ -35159,6 +35735,30 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14215": {
+        "id": 14215,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Not Backing Down",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if one or more friendly fighters on Guard are adjacent to one or more enemy fighters.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14216": {
+        "id": 14216,
+        "factionId": 1,
+        "setId": 46,
+        "name": "On the Scent",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n One or more friendly **beasts** and/or **companions** are within 2 hexes or one or more enemy **leaders** \\n *Or:* One or more friendly fighters are adjacent to one or more enemy **leaders**.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14223": {
         "id": 14223,
         "factionId": 1,
@@ -35195,6 +35795,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14227": {
+        "id": 14227,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Uncovered Treasures",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Dual:** Score this in an end phase if: \\n One or more friendly fighters each have two or more upgrades \\n *And:* Each of those fighters is holding an objective.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14231": {
         "id": 14231,
         "factionId": 1,
@@ -35203,6 +35815,18 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "**Choose** one friendly fighter. **Scatter** 5 from the chosen fighter's hex and **push** the chosen fighter along the **chain** to the **end** hex. If the **chain** is interrupted, or if that fighter would be pushed into a hex that is **blocked** or **occupied**, do not **push** them any further. After the **push**, if the chosen fighter is a **brawler**, **deal** 1 damage to one enemy fighter adjacent to the chosen fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14233": {
+        "id": 14233,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Blind Gamble",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Pick one feature token that is not an objective token and is in a hex that contains a fighter with no Move or Charge tokens. Pick a number, then flip that token. If you reveal an objective token with the number you picked, **deal** 1 damage to that fighter if it is an enemy fighter, or that fighter makes a **Move action** or a Range 1 or Range 2 **Attack action** if it is a friendly fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35227,6 +35851,42 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Pick two feature tokens in **empty** hexes. **Place** each feature token in the hex the other feature token was in when you picked them.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14239": {
+        "id": 14239,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Drifting Tides",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Domain** \\n **Reaction:** At the end of the action phase, pick one: \\n Give a fighter one upgrade from your hand. Do not spend any glory points when you play that card. \\n Or, pick one objective token, then move that objective token into an adjacent hex. \\n This effect **persists** until the end of the round or until another **Domain** gambit is played.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14240": {
+        "id": 14240,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Drowning Warriors",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this after a **Domain** gambit is played. -1 Damage from **Attack actions**, to a minimum of 1. This effect **persists** until the end of the round.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14242": {
+        "id": 14242,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Hold Back the Tide",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Give** each friendly fighter that is adjacent to one or more enemy fighters and is in enemy territory one Guard token.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35303,6 +35963,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14254": {
+        "id": 14254,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Reality Check",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one enemy fighter in your territory. **Stagger** the chosen fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14255": {
         "id": 14255,
         "factionId": 1,
@@ -35323,6 +35995,18 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "**Choose** one friendly fighter in a **cover** hex that has no Move or Charge tokens. **Place** the chosen fighter in a different **cover** hex and **give** them one Move token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14259": {
+        "id": 14259,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Straggler",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** an enemy fighter in enemy territory that is 2 or more hexes from each other enemy fighter. -2 Defence in the next activation step from the chosen fighter, to a minimum of 1.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35387,6 +36071,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14268": {
+        "id": 14268,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Whirlpool",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Domain** \\n When a fighter is pushed, it cannot end that **push** further from no one's territory. If this is not possible, that fighter is not pushed. \\n This effect **persists** until the end of the round or until another **Domain** gambit is played.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14269": {
         "id": 14269,
         "factionId": 1,
@@ -35399,6 +36095,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14270": {
+        "id": 14270,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Breathing Tube",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "This fighter cannot be **dealt** damage by **lethal** hexes and cannot be affected by **Domain** gambits.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14273": {
         "id": 14273,
         "factionId": 1,
@@ -35407,6 +36115,30 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "**Attack action** \\n This fighter is a **brawler** \\n [:Hex: 1 - :atFury: 4 - :boom: 2] \\n The bounty gained when an enemy fighter is taken out of action by this **Attack action** is spent glory unless this fighter is on a feature token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14274": {
+        "id": 14274,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Cursed Map Fragment",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Bound Spell**, **Map** \\n You cannot give this card to a **Khorne** fighter. \\n **Spell action (:MagFocus:):** If **cast**, and another player has more glory points than you do, gain one spent glory point. After this fighter makes this action, **break** this card. \\n This fighter is a **wizard** (1) while attempting to **cast** this spell, and cannot attempt to **cast** any other spells.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14275": {
+        "id": 14275,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Cursed Musket",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Attack action** \\n [:Hex: 4 - :atFury: 2 - :boom: 2] \\n After this fighter makes this **Attack action**, **break** this card. \\n The **bounty** gained when an enemy fighter is taken out of action by this **Attack action** is spent glory unless this fighter is on a feature token.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35495,6 +36227,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14289": {
+        "id": 14289,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Gloomdrinker",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Attack action**, **Domain** \\n [:Hex: 1 - :atSmash: 2 - :boom: 2] \\n +1 Dice and **Ensnare** to this **Attack action** during a round in which one or more **Domain** gambits were played.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14290": {
         "id": 14290,
         "factionId": 1,
@@ -35531,6 +36275,30 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14297": {
+        "id": 14297,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Penumbral Key",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Cursed Key** \\n If this fighter is in a **starting** hex in enemy territory at the end of the third action phase, gain 1 glory point.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14299": {
+        "id": 14299,
+        "factionId": 1,
+        "setId": 46,
+        "name": "Reflecting Mask",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** After an activation step in which this fighter was **dealt** damage by an enemy fighter's Range 1 or 2 **Attack action**, **deal** 2 damage to that enemy fighter, then **break** this card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14300": {
         "id": 14300,
         "factionId": 1,
@@ -35563,6 +36331,18 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "This fighter is an **assassin**. \\n **Reaction:** After a **scatter** ability is resolved, **push** this fighter up to 2 hexes.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14305": {
+        "id": 14305,
+        "factionId": 1,
+        "setId": 46,
+        "name": "The Edge of Darkness",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "This fighter's **Attack actions** have **Grievous** if this fighter is in a **cover** hex.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
