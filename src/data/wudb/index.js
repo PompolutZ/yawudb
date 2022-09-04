@@ -14,6 +14,7 @@ export const totalCardsPerWave = {
     11: 60,
     12: 60,
     13: 308,
+    14: 308,
 };
 
 export const latestSeasonStartNumber = 13000;
@@ -43,7 +44,23 @@ function getFactionByAbbr(factionAbbr) {
 }
 
 function getFactionById(factionId) {
-    return Object.values(factions).find(f => f.id === factionId);
+    return Object.values(factions).find((f) => f.id === factionId);
+}
+
+const nonWarbandIds = [
+    factions.Universal.id,
+    factions.Order.id,
+    factions.Chaos.id,
+    factions.Death.id,
+    factions.Destruction.id,
+];
+
+function checkNonWarbandSpecificCard(card) {
+    return nonWarbandIds.includes(card.factionId);
+}
+
+function checkWarbandSpecificCard(card) {
+    return !checkNonWarbandSpecificCard(card);
 }
 
 const idToSetKey = {};
@@ -115,8 +132,8 @@ export const VANGUARD_FORMAT = "vanguard";
 
 function getAllSetsValidForFormat(format) {
     switch (format) {
-        case VANGUARD_FORMAT: 
-            return Object.values(sets).filter(set => set.id > 40)
+        case VANGUARD_FORMAT:
+            return Object.values(sets).filter((set) => set.id > 40);
         case CHAMPIONSHIP_FORMAT:
             return Object.values(sets).filter((set) => set.id > 29);
         default:
@@ -158,21 +175,13 @@ function validateCardForPlayFormat(card, format = CHAMPIONSHIP_FORMAT) {
                 undefined,
                 undefined,
             ];
-        case VANGUARD_FORMAT: 
-            return [
-                Number(c.id) > latestSeasonStartNumber,
-                false,
-                false
-            ]    
+        case VANGUARD_FORMAT:
+            return [Number(c.id) > latestSeasonStartNumber, false, false];
     }
 }
 
 function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
-    const deck = [
-        ...objectives,
-        ...gambits,
-        ...upgrades,
-    ];
+    const deck = [...objectives, ...gambits, ...upgrades];
     const MAX_RESTRICTED_CARDS = 3;
     const MIN_OBJECTIVE_COUNT = 12;
     const MAX_SURGE_OBJECTIVE_COUNT = 6;
@@ -183,19 +192,29 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
     if (format === OPEN_FORMAT) return [isValid, issues];
 
     if (format == VANGUARD_FORMAT) {
-        const onlyLatestSeason = deck.filter(c => c.factionId < 2).reduce((lastSeasonOnly, c) => lastSeasonOnly && (Number(c.id) > latestSeasonStartNumber), true);
+        const onlyLatestSeason = deck
+            .filter((c) => c.factionId < 2)
+            .reduce(
+                (lastSeasonOnly, c) =>
+                    lastSeasonOnly && Number(c.id) > latestSeasonStartNumber,
+                true
+            );
 
         isValid = onlyLatestSeason;
-        if(!onlyLatestSeason) {
-            issues.push(`Vanguard decks can only include cards from last season`);
+        if (!onlyLatestSeason) {
+            issues.push(
+                `Vanguard decks can only include cards from last season`
+            );
         }
     }
 
-    if(format == CHAMPIONSHIP_FORMAT) {
-        const onlyLastTwoSeasons = deck.filter(c => c.factionId < 2).reduce((lastTwoSeasons, c) => lastTwoSeasons && c.id > 9000, true)
+    if (format == CHAMPIONSHIP_FORMAT) {
+        const onlyLastTwoSeasons = deck
+            .filter((c) => c.factionId < 2)
+            .reduce((lastTwoSeasons, c) => lastTwoSeasons && c.id > 9000, true);
         isValid = onlyLastTwoSeasons;
-        
-        if(!onlyLastTwoSeasons) {
+
+        if (!onlyLastTwoSeasons) {
             issues.push(`Championship decks cannot include rotated out cards`);
         }
     }
@@ -205,7 +224,10 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
         issues.push("Your deck must include at least 12 objective cards");
     }
 
-    if (objectives.filter((card) => card.scoreType == SURGE_SCORE_TYPE).length > MAX_SURGE_OBJECTIVE_COUNT) {
+    if (
+        objectives.filter((card) => card.scoreType == SURGE_SCORE_TYPE).length >
+        MAX_SURGE_OBJECTIVE_COUNT
+    ) {
         isValid = false;
         issues.push("Your deck can't include more than 6 Surge cards");
     }
@@ -325,4 +347,6 @@ export {
     sets as wusets,
     factions as wufactions,
     cards as wucards,
+    checkNonWarbandSpecificCard,
+    checkWarbandSpecificCard,
 };

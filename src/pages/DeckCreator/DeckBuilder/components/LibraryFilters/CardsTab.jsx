@@ -44,7 +44,7 @@ function CardsTab({
     return (
         <div className="flex items-center my-2">
             {format === CHAMPIONSHIP_FORMAT && (
-                <div className="flex flex-col items-center mx-2">
+                <div className="flex flex-col items-center mx-4">
                     <LockIcon className="text-yellow-600 stroke-current w-4 h-4" />
                     <h6 className="text-gray-700 text-xs">
                         {restrictedCards.length}/3

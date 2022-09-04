@@ -9,6 +9,7 @@ import {
     signInWithRedirect,
     signInWithEmailAndPassword as authSignInWithEmailAndPassword,
     signOut as authSignOut,
+    sendPasswordResetEmail,
 } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 // import "firebase/auth";
@@ -116,6 +117,10 @@ const Firebase2 = (function () {
                 }
             });
         },
+
+        sendPasswordResetEmail: function invokeSendPasswordResetEmail(email) {
+            return sendPasswordResetEmail(auth, email)
+        }
     };
 })();
 

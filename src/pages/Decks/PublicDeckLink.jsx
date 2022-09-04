@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import FactionDeckPicture from "../../v2/components/FactionDeckPicture";
 import { VIEW_DECK } from "../../constants/routes";
 import {
     checkCardIsObjective,
@@ -8,6 +7,7 @@ import {
 } from "../../data/wudb";
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
+import { FactionDeckPicture } from "../../v2/components/FactionDeckPicture";
 
 export default function PublicDeckLink({ ...props }) {
     const [cards, setCards] = useState([]);

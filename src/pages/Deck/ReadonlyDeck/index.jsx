@@ -68,6 +68,7 @@ function ReadonlyDeck(props) {
             if (card.startsWith("11")) return `E${Number(card.slice(-3))}`;
             if (card.startsWith("12")) return `AM${Number(card.slice(-3))}`;
             if (card.startsWith("13")) return `H${Number(card.slice(-3))}`;
+            if (card.startsWith("14")) return `NM${Number(card.slice(-3))}`;
 
             return Number(card.slice(-3));
         };

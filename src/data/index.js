@@ -214,12 +214,3 @@ export const restrictedCards = {
    "08038": 1, // Tight Defence (Beastgrave: Arena Mortis #38)
    "08039": 1, // Vision of Glory (Beastgrave: Arena Mortis #39)
 };
-
-export function getValidSets(format) {
-    switch (format) {
-        case CHAMPIONSHIP_FORMAT:
-            return setsIndex.slice(rotatedOutSetsIndexes.length);
-        default:
-            return setsIndex;
-    }
-}

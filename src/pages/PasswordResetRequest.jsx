@@ -20,7 +20,7 @@ function PasswordResetRequest() {
 
     const handleClick = async () => {
         try {
-            await firebase.auth.sendPasswordResetEmail(email);
+            await firebase.sendPasswordResetEmail(email);
 
             setEmailSent(true);
 
@@ -40,7 +40,7 @@ function PasswordResetRequest() {
                         Email with a link to reset your password has been sent.
                     </div>
                     <div>
-                        Back to the gates in {this.state.redirectCountdown}{" "}
+                        Back to the gates in {redirectCountdown}{" "}
                         seconds...
                     </div>
                 </div>

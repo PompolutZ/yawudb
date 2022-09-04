@@ -92,6 +92,7 @@ export const factionIdPrefix = {
 
     "xandires-truthseekers": "xt",
     "da-kunnin-krew": "dkk",
+    "blackpowders-buccaneers": "bb",
 }
 
 export const factionMembers = {
@@ -224,6 +225,11 @@ export const factionMembers = {
 
     "xandires-truthseekers": ["", "", "", ""], 
     "da-kunnin-krew": ["","","","","",],
+    "blackpowders-buccaneers": ["Gorlok", "Kagey", "Mange", "Peggs", "Shreek"],
+    'the-exiled-dead': ["Deintalos", 'Marcov', "Regulus", "Coyl", "Bault", "Vlash", "Ione"],
+    'skittershanks-clawpack':["Skittershanks", "Snyp", "Kreep", "Krowcht", "Skulck"],
+    'the-shadeborn':["Slythael", "Drusylla", "Sylarc", "Valyssa"],
+    'hexbanes-hunters':["Haskel", "Aemos", "Quite Pock", "Brydget", "Grotbiter", "Ratspike"]
 }
 
 export const idPrefixToFaction = {
@@ -327,6 +333,11 @@ export const factionIndexes = [
     
     "xandires-truthseekers", 
     "da-kunnin-krew",
+    "blackpowders-buccaneers",
+    'the-exiled-dead',
+    'skittershanks-clawpack',
+    'the-shadeborn',
+    'hexbanes-hunters'
 ]
 
 export const factionIndexesWithDefaultSet = [

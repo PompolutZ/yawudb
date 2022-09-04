@@ -86,12 +86,21 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
             OBJECTIVE_SCORE_TYPE_FILTERS
         );
 
-        onFiltersChanged({
-            test: (card) =>
-                typesFilter(card) &&
+        const aggregateFilters = (card) => {
+            if (enabledCardTypes.includes("Objective")) {
+                return  typesFilter(card) &&
                 keywordsFilters(card) &&
                 gloryFilters(card) &&
-                scoreTypeFilters(card),
+                scoreTypeFilters(card);
+            }
+
+            return typesFilter(card) &&
+            keywordsFilters(card);
+        };
+
+        onFiltersChanged({
+            test: (card) =>
+                aggregateFilters(card)
         });
     };
 
@@ -117,6 +126,16 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
         setEnabledKeywords([]);
     };
 
+    const calculateTotalFilterCount = (enabledCardTypes, enabledKeywords, enabledObjectiveScoreTypes, enabledGloryFilters) => {
+        if (enabledCardTypes.includes("Objective")) {
+            return enabledKeywords.length +
+            enabledObjectiveScoreTypes.length +
+            enabledGloryFilters.length;
+        }
+
+        return enabledKeywords.length;
+    }
+
     return (
         <div className="relative" ref={ref}>
             <CardsTab
@@ -127,9 +146,7 @@ function LibraryFilters({ bounds, onFiltersChanged }) {
                     setEnabledCardTypes
                 )}
                 totalActiveFilters={
-                    enabledKeywords.length +
-                    enabledObjectiveScoreTypes.length +
-                    enabledGloryFilters.length
+                    calculateTotalFilterCount(enabledCardTypes, enabledKeywords, enabledObjectiveScoreTypes, enabledGloryFilters)
                 }
                 onToggleShowFilters={changeShowFilters}
             />
