@@ -229,7 +229,8 @@ export const factionMembers = {
     'the-exiled-dead': ["Deintalos", 'Marcov', "Regulus", "Coyl", "Bault", "Vlash", "Ione"],
     'skittershanks-clawpack':["Skittershanks", "Snyp", "Kreep", "Krowcht", "Skulck"],
     'the-shadeborn':["Slythael", "Drusylla", "Sylarc", "Valyssa"],
-    'hexbanes-hunters':["Haskel", "Aemos", "Quite Pock", "Brydget", "Grotbiter", "Ratspike"]
+    'hexbanes-hunters':["Haskel", "Aemos", "Quite Pock", "Brydget", "Grotbiter", "Ratspike"],
+    'gorechosen-of-dromm':["Dromm", "Gorehulk", "Herax"]
 }
 
 export const idPrefixToFaction = {
@@ -281,6 +282,12 @@ export const idPrefixToFaction = {
 
     "xt": "xandires-truthseekers", 
     "dkk": "da-kunnin-krew",
+    "bb": "blackpowders-buccaneers",
+    "ted": 'the-exiled-dead',
+    "skc": 'skittershanks-clawpack',
+    "ts": 'the-shadeborn',
+    "hh": 'hexbanes-hunters',
+    "god": 'gorechosen-of-dromm'
 }
 
 export const factionIndexes = [
@@ -337,7 +344,8 @@ export const factionIndexes = [
     'the-exiled-dead',
     'skittershanks-clawpack',
     'the-shadeborn',
-    'hexbanes-hunters'
+    'hexbanes-hunters',
+    'gorechosen-of-dromm'
 ]
 
 export const factionIndexesWithDefaultSet = [
