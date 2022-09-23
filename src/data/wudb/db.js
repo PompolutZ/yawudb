@@ -13843,7 +13843,7 @@ export const cards = {
         "name": "Shifting Map",
         "type": "Upgrade",
         "glory": null,
-        "rule": "If this fighter is not out of action in the third end phase, draw an objective card. If it is worth 1 glory point, you gain 1 glory point (you cannot score the card you draw).",
+        "rule": "*(Errata update)* **Map** \\n If this fighter is not out of action in the third end phase, draw an objective card. If it is worth 1 glory point, you gain 1 glory point (you cannot score the card you draw).",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -24673,7 +24673,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after one friendly fighter's second or subsequent **Move action** in the same phase.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9233": {
@@ -27697,7 +27697,7 @@ export const cards = {
         "glory": null,
         "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter has the following reaction. \\n **Reaction:** After this fighter's activation, if you have three or fewer power cards in your hand, **draw** one power card. \\n +1 Dice to this fighter's Range 1 **Attack actions** if this fighter has two or more **Silent Relics**.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9485": {
@@ -31199,7 +31199,7 @@ export const cards = {
         "name": "Liberated Map",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Action:** If this fighter is in an **edge** hex and has no Move tokens, **place** this fighter in an **empty edge** hex and **give** this fighter one Move token. \\n At the end of the action phase, if this fighter is on a feature token that is not in your territory, gain one Swag counter and this fighter is Inspired.",
+        "rule": "*(Errata update)* **Map** \\n **Action:** If this fighter is in an **edge** hex and has no Move tokens, **place** this fighter in an **empty edge** hex and **give** this fighter one Move token. \\n At the end of the action phase, if this fighter is on a feature token that is not in your territory, gain one Swag counter and this fighter is Inspired.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -31297,7 +31297,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after an activation step in which two or more friendly fighters each made one or more **Attack actions**.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "13098": {
@@ -33803,7 +33803,7 @@ export const cards = {
         "name": "Waterlogged Map",
         "type": "Upgrade",
         "glory": null,
-        "rule": "If this fighter is in enemy territory at the end of the third action phase, gain 1 glory point.",
+        "rule": "*(Errata update)* **Map** \\n If this fighter is in enemy territory at the end of the third action phase, gain 1 glory point.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35602,7 +35602,7 @@ export const cards = {
         "setId": 47,
         "name": "Savage Slaughter",
         "type": "Objective",
-        "glory": null,
+        "glory": 1,
         "rule": "**Surge, Hybrid:** Score this immediately after a friendly fighter's **Attack action** that takes the target out of action if: \\n That friendly fighter is a **beast** or **Khorne** fighter \\n *Or:* That friendly fighter has no upgrades.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
@@ -35809,7 +35809,7 @@ export const cards = {
         "glory": null,
         "rule": "Play this only in your power step. You can use the following reaction. This effect **persists** until the end of the round or until you use this reaction. \\n **Reaction:** Use this during an **Attack action** that targets a friendly fighter, after the attack roll. That **Attack action** has -1 Damage, to a minimum of 1, until it has been resolved.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14166": {
@@ -36061,7 +36061,7 @@ export const cards = {
         "glory": null,
         "rule": "When this fighter is given this upgrade, place one shield counter on this card, plus one shield counter if this fighter is a **wizard**. \\n **Reaction:** After this fighter is **dealt** damage, before checking if this fighter is taken out of action, **remove** the shield counters from this card. If you do **Heal** (X) this fighter, where X is the number of shield counters you removed.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14187": {
@@ -36529,7 +36529,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after a power step if your warband flipped two or more feature tokens in that power step.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14226": {
@@ -36661,7 +36661,7 @@ export const cards = {
         "glory": null,
         "rule": "Pick two feature tokens in **empty** hexes. **Place** each feature token in the hex the other feature token was in when you picked them.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14237": {
@@ -37465,7 +37465,7 @@ export const cards = {
         "glory": null,
         "rule": "This fighter is an **assassin**. \\n **Reaction:** After a **scatter** ability is resolved, **push** this fighter up to 2 hexes.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14304": {
