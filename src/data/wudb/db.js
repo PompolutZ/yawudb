@@ -223,6 +223,16 @@ export const sets = {
         "id": 46,
         "name": "hexbanes-hunters-expansion",
         "displayName": "Hexbane's Hunters expansion"
+    },
+    "Gorechosen of Dromm expansion": {
+        "id": 47,
+        "name": "gorechosen-of-dromm-expansion",
+        "displayName": "Gorechosen of Dromm expansion"
+    },
+    "Deadly Depths Rivals Deck": {
+        "id": 48,
+        "name": "deadly-depths-rivals-deck",
+        "displayName": "Deadly Depths Rivals Deck"
     }
 }
 export const factions = {
@@ -556,6 +566,13 @@ export const factions = {
         "name": "hexbanes-hunters",
         "gaId": 38,
         "displayName": "Hexbane's Hunters"
+    },
+    "Gorechosen of Dromm": {
+        "id": 49,
+        "abbr": "god",
+        "name": "gorechosen-of-dromm",
+        "gaId": 39,
+        "displayName": "Gorechosen of Dromm"
     }
 }
 export const cards = {
@@ -13826,7 +13843,7 @@ export const cards = {
         "name": "Shifting Map",
         "type": "Upgrade",
         "glory": null,
-        "rule": "If this fighter is not out of action in the third end phase, draw an objective card. If it is worth 1 glory point, you gain 1 glory point (you cannot score the card you draw).",
+        "rule": "*(Errata update)* **Map** \\n If this fighter is not out of action in the third end phase, draw an objective card. If it is worth 1 glory point, you gain 1 glory point (you cannot score the card you draw).",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -24656,7 +24673,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after one friendly fighter's second or subsequent **Move action** in the same phase.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9233": {
@@ -27680,7 +27697,7 @@ export const cards = {
         "glory": null,
         "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter has the following reaction. \\n **Reaction:** After this fighter's activation, if you have three or fewer power cards in your hand, **draw** one power card. \\n +1 Dice to this fighter's Range 1 **Attack actions** if this fighter has two or more **Silent Relics**.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9485": {
@@ -31182,7 +31199,7 @@ export const cards = {
         "name": "Liberated Map",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Action:** If this fighter is in an **edge** hex and has no Move tokens, **place** this fighter in an **empty edge** hex and **give** this fighter one Move token. \\n At the end of the action phase, if this fighter is on a feature token that is not in your territory, gain one Swag counter and this fighter is Inspired.",
+        "rule": "*(Errata update)* **Map** \\n **Action:** If this fighter is in an **edge** hex and has no Move tokens, **place** this fighter in an **empty edge** hex and **give** this fighter one Move token. \\n At the end of the action phase, if this fighter is on a feature token that is not in your territory, gain one Swag counter and this fighter is Inspired.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -31280,7 +31297,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after an activation step in which two or more friendly fighters each made one or more **Attack actions**.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "13098": {
@@ -33786,7 +33803,7 @@ export const cards = {
         "name": "Waterlogged Map",
         "type": "Upgrade",
         "glory": null,
-        "rule": "If this fighter is in enemy territory at the end of the third action phase, gain 1 glory point.",
+        "rule": "*(Errata update)* **Map** \\n If this fighter is in enemy territory at the end of the third action phase, gain 1 glory point.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -34967,6 +34984,390 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14097": {
+        "id": 14097,
+        "factionId": 49,
+        "setId": 47,
+        "name": "A Brutal Reckoning",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n A friendly fighter's **Attack action** takes an enemy fighter out of action. \\n *If:* That friendly fighter had one or more blood tithe counters and/or one or more wound counters.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14098": {
+        "id": 14098,
+        "factionId": 49,
+        "setId": 47,
+        "name": "A Potent Offering",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n An enemy fighter is taken out of action. \\n *If:* A **Domain** gambit is persisting.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14099": {
+        "id": 14099,
+        "factionId": 49,
+        "setId": 47,
+        "name": "A Puissant Strike",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n A friendly fighter's **Attack action** takes an enemy fighter out of action. \\n *If:* The damage **dealt** by that **Attack action** was exactly enough to take that enemy fighter out of action.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14100": {
+        "id": 14100,
+        "factionId": 49,
+        "setId": 47,
+        "name": "A Worthy Offering",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if your warband has two or more blood tithe counters.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14101": {
+        "id": 14101,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Blood Claim",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if one or more friendly fighters each hold an objective within 1 hex of no one's territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14102": {
+        "id": 14102,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Consecrated in Blood",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Dual:** Score this in an end phase if: \\n No enemy fighters hold objectives \\n *And:* One or more friendly fighters each hold an objective within 1 hex of no one's territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14103": {
+        "id": 14103,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Glorious Battle",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "Score this in an end phase if four or more fighters each have one or more Charge tokens and/or one or more blood tithe counters.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14104": {
+        "id": 14104,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Grim Satisfaction",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n Four or more fighters each have one or more wound counters. \\n *Or:* One or more friendly fighters in no one's territory each have a total of eight blood tithe counters and/or wound counters.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14105": {
+        "id": 14105,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Hack and Slash",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if two or more successful **Attack actions** were made during your activations in the previous phase.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14106": {
+        "id": 14106,
+        "factionId": 49,
+        "setId": 47,
+        "name": "The Blood God's Due",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if three or more fighters each have one or more wound counters and/or one or more blood tithe counters.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14107": {
+        "id": 14107,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Untouchable Fury",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n A friendly fighter is dealt damage by an enemy fighter's **Attack action** \\n *If:* That friendly fighter is not taken out of action by that damage.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14108": {
+        "id": 14108,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Worshipped in Battle",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Dual:** Score this in an end phase if: \\n Two or more surviving friendly fighters each have one or more blood tithe counters \\n *And:* Those fighters are within 1 hex of no one's territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14109": {
+        "id": 14109,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Blood Boil",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Prayer** \\n **Choose** a fighter within 2 hexes of a friendly Dromm. **Deal** 1 damage to the chosen fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14110": {
+        "id": 14110,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Blood-curdling Roar",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Use this before you would **remove** one or more blood tithe counter from a friendly fighter with zero or more blood tithe counters. When you do, you are considered to **remove** one additional blood tithe counter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14111": {
+        "id": 14111,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Brazen-edged Fury",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter and pick one of the following effects: \\n The first **Attack action** made by the chosen fighter in the next activation has **Cleave**. Or, **re-roll** one attack dice in the attack roll for the first **Attack action** made by the chosen fighter in the next activation. When you play this card you can **remove** one of the chosen fighter's blood tithe counters. If you do, gain both effects.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14112": {
+        "id": 14112,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Call of Blood",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Prayer** \\n **Choose** up to two fighters. **Push** each chosen fighter 1 hex towards the nearest fighter from an enemy warband. If a chosen fighter has one or more blood tithe counters, you can **remove** one of that fighter's blood tithe counters. If you do, **push** the chosen fighter up to 2 hexes towards the nearest fighter from an enemy warband instead.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14113": {
+        "id": 14113,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Domain of Blood",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Domain, Prayer** \\n Fighters cannot be healed or **driven back**. \\n This effect **persists** until the end of the next activation, or until another **Domain** gambit is played. \\n When you play this card, you can **remove** one blood tithe counter from a friendly Dromm. If you do, this effect **persists** until the end of the round, or until another **Domain** gambit is played.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14114": {
+        "id": 14114,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Domain of Fury",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Domain, Prayer** \\n When a fighter begins a **Move action**, that **Move action** cannot end further from the closest enemy fighter. This effect **persists** until the end of the next activation, or until another **Domain** gambit is played. When you play this card, you can **remove** one blood tithe counter from a friendly Dromm. If you do, this effect **persists** until the end of the next activation, or until another **Domain** gambit is played.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14115": {
+        "id": 14115,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Domain of Wrath",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Domain, Prayer** \\n When activated, fighters must make a **Charge action** if they can. This effect **persists** until the end of the next activation, or until another **Domain** gambit is played. \\n When you play this card, you can **remove** one blood tithe counter from a friendly Dromm. If you do, this effect **persists** until the end of the round, or until another **Domain** gambit is played.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14116": {
+        "id": 14116,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Overhead Smash",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Play this only in a power step following your activation. You cannot play this in your last power step of the round. **Choose** a fighter adjacent to a friendly Gorehulk. At the start of your next activation, **deal** 2 damage to the chosen fighter if they are adjacent to a friendly Gorehulk. When this card **deals** damage, you can **remove** one blood tithe counter from a friendly Gorehulk. If you do, this card **deals** 3 damage to the chosen fighter instead.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14117": {
+        "id": 14117,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Skin of Brass",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Prayer** \\n **Choose** one friendly fighter. \\n -1 Damage to **Attack actions** that target then chosen fighter, to a minimum of 1. \\n This effect **persists** until the end of the round or until the chosen fighter is **dealt** damage.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14118": {
+        "id": 14118,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Wound the Realm",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Prayer** \\n **Choose** one fighter within 1 hex of no one's territory. **Deal** 1 damage to the chosen fighter. When you play this card you can **remove** all blood tithe counters (at least one) from a friendly Dromm. If you do, **deal** 1 damage to each fighter within 1 hex of no one's territory instead.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14119": {
+        "id": 14119,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Aura of Wrath",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "Fighters within 2 hexes of this fighter cannot be **driven back**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14120": {
+        "id": 14120,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Bloody Worshipper",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "At the start of each round, **give** this fighter one blood tithe counter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14121": {
+        "id": 14121,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Crazed Rampager",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+2 Move while this fighter is making a **Charge action**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14122": {
+        "id": 14122,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Final Frenzy",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "This fighter cannot be taken out of action. This effect does not prevent damage being **dealt** to this fighter. \\n At the end of the action phase, **break** this card. When this card is **broken** this fighter is taken out of action.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14123": {
+        "id": 14123,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Paragon of Slaughter",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "In the declare Attack action step of this fighter's Range 1 or Range 2 **Attack action**, you can **remove** one of this fighter's blood tithe counters. If you do, when that **Attack action** succeeds, pick one: **Heal** (1) this fighter or **draw** one power card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14124": {
+        "id": 14124,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Powerful Hatred",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "This fighter is considered to be a **supporting** fighter for friendly **Attack actions** made within X hexes, where X is the number of blood tithe counters on this fighter card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14125": {
+        "id": 14125,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Retaliate",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** Use this during a successful **Attack action** that targets this fighter, after the out of action check. This fighter makes a Range 1 or Range 2 **Attack action**, then **break** this card. It must target the attacker. The attacker cannot be **driven back** by this **Attack action**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14126": {
+        "id": 14126,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Sharpened by Rage",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "In the declare Attack action step, you can remove one of this fighter's blood tithe counters. If you do, pick one of **Cleave, Ensnare** or **Knockback** 1. This fighter's Range 1 and Range 2 **Attack actions** have that ability until that **Attack action** is resolved.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14127": {
+        "id": 14127,
+        "factionId": 49,
+        "setId": 47,
+        "name": "White-hot Anger",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** Use this after a friendly fighter's successful Range 1 or Range 2 **Attack action**. Enemy warbands treat hexes adjacent to this fighter as **lethal** hexes, in addition to other hex types. This effect **persists** until the end of the round.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14128": {
+        "id": 14128,
+        "factionId": 49,
+        "setId": 47,
+        "name": "Wrath Incarnate",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "This fighter has the following cumulative abilities, determined by how many blood tithe counters they have. \\n 1+: This fighter cannot be **driven back** \\n 2+: +1 Move \\n 3+: +1 Damage to this fighter's Range 1 or Range 2 **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14129": {
         "id": 14129,
         "factionId": 38,
@@ -35003,6 +35404,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14132": {
+        "id": 14132,
+        "factionId": 38,
+        "setId": 47,
+        "name": "Shaken, Yet Unmoved",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n A successful **Attack action** that targeted a friendly fighter \\n *If:* That fighter was not **trapped** or **pushed** during that **Attack action** and that fighter is on the battlefield.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14133": {
         "id": 14133,
         "factionId": 38,
@@ -35012,6 +35425,18 @@ export const cards = {
         "glory": 2,
         "rule": "**Hybrid:** Score this in an end phase if: \\n Each surviving enemy fighter is in enemy territory \\n *Or:* One or more enemy **wizards** are out of action.",
         "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14134": {
+        "id": 14134,
+        "factionId": 38,
+        "setId": 47,
+        "name": "Defend! Defend!",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** up to two friendly fighters with no Move or Charge tokens. **Give** each chosen fighter one Guard token. Then **stagger** each enemy fighter adjacent to one or more of the chosen fighters.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -35111,6 +35536,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14143": {
+        "id": 14143,
+        "factionId": 38,
+        "setId": 47,
+        "name": "Impervious Charge",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "While making a **Charge action**, this fighter cannot be **dealt** damage. \\n +1 Move while making **Charge actions** if this fighter is a **beast**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14144": {
         "id": 14144,
         "factionId": 39,
@@ -35156,6 +35593,18 @@ export const cards = {
         "glory": 1,
         "rule": "**Hybrid:** Score this in an end phase if: \\n Three or more friendly fighters each have one or more upgrades \\n *Or:* Your warband holds two or more objectives.",
         "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14148": {
+        "id": 14148,
+        "factionId": 39,
+        "setId": 47,
+        "name": "Savage Slaughter",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Hybrid:** Score this immediately after a friendly fighter's **Attack action** that takes the target out of action if: \\n That friendly fighter is a **beast** or **Khorne** fighter \\n *Or:* That friendly fighter has no upgrades.",
+        "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -35207,6 +35656,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14153": {
+        "id": 14153,
+        "factionId": 39,
+        "setId": 47,
+        "name": "Weighty Blessing",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Mutation** \\n **Choose** one friendly fighter, then put one Shield counter or one Magic counter on this card. The chosen fighter has -1 Move, to a minimum of 0, and the following benefit, depending on which you picked: \\n Shield: +1 Defence \\n Magic: This fighter's Attack actions have **Cleave**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14154": {
         "id": 14154,
         "factionId": 39,
@@ -35215,6 +35676,18 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "You cannot give this to a **leader**. \\n If this fighter is a **Slaanesh** fighter, this fighter is an **assassin**. \\n When this fighter is **dealt** damage by an **Attack action**, reduce that damage by 1, to a minimum of 1, for each :dfDodge: in this fighter's defence roll.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14155": {
+        "id": 14155,
+        "factionId": 39,
+        "setId": 47,
+        "name": "Frenzied Strength",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "If this fighter is a **Khorne** fighter, this fighter's Range 1 and Range 2 **Attack actions** have **Cleave**. \\n If this fighter is **vulnerable**, +1 Damage to this fighter's Range 1 and Range 2 **Attack actions**.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35291,6 +35764,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14162": {
+        "id": 14162,
+        "factionId": 40,
+        "setId": 47,
+        "name": "Mystery of Death",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n Your warband played four or more gambits in the preceding action phase \\n *Or:* You have scored no other objectives in this round.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14163": {
         "id": 14163,
         "factionId": 40,
@@ -35324,7 +35809,7 @@ export const cards = {
         "glory": null,
         "rule": "Play this only in your power step. You can use the following reaction. This effect **persists** until the end of the round or until you use this reaction. \\n **Reaction:** Use this during an **Attack action** that targets a friendly fighter, after the attack roll. That **Attack action** has -1 Damage, to a minimum of 1, until it has been resolved.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14166": {
@@ -35335,6 +35820,18 @@ export const cards = {
         "type": "Spell",
         "glory": null,
         "rule": "**Gambit Spell (:MagFocus:):** If **cast**, **choose** one Inspired enemy fighter within 3 hexes of the caster. The chosen fighter is un-Inspired and cannot be Inspired. In addition, that fighter's player cannot **re-roll** dice in that fighter's defence rolls. This effect **persists** until the end of the round or until that fighter is taken out of action. When this effect ends, the chosen fighter is Inspired.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14167": {
+        "id": 14167,
+        "factionId": 40,
+        "setId": 47,
+        "name": "Inevitable Fate",
+        "type": "Spell",
+        "glory": null,
+        "rule": "**Gambit Spell (:MagChannel:):** If **cast**, **choose** one **vulnerable** enemy fighter within 4 hexes. **Deal** 1 damage to that fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35387,6 +35884,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14172": {
+        "id": 14172,
+        "factionId": 40,
+        "setId": 47,
+        "name": "Merciless Bludgeon",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "This fighter's Range 1 **Attack actions** that target a fighter with one or more wound counters have **Stagger**, and you can **re-roll** one attack dice in those **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14173": {
         "id": 14173,
         "factionId": 40,
@@ -35435,6 +35944,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14177": {
+        "id": 14177,
+        "factionId": 41,
+        "setId": 47,
+        "name": "Whirling Wreckers",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Dual:** Score this in an end phase if: \\n There are two or more surviving friendly fighters \\n *And:* Each surviving friendly fighter has one or more **Scything Attack actions**.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14178": {
         "id": 14178,
         "factionId": 41,
@@ -35444,6 +35965,18 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that took the target out of action, if the target was in a **cover** hex or an **edge** hex.",
         "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14179": {
+        "id": 14179,
+        "factionId": 41,
+        "setId": 47,
+        "name": "Destruction's Advance",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** up to two friendly fighters. **Stagger** the chosen fighters and then **push** the chosen fighters 1 hex towards the closest enemy fighter.",
+        "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -35507,6 +36040,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14185": {
+        "id": 14185,
+        "factionId": 41,
+        "setId": 47,
+        "name": "Greedy Swing",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Attack action** \\n [:Hex: 1 - :atFury: 2 - :boom: 2 -(Scything)-] \\n **Reaction:** After this **Attack action**, if the target was taken out of action, **draw** one power card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14186": {
         "id": 14186,
         "factionId": 41,
@@ -35516,7 +36061,7 @@ export const cards = {
         "glory": null,
         "rule": "When this fighter is given this upgrade, place one shield counter on this card, plus one shield counter if this fighter is a **wizard**. \\n **Reaction:** After this fighter is **dealt** damage, before checking if this fighter is taken out of action, **remove** the shield counters from this card. If you do **Heal** (X) this fighter, where X is the number of shield counters you removed.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14187": {
@@ -35543,6 +36088,42 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14189": {
+        "id": 14189,
+        "factionId": 1,
+        "setId": 48,
+        "name": "A War in the Shadows",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Dual:** Score this in an end phase if: \\n During the previous activation step, one or more enemy fighters were taken out of action \\n *And:* Two or more friendly fighters are in **cover** hexes.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14190": {
+        "id": 14190,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Beating the Odds",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Hybrid:** Score this in the third end phase if: \\n There are one or more surviving friendly **minions** \\n *Or:* There are two or more surviving friendly fighters with no wound counters.",
+        "scoreType": "Third",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14191": {
+        "id": 14191,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Blood in the Deeps",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Dual:** Score this in an end phase if: \\n During the previous activation step, one or more enemy fighters were taken out of action \\n *And:* One or more friendly fighters are within 1 hex of a feature token.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14192": {
         "id": 14192,
         "factionId": 1,
@@ -35563,6 +36144,18 @@ export const cards = {
         "type": "Objective",
         "glory": 1,
         "rule": "**Dual:** Score this in an end phase if: \\n Your **leader** is in enemy territory \\n *And:* One or more friendly fighters are in no one's or your territory.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14194": {
+        "id": 14194,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Call of the Dark",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "Score this in an end phase if four or more fighters are each in a **cover** hex. \\n After you score this card, pick one opponent. That opponent's warband **deals** 1 damage to one fighter from your warband that is in a **cover** hex.",
         "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
@@ -35603,6 +36196,42 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14198": {
+        "id": 14198,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Crushing Them Wholesale",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Dual:** Score this in an end phase if: \\n There are more enemy fighters out of action than there are surviving enemy fighters \\n *And:* One or more enemy **leaders** are out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14199": {
+        "id": 14199,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Dark Judgement",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n A friendly fighter's **Attack action** if the target was taken out of action \\n *And:* The attacker and/or the defender was in a **cover** hex in enemy territory.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14200": {
+        "id": 14200,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Desperate Triumph",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n An activation step if your **leader** is on a feature token in enemy territory \\n *And:* Your **leader** is **vulnerable**.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14201": {
         "id": 14201,
         "factionId": 1,
@@ -35612,6 +36241,18 @@ export const cards = {
         "glory": 2,
         "rule": "**Surge:** Score this immediately after a friendly fighter's **Attack action** that takes an enemy **leader** in enemy territory out of action.",
         "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14202": {
+        "id": 14202,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Duskbringers",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if one or more friendly fighters are each on a feature token in enemy territory that was an objective token at the start of the round.",
+        "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -35687,6 +36328,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14209": {
+        "id": 14209,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Looting the Remains",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if one or more enemy fighters that are out of action each have two or more upgrades.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14210": {
         "id": 14210,
         "factionId": 1,
@@ -35696,6 +36349,18 @@ export const cards = {
         "glory": 2,
         "rule": "**Dual:** Score this in an end phase if: \\n Your **leader** is out of action \\n *And:* You have more glory points than each opponent.",
         "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14211": {
+        "id": 14211,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Lost Together",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "**Dual:** Score this in the third end phase if: \\n There are two or more surviving friendly fighters \\n *And:* Each of those friendly fighters is on an objective token in the same territory.",
+        "scoreType": "Third",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -35759,6 +36424,78 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14217": {
+        "id": 14217,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Open the Waking Gate",
+        "type": "Objective",
+        "glory": 3,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n An activation step if a friendly Penumbral Lock gambit is persisting \\n *And:* A friendly fighter has the Penumbral Key upgrade. \\n When you score this objective, that friendly fighter is taken out of action.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14218": {
+        "id": 14218,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Plumbing the Depths",
+        "type": "Objective",
+        "glory": 2,
+        "rule": "Score this in an end phase if one or more friendly fighters are in a **cover** hex, one or more friendly fighters are on a feature token and one or more friendly fighters are in a **lethal** hex.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14219": {
+        "id": 14219,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Pulled Under",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Hybrid:** Score this in an end phase if: \\n Three or more **Domain** cards were played in this round \\n *Or:* One or more enemy fighters who each have three or more upgrades are out of action.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14220": {
+        "id": 14220,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Purging the Abyss",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if more enemy fighters were taken out of action in this round than there are objective tokens on the battlefield.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14221": {
+        "id": 14221,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Reel 'Em In",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge, Dual:** Score this immediately after: \\n An enemy fighter in enemy territory or no one's territory was **pushed** \\n *If:* That enemy fighter ended that **push** in your territory.",
+        "scoreType": "Surge",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14222": {
+        "id": 14222,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Round in Circles",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if two or more **scatter** abilities were resolved in this round.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14223": {
         "id": 14223,
         "factionId": 1,
@@ -35792,6 +36529,18 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after a power step if your warband flipped two or more feature tokens in that power step.",
         "scoreType": "Surge",
+        "status": "V-Y_V-_V",
+        "rotated": false
+    },
+    "14226": {
+        "id": 14226,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Surging Darkness",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "**Surge:** Score this immediately after an activation step if two or more friendly fighters with Charge tokens are on feature tokens.",
+        "scoreType": "Surge",
         "status": "V--_V-_V",
         "rotated": false
     },
@@ -35807,6 +36556,42 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14228": {
+        "id": 14228,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Up to Our Necks",
+        "type": "Objective",
+        "glory": 1,
+        "rule": "Score this in an end phase if there are more enemy fighters in your territory than friendly fighters.",
+        "scoreType": "End",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14229": {
+        "id": 14229,
+        "factionId": 1,
+        "setId": 48,
+        "name": "A Hungry Darkness",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Pick one feature token. **Push** that feature token 1 hex closer to the nearest enemy fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14230": {
+        "id": 14230,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Amphibious Ambush",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "The first Range 1 **Attack action** made in the next activation step that targets an enemy fighter on a feature token has **Cleave** and **Grievous**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14231": {
         "id": 14231,
         "factionId": 1,
@@ -35819,6 +36604,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14232": {
+        "id": 14232,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Blazing Light",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one fighter. Flip each feature token that is not an objective token and that is within 2 hexes of the chosen fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14233": {
         "id": 14233,
         "factionId": 1,
@@ -35827,6 +36624,18 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Pick one feature token that is not an objective token and is in a hex that contains a fighter with no Move or Charge tokens. Pick a number, then flip that token. If you reveal an objective token with the number you picked, **deal** 1 damage to that fighter if it is an enemy fighter, or that fighter makes a **Move action** or a Range 1 or Range 2 **Attack action** if it is a friendly fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14234": {
+        "id": 14234,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Corrupted Companion",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter. **Deal** 1 damage to the chosen fighter. +2 Dice to the first **Attack action** made by the chosen fighter in the next activation step. If the chosen fighter is a **companion**, +1 Damage to the first Range 1 or Range 2 **Attack action** made by the chosen fighter in the next activation step.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35851,6 +36660,30 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Pick two feature tokens in **empty** hexes. **Place** each feature token in the hex the other feature token was in when you picked them.",
+        "scoreType": "-",
+        "status": "V-Y_V-_V",
+        "rotated": false
+    },
+    "14237": {
+        "id": 14237,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Darkwater Draught",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter, or **choose** one enemy fighter adjacent to one or more friendly fighters, then roll three magic dice. For each roll of :MagFocus:, **deal** 1 damage to the chosen fighter. For each roll of :MagChannel:, **Heal** (1) the chosen fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14238": {
+        "id": 14238,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Depth Charging",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Domain** \\n +1 Move to friendly fighters' **Move actions** that end in enemy or no one's territory. \\n This effect **persists** until the end of the round or until another **Domain** gambit is played.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35879,6 +36712,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14241": {
+        "id": 14241,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Grip of the Drowned",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Domain** \\n A fighter cannot be **pushed** if that fighter is adjacent to one or more fighters. \\n This effect **persists** until the end of the round or until another **Domain** gambit is played.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14242": {
         "id": 14242,
         "factionId": 1,
@@ -35887,6 +36732,18 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "**Give** each friendly fighter that is adjacent to one or more enemy fighters and is in enemy territory one Guard token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14243": {
+        "id": 14243,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Hold them Under",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one enemy fighter and roll X attack dice, where X is the number of friendly fighters adjacent to that enemy fighter, to a maximum of three. For each roll of :atSmash:, **deal** 1 damage to the chosen fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35915,6 +36772,30 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14246": {
+        "id": 14246,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Knives in the Dark",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "+1 Damage to the first **Attack action** in the next activation step that targets an enemy fighter on a feature token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14247": {
+        "id": 14247,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Murderous Tides",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "+1 Dice to the first **Attack action** made by a friendly fighter that has one or more **supporting** fighters. This effect **persists** until a friendly fighter with one or more **supporting** fighters makes an **Attack action** or until the end of the round.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14248": {
         "id": 14248,
         "factionId": 1,
@@ -35923,6 +36804,18 @@ export const cards = {
         "type": "Spell",
         "glory": null,
         "rule": "**Gambit Spell (:MagFocus:):** If **cast**, each **Attack action** has -1 Dice if the target is in a **cover** hex, to a minimum of 1. \\n This effect **persists** until the end of the round.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14249": {
+        "id": 14249,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Parting the Waters",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Friendly fighters' characteristics cannot be reduced in the next activation step.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -35963,6 +36856,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14253": {
+        "id": 14253,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Raging Torrent",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Reaction:** Play this after a **Domain** gambit is played. **Choose** an enemy fighter that is holding an objective. Pick one of the chosen fighter's upgrades. **Break** that card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14254": {
         "id": 14254,
         "factionId": 1,
@@ -35983,6 +36888,30 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "Double the Move characteristic of the first friendly fighter to make a **Move action** in the next activation step, until that action has been resolved. **Deal** 1 damage to, and then **stagger**, that fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14256": {
+        "id": 14256,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Seeking the Deep Truths",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** one friendly fighter in a **cover** hex. **Deal** 1, 2 or 3 damage to the chosen fighter, then roll X magic dice, where X is the amount of damage you **dealt** to the chosen fighter. You cannot choose to **deal** more damage to the chosen fighter than their Wounds characteristic. On a roll of one or more :MagFocus:, gain 1 glory point.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14257": {
+        "id": 14257,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Shadowed Refuge",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "+1 Defence to friendly fighters in a **cover** hex in the next activation step.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -36059,6 +36988,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14264": {
+        "id": 14264,
+        "factionId": 1,
+        "setId": 48,
+        "name": "The Walls Are Closing In",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "At the end of the next activation step, **deal** 1 damage to each fighter in an **edge** hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14265": {
         "id": 14265,
         "factionId": 1,
@@ -36067,6 +37008,30 @@ export const cards = {
         "type": "Ploy",
         "glory": null,
         "rule": "**Choose** one enemy fighter and one friendly fighter with no Charge tokens that is adjacent to that fighter. **Give** each chosen fighter one Move token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14266": {
+        "id": 14266,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Waist Deep",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "Fighters that are not on feature tokens at the start of the next activation step have a Move characteristic of 2 in the next activation step.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14267": {
+        "id": 14267,
+        "factionId": 1,
+        "setId": 48,
+        "name": "We Must Go Deeper",
+        "type": "Ploy",
+        "glory": null,
+        "rule": "**Choose** up to two friendly fighters. **Push** the chosen fighters 1 hex. After that **push**, each chosen fighter must be in a **cover** hex or in enemy territory.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -36107,6 +37072,30 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14271": {
+        "id": 14271,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Cursed Boarding Axe",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Attack action** \\n [:Hex: 1 - :atFury: 4 - :boom: 2 -(Cleave)-] \\n The **bounty** gained when an enemy fighter is taken out of action by this **Attack action** is spent glory unless this fighter is on a feature token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14272": {
+        "id": 14272,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Cursed Boarding Pike",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Attack action** \\n [:Hex: 2 - :atFury: 4 - :boom: 2 ] \\n The **bounty** gained when an enemy fighter is taken out of action by this **Attack action** is spent glory unless this fighter is on a feature token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14273": {
         "id": 14273,
         "factionId": 1,
@@ -36139,6 +37128,18 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "**Attack action** \\n [:Hex: 4 - :atFury: 2 - :boom: 2] \\n After this fighter makes this **Attack action**, **break** this card. \\n The **bounty** gained when an enemy fighter is taken out of action by this **Attack action** is spent glory unless this fighter is on a feature token.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14276": {
+        "id": 14276,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Dark Corruption",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "-1 Wounds, to a minimum of 1. \\n **Reaction:** During an enemy fighter's **Attack action** that targets this fighter, after the determine success step, roll two magic dice. For each roll of :MagFocus:, -1 Damage from that **Attack action**, to a minimum of 1.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -36179,6 +37180,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14280": {
+        "id": 14280,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Dark Parasites",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "+1 Damage to enemy fighters' Range 1 **Attack actions** that target this fighter. \\n +1 Damage and **Grievous** to this fighter's Range 1 and Range 2 **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14281": {
         "id": 14281,
         "factionId": 1,
@@ -36191,6 +37204,30 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14282": {
+        "id": 14282,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Darkwater Anchor",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "-1 Damage to Range 3+ **Attack actions** that target this fighter, to a minimum of 1. \\n In addition, this fighter cannot be **pushed** by enemy warbands.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14283": {
+        "id": 14283,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Darkwater Whirlstone",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Metalith** \\n When a fighter within 3 hexes of this fighter is **pushed**, that fighter cannot end that **push** further from this fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14284": {
         "id": 14284,
         "factionId": 1,
@@ -36199,6 +37236,18 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "**Map** \\n **Action:** Gain 1 spent glory point. Pick one opponent. That opponent can play one upgrade without spending any glory points. Then **break** this card. \\n **Reaction:** After an activation step, if this fighter has four **Map** upgrades and is holding an objective, gain 2 glory points. Then **break** each **Map** upgrade this fighter has.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14285": {
+        "id": 14285,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Dredge Line",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Action:** **Choose** an enemy fighter on a feature token. **Push** the chosen fighter 2 hexes closer to this fighter. Then **break** this card.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -36227,6 +37276,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14288": {
+        "id": 14288,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Gallows Humour",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** After an activation step in which one or more fighters were taken out of action, **push** this fighter 1 hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14289": {
         "id": 14289,
         "factionId": 1,
@@ -36247,6 +37308,54 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "**Innate** (:atSup1:) to this fighter's Range 1 **Attack actions**. If this fighter is a **companion**, +1 Damage to this fighter's Range 1 **Attack actions**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14291": {
+        "id": 14291,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Lacerating Barnacles",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Domain** \\n **Reaction:** After an enemy fighter ends a **Move action** adjacent to this fighter, roll one magic dice. During a round in which one or more **Domain** gambits were played, roll two magic dice instead. On a roll of one or more :MagFocus: **deal** 1 damage to that enemy fighter.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14292": {
+        "id": 14292,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Lurking Horror",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Denizen** \\n +1 Dice to this fighter's **Attack actions**. After this fighter's attack roll, remove one attack dice from that roll. \\n **Reaction:** After your activation step, if this fighter is in a **cover** hex, **push** this fighter 1 hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14293": {
+        "id": 14293,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Marked by the Dark",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "This fighter's Range 1 **Attack actions** have **Ensnare** and this fighter has the **Flying** trait.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14294": {
+        "id": 14294,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Mask of Shadows",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Illusion** \\n Do not spend any glory points when you play this card. At the end of the action phase, or when this fighter is chosen by a gambit or is **dealt** damage, **break** this card. \\n This fighter cannot be the target of an **Attack action** unless the attacker is adjacent.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -36287,6 +37396,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14298": {
+        "id": 14298,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Puzzling Map Fragment",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Map** \\n **Action:** **Scatter** 3 from this fighter's hex and **push** this fighter up to 3 hexes along the **chain** to the **end hex**. If the **chain** is interrupted, or if this fighter would be **pushed** into a hex that is **blocked** or **occupied**, do not **push** them any further. After resolving this **scatter**, if this fighter is on an objective token, gain 1 spent glory point and **break** this card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14299": {
         "id": 14299,
         "factionId": 1,
@@ -36323,6 +37444,18 @@ export const cards = {
         "status": "V--_V-_V",
         "rotated": false
     },
+    "14302": {
+        "id": 14302,
+        "factionId": 1,
+        "setId": 47,
+        "name": "Shoulder Charge",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Reaction:** After this fighter makes a **Move action** that is not part of a superaction, **choose** one adjacent enemy fighter. **Push** the chosen fighter 1 hex or up to 2 hexes if this fighter is a **brawler**.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
     "14303": {
         "id": 14303,
         "factionId": 1,
@@ -36331,6 +37464,18 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "This fighter is an **assassin**. \\n **Reaction:** After a **scatter** ability is resolved, **push** this fighter up to 2 hexes.",
+        "scoreType": "-",
+        "status": "V-Y_V-_V",
+        "rotated": false
+    },
+    "14304": {
+        "id": 14304,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Tantalising Map Fragment",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Map** \\n If this fighter is holding an objective, this fighter can make this action. \\n **Action:** Flip an objective token this fighter is on. Then gain 1 spent glory point, **give** this fighter one Charge token, and **break** this card.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -36343,6 +37488,30 @@ export const cards = {
         "type": "Upgrade",
         "glory": null,
         "rule": "This fighter's **Attack actions** have **Grievous** if this fighter is in a **cover** hex.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14306": {
+        "id": 14306,
+        "factionId": 1,
+        "setId": 48,
+        "name": "The Life Line",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "At the start of the third round, **choose** this fighter and one other friendly fighter. **Place** each fighter in the hex that was occupied by the other fighter when you chose them. Then **break** this card.",
+        "scoreType": "-",
+        "status": "V--_V-_V",
+        "rotated": false
+    },
+    "14307": {
+        "id": 14307,
+        "factionId": 1,
+        "setId": 48,
+        "name": "Umbral Stigmata",
+        "type": "Upgrade",
+        "glory": null,
+        "rule": "**Action:** **Deal** 1 damage to this fighter, then **choose** one enemy fighter on a feature token. **Deal** 1 damage to the chosen fighter then **break** this card.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
