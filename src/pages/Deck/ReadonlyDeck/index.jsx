@@ -269,7 +269,7 @@ function ReadonlyDeck(props) {
             {isProxyPickerVisible && (
                     <ModalPresenter>
                         <Suspense fallback="Loading...">
-                            <CardProxyMaker cards={cards}></CardProxyMaker>
+                            <CardProxyMaker cards={cards} onExit={() => setIsProxyPickerVisible(false)}></CardProxyMaker>
                         </Suspense>
                     </ModalPresenter>
                 )}
