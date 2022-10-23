@@ -230,7 +230,9 @@ export const factionMembers = {
     'skittershanks-clawpack':["Skittershanks", "Snyp", "Kreep", "Krowcht", "Skulck"],
     'the-shadeborn':["Slythael", "Drusylla", "Sylarc", "Valyssa"],
     'hexbanes-hunters':["Haskel", "Aemos", "Quite Pock", "Brydget", "Grotbiter", "Ratspike"],
-    'gorechosen-of-dromm':["Dromm", "Gorehulk", "Herax"]
+    'gorechosen-of-dromm':["Dromm", "Gorehulk", "Herax"],
+    'gnarlspirit-pack': ['1', '2', '3', '4'],
+    'sons-of-velmorn': ['1', '2', '3', '4', '5']
 }
 
 export const idPrefixToFaction = {
@@ -345,7 +347,9 @@ export const factionIndexes = [
     'skittershanks-clawpack',
     'the-shadeborn',
     'hexbanes-hunters',
-    'gorechosen-of-dromm'
+    'gorechosen-of-dromm',
+    'gnarlspirit-pack',
+    'sons-of-velmorn',
 ]
 
 export const factionIndexesWithDefaultSet = [
