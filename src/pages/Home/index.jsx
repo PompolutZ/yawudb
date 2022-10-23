@@ -31,7 +31,8 @@ const Home = () => {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                    ...factionIndexes.slice(35),
+                    ...factionIndexes.slice(43),
+                    ...factionIndexes.slice(35, 43),
                     ...factionIndexes.slice(27, 35),
                     ...factionIndexes.slice(19, 27),
                     ...factionIndexes.slice(9, 17),
