@@ -68,7 +68,7 @@ export function updateDeckAction(deckMeta) {
 // }
 
 export const INITIAL_STATE = {
-    faction: getFactionByName("gorechosen-of-dromm"),
+    faction: getFactionByName("sons-of-velmorn"),
     sets: getAllSetsValidForFormat(CHAMPIONSHIP_FORMAT),
     hideDuplicates: true,
     format: CHAMPIONSHIP_FORMAT,

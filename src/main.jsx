@@ -82,7 +82,7 @@ function MainLayout() {
                                     background:
                                         "linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 30%, black 100%)",
                                     width: "100%",
-                                    height: "50%",
+                                    height: "70%",
                                     position: "absolute",
                                 }}
                             ></div>
