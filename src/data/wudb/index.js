@@ -139,7 +139,7 @@ function getAllSetsValidForFormat(format) {
         case VANGUARD_FORMAT:
             return Object.values(sets).filter((set) => set.id > 48);
         case CHAMPIONSHIP_FORMAT:
-            return Object.values(sets).filter((set) => set.id > 39);
+            return Object.values(sets).filter((set) => set.id > 37 && set.id !== 40 && set.id !== 39);
         default:
             return Object.values(sets);
     }
