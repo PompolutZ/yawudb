@@ -1,8 +1,6 @@
 import React, { PureComponent } from "react";
 import {
     totalCardsPerWave,
-    bannedCards,
-    restrictedCards,
 } from "../../../../data/index";
 import { pickCardColor2 } from "../../../../utils/functions";
 import AnimateHeight from "react-animate-height";

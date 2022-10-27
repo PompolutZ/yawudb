@@ -1,13 +1,10 @@
 import React from "react";
-import {
-    factionIdPrefix,
-    factionIndexes,
-} from "../../data";
 import { useHistory } from "react-router-dom";
 import DeckMetaSummary from "../../molecules/DecksMetaSummary";
 import AutosuggestSearch from "../../components/AutosuggestSearch";
 import Footer from "../../components/Footer";
 import { useFetch } from "../../hooks/useFetch";
+import { grouppedFactions } from "../../data/wudb";
 
 const Home = () => {
     const history = useHistory();
@@ -30,21 +27,15 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {[
-                    ...factionIndexes.slice(43),
-                    ...factionIndexes.slice(35, 43),
-                    ...factionIndexes.slice(27, 35),
-                    ...factionIndexes.slice(19, 27),
-                    ...factionIndexes.slice(9, 17),
-                    ...factionIndexes.slice(1, 9),
-                    ...factionIndexes.slice(17, 19),
-                ].map((faction) => (
-                    <DeckMetaSummary
-                        key={factionIdPrefix[faction]}
-                        faction={faction}
-                        stats={stats}
-                    />
-                ))}
+                {
+                    grouppedFactions().slice(1).flatMap(({ factions }) => factions).map((faction) => (
+                        <DeckMetaSummary
+                            key={faction.abbr}
+                            faction={faction.name}
+                            stats={stats}
+                        />
+                    ))
+                }
             </div>
 
             <Footer />

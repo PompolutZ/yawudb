@@ -1,4 +1,5 @@
 import { sets, cards, factions } from "./db.js";
+import { sortByIdAsc } from "../../utils/sort";
 
 export const totalCardsPerWave = {
     1: 437,
@@ -22,6 +23,88 @@ export const totalCardsPerWave = {
 };
 
 export const latestSeasonStartNumber = 15000;
+
+export const sortedFactions = Object.values(factions).sort(sortByIdAsc);
+
+export const grouppedFactions = () => {
+    return [
+        {
+            title: "Universal (Any warband)",
+            factions: [factions["Universal"], factions["Order"], factions["Chaos"], factions["Death"], factions["Destruction"]],
+        },
+        {
+            title: "Gnarlwood",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= factions["Gnarlspirit Pack"].id
+            ),
+        },
+        {
+            title: "Nethermaze",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= factions["Skittershank's Clawpack"].id &&
+                    f.id <= factions["Gorechosen of Dromm"].id
+            ),
+        },
+        {
+            title: "Harrowdeep",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= factions["Xandire's Truthseekers"].id &&
+                    f.id <= factions["The Exiled Dead"].id
+            ),
+        },
+        {
+            title: "Direchasm",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= factions["Myari's Purifiers"].id &&
+                    f.id <= factions["Elathain's Soulraid"].id
+            ),
+        },
+        {
+            title: "Beastgrave",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= factions["Grashrak's Despoilers"].id &&
+                    f.id <= factions["Morgok's Krushas"].id
+            ),
+        },
+        {
+            title: "Nightvault",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= factions["Stormsire's Cursebreakers"].id &&
+                    f.id <= factions["Ylthari's Guardians"].id
+            ),
+        },
+        {
+            title: "Shadespire",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= factions["Garrek's Reavers"].id &&
+                    f.id <= factions["The Farstriders"].id
+            ),
+        },
+        {
+            title: "Starting set",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= factions["Storm of Celestus"].id &&
+                    f.id <= factions["Drepur's Wraithcreepers"].id
+            ),
+        },
+        {
+            title: "Dreadfane",
+            factions: sortedFactions.filter(
+                (f) =>
+                    f.id >= factions["Ironsoul's Condemners"].id &&
+                    f.id <= factions["Lady Harrow's Mournflight"].id
+            ),
+        },
+    ];
+};
 
 function getCardNumberFromId(cardId) {
     if (typeof cardId == "string") {
@@ -283,12 +366,6 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
 function validateObjectivesListForPlayFormat(objectives, format) {
     const issues = [];
     let isValid = true;
-
-    // const [
-    //     ,
-    //     isForsaken,
-    //     isRestricted,
-    // ] = validateCardForPlayFormat(c.id, format);
 
     if (format !== OPEN_FORMAT) {
         if (objectives.length != 12) {

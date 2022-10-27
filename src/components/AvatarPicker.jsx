@@ -1,8 +1,4 @@
-import React, { PureComponent, useEffect, useState } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { factionIndexes } from "../data/index";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import classnames from "classnames";
+import React, { useEffect, useState } from "react";
 import { wufactions } from "../data/wudb";
 
 function FactionIcon({ faction, className }) {
@@ -61,35 +57,5 @@ function AvatarPicker({ current, onSelectionChange }) {
         </div>
     );
 }
-
-// class AvatarPicker extends PureComponent {
-//     state = {
-//         selectedIcon: this.props.defaultAvatar
-//             ? this.props.defaultAvatar.split("/")[3].split(".")[0]
-//             : factionIndexes[1] + "-icon",
-//         icons: factionIndexes.slice(1).map((f) => f + "-icon"),
-//     };
-
-//     render() {
-//         const { classes } = this.props;
-//         return (
-//             <div className={classes.container}>
-//                 {this.state.icons.map((icon) => (
-//                     <StyledIcon
-//                         key={icon}
-//                         icon={icon}
-//                         selectedIcon={this.state.selectedIcon}
-//                         onSelect={this.selectIcon}
-//                     />
-//                 ))}
-//             </div>
-//         );
-//     }
-
-//     selectIcon = (icon) => {
-//         this.setState({ selectedIcon: icon });
-//         this.props.onSelectionChange(`/assets/icons/${icon}.png`);
-//     };
-// }
 
 export default AvatarPicker;
