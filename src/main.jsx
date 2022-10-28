@@ -32,34 +32,6 @@ const Login = lazy(() => import("./pages/Login"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const PasswordResetRequest = lazy(() => import("./pages/PasswordResetRequest"));
 
-// class PrivateRouteContainer extends React.Component {
-//     render() {
-//         const { isAuthenticated, component: Component, ...props } = this.props;
-
-//         return (
-//             <Route
-//                 {...props}
-//                 render={(props) =>
-//                     isAuthenticated ? (
-//                         <Component {...props} />
-//                     ) : (
-//                         <Redirect
-//                             to={{
-//                                 pathname: ROUTES.SIGN_IN,
-//                                 state: { from: props.location },
-//                             }}
-//                         />
-//                     )
-//                 }
-//             />
-//         );
-//     }
-// }
-
-// const PrivateRoute = connect((state) => ({
-//     isAuthenticated: state.auth !== null,
-// }))(PrivateRouteContainer);
-
 function MainLayout() {
     const { pathname } = useLocation();
     return (

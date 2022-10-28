@@ -13,6 +13,7 @@ function Footer() {
                 purpose in mind. This website is licensed under MIT license and
                 its source code could be found{" "}
                 <a className="text-purple-500 font-bold" href="https://github.com/PompolutZ/yawudb">here</a>.
+                You can read our privacy policy <a className="text-purple-500 font-bold" href="https://wunderworlds.club/privacy-policy">here</a>.
             </p>
         </footer>
     );
