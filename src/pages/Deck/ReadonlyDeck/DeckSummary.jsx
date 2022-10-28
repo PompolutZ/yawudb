@@ -1,11 +1,10 @@
 import React from "react";
-import { idPrefixToFaction } from "../../../data/index";
 import DeckIcon from "../../../atoms/DeckIcon";
 import SetsList from "../../../atoms/SetsList";
 import { PeopleIcon, PersonIcon } from "../../../v2/components/Icons";
 
 function DeckSummary({
-    factionPrefix,
+    faction,
     name,
     author,
     date,
@@ -18,7 +17,7 @@ function DeckSummary({
         <div className="flex items-center flex-1">
             <DeckIcon
                 className="w-16 h-16 mr-4"
-                faction={idPrefixToFaction[factionPrefix]}
+                faction={faction}
             />
 
             <div className="space-y-2 text-gray-900">

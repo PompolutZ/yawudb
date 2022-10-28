@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import {
     totalCardsPerWave,
-} from "../../../../data/index";
+} from "../../../../data/wudb/index";
 import { pickCardColor2 } from "../../../../utils/functions";
 import AnimateHeight from "react-animate-height";
 import { withStyles } from "@material-ui/core/styles";

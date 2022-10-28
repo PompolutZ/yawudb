@@ -42,7 +42,6 @@ function ReadonlyDeck(props) {
         name,
         author,
         faction,
-        factionId,
         cards,
         sets,
         created,
@@ -141,7 +140,6 @@ function ReadonlyDeck(props) {
         name,
         author,
         faction,
-        factionId,
         sets,
         created,
         createdutc,
@@ -174,7 +172,7 @@ function ReadonlyDeck(props) {
         <div className="flex-1 w-screen">
             <div className="flex px-4">
                 <DeckSummary
-                    factionPrefix={factionId}
+                    faction={faction}
                     name={name}
                     author={authorDisplayName}
                     date={createdDate}

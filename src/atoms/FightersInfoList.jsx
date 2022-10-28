@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { factionMembers } from "../data";
+import { factionMembers } from "../data/wudb";
 import { useSpring, animated as a } from "react-spring";
 import { useDeckBuilderState } from "../pages/DeckCreator";
 
