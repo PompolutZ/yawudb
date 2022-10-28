@@ -15,7 +15,7 @@ export const apiSaveDeckAsync = (save) => async (state, effect, dispatch) => {
 
         await save({ data: {
             deckId,
-            private: true,
+            private: false,
             name: deckName,
             faction: state.faction.name,
             deck: deck.map((c) => c.id),
