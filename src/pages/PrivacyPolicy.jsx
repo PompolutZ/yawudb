@@ -3,27 +3,21 @@ import React, { PureComponent } from "react";
 class PrivacyPolicy extends PureComponent {
     render() {
         return (
-            <div
-                style={{
-                    display: "flex",
-                    flexFlow: "column wrap",
-                    margin: "1rem",
-                }}
-            >
-                <h1>Privacy Policy</h1>
+            <div className="space-y-4 mx-auto my-4 max-w-3xl">
+                <h1 className="text-3xl mb-4">Privacy Policy</h1>
 
                 <p>Effective date: December 10, 2018</p>
 
                 <p>
-                    YAWUDB ("us", "we", or "our") operates the
-                    https://yawudb.com website (the "Service").
+                    Pompolutz (aka fxdxpz) ("us", "we", or "our") operates the
+                    https://wunderworlds.club/ website (the "Service").
                 </p>
 
                 <p>
                     This page informs you of our policies regarding the
                     collection, use, and disclosure of personal data when you
                     use our Service and the choices you have associated with
-                    that data. Our Privacy Policy for YAWUDB is managed through{" "}
+                    that data. Our Privacy Policy for WUNDERWORLDS-CLUB is managed through{" "}
                     <a href="https://www.freeprivacypolicy.com/free-privacy-policy-generator.php">
                         Free Privacy Policy Website
                     </a>
@@ -36,19 +30,19 @@ class PrivacyPolicy extends PureComponent {
                     information in accordance with this policy. Unless otherwise
                     defined in this Privacy Policy, terms used in this Privacy
                     Policy have the same meanings as in our Terms and
-                    Conditions, accessible from https://yawudb.com
+                    Conditions, accessible from https://wunderworlds.club/
                 </p>
 
-                <h2>Information Collection And Use</h2>
+                <h2 className="text-2xl">Information Collection And Use</h2>
 
                 <p>
                     We collect several different types of information for
                     various purposes to provide and improve our Service to you.
                 </p>
 
-                <h3>Types of Data Collected</h3>
+                <h3 className="text-xl">Types of Data Collected</h3>
 
-                <h4>Personal Data</h4>
+                <h4 className="text-lg">Personal Data</h4>
 
                 <p>
                     While using our Service, we may ask you to provide us with
@@ -63,7 +57,7 @@ class PrivacyPolicy extends PureComponent {
                     <li>Cookies and Usage Data</li>
                 </ul>
 
-                <h4>Usage Data</h4>
+                <h4 className="text-lg">Usage Data</h4>
 
                 <p>
                     We may also collect information how the Service is accessed
@@ -75,7 +69,7 @@ class PrivacyPolicy extends PureComponent {
                     identifiers and other diagnostic data.
                 </p>
 
-                <h4>Tracking & Cookies Data</h4>
+                <h4 className="text-lg">Tracking & Cookies Data</h4>
                 <p>
                     We use cookies and similar tracking technologies to track
                     the activity on our Service and hold certain information.
@@ -111,9 +105,9 @@ class PrivacyPolicy extends PureComponent {
                     </li>
                 </ul>
 
-                <h2>Use of Data</h2>
+                <h2 className="text-2xl">Use of Data</h2>
 
-                <p>YAWUDB uses the collected data for various purposes:</p>
+                <p>WUNDERWORLDS-CLUB uses the collected data for various purposes:</p>
                 <ul>
                     <li>To provide and maintain the Service</li>
                     <li>To notify you about changes to our Service</li>
@@ -130,7 +124,7 @@ class PrivacyPolicy extends PureComponent {
                     <li>To detect, prevent and address technical issues</li>
                 </ul>
 
-                <h2>Transfer Of Data</h2>
+                <h2 className="text-2xl">Transfer Of Data</h2>
                 <p>
                     Your information, including Personal Data, may be
                     transferred to — and maintained on — computers located
@@ -149,7 +143,7 @@ class PrivacyPolicy extends PureComponent {
                     that transfer.
                 </p>
                 <p>
-                    YAWUDB will take all steps reasonably necessary to ensure
+                    WUNDERWORLDS-CLUB will take all steps reasonably necessary to ensure
                     that your data is treated securely and in accordance with
                     this Privacy Policy and no transfer of your Personal Data
                     will take place to an organization or a country unless there
@@ -157,17 +151,17 @@ class PrivacyPolicy extends PureComponent {
                     your data and other personal information.
                 </p>
 
-                <h2>Disclosure Of Data</h2>
+                <h2 className="text-2xl">Disclosure Of Data</h2>
 
-                <h3>Legal Requirements</h3>
+                <h3 className="text-xl">Legal Requirements</h3>
                 <p>
-                    YAWUDB may disclose your Personal Data in the good faith
+                    WUNDERWORLDS-CLUB may disclose your Personal Data in the good faith
                     belief that such action is necessary to:
                 </p>
                 <ul>
                     <li>To comply with a legal obligation</li>
                     <li>
-                        To protect and defend the rights or property of YAWUDB
+                        To protect and defend the rights or property of WUNDERWORLDS-CLUB
                     </li>
                     <li>
                         To prevent or investigate possible wrongdoing in
@@ -180,7 +174,7 @@ class PrivacyPolicy extends PureComponent {
                     <li>To protect against legal liability</li>
                 </ul>
 
-                <h2>Security Of Data</h2>
+                <h2 className="text-2xl">Security Of Data</h2>
                 <p>
                     The security of your data is important to us, but remember
                     that no method of transmission over the Internet, or method
@@ -189,7 +183,7 @@ class PrivacyPolicy extends PureComponent {
                     we cannot guarantee its absolute security.
                 </p>
 
-                <h2>Service Providers</h2>
+                <h2 className="text-2xl">Service Providers</h2>
                 <p>
                     We may employ third party companies and individuals to
                     facilitate our Service ("Service Providers"), to provide the
@@ -202,7 +196,7 @@ class PrivacyPolicy extends PureComponent {
                     to disclose or use it for any other purpose.
                 </p>
 
-                <h2>Links To Other Sites</h2>
+                <h2 className="text-2xl">Links To Other Sites</h2>
                 <p>
                     Our Service may contain links to other sites that are not
                     operated by us. If you click on a third party link, you will
@@ -215,7 +209,7 @@ class PrivacyPolicy extends PureComponent {
                     sites or services.
                 </p>
 
-                <h2>Children's Privacy</h2>
+                <h2 className="text-2xl">Children's Privacy</h2>
                 <p>
                     Our Service does not address anyone under the age of 18
                     ("Children").
@@ -230,7 +224,7 @@ class PrivacyPolicy extends PureComponent {
                     steps to remove that information from our servers.
                 </p>
 
-                <h2>Changes To This Privacy Policy</h2>
+                <h2 className="text-2xl">Changes To This Privacy Policy</h2>
                 <p>
                     We may update our Privacy Policy from time to time. We will
                     notify you of any changes by posting the new Privacy Policy
@@ -248,15 +242,22 @@ class PrivacyPolicy extends PureComponent {
                     effective when they are posted on this page.
                 </p>
 
-                <h2>Contact Us</h2>
+                <h2 className="text-2xl">Requesting data deletion</h2>
+                <p>
+                    In order to delete all data stored by us you need to make a request either by
+                    contacting author and maintainer of this website by email: <a className="text-purple-900 font-bold" href="mailto:pompolutz@gmail.com">pompolutz@gmail.com</a>
+                    or by contacting user fxdxpz on Discord's channel: Warhammer Underworlds Vassal.
+                </p>
+
+                <h2 className="text-2xl">Contact Us</h2>
                 <p>
                     If you have any questions about this Privacy Policy, please
-                    contact us:
+                    contact us: <a className="text-purple-900 font-bold" href="mailto:pompolutz@gmail.com">pompolutz@gmail.com</a>
                 </p>
                 <ul>
-                    <li>
-                        By visiting this page on our website:
-                        https://yawudb.com/privacy-policy
+                    <li className="">
+                        By visiting this page on our website: 
+                        <a className="text-purple-900 font-bold" href="https://wunderworlds.club/privacy-policy">https://wunderworlds.club/privacy-policy</a>
                     </li>
                 </ul>
             </div>
