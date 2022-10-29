@@ -23190,7 +23190,7 @@ export const cards = {
         "glory": 3,
         "rule": "**Dual:** Score this in an end phase if: \\n You have scored six or more objective cards \\n *And:* You have scored one or more **Surge** objective cards, one or more **Dual** objective cards and one or more **Hybrid** objective cards.",
         "scoreType": "End",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9107": {
@@ -24786,7 +24786,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one friendly fighter. Until the end of the next activation, that fighter cannot be the target of **Attack actions**, cannot be chosen or damaged by gambits, and cannot be pushed.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "9240": {
@@ -35538,7 +35538,7 @@ export const cards = {
         "glory": null,
         "rule": "When this fighter makes an attack roll with three or more dice, this fighter is considered to have one additional **supporting** fighter. \\n +1 Dice to this fighter's Range 1 **Attack actions** if this fighter is a **brawler**.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14141": {
@@ -37302,7 +37302,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Dice to this fighter's Range 1 **Attack actions**. \\n +2 Dice to this fighter's Range 1 **Attack actions** instead if this fighter is a **beast**.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14288": {
@@ -37362,7 +37362,7 @@ export const cards = {
         "glory": null,
         "rule": "**Denizen** \\n +1 Dice to this fighter's **Attack actions**. After this fighter's attack roll, remove one attack dice from that roll. \\n **Reaction:** After your activation step, if this fighter is in a **cover** hex, **push** this fighter 1 hex.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14293": {
