@@ -27,7 +27,7 @@ function VirtualizedDecksList({ source = [] }) {
     };
 
     const calcRowHeight = (params) => {
-        return 110;
+        return 120;
     };
 
     return (

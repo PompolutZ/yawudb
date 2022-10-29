@@ -23,17 +23,16 @@ function DeckSummary({
             <div className="space-y-2 text-gray-900">
                 <div>
                     <h1 className="text-xl">{name}</h1>
-                    <h2 className="font-bold text-sm grid grid-cols-3 items-center space-x-2 divide-x-2 divide-gray-700">
-                        <div>{author}</div>
-                        <div className="text-gray-500 text-xs pl-2">{date}</div>
+                    <h2 className="font-bold text-sm flex items-center space-x-2 divide-x-2 divide-gray-700">
+                        <div className="text-gray-500 text-xs">{date}</div>
                         {isPrivate ? (
                             <div className="flex items-center text-gray-500 uppercase text-xs pl-2">
-                                <PersonIcon className="w-4 h-4 fill-current" />
+                                <PersonIcon className="w-4 h-4 fill-current mr-1" />
                                 private
                             </div>
                         ) : (
                             <div className="flex items-center text-purple-700 uppercase text-xs pl-2">
-                                <PeopleIcon className="w-4 h-4 stroke-current" />
+                                <PeopleIcon className="w-4 h-4 stroke-current mr-1" />
                                 public
                             </div>
                         )}
