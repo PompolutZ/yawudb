@@ -445,6 +445,20 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
         if (!onlyLastTwoSeasons) {
             issues.push(`Championship decks cannot include rotated out cards`);
         }
+
+        const setsWithPlotCards =
+            Object.keys(deck.reduce((acc, c) => {
+                const wave = Math.floor(c.id / 1000);
+                if (wave === 17 || wave === 18) {
+                    acc[wave] = acc[wave] ? acc[wave] + 1 : 1;
+                }
+
+                return acc;
+            }, {})).length;
+        
+        if (setsWithPlotCards > 1) {
+            issues.push(`You can use only one Rivals deck that uses a plot card.`);
+        }
     }
 
     if (objectives.length < MIN_OBJECTIVE_COUNT) {
