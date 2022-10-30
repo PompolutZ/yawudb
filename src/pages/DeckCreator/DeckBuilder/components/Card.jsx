@@ -13,9 +13,7 @@ import {
     getSetNameById,
     totalCardsPerWave,
     validateCardForPlayFormat,
-    wucards,
 } from "../../../../data/wudb";
-import Fade from "@material-ui/core/Fade";
 import { ModalPresenter } from "../../../../main";
 import CardImage from "../../../../v2/components/CardImage";
 
@@ -70,9 +68,8 @@ class WUCardInfo extends PureComponent {
                     )}
 
                     <h6
-                        className={`truncate ${
-                            scoreType && scoreType !== "-" ? "ml-2" : ""
-                        }`}
+                        className={`truncate ${scoreType && scoreType !== "-" ? "ml-2" : ""
+                            }`}
                     >
                         {name}
                     </h6>
@@ -128,22 +125,20 @@ const CardInDeck = memo(
         return (
             <>
                 <div
-                    className={`flex items-center ${
-                        isRestricted
+                    className={`flex items-center ${isRestricted
                             ? "bg-yellow-100"
                             : isBanned
-                            ? "bg-red-100"
-                            : props.isAlter
-                            ? "bg-purple-100"
-                            : props.isAlter !== undefined
-                            ? "bg-white"
-                            : ""
-                    }`}
+                                ? "bg-red-100"
+                                : props.isAlter
+                                    ? "bg-purple-100"
+                                    : props.isAlter !== undefined
+                                        ? "bg-white"
+                                        : ""
+                        }`}
                 >
                     <div
-                        className={`items-center relative ${
-                            props.showType ? "ml-2 mr-6" : "mx-2"
-                        }`}
+                        className={`items-center relative ${props.showType ? "ml-2 mr-6" : "mx-2"
+                            }`}
                     >
                         {props.showType && (
                             <img
@@ -193,69 +188,65 @@ const CardInDeck = memo(
                         onClick={handleShowCardImageOverlay}
                     />
                     <button
-                        className={`btn m-2 w-8 h-8 py-0 px-1 ${
-                            inDeck ? "btn-red" : "btn-purple"
-                        }`}
+                        className={`btn m-2 w-8 h-8 py-0 px-1 ${inDeck ? "btn-red" : "btn-purple"
+                            }`}
                         onClick={toggleCard}
                     >
                         <CloseIcon
-                            className={`text-white stroke-current transform transition-transform duration-300 ${
-                                inDeck ? "rotate-0" : "rotate-45"
-                            }`}
+                            className={`text-white stroke-current transform transition-transform duration-300 ${inDeck ? "rotate-0" : "rotate-45"
+                                }`}
                         />
                     </button>
                 </div>
                 {overlayIsVisible && (
                     <ModalPresenter>
-                        <Fade in={overlayIsVisible}>
-                            <div
-                                className="fixed inset-0 z-10 cursor-pointer"
-                                onClick={() => setOverlayIsVisible(false)}
-                            >
-                                <div className="bg-black absolute inset-0 opacity-25"></div>
-                                <div className="absolute inset-0 z-20 flex justify-center items-center">
-                                    <div className="w-4/5 lg:w-1/4">
-                                        <div className="w-[300px] h-[420px] bg-purple-100 rounded-2xl border-4 border-gray-900 grid grid-cols-1 grid-rows-1">
-                                            <div className="py-4">
-                                                <h1 className="text-center text-xl font-bold">
-                                                    {card.name}
-                                                </h1>
-                                                <div className="p-2">
-                                                    {card.rule
-                                                        .split("\\n")
-                                                        .map((paragraph, i) => (
-                                                            <ReactMarkdown
-                                                                key={i}
-                                                            >
-                                                                {paragraph.trim()}
-                                                            </ReactMarkdown>
-                                                        ))}
-                                                    {card.glory && (
-                                                        <div className="flex items-center justify-center space-x-2 mt-8">
-                                                            {new Array(
-                                                                card.glory
-                                                            )
-                                                                .fill(0)
-                                                                .map((x, i) => (
-                                                                    <GloryIcon className="bg-objective-gold rounded-full w-8 h-8 fill-current" />
-                                                                ))}
-                                                        </div>
-                                                    )}
-                                                </div>
+                        <div
+                            className="fixed inset-0 z-10 cursor-pointer"
+                            onClick={() => setOverlayIsVisible(false)}
+                        >
+                            <div className="bg-black absolute inset-0 opacity-25"></div>
+                            <div className="absolute inset-0 z-20 flex justify-center items-center">
+                                <div className="w-4/5 lg:w-1/4">
+                                    <div className="w-[300px] h-[420px] bg-purple-100 rounded-2xl border-4 border-gray-900 grid grid-cols-1 grid-rows-1">
+                                        <div className="py-4">
+                                            <h1 className="text-center text-xl font-bold">
+                                                {card.name}
+                                            </h1>
+                                            <div className="p-2">
+                                                {card.rule
+                                                    .split("\\n")
+                                                    .map((paragraph, i) => (
+                                                        <ReactMarkdown
+                                                            key={i}
+                                                        >
+                                                            {paragraph.trim()}
+                                                        </ReactMarkdown>
+                                                    ))}
+                                                {card.glory && (
+                                                    <div className="flex items-center justify-center space-x-2 mt-8">
+                                                        {new Array(
+                                                            card.glory
+                                                        )
+                                                            .fill(0)
+                                                            .map((x, i) => (
+                                                                <GloryIcon className="bg-objective-gold rounded-full w-8 h-8 fill-current" />
+                                                            ))}
+                                                    </div>
+                                                )}
                                             </div>
-                                            <CardImage
-                                                id={id}
-                                                className="rounded-lg row-start-1 row-end-2 col-start-1 col-end-2"
-                                                style={{
-                                                    filter: "drop-shadow(0 0 10px black)",
-                                                }}
-                                                alt={id}
-                                            />
                                         </div>
+                                        <CardImage
+                                            id={id}
+                                            className="rounded-lg row-start-1 row-end-2 col-start-1 col-end-2"
+                                            style={{
+                                                filter: "drop-shadow(0 0 10px black)",
+                                            }}
+                                            alt={id}
+                                        />
                                     </div>
                                 </div>
                             </div>
-                        </Fade>
+                        </div>
                     </ModalPresenter>
                 )}
             </>
