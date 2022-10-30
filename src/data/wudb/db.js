@@ -1554,7 +1554,7 @@ export const cards = {
         "glory": 5,
         "rule": "Score this in an end phase if  you hold *every objective*.",
         "scoreType": "End",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "1061": {
@@ -2814,7 +2814,7 @@ export const cards = {
         "glory": null,
         "rule": "*(Errata update)* This fighter's Range 1 Attack actions have +1 Damage and Scything. While this fighter makes a Range 1 Attack action, other friendly fighters are considered to be enemy fighters, and fighters in your warband cannot be supported.",
         "scoreType": "-",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "1166": {
@@ -8114,7 +8114,7 @@ export const cards = {
         "glory": 5,
         "rule": "Score this in an end phase if you hold *every objective*.",
         "scoreType": "End",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "3092": {
@@ -18454,7 +18454,7 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** Play this during an **Attack action** that targets a friendly fighter, before the deal damage step. **Remove** any number of Waaagh! counters from that fighter's fighter card. The **Attack action** has -1 Damage for each counter **removed** (to a minimum of 1).",
         "scoreType": "-",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "6238": {
@@ -23082,7 +23082,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after you flip a feature token in enemy territory.",
         "scoreType": "Surge",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "9098": {
@@ -23574,7 +23574,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after an enemy fighter's **Attack action** that **deals** damage to a friendly fighter if that friendly fighter is not out of action.",
         "scoreType": "Surge",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "9139": {
@@ -24690,7 +24690,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately  after an activation if three or more friendly fighters are in enemy territory.",
         "scoreType": "Surge",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "9232": {
@@ -36690,7 +36690,7 @@ export const cards = {
         "glory": null,
         "rule": "Pick two feature tokens in **empty** hexes. **Place** each feature token in the hex the other feature token was in when you picked them.",
         "scoreType": "-",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "14237": {
