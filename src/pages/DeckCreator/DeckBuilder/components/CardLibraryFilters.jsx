@@ -13,7 +13,7 @@ import DebouncedInput from "../../../../v2/components/DebouncedInput";
 import { DeckPlayFormatToggle } from "../../../../v2/components/DeckPlayFormatToggle";
 import { DeckPlayFormatInfo } from "../../../../v2/components/DeckPlayFormatInfo";
 import IconButton from "../../../../v2/components/IconButton";
-import { FactionDeckPicture, FactionPicture } from "../../../../v2/components/FactionDeckPicture";
+import { FactionDeckPicture, FactionPicture } from "@components/FactionDeckPicture";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {

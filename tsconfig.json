@@ -18,7 +18,8 @@
         "rootDir": "src",
         "baseUrl": "./",
         "paths": {
-            "@icons/*": ["./src/svgs/*"]
+            "@icons/*": ["./src/svgs/*"],
+            "@components/*": ["./src/v2/components/*"],
         }
     },
     "include": ["src"],

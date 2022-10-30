@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import DeckIcon from "../../../../atoms/DeckIcon";
 import DebouncedInput from "../../../../v2/components/DebouncedInput";
 import ObjectivesList from "./ObjectivesList";
 import GambitsList from "./GambitsList";
@@ -12,6 +11,7 @@ import {
 } from "../../../../data/wudb";
 import uuid4 from "uuid";
 import { useDeckBuilderState } from "../..";
+import { FactionDeckPicture } from "@components/FactionDeckPicture";
 
 function Deck({
     deckName,
@@ -106,7 +106,8 @@ function Deck({
         <div>
             <div className="flex items-center">
                 <div className="flex flex-1 items-center m-2">
-                    <DeckIcon
+                    <FactionDeckPicture
+                        size="w-12 h-12"
                         faction={faction.name}
                     />
                     <DebouncedInput

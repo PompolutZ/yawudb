@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@icons": path.resolve(__dirname, "./src/svgs"),
+      "@components": path.resolve(__dirname, "./src/v2/components"),
     },
   },
   plugins: [reactRefresh(), svgr()]

@@ -7,7 +7,7 @@ import {
 } from "../../data/wudb";
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
-import { FactionDeckPicture } from "../../v2/components/FactionDeckPicture";
+import { FactionDeckPicture } from "@components/FactionDeckPicture";
 
 export default function PublicDeckLink({ ...props }) {
     const [cards, setCards] = useState([]);

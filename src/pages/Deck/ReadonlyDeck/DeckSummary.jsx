@@ -1,6 +1,6 @@
 import React from "react";
-import DeckIcon from "../../../atoms/DeckIcon";
 import SetsList from "../../../atoms/SetsList";
+import { FactionDeckPicture } from "@components/FactionDeckPicture";
 import { PeopleIcon, PersonIcon } from "../../../v2/components/Icons";
 
 function DeckSummary({
@@ -15,7 +15,7 @@ function DeckSummary({
 }) {
     return (
         <div className="flex items-center flex-1">
-            <DeckIcon
+            <FactionDeckPicture
                 className="w-16 h-16 mr-4"
                 faction={faction}
             />
