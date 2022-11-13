@@ -8,7 +8,7 @@ import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../../v2/components/SectionTitle";
 import Toggle from "../../../../v2/components/HexToggle";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
-import { getAllSetsValidForFormat, wufactions } from "../../../../data/wudb";
+import { CHAMPIONSHIP_FORMAT, getAllSetsValidForFormat, NEMESIS_FORMAT, RELIC_FORMAT, wufactions, wusets } from "../../../../data/wudb";
 import DebouncedInput from "../../../../v2/components/DebouncedInput";
 import { DeckPlayFormatToggle } from "../../../../v2/components/DeckPlayFormatToggle";
 import { DeckPlayFormatInfo } from "../../../../v2/components/DeckPlayFormatInfo";
@@ -171,6 +171,7 @@ function CardLibraryFilters(props) {
 
                             <div className="flex flex-col items-center">
                                 <DeckPlayFormatToggle
+                                    formats={[NEMESIS_FORMAT, CHAMPIONSHIP_FORMAT, RELIC_FORMAT]}
                                     selectedFormat={selectedFormat}
                                     onFormatChange={handleFormatChange}
                                 />
@@ -183,18 +184,22 @@ function CardLibraryFilters(props) {
 
                             <SectionTitle title="Sets" className="my-8" />
 
-                            <div className="flex my-4">
-                                <Toggle
-                                    checked={hideDuplicates}
-                                    onChange={setHideDuplicates}
-                                />
-                                <p className="ml-2">
-                                    For dublicate cards show only newest one.
-                                </p>
-                            </div>
+                            {selectedFormat !== NEMESIS_FORMAT && (
+                                <div className="flex my-4">
+                                    <Toggle
+                                        checked={hideDuplicates}
+                                        onChange={setHideDuplicates}
+                                    />
+                                    <p className="ml-2">
+                                        For dublicate cards show only newest one.
+                                    </p>
+                                </div>
+                            )}
                             <ExpansionsToggle
+                                singleSet={selectedFormat === NEMESIS_FORMAT}
+                                selectedFormat={selectedFormat}
                                 expansions={validSets}
-                                selectedExpansions={selectedSets}
+                                selectedExpansions={selectedFormat === NEMESIS_FORMAT ? [wusets["Illusory Might Universal Deck"]] : selectedSets}
                                 onExpansionsChange={setSelectedSets}
                             />
                         </section>

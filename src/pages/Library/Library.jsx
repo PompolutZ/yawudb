@@ -2,8 +2,10 @@ import React, { useMemo, useState } from "react";
 import VirtualizedCardsList from "../../components/VirtualizedCardsList";
 import { Helmet } from "react-helmet";
 import {
+    ACTIVE_FORMATS,
     CHAMPIONSHIP_FORMAT,
     getAllSetsValidForFormat,
+    RELIC_FORMAT,
     wucards,
     wufactions,
 } from "../../data/wudb";
@@ -17,6 +19,7 @@ import { ReactComponent as TogglesIcon } from "../../svgs/sliders.svg";
 import { sortByIdAsc } from "../../utils/sort";
 import { GrouppedFactionsToggle } from "../../v2/components/GrouppedFactionsToggle";
 import { GrouppedExpansions } from "../../v2/components/GrouppedExpansions";
+import { useEffect } from "react";
 
 function useFilteredCards(factions = [], expansions = []) {
     const [searchText, setSearchText] = useState("");
@@ -81,6 +84,10 @@ function Library() {
     );
     const [showFilters, setShowFilters] = useState(false);
 
+    useEffect(() => {
+        console.log(selectedFormat);
+    }, [selectedFormat])
+
     return (
         <React.Fragment>
             <div className="flex-1 flex flex-col lg:grid lg:grid-cols-4 p-4">
@@ -98,28 +105,32 @@ function Library() {
                             <TogglesIcon />
                         </IconButton>
                     </section>
-                    <section className="flex flex-col items-center space-y-2">
+                    <section className="">
                         <SectionTitle title="Game format" />
-                        <DeckPlayFormatToggle
-                            selectedFormat={CHAMPIONSHIP_FORMAT}
-                            onFormatChange={setSelectedFormat}
-                        />
+                        <div className="grid p-4">
+                            <div className="">
+                                <DeckPlayFormatToggle
+                                    formats={[CHAMPIONSHIP_FORMAT, RELIC_FORMAT]}
+                                    selectedFormat={selectedFormat}
+                                    onFormatChange={setSelectedFormat}
+                                />
+                            </div>
 
-                        <DeckPlayFormatInfo
-                            className="text-gray-900 text-sm mt-2 max-w-sm"
-                            format={selectedFormat}
-                        />
+                            <DeckPlayFormatInfo
+                                className="text-gray-900 text-sm mt-2 max-w-sm"
+                                format={selectedFormat}
+                            />
+                        </div>
                     </section>
-
-                    <GrouppedFactionsToggle
-                        selectedFactions={selectedFactions}
-                        onSelectionChanged={setSelectedFactions}
-                    />
 
                     <GrouppedExpansions
                         validSetIds={validSetIds}
                         selectedExpansions={selectedExpansions}
                         onSelectionChanged={setSelectedExpansions}
+                    />
+                    <GrouppedFactionsToggle
+                        selectedFactions={selectedFactions}
+                        onSelectionChanged={setSelectedFactions}
                     />
                 </div>
                 <div className="flex-1 lg:col-span-3 flex flex-col lg:px-2">

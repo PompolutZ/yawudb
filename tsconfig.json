@@ -20,6 +20,7 @@
         "paths": {
             "@icons/*": ["./src/svgs/*"],
             "@components/*": ["./src/v2/components/*"],
+            "@wudb/*": ["./src/data/wudb/*"],
         }
     },
     "include": ["src"],

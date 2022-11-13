@@ -140,7 +140,7 @@ export const factionMembers = {
         "Kyrssa",
         "Lethyr",
     ],
-    
+
     "morgoks-krushas": ["Morgok", "’Ardskull", "Thugg"],
 
     // DIRECHASM
@@ -152,17 +152,17 @@ export const factionMembers = {
     "storm-of-celestus": ["", "", "", ""],
     "drepurs-wraithcreepers": ["", "", "", ""],
     "hedkrakkas-madmob": ["Hedkrakka", "Wollop", "Toofdagga", "Dakko"],
-    "kainans-reapers": ["","","","","","",],
+    "kainans-reapers": ["", "", "", "", "", "",],
     "elathains-soulreapers": ["", "", "", "", ""],
 
-    "xandires-truthseekers": ["", "", "", ""], 
-    "da-kunnin-krew": ["","","","","",],
+    "xandires-truthseekers": ["", "", "", ""],
+    "da-kunnin-krew": ["", "", "", "", "",],
     "blackpowders-buccaneers": ["Gorlok", "Kagey", "Mange", "Peggs", "Shreek"],
     'the-exiled-dead': ["Deintalos", 'Marcov', "Regulus", "Coyl", "Bault", "Vlash", "Ione"],
-    'skittershanks-clawpack':["Skittershanks", "Snyp", "Kreep", "Krowcht", "Skulck"],
-    'the-shadeborn':["Slythael", "Drusylla", "Sylarc", "Valyssa"],
-    'hexbanes-hunters':["Haskel", "Aemos", "Quite Pock", "Brydget", "Grotbiter", "Ratspike"],
-    'gorechosen-of-dromm':["Dromm", "Gorehulk", "Herax"],
+    'skittershanks-clawpack': ["Skittershanks", "Snyp", "Kreep", "Krowcht", "Skulck"],
+    'the-shadeborn': ["Slythael", "Drusylla", "Sylarc", "Valyssa"],
+    'hexbanes-hunters': ["Haskel", "Aemos", "Quite Pock", "Brydget", "Grotbiter", "Ratspike"],
+    'gorechosen-of-dromm': ["Dromm", "Gorehulk", "Herax"],
     'gnarlspirit-pack': ['1', '2', '3', '4'],
     'sons-of-velmorn': ['1', '2', '3', '4', '5']
 }
@@ -357,13 +357,24 @@ export const CHAMPIONSHIP_FORMAT = "championship";
 export const OPEN_FORMAT = "open";
 export const RELIC_FORMAT = "relic";
 export const VANGUARD_FORMAT = "vanguard";
+export const NEMESIS_FORMAT = "nemesis";
+export const RIVALS_FORMAT = "rivals";
+
+export const ACTIVE_FORMATS = [RIVALS_FORMAT, NEMESIS_FORMAT, CHAMPIONSHIP_FORMAT, RELIC_FORMAT]
+
+const nemesis_valid_sets = [
+    sets["Illusory Might Universal Deck"].id,
+    sets["Deadly Depths Rivals Deck"].id,
+    sets["Tooth and Claw Rivals Deck"].id,
+    sets["Daring Delvers Rivals Deck"].id,
+]
 
 function getAllSetsValidForFormat(format) {
     switch (format) {
-        case VANGUARD_FORMAT:
-            return Object.values(sets).filter((set) => set.id > 48);
         case CHAMPIONSHIP_FORMAT:
             return Object.values(sets).filter((set) => set.id > 37 && set.id !== 40 && set.id !== 39);
+        case NEMESIS_FORMAT: 
+            return Object.values(sets).filter(set => nemesis_valid_sets.includes(set.id))    
         default:
             return Object.values(sets);
     }
@@ -455,7 +466,7 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
 
                 return acc;
             }, {})).length;
-        
+
         if (setsWithPlotCards > 1) {
             issues.push(`You can use only one Rivals deck that uses a plot card.`);
         }

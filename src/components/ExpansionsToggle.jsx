@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
+import ReactTooltip from "react-tooltip";
 import ToggableExpansionIcon from "../atoms/ToggableExpansionIcon";
-import { withStyles } from "@material-ui/core/styles";
+import { NEMESIS_FORMAT } from "../data/wudb";
 import Toggle from '../v2/components/HexToggle';
 
-const styles = (theme) => ({
-    container: {
-        display: "flex",
-        flexFlow: "row wrap",
-        [theme.breakpoints.down("sm")]: {
-            maxWidth: "25rem",
-        },
-    },
-});
-
-function ExpansionsToggle({ expansions = [],  selectedExpansions = [], onExpansionsChange, classes }) {
+function ExpansionsToggle({ expansions = [], selectedExpansions = [], onExpansionsChange, selectedFormat, singleSet }) {
     const [selectAllValidSets, setSelectAllValidSets] = useState(true);
 
     useEffect(() => {
@@ -21,16 +12,21 @@ function ExpansionsToggle({ expansions = [],  selectedExpansions = [], onExpansi
     }, [expansions.length, selectedExpansions.length]);
 
     const handleToggle = expansion => () => {
-        const next = selectedExpansions.includes(expansion)
-            ? selectedExpansions.filter(e => e != expansion)
-            : [...selectedExpansions, expansion];
-
-        setSelectAllValidSets(next.length == selectedExpansions.length);
-        onExpansionsChange(next);
+        if (singleSet) {
+            setSelectAllValidSets(false);
+            onExpansionsChange([expansion])
+        } else {
+            const next = selectedExpansions.includes(expansion)
+                ? selectedExpansions.filter(e => e != expansion)
+                : [...selectedExpansions, expansion];
+    
+            setSelectAllValidSets(next.length == selectedExpansions.length);
+            onExpansionsChange(next);
+        }
     }
 
     const toggleAllSelectedSets = () => {
-        if(selectAllValidSets) {
+        if (selectAllValidSets) {
             setSelectAllValidSets(false);
             onExpansionsChange([]);
         } else {
@@ -41,14 +37,17 @@ function ExpansionsToggle({ expansions = [],  selectedExpansions = [], onExpansi
 
     return (
         <>
-            <div className="flex my-4">
-                <Toggle checked={selectAllValidSets} onChange={toggleAllSelectedSets} />
-                <p className="ml-2">
-                    Use all sets valid for selected format.
-                </p>
-            </div>
-            <div className={classes.container}>
-                {   expansions.map(expansion => (
+            {selectedFormat !== NEMESIS_FORMAT && (
+                <div className="flex my-4">
+                    <Toggle checked={selectAllValidSets} onChange={toggleAllSelectedSets} />
+                    <p className="ml-2">
+                        Use all sets valid for selected format.
+                    </p>
+                </div>
+            )}
+            <div className="flex flex-wrap space-x-1">
+                {expansions.map(expansion => (
+                    <div data-tip={expansion.displayName}>
                         <ToggableExpansionIcon
                             key={expansion.id}
                             set={expansion.name}
@@ -56,10 +55,12 @@ function ExpansionsToggle({ expansions = [],  selectedExpansions = [], onExpansi
                             isEnabled={selectedExpansions.includes(expansion)}
                             onClick={handleToggle(expansion)}
                         />
+                    </div>
                 ))}
             </div>
+            <ReactTooltip effect="solid" />
         </>
     );
 }
 
-export default withStyles(styles)(ExpansionsToggle);
+export default ExpansionsToggle;
