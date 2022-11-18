@@ -8,6 +8,7 @@ import {
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
 import { FactionDeckPicture } from "@components/FactionDeckPicture";
+import { DeckPlayFormatsValidity } from "@components/DeckPlayFormatsValidity";
 
 export default function PublicDeckLink({ ...props }) {
     const [cards, setCards] = useState([]);
@@ -38,9 +39,12 @@ export default function PublicDeckLink({ ...props }) {
     );
 
     return (
-        <div className="flex items-center border-t border-gray-500 lg:w-1/3 lg:mx-auto group">
-            <FactionDeckPicture faction={props.faction} size="w-12 h-12 group-hover:scale-125 transition ease-out duration-300" />
-            <div className="flex-1 space-y-1 ml-4">
+        <div className="flex px-4 items-center border-t border-gray-500">
+            <div className="flex flex-col items-center space-y-2">
+                <FactionDeckPicture faction={props.faction} size="w-12 h-12 group-hover:scale-125 transition ease-out duration-300" />
+                <DeckPlayFormatsValidity cards={cards} /> 
+            </div>
+            <div className="flex-1 space-y-1 ml-8">
                 <Link
                     className="text-xl hover:text-purple-700"
                     to={{

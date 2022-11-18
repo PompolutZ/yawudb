@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from "react";
 import { Set } from "immutable";
 import ScoringOverview from "../../../atoms/ScoringOverview";
 import Card from "./atoms/Card";
-import DetailedPlayStyleValidity from "../../../atoms/DetailedPlayStyleValidity";
 import * as clipboard from "clipboard-polyfill";
 import {
     checkCardIsObjective,
@@ -11,6 +10,7 @@ import {
     compareObjectivesByScoreType,
 } from "../../../data/wudb";
 import CardListSectionHeader from "../../../v2/components/CardListSectionHeader";
+import { DeckPlayFormatsValidity } from "@components/DeckPlayFormatsValidity";
 import DeckSummary from "./DeckSummary";
 import { useState } from "react";
 import { useUpdateUserDeck } from "../../../hooks/wunderworldsAPIHooks";
@@ -179,10 +179,7 @@ function ReadonlyDeck(props) {
                     sets={sets}
                     isPrivate={isPrivate}
                 >
-                    <DetailedPlayStyleValidity
-                        className="relative -mx-1"
-                        cards={cards.map((c) => c.id)}
-                    />
+                    <DeckPlayFormatsValidity cards={cards} />
                 </DeckSummary>
                 <>
                     <div className="lg:hidden">

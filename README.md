@@ -14,3 +14,7 @@ If you want to be able to authenticate while running locally you need to get in 
 maintainers so they will add your IP to a Firebase's project white list.
 
 Run locally with `yarn dev`.
+
+### ToDo
+
+- Check whole validation for play formats logic

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { ACTIVE_FORMATS } from "@wudb";
+import { PlayFormatPicture } from "./PlayFormatPicture";
 
 const HexButton = ({
     format,
     odd,
     first,
     onClick,
-    selected
+    selected,
 }: {
     format: string;
     odd: boolean;
@@ -21,16 +20,14 @@ const HexButton = ({
                     odd ? "ml-5" : ""
                 } ${first ? "" : "-mt-3"}`}
             >
-                <picture>
-                    <source
-                        type="image/webp"
-                        srcSet={`/assets/icons/${format}_format.webp`}
-                    />
-                    <img
-                        className={`w-10 h-11 duration-300 ${selected ? 'group-hover:scale-110 scale-105' : 'grayscale group-hover:scale-95 scale-90'}`}
-                        src={`/assets/icons/${format}_format.png`}
-                    />
-                </picture>
+                <PlayFormatPicture
+                    format={format}
+                    className={`${
+                        selected
+                            ? "group-hover:scale-110 scale-105"
+                            : "grayscale group-hover:scale-95 scale-90"
+                    }`}
+                />
                 <div className="capitalize">{format}</div>
             </div>
         </button>

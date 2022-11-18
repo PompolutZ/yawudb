@@ -373,8 +373,8 @@ function getAllSetsValidForFormat(format) {
     switch (format) {
         case CHAMPIONSHIP_FORMAT:
             return Object.values(sets).filter((set) => set.id > 37 && set.id !== 40 && set.id !== 39);
-        case NEMESIS_FORMAT: 
-            return Object.values(sets).filter(set => nemesis_valid_sets.includes(set.id))    
+        case NEMESIS_FORMAT:
+            return Object.values(sets).filter(set => nemesis_valid_sets.includes(set.id))
         default:
             return Object.values(sets);
     }
@@ -416,6 +416,7 @@ function validateCardForPlayFormat(card, format = CHAMPIONSHIP_FORMAT) {
             ];
         case VANGUARD_FORMAT:
             return [Number(c.id) > latestSeasonStartNumber, false, false];
+
     }
 }
 
@@ -470,6 +471,57 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
         if (setsWithPlotCards > 1) {
             issues.push(`You can use only one Rivals deck that uses a plot card.`);
         }
+
+        var totalInvalidCards = deck
+            .map((card) => validateCardForPlayFormat(card, format))
+            .reduce(
+                (total, [, isForsaken, isRestricted]) => {
+                    return {
+                        // we can just sum by using coersion here, but mathematically that doesn't make sense
+                        forsaken: isForsaken ? total.forsaken + 1 : total.forsaken,
+                        restricted: isRestricted
+                            ? total.restricted + 1
+                            : total.restricted,
+                    };
+                },
+                { forsaken: 0, restricted: 0 }
+            );
+
+        if (totalInvalidCards.forsaken > 0) {
+            isValid = false;
+            issues.push(
+                `Deck built for ${format} cannot include forsaken cards, but has ${totalInvalidCards.forsaken}`
+            );
+        }
+
+        if (totalInvalidCards.restricted > MAX_RESTRICTED_CARDS) {
+            isValid = false;
+            issues.push(
+                `Deck built for ${format} can include at most ${MAX_RESTRICTED_CARDS} restricted cards, but has ${totalInvalidCards.restricted}`
+            );
+        }
+    }
+
+    if (format == RIVALS_FORMAT) {
+        const [{ factionId, setId }] = deck;
+        const shouldBeFactionOnlyDeck = factionId > 1;
+        const allCardsAreFactionCards = deck.reduce((onlyFactionCards, c) => onlyFactionCards && c.setId === setId, true);
+        const allCardsAreSameRivalsDeck = deck.reduce((sameRilvalsDeck, c) => sameRilvalsDeck && c.setId === setId, nemesis_valid_sets.includes(setId));
+
+        isValid = shouldBeFactionOnlyDeck ? allCardsAreFactionCards : allCardsAreSameRivalsDeck;
+        if (!isValid) {
+            issues.push("Rivals deck only includes cards with that warband symbol or only includes cards from the same universal Rivals Deck");
+        }
+    }
+
+    if (format === NEMESIS_FORMAT) {
+        const universalOnly = deck.filter(c => c.factionId === 1);
+        const universalRivalsDeckId = universalOnly[0].setId;
+        isValid = universalOnly.reduce((sameRivalsDeck, c) => sameRivalsDeck && c.setId === universalRivalsDeckId, nemesis_valid_sets.includes(universalRivalsDeckId));
+
+        if (!isValid) {
+            issues.push(`Nemesis deck could include only cards with warband symbols or taken from the same single universal Rivals deck`);
+        }
     }
 
     if (objectives.length < MIN_OBJECTIVE_COUNT) {
@@ -495,35 +547,6 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
     if (gambits.length > upgrades.length) {
         isValid = false;
         issues.push("Your deck can't include more gambits than upgrade cards");
-    }
-
-    var totalInvalidCards = deck
-        .map((card) => validateCardForPlayFormat(card, format))
-        .reduce(
-            (total, [, isForsaken, isRestricted]) => {
-                return {
-                    // we can just sum by using coersion here, but mathematically that doesn't make sense
-                    forsaken: isForsaken ? total.forsaken + 1 : total.forsaken,
-                    restricted: isRestricted
-                        ? total.restricted + 1
-                        : total.restricted,
-                };
-            },
-            { forsaken: 0, restricted: 0 }
-        );
-
-    if (totalInvalidCards.forsaken > 0) {
-        isValid = false;
-        issues.push(
-            `Deck built for ${format} cannot include forsaken cards, but has ${totalInvalidCards.forsaken}`
-        );
-    }
-
-    if (totalInvalidCards.restricted > MAX_RESTRICTED_CARDS) {
-        isValid = false;
-        issues.push(
-            `Deck built for ${format} can include at most ${MAX_RESTRICTED_CARDS} restricted cards, but has ${totalInvalidCards.restricted}`
-        );
     }
 
     return [isValid, issues];

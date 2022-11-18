@@ -20,7 +20,7 @@ export default function Deck() {
     }, [faction, refetch]);
 
     return (
-        <div className="flex-1">
+        <div className="flex-1 lg:max-w-xl lg:mx-auto group">
             {data && (
                 <VirtualizedDecksList
                     source={data.map((deck) => ({ ...deck, cards: deck.deck }))}
