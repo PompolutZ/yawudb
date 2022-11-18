@@ -1,11 +1,14 @@
-import React from "react";
-
 interface FactionDeckPictureProps {
     faction: string;
     size: string;
+    className: string;
 }
 
-export function FactionDeckPicture({ faction, size = "w-20 h-20" }: FactionDeckPictureProps) {
+export function FactionDeckPicture({
+    faction,
+    className,
+    size = "w-20 h-20",
+}: FactionDeckPictureProps) {
     return (
         <picture>
             <source
@@ -14,14 +17,17 @@ export function FactionDeckPicture({ faction, size = "w-20 h-20" }: FactionDeckP
             />
 
             <img
-                className={`${size}`}
+                className={`${size} ${className}`}
                 src={`/assets/icons/${faction}-deck-64.png`}
             />
         </picture>
     );
 }
 
-export function FactionPicture({ faction, size = "w-20 h-20" }: FactionDeckPictureProps) {
+export function FactionPicture({
+    faction,
+    size = "w-20 h-20",
+}: FactionDeckPictureProps) {
     return (
         <picture>
             <source

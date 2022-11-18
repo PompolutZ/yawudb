@@ -20,7 +20,7 @@ function VirtualizedDecksList({ source = [] }) {
     const renderRow = (params) => {
         const renderedItem = renderItem(params.index);
         return (
-            <div key={params.key} style={params.style}>
+            <div className="grid" key={params.key} style={params.style}>
                 {renderedItem}
             </div>
         );

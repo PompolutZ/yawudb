@@ -13,7 +13,7 @@ import { useDeleteUserDeckFactory } from "../../hooks/useDeleteUserDeckFactory";
 import { useSaveDeckFactory } from "../../hooks/useSaveDeckFactory";
 import Firebase from "../../firebase";
 import { PeopleIcon } from "../../v2/components/Icons";
-import { FactionDeckPicture } from "../../v2/components/FactionDeckPicture";
+import { FactionDeckPicture } from "@components/FactionDeckPicture";
 
 function DeckLink({ onDelete, ...props }) {
     const [cards, setCards] = useState([]);

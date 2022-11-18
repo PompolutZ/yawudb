@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
-import { ReactComponent as AddCardIcon } from "../../../../svgs/add-card.svg";
-import { ReactComponent as DeckIcon } from "../../../../svgs/deck.svg";
-import { ReactComponent as WarbandIcon } from "../../../../svgs/warband.svg";
+import { ReactComponent as AddCardIcon } from "@icons/add-card.svg";
+import { ReactComponent as DeckIcon } from "@icons/deck.svg";
+import { ReactComponent as WarbandIcon } from "@icons/warband.svg";
 
 type NavigationOptions = "LIBRARY" | "DECK" | "WARBAND";
 
