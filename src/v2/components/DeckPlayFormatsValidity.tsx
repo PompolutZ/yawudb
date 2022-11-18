@@ -6,7 +6,6 @@ import {
     validateDeckForPlayFormat,
 } from "@wudb";
 import { PlayFormatPicture } from "./PlayFormatPicture";
-import ReactTooltip from "react-tooltip";
 
 export const DeckPlayFormatsValidity = ({ cards }: { cards: any[] }) => {
     if (!cards.length) return null;
@@ -27,19 +26,13 @@ export const DeckPlayFormatsValidity = ({ cards }: { cards: any[] }) => {
 
     return (
         <>
-            <div
-                className="flex items-center justify-center relative h-7 w-6"
-                data-tip={`Valid for ${allValidFormats
-                    .map(([format]: [string]) => format.toUpperCase())
-                    .join(",")} formats`}
-            >
+            <div className="flex items-center justify-center relative h-7 w-6">
                 {allValidFormats.map(([format]: [string], i: number) => (
                     <div
                         key={format}
                         className={`absolute w-6 h-7`}
                         style={{
                             zIndex: allValidFormats.length - i,
-                            // left: `${(i * 0.25)}rem`
                             left: `${i * 20}px`,
                             marginLeft: `-${allValidFormats.length * 5}px`,
                         }}
@@ -48,7 +41,6 @@ export const DeckPlayFormatsValidity = ({ cards }: { cards: any[] }) => {
                     </div>
                 ))}
             </div>
-            <ReactTooltip effect="solid" />
         </>
     );
 };
