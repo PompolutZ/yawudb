@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { ReactComponent as TogglesIcon } from "../../../../svgs/sliders.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
+import { ReactComponent as CompassIcon } from "@icons/compass.svg";
 import ExpansionsToggle from "../../../../components/ExpansionsToggle";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,12 +9,23 @@ import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../../v2/components/SectionTitle";
 import Toggle from "../../../../v2/components/HexToggle";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
-import { CHAMPIONSHIP_FORMAT, getAllSetsValidForFormat, NEMESIS_FORMAT, RELIC_FORMAT, wufactions, wusets } from "../../../../data/wudb";
+import {
+    CHAMPIONSHIP_FORMAT,
+    getAllSetsValidForFormat,
+    NEMESIS_FORMAT,
+    RELIC_FORMAT,
+    warbandHasPlot,
+    wufactions,
+    wusets,
+} from "../../../../data/wudb";
 import DebouncedInput from "../../../../v2/components/DebouncedInput";
 import { DeckPlayFormatToggle } from "../../../../v2/components/DeckPlayFormatToggle";
 import { DeckPlayFormatInfo } from "../../../../v2/components/DeckPlayFormatInfo";
 import IconButton from "../../../../v2/components/IconButton";
-import { FactionDeckPicture, FactionPicture } from "@components/FactionDeckPicture";
+import {
+    FactionDeckPicture,
+    FactionPicture,
+} from "@components/FactionDeckPicture";
 
 const useClasses = makeStyles((theme) => ({
     filtersPanel: {
@@ -63,12 +75,18 @@ function FactionsPicker({ selected, onChangeWarband, ...rest }) {
                 )
                 .reverse()
                 .map((faction) => (
-                    <img
-                        key={faction.id}
-                        className="w-10 h-10 m-1 cursor-pointer"
-                        onClick={handleSelectWarband(faction)}
-                        src={`/assets/icons/${faction.name}-icon.png`}
-                    />
+                    <div className="relative" key={faction.id}>
+                        <img
+                            className="w-10 h-10 m-1 cursor-pointer"
+                            onClick={handleSelectWarband(faction)}
+                            src={`/assets/icons/${faction.name}-icon.png`}
+                        />
+                        {warbandHasPlot(faction.id) && (
+                            <div className="absolute w-4 h-4 bg-purple-700 bottom-0 left-4 rounded-full text-white">
+                                <CompassIcon className="stroke-current w-4 h-4" />
+                            </div>
+                        )}
+                    </div>
                 ))}
         </div>
     );
@@ -123,7 +141,10 @@ function CardLibraryFilters(props) {
                     className="rounded-full mr-1 w-12 h-12 drop-shadow-md bg-gray-100 grid place-content-center relative hover:bg-gray-100 focus:text-purple-700"
                     onClick={() => setShowFilters(true)}
                 >
-                    <FactionPicture faction={state.faction.name} size="w-11 h-11" />
+                    <FactionPicture
+                        faction={state.faction.name}
+                        size="w-11 h-11"
+                    />
                 </IconButton>
 
                 <DebouncedInput
@@ -171,7 +192,11 @@ function CardLibraryFilters(props) {
 
                             <div className="flex flex-col items-center">
                                 <DeckPlayFormatToggle
-                                    formats={[NEMESIS_FORMAT, CHAMPIONSHIP_FORMAT, RELIC_FORMAT]}
+                                    formats={[
+                                        NEMESIS_FORMAT,
+                                        CHAMPIONSHIP_FORMAT,
+                                        RELIC_FORMAT,
+                                    ]}
                                     selectedFormat={selectedFormat}
                                     onFormatChange={handleFormatChange}
                                 />
@@ -191,7 +216,8 @@ function CardLibraryFilters(props) {
                                         onChange={setHideDuplicates}
                                     />
                                     <p className="ml-2">
-                                        For dublicate cards show only newest one.
+                                        For dublicate cards show only newest
+                                        one.
                                     </p>
                                 </div>
                             )}
@@ -199,7 +225,15 @@ function CardLibraryFilters(props) {
                                 singleSet={selectedFormat === NEMESIS_FORMAT}
                                 selectedFormat={selectedFormat}
                                 expansions={validSets}
-                                selectedExpansions={selectedFormat === NEMESIS_FORMAT ? [wusets["Illusory Might Universal Deck"]] : selectedSets}
+                                selectedExpansions={
+                                    selectedFormat === NEMESIS_FORMAT
+                                        ? [
+                                              wusets[
+                                                  "Illusory Might Universal Deck"
+                                              ],
+                                          ]
+                                        : selectedSets
+                                }
                                 onExpansionsChange={setSelectedSets}
                             />
                         </section>

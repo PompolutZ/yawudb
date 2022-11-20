@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
 import ToggableExpansionIcon from "../atoms/ToggableExpansionIcon";
-import { NEMESIS_FORMAT } from "../data/wudb";
+import { NEMESIS_FORMAT, setHasPlot } from "../data/wudb";
 import Toggle from '../v2/components/HexToggle';
+import { ReactComponent as CompassIcon } from "@icons/compass.svg";
 
 function ExpansionsToggle({ expansions = [], selectedExpansions = [], onExpansionsChange, selectedFormat, singleSet }) {
     const [selectAllValidSets, setSelectAllValidSets] = useState(true);
@@ -47,7 +48,7 @@ function ExpansionsToggle({ expansions = [], selectedExpansions = [], onExpansio
             )}
             <div className="flex flex-wrap space-x-1">
                 {expansions.map(expansion => (
-                    <div data-tip={expansion.displayName}>
+                    <div data-tip={expansion.displayName} className="relative">
                         <ToggableExpansionIcon
                             key={expansion.id}
                             set={expansion.name}
@@ -55,6 +56,11 @@ function ExpansionsToggle({ expansions = [], selectedExpansions = [], onExpansio
                             isEnabled={selectedExpansions.includes(expansion)}
                             onClick={handleToggle(expansion)}
                         />
+                        {setHasPlot(expansion.id) && (
+                            <div className="absolute w-4 h-4 bg-purple-700 -bottom-1 left-4 rounded-full text-white">
+                                <CompassIcon className="stroke-current w-4 h-4" />
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

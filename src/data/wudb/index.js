@@ -247,6 +247,19 @@ export const grouppedFactions = () => {
     ];
 };
 
+const warbandsWithPlot = [
+    factions["Khagra's Ravagers"].id,
+    factions["Hedkrakka's Madmob"].id,
+];
+
+const rivalDecksWithPlot = [
+    sets["Daring Delvers Rivals Deck"].id,
+    sets["Tooth and Claw Rivals Deck"].id
+]
+
+const warbandHasPlot = (warbandId) => warbandsWithPlot.includes(warbandId);
+const setHasPlot = (setId) => rivalDecksWithPlot.includes(setId); 
+
 function getCardNumberFromId(cardId) {
     if (typeof cardId == "string") {
         return +cardId.slice(-3);
@@ -619,4 +632,9 @@ export {
     cards as wucards,
     checkNonWarbandSpecificCard,
     checkWarbandSpecificCard,
+
+    warbandsWithPlot,
+    rivalDecksWithPlot,
+    warbandHasPlot,
+    setHasPlot
 };
