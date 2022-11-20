@@ -15,6 +15,7 @@ import DeckSummary from "./DeckSummary";
 import { useState } from "react";
 import { useUpdateUserDeck } from "../../../hooks/wunderworldsAPIHooks";
 import { ModalPresenter } from "../../../main";
+import { DeckPlotCards } from "./atoms/DeckPlotCards";
 
 const DeckActionsMenu = lazy(() => import("./atoms/DeckActionsMenu"));
 const DeckActionMenuLarge = lazy(() => import("./atoms/DeckActionsMenuLarge"));
@@ -214,10 +215,16 @@ function ReadonlyDeck(props) {
                             onDelete={props.onDelete}
                             onToggleDeckPrivacy={toggleDeckPrivacy}
                             isPrivate={isPrivate}
-                            onDownloadProxy={() => setIsProxyPickerVisible(true)}
+                            onDownloadProxy={() =>
+                                setIsProxyPickerVisible(true)
+                            }
                         />
                     </div>
                 </>
+            </div>
+
+            <div className="m-4 lg:ml-24 bg-purple-700 p-2 rounded-md text-white">
+                <DeckPlotCards factionId={faction} sets={sets} />
             </div>
 
             <div
@@ -266,12 +273,15 @@ function ReadonlyDeck(props) {
             </div>
 
             {isProxyPickerVisible && (
-                    <ModalPresenter>
-                        <Suspense fallback="Loading...">
-                            <CardProxyMaker cards={cards} onExit={() => setIsProxyPickerVisible(false)}></CardProxyMaker>
-                        </Suspense>
-                    </ModalPresenter>
-                )}
+                <ModalPresenter>
+                    <Suspense fallback="Loading...">
+                        <CardProxyMaker
+                            cards={cards}
+                            onExit={() => setIsProxyPickerVisible(false)}
+                        ></CardProxyMaker>
+                    </Suspense>
+                </ModalPresenter>
+            )}
         </div>
     );
 }
