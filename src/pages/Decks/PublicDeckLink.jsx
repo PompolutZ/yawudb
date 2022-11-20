@@ -4,13 +4,36 @@ import { VIEW_DECK } from "../../constants/routes";
 import {
     checkCardIsObjective,
     getCardById,
+    getFactionByName,
+    setHasPlot,
+    warbandHasPlot,
+    plots
 } from "../../data/wudb";
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
 import { FactionDeckPicture } from "@components/FactionDeckPicture";
 import { DeckPlayFormatsValidity } from "@components/DeckPlayFormatsValidity";
+import { ReactComponent as CompassIcon } from "@icons/compass.svg";
+
+const checkDeckHasPlots = (faction, sets) => {
+    return warbandHasPlot(getFactionByName(faction).id) || sets.some(setId => setHasPlot(setId));
+}
+
+const getPlotKeywords = (faction, sets) => {
+    if (!checkDeckHasPlots(faction, sets)) return [];
+
+    const plotInfos = Object.values(plots);
+
+    return plotInfos.reduce((keywords, plot) => {
+        const factionWithPlot = plot.connection === "Warband" && plot.name === faction;
+        const setWithPlot = plot.connection === "Set" && sets.includes(plot.id);
+
+        return factionWithPlot || setWithPlot ? [...keywords, plot.keyword] : keywords;
+    }, []);
+}
 
 export default function PublicDeckLink({ ...props }) {
+    console.log(props);
     const [cards, setCards] = useState([]);
 
     useEffect(() => {
@@ -45,6 +68,11 @@ export default function PublicDeckLink({ ...props }) {
                 <DeckPlayFormatsValidity cards={cards} /> 
             </div>
             <div className="flex-1 space-y-1 ml-8">
+                <div className="flex space-x-1 items-center">
+                {
+                    checkDeckHasPlots(props.faction, props.sets) && 
+                    <CompassIcon className="w-4 h-4 stroke-purple-700" />
+                }
                 <Link
                     className="text-xl hover:text-purple-700"
                     to={{
@@ -60,7 +88,12 @@ export default function PublicDeckLink({ ...props }) {
                 >
                     {props.name}
                 </Link>
-                <h3 className="text-sm text-gray-700">{new Date(props.updatedutc).toLocaleDateString()}</h3>
+
+                </div>
+                <div className="flex space-x-1 items-center">
+                    <h3 className="text-sm text-gray-700">{new Date(props.updatedutc).toLocaleDateString()}</h3>
+                    { getPlotKeywords(props.faction, props.sets).map(keyword => <span className="text-purple-700 font-bold" key={keyword}>{keyword}</span>)}
+                </div>
                 <SetsList sets={props.sets} />
                 <ScoringOverview
                     summary={objectiveSummary}
