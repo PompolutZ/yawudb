@@ -14,6 +14,7 @@ import { useSaveDeckFactory } from "../../hooks/useSaveDeckFactory";
 import Firebase from "../../firebase";
 import { PeopleIcon } from "../../v2/components/Icons";
 import { FactionDeckPicture } from "@components/FactionDeckPicture";
+import { DeckTitle } from "@components/DeckTitle";
 
 function DeckLink({ onDelete, ...props }) {
     const [cards, setCards] = useState([]);
@@ -46,21 +47,24 @@ function DeckLink({ onDelete, ...props }) {
     return (
         <div className="flex items-center border-t border-gray-500 lg:w-1/3 lg:mx-auto my-2 py-2">
             <FactionDeckPicture faction={props.faction} size="w-12 h-12" />
+
             <div className="flex-1 pl-2">
-                <Link
-                    className="text-xl"
-                    to={{
-                        pathname: `${VIEW_DECK}/${props.id}`,
-                        state: {
-                            deck: {
-                                ...props,
+                <DeckTitle factionName={props.faction} sets={props.sets}>
+                    <Link
+                        className="text-xl"
+                        to={{
+                            pathname: `${VIEW_DECK}/${props.id}`,
+                            state: {
+                                deck: {
+                                    ...props,
+                                },
+                                canUpdateOrDelete: true,
                             },
-                            canUpdateOrDelete: true,
-                        },
-                    }}
-                >
-                    {props.name}
-                </Link>
+                        }}
+                    >
+                        {props.name}
+                    </Link>
+                </DeckTitle>
                 <div className="space-y-2">
                     <div className="flex">
                         <h3 className="text-sm font-bold text-gray-700">

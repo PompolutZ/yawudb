@@ -47,6 +47,7 @@ const DeckPlayFormatToggle = ({
         <div className="flex flex-col space-y-2 self-stretch">
             {formats.map((format: string, i: number) => (
                 <HexButton
+                    key={format}
                     format={format}
                     odd={i % 2 !== 0}
                     first={i < 1}

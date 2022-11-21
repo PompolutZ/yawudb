@@ -124,7 +124,6 @@ function FilterableCardLibrary(props) {
                 return card;
             });
 
-        console.log(nextCards);
         const nextCardsExcludingForsaken =
             state.format !== VANGUARD_FORMAT
                 ? nextCards.filter((c) => !c.isBanned)

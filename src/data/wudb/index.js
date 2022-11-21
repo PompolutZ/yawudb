@@ -494,15 +494,13 @@ function validateCardForPlayFormat(card, format = CHAMPIONSHIP_FORMAT) {
                 relic[1] !== "-",
                 undefined,
             ];
-        case OPEN_FORMAT:
+        case NEMESIS_FORMAT:
             return [
                 // V-- means card is valid, Open format has no cards restrictions
                 relic[0] === "V",
                 undefined,
                 undefined,
             ];
-        case VANGUARD_FORMAT:
-            return [Number(c.id) > latestSeasonStartNumber, false, false];
     }
 }
 
@@ -603,17 +601,19 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
 
     if (format === NEMESIS_FORMAT) {
         const universalOnly = deck.filter((c) => c.factionId === 1);
-        const universalRivalsDeckId = universalOnly[0].setId;
-        isValid = universalOnly.reduce(
-            (sameRivalsDeck, c) =>
-                sameRivalsDeck && c.setId === universalRivalsDeckId,
-            nemesis_valid_sets.includes(universalRivalsDeckId)
-        );
-
-        if (!isValid) {
-            issues.push(
-                `Nemesis deck could include only cards with warband symbols or taken from the same single universal Rivals deck`
+        if (universalOnly.length) {
+            const universalRivalsDeckId = universalOnly[0].setId;
+            isValid = universalOnly.reduce(
+                (sameRivalsDeck, c) =>
+                    sameRivalsDeck && c.setId === universalRivalsDeckId,
+                nemesis_valid_sets.includes(universalRivalsDeckId)
             );
+    
+            if (!isValid) {
+                issues.push(
+                    `Nemesis deck could include only cards with warband symbols or taken from the same single universal Rivals deck`
+                );
+            }
         }
     }
 
@@ -704,6 +704,10 @@ function validatePowerDeckForFormat(gambits, upgrades, format) {
     return [isValid, issues];
 }
 
+const checkDeckHasPlots = (faction, sets) => {
+    return warbandHasPlot(getFactionByName(faction).id) || sets.some(setId => setHasPlot(setId));
+}
+
 export {
     getFactionByName,
     getFactionByAbbr,
@@ -733,4 +737,5 @@ export {
     warbandHasPlot,
     setHasPlot,
     plots,
+    checkDeckHasPlots,
 };

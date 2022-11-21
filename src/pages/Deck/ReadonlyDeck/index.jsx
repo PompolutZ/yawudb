@@ -7,6 +7,7 @@ import {
     checkCardIsObjective,
     checkCardIsPloy,
     checkCardIsUpgrade,
+    checkDeckHasPlots,
     compareObjectivesByScoreType,
 } from "../../../data/wudb";
 import CardListSectionHeader from "../../../v2/components/CardListSectionHeader";
@@ -180,7 +181,9 @@ function ReadonlyDeck(props) {
                     sets={sets}
                     isPrivate={isPrivate}
                 >
-                    <DeckPlayFormatsValidity cards={cards} />
+                    <div className="ml-4">
+                        <DeckPlayFormatsValidity cards={cards} />
+                    </div>
                 </DeckSummary>
                 <>
                     <div className="lg:hidden">
@@ -223,13 +226,15 @@ function ReadonlyDeck(props) {
                 </>
             </div>
 
-            <div className="m-4 lg:ml-24 bg-purple-700 p-2 rounded-md text-white">
-                <DeckPlotCards factionId={faction} sets={sets} />
-            </div>
+            {checkDeckHasPlots(faction, sets) && (
+                <div className="m-4 lg:ml-24 bg-purple-700 p-2 rounded-md text-white">
+                    <DeckPlotCards factionId={faction} sets={sets} />
+                </div>
+            )}
 
             <div
-                className={`lg:grid lg:gap-2 mb-8 ${
-                    props.cardsView ? "" : "lg:grid-cols-3"
+                className={`mt-4 lg:mt-8 mb-8 ${
+                    props.cardsView ? "" : "lg:grid lg:gap-2 lg:grid-cols-3"
                 }`}
             >
                 <section className="px-4">

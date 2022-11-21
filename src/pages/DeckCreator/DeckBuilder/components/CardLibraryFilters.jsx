@@ -113,6 +113,10 @@ function CardLibraryFilters(props) {
         setWarband(state.faction);
     }, [state.faction]);
 
+    useEffect(() => {
+        setSelectedSets(selectedFormat === NEMESIS_FORMAT ? [wusets["Illusory Might Universal Deck"]] : validSets)
+    }, [selectedFormat, validSets])
+
     const handleFormatChange = (format) => {
         setSelectedFormat(format);
     };
@@ -130,9 +134,9 @@ function CardLibraryFilters(props) {
         });
     };
 
-    useEffect(() => {
-        setSelectedSets(validSets);
-    }, [validSets]);
+    // useEffect(() => {
+    //     setSelectedSets(validSets);
+    // }, [validSets]);
 
     return (
         <>
@@ -225,15 +229,7 @@ function CardLibraryFilters(props) {
                                 singleSet={selectedFormat === NEMESIS_FORMAT}
                                 selectedFormat={selectedFormat}
                                 expansions={validSets}
-                                selectedExpansions={
-                                    selectedFormat === NEMESIS_FORMAT
-                                        ? [
-                                              wusets[
-                                                  "Illusory Might Universal Deck"
-                                              ],
-                                          ]
-                                        : selectedSets
-                                }
+                                selectedExpansions={selectedSets}
                                 onExpansionsChange={setSelectedSets}
                             />
                         </section>
