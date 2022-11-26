@@ -3,7 +3,7 @@ import ReadonlyDeck from "./ReadonlyDeck/index";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { getCardById } from "../../data/wudb";
-import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
+import { DeleteConfirmationDialog } from "@components/DeleteConfirmationDialog";
 import { useGetUserDeckById } from "../../hooks/wunderworldsAPIHooks";
 import { useDeleteUserDeckFactory } from "../../hooks/useDeleteUserDeckFactory";
 import { Toast } from "./ReadonlyDeck/atoms/Toast";
