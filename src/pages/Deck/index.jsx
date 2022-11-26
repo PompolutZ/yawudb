@@ -112,7 +112,7 @@ function Deck() {
                 <meta property="og:type" content="website" />
                 <meta
                     property="og:url"
-                    content={`https://yawudb.com/view/deck/${id}`}
+                    content={`https://wunderworlds.club/view/deck/${id}`}
                 />
             </Helmet>
             {loading && (
