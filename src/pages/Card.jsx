@@ -4,14 +4,12 @@ import {
     CHAMPIONSHIP_FORMAT,
     getCardById,
     getSetById,
+    NEMESIS_FORMAT,
     RELIC_FORMAT,
     validateCardForPlayFormat,
-    VANGUARD_FORMAT,
 } from "../data/wudb";
-import { ReactComponent as ChampionshipLogo } from "../svgs/championship_logo.svg";
-import { ReactComponent as RelicLogo } from "../svgs/relic_logo.svg";
-import { ReactComponent as VanguardLogo } from "../svgs/vanguard_logo.svg";
 import CardImage from "../v2/components/CardImage";
+import { PlayFormatPicture } from "../v2/components/PlayFormatPicture";
 
 function Card() {
     const { id } = useParams();
@@ -25,7 +23,10 @@ function Card() {
         card,
         RELIC_FORMAT
     );
-    const [isVanguardValid] = validateCardForPlayFormat(card, VANGUARD_FORMAT);
+    const [isValidForNemesis] = validateCardForPlayFormat(
+        card,
+        NEMESIS_FORMAT
+    );
     const set = getSetById(card.setId);
 
     return (
@@ -54,16 +55,8 @@ function Card() {
                         <h3 className="font-bold text-gray-700 mt-4">
                             Play format availability:
                         </h3>
-                        <div className="flex break-words my-2">
-                            <ChampionshipLogo
-                                className={`mr-2 text-3xl fill-current ${
-                                    isValid
-                                        ? "text-green-700"
-                                        : isRestrictedChampionship
-                                        ? "text-yellow-700"
-                                        : "text-red-700"
-                                }`}
-                            />
+                        <div className="flex my-2 items-center space-x-4">
+                            <PlayFormatPicture format={CHAMPIONSHIP_FORMAT} />
                             {isValid && (
                                 <span>
                                     This card is VALID for Championship format.
@@ -82,14 +75,8 @@ function Card() {
                                 </span>
                             )}
                         </div>
-                        <div className="flex break-words my-2">
-                            <RelicLogo
-                                className={`mr-2 text-3xl fill-current ${
-                                    isRelicValid
-                                        ? "text-green-700"
-                                        : "text-red-700"
-                                }`}
-                            />
+                        <div className="flex my-2 items-center space-x-4">
+                            <PlayFormatPicture format={RELIC_FORMAT} />
                             {isRelicValid && (
                                 <span>
                                     This card is VALID for Relic format.
@@ -101,23 +88,11 @@ function Card() {
                                 </span>
                             )}
                         </div>
-                        <div className="flex break-words my-2">
-                            <VanguardLogo
-                                className={`mr-2 text-3xl fill-current ${
-                                    isVanguardValid
-                                        ? "text-green-700"
-                                        : "text-red-700"
-                                }`}
-                            />
-                            {isVanguardValid && (
+                        <div className="flex break-words my-2 items-center space-x-4">
+                            <PlayFormatPicture format={NEMESIS_FORMAT} /> 
+                            {isValidForNemesis && (
                                 <span>
-                                    This card is VALID for Vanguard format.
-                                </span>
-                            )}
-                            {!isVanguardValid && (
-                                <span>
-                                    This card cannot be used for Vanguard
-                                    format.
+                                    This card is VALID for Nemesis format.
                                 </span>
                             )}
                         </div>
