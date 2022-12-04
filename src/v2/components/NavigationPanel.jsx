@@ -188,7 +188,7 @@ const Menu = ({ classes, showHome, children }) => {
                 Public decks
             </AnimatedLink>
             <AnimatedLink
-                className="mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
+                className="hidden lg:block mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
                 to={`${ROUTES.BOARDS_BASE}/${CHAMPIONSHIP_FORMAT}`}
             >
                 Boards
