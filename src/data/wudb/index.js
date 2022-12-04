@@ -1,6 +1,6 @@
 import { sets, cards, factions } from "./db.js";
 import { sortByIdAsc } from "../../utils/sort";
-import { boards } from "./boards.js";
+import { boards } from "./boards";
 
 export const totalCardsPerWave = {
     1: 437,
@@ -719,7 +719,7 @@ const getBoardsValidForFormat = (format) => {
         case NEMESIS_FORMAT:
             return [1, 2, 7, 9, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
         default: 
-            return Object.keys(boards);
+            return Object.keys(boards).map(Number);
     }
 };
 

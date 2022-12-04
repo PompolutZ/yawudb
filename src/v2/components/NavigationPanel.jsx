@@ -9,6 +9,7 @@ import Divider from "./Divider";
 import { FirebaseContext } from "../../firebase";
 import { useHistory, useLocation } from "react-router-dom";
 import useMeasure from "react-use-measure";
+import { CHAMPIONSHIP_FORMAT } from "@wudb/index";
 
 export default function NavigationPanel() {
     const { pathname } = useLocation();
@@ -185,6 +186,12 @@ const Menu = ({ classes, showHome, children }) => {
                 to={ROUTES.BROWSE_ALL_DECKS}
             >
                 Public decks
+            </AnimatedLink>
+            <AnimatedLink
+                className="mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
+                to={`${ROUTES.BOARDS_BASE}/${CHAMPIONSHIP_FORMAT}`}
+            >
+                Boards
             </AnimatedLink>
             <AnimatedLink
                 className="hidden lg:block mr-8 cursor-pointer uppercase font-bold lg:text-xs hover:text-purple-700"
