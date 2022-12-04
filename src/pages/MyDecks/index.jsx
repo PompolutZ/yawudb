@@ -5,7 +5,7 @@ import { checkCardIsObjective, getCardById } from "../../data/wudb";
 import { ReactComponent as TrashIcon } from "../../svgs/trash.svg";
 import ScoringOverview from "../../atoms/ScoringOverview";
 import SetsList from "../../atoms/SetsList";
-import DeleteConfirmationDialog from "../../atoms/DeleteConfirmationDialog";
+import { DeleteConfirmationDialog } from "@components/DeleteConfirmationDialog";
 import { fetchUserDecks } from "../../hooks/wunderworldsAPIHooks";
 import useAuthUser from "../../hooks/useAuthUser";
 import useDexie from "../../hooks/useDexie";

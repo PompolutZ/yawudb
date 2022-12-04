@@ -105,7 +105,7 @@ function Library() {
                             <TogglesIcon />
                         </IconButton>
                     </section>
-                    <section className="">
+                    <section className="p-4">
                         <SectionTitle title="Game format" />
                         <div className="grid p-4">
                             <div className="">

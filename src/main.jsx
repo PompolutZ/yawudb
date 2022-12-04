@@ -18,6 +18,7 @@ import NavigationPanel from "./v2/components/NavigationPanel";
 import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
 import HeroImage from "./v2/components/HeroImage";
 import { AuthContextProvider } from "./hooks/useAuthUser";
+import { BoardsPage } from "./pages/Boards";
 
 const Home = lazy(() => import("./pages/Home"));
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
@@ -136,6 +137,9 @@ function MainLayout() {
                                         path={ROUTES.PROFILE}
                                         component={UserProfile}
                                     />
+                                    <Route 
+                                        path={ROUTES.BOARDS}
+                                        component={BoardsPage} />
                                     {/* <PrivateRoute
                                         path="/secret/cards-rating/:faction?"
                                         component={CardsRating}

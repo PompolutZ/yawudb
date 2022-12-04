@@ -84,12 +84,11 @@ function DeckCreator() {
             <React.Fragment>
                 <Helmet>
                     <title>
-                        Warhammer Underworlds: Nightvault (Shadespire) Deck
-                        Builder
+                        Warhammer Underworlds Gnarlwood Deck Builder
                     </title>
                     <link
                         rel="canonical"
-                        href="https://yawudb.com/deck/create"
+                        href="https://wunderworlds.club/deck/create"
                     />
                 </Helmet>
 

@@ -3,6 +3,9 @@ export const SIGN_IN = "/login";
 export const SIGN_UP = "/user/signup";
 export const PASSWORD_RESET = "/requestPasswordReset";
 
+export const BOARDS_BASE = "/boards"
+export const BOARDS = `${BOARDS_BASE}/:format`;
+
 export const PRIVACY_POLICY = "/privacy-policy";
 
 export const PROFILE = "/profile";

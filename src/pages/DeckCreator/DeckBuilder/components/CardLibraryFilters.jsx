@@ -3,9 +3,6 @@ import { ReactComponent as TogglesIcon } from "../../../../svgs/sliders.svg";
 import { ReactComponent as CloseIcon } from "../../../../svgs/x.svg";
 import { ReactComponent as CompassIcon } from "@icons/compass.svg";
 import ExpansionsToggle from "../../../../components/ExpansionsToggle";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import Slide from "@material-ui/core/Slide";
 import SectionTitle from "../../../../v2/components/SectionTitle";
 import Toggle from "../../../../v2/components/HexToggle";
 import { useDeckBuilderDispatcher, useDeckBuilderState } from "../..";
@@ -26,26 +23,7 @@ import {
     FactionDeckPicture,
     FactionPicture,
 } from "@components/FactionDeckPicture";
-
-const useClasses = makeStyles((theme) => ({
-    filtersPanel: {
-        background: "white",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        zIndex: 9999,
-        position: "fixed",
-        display: "flex",
-        flexDirection: "column",
-        overflow: "auto",
-        boxShadow: "1px 0px 5px 0 rgba(0, 0, 0, 0.05)",
-    },
-
-    filtersContent: {
-        padding: theme.spacing(2),
-    },
-}));
+import { Overlay } from "@components/Overlay";
 
 function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     return (
@@ -96,7 +74,6 @@ function CardLibraryFilters(props) {
     const state = useDeckBuilderState();
     const dispatch = useDeckBuilderDispatcher();
 
-    const classes = useClasses();
     const [showFilters, setShowFilters] = React.useState(false);
     const [selectedFormat, setSelectedFormat] = useState(state.format);
 
@@ -114,15 +91,19 @@ function CardLibraryFilters(props) {
     }, [state.faction]);
 
     useEffect(() => {
-        setSelectedSets(selectedFormat === NEMESIS_FORMAT ? [wusets["Illusory Might Universal Deck"]] : validSets)
-    }, [selectedFormat, validSets])
+        setSelectedSets(
+            selectedFormat === NEMESIS_FORMAT
+                ? [wusets["Illusory Might Universal Deck"]]
+                : validSets
+        );
+    }, [selectedFormat, validSets]);
 
     const handleFormatChange = (format) => {
         setSelectedFormat(format);
     };
 
     const closeAndUpdateFilters = () => {
-        setShowFilters(false);
+        setShowFilters(!showFilters);
         dispatch({
             type: "UPDATE_FILTERS",
             payload: {
@@ -135,15 +116,15 @@ function CardLibraryFilters(props) {
     };
 
     // useEffect(() => {
-    //     setSelectedSets(validSets);
-    // }, [validSets]);
+    //     console.log("TOGGLE!", showFilters);
+    // }, [showFilters]);
 
     return (
         <>
             <div className="flex items-center">
                 <IconButton
                     className="rounded-full mr-1 w-12 h-12 drop-shadow-md bg-gray-100 grid place-content-center relative hover:bg-gray-100 focus:text-purple-700"
-                    onClick={() => setShowFilters(true)}
+                    onClick={() => setShowFilters(!showFilters)}
                 >
                     <FactionPicture
                         faction={state.faction.name}
@@ -158,13 +139,73 @@ function CardLibraryFilters(props) {
                 />
                 <IconButton
                     className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100 focus:text-purple-700"
-                    onClick={() => setShowFilters(true)}
+                    onClick={() => setShowFilters(!showFilters)}
                 >
                     <TogglesIcon />
                 </IconButton>
             </div>
 
-            <Slide
+            <Overlay visible={showFilters}>
+                <div className="flex-1 flex flex-col pt-4 pb-12">
+                    <IconButton
+                        onClick={closeAndUpdateFilters}
+                        className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100 self-end"
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                    <section className="overflow-y-auto px-4 pb-8">
+                        <SectionTitle className="mb-8" title="Warband" />
+
+                        <SelectedFaction faction={warband} />
+
+                        <FactionsPicker
+                            selected={warband}
+                            onChangeWarband={setWarband}
+                        />
+
+                        <SectionTitle title="Format" className="my-8" />
+
+                        <div className="flex flex-col items-center">
+                            <DeckPlayFormatToggle
+                                formats={[
+                                    NEMESIS_FORMAT,
+                                    CHAMPIONSHIP_FORMAT,
+                                    RELIC_FORMAT,
+                                ]}
+                                selectedFormat={selectedFormat}
+                                onFormatChange={handleFormatChange}
+                            />
+
+                            <DeckPlayFormatInfo
+                                className="text-gray-900 text-sm mt-2"
+                                format={selectedFormat}
+                            />
+                        </div>
+
+                        <SectionTitle title="Sets" className="my-8" />
+
+                        {selectedFormat !== NEMESIS_FORMAT && (
+                            <div className="flex my-4">
+                                <Toggle
+                                    checked={hideDuplicates}
+                                    onChange={setHideDuplicates}
+                                />
+                                <p className="ml-2">
+                                    For dublicate cards show only newest one.
+                                </p>
+                            </div>
+                        )}
+                        <ExpansionsToggle
+                            singleSet={selectedFormat === NEMESIS_FORMAT}
+                            selectedFormat={selectedFormat}
+                            expansions={validSets}
+                            selectedExpansions={selectedSets}
+                            onExpansionsChange={setSelectedSets}
+                        />
+                    </section>
+                </div>
+            </Overlay>
+            {/* <Slide
                 className={classes.filtersPanel}
                 mountOnEnter
                 in={showFilters}
@@ -174,68 +215,7 @@ function CardLibraryFilters(props) {
                     exit: 175,
                 }}
             >
-                <Grid item xs={12} md={6}>
-                    <div className="w-full h-full flex flex-col overflow-x-hidden">
-                        <IconButton
-                            onClick={closeAndUpdateFilters}
-                            className="rounded-full ml-3 px-2 w-11 h-11 grid place-content-center relative hover:bg-gray-100 self-end"
-                        >
-                            <CloseIcon />
-                        </IconButton>
-                        <section className="overflow-y-auto px-4 pb-8">
-                            <SectionTitle className="mb-8" title="Warband" />
-
-                            <SelectedFaction faction={warband} />
-
-                            <FactionsPicker
-                                selected={warband}
-                                onChangeWarband={setWarband}
-                            />
-
-                            <SectionTitle title="Format" className="my-8" />
-
-                            <div className="flex flex-col items-center">
-                                <DeckPlayFormatToggle
-                                    formats={[
-                                        NEMESIS_FORMAT,
-                                        CHAMPIONSHIP_FORMAT,
-                                        RELIC_FORMAT,
-                                    ]}
-                                    selectedFormat={selectedFormat}
-                                    onFormatChange={handleFormatChange}
-                                />
-
-                                <DeckPlayFormatInfo
-                                    className="text-gray-900 text-sm mt-2"
-                                    format={selectedFormat}
-                                />
-                            </div>
-
-                            <SectionTitle title="Sets" className="my-8" />
-
-                            {selectedFormat !== NEMESIS_FORMAT && (
-                                <div className="flex my-4">
-                                    <Toggle
-                                        checked={hideDuplicates}
-                                        onChange={setHideDuplicates}
-                                    />
-                                    <p className="ml-2">
-                                        For dublicate cards show only newest
-                                        one.
-                                    </p>
-                                </div>
-                            )}
-                            <ExpansionsToggle
-                                singleSet={selectedFormat === NEMESIS_FORMAT}
-                                selectedFormat={selectedFormat}
-                                expansions={validSets}
-                                selectedExpansions={selectedSets}
-                                onExpansionsChange={setSelectedSets}
-                            />
-                        </section>
-                    </div>
-                </Grid>
-            </Slide>
+            </Slide> */}
         </>
     );
 }

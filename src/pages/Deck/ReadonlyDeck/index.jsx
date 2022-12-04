@@ -94,7 +94,7 @@ function ReadonlyDeck(props) {
             .join();
 
         window.open(
-            `https://www.underworlds-deckers.com/en/tournament-decks/?Deck=https://yawudb.com/cards,${udsEncodedCards}`
+            `https://www.underworlds-deckers.com/en/tournament-decks/?Deck=https://wunderworlds.club/cards,${udsEncodedCards}`
         );
     };
 

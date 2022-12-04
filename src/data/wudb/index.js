@@ -1,5 +1,6 @@
 import { sets, cards, factions } from "./db.js";
 import { sortByIdAsc } from "../../utils/sort";
+import { boards } from "./boards";
 
 export const totalCardsPerWave = {
     1: 437,
@@ -608,7 +609,7 @@ function validateDeckForPlayFormat({ objectives, gambits, upgrades }, format) {
                     sameRivalsDeck && c.setId === universalRivalsDeckId,
                 nemesis_valid_sets.includes(universalRivalsDeckId)
             );
-    
+
             if (!isValid) {
                 issues.push(
                     `Nemesis deck could include only cards with warband symbols or taken from the same single universal Rivals deck`
@@ -705,8 +706,22 @@ function validatePowerDeckForFormat(gambits, upgrades, format) {
 }
 
 const checkDeckHasPlots = (faction, sets) => {
-    return warbandHasPlot(getFactionByName(faction).id) || sets.some(setId => setHasPlot(setId));
-}
+    return (
+        warbandHasPlot(getFactionByName(faction).id) ||
+        sets.some((setId) => setHasPlot(setId))
+    );
+};
+
+const getBoardsValidForFormat = (format) => {
+    switch (format) {
+        case CHAMPIONSHIP_FORMAT:
+        case RIVALS_FORMAT:
+        case NEMESIS_FORMAT:
+            return [1, 2, 7, 9, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
+        default: 
+            return Object.keys(boards).map(Number);
+    }
+};
 
 export {
     getFactionByName,
@@ -738,4 +753,6 @@ export {
     setHasPlot,
     plots,
     checkDeckHasPlots,
+    boards,
+    getBoardsValidForFormat
 };

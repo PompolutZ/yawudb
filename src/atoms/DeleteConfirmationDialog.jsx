@@ -1,29 +1,8 @@
 import React from "react";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import Slide from "@material-ui/core/Slide";
 
-const useStyles = makeStyles((theme) => ({
-    yesBtn: {
-        color: "#3B9979",
-    },
-
-    noBtn: {
-        color: "#3B9979",
-    },
-}));
-
-const Transition = React.forwardRef((props, ref) => (
-    <Slide direction="up" {...props} ref={ref} />
-));
+import { Dialog } from "@headlessui/react";
 
 function DeleteConfirmationDialog(props) {
-    const classes = useStyles();
     const {
         open,
         title,
@@ -36,28 +15,20 @@ function DeleteConfirmationDialog(props) {
     return (
         <Dialog
             open={open}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={onCloseDeleteDialog}
-            aria-labelledby="delete-confirmation-dialog-title"
-            aria-describedby="delete-confirmation-dialog-description"
+            onClose={() => onCloseDeleteDialog()}
+            className="relative z-50"
         >
-            <DialogTitle id="delete-confirmation-dialog-title">
-                {title}
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText id="delete-confirmation-dialog-description">
-                    {description}
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button className={classes.yesBtn} onClick={onDeleteConfirmed}>
-                    Yes
-                </Button>
-                <Button className={classes.noBtn} onClick={onDeleteRejected}>
-                    No
-                </Button>
-            </DialogActions>
+            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+            <div className="fixed inset-0 flex items-center justify-center p-4">
+                <Dialog.Panel className="w-full max-w-sm rounded-lg bg-white drop-shadow-md p-4 space-y-4">
+                    <Dialog.Title className="text-lg">{title}</Dialog.Title>
+                    <Dialog.Description>{description}</Dialog.Description>
+                    <div className="flex flex-row-reverse gap-2">
+                        <button className="px-3 py-2 rounded border border-red-700 bg-red-700 hover:bg-red-500 text-white" onClick={onDeleteConfirmed}>Yes</button>
+                        <button className="px-3 py-2 rounded border border-black hover:bg-black/5" onClick={onDeleteRejected}>Cancel</button>
+                    </div>
+                </Dialog.Panel>
+            </div>
         </Dialog>
     );
 }

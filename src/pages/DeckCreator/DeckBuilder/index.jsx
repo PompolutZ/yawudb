@@ -9,7 +9,7 @@ import { useDeckBuilderDispatcher, useDeckBuilderState } from "..";
 import useAuthUser from "../../../hooks/useAuthUser";
 import { resetDeckAction, saveDeckAction, updateDeckAction } from "../reducer";
 import uuid4 from "uuid/v4";
-import DeleteConfirmationDialog from "../../../atoms/DeleteConfirmationDialog";
+import { DeleteConfirmationDialog } from "@components/DeleteConfirmationDialog";
 import CardsLibrary from "./components/CardsLibrary";
 import LibraryFilters from "./components/LibraryFilters";
 
