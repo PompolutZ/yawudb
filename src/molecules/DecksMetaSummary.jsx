@@ -28,6 +28,7 @@ function DeckMetaSummary({
                 to={`/decks/${faction}`}
             >
                 <FactionDeckPicture
+                    size="large"
                     className={`transform group-hover:scale-110 transition-transform duration-500 ease-out -top-[10%] -left-[10%] drop-shadow-md ${
                         count > 0 ? "w-24 h-24 absolute inset-0" : "w-24 h-24 top-1/2 left-1/2 absolute"
                     }`}

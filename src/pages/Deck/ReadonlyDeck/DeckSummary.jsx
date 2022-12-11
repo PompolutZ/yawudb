@@ -13,8 +13,8 @@ function DeckSummary({
     isPrivate,
 }) {
     return (
-        <div className="flex items-center flex-1">
-            <FactionDeckPicture className="w-16 h-16 mr-4" faction={faction} />
+        <div className="flex items-center flex-1 space-x-4">
+            <FactionDeckPicture size="large" faction={faction} />
 
             <div className="space-y-2 text-gray-900">
                 <div>

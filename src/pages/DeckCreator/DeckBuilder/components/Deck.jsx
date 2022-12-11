@@ -105,9 +105,8 @@ function Deck({
     return (
         <div>
             <div className="flex items-center">
-                <div className="flex flex-1 items-center m-2">
+                <div className="flex flex-1 items-center m-2 space-x-4">
                     <FactionDeckPicture
-                        size="w-12 h-12 mr-4"
                         faction={faction.name}
                     />
                     <DebouncedInput

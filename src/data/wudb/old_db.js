@@ -248,16 +248,6 @@ export const sets = {
         "id": 51,
         "name": "tooth-and-claw-rivals-deck",
         "displayName": "Tooth and Claw Rivals Deck"
-    },
-    "Grinkrak's Looncourt expansion": {
-        "id": 52,
-        "name": "grinkraks-looncourt-expansion",
-        "displayName": "Grinkrak's Looncourt expansion"
-    },
-    "Fearsome Fortress Rivals Deck": {
-        "id": 53,
-        "name": "fearsome-fortress-rivals-deck",
-        "displayName": "Fearsome Fortress Rivals Deck"
     }
 }
 export const factions = {
@@ -612,13 +602,6 @@ export const factions = {
         "name": "sons-of-velmorn",
         "gaId": 40,
         "displayName": "Sons of Velmorn"
-    },
-    "Grinkrak's Looncourt": {
-        "id": 52,
-        "abbr": "gl",
-        "name": "grinkraks-looncourt",
-        "gaId": 41,
-        "displayName": "Grinkrak's Looncourt"
     }
 }
 export const cards = {
@@ -1493,7 +1476,7 @@ export const cards = {
         "name": "Lightning Blade",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 2 - :atSmash: 2 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 2 - :atSmash: 2 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -2577,7 +2560,7 @@ export const cards = {
         "name": "Returning Axe",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 3 - :atFury: 2 - :boom: 1] \\n On a critical hit this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :atFury: 2 - :boom: 1] \\n On a critical hit this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -5948,7 +5931,7 @@ export const cards = {
         "name": "Shadeglass Axe",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage. \\n [:Hex: 3 - :atSmash: 2 - :boom: 2] After a fighter makes this Attack action, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage. \\n [:Hex: 3 - :atSmash: 2 - :boom: 2] After a fighter makes this Attack action, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -5960,7 +5943,7 @@ export const cards = {
         "name": "Shadeglass Dagger",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 3 - :boom: 3] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atFury: 3 - :boom: 3] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -5972,7 +5955,7 @@ export const cards = {
         "name": "Shadeglass Darts",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 3 - :atFury: 3 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :atFury: 3 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -5984,7 +5967,7 @@ export const cards = {
         "name": "Shadeglass Hammer",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 3] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 3] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -5996,7 +5979,7 @@ export const cards = {
         "name": "Shadeglass Spear",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 2 - :atSmash: 2 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 2 - :atSmash: 2 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -6008,7 +5991,7 @@ export const cards = {
         "name": "Shadeglass Sword",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 3 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 3 - :boom: 2] \\n When this Attack action is successful, discard this upgrade. On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -8345,7 +8328,7 @@ export const cards = {
         "name": "Fiery Brand",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n On a critical hit, this fighter's Attack actions with a Range of 1 have +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n On a critical hit, this fighter's Attack actions with a Range of 1 have +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -8417,7 +8400,7 @@ export const cards = {
         "name": "Vindictive Glare",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 3 - :MagChannel: - - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :MagChannel: - - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -9305,7 +9288,7 @@ export const cards = {
         "name": "Lightning Blade",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 2 - :atSmash: 2 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 2 - :atSmash: 2 - :boom: 1] \\n On a critical hit, this Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -9681,7 +9664,7 @@ export const cards = {
         "name": "Shond's Path",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n On a critical hit, this fighter's Attack actions with a Range of 1 or 2 have +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n On a critical hit, this fighter's Attack actions with a Range of 1 or 2 have +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -13403,7 +13386,7 @@ export const cards = {
         "name": "Fighter's Ferocity",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n If you score a critical hit when making an Attack action with this fighter, that Attack action has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n If you score a critical hit when making an Attack action with this fighter, that Attack action has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -15985,7 +15968,7 @@ export const cards = {
         "name": "Savage Bolt",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n **Knockback** 1. On a **critical hit** this **Attack action** has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n **Knockback** 1. On a **critical hit** this **Attack action** has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -16393,7 +16376,7 @@ export const cards = {
         "name": "Vicious Darts",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n **Ensnare**. On a **critical hit** this **Attack action** has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n **Ensnare**. On a **critical hit** this **Attack action** has +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -17317,7 +17300,7 @@ export const cards = {
         "name": "Blades of Putrefaction",
         "type": "Spell",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n **Gambit Spell (:MagFocus:):** If **cast**, friendly fighters' Range 1 and Range 2 **Attack actions** have +1 Damage on a **critical hit**. This spell **persists** until the end of the round.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n **Gambit Spell (:MagFocus:):** If **cast**, friendly fighters' Range 1 and Range 2 **Attack actions** have +1 Damage on a **critical hit**. This spell **persists** until the end of the round.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -20633,7 +20616,7 @@ export const cards = {
         "name": "Keila's Choking Coil",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n **Lost page** \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n On a **critical hit**, this **Attack action** has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n **Lost page** \\n [:Hex: 3 - :MagFocus: - - :boom: 1] \\n On a **critical hit**, this **Attack action** has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -25211,7 +25194,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge, Hybrid:** Score this immediately after an activation if: \\n An opponent has the Primacy token \\n *Or:* There is one or more surviving friendly **Quarry** and you have the Primacy token.",
         "scoreType": "Surge",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9274": {
@@ -25727,7 +25710,7 @@ export const cards = {
         "glory": 2,
         "rule": "**Hybrid:** Score this in an end phase if: \\n All objectives are held \\n *Or:* Each player has no unspent glory points.",
         "scoreType": "End",
-        "status": "R--_R-_V",
+        "status": "RY-_R-_V",
         "rotated": true
     },
     "9317": {
@@ -25847,7 +25830,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge, Hybrid:** Score this immediately after: \\n You gain the Primacy token \\n *Or:* A friendly fighter's successful **Attack action** with a Damage characteristic of 4+.",
         "scoreType": "Surge",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9327": {
@@ -25967,7 +25950,7 @@ export const cards = {
         "glory": 2,
         "rule": "**Hybrid:** Score this in an end phase if: \\n An opponent has the Primacy token \\n *Or:* Each opponent has scored 3 or more objective cards more than you.",
         "scoreType": "End",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9337": {
@@ -26183,7 +26166,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one fighter. **Heal** (1) that fighter. If that fighter has any Hunger counters, instead **Heal** (2) that fighter and **remove** two of that fighter's Hunger counters, or one Hunger counter if the fighter only has one.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9355": {
@@ -26291,8 +26274,8 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one friendly fighter. Roll one magic dice for each of the chosen fighter's wound counters, and one additional magic dice if that fighter has one or more Hunger counters. For each roll of :MagChannel:, **Heal** (1) that fighter.",
         "scoreType": "-",
-        "status": "R--_R-_V",
-        "rotated": true
+        "status": "NY-_N-_V",
+        "rotated": false
     },
     "9364": {
         "id": 9364,
@@ -26711,7 +26694,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one fighter with the lowest Wounds characteristic of any surviving fighters. In the next activation, that fighter is a **Hunter** and has +1 Dice and +1 Damage to their Range 1 and Range 2 **Attack actions**.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9399": {
@@ -26819,7 +26802,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one friendly fighter. **Heal** (1) that fighter, or **Heal** (2) that fighter if that fighter has three or more upgrades.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9408": {
@@ -27035,7 +27018,7 @@ export const cards = {
         "glory": null,
         "rule": "This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter's Range 1 **Attack actions** have +1 Dice.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9426": {
@@ -27057,7 +27040,7 @@ export const cards = {
         "name": "Biting Axe",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 2] \\n On a **critical hit,** this **Attack action** has +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n [:Hex: 1 - :atSmash: 2 - :boom: 2] \\n On a **critical hit,** this **Attack action** has +1 Damage.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -27323,7 +27306,7 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** During an **Attack action** that targets this fighter, after the deal damage step, gain the Primacy token. If you have the Primacy token, instead **discard** the Primacy token and reduce the damage **dealt** by 1 (to a minimum of 1).",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9450": {
@@ -27395,7 +27378,7 @@ export const cards = {
         "glory": null,
         "rule": "**Reaction:** Use this during an **Attack action** that targets this fighter, after the determine success step. If you do, **remove** all of this fighter's Hunger counters. Reduce the damage **dealt** to this fighter by that **Attack action** by the number of counters **removed**, to a minimum 1.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9456": {
@@ -27563,7 +27546,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Move \\n Each time this fighter finishes a **Move action** 5 or more hexes from where the **Move action** began, gain the Primacy token. At the end of the action phase, if this fighter has no Move or Charge tokens, **discard** the Primacy token.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9470": {
@@ -27647,7 +27630,7 @@ export const cards = {
         "glory": null,
         "rule": "This fighter has the following cumulative benefits, determined by how many upgrades they have: \\n **2+:** +1 Dice to this fighter's Range 1 **Attack actions** \\n **4+:** This fighter's **Attack actions** have **Cleave** and **Ensnare.**",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9477": {
@@ -27683,7 +27666,7 @@ export const cards = {
         "glory": null,
         "rule": "This fighter is a **Hunter**. \\n You can **re-roll** one dice in this fighter's attack rolls for Range 1 **Attack actions** for each of this fighter's upgrades that have one or more instances of the **Hunter** keyword.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9480": {
@@ -27695,7 +27678,7 @@ export const cards = {
         "glory": null,
         "rule": "You cannot give this upgrade to a fighter in your territory. When you give this upgrade to a fighter, **give** that fighter one Guard token. \\n +1 Wounds.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9481": {
@@ -27731,7 +27714,7 @@ export const cards = {
         "glory": null,
         "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, each time this fighter is the target of an **Attack action**, one :atCrit: in the **attack** roll is considered to be a **success** instead. \\n If this fighter has three or more **Silent Relics**, you can **re-roll** one dice in this fighter's defence rolls.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9484": {
@@ -27743,7 +27726,7 @@ export const cards = {
         "glory": null,
         "rule": "**Silent Relic** \\n This fighter is a **Quarry**. If this fighter is a **Quarry**, this fighter has the following reaction. \\n **Reaction:** After this fighter's activation, if you have three or fewer power cards in your hand, **draw** one power card. \\n +1 Dice to this fighter's Range 1 **Attack actions** if this fighter has two or more **Silent Relics**.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "9485": {
@@ -27789,7 +27772,7 @@ export const cards = {
         "name": "Soultooth Dagger",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n This fighter is a **Hunter**. \\n [:Hex: 1 - :atFury: 3 - :boom: 2] \\n +1 Damage on a **critical hit**. You can **re-roll** one dice in the attack roll if the target has one or more Move and/or Charge tokens.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n This fighter is a **Hunter**. \\n [:Hex: 1 - :atFury: 3 - :boom: 2] \\n +1 Damage on a **critical hit**. You can **re-roll** one dice in the attack roll if the target has one or more Move and/or Charge tokens.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -27921,7 +27904,7 @@ export const cards = {
         "name": "Voidsphere",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n **Action:** **Discard** all **persisting** gambits. \\n [:Hex: 3 - :atFury: 3 - :boom: 1] \\n On a **critical hit** this **Attack action** has +1 Damage. After making this **Attack action**, **discard** this card.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n **Action:** **Discard** all **persisting** gambits. \\n [:Hex: 3 - :atFury: 3 - :boom: 1] \\n On a **critical hit** this **Attack action** has +1 Damage. After making this **Attack action**, **discard** this card.",
         "scoreType": "-",
         "status": "R--_R-_V",
         "rotated": true
@@ -29478,7 +29461,7 @@ export const cards = {
         "name": "Fighter's Ferocity",
         "type": "Upgrade",
         "glory": null,
-        "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n On a **critical hit**, this fighter's **Attack actions** have +1 Damage.",
+        "rule": "*(Errata update)* The Grievous keyword replaces the similar ability on this card. \\n On a **critical hit**, this fighter's **Attack actions** have +1 Damage.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false,
@@ -29951,7 +29934,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Dice and +1 Damage to this fighter's Range 1 **Attack actions**. \\n During **Attack actions** that target this fighter, skip the defence roll in the combat sequence for that **Attack action**. This fighter is considered to have rolled 0 **successes** in their defence roll.",
         "scoreType": "-",
-        "status": "R--_R-_V",
+        "status": "R-Y_R-_V",
         "rotated": true
     },
     "12022": {
@@ -34797,7 +34780,7 @@ export const cards = {
         "name": "By Hook or by Crook",
         "type": "Ploy",
         "glory": null,
-        "rule": "*(Errata update)* **Reaction:** Play this during a deal damage step in which a friendly **hunter** with one or more upgrades is **dealt** damage. Reduce that damage by 1, to a minimum of 1.",
+        "rule": "**Reaction:** Play this after a friendly **hunter** with one or more upgrades is **dealt** damage. Reduce that damage by 1, to a minimum of 1.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -34845,7 +34828,7 @@ export const cards = {
         "name": "Lead the Crusade",
         "type": "Ploy",
         "glory": null,
-        "rule": "*(Errata update)* **Reaction:** Play this after the out of action check of a friendly **hunter's Attack action**, if the target was taken out of action. **Choose** one friendly **hunter**. **Draw** one power card and Inspire that **hunter** in the next Inspire step.",
+        "rule": "**Reaction:** Play this after the out of action check of a friendly **hunter's Attack action**, if the target was taken out of action. **Choose** one friendly **hunter**. Inspire that **hunter** and **draw** one power card.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -36141,7 +36124,7 @@ export const cards = {
         "name": "A War in the Shadows",
         "type": "Objective",
         "glory": 1,
-        "rule": "*(Errata update)* **Dual:** Score this in an end phase if: \\n During the previous action phase, one or more enemy fighters were taken out of action \\n *And:* Two or more friendly fighters are in **cover** hexes.",
+        "rule": "**Dual:** Score this in an end phase if: \\n During the previous activation step, one or more enemy fighters were taken out of action \\n *And:* Two or more friendly fighters are in **cover** hexes.",
         "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
@@ -36165,7 +36148,7 @@ export const cards = {
         "name": "Blood in the Deeps",
         "type": "Objective",
         "glory": 1,
-        "rule": "*(Errata update)* **Dual:** Score this in an end phase if: \\n During the previous action phase, one or more enemy fighters were taken out of action \\n *And:* One or more friendly fighters are within 1 hex of a feature token.",
+        "rule": "**Dual:** Score this in an end phase if: \\n During the previous activation step, one or more enemy fighters were taken out of action \\n *And:* One or more friendly fighters are within 1 hex of a feature token.",
         "scoreType": "End",
         "status": "V--_V-_V",
         "rotated": false
@@ -36741,7 +36724,7 @@ export const cards = {
         "name": "Drifting Tides",
         "type": "Ploy",
         "glory": null,
-        "rule": "*(Errata update)* **Domain** \\n You cannot play this in the final power step of the action phase. At the end of the action phase, pick one: \\n Give a fighter one upgrade from your hand. Do not spend any glory points when you play that card. \\n Or, pick one objective token, then move that objective token into an adjacent hex. \\n This effect **persists** until the end of the round or until another **Domain** gambit is played.",
+        "rule": "**Domain** \\n **Reaction:** At the end of the action phase, pick one: \\n Give a fighter one upgrade from your hand. Do not spend any glory points when you play that card. \\n Or, pick one objective token, then move that objective token into an adjacent hex. \\n This effect **persists** until the end of the round or until another **Domain** gambit is played.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -39109,773 +39092,5 @@ export const cards = {
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
-    },
-    "19001": {
-        "id": 19001,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Arm Yerself!",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Dual, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this in an end phase if: \\n This fighter has two or more upgrades \\n *And:* This fighter is in enemy territory.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19002": {
-        "id": 19002,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Looncourt Conquest",
-        "type": "Objective",
-        "glory": 3,
-        "rule": "**Dual:** Score this in an end phase if: \\n Three or more friendly fighters are in enemy territory \\n *And:* Each of those fighter is Inspired and/or has one or more upgrades.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19003": {
-        "id": 19003,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Looncourt Infestation",
-        "type": "Objective",
-        "glory": 2,
-        "rule": "**Surge, Hybrid:** Score this immediately after an activation if: \\n There are more friendly fighters in another player's territory than there are that player's fighters in that territory \\n *Or:* Your warband holds objectives 1, 2 and 3.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19004": {
-        "id": 19004,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Looncourt, Scrag 'Em!",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Dual, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this in an end phase if: \\n This fighter is adjacent to two or more fighters \\n *And:* One or more of those fighters is a friendly fighter.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19005": {
-        "id": 19005,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Meanest of them All",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge:** Score this immediately after a friendly **leader's Attack action** that takes the target out of action.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19006": {
-        "id": 19006,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Mob 'Em!",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this immediately after a supported friendly fighter's successful **Attack action** if this fighter made that **Attack action** or supported that fighter.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19007": {
-        "id": 19007,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Neh Neh Na-neh Neh!",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this immediately after an enemy fighter's **Attack action** that targets this fighter and fails.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19008": {
-        "id": 19008,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Pick On a Git Yer Own Size!",
-        "type": "Objective",
-        "glory": 2,
-        "rule": "**Surge, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this immediately after this fighter's **Attack action** that takes the target out of action, if the target had a higher Wounds characteristic than this fighter.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19009": {
-        "id": 19009,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Questin' Gits",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Hybrid:** Score this in an end phase if: \\n There are three or more **Quest** cards in your scored objectives pile \\n *Or:* Your warband holds objective 1 and 2.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19010": {
-        "id": 19010,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Run 'Em Down!",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this immediately after this fighter's successful **Attack action** made as part of a **Charge action**.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19011": {
-        "id": 19011,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Small Glories",
-        "type": "Objective",
-        "glory": 2,
-        "rule": "Score this in an end phase if each surviving friendly fighter is Inspired and/or has one or more upgrades.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19012": {
-        "id": 19012,
-        "factionId": 52,
-        "setId": 52,
-        "name": "That's Ours, That is!",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this in an end phase if this fighter is holding an objective with the same number as the current round number (e.g. Objective 2 in the second round).",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19013": {
-        "id": 19013,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Bold Pile On",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** up to two friendly fighters. **Push** each chosen fighter up to 2 hexes so that they are adjacent to the same enemy fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19014": {
-        "id": 19014,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Enthusiastic Dubbing",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** one friendly fighter adjacent to a friendly **leader**. **Deal** 1 damage to the chosen fighter, then Inspire that fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19015": {
-        "id": 19015,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Gittish Celerity",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** one friendly fighter that has a **Quest** card. +2 Move to that fighter. This effect **persists** until the end of the phase or until you score that card.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19016": {
-        "id": 19016,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Gittish Ferocity",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** one friendly fighter that has a **Quest** card. +1 Dice to that fighter's Range 1 and Range 2 **Attack actions**. This effect **persists** until the end of the phase or until you score that card.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19017": {
-        "id": 19017,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Gittish Resilience",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** one friendly fighter that has a **Quest** card. +1 Defence to that fighter. This effect **persists** until the end of the phase or until you score that card.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19018": {
-        "id": 19018,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Healin' Spores",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Heal** (1) each friendly fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19019": {
-        "id": 19019,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Pocket Squig",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** one friendly fighter. **Scatter** 2 from that fighter's hex, and **deal** 1 damage to one enemy fighter in 1 hex in the **chain**.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19020": {
-        "id": 19020,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Sound the Charge",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Push** each friendly fighter in your territory up to 1 hex towards the nearest enemy fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19021": {
-        "id": 19021,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Stab, Stab and Stab Again",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Reaction:** Use this after a friendly fighter's activation in which they made one or more failed **Attack actions**. That fighter makes one **Attack action**.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19022": {
-        "id": 19022,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Stick the Boot In",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Reaction:** Use this after a friendly fighter's activation, if that fighter is adjacent to one or more **vulnerable** enemy fighters that are adjacent to one or more other friendly fighters. **Choose** one of those **vulnerable** fighters, and **deal** 1 damage to the chosen fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19023": {
-        "id": 19023,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Despicable Cad",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "This fighter's Range 1 **Attack actions** have **Cleave**. In addition, fighters supported by this fighter are considered to have one additional **supporting** fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19024": {
-        "id": 19024,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Downtrodden Squire",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Reaction:** After this fighter's **Move action**, **choose** one friendly fighter that was adjacent to this fighter at the start of that action. **Push** that fighter by the shortest distance so that it is adjacent to this fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19025": {
-        "id": 19025,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Extra Pointy Boots",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "+1 Damage to this fighter's Range 1 **Attack actions**.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19026": {
-        "id": 19026,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Fortifying Fungus",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "When this fighter is **dealt** damage, reduce that damage by 1, to a minimum of 1.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19027": {
-        "id": 19027,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Kunnin' Advance",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Action: Push** each Inspired friendly fighter up to 2 hexes.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19028": {
-        "id": 19028,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Kunnin' Knight",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "+1 Damage to this fighter's **Attack actions** while this fighter has one or more **supporting** fighters.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19029": {
-        "id": 19029,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Legbiter",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Attack action** \\n [:Hex: 1 - :atSmash: 2 - :boom: 2 -(:atCrit: Hamstring)-] \\n :atCrit: **Hamstring: Give** the target one Move token. \\n **Reaction:** After you score a friendly fighter's **Quest** card, if this card is in your hand, give this upgrade to that friendly fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19030": {
-        "id": 19030,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Magnificent Bounda",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "This fighter is **flying**. \\n +1 Move.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19031": {
-        "id": 19031,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Quest's End",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "+1 Wounds \\n **Reaction:** After you score a friendly fighter's **Quest** card, if this card is in your hand, give this upgrade to that friendly fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "19032": {
-        "id": 19032,
-        "factionId": 52,
-        "setId": 52,
-        "name": "Wicked Slitta",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Attack action** \\n [:Hex: 1 - :atFury: 3 - :boom: 1 -(:atCrit: Grievous 1)-]",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20001": {
-        "id": 20001,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Bold Sortie",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge:** Score this immediately after an activation step in which a friendly fighter's **Charge action** began on a feature token in your territory.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20002": {
-        "id": 20002,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Conquered Domain",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "Score this in an end phase if there is a friendly fighter on a feature token within 1 hex of no one's territory. Gain one additional glory point for each other friendly fighter on a feature token within 1 hex of no one's territory.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20003": {
-        "id": 20003,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Earthworks",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge:** Score this immediately after: \\n A friendly fighter is given a Guard token \\n *If:* That fighter is on a feature token within 1 hex of no one's territory.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20004": {
-        "id": 20004,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Impregnable Defences",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge:** Score this immediately after an enemy fighter's failed **Attack action** that targeted a friendly fighter on a feature token within 1 hex of no one's territory.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20005": {
-        "id": 20005,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Lethal Defences",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge:** Score this immediately after an enemy fighter is taken out of action within 1 hex of one or more feature tokens that are within 1 hex of no one's territory.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20006": {
-        "id": 20006,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Proud Castellan",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "Score this in an end phase if your **leader** is on a feature token in your territory that is within 1 hex of no one's territory.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20007": {
-        "id": 20007,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Raise the Walls",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Dual:** Score this in an end phase if: \\n Three or more feature tokens are adjacent to one or more other feature tokens \\n *And:* Three or more of those tokens are within 1 hex of no one's territory.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20008": {
-        "id": 20008,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Raw Materials",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge, Dual:** Score this immediately after: \\n You **place** a feature token within 1 hex of no one's territory during an action phase \\n *If:* One or more enemy fighters are out of action.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20009": {
-        "id": 20009,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Siegebreakers",
-        "type": "Objective",
-        "glory": 2,
-        "rule": "Score this in an end phase if there are no enemy fighters in your territory.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20010": {
-        "id": 20010,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Stockpile",
-        "type": "Objective",
-        "glory": 2,
-        "rule": "Score this in an end phase if your warband holds objectives whose numbers add up to 6 or more (e.g. objectives 2 and 4).",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20011": {
-        "id": 20011,
-        "factionId": 1,
-        "setId": 53,
-        "name": "To the Walls!",
-        "type": "Objective",
-        "glory": 1,
-        "rule": "**Surge, Dual:** Score this immediately after an activation step if: \\n Your warband holds more objectives than any other warband \\n *And:* Each objective token within 1 hex of no one's territory is in a hex **occupied** by a friendly fighter.",
-        "scoreType": "Surge",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20012": {
-        "id": 20012,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Underground Fortress",
-        "type": "Objective",
-        "glory": 2,
-        "rule": "**Dual:** Score this in an end phase if: \\n Three or more friendly fighters are on feature tokens \\n *And:* Two or more of those fighters are adjacent.",
-        "scoreType": "End",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20013": {
-        "id": 20013,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Bound Spirit",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Trap, Denizen** \\n **Reaction:** Play this after an enemy fighter's activation if that fighter is adjacent to one or more feature tokens that are in the same hex as a friendly fighter. **Deal** 1 damage to that enemy fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20014": {
-        "id": 20014,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Determined Push",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Reaction:** Play this after a friendly fighter's **Attack action**. Pick one: **Push** that friendly fighter 1 hex towards the hex their target **occupied** during the declare Attack action step or 1 hex towards the nearest feature token.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20015": {
-        "id": 20015,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Gnarlwood Tusks",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter ends a **Move action** adjacent to one or more feature tokens that are in the same hex as a friendly fighter. **Stagger** that enemy fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20016": {
-        "id": 20016,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Healing Ward",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** one friendly fighter on a feature token. **Heal** (1) the chosen fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20017": {
-        "id": 20017,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Makeshift Bombardment",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** one friendly fighter on a feature token, and **choose** one enemy fighter **visible** to that friendly fighter and within 3 hexes of that friendly fighter. Pick one: **Stagger** the chosen enemy fighter, or **push** the chosen enemy fighter 1 hex away from the chosen friendly fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20018": {
-        "id": 20018,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Opportunistic Reprisal",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Reaction:** Play this after an enemy fighter's **Attack action** if that fighter is **staggered**. **Choose** one friendly fighter. The chosen fighter makes one **Attack action** that must target that enemy fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20019": {
-        "id": 20019,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Ready for Anything",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "+1 Defence to each friendly fighter on a feature token in the next activation step.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20020": {
-        "id": 20020,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Redeploy",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** one friendly fighter on a feature token in your territory. **Push** that fighter up to 4 hexes. At the end of that **push**, that fighter must be on a feature token.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20021": {
-        "id": 20021,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Take Your Positions!",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Choose** up to two friendly fighters in your territory, other than your **leader**. **Push** each chosen fighter 1 hex towards the nearest feature token.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20022": {
-        "id": 20022,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Tanglebriar",
-        "type": "Ploy",
-        "glory": null,
-        "rule": "**Place** one available snare token in a hex within 1 hex of one or more friendly fighters.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20023": {
-        "id": 20023,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Bold Engineer",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "+2 Move, except during a **Charge action**. \\n **Reaction:** After a friendly fighter's activation, pick one feature token in an **empty** hex adjacent to this fighter. **Place** that feature token in this fighter's hex.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20024": {
-        "id": 20024,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Defensive Charges",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Reaction:** After this fighter's activation, **stagger** each enemy fighter adjacent to one or more feature tokens that are in the same hex as a friendly fighter. Then **break** this card.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20025": {
-        "id": 20025,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Hardy Scout",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "You cannot give this to a **Large** fighter. \\n +1 Move \\ +1 Wounds while this fighter is not in your territory.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20026": {
-        "id": 20026,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Mason's Greathammer",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Attack action** \\n [:Hex: 1 - :atSmash: 2 - :boom: 2 -(Cleave, :atCrit: Grievous 1)-] \\n **Reaction:** After this fighter's activation, **remove** a feature token from this fighter's hex, then **place** another available feature token in this fighter's hex.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20027": {
-        "id": 20027,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Melding Stone",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Metalith** \\n Each hex within 2 hexes of this fighter that contains a feature token is considered to be a **cover** hex in addition to its other types.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20028": {
-        "id": 20028,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Rapid Defender",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Reaction:** After an enemy fighter's **Move action**, if that enemy fighter is in no one's territory or your territory, **push** this fighter 1 hex towards that fighter.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20029": {
-        "id": 20029,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Siegemaster",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Reaction:** After this fighter's activation, if this fighter is on a feature token within 1 hex of no one's territory, **choose** up to two friendly fighters on feature tokens. **Give** each chosen fighter one Guard token.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20030": {
-        "id": 20030,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Stalwart Sentinel",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "This fighter cannot be **pushed** by an opponent's warband while this fighter is on a feature token within 1 hex of no one's territory.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20031": {
-        "id": 20031,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Starmaw",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "**Attack action** \\n [:Hex: 4 - :atSmash: 2 - :boom: 1 -(Stagger)-]",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
-    },
-    "20032": {
-        "id": 20032,
-        "factionId": 1,
-        "setId": 53,
-        "name": "Walking Wall",
-        "type": "Upgrade",
-        "glory": null,
-        "rule": "For the purposes of cards with the Fearsome Fortress symbol, while this fighter is not on a feature token, this fighter is considered to be on a feature token, and this fighter's hex is considered to contain a feature token that cannot be flipped.",
-        "scoreType": "-",
-        "status": "V--_V-_V",
-        "rotated": true
     }
 }

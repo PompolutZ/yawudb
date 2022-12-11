@@ -62,7 +62,7 @@ export default function PublicDeckLink({ ...props }) {
     return (
         <div className="flex px-4 items-center border-t border-gray-500">
             <div className="flex flex-col items-center space-y-2">
-                <FactionDeckPicture faction={props.faction} size="w-12 h-12" />
+                <FactionDeckPicture faction={props.faction} />
                 <DeckPlayFormatsValidity cards={cards} />
             </div>
             <div className="flex-1 space-y-1 ml-8">
