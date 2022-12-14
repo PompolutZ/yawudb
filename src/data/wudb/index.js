@@ -462,6 +462,7 @@ const nemesis_valid_sets = [
     sets["Deadly Depths Rivals Deck"].id,
     sets["Tooth and Claw Rivals Deck"].id,
     sets["Daring Delvers Rivals Deck"].id,
+    sets["Fearsome Fortress Rivals Deck"].id,
 ];
 
 function getAllSetsValidForFormat(format) {
