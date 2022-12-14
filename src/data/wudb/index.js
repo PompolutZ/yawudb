@@ -21,6 +21,8 @@ export const totalCardsPerWave = {
     16: 32,
     17: 32,
     18: 32,
+    19: 32,
+    20: 32,
 };
 
 export const latestSeasonStartNumber = 15000;
@@ -194,6 +196,7 @@ export const factionMembers = {
     "gorechosen-of-dromm": ["Dromm", "Gorehulk", "Herax"],
     "gnarlspirit-pack": ["1", "2", "3", "4"],
     "sons-of-velmorn": ["1", "2", "3", "4", "5"],
+    "grinkraks-looncourt": ["1", "2", "3", "4", "5", "6"],
 };
 
 export const grouppedFactions = () => {
@@ -289,6 +292,7 @@ const warbandsWithPlot = [
 const rivalDecksWithPlot = [
     sets["Daring Delvers Rivals Deck"].id,
     sets["Tooth and Claw Rivals Deck"].id,
+    sets["Fearsome Fortress Rivals Deck"].id,
 ];
 
 const warbandHasPlot = (warbandId) => warbandsWithPlot.includes(warbandId);
@@ -322,6 +326,13 @@ const plots = {
         asset: "18000",
         id: sets["Tooth and Claw Rivals Deck"].id,
         name: sets["Tooth and Claw Rivals Deck"].name,
+    },
+    Fortress: {
+        keyword: "Fortress",
+        connection: "Set",
+        asset: "20000",
+        id: sets["Fearsome Fortress Rivals Deck"].id,
+        name: sets["Fearsome Fortress Rivals Deck"].name,
     },
 };
 
@@ -451,6 +462,7 @@ const nemesis_valid_sets = [
     sets["Deadly Depths Rivals Deck"].id,
     sets["Tooth and Claw Rivals Deck"].id,
     sets["Daring Delvers Rivals Deck"].id,
+    sets["Fearsome Fortress Rivals Deck"].id,
 ];
 
 function getAllSetsValidForFormat(format) {

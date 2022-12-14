@@ -46,7 +46,7 @@ function DeckLink({ onDelete, ...props }) {
 
     return (
         <div className="flex items-center border-t border-gray-500 lg:w-1/3 lg:mx-auto my-2 py-2">
-            <FactionDeckPicture faction={props.faction} size="w-12 h-12" />
+            <FactionDeckPicture faction={props.faction} />
 
             <div className="flex-1 pl-2">
                 <DeckTitle factionName={props.faction} sets={props.sets}>

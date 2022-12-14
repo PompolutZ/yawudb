@@ -28,7 +28,7 @@ import { Overlay } from "@components/Overlay";
 function SelectedFaction({ faction = "morgwaeths-blade-coven", ...rest }) {
     return (
         <div className={`flex flex-grow ${rest.className}`}>
-            <FactionDeckPicture faction={faction.name} />
+            <FactionDeckPicture faction={faction.name} size="large" />
             <div className="flex-grow grid place-content-center text-gray-900 text-2xl">
                 {faction.displayName}
             </div>
