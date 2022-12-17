@@ -105,7 +105,7 @@ function Deck({
     return (
         <div>
             <div className="flex items-center">
-                <div className="flex flex-1 items-center m-2 space-x-4">
+                <div className="flex flex-1 items-center m-2 space-x-2">
                     <FactionDeckPicture
                         faction={faction.name}
                     />
@@ -116,7 +116,7 @@ function Deck({
                         className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-purple-700"
                     />
                 </div>
-                <div className="ml-auto mr-4 grid gap-2 grid-cols-2">
+                <div className="shrink-0 grid gap-2 grid-cols-2">
                     <button
                         className="btn btn-purple w-8 h-8 py-0 px-1"
                         onClick={onSave}
