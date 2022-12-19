@@ -1,66 +1,46 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { ReactComponent as AddCardIcon } from "@icons/add-card.svg";
-import { ReactComponent as DeckIcon } from "@icons/deck.svg";
-import { ReactComponent as WarbandIcon } from "@icons/warband.svg";
+import { Component } from "react";
 
-type NavigationOptions = "LIBRARY" | "DECK" | "WARBAND";
-
-interface BottomPanelNavigationProps {
-    activeOption: NavigationOptions;
-    onShow: (options: NavigationOptions) => void; 
+interface Tab {
+    name: string;
+    Icon: typeof Component;
 }
 
-function BottomPanelNavigation({ activeOption = "LIBRARY", onShow }: BottomPanelNavigationProps) {
-    const [activeTab, setActiveTab] = useState<NavigationOptions>(activeOption)
+interface BottomPanelNavigationProps {
+    activeTabIndex: number;
+    setActiveTabIndex: (activeIndex: number) => void;
+    tabs: Tab[];
+}
 
-    useEffect(() => {
-        onShow(activeTab);
-    }, [activeTab])
-
+function BottomPanelNavigation({
+    activeTabIndex,
+    setActiveTabIndex,
+    tabs,
+}: BottomPanelNavigationProps) {
     return (
         <div
-            className={`lg:hidden fixed z-20 flex bottom-0 left-0 right-0 transition-colors duration-500 bg-gradient-to-r ${
-                activeTab == "LIBRARY"
+            className={`flex transition-colors duration-500 bg-gradient-to-r ${
+                activeTabIndex == 0
                     ? "from-purple-200 via-gray-100 to-gray-100"
-                    : activeTab == "DECK"
+                    : activeTabIndex == 1
                     ? "from-gray-100 via-purple-200 to-gray-100"
                     : "from-gray-100 via-gray-100 to-purple-200"
             }`}
         >
-            <button
-                className={`flex-1 flex flex-col items-center py-2 text-xs ${
-                    activeTab == "LIBRARY"
+            {tabs.map(({ name, Icon }: Tab, index: number) => (
+                <button
+                    key={name}
+                    className={`flex-1 flex flex-col items-center py-2 text-xs
+                ${
+                    activeTabIndex === index
                         ? "text-purple-700"
                         : "text-gray-700"
                 }`}
-                onClick={() => setActiveTab("LIBRARY")}
-            >
-                <AddCardIcon className="h-6 fill-current mb-1" />
-                Library
-            </button>
-            <button
-                className={`flex-1 flex flex-col items-center py-2 text-xs ${
-                    activeTab == "DECK"
-                        ? "text-purple-700"
-                        : "text-gray-700"
-                }`}
-                onClick={() => setActiveTab("DECK")}
-            >
-                <DeckIcon className="h-6 fill-current mb-1" />
-                Deck
-            </button>
-            <button
-                className={`flex-1 flex flex-col items-center py-2 text-xs ${
-                    activeTab == "WARBAND"
-                        ? "text-purple-700"
-                        : "text-gray-700"
-                }`}
-                onClick={() => setActiveTab("WARBAND")}
-            >
-                <WarbandIcon className="h-6 fill-current mb-1" />
-                Warband
-            </button>
+                    onClick={() => setActiveTabIndex(index)}
+                >
+                    <Icon className="h-6 fill-current mb-1" />
+                    {name}
+                </button>
+            ))}
         </div>
     );
 }

@@ -115,8 +115,6 @@ function Deck({
                         placeholder={`${faction.displayName} Deck`}
                         className="rounded h-12 bg-gray-200 box-border flex-1 mr-2 py-1 px-2 outline-none border-2 focus:border-purple-700"
                     />
-                </div>
-                <div className="shrink-0 grid gap-2 grid-cols-2">
                     <button
                         className="btn btn-purple w-8 h-8 py-0 px-1"
                         onClick={onSave}
@@ -128,7 +126,7 @@ function Deck({
                     </button>
                 </div>
             </div>
-            <section className="my-4 text-accent3-700 text-sm">
+            <section className="my-4 text-accent3-700 text-sm p-4">
                 {!isValid && (
                     <ul>
                         {issues.map((issue) => (

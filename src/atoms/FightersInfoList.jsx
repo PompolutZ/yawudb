@@ -5,27 +5,27 @@ import { useDeckBuilderState } from "../pages/DeckCreator";
 
 function useClickAway() {
     const [clickedAway, setClickedAway] = useState(false);
-    
-    useEffect(() => {
-        const handleClick = e => {
-            let el = document.elementFromPoint(e.clientX, e.clientY);
-            if (el && el.nodeName !== 'IMG') {
-                setClickedAway(true);
-            }
-        }
 
-        const handleKeyUp = e => {
-            if (e.key === 'Escape') {
+    useEffect(() => {
+        const handleClick = (e) => {
+            let el = document.elementFromPoint(e.clientX, e.clientY);
+            if (el && el.nodeName !== "IMG") {
                 setClickedAway(true);
             }
-        }
-    
-        document.addEventListener('click', handleClick);
-        document.addEventListener('keyup', handleKeyUp);
+        };
+
+        const handleKeyUp = (e) => {
+            if (e.key === "Escape") {
+                setClickedAway(true);
+            }
+        };
+
+        document.addEventListener("click", handleClick);
+        document.addEventListener("keyup", handleKeyUp);
 
         return () => {
-            document.removeEventListener('click', handleClick);
-            document.removeEventListener('keyup', handleKeyUp);
+            document.removeEventListener("click", handleClick);
+            document.removeEventListener("keyup", handleKeyUp);
         };
     }, []);
 
@@ -40,12 +40,11 @@ export default function FightersInfoList({ onClose }) {
         if (clickedAway) {
             onClose();
         }
-
     }, [clickedAway, onClose]);
 
     return (
         <div className="flex-1 relative">
-            <div className="absolute inset-0 overflow-y-auto pb-12 lg:p-12">
+            <div className="absolute inset-0 overflow-y-auto p-4 lg:p-12">
                 {factionMembers[faction.name].map((fighter, index) => (
                     <FighterCard
                         key={fighter}
