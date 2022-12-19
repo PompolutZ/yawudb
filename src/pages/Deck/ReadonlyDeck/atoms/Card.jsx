@@ -1,16 +1,18 @@
-import React, { PureComponent } from "react";
-import {
-    totalCardsPerWave,
-} from "../../../../data/wudb/index";
+import React, { useState } from "react";
+import { getSetById, totalCardsPerWave } from "../../../../data/wudb/index";
 import { pickCardColor2 } from "../../../../utils/functions";
 import AnimateHeight from "react-animate-height";
-import { withStyles } from "@material-ui/core/styles";
-import BlockIcon from "@material-ui/icons/Block";
-import LockIcon from "@material-ui/icons/Lock";
-import { CHAMPIONSHIP_FORMAT, getCardWaveFromId, getSetNameById, validateCardForPlayFormat } from "../../../../data/wudb";
+import {
+    CHAMPIONSHIP_FORMAT,
+    getCardWaveFromId,
+    getSetNameById,
+    validateCardForPlayFormat,
+} from "../../../../data/wudb";
 import CardImage from "../../../../v2/components/CardImage";
 import CardRule from "../../../../atoms/CardRule";
 import ObjectiveScoreTypeIcon from "../../../../components/ObjectiveScoreTypeIcon";
+import { ReactComponent as LockIcon } from "@icons/lock.svg";
+import { ReactComponent as ForsakenIcon } from "@icons/no-symbol.svg";
 
 const idToPrintId = (id) => {
     return (
@@ -48,156 +50,138 @@ function Expandable({ animateHeight, children }) {
     );
 }
 
-class Card extends PureComponent {
-    state = {
-        expanded: false,
-        useTextFallback: false,
-    };
+const CardAsImage = ({ id, name, setId }) => {
+    const [, isForsaken, isRestricted] = validateCardForPlayFormat(
+        id,
+        CHAMPIONSHIP_FORMAT
+    );
 
-    render() {
-        const { card, classes, asImage } = this.props;
-        const cardId = `${card.id}`.padStart(5, "0");
-        const animateHeight = this.state.expanded ? "auto" : 0;
-        const [, isForsaken, isRestricted] = validateCardForPlayFormat(cardId, CHAMPIONSHIP_FORMAT)
-
-        return (
-            <>
-                {asImage && (
-                    <div className="relative m-2 w-56">
-                        <CardImage alt={card.name} id={cardId} className="shadow-lg rounded-2xl" />
-
-                        <div className="flex items-center space-x-2">
-                            <span className="inline-block">Location: </span>
-                            <SetIcon id={`${cardId}`} setId={card.setId} />
-                        </div>
-
-                        {isForsaken && (
-                            <BlockIcon className={classes.blockedIcon} />
-                        )}
-                        {isRestricted && (
-                            <LockIcon className={classes.lockedIcon} />
-                        )}
-                    </div>
+    return (
+        <div className="relative m-2 w-56 flex flex-col">
+            <div className="relative">
+                <CardImage
+                    alt={name}
+                    id={id}
+                    className={`shadow-lg rounded-2xl ${
+                        isForsaken
+                            ? "shadow-red-500"
+                            : isRestricted
+                            ? "shadow-objective-gold"
+                            : ""
+                    }`}
+                />
+                {isForsaken && (
+                    <ForsakenIcon className="text-red-500/40 stroke-current w-50 h-50 absolute inset-0 m-auto" />
                 )}
-                {!asImage && (
-                    <>
-                        <div
-                            className="flex items-center p-2 rounded cursor-pointer space-x-1 transform transition-all sm:hover:bg-gray-300 sm:hover:shadow-sm sm:hover:scale-105"
-                            onClick={this._toggleExpanded}
-                        >
-                            <SetIcon id={`${cardId}`} setId={card.setId} />
-                            <h3
-                                className="cursor-pointer flex-1 inline-block"
-                                style={{ color: pickCardColor2(cardId, CHAMPIONSHIP_FORMAT) }}
-                            >
-                                {card.name}
-                            </h3>
-                            <div className="flex items-center">
-                                {card.scoreType && (
-                                    <ObjectiveScoreTypeIcon
-                                        type={card.scoreType}
-                                        style={{
-                                            width: ".8rem",
-                                            height: ".8rem",
-                                        }}
-                                    />
-                                )}
-                                {card.glory && (
-                                    <span className="text-xs font-bold">
-                                        ({card.glory})
-                                    </span>
-                                )}
-                            </div>
-                            <div className="flex items-center">
-                                <div className="ml-auto flex items-center text-xs text-gray-700">
-                                    <div>(</div>
-                                    {idToPrintId(cardId)}
-                                    <picture>
-                                        <source
-                                            type="image/webp"
-                                            srcSet={`/assets/icons/wave-${cardId.substr(
-                                                0,
-                                                2
-                                            )}-icon-48.webp`}
-                                        />
-                                        <img
-                                            className="w-3 h-3 ml-1"
-                                            id={idToPrintId(cardId)}
-                                            alt={`wave-${cardId.substr(0, 2)}`}
-                                            src={`/assets/icons/wave-${cardId.substr(
-                                                0,
-                                                2
-                                            )}-icon-24.png`}
-                                        />
-                                    </picture>
-                                    <div>)</div>
-                                </div>
-                            </div>
-                        </div>
-                        <Expandable animateHeight={animateHeight}>
-                            <CardImageOrText
-                                useTextFallback={this.state.useTextFallback}
-                                image={
-                                    <CardImage
-                                        onError={this._handleImageError}
-                                        onLoad={this._handleImageLoaded}
-                                        className="w-full mx-auto my-2 rounded-lg shadow-md sm:max-w-xs"
-                                        id={card.id}
-                                        alt={card.name}
-                                    />
-                                }
-                                fallback={<CardRule rule={card.rule} glory={card.glory} />}
+
+                {isRestricted && (
+                    <LockIcon className="text-objective-gold/40 stroke-current w-50 h-50 absolute inset-0 m-auto" />
+                )}
+            </div>
+
+            <div className="space-y-2 mt-4">
+                <span className="inline-block text-sm text-gray-700">
+                    Found in:{" "}
+                </span>
+                <div className="flex space-x-2 items-center">
+                    <SetIcon id={`${id}`} setId={setId} />
+                    <span className="inline-block text-sm">
+                        {getSetById(setId).displayName}
+                    </span>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const CardAsText = ({ card, cardId }) => {
+    const [expanded, setExpanded] = useState(false);
+    const [useTextFallback, setUseTextFallback] = useState(false);
+    const animateHeight = expanded ? "auto" : 0;
+
+    return (
+        <>
+            <div
+                className="flex items-center p-2 rounded cursor-pointer space-x-1 transform transition-all sm:hover:bg-gray-300 sm:hover:shadow-sm sm:hover:scale-105"
+                onClick={() => setExpanded((prev) => !prev)}
+            >
+                <SetIcon id={`${cardId}`} setId={card.setId} />
+                <h3
+                    className="cursor-pointer flex-1 inline-block"
+                    style={{
+                        color: pickCardColor2(cardId, CHAMPIONSHIP_FORMAT),
+                    }}
+                >
+                    {card.name}
+                </h3>
+                <div className="flex items-center">
+                    {card.scoreType && (
+                        <ObjectiveScoreTypeIcon
+                            type={card.scoreType}
+                            style={{
+                                width: ".8rem",
+                                height: ".8rem",
+                            }}
+                        />
+                    )}
+                    {card.glory && (
+                        <span className="text-xs font-bold">
+                            ({card.glory})
+                        </span>
+                    )}
+                </div>
+                <div className="flex items-center">
+                    <div className="ml-auto flex items-center text-xs text-gray-700">
+                        <div>(</div>
+                        {idToPrintId(cardId)}
+                        <picture>
+                            <source
+                                type="image/webp"
+                                srcSet={`/assets/icons/wave-${cardId.substr(
+                                    0,
+                                    2
+                                )}-icon-48.webp`}
                             />
-                        </Expandable>
-                    </>
-                )}
-            </>
-        );
-    }
+                            <img
+                                className="w-3 h-3 ml-1"
+                                id={idToPrintId(cardId)}
+                                alt={`wave-${cardId.substr(0, 2)}`}
+                                src={`/assets/icons/wave-${cardId.substr(
+                                    0,
+                                    2
+                                )}-icon-24.png`}
+                            />
+                        </picture>
+                        <div>)</div>
+                    </div>
+                </div>
+            </div>
+            <Expandable animateHeight={animateHeight}>
+                <CardImageOrText
+                    useTextFallback={useTextFallback}
+                    image={
+                        <CardImage
+                            onError={() => setUseTextFallback(true)}
+                            onLoad={() => setUseTextFallback(false)}
+                            className="w-full mx-auto my-2 rounded-lg shadow-md sm:max-w-xs"
+                            id={card.id}
+                            alt={card.name}
+                        />
+                    }
+                    fallback={<CardRule rule={card.rule} glory={card.glory} />}
+                />
+            </Expandable>
+        </>
+    );
+};
 
-    _toggleExpanded = () => {
-        this.setState((state) => ({ expanded: !state.expanded }));
-    };
+const Card = ({ card, asImage }) => {
+    const cardId = `${card.id}`.padStart(5, "0");
+    return asImage ? (
+        <CardAsImage id={cardId} name={card.name} setId={card.setId} />
+    ) : (
+        <CardAsText card={card} cardId={cardId} />
+    );
+};
 
-    _handleImageLoaded = () => {
-        this.setState({ useTextFallback: false });
-    };
-
-    _handleImageError = (e) => {
-        this.setState({ useTextFallback: true });
-    };
-}
-
-const styles = (theme) => ({
-    img: {
-        width: "90%",
-        margin: ".5rem 5%",
-        [theme.breakpoints.up("sm")]: {
-            maxWidth: "20rem",
-        },
-    },
-
-    blockedIcon: {
-        color: "rgba(255, 0, 0)",
-        opacity: ".7",
-        width: "10rem",
-        height: "10rem",
-        position: "absolute",
-        zIndex: "1",
-        top: "2rem",
-        left: "2rem",
-    },
-
-    lockedIcon: {
-        color: "goldenrod",
-        opacity: ".7",
-        width: "10rem",
-        height: "10rem",
-        position: "absolute",
-        zIndex: "1",
-        top: "2rem",
-        left: "2rem",
-    },
-});
-
-export default withStyles(styles)(Card);
+export default Card;
