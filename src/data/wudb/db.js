@@ -4340,7 +4340,7 @@ export const cards = {
         "glory": 3,
         "rule": "Score this in the third end phase if *seven or more* fighters are out of action.",
         "scoreType": "Third",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             1285,
@@ -13405,7 +13405,7 @@ export const cards = {
         "glory": null,
         "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n If you score a critical hit when making an Attack action with this fighter, that Attack action has +1 Damage.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             3501,
@@ -28956,7 +28956,7 @@ export const cards = {
         "glory": 3,
         "rule": "Score this in the third end phase if *seven or more* fighters are out of action.",
         "scoreType": "Third",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             1285,
@@ -29480,7 +29480,7 @@ export const cards = {
         "glory": null,
         "rule": "*(Errata update)* The Grievous 1 keyword replaces the similar ability on this card. \\n On a **critical hit**, this fighter's **Attack actions** have +1 Damage.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false,
         "duplicates": [
             3501,
@@ -32039,7 +32039,7 @@ export const cards = {
         "glory": null,
         "rule": "**Mutation** \\n +1 Wounds \\n **Reaction:** After a friendly fighter's **Attack action** that takes an enemy fighter out of action, if this card is in your hand, give this upgrade to that friendly fighter. This does not cost any glory points.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "13156": {
@@ -34739,7 +34739,7 @@ export const cards = {
         "glory": 2,
         "rule": "**Hybrid:** Score this in an end phase if: \\n Each surviving enemy fighter (at least one) has no Move or Charge tokens \\n *Or:* Each surviving enemy fighter (at least one) is in the same player's territory \\n *Or:* One or more opponents have each scored six or more objectives.",
         "scoreType": "End",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14073": {
@@ -34931,7 +34931,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Dice to this fighter's **Attack actions**. \\n This fighter's **Attack actions** have **Ensnare**.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14089": {
@@ -36575,7 +36575,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after a power step if your warband flipped two or more feature tokens in that power step.",
         "scoreType": "Surge",
-        "status": "V-Y_V-_V",
+        "status": "V--_V-_V",
         "rotated": false
     },
     "14226": {
@@ -37235,7 +37235,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Damage to enemy fighters' Range 1 **Attack actions** that target this fighter. \\n +1 Damage and **Grievous** to this fighter's Range 1 and Range 2 **Attack actions**.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "14281": {
@@ -37319,7 +37319,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Dice to this fighter's Range 1 **Attack actions**. \\n +2 Dice to this fighter's Range 1 **Attack actions** instead if this fighter is a **beast**.",
         "scoreType": "-",
-        "status": "V-Y_V-_V",
+        "status": "NY-_N-_V",
         "rotated": false
     },
     "14288": {
@@ -37379,7 +37379,7 @@ export const cards = {
         "glory": null,
         "rule": "**Denizen** \\n +1 Dice to this fighter's **Attack actions**. After this fighter's attack roll, remove one attack dice from that roll. \\n **Reaction:** After your activation step, if this fighter is in a **cover** hex, **push** this fighter 1 hex.",
         "scoreType": "-",
-        "status": "V-Y_V-_V",
+        "status": "NY-_N-_V",
         "rotated": false
     },
     "14293": {
@@ -37703,7 +37703,7 @@ export const cards = {
         "glory": 1,
         "rule": "**Surge:** Score this immediately after you give a fighter their third or subsequent upgrade.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "15012": {
@@ -37919,7 +37919,7 @@ export const cards = {
         "glory": null,
         "rule": "This fighter is on Guard while this fighter has no Charge and/or Stagger tokens. \\n **Reaction:** After a friendly fighter's **Attack action** that takes an enemy fighter out of action, if this card is in your hand, give this upgrade to that friendly fighter. This does not cost any glory points.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "15030": {
@@ -37931,7 +37931,7 @@ export const cards = {
         "glory": null,
         "rule": "+1 Damage to this fighter's Range 1 and Range 2 **Attack actions**. \\n **Reaction:** After a friendly fighter's **Attack action** that takes an enemy fighter out of action, if this card is in your hand, give this upgrade to that friendly fighter. This does not cost any glory points.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "15031": {
@@ -38447,7 +38447,7 @@ export const cards = {
         "glory": 2,
         "rule": "**Surge, Hybrid:** Score this immediately after: \\n An enemy fighter is taken out of action by a **lethal** hex \\n *Or:* An enemy fighter is taken out of action by a gambit.",
         "scoreType": "Surge",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "17010": {
@@ -38531,7 +38531,7 @@ export const cards = {
         "glory": null,
         "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter's activation, if that fighter has one or more Move and/or Charge tokens. **Deal** 1 damage to that fighter.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "17017": {
@@ -38685,7 +38685,7 @@ export const cards = {
         "name": "Gifted Sight",
         "type": "Upgrade",
         "glory": null,
-        "rule": "**Mutation** \\n This fighter is an **explorer**. \\n **Blocked** hexes do not block line or sight for this fighter. \\n **Reaction:** After a friendly fighter's **Attack action** that takes an enemy fighter out of action, if this card is in your hand, give this upgrade to that friendly fighter. This does not cost any glory points.",
+        "rule": "**Mutation** \\n This fighter is an **explorer**. \\n **Blocked** hexes do not block line of sight for this fighter. \\n **Reaction:** After a friendly fighter's **Attack action** that takes an enemy fighter out of action, if this card is in your hand, give this upgrade to that friendly fighter. This does not cost any glory points.",
         "scoreType": "-",
         "status": "V--_V-_V",
         "rotated": false
@@ -38903,7 +38903,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one **beast** or **savage** fighter. **Deal** 1 damage to one enemy fighter adjacent to the chosen fighter.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "18016": {
@@ -38939,7 +38939,7 @@ export const cards = {
         "glory": null,
         "rule": "**Choose** one friendly fighter. The chosen fighter is **savage**. \\n +1 Dice to the chosen fighter's Range 1 **Attack actions**. \\n -1 Defence from the chosen fighter, to a minimum of 1. \\n This effect **persists** until that fighter is taken out of action.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "18019": {
@@ -39059,7 +39059,7 @@ export const cards = {
         "glory": null,
         "rule": "**Mutation** \\n +1 Dice to this fighter's Range 1 **Attack actions**. \\n **Reaction:** After a friendly fighter's **Attack action** that takes an enemy fighter out of action, if this card is in your hand, give this upgrade to that friendly fighter. This does not cost any glory points.",
         "scoreType": "-",
-        "status": "V--_V-_V",
+        "status": "V-Y_V-_V",
         "rotated": false
     },
     "18029": {
@@ -39120,7 +39120,7 @@ export const cards = {
         "rule": "**Dual, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this in an end phase if: \\n This fighter has two or more upgrades \\n *And:* This fighter is in enemy territory.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19002": {
         "id": 19002,
@@ -39132,7 +39132,7 @@ export const cards = {
         "rule": "**Dual:** Score this in an end phase if: \\n Three or more friendly fighters are in enemy territory \\n *And:* Each of those fighter is Inspired and/or has one or more upgrades.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19003": {
         "id": 19003,
@@ -39144,7 +39144,7 @@ export const cards = {
         "rule": "**Surge, Hybrid:** Score this immediately after an activation if: \\n There are more friendly fighters in another player's territory than there are that player's fighters in that territory \\n *Or:* Your warband holds objectives 1, 2 and 3.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19004": {
         "id": 19004,
@@ -39156,7 +39156,7 @@ export const cards = {
         "rule": "**Dual, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this in an end phase if: \\n This fighter is adjacent to two or more fighters \\n *And:* One or more of those fighters is a friendly fighter.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19005": {
         "id": 19005,
@@ -39168,7 +39168,7 @@ export const cards = {
         "rule": "**Surge:** Score this immediately after a friendly **leader's Attack action** that takes the target out of action.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19006": {
         "id": 19006,
@@ -39180,7 +39180,7 @@ export const cards = {
         "rule": "**Surge, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this immediately after a supported friendly fighter's successful **Attack action** if this fighter made that **Attack action** or supported that fighter.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19007": {
         "id": 19007,
@@ -39192,7 +39192,7 @@ export const cards = {
         "rule": "**Surge, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this immediately after an enemy fighter's **Attack action** that targets this fighter and fails.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19008": {
         "id": 19008,
@@ -39204,7 +39204,7 @@ export const cards = {
         "rule": "**Surge, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this immediately after this fighter's **Attack action** that takes the target out of action, if the target had a higher Wounds characteristic than this fighter.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19009": {
         "id": 19009,
@@ -39216,7 +39216,7 @@ export const cards = {
         "rule": "**Hybrid:** Score this in an end phase if: \\n There are three or more **Quest** cards in your scored objectives pile \\n *Or:* Your warband holds objective 1 and 2.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19010": {
         "id": 19010,
@@ -39228,7 +39228,7 @@ export const cards = {
         "rule": "**Surge, Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this immediately after this fighter's successful **Attack action** made as part of a **Charge action**.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19011": {
         "id": 19011,
@@ -39240,7 +39240,7 @@ export const cards = {
         "rule": "Score this in an end phase if each surviving friendly fighter is Inspired and/or has one or more upgrades.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19012": {
         "id": 19012,
@@ -39252,7 +39252,7 @@ export const cards = {
         "rule": "**Quest:** You can give this to a friendly fighter that has no tokens or **Quests** in the power step in place of playing a card (do not draw a replacement). If this fighter is taken out of action, add this card to your hand (even if you have three or more objective cards). \\n Score this in an end phase if this fighter is holding an objective with the same number as the current round number (e.g. Objective 2 in the second round).",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19013": {
         "id": 19013,
@@ -39264,7 +39264,7 @@ export const cards = {
         "rule": "**Choose** up to two friendly fighters. **Push** each chosen fighter up to 2 hexes so that they are adjacent to the same enemy fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19014": {
         "id": 19014,
@@ -39276,7 +39276,7 @@ export const cards = {
         "rule": "**Choose** one friendly fighter adjacent to a friendly **leader**. **Deal** 1 damage to the chosen fighter, then Inspire that fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19015": {
         "id": 19015,
@@ -39288,7 +39288,7 @@ export const cards = {
         "rule": "**Choose** one friendly fighter that has a **Quest** card. +2 Move to that fighter. This effect **persists** until the end of the phase or until you score that card.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19016": {
         "id": 19016,
@@ -39300,7 +39300,7 @@ export const cards = {
         "rule": "**Choose** one friendly fighter that has a **Quest** card. +1 Dice to that fighter's Range 1 and Range 2 **Attack actions**. This effect **persists** until the end of the phase or until you score that card.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19017": {
         "id": 19017,
@@ -39312,7 +39312,7 @@ export const cards = {
         "rule": "**Choose** one friendly fighter that has a **Quest** card. +1 Defence to that fighter. This effect **persists** until the end of the phase or until you score that card.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19018": {
         "id": 19018,
@@ -39324,7 +39324,7 @@ export const cards = {
         "rule": "**Heal** (1) each friendly fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19019": {
         "id": 19019,
@@ -39336,7 +39336,7 @@ export const cards = {
         "rule": "**Choose** one friendly fighter. **Scatter** 2 from that fighter's hex, and **deal** 1 damage to one enemy fighter in 1 hex in the **chain**.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19020": {
         "id": 19020,
@@ -39348,7 +39348,7 @@ export const cards = {
         "rule": "**Push** each friendly fighter in your territory up to 1 hex towards the nearest enemy fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19021": {
         "id": 19021,
@@ -39360,7 +39360,7 @@ export const cards = {
         "rule": "**Reaction:** Use this after a friendly fighter's activation in which they made one or more failed **Attack actions**. That fighter makes one **Attack action**.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19022": {
         "id": 19022,
@@ -39372,7 +39372,7 @@ export const cards = {
         "rule": "**Reaction:** Use this after a friendly fighter's activation, if that fighter is adjacent to one or more **vulnerable** enemy fighters that are adjacent to one or more other friendly fighters. **Choose** one of those **vulnerable** fighters, and **deal** 1 damage to the chosen fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19023": {
         "id": 19023,
@@ -39384,7 +39384,7 @@ export const cards = {
         "rule": "This fighter's Range 1 **Attack actions** have **Cleave**. In addition, fighters supported by this fighter are considered to have one additional **supporting** fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19024": {
         "id": 19024,
@@ -39396,7 +39396,7 @@ export const cards = {
         "rule": "**Reaction:** After this fighter's **Move action**, **choose** one friendly fighter that was adjacent to this fighter at the start of that action. **Push** that fighter by the shortest distance so that it is adjacent to this fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19025": {
         "id": 19025,
@@ -39408,7 +39408,7 @@ export const cards = {
         "rule": "+1 Damage to this fighter's Range 1 **Attack actions**.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19026": {
         "id": 19026,
@@ -39420,7 +39420,7 @@ export const cards = {
         "rule": "When this fighter is **dealt** damage, reduce that damage by 1, to a minimum of 1.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19027": {
         "id": 19027,
@@ -39432,7 +39432,7 @@ export const cards = {
         "rule": "**Action: Push** each Inspired friendly fighter up to 2 hexes.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19028": {
         "id": 19028,
@@ -39444,7 +39444,7 @@ export const cards = {
         "rule": "+1 Damage to this fighter's **Attack actions** while this fighter has one or more **supporting** fighters.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19029": {
         "id": 19029,
@@ -39456,7 +39456,7 @@ export const cards = {
         "rule": "**Attack action** \\n [:Hex: 1 - :atSmash: 2 - :boom: 2 -(:atCrit: Hamstring)-] \\n :atCrit: **Hamstring: Give** the target one Move token. \\n **Reaction:** After you score a friendly fighter's **Quest** card, if this card is in your hand, give this upgrade to that friendly fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19030": {
         "id": 19030,
@@ -39468,7 +39468,7 @@ export const cards = {
         "rule": "This fighter is **flying**. \\n +1 Move.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19031": {
         "id": 19031,
@@ -39480,7 +39480,7 @@ export const cards = {
         "rule": "+1 Wounds \\n **Reaction:** After you score a friendly fighter's **Quest** card, if this card is in your hand, give this upgrade to that friendly fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "19032": {
         "id": 19032,
@@ -39492,7 +39492,7 @@ export const cards = {
         "rule": "**Attack action** \\n [:Hex: 1 - :atFury: 3 - :boom: 1 -(:atCrit: Grievous 1)-]",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20001": {
         "id": 20001,
@@ -39504,7 +39504,7 @@ export const cards = {
         "rule": "**Surge:** Score this immediately after an activation step in which a friendly fighter's **Charge action** began on a feature token in your territory.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20002": {
         "id": 20002,
@@ -39516,7 +39516,7 @@ export const cards = {
         "rule": "Score this in an end phase if there is a friendly fighter on a feature token within 1 hex of no one's territory. Gain one additional glory point for each other friendly fighter on a feature token within 1 hex of no one's territory.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20003": {
         "id": 20003,
@@ -39528,7 +39528,7 @@ export const cards = {
         "rule": "**Surge:** Score this immediately after: \\n A friendly fighter is given a Guard token \\n *If:* That fighter is on a feature token within 1 hex of no one's territory.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20004": {
         "id": 20004,
@@ -39540,7 +39540,7 @@ export const cards = {
         "rule": "**Surge:** Score this immediately after an enemy fighter's failed **Attack action** that targeted a friendly fighter on a feature token within 1 hex of no one's territory.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20005": {
         "id": 20005,
@@ -39552,7 +39552,7 @@ export const cards = {
         "rule": "**Surge:** Score this immediately after an enemy fighter is taken out of action within 1 hex of one or more feature tokens that are within 1 hex of no one's territory.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20006": {
         "id": 20006,
@@ -39564,7 +39564,7 @@ export const cards = {
         "rule": "Score this in an end phase if your **leader** is on a feature token in your territory that is within 1 hex of no one's territory.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20007": {
         "id": 20007,
@@ -39576,7 +39576,7 @@ export const cards = {
         "rule": "**Dual:** Score this in an end phase if: \\n Three or more feature tokens are adjacent to one or more other feature tokens \\n *And:* Three or more of those tokens are within 1 hex of no one's territory.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20008": {
         "id": 20008,
@@ -39588,7 +39588,7 @@ export const cards = {
         "rule": "**Surge, Dual:** Score this immediately after: \\n You **place** a feature token within 1 hex of no one's territory during an action phase \\n *If:* One or more enemy fighters are out of action.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20009": {
         "id": 20009,
@@ -39600,7 +39600,7 @@ export const cards = {
         "rule": "Score this in an end phase if there are no enemy fighters in your territory.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20010": {
         "id": 20010,
@@ -39612,7 +39612,7 @@ export const cards = {
         "rule": "Score this in an end phase if your warband holds objectives whose numbers add up to 6 or more (e.g. objectives 2 and 4).",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20011": {
         "id": 20011,
@@ -39624,7 +39624,7 @@ export const cards = {
         "rule": "**Surge, Dual:** Score this immediately after an activation step if: \\n Your warband holds more objectives than any other warband \\n *And:* Each objective token within 1 hex of no one's territory is in a hex **occupied** by a friendly fighter.",
         "scoreType": "Surge",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20012": {
         "id": 20012,
@@ -39636,7 +39636,7 @@ export const cards = {
         "rule": "**Dual:** Score this in an end phase if: \\n Three or more friendly fighters are on feature tokens \\n *And:* Two or more of those fighters are adjacent.",
         "scoreType": "End",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20013": {
         "id": 20013,
@@ -39648,7 +39648,7 @@ export const cards = {
         "rule": "**Trap, Denizen** \\n **Reaction:** Play this after an enemy fighter's activation if that fighter is adjacent to one or more feature tokens that are in the same hex as a friendly fighter. **Deal** 1 damage to that enemy fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20014": {
         "id": 20014,
@@ -39660,7 +39660,7 @@ export const cards = {
         "rule": "**Reaction:** Play this after a friendly fighter's **Attack action**. Pick one: **Push** that friendly fighter 1 hex towards the hex their target **occupied** during the declare Attack action step or 1 hex towards the nearest feature token.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20015": {
         "id": 20015,
@@ -39672,7 +39672,7 @@ export const cards = {
         "rule": "**Trap** \\n **Reaction:** Play this after an enemy fighter ends a **Move action** adjacent to one or more feature tokens that are in the same hex as a friendly fighter. **Stagger** that enemy fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20016": {
         "id": 20016,
@@ -39684,7 +39684,7 @@ export const cards = {
         "rule": "**Choose** one friendly fighter on a feature token. **Heal** (1) the chosen fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20017": {
         "id": 20017,
@@ -39696,7 +39696,7 @@ export const cards = {
         "rule": "**Choose** one friendly fighter on a feature token, and **choose** one enemy fighter **visible** to that friendly fighter and within 3 hexes of that friendly fighter. Pick one: **Stagger** the chosen enemy fighter, or **push** the chosen enemy fighter 1 hex away from the chosen friendly fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20018": {
         "id": 20018,
@@ -39708,7 +39708,7 @@ export const cards = {
         "rule": "**Reaction:** Play this after an enemy fighter's **Attack action** if that fighter is **staggered**. **Choose** one friendly fighter. The chosen fighter makes one **Attack action** that must target that enemy fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20019": {
         "id": 20019,
@@ -39720,7 +39720,7 @@ export const cards = {
         "rule": "+1 Defence to each friendly fighter on a feature token in the next activation step.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20020": {
         "id": 20020,
@@ -39732,7 +39732,7 @@ export const cards = {
         "rule": "**Choose** one friendly fighter on a feature token in your territory. **Push** that fighter up to 4 hexes. At the end of that **push**, that fighter must be on a feature token.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20021": {
         "id": 20021,
@@ -39744,7 +39744,7 @@ export const cards = {
         "rule": "**Choose** up to two friendly fighters in your territory, other than your **leader**. **Push** each chosen fighter 1 hex towards the nearest feature token.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20022": {
         "id": 20022,
@@ -39756,7 +39756,7 @@ export const cards = {
         "rule": "**Place** one available snare token in a hex within 1 hex of one or more friendly fighters.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20023": {
         "id": 20023,
@@ -39768,7 +39768,7 @@ export const cards = {
         "rule": "+2 Move, except during a **Charge action**. \\n **Reaction:** After a friendly fighter's activation, pick one feature token in an **empty** hex adjacent to this fighter. **Place** that feature token in this fighter's hex.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20024": {
         "id": 20024,
@@ -39780,7 +39780,7 @@ export const cards = {
         "rule": "**Reaction:** After this fighter's activation, **stagger** each enemy fighter adjacent to one or more feature tokens that are in the same hex as a friendly fighter. Then **break** this card.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20025": {
         "id": 20025,
@@ -39792,7 +39792,7 @@ export const cards = {
         "rule": "You cannot give this to a **Large** fighter. \\n +1 Move \\ +1 Wounds while this fighter is not in your territory.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20026": {
         "id": 20026,
@@ -39804,7 +39804,7 @@ export const cards = {
         "rule": "**Attack action** \\n [:Hex: 1 - :atSmash: 2 - :boom: 2 -(Cleave, :atCrit: Grievous 1)-] \\n **Reaction:** After this fighter's activation, **remove** a feature token from this fighter's hex, then **place** another available feature token in this fighter's hex.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20027": {
         "id": 20027,
@@ -39816,7 +39816,7 @@ export const cards = {
         "rule": "**Metalith** \\n Each hex within 2 hexes of this fighter that contains a feature token is considered to be a **cover** hex in addition to its other types.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20028": {
         "id": 20028,
@@ -39828,7 +39828,7 @@ export const cards = {
         "rule": "**Reaction:** After an enemy fighter's **Move action**, if that enemy fighter is in no one's territory or your territory, **push** this fighter 1 hex towards that fighter.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20029": {
         "id": 20029,
@@ -39840,7 +39840,7 @@ export const cards = {
         "rule": "**Reaction:** After this fighter's activation, if this fighter is on a feature token within 1 hex of no one's territory, **choose** up to two friendly fighters on feature tokens. **Give** each chosen fighter one Guard token.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20030": {
         "id": 20030,
@@ -39852,7 +39852,7 @@ export const cards = {
         "rule": "This fighter cannot be **pushed** by an opponent's warband while this fighter is on a feature token within 1 hex of no one's territory.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20031": {
         "id": 20031,
@@ -39864,7 +39864,7 @@ export const cards = {
         "rule": "**Attack action** \\n [:Hex: 4 - :atSmash: 2 - :boom: 1 -(Stagger)-]",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     },
     "20032": {
         "id": 20032,
@@ -39876,6 +39876,6 @@ export const cards = {
         "rule": "For the purposes of cards with the Fearsome Fortress symbol, while this fighter is not on a feature token, this fighter is considered to be on a feature token, and this fighter's hex is considered to contain a feature token that cannot be flipped.",
         "scoreType": "-",
         "status": "V--_V-_V",
-        "rotated": true
+        "rotated": false
     }
 }
