@@ -202,6 +202,30 @@ export const factionMembers = {
     "gryselles-arenai": ["1", "2", "3", "4", "5"],
 };
 
+export const udbPrefexes = {
+    'L': 2, 
+    'NM': 14,
+    'N': 3, 
+    'P': 4, 
+    'DC': 9,
+    'D': 5, 
+    'B': 6, 
+    'G': 7, 
+    'AM': 12,
+    'A': 8, 
+    'S': 10, 
+    'E': 11, 
+    'H': 13, 
+    'GP': 15,
+    'SV': 16,
+    'DD': 17,
+    'TC': 18,
+    GL: 19,
+    FF: 20,
+    GA: 21,
+    BA: 22,
+}
+
 export const grouppedFactions = () => {
     return [
         {

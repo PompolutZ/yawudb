@@ -7,6 +7,7 @@ import {
     getCardById,
     getFactionById,
     getFactionByName,
+    udbPrefexes
 } from "../../data/wudb";
 import { INITIAL_STATE } from "./reducer";
 
@@ -80,33 +81,11 @@ const decodeUDS = (card) => {
 
 const decodeWUC = (card) => card;
 
-const udbPrefixesMap = {
-    L: 2000,
-    N: 3000,
-    P: 4000,
-    D: 5000,
-    B: 6000,
-    G: 7000,
-    A: 8000,
-    DC: 9000,
-    S: 10000,
-    E: 11000,
-    AM: 12000,
-    H: 13000,
-    NM: 14000,
-    GP: 15000,
-    SV: 16000,
-    DD: 17000,
-    TC: 18000,
-};
+const decodeUDB = card => {
+    const [,prefix, cardNumber] = card.match(/([A-Z]+)?(\d+)?/);
 
-const decodeUDB = (card) => {
-    let [, prefix, number] = card.match(/([A-Z]*)(\d+)/);
-
-    return prefix
-        ? String(udbPrefixesMap[prefix] + Number(number)).padStart(5, "0")
-        : String(1000 + Number(number)).padStart(5, "0");
-};
+    return prefix ? udbPrefexes[prefix] * 1000 + Number(cardNumber) : 1000 + Number(cardNumber);
+}
 
 const getDecodingFunction = (encoding) => {
     switch (encoding) {

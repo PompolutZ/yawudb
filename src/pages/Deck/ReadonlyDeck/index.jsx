@@ -9,6 +9,7 @@ import {
     checkCardIsUpgrade,
     checkDeckHasPlots,
     compareObjectivesByScoreType,
+    udbPrefexes,
 } from "../../../data/wudb";
 import CardListSectionHeader from "../../../v2/components/CardListSectionHeader";
 import { DeckPlayFormatsValidity } from "@components/DeckPlayFormatsValidity";
@@ -56,26 +57,15 @@ function ReadonlyDeck(props) {
     const [, update] = useUpdateUserDeck();
 
     const handleExportToUDB = () => {
-        const encodeToUDB = (card) => {
-            if (card.startsWith("02")) return `L${Number(card.slice(-3))}`;
-            if (card.startsWith("03")) return `N${Number(card.slice(-3))}`;
-            if (card.startsWith("04")) return `P${Number(card.slice(-3))}`;
-            if (card.startsWith("05")) return `D${Number(card.slice(-3))}`;
-            if (card.startsWith("06")) return `B${Number(card.slice(-3))}`;
-            if (card.startsWith("07")) return `G${Number(card.slice(-3))}`;
-            if (card.startsWith("08")) return `A${Number(card.slice(-3))}`;
-            if (card.startsWith("09")) return `DC${Number(card.slice(-3))}`;
-            if (card.startsWith("10")) return `S${Number(card.slice(-3))}`;
-            if (card.startsWith("11")) return `E${Number(card.slice(-3))}`;
-            if (card.startsWith("12")) return `AM${Number(card.slice(-3))}`;
-            if (card.startsWith("13")) return `H${Number(card.slice(-3))}`;
-            if (card.startsWith("14")) return `NM${Number(card.slice(-3))}`;
-            if (card.startsWith("15")) return `GP${Number(card.slice(-3))}`;
-            if (card.startsWith("16")) return `SV${Number(card.slice(-3))}`;
-            if (card.startsWith("17")) return `DD${Number(card.slice(-3))}`;
-            if (card.startsWith("18")) return `TC${Number(card.slice(-3))}`;
+        const invertedPrefixes = Object.entries(udbPrefexes).reduce(
+            (acc, [prefix, wave]) => ({ ...acc, [wave]: prefix }),
+            { 1: "" }
+        );
 
-            return Number(card.slice(-3));
+        const encodeToUDB = (card) => {
+            const udbPrefix = invertedPrefixes[Math.floor(Number(card) / 1000)];
+
+            return `${udbPrefix}${Number(card) % 1000}`
         };
 
         const udbEncodedCards = props.cards
