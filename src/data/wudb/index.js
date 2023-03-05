@@ -23,6 +23,8 @@ export const totalCardsPerWave = {
     18: 32,
     19: 32,
     20: 32,
+    21: 32,
+    22: 32,
 };
 
 export const latestSeasonStartNumber = 15000;
@@ -197,6 +199,7 @@ export const factionMembers = {
     "gnarlspirit-pack": ["1", "2", "3", "4"],
     "sons-of-velmorn": ["1", "2", "3", "4", "5"],
     "grinkraks-looncourt": ["1", "2", "3", "4", "5", "6"],
+    "gryselles-arenai": ["1", "2", "3", "4", "5"],
 };
 
 export const grouppedFactions = () => {

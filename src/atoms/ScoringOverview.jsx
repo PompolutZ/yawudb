@@ -3,27 +3,8 @@ import SheduleIcon from "@material-ui/icons/Schedule";
 import FlashOnIcon from "@material-ui/icons/FlashOn";
 import HourglassFullIcon from "@material-ui/icons/HourglassFull";
 import { ReactComponent as GloryIcon } from '../svgs/wu-glory.svg'
-import { withStyles } from "@material-ui/core/styles";
 
-const styles = () => ({
-    text: {
-        fontSize: ".7rem",
-    },
-
-    icon: {
-        width: ".7rem",
-        height: ".7rem",
-        margin: "0 0 0 0",
-    },
-
-    totalScore: {
-        width: "1rem",
-        height: "1rem",
-        margin: "auto",
-    },
-});
-
-function ScoringOverview({ classes, summary: { Surge, End, Third }, glory }) {
+function ScoringOverview({ summary: { Surge, End, Third }, glory }) {
     return (
         <div className="flex items-center text-sm text-gray-800">
             (
@@ -68,4 +49,4 @@ function ScoringOverview({ classes, summary: { Surge, End, Third }, glory }) {
     );
 }
 
-export default withStyles(styles)(ScoringOverview);
+export default ScoringOverview;

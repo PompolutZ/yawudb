@@ -18,7 +18,6 @@ import NavigationPanel from "./v2/components/NavigationPanel";
 import usePublicDecksSyncronization from "./hooks/usePublicDecksSyncronization";
 import HeroImage from "./v2/components/HeroImage";
 import { AuthContextProvider } from "./hooks/useAuthUser";
-import { BoardsPage } from "./pages/Boards";
 
 const Home = lazy(() => import("./pages/Home"));
 const DeckCreator = lazy(() => import("./pages/DeckCreator"));
@@ -32,6 +31,7 @@ const MyDecks = lazy(() => import("./pages/MyDecks/index"));
 const Login = lazy(() => import("./pages/Login"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const PasswordResetRequest = lazy(() => import("./pages/PasswordResetRequest"));
+const BoardsPage = lazy(() => import("./pages/Boards"));
 
 function MainLayout() {
     const { pathname } = useLocation();

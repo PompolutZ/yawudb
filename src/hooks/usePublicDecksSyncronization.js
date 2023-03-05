@@ -1,8 +1,5 @@
-import { useContext, useEffect } from "react";
-import { getFactionByAbbr } from "../data/wudb";
-import { FirebaseContext } from "../firebase";
+import { useEffect } from "react";
 import useDexie from "./useDexie";
-import useStateWithLocalStorage from "./useStateWithLocalStorage";
 
 // ==== THIS IS HOW NEWLY FORMATTED DECK LOOKS LIKE
 
