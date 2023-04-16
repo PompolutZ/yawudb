@@ -64,7 +64,7 @@ function MainLayout() {
                 )}
 
                 <div
-                    className="row-start-1 row-end-2 col-start-1 col-end-2 grid"
+                    className="row-start-1 row-end-2 col-start-1 col-end-2 grid max-w-[1920px] mx-auto"
                     style={{
                         gridTemplateRows: "auto 1fr",
                     }}
