@@ -140,12 +140,14 @@ function MainLayout() {
                                             )}
                                         />
                                         <Route
-                                            path={ROUTES.PROFILE}
-                                            component={UserProfile}
+                                            path={ROUTES.BOARDS}
+                                            render={(props) => (
+                                                <BoardsPage {...props} />
+                                            )}
                                         />
                                         <Route
-                                            path={ROUTES.BOARDS}
-                                            component={BoardsPage}
+                                            path={ROUTES.PROFILE}
+                                            component={UserProfile}
                                         />
                                         {/* <PrivateRoute
                     path="/secret/cards-rating/:faction?"
