@@ -129,4 +129,20 @@ export const boards: Record<number, { name: string; location: string }> = {
         location: "Found in the Gnarlwood Core Box.",
     },
     36: { name: "Moltscape", location: "Found in the Gnarlwood Core Box." },
+    37: {
+        name: "Fleshwrite Vortex",
+        location: "Found in the Wyrdhollow Core Box.",
+    },
+    38: {
+        name: "Root-hall Bleed",
+        location: "Found in the Wyrdhollow Core Box.",
+    },
+    39: {
+        name: "The Seamsplit Folly",
+        location: "Found in the Wyrdhollow Core Box.",
+    },
+    40: {
+        name: "Tendon Hollows",
+        location: "Found in the Wyrdhollow Core Box.",
+    },
 };
