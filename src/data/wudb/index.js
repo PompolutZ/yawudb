@@ -25,6 +25,10 @@ export const totalCardsPerWave = {
     20: 32,
     21: 32,
     22: 32,
+    23: 32,
+    24: 32,
+    25: 32,
+    26: 32,
 };
 
 export const latestSeasonStartNumber = 15000;
@@ -200,31 +204,37 @@ export const factionMembers = {
     "sons-of-velmorn": ["1", "2", "3", "4", "5"],
     "grinkraks-looncourt": ["1", "2", "3", "4", "5", "6"],
     "gryselles-arenai": ["1", "2", "3", "4", "5"],
+    "domitans-stormcoven": ["1", "2", "3"],
+    "ephilims-pandaemonium": ["1", "2", "3", "4", "5"],
 };
 
 export const udbPrefexes = {
-    'L': 2, 
-    'NM': 14,
-    'N': 3, 
-    'P': 4, 
-    'DC': 9,
-    'D': 5, 
-    'B': 6, 
-    'G': 7, 
-    'AM': 12,
-    'A': 8, 
-    'S': 10, 
-    'E': 11, 
-    'H': 13, 
-    'GP': 15,
-    'SV': 16,
-    'DD': 17,
-    'TC': 18,
+    L: 2,
+    NM: 14,
+    N: 3,
+    P: 4,
+    DC: 9,
+    D: 5,
+    B: 6,
+    G: 7,
+    AM: 12,
+    A: 8,
+    S: 10,
+    E: 11,
+    H: 13,
+    GP: 15,
+    SV: 16,
+    DD: 17,
+    TC: 18,
     GL: 19,
     FF: 20,
     GA: 21,
     BA: 22,
-}
+    DS: 23,
+    EP: 24,
+    SS: 25,
+    TT: 26,
+};
 
 export const grouppedFactions = () => {
     return [
@@ -239,9 +249,17 @@ export const grouppedFactions = () => {
             ],
         },
         {
+            title: "Wyrdhollow",
+            factions: sortedFactions.filter(
+                (f) => f.id >= factions["Domitan's Stormcoven"].id
+            ),
+        },
+        {
             title: "Gnarlwood",
             factions: sortedFactions.filter(
-                (f) => f.id >= factions["Gnarlspirit Pack"].id
+                (f) =>
+                    f.id >= factions["Gnarlspirit Pack"].id &&
+                    f.id >= factions["Gryselle's Arenai"].id
             ),
         },
         {
@@ -314,12 +332,15 @@ export const grouppedFactions = () => {
 const warbandsWithPlot = [
     factions["Khagra's Ravagers"].id,
     factions["Hedkrakka's Madmob"].id,
+    factions["Ephilim's Pandaemonium"].id,
 ];
 
 const rivalDecksWithPlot = [
     sets["Daring Delvers Rivals Deck"].id,
     sets["Tooth and Claw Rivals Deck"].id,
     sets["Fearsome Fortress Rivals Deck"].id,
+    sets["Seismic Shock Rivals Deck"].id,
+    sets["Toxic Terrors Rivals Deck"].id,
 ];
 
 const warbandHasPlot = (warbandId) => warbandsWithPlot.includes(warbandId);
@@ -491,13 +512,18 @@ const nemesis_valid_sets = [
     sets["Daring Delvers Rivals Deck"].id,
     sets["Fearsome Fortress Rivals Deck"].id,
     sets["Beastbound Assault Rivals Deck"].id,
+    sets["Seismic Shock Rivals Deck"].id,
+    sets["Toxic Terrors Rivals Deck"].id,
 ];
 
 function getAllSetsValidForFormat(format) {
     switch (format) {
         case CHAMPIONSHIP_FORMAT:
             return Object.values(sets).filter(
-                (set) => set.id > 37 && set.id !== 40 && set.id !== 39
+                (set) =>
+                    set.id > sets["Starter Set"].id &&
+                    set.id !== sets["Arena Mortis 2 expansion"].id &&
+                    set.id !== sets["Silent Menace Universal Deck"].id
             );
         case NEMESIS_FORMAT:
             return Object.values(sets).filter((set) =>
@@ -758,7 +784,7 @@ const getBoardsValidForFormat = (format) => {
         case RIVALS_FORMAT:
         case NEMESIS_FORMAT:
             return [1, 2, 7, 9, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
-        default: 
+        default:
             return Object.keys(boards).map(Number);
     }
 };
@@ -794,5 +820,5 @@ export {
     plots,
     checkDeckHasPlots,
     boards,
-    getBoardsValidForFormat
+    getBoardsValidForFormat,
 };
