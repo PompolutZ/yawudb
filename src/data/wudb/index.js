@@ -259,7 +259,7 @@ export const grouppedFactions = () => {
             factions: sortedFactions.filter(
                 (f) =>
                     f.id >= factions["Gnarlspirit Pack"].id &&
-                    f.id >= factions["Gryselle's Arenai"].id
+                    f.id <= factions["Gryselle's Arenai"].id
             ),
         },
         {
